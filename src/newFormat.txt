@@ -1,0 +1,42 @@
+
+
+
+GET https://sv443.net/jokeapi/categories
+
+    > Gives all categories
+
+
+
+
+
+
+GET https://sv443.net/jokeapi/info
+
+    > Gives information about the API
+
+
+
+
+
+GET https://sv443.net/jokeapi/category/[CATEGORY_NAME]
+
+    > Gives joke of that specific category
+
+
+
+
+
+
+GET https://sv443.net/jokeapi/category/[CATEGORY_NAME]?blacklistFlags=[FLAGS]
+
+    > Flags separated by comma
+    > Doesn't serve jokes with these flags / this flag
+    
+
+
+
+
+GET https://sv443.net/jokeapi/category/[CATEGORY_NAME]?format=[FORMAT]
+
+    > Used to get a different data format
+    > Format has to be "yaml" for YAML, "xml" for XML or anything else for JSON (format is used without quotes)

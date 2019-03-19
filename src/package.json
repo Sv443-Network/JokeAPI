@@ -1,0 +1,18 @@
+{
+  "name": "jokeapi",
+  "version": "0.2.0",
+  "description": "",
+  "main": "wrapper.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Sv443",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "js2xmlparser": "^4.0.0",
+    "json-to-pretty-yaml": "^1.2.2",
+    "node-wrap": "^0.2.0",
+    "svjsl": "^1.7.0"
+  }
+}
