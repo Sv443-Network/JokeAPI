@@ -5,6 +5,7 @@
     
 
 
+
     Please note that I don't actually put everything in one file (thank god I'm not one of those people anymore).
     Instead, the API just injects everything into the final HTML file.
     Everything wrapped by "INJECTED" comments like the following example is being automatically injected:
@@ -31,14 +32,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="HandheldFriendly" content="true">
         <meta name="keywords" content="game,video game,sv443,sven fehler,api,rest,restful,restful api,json,json api,jokes,joke,programmer,humor">
-        <meta name="description" content="Sv443's RESTful Joke API - No token / registration needed, no payments, no limitations, fast response time">
-        <meta name="twitter:card" content="Sv443's RESTful Joke API - No token / registration needed, no payments, no limitations, fast response time">
+        <meta name="description" content="Sv443's RESTful Joke API - No token / registration needed, no payments, no limitations, fast response time, many filter options">
+        <meta name="twitter:card" content="Sv443's RESTful Joke API - No token / registration needed, no payments, no limitations, fast response time, many filter options">
         <meta name="subject" content="API">
         <meta name="copyright" content="Sv443 - Licensed under MIT license">
         <meta name="author" content="Sv443 / Sven Fehler, sven.fehler@web.de">
         <meta property="og:title" content="Sv443 / Sven Fehler">
         <meta property="og:url" content="https://sv443.net/">
-        <meta property="og:description" content="Sv443's RESTful Joke API - No token / registration needed, no payments, no limitations, fast response time">
+        <meta property="og:description" content="Sv443's RESTful Joke API - No token / registration needed, no payments, no limitations, fast response time, many filter options">
         <meta property="og:image" content="https://sv443.net/favicon.png">
         <meta property="og:type" content="profile"> 
         <meta property="og:locale" content="en_US">
@@ -50,7 +51,7 @@
         <link rel="icon" type="image/png" href="https://sv443.net/cdn/jokeapi/icon_small.png">
         <!--script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script-->
 
-        <base target="blank_">
+        <base target="_blank">
 
         <title>JokeAPI by Sv443</title>
 
@@ -61,12 +62,14 @@
         <!--%%INJECT:STYLE%%-->
     </head>
     <body>
+        <a name="top"></a>
         <div id="titlewrapper" class="btmborder">
-            <a class="anchorSym noOpacity" href="#top" target="_self" name="top">
+            <a class="anchorSym noOpacity" href="#top" target="_self">
                 <img id="timg" src="https://sv443.net/cdn/jokeapi/icon_small.png">
             </a>&nbsp;&nbsp;&nbsp;
             <span id="dtitle">JokeAPI <span class="subtxt"> - by <a href="https://sv443.net/" class="hidden">Sv443</a></span></span>
             <span class="subtxt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<span class="insertversion">loading</span>)</span>
+            <img id="githubicon" src="https://sv443.net/resources/images/github.png" title="JokeAPI GitHub Repository" onclick="window.open('https:\/\/github.com/Sv443/JokeAPI')">
         </div>
 
         <div id="desc">

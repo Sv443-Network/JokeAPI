@@ -1,17 +1,20 @@
             @import url('https://fonts.googleapis.com/css?family=Roboto');
-            @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
             body {
                 font-family: "Roboto", sans-serif;
                 font-size: 17px;
             }
+
             kbd {
                 font-family: "Consolas", monospace;
             }
+
             kbd:not(.block) {
                 background-color: rgb(255, 255, 155);
                 color: black;
                 padding: 1px;
             }
+
             kbd.block {
                 display: block;
                 background-color: black;
@@ -24,10 +27,12 @@
                 border-color: blueviolet;
                 border-width: 10px;
             }
+
             .subtxt {
                 font-size: 70%;
-                color: #666; /*   <(O_O)>   oh no help satan   */
+                color: #666;
             }
+
             a.hidden {
                 color: inherit;
                 text-decoration: none;
@@ -36,29 +41,35 @@
                 transition: bottom 0.4s ease-out;
                 cursor: pointer;
             }
+
             a.hidden:not(.normal):hover {
                 text-decoration: underline;
                 position: relative;
                 bottom: 0.1vw;
                 transition: bottom 0.1s linear;
             }
+
             #desc {
                 margin-top: 20px;
                 margin-bottom: 80px;
             }
+
             #submitjokeformframe {
                 border: none;
                 width: 100%;
                 height: 90%;
             }
+
             .mimica, a {
                 color: #55f;
                 text-decoration: none;
                 cursor: pointer;
             }
+
             a:not(.normal):not(.anchorSym):hover, .mimica:hover {
                 text-decoration: underline;
             }
+
             .rot90 {
                 display: inline-block;
                 transform: rotate(90deg);
@@ -70,30 +81,36 @@
                 -ms-user-select: none;
                 user-select: none;
             }
+
             i.pc1, kbd .string {
                 text-decoration: none;
                 color: yellowgreen;
             }
+
             i.pc2, kbd .number {
                 text-decoration: none;
                 font-style: normal;
                 color: orange;
             }
+
             i.pc3, kbd .key {
                 text-decoration: none;
                 font-style: normal;
                 color: rgb(97, 171, 255);
             }
+
             i.pc4, kbd .boolean {
                 text-decoration: none;
                 font-style: normal;
                 color: rgb(255, 108, 108);
             }
+
             #timg {
                 display: inline-block;
                 width: 35px;
                 height: 35px;
             }
+            
             #dtitle {
                 font-size: 40px;
             }
@@ -239,4 +256,21 @@
                 -moz-user-select: none;
                 -ms-user-select: none;
                 user-select: none;
+            }
+
+            #githubicon {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                width: 50px;
+                height: 50px;
+                cursor: pointer;
+                filter: opacity(50%);
+
+                transition: filter 0.2s linear;
+            }
+
+            #githubicon:hover {
+                filter: opacity(100%);
+                transition: filter 0.1s linear;
             }
