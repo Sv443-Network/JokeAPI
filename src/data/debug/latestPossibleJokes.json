@@ -1,0 +1,301 @@
+[
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "I've got a really good UDP joke to tell you but I don't know if you'll get it.",
+        "id": 0
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "How many programmers does it take to screw in a light bulb?",
+        "delivery": "None. It's a hardware problem.",
+        "id": 1
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "A guy walks into a bar and asks for 1.4 root beers.\nThe bartender says \"I'll have to charge you extra, that's a root beer float\".\nThe guy says \"In that case, better make it a double.\"",
+        "id": 2
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "A programmer puts two glasses on his bedside table before going to sleep.\nA full one, in case he gets thirsty, and an empty one, in case he doesn’t.",
+        "id": 3
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Java and C were telling jokes. It was C's turn, so he writes something on the wall, points to it and says \"Do you get the reference?\" But Java didn't.",
+        "id": 4
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "A SQL statement walks into a bar and sees two tables.\nIt approaches, and asks \"may I join you?\"",
+        "id": 5
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "A web developer walks into a restaurant.\nHe immediately leaves in disgust as the restaurant was laid out in tables.",
+        "id": 6
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "Why is 6 afraid of 7 in hexadecimal Canada?",
+        "delivery": "Because 7 8 9 A?",
+        "id": 7
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Programming is like sex.\nMake one mistake and you end up supporting it for the rest of your life.",
+        "id": 8
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Your mama's so FAT she can't save files bigger than 4GB.",
+        "id": 9
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "Hey, wanna hear a joke?",
+        "delivery": "Parsing HTML with regex.",
+        "id": 10
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "Why do programmers confuse halloween and christmas?",
+        "delivery": "Because Oct 31 = Dec 25",
+        "id": 11
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "// This line doesn't actually do anything, but the code stops working when I delete it.",
+        "id": 12
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "Why does no one like SQLrillex?",
+        "delivery": "He keeps dropping the database.",
+        "id": 13
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "What do you call a developer who doesn't comment code?",
+        "delivery": "A developer.",
+        "id": 14
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "Why did the Python programmer not respond to the foreign mails he got?",
+        "delivery": "Because his interpreter was busy collecting garbage.",
+        "id": 15
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "Why did the programmer quit his job?",
+        "delivery": "Because He didn't get arrays.",
+        "id": 16
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "How can you tell an extroverted programmer?",
+        "delivery": "He looks at YOUR shoes when he's talking.",
+        "id": 17
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "\"Honey, go to the store and buy some eggs.\"\n\"OK.\"\n\"Oh and while you're there, get some milk.\"\n\nHe never returned.",
+        "id": 18
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "How do you know God is a shitty programmer?",
+        "delivery": "He wrote the OS for an entire universe, but didn't leave a single useful comment.",
+        "id": 19
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "\"We messed up the keming again guys\"",
+        "id": 20
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "Why are modern programing languages so materialistic?",
+        "delivery": "Because they are object oriented.",
+        "id": 21
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "If Bill Gates had a dime for every time Windows crashed ... Oh, he does.",
+        "id": 22
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "The glass is neither half-full nor half-empty, the glass is twice as big as it needs to be.",
+        "id": 23
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "A byte walks into a bar looking miserable.\nThe bartender asks him: \"What's wrong buddy?\"\n\"Parity error.\" he replies. \n\"Ah that makes sense, I thought you looked a bit off.\"",
+        "id": 24
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "ASCII silly question, get a silly ANSI.",
+        "id": 25
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "What do you get if you lock a monkey in a room with a typewriter for 8 hours?",
+        "delivery": "A regular expression.",
+        "id": 26
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Java is like Alzheimer, it starts off slow, but eventually, your memory is gone.",
+        "id": 27
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Two C strings walk into a bar.\nThe bartender asks \"What can I get ya?\"\nThe first string says \"I'll have a gin and tonic.\"\nThe second string thinks for a minute, then says \"I'll take a tequila sunriseJF()#$JF(#)$(@J#()$@#())!*FNIN!OBN134ufh1ui34hf9813f8h8384h981h3984h5F!##@\"\nThe first string apoligizes, \"You'll have to excuse my friend, he's not null terminated.\"",
+        "id": 28
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "What do you call a group of 8 Hobbits?",
+        "delivery": "A Hobbyte.",
+        "id": 29
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Saying that Java is nice because it works on every OS is like saying that anal sex is nice because it works on every gender.",
+        "nsfw": true,
+        "id": 30
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "Why did the javascript heap close shop?",
+        "delivery": "It ran out of memory.",
+        "id": 31
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "What is the best prefix for global variables?",
+        "delivery": "//",
+        "id": 32
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "TIL that changing random stuff until your program works is \"hacky\" and a \"bad coding practice\" but if you do it fast enough it's \"Machine Learning\" and pays 4x your current salary.",
+        "id": 33
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Eight bytes walk into a bar.\nThe bartender asks, \"Can I get you anything?\"\n\"Yeah,\" reply the bytes.\n\"Make us a double.\"",
+        "id": 34
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "There are only 10 kinds of people in this world: those who know binary and those who don’t.",
+        "id": 35
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "\"Knock, knock.\"\n\"Who’s there?\"\n\n*very long pause...*\n\"Java.\"",
+        "id": 36
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Programming is 10% science, 20% ingenuity, and 70% getting the ingenuity to work with the science.",
+        "id": 37
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "A man is smoking a cigarette and blowing smoke rings into the air. His girlfriend becomes irritated with the smoke and says, \"Can’t you see the warning on the cigarette pack? Smoking is hazardous to your health!\" to which the man replies, \"I am a programmer.  We don’t worry about warnings; we only worry about errors.\"",
+        "id": 38
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "The generation of random numbers is too important to be left to chance.",
+        "id": 39
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Debugging: Removing the needles from the haystack.",
+        "id": 40
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Hey Girl,\nRoses are #ff0000,\nViolets are #0000ff,\nI use hex codes,\nBut I'd use RGB for you.",
+        "id": 41
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Debugging is like being the detective in a crime movie where you're also the murderer at the same time.",
+        "id": 42
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "How do you tell HTML from HTML5?\n- Try it out in Internet Explorer\n- Did it work?\n- No?\n- It's HTML5.",
+        "id": 43
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Have a great weekend!\nI hope your code behaves the same on Monday as it did on Friday.",
+        "id": 44
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Judge: \"I sentence you to the maximum punishment...\"\nMe (thinking): \"Please be death, please be death...\"\nJudge: \"Learn Java!\"\nMe: \"Damn.\"",
+        "id": 45
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "What's the object-oriented way to become wealthy?",
+        "delivery": "Inheritance.",
+        "id": 46
+    }
+]
