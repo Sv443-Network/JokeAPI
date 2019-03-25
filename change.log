@@ -1,0 +1,51 @@
+[0.1.0]
+    - basic functionality
+        - 47 jokes
+        - category filter
+
+
+
+
+[0.1.1]
+    - added interactive example on docs page
+    - made icon on docs page smaller
+    - added wrapper script
+
+
+
+
+[0.1.2]
+    - added "Dark" category
+    - added joke submission form
+    - improved interactive example
+    - modified gitignore
+
+
+
+
+[1.0.0]
+    - turned the single endpoint into multiple endpoints
+        - "categories" to get all available categories
+        - "info" to get all information about JokeAPI
+        - "category/XY" to get a joke
+    - added flag filter to blacklist certain jokes
+    - added very sophisticated analytics
+    - added "Allow" header to all incoming requests to better support preflight requests
+    - added multiple file format support
+        - JSON
+        - XML
+        - YAML
+    - added JS and CSS injection into docs page to separate everything into three files (can be expanded to more files ofc)
+    - fixed minor style glitches on the docs page
+    - made the HTML and CSS of the docs way better
+        - "scroll to top" button
+            - smooth scroll
+        - anchors to make linking to a certain header possible
+        - turned "add joke" link into a button and moved it next to "scroll to top" button
+    - added flag filter to interactive example
+    - did even more internal detail work
+        - reformatted log files
+        - clearing certain log files after a threshold is reached
+    - updated dependencies
+    - made better and more uniformly formatted error messages
+    - added this changelog
