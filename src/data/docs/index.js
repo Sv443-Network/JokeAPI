@@ -1,6 +1,11 @@
             var baseURL = "";
             if(isLocal) baseURL = "http://127.0.0.1:8079/jokeapi";
             else baseURL = "https://sv443.net/jokeapi";
+
+            let anchorSyms = gebcn("anchorSym");
+            for(let i = 0; i < anchorSyms.length; i++) {
+                anchorSyms[i].title = "Click me to link to this header";
+            }
             
             // const checkScroll = () => {
             //     let sct = gebid("sctopbtn");
