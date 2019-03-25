@@ -3,7 +3,7 @@ const http = require("http");
 const fs = require("fs");
 var js2xml = require("js2xmlparser");
 const YAML = require("json-to-pretty-yaml");
-require('dotenv').config()
+require('dotenv').config();
 
 const settings = require("./settings.js");
 const parseRequest = require("./requestParser.js");
@@ -37,14 +37,13 @@ var httpserver = http.createServer((req, res) => {
     var ipaddr = req.connection.remoteAddress;
     ipaddr = (ipaddr.length<15?ipaddr:(ipaddr.substr(0,7)==='::ffff:'?ipaddr.substr(7):undefined));
 
-    logRequest(ipaddr, req.method, req.headers.joke_category);
+    logRequest(ipaddr, req.method);
 
     if(settings.server.allowCORS) {
         try {
             res.setHeader('Access-Control-Allow-Origin', '*');
-            res.setHeader('Access-Control-Request-Method', '*');
-            res.setHeader('Access-Control-Allow-Methods', 'GET,PUT,OPTIONS');
-            res.setHeader('Allow', 'GET,PUT,OPTIONS');
+            res.setHeader('Access-Control-Request-Method', 'GET');
+            res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, OPTIONS');
             res.setHeader('Access-Control-Allow-Headers', '*');
         }
         catch(err) {
@@ -52,6 +51,7 @@ var httpserver = http.createServer((req, res) => {
             return process.exit(1);
         }
     }
+    res.setHeader('Allow', 'GET, PUT, OPTIONS');
 
     
     if(req.method == "GET" && req.url.includes("/categories") && (req.url.includes("/categories/") ? req.url.split("/categories/")[1].split("?")[0] == (null || "") : req.url.split("/categories")[1].split("?")[0] == (null || ""))) {
@@ -164,7 +164,7 @@ var httpserver = http.createServer((req, res) => {
         return process.stdout.write("\x1b[33m\x1b[1m▌\x1b[0m"); //docs
     }
     else if(req.method == "OPTIONS") {
-        res.writeHead(200, {"Content-Type": "text/html; utf-8", "Allow": "GET,OPTIONS,PUT"});
+        res.writeHead(200, {"Content-Type": "text/html; utf-8"});
         return res.end(indexFile);
     }
     else if(req.method == "PUT") {

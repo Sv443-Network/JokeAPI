@@ -7,6 +7,7 @@ module.exports = {
     },
     jokePath: "./data/jokes.json",                                     // JSON file which contains all jokes
     logPath: "./data/requests.log",                                    // request log file path
+    logMaxLines: 220,
     docsFolder: "./data/docs",
     docsFiles: {
         HTML: "index.html",
