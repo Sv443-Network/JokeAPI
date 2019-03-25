@@ -23,9 +23,9 @@ module.exports = (req, res) => {
             for(let i = 0; i < allJokes.length; i++) allJokes[i].id = i;
             var possibleJokes = [];
             var gt = false;
-            if(jokeCategory.toLowerCase() != "any") {
+            // if(jokeCategory.toLowerCase() != "any") {
                 for(let i = 0; i < allJokes.length; i++) {
-                    if(allJokes[i].category == jokeCategory) {
+                    if(jokeCategory.toLowerCase() == "any" || allJokes[i].category == jokeCategory) {
                         gt = true;
 
                         let blFlags = [];
@@ -55,13 +55,13 @@ module.exports = (req, res) => {
                 if(possibleJokes.length > 0) selectedJoke = possibleJokes[rN];
                 else selectedJoke = possibleJokes[0];
                 // process.stdout.write("m" + rN + "/" + (possibleJokes.length - 1));
-            }
+            /*}
             else if(jokeCategory.toLowerCase() == "any") {
                 let rN = jsl.randRange(0, (allJokes.length - 1));
                 // process.stdout.write("a" + rN + "/" + (data.length - 1));
                 if(allJokes.length > 0) selectedJoke = allJokes[rN];
                 else selectedJoke = allJokes[0];
-            }
+            }*/
 
             if(urlParams.format == "xml") {
                 selectedJoke = js2xml.parse("joke", selectedJoke);

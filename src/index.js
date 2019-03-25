@@ -39,6 +39,15 @@ var httpserver = http.createServer((req, res) => {
 
     logRequest(ipaddr, req.method);
 
+    if(!jsl.isEmpty(req.headers.joke_category)) {
+        res.writeHead(200, {"Content-Type": "application/x-yaml; utf-8"});
+        return res.end(JSON.stringify({
+            "category": "Miscellaneous",
+            "type": "single",
+            "joke": "Error: Deprecated Syntax.\n\nIt looks like you are still using the old syntax for JokeAPI.\nIf you are the administrator of the service/script/whatever which sent this message, please note that JokeAPI has had a big update which also changed the syntax. The new syntax is already documented in the documentation (https://sv443.net/jokeapi).\nIf you aren't the administrator, please contact them and tell them to please re-read the documentation (https://sv443.net/jokeapi) as it now contains documentation on the new syntax.\n\nThanks and sorry if this caused any inconveniences!\n- Sv443 (Creator of JokeAPI)"
+        }));
+    }
+
     if(settings.server.allowCORS) {
         try {
             res.setHeader('Access-Control-Allow-Origin', '*');
