@@ -40,6 +40,7 @@ var httpserver = http.createServer((req, res) => {
     logRequest(ipaddr, req.method);
 
     if(!jsl.isEmpty(req.headers.joke_category)) {
+        process.stdout.write("\x1b[35m\x1b[1m▌\x1b[0m"); // old syntax
         res.writeHead(200, {"Content-Type": "application/x-yaml; utf-8"});
         return res.end(JSON.stringify({
             "category": "Miscellaneous",
@@ -239,7 +240,7 @@ try {
     fs.readFile(settings.jokePath, (err, data) => {
         if(!err) {
             console.log("\x1b[33m\x1b[1m Loaded " + JSON.parse(data).length + " jokes\x1b[0m\n\n");
-            process.stdout.write("\x1b[1m\x1b[32m ▌ Success   \x1b[33m▌ Docs\x1b[0m   \x1b[31m▌ Error\x1b[0m   ►>  ");
+            process.stdout.write("\x1b[1m\x1b[32m ▌ Success   \x1b[33m▌ Docs\x1b[0m   \x1b[31m▌ Error   \x1b[35m▌ Old Syntax\x1b[0m   ►>  ");
         }
     });
 }
