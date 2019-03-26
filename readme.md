@@ -5,7 +5,7 @@ A carefully formatted and easy to use RESTful JokeAPI that serves jokes in JSON,
 
 <br><br><br><br>
 # How to run JokeAPI after cloning it:
-- Download or update [Node.js](https://nodejs.org/en/)
+- Download [Node.js](https://nodejs.org/en/) if you don't have it yet
 - Download the repository and extract the ZIP file into a folder
 - Open a command prompt in that folder
 - Type `npm i` to install the dependencies
