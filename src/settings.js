@@ -1,20 +1,21 @@
 module.exports = {
-    version: "1.0.0",                                                  // Version of JokeAPI
-    jokeSubmissionURL: "https://sv443.net/r/submitJoke",               // Joke submission form URL
+    version: "1.0.0",                                                  // version
+    jokeSubmissionURL: "https://sv443.net/r/submitJoke",               // joke submission form URL
     server: {
-        port: 8079,                                                    // Port of HTTP listener
-        allowCORS: true                                                // Whether CORS should be enabled
+        port: 8079,                                                    // port of HTTP listener
+        allowCORS: true,                                               // Whether CORS should be enabled
+        maxRequestsPerMinute: 15                                       // max requests from one IP address per minute
     },
     jokePath: "./data/jokes.json",                                     // JSON file which contains all jokes
     logPath: "./data/requests.log",                                    // request log file path
-    logMaxLines: 220,
-    docsFolder: "./data/docs",
+    logMaxLines: 220,                                                  // count of lines that will trigger a log deletion
+    docsFolder: "./data/docs",                                         // where the documentation files are located at
     docsFiles: {
-        HTML: "index.html",
-        JS: "index.js",
-        CSS: "index.css"
+        HTML: "index.html",                                            // names of the docs' HTML file
+        JS: "index.js",                                                // names of the docs' JS file
+        CSS: "index.css"                                               // names of the docs' CSS file
     },
     statsFilePath: "./data/debug/statistics.json",                     // statistics file path
-    available_categories: ["Programming", "Miscellaneous", "Dark"],    // All available categories
-    flags: ["nsfw", "religious", "political"]                          // All available flags
+    available_categories: ["Programming", "Miscellaneous", "Dark"],    // all categories
+    flags: ["nsfw", "religious", "political"]                          // all flags
 }
