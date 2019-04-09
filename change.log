@@ -42,6 +42,9 @@
             - smooth scroll
         - anchors to make linking to a certain header possible
         - turned "add joke" link into a button and moved it next to "scroll to top" button
+        - fixed @import's
+        - updated <meta>'s
+        - turned "blank_" into "_blank" (sigh)
     - added flag filter to interactive example
     - did even more internal detail work
         - reformatted log files
@@ -49,3 +52,11 @@
     - updated dependencies
     - made better and more uniformly formatted error messages
     - added this changelog
+
+
+
+
+[1.1.0]
+    - switched to ReadStreams instead of just loading the entire file to RAM to massively improve request performance (more details in GitHub issue #2)
+        - this basically means it transmits the data over time, instead of loading it all to RAM and sending it at once
+	- added rate limiting to counter DOS attacks (yes I've been getting some of those *sigh*)
