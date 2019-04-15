@@ -29,10 +29,15 @@ console.log("\n\n\n\n\n\x1b[32m\x1b[1m Initializing...\x1b[0m");
 var httpserver = http.createServer((req, res) => {
     rateLimit.inboundRequest(req);
 
+    var ipaddr = req.connection.remoteAddress;
+    ipaddr = (ipaddr.length<15?ipaddr:(ipaddr.substr(0,7)==='::ffff:'?ipaddr.substr(7):undefined));
+
     if(rateLimit.isRateLimited(req, settings.server.maxRequestsPerMinute) === true) {
         res.writeHead(429, {"Content-Type": "text/plain; utf-8"});
         res.end(`Too many requests per minute - max is ${settings.server.maxRequestsPerMinute}`);
-        return
+        process.stdout.write("\x1b[35m\x1b[1m▌\x1b[0m"); // rate limited
+        fs.appendFileSync("./data/rateLimit.log", `[${new Date().toUTCString()}]    ${ipaddr}`);
+        return;
     }
     else {
 
@@ -44,13 +49,9 @@ var httpserver = http.createServer((req, res) => {
         }
 
 
-        var ipaddr = req.connection.remoteAddress;
-        ipaddr = (ipaddr.length<15?ipaddr:(ipaddr.substr(0,7)==='::ffff:'?ipaddr.substr(7):undefined));
-
         logRequest(ipaddr, req.method);
 
         if(!jsl.isEmpty(req.headers.joke_category)) {
-            process.stdout.write("\x1b[35m\x1b[1m▌\x1b[0m"); // old syntax
             return pipeString(res, JSON.stringify({
                 "category": "Miscellaneous",
                 "type": "single",
@@ -242,7 +243,7 @@ try {
     fs.readFile(settings.jokePath, (err, data) => {
         if(!err) {
             console.log("\x1b[33m\x1b[1m Loaded " + JSON.parse(data).length + " jokes\x1b[0m\n\n");
-            process.stdout.write("\x1b[1m\x1b[32m ▌ Success   \x1b[33m▌ Docs\x1b[0m   \x1b[31m▌ Error   \x1b[35m▌ Old Syntax\x1b[0m   ►>  ");
+            process.stdout.write("\x1b[1m\x1b[32m ▌ Success   \x1b[33m▌ Docs\x1b[0m   \x1b[31m▌ Error   \x1b[35m▌ Rate Limited\x1b[0m   ►>  ");
         }
     });
 }
@@ -262,8 +263,6 @@ function endWithDocs(res) {
 
     let readStream = fs.createReadStream(docsFilePath);
     readStream.pipe(res);
-
-    console.log("\n\n\x1b[31mOUT (DOCS)\x1b[0m");
 }
 
 function pipeString(res, text, mimetype) {
