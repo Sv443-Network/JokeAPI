@@ -1,8 +1,8 @@
 ---
 name: Report a joke
-about: Report a joke that is very offensive / illegal
+about: Report a joke that is very offensive / illegal and/or not in the "Dark" category
 title: ''
-labels: ''
+labels: reported joke
 assignees: Sv443
 
 ---
