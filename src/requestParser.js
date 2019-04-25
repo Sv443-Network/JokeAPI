@@ -2,6 +2,7 @@ const jsl = require("svjsl");
 const fs = require("fs");
 var js2xml = require("js2xmlparser");
 const YAML = require("json-to-pretty-yaml");
+const Readable = require('stream').Readable;
 
 const settings = require("./settings.js");
 
@@ -65,21 +66,18 @@ module.exports = (req, res) => {
 
             if(urlParams.format == "xml") {
                 selectedJoke = js2xml.parse("joke", selectedJoke);
-                res.writeHead(200, "Ok", {"Content-Type": "application/xml; utf-8"});
                 process.stdout.write("\x1b[32m\x1b[1m▌\x1b[0m"); //success
-                return res.end(selectedJoke);
+                return pipeString(res, selectedJoke, "application/xml");
             }
             else if(urlParams.format == "yaml") {
                 selectedJoke = YAML.stringify({"joke": selectedJoke});
-                res.writeHead(200, "Ok", {"Content-Type": "application/x-yaml; utf-8"});
                 process.stdout.write("\x1b[32m\x1b[1m▌\x1b[0m"); //success
-                return res.end(selectedJoke);
+                return pipeString(res, selectedJoke, "application/x-yaml");
             }
             else {
                 selectedJoke = JSON.stringify(selectedJoke, null, "\t");
-                res.writeHead(200, "Ok", {"Content-Type": "application/json; utf-8"});
                 process.stdout.write("\x1b[32m\x1b[1m▌\x1b[0m"); //success
-                return res.end(selectedJoke);
+                return pipeString(res, selectedJoke, "application/json");
             }
         }
         else {
@@ -89,4 +87,18 @@ module.exports = (req, res) => {
             return res.end("Internal Error - Couldn't read jokes.json file - full error message: " + err);
         }
     });
+}
+
+function pipeString(res, text, mimetype) {
+    let s = new Readable();
+    s._read = () => {};
+    s.push(text);
+    s.push(null);
+
+    res.writeHead(200, {
+        "Content-Type": `${mimetype}; utf-8`,
+        "Content-Length": text.length
+    });
+
+    s.pipe(res);
 }

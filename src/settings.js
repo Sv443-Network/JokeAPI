@@ -4,7 +4,7 @@ module.exports = {
     server: {
         port: 8079,                                                    // port of HTTP listener
         allowCORS: true,                                               // Whether CORS should be enabled
-        maxRequestsPerMinute: 15                                       // max requests from one IP address per minute
+        maxRequestsPerMinute: 20                                       // max requests from one IP address per minute
     },
     jokePath: "./data/jokes.json",                                     // JSON file which contains all jokes
     logPath: "./data/requests.log",                                    // request log file path
