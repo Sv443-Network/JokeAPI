@@ -1,0 +1,732 @@
+[
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "I've got a really good UDP joke to tell you but I don't know if you'll get it."
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "How many programmers does it take to screw in a light bulb?",
+        "delivery": "None. It's a hardware problem."
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "A guy walks into a bar and asks for 1.4 root beers.\nThe bartender says \"I'll have to charge you extra, that's a root beer float\".\nThe guy says \"In that case, better make it a double.\""
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "A programmer puts two glasses on his bedside table before going to sleep.\nA full one, in case he gets thirsty, and an empty one, in case he doesn't."
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Java and C were telling jokes. It was C's turn, so he writes something on the wall, points to it and says \"Do you get the reference?\" But Java didn't."
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "A SQL statement walks into a bar and sees two tables.\nIt approaches, and asks \"may I join you?\""
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "A web developer walks into a restaurant.\nHe immediately leaves in disgust as the restaurant was laid out in tables."
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "Why is 6 afraid of 7 in hexadecimal Canada?",
+        "delivery": "Because 7 8 9 A?"
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Programming is like sex.\nMake one mistake and you end up supporting it for the rest of your life."
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Your mama's so FAT she can't save files bigger than 4GB."
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "Hey, wanna hear a joke?",
+        "delivery": "Parsing HTML with regex."
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "Why do programmers confuse halloween and christmas?",
+        "delivery": "Because Oct 31 = Dec 25"
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "// This line doesn't actually do anything, but the code stops working when I delete it."
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "Why does no one like SQLrillex?",
+        "delivery": "He keeps dropping the database."
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "What do you call a developer who doesn't comment code?",
+        "delivery": "A developer."
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "Why did the Python programmer not respond to the foreign mails he got?",
+        "delivery": "Because his interpreter was busy collecting garbage."
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "Why did the programmer quit his job?",
+        "delivery": "Because He didn't get arrays."
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "How can you tell an extroverted programmer?",
+        "delivery": "He looks at YOUR shoes when he's talking."
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "\"Honey, go to the store and buy some eggs.\"\n\"OK.\"\n\"Oh and while you're there, get some milk.\"\n\nHe never returned."
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "How do you know God is a shitty programmer?",
+        "delivery": "He wrote the OS for an entire universe, but didn't leave a single useful comment."
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "\"We messed up the keming again guys\""
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "Why are modern programing languages so materialistic?",
+        "delivery": "Because they are object oriented."
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "If Bill Gates had a dime for every time Windows crashed ... Oh, he does."
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "The glass is neither half-full nor half-empty, the glass is twice as big as it needs to be."
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "A byte walks into a bar looking miserable.\nThe bartender asks him: \"What's wrong buddy?\"\n\"Parity error.\" he replies. \n\"Ah that makes sense, I thought you looked a bit off.\""
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "ASCII silly question, get a silly ANSI."
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "What do you get if you lock a monkey in a room with a typewriter for 8 hours?",
+        "delivery": "A regular expression."
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Java is like Alzheimer, it starts off slow, but eventually, your memory is gone."
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Two C strings walk into a bar.\nThe bartender asks \"What can I get ya?\"\nThe first string says \"I'll have a gin and tonic.\"\nThe second string thinks for a minute, then says \"I'll take a tequila sunriseJF()#$JF(#)$(@J#()$@#())!*FNIN!OBN134ufh1ui34hf9813f8h8384h981h3984h5F!##@\"\nThe first string apoligizes, \"You'll have to excuse my friend, he's not null terminated.\""
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "What do you call a group of 8 Hobbits?",
+        "delivery": "A Hobbyte."
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Saying that Java is nice because it works on every OS is like saying that anal sex is nice because it works on every gender.",
+        "nsfw": true
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "Why did the javascript heap close shop?",
+        "delivery": "It ran out of memory."
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "What is the best prefix for global variables?",
+        "delivery": "\/\/"
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "TIL that changing random stuff until your program works is \"hacky\" and a \"bad coding practice\" but if you do it fast enough it's \"Machine Learning\" and pays 4x your current salary."
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Eight bytes walk into a bar.\nThe bartender asks, \"Can I get you anything?\"\n\"Yeah,\" reply the bytes.\n\"Make us a double.\""
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "There are only 10 kinds of people in this world: those who know binary and those who don't."
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "\"Knock, knock.\"\n\"Who's there?\"\n\n*very long pause...*\n\"Java.\""
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Programming is 10% science, 20% ingenuity, and 70% getting the ingenuity to work with the science."
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "A man is smoking a cigarette and blowing smoke rings into the air. His girlfriend becomes irritated with the smoke and says, \"Can't you see the warning on the cigarette pack? Smoking is hazardous to your health!\" to which the man replies, \"I am a programmer.  We don't worry about warnings; we only worry about errors.\""
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "The generation of random numbers is too important to be left to chance."
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Debugging: Removing the needles from the haystack."
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Hey Girl,\nRoses are #ff0000,\nViolets are #0000ff,\nI use hex codes,\nBut I'd use RGB for you."
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Debugging is like being the detective in a crime movie where you're also the murderer at the same time."  
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "How do you tell HTML from HTML5?\n- Try it out in Internet Explorer\n- Did it work?\n- No?\n- It's HTML5."
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Have a great weekend!\nI hope your code behaves the same on Monday as it did on Friday."
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Judge: \"I sentence you to the maximum punishment...\"\nMe (thinking): \"Please be death, please be death...\"\nJudge: \"Learn Java!\"\nMe: \"Damn.\""
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "What's the object-oriented way to become wealthy?",
+        "delivery": "Inheritance."
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "Genders are a lot like booleans.",
+        "delivery": "There's only two of them."
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "Why did the functional programming developer get thrown out of school?",
+        "delivery": "Because he refused to take classes."
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": ".NET developers are picky when it comes to food.",
+        "delivery": "They only like Chicken NuGet."
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "PHP"
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "Why do programmers wear glasses?",
+        "delivery": "Because they need to C#"
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Algorithm:\nA word used by programmers when they don't want to explain how their code works."
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "So what's a set of predefined steps the government might take to preserve the environment?",
+        "delivery": "An Al-Gore-ithm."
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "Why do Java programmers hate communism?",
+        "delivery": "They don't want to live in a classless society."
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "Hey baby I wish your name was asynchronous",
+        "delivery": "... so you'd give me a callback."
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "1. Open terminal\n2. mkdir snuts\n3. cd snuts"
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "Your momma is so fat, we had to switch to NTFS to store her."
+    },
+    {
+        "category": "Programming",
+        "type": "twopart",
+        "setup": "What is a dying programmer's last program?",
+        "delivery": "Goodbye, world!"
+    },
+    {
+        "category": "Programming",
+        "type": "single",
+        "joke": "\"Can I tell you a TCP joke?\"\n\"Please tell me a TCP joke.\"\n\"OK, I'll tell you a TCP joke.\""
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "I asked my wife if I was the only one she's been with.",
+        "delivery": "She said, \"Yes, the others were at least sevens or eights\""
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "Thank you student loans for getting me through college.",
+        "delivery": "I don't think I'll ever be able to repay you"
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "Why is crucified Jesus always depicted with six pack abs?",
+        "delivery": "He did CrossFit.",
+        "religious": true
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "Why is every gender equality officer female?",
+        "delivery": "Because it's cheaper."
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "One time I masturbated on a plane",
+        "delivery": "I called it \"highjacking\"",
+        "nsfw": true
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "I used to love to tell dad jokes",
+        "delivery": "Dad, come back..."
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "What do you call a cop's penis after he's done masturbating?",
+        "delivery": "Pulled pork.",
+        "nsfw": true
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "Did you hear about the cheese factory that exploded in france?",
+        "delivery": "There was nothing but de brie."
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "The average penis has...",
+        "delivery": "Been in and around my ex-girlfriend's mouth.\nFuck you, Karen!",
+        "nsfw": true
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "What kind of car did Whitney Houston drive?",
+        "delivery": "A Hyundaiiiiiiiiiiiiiiiiiiiiiiii"
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "I had a granny that we couldnt decide whether to bury or cremate",
+        "delivery": "In the end we decided to just let her live."
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "What do you call crystal clear urine?",
+        "delivery": "1080pee."
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "What happens when you don't obey the KGB?",
+        "delivery": "You get Putin jail",
+        "political": true
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "69",
+        "delivery": "Get it? That's the sex number so it must be funny!",
+        "nsfw": true
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "What's brown and sticky",
+        "delivery": "A stick!"
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "Arguing with a woman is like reading a software's license agreement",
+        "delivery": "In the end you ignore everything and click \"I agree\""
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "single",
+        "joke": "Two reasons I don't give money to homeless people.\n1) They are going to spend it all on drugs and alcohol\n2) I am going to spend it all on drugs and alcohol."
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "single",
+        "joke": "A neutron walks into a bar and asks for a price on a drink.\nThe barkeeper says: \"For you... no charge!\""
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "single",
+        "joke": "A horse walks into a bar.\n\"Hey\", the Bartender says.\n\"Sure\", the horse replies."
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "My girlfriend left me because I have a fetish for touching pasta.",
+        "delivery": "I'm feeling cannelloni now. :'("
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "What is the least spoken language in the world?",
+        "delivery": "Sign language."
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "9/11 jokes are not funny.",
+        "delivery": "The other 2 though, are hilarious!"
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "I WRITE MY JOKES IN CAPITALS.",
+        "delivery": "THIS ONE WAS WRITTEN IN PARIS."
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "I asked my wife \"Am I the only one you've been with?\"",
+        "delivery": "\"Yes... but I've had some sevens and eights.\" She replied."
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "What do Japanese cannibals eat?",
+        "delivery": "Raw men."
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "So I made a graph of all my past relationships...",
+        "delivery": "It has an ex axis and a why axis."
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "My wife left me because I'm too insecure and paranoid.",
+        "delivery": "Oh wait, never mind. She was just getting the mail."
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "single",
+        "joke": "I have these weird muscle spasms in my gluteus maximus.\nI figured out from my doctor that everything was alright:\nHe said \"Weird flex, butt okay.\""
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "Went to the doctors for a prostate exam.\nDuring the exam he said it's not unusual to become aroused or even ejaculate.",
+        "delivery": "But still, I wish he hadn't.",
+        "nsfw": true
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "If I make you breakfast in bed, a simple thank you is all I need.",
+        "delivery": "Not all this \"How the fuck did you get in my house?!\" nonsense."
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "My wife divorced me so i stole her wheelchair.",
+        "delivery": "Guess who came crawling back."
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "Why did the Romanian stop reading?",
+        "delivery": "They wanted to give the Bucharest."
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "I hate Russian dolls.",
+        "delivery": "They're so full of themselves."
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "Mom asked me where I'm taking her to go out to eat for mother's day.",
+        "delivery": "I told her, \"We already have food in the house\"."
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "What's Green and smells like pork?",
+        "delivery": "Kermit's Fingers",
+        "nsfw": true
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "single",
+        "joke": "Oysters hate to give away their pearls because they are shellfish."
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "How many friend-zoned guys does it take to change a lightbulb?",
+        "delivery": "None, they'll just compliment it and get pissed off when it won't screw.",
+        "nsfw": true
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "What's the difference between an in-law and an outlaw?",
+        "delivery": "An outlaw is wanted."
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "I told my psychiatrist I got suicidal tendencies",
+        "delivery": "He said from now on I have to pay in advance."
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "9 months before I was born, I went to a party with my dad...",
+        "delivery": "...and left with my mum.",
+        "nsfw": true
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "My mother said, \"You won't amount to anything because you always procrastinate.\"",
+        "delivery": "I said, \"Oh yeah... Just you wait.\""
+    },
+    {
+        "category": "Miscellaneous",
+        "type": "twopart",
+        "setup": "What do Asian people call fingers?",
+        "delivery": "Limb Limbs"
+    },
+    {
+        "category": "Dark",
+        "type": "single",
+        "joke": "I didn't vaccinate my 10 kids and the one that survived is fine!"
+    },
+    {
+        "category": "Dark",
+        "type": "twopart",
+        "setup": "I'm thinking of setting up a comedy group to help people going through cancer treatment.",
+        "delivery": "I'll call it \"A Sense of Tumor\""
+    },
+    {
+        "category": "Dark",
+        "type": "twopart",
+        "setup": "I've been in 15 school shootings and I was lucky to survive!",
+        "delivery": "I just had to be nice with the cops and not resist."
+    },
+    {
+        "category": "Dark",
+        "type": "twopart",
+        "setup": "Why are there no pharmacies in Africa?",
+        "delivery": "Because you can't use medicine on an empty stomach."
+    },
+    {
+        "category": "Dark",
+        "type": "twopart",
+        "setup": "People are like jellybeans and licorice:",
+        "delivery": "No one likes the blacks."
+    },
+    {
+        "category": "Dark",
+        "type": "twopart",
+        "setup": "What do an orgasm and a pulse have in common?",
+        "delivery": "I dont care if she has one.",
+        "nsfw": true
+    },
+    {
+        "category": "Dark",
+        "type": "twopart",
+        "setup": "What's the difference between an apple and a black guy?",
+        "delivery": "The apple will eventually fall from the tree that it's hanging from!"
+    },
+    {
+        "category": "Dark",
+        "type": "single",
+        "joke": "Me and my jewish friend were eating lunch and i farted. He got mad so i said \"cmon man a little gas never killed anyone\""
+    },
+    {
+        "category": "Dark",
+        "type": "twopart",
+        "setup": "How long does a black woman take to throw away the garbage?",
+        "delivery": "Nine months."
+    },
+    {
+        "category": "Dark",
+        "type": "twopart",
+        "setup": "Why are Americans shit at Dota?",
+        "delivery": "They can't protect their towers."
+    },
+    {
+        "category": "Dark",
+        "type": "twopart",
+        "setup": "Everyone says that Hitler really loved animals.",
+        "delivery": "Then why did he kill 6 million of them?"
+    },
+    {
+        "category": "Dark",
+        "type": "twopart",
+        "setup": "Life's like my dick.",
+        "delivery": "The more children you have, the harder it gets.",
+        "nsfw": true
+    },
+    {
+        "category": "Dark",
+        "type": "twopart",
+        "setup": "Why do German showers have 11 holes?",
+        "delivery": "Because Jews only have 10 fingers.",
+        "religious": true
+    },
+    {
+        "category": "Dark",
+        "type": "twopart",
+        "setup": "What's the most notable similarity between a pedophile and a roller coaster?",
+        "delivery": "They both make a child scream, but the first ride's never the last",
+        "nsfw": true
+    },
+    {
+        "category": "Dark",
+        "type": "twopart",
+        "setup": "How do we know Jesus wasn't black?",
+        "delivery": "He would have been hung from a tree, not a cross.",
+        "religious": true
+    },
+    {
+        "category": "Dark",
+        "type": "twopart",
+        "setup": "My grandma was recently diagnosed with Alzheimer's, and she keeps calling me by the wrong name.",
+        "delivery": "Other than that, the sex is great.",
+        "nsfw": true
+    },
+    {
+        "category": "Dark",
+        "type": "twopart",
+        "setup": "What do dermatologists and the KKK have in common?",
+        "delivery": "They both remove blackheads."
+    },
+    {
+        "category": "Dark",
+        "type": "twopart",
+        "setup": "Muslim women are horrible competitors.",
+        "delivery": "No matter what they do, they always get beat.",
+        "religious": true
+    },
+    {
+        "category": "Dark",
+        "type": "single",
+        "joke": "Stop being homophobic and rude to the LGBTQ+ community. You should be thanking them for saving us plenty of room in heaven."
+    },
+    {
+        "category": "Dark",
+        "type": "twopart",
+        "setup": "What did one necrophiliac tell the other necrophiliac after work?",
+        "delivery": "\"Let's go have a couple of cold ones!\""
+    },
+    {
+        "category": "Dark",
+        "type": "twopart",
+        "setup": "White people don't shoot each other in the streets like black people do.",
+        "delivery": "We do it in schools because we have class."
+    },
+    {
+        "category": "Dark",
+        "type": "twopart",
+        "setup": "Dark humor is like cancer.",
+        "delivery": "It's even funnier when children get it."
+    },
+    {
+        "category": "Dark",
+        "type": "twopart",
+        "setup": "Jokes about anti-vaxxer parents never get old.",
+        "delivery": "Just like their kids."
+    },
+    {
+        "category": "Dark",
+        "type": "twopart",
+        "setup": "What do you call a kid with no arms and an eyepatch?",
+        "delivery": "Names."
+    }
+]
