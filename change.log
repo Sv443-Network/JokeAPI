@@ -60,3 +60,11 @@
     - switched to ReadStreams instead of just loading the entire file to RAM to massively improve request performance (more details in GitHub issue #2)
         - this basically means it transmits the data over time, instead of loading it all to RAM and sending it at once
 	- added rate limiting to counter DOS attacks (yes I've been getting some of those *sigh*)
+
+
+
+
+[1.1.1]
+	- better IP getter for the rate limiting
+	- updated dependencies
+	- very small improvements to the console window
