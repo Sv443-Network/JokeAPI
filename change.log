@@ -4,14 +4,10 @@
         - category filter
 
 
-
-
 [0.1.1]
     - added interactive example on docs page
     - made icon on docs page smaller
     - added wrapper script
-
-
 
 
 [0.1.2]
@@ -19,8 +15,6 @@
     - added joke submission form
     - improved interactive example
     - modified gitignore
-
-
 
 
 [1.0.0]
@@ -54,17 +48,26 @@
     - added this changelog
 
 
-
-
 [1.1.0]
     - switched to ReadStreams instead of just loading the entire file to RAM to massively improve request performance (more details in GitHub issue #2)
         - this basically means it transmits the data over time, instead of loading it all to RAM and sending it at once
-	- added rate limiting to counter DOS attacks (yes I've been getting some of those *sigh*)
-
-
+	- added rate limiting to counter DoS attacks (yes I've been getting some of those *sigh*)
 
 
 [1.1.1]
 	- better IP getter for the rate limiting
 	- updated dependencies
 	- very small improvements to the console window
+
+
+> [1.1.2]
+	- joke categories are now case insensitive
+	- trailing slashes now don't produce an "invalid category" error anymore
+
+
+[1.2.0] (Coming Soon)
+    - Planned:
+        - Add support for selecting multiple categories at once (comma-delimited: "https://sv443.net/jokeapi/category/Dark,Miscellaneous/")
+        - "?type" URL parameter to specify the type of the served joke ("single" or "twopart")
+        - "?contains" URL parameter to only serve jokes that match the provided search query
+        - Improve the "Try it out" section in the docs
