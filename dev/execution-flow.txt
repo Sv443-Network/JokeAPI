@@ -1,0 +1,7 @@
+[Init]
+    - Parse Jokes (make sure the format is correct)
+    - Initialize Black- and Whitelists
+    - Initialize Documentation Page
+
+[On HTTP Request]
+    - 

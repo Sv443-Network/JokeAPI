@@ -1,8 +1,13 @@
+const packageJSON = require("./package.json");
+
 module.exports = {
+    debug: {
+        verboseLogging: true
+    },
     info: {
         name: "JokeAPI",
-        version: "1.3.0",
-        versionInt: [1, 3, 0],
+        version: packageJSON.version,
+        versionInt: packageJSON.version.split("."),
         author: {
             name: "Sv443",
             email: "sven.fehler@web.de",
@@ -20,6 +25,18 @@ module.exports = {
     },
     jokes: {
         jokesFilePath: "./data/jokes.json",
-        jokeSubmissionURL: "https://sv443.net/r/submitjoke"
+        jokeSubmissionURL: "https://sv443.net/r/submitjoke",
+        possible: {
+            categories: [
+                "Miscellaneous",
+                "Programming",
+                "Dark"
+            ],
+            flags: [
+                "nsfw",
+                "religious",
+                "political"
+            ]
+        }
     }
 }

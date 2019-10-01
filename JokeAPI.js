@@ -8,14 +8,19 @@
 // ⚠️ Thanks :)
 
 
-const debuggerActive = typeof v8debug === "object" || /--debug|--inspect/.test(process.execArgv.join(" "));
-require("dotenv").config();
 const wrap = require("node-wrap");
 const settings = require("./settings");
 const fs = require("fs");
 
+process.japi = {};
+const debuggerActive = typeof v8debug === "object" || /--debug|--inspect/.test(process.execArgv.join(" "));
+
+
 
 const initJokeAPI = () => {
+    if(!fs.existsSync("./data"))
+        fs.mkdirSync("./data");
+
     if(!fs.existsSync(settings.wrapper.logFilePath))
         fs.writeFileSync(settings.wrapper.logFilePath, "");
 
@@ -24,7 +29,7 @@ const initJokeAPI = () => {
     {
         return wrap(settings.wrapper.mainFilePath, {
             console: true,
-            crashTimeout: 0,
+            crashTimeout: 1000, // big enough of a timeout to hopefully allow all possible hiccups to settle down
             logFile: settings.wrapper.logFilePath,
             logTimestamp: true,
             restartOnCrash: true,
