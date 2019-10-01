@@ -1,0 +1,34 @@
+{
+  "name": "jokeapi",
+  "version": "1.3.0",
+  "description": "A RESTful API that serves jokes from many categories while also offering a lot of filtering methods",
+  "main": "JokeAPI.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sv443/JokeAPI.git"
+  },
+  "keywords": [
+    "api",
+    "restful",
+    "jokes",
+    "humor",
+    "entertainment"
+  ],
+  "author": "Sv443 <sven.fehler@web.de> (https://sv443.net/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Sv443/JokeAPI/issues"
+  },
+  "homepage": "https://sv443.net/jokeapi",
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "http-ratelimit": "^0.2.3",
+    "js2xmlparser": "^4.0.0",
+    "json-to-pretty-yaml": "^1.2.2",
+    "node-wrap": "^0.2.0",
+    "svjsl": "^1.7.0"
+  }
+}

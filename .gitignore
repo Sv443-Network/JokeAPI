@@ -61,11 +61,6 @@ typings/
 .next
 
 
-data/wrapper.log
-data/requests.log
-
-data/docs/lastComplete.html
-
-*.pdn
-
-data/debug
+test.js
+.github/
+!change.log
