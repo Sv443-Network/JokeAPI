@@ -1,0 +1,14 @@
+100 - General HTTP Error:
+    Caused By:
+        - Internal Error
+    Possible Fixes:
+        - Submit bug report with error message
+
+101 - Rate Limited:
+    Caused By:
+        - Too many requests per timeframe
+    Possible Fixes:
+        - Send less requests
+        - Add IP to whitelist
+
+102 - x:

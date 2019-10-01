@@ -38,5 +38,11 @@ module.exports = {
                 "political"
             ]
         }
+    },
+    httpServer: {
+        port: 8079,
+        allowCORS: true,
+        rateLimiting: 30,
+        timeFrame: 1 // in min
     }
 }

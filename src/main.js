@@ -10,6 +10,7 @@ const dotenv = require("dotenv");
 const settings = require("../settings");
 const debug = require("./verboseLogging");
 const parseJokes = require("./parseJokes");
+const httpServer = require("./httpServer");
 
 // Dependency / Package Setup:
 const col = jsl.colors;
@@ -26,14 +27,19 @@ if(!noDbg) pb = new jsl.ProgressBar(5, "Parsing Jokes...");
 
 //#MARKER init all
 const initAll = () => {
-    debug("Init", "Calling joke parser");
+    debug("Init", "Calling joke parser...");
 
     //#SECTION parse jokes
     parseJokes.init().then(() => {
-        if(!noDbg) pb.next("");
+        if(!noDbg) pb.next("Initializing HTTP listener...");
 
+        // TODO: add black-/whitelist init and docs init before httpserver init
 
-    }).catch(err => initError("parsing jokes", err, "Parse Jokes"));
+        httpServer.init().then(() => {
+            if(!noDbg) pb.next("...");
+
+        }).catch(err => initError("initializing the HTTP server", err));
+    }).catch(err => initError("parsing jokes", err));
 };
 
 
