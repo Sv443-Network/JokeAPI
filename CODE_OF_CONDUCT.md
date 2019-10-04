@@ -1,5 +1,5 @@
 # Contributor Covenant Code of Conduct
-## ▶️ Please read this before contributing to JSLib
+## ▶️ Please read this before contributing to JokeAPI
 
 <br><br>
 

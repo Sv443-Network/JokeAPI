@@ -24,32 +24,37 @@ const init = () => {
 
                 if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting))
                 {
-                    res.writeHead(429, {"Content-Type": parseURL.getMimeTypeFromFileFormatString(fileFormat)});
-                    res.end(convertFileFormat.auto(fileFormat, {
-                        "error": true,
-                        "internalError": false,
-                        "code": 101,
-                        "message": "Request blocked by rate limiting",
-                        "causedBy": [
-                            `You have sent too many requests. The limit is ${settings.httpServer.rateLimiting} requests within ${settings.httpServer.timeFrame} ${settings.httpServer.timeFrame == 1 ? "minute" : "minutes"}.\nIf you need more requests per minute, please contact me and we can figure things out: https://sv443.net/`
-                        ]
-                    }));
+                    // TODO: analytics.rateLimited(req);
+                    return respondWithError(res, 429, 101, fileFormat);
                 }
             }
             catch(err)
             {
                 let fileFormat = !jsl.isEmpty(parsedURL.queryParams) && !jsl.isEmpty(parsedURL.queryParams.format) ? parseURL.getFileFormatFromQString(parsedURL.queryParams) : settings.jokes.defaultFileFormat.fileFormat;
+                // TODO: analytics.internalError("HTTP", err);
+                return respondWithError(res, 500, 100, fileFormat, err);
+            }
 
-                res.writeHead(500, {"Content-Type": parseURL.getMimeTypeFromFileFormatString(fileFormat)})
-                res.end(convertFileFormat.auto(fileFormat, {
-                    "error": true,
-                    "internalError": true,
-                    "code": 100,
-                    "message": "",
-                    "causedBy": [
-                        `An error in the code - please contact me through one of the options on my website (https://sv443.net) and provide the following error message:\n${err}`
-                    ]
-                }));
+            //#SECTION GET
+            if(req.method === "GET")
+            {
+                jsl.unused(); //TODO: all of this shit
+            }
+            //#SECTION PUT
+            else if(req.method === "PUT")
+            {
+                let data = "";
+                req.on("data", chunk => {
+                    data += chunk;
+
+                    if(data == process.env.RESTART_TOKEN)
+                        process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
+                });
+            }
+            //#SECTION HEAD / OPTIONS
+            else if(req.method === "HEAD" || req.method === "OPTIONS")
+            {
+                //TODO: all of this shit
             }
         });
 
@@ -73,8 +78,38 @@ const init = () => {
     });
 }
 
-// const incomingRequest = () => {
+/**
+ * Ends the request with an error. This error gets pulled from the error registry
+ * @param {http.ServerResponse} res 
+ * @param {Number} errorCode The error code
+ * @param {Number} responseCode The HTTP response code to end the request with
+ * @param {String} fileFormat The file format to respond with - automatically gets converted to MIME type
+ * @param {String} errorMessage Additional error info
+ */
+const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage) => {
+    try
+    {
+        let errFromRegistry = require(settings.errors.errorRegistryIncludePath)[errorCode.toString()];
 
-// }
+        let errObj = {
+            "error": true,
+            "internalError": errFromRegistry.errorInternal,
+            "code": errorCode,
+            "message": errFromRegistry.errorMessage,
+            "causedBy": errFromRegistry.causedBy
+        }
 
-module.exports = { init }
+        if(!jsl.isEmpty(errorMessage))
+            errObj.additionalInfo = errorMessage;
+
+        res.writeHead(responseCode, {"Content-Type": parseURL.getMimeTypeFromFileFormatString(fileFormat)})
+        res.end(convertFileFormat.auto(fileFormat, errObj));
+    }
+    catch(err)
+    {
+        res.writeHead(responseCode, {"Content-Type": "text/plain"});
+        res.end(`Internal error while sending error message.\nOh, the irony...\nPlease contact me (${settings.info.author.website}) and provide this additional info:\n${err}`);
+    }
+};
+
+module.exports = { init, respondWithError }

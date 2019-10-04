@@ -2,52 +2,55 @@ const packageJSON = require("./package.json");
 
 module.exports = {
     debug: {
-        verboseLogging: true
+        verboseLogging: true // set to true to enable extra debug output
     },
     info: {
-        name: "JokeAPI",
-        version: packageJSON.version,
-        versionInt: packageJSON.version.split("."),
+        name: "JokeAPI",                            // the name of JokeAPI
+        version: packageJSON.version,               // the version as a string
+        versionInt: packageJSON.version.split("."), // the version as a number array
         author: {
-            name: "Sv443",
-            email: "sven.fehler@web.de",
-            website: "https://sv443.net/",
-            github: "https://github.com/Sv443"
+            name: "Sv443",                     // author name
+            email: "sven.fehler@web.de",       // author email
+            website: "https://sv443.net/",     // author website
+            github: "https://github.com/Sv443" // author github page
         },
         contributors: [
-
+            // none yet :(
         ]
     },
     wrapper: {
-        mainFilePath: "./src/main.js",
-        logFilePath: "./data/wrapper.log",
-        skipWrapping: false
+        mainFilePath: "./src/main.js",     // main script file
+        logFilePath: "./data/wrapper.log", // wrapper log file
+        skipWrapping: false                // whether or not to skip the wrapping through node-wrap
     },
     jokes: {
-        jokesFilePath: "./data/jokes.json",
-        jokeSubmissionURL: "https://sv443.net/r/submitjoke",
+        jokesFilePath: "./data/jokes.json",                  // path to the jokes file
+        jokeSubmissionURL: "https://sv443.net/r/submitjoke", // joke submission url
         possible: {
-            categories: [
+            categories: [        // all categories (excluding "Any")
                 "Miscellaneous",
                 "Programming",
                 "Dark"
             ],
-            flags: [
+            flags: [             // all flags
                 "nsfw",
                 "religious",
                 "political"
             ]
         },
-        fileFormatsPath: "./data/fileFormats.json",
+        fileFormatsPath: "./data/fileFormats.json", // path to the file formats file
         defaultFileFormat: {
-            fileFormat: "json",
-            mimeType: "application/json"
+            fileFormat: "json",          // the default file format string
+            mimeType: "application/json" // the default file format mime type
         }
     },
     httpServer: {
-        port: 8079,
-        allowCORS: true,
-        rateLimiting: 30,
-        timeFrame: 1 // in min
+        port: 8079,       // http server port
+        allowCORS: true,  // whether or not to allow Cross Origin Resource Sharing
+        rateLimiting: 30, // amount of allowed requests per below defined timeframe
+        timeFrame: 1      // timeframe in min - also supports floating point numbers
+    },
+    errors: {
+        errorRegistryIncludePath: "./data/errorRegistry" // path to the error registry
     }
 }
