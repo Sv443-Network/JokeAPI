@@ -2,13 +2,13 @@
     Caused By:
         - Internal Error
     Possible Fixes:
-        - Submit bug report with error message
+        - Submit bug report with error message and hope the error is just a hiccup
 
 101 - Rate Limited:
     Caused By:
         - Too many requests per timeframe
     Possible Fixes:
         - Send less requests
-        - Add IP to whitelist
+        - Ask for IP to be added to whitelist
 
-102 - x:
+102 - foo:

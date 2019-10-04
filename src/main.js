@@ -15,7 +15,7 @@ const httpServer = require("./httpServer");
 const col = jsl.colors;
 process.japi = {};
 process.japi.debuggerActive = typeof v8debug === "object" || /--debug|--inspect/.test(process.execArgv.join(" "));
-const noDbg = !process.japi.debuggerActive || false;
+const noDbg = process.japi.debuggerActive || false;
 dotenv.config();
 
 // Other stuff:

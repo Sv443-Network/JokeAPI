@@ -11,6 +11,7 @@ jsl.unused(jsonToYaml);
 jsl.unused(settings);
 
 
+
 const auto = (format, jsonInput) => {
     switch(format)
     {

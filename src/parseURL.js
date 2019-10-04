@@ -1,6 +1,10 @@
 // this module parses the passed URL, returning an object that is uniform and easy to use
 
 const jsl = require("svjsl");
+const fs = require("fs");
+
+const searchFuzzy = require("./searchFuzzy");
+const settings = require("../settings");
 
 /**
  * Parses the passed URL, returning a fancy object
@@ -62,4 +66,39 @@ const parseURL = url => {
         }
 }
 
+const getFileFormatFromQString = qstrObj => {
+    if(!jsl.isEmpty(qstrObj.format))
+    {
+        let possibleFormats = Object.keys(JSON.parse(fs.readFileSync(settings.jokes.fileFormatsPath).toString()));
+        let fuzzySearch = searchFuzzy(possibleFormats, qstrObj.format);
+        let requestedFormat = possibleFormats[fuzzySearch[0]];
+
+        switch(requestedFormat)
+        {
+            case "json":
+            case "xml":
+            case "yaml":
+                return qstrObj.format;
+            default:
+                return settings.jokes.defaultFileFormat.fileFormat
+        }
+    }
+    else return settings.jokes.defaultFileFormat.fileFormat;
+};
+
+/**
+ * Returns the MIME type of the provided file format string (example: "json" -> "application/json")
+ * @param {String} fileFormatString 
+ * @returns {String}
+ */
+const getMimeTypeFromFileFormatString = fileFormatString => {
+    let allFileTypes = JSON.parse(fs.readFileSync(settings.jokes.fileFormatsPath).toString());
+    
+    if(!jsl.isEmpty(allFileTypes[fileFormatString]))
+        return allFileTypes[fileFormatString].mimeType;
+    else return settings.jokes.defaultFileFormat.mimeType;
+};
+
 module.exports = parseURL;
+module.exports.getFileFormatFromQString = getFileFormatFromQString;
+module.exports.getMimeTypeFromFileFormatString = getMimeTypeFromFileFormatString;

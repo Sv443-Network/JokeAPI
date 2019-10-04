@@ -13,23 +13,41 @@ const parseURL = require("./parseURL");
 const init = () => {
     return new Promise((resolve, reject) => {
         let httpServer = http.createServer((req, res) => {
-            rateLimit.inboundRequest(req);
-
             let parsedURL = parseURL(req.url);
+            let fileFormat = !jsl.isEmpty(parsedURL.queryParams) && !jsl.isEmpty(parsedURL.queryParams.format) ? parseURL.getFileFormatFromQString(parsedURL.queryParams) : settings.jokes.defaultFileFormat.fileFormat;
 
-            debug("HTTP", `URL obj is: ${JSON.stringify(parsedURL, null, 4)}`);
-            let fileFormat = "";
-
-            if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting))
+            try
             {
-                res.writeHead(429, {"Content-Type": ""})
+                rateLimit.inboundRequest(req);
+
+                debug("HTTP", `URL obj is: ${JSON.stringify(parsedURL, null, 4)}`);
+
+                if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting))
+                {
+                    res.writeHead(429, {"Content-Type": parseURL.getMimeTypeFromFileFormatString(fileFormat)});
+                    res.end(convertFileFormat.auto(fileFormat, {
+                        "error": true,
+                        "internalError": false,
+                        "code": 101,
+                        "message": "Request blocked by rate limiting",
+                        "causedBy": [
+                            `You have sent too many requests. The limit is ${settings.httpServer.rateLimiting} requests within ${settings.httpServer.timeFrame} ${settings.httpServer.timeFrame == 1 ? "minute" : "minutes"}.\nIf you need more requests per minute, please contact me and we can figure things out: https://sv443.net/`
+                        ]
+                    }));
+                }
+            }
+            catch(err)
+            {
+                let fileFormat = !jsl.isEmpty(parsedURL.queryParams) && !jsl.isEmpty(parsedURL.queryParams.format) ? parseURL.getFileFormatFromQString(parsedURL.queryParams) : settings.jokes.defaultFileFormat.fileFormat;
+
+                res.writeHead(500, {"Content-Type": parseURL.getMimeTypeFromFileFormatString(fileFormat)})
                 res.end(convertFileFormat.auto(fileFormat, {
                     "error": true,
-                    "internalError": false,
-                    "code": 101,
+                    "internalError": true,
+                    "code": 100,
                     "message": "",
                     "causedBy": [
-                        `You have sent too many requests. The limit is ${settings.httpServer.rateLimiting} requests within ${settings.httpServer.timeFrame} ${settings.httpServer.timeFrame == 1 ? "minute" : "minutes"}.\nIf you need more requests per minute, please contact me and we can figure things out: https://sv443.net/`
+                        `An error in the code - please contact me through one of the options on my website (https://sv443.net) and provide the following error message:\n${err}`
                     ]
                 }));
             }

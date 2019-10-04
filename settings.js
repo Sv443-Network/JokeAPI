@@ -37,6 +37,11 @@ module.exports = {
                 "religious",
                 "political"
             ]
+        },
+        fileFormatsPath: "./data/fileFormats.json",
+        defaultFileFormat: {
+            fileFormat: "json",
+            mimeType: "application/json"
         }
     },
     httpServer: {
