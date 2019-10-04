@@ -5,7 +5,8 @@
   "main": "JokeAPI.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "reformat": "call node tools/reformat"
+    "reformat": "call node tools/reformat",
+    "reassign-ids": "call node tools/reassign-ids"
   },
   "repository": {
     "type": "git",
