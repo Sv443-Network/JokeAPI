@@ -61,9 +61,10 @@
 > [2.0.0] - The complete rewrite
     - JokeAPI was completely rewritten and should now run like 100x better and be more easy to develop and maintain
     - TODO:
-        - Add support for selecting multiple categories at once (comma-delimited: "https://sv443.net/jokeapi/category/Dark,Miscellaneous/")
+        - Add support for selecting multiple categories at once (for example: "https://sv443.net/jokeapi/category/Dark,Miscellaneous/")
         - "?type" URL parameter to specify the type of the served joke ("single" or "twopart")
         - "?contains" URL parameter to only serve jokes that match the provided search query
+        - "?containsFuzzy" URL parameter to only get the joke with the highest match score on a fuzzy search
         - Improve the "Try it out" section in the docs
         - Gzip encoding
         - Prevent submission of empty jokes
