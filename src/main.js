@@ -1,7 +1,6 @@
 // The main coordination file of JokeAPI
 // This file starts all necessary modules including the joke parser, the JokeAPI Documentation page injection and the HTTP listener
 
-
 // External Packages:
 const jsl = require("svjsl");
 const dotenv = require("dotenv");

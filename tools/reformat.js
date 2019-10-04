@@ -50,7 +50,7 @@ try {
 
     fs.writeFileSync("./data/jokes_new.json", JSON.stringify(doneFile, null, 4));
 
-    console.log("Done reformatting jokes.\n");
+    console.log("\x1b[32m\x1b[1mDone reformatting jokes.\x1b[0m\n");
     process.exit(0);
 }
 catch(err)

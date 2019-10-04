@@ -1,12 +1,13 @@
 {
-  "name": "jokeapi",
+  "name": "@sv443/jokeapi",
   "version": "2.0.0",
   "description": "A RESTful API that serves jokes from many categories while also offering a lot of filtering methods",
   "main": "JokeAPI.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "reformat": "call node tools/reformat",
-    "reassign-ids": "call node tools/reassign-ids"
+    "reassign-ids": "call node tools/reassign-ids",
+    "lint": "call eslint ./"
   },
   "repository": {
     "type": "git",

@@ -6,6 +6,10 @@ const jsonToXml = require("js2xmlparser");
 
 const settings = require("../settings");
 
+jsl.unused(jsonToXml);
+jsl.unused(jsonToYaml);
+jsl.unused(settings);
+
 
 const auto = (format, jsonInput) => {
     switch(format)
@@ -20,11 +24,11 @@ const auto = (format, jsonInput) => {
 }
 
 const toYAML = jsonInput => {
-
+    jsl.unused(jsonInput);
 }
 
 const toXML = jsonInput => {
-
+    jsl.unused(jsonInput);
 }
 
 module.exports = { auto, toYAML, toXML }

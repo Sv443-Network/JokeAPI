@@ -3,7 +3,6 @@
 
 try {
     const fs = require("fs");
-    const isEmpty = require("svjsl").isEmpty;
     const settings = require("../settings");
 
     console.log(`\nReassigning joke IDs in file "${settings.jokes.jokesFilePath}"...`);
@@ -30,7 +29,7 @@ try {
     fs.writeFileSync(settings.jokes.jokesFilePath, JSON.stringify(doneFile, null, 4));
 
 
-    console.log("Done reassigning joke IDs.\n");
+    console.log("\x1b[32m\x1b[1mDone reassigning joke IDs.\n\x1b[0m");
     process.exit(0);
 }
 catch(err)

@@ -12,7 +12,7 @@ const debug = require("./verboseLogging");
  */
 const init = () => {
     return new Promise((resolve, reject) => {
-        fs.readFile(settings.jokes.jokesFilePath, (err, jokes) => {
+        fs.readFile(settings.jokes.jokesFilePath, (err, jokesFile) => {
             if(err)
                 return reject(err);
             
@@ -20,7 +20,7 @@ const init = () => {
 
             try
             {
-                jokes = JSON.parse(jokes);
+                jokesFile = JSON.parse(jokesFile.toString());
             }
             catch(err)
             {
@@ -28,7 +28,7 @@ const init = () => {
             }
             
 
-            jokes.forEach((joke, i) => {
+            jokesFile.jokes.forEach((joke, i) => {
                 //#MARKER joke ID
                 if(!jsl.isEmpty(joke.id) && !isNaN(parseInt(joke.id)))
                     result.push(true);
