@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "reformat": "call node tools/reformat",
     "reassign-ids": "call node tools/reassign-ids",
-    "lint": "call eslint ./"
+    "lint": "call ./tools/lint.bat"
   },
   "repository": {
     "type": "git",
