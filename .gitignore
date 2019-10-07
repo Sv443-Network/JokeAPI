@@ -64,3 +64,4 @@ typings/
 test.js
 .github/
 !change.log
+data/lists/
