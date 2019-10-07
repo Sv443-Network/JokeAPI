@@ -11,6 +11,7 @@ const parseURL = require("./parseURL");
 
 
 const init = () => {
+    debug("HTTP", "Starting HTTP server...");
     return new Promise((resolve, reject) => {
         let httpServer = http.createServer((req, res) => {
             let parsedURL = parseURL(req.url);
@@ -48,7 +49,14 @@ const init = () => {
                     data += chunk;
 
                     if(data == process.env.RESTART_TOKEN)
+                    {
+                        res.writeHead(200, {"Content-Type": parseURL.getMimeTypeFromFileFormatString(fileFormat)});
+                        res.end(convertFileFormat.auto(fileFormat, {
+                            "success": true,
+                            "timestamp": new Date().getTime()
+                        }));
                         process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
+                    }
                 });
             }
             //#SECTION HEAD / OPTIONS
