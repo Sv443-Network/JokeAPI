@@ -10,6 +10,8 @@ const settings = require("../settings");
 const debug = require("./verboseLogging");
 const parseJokes = require("./parseJokes");
 const httpServer = require("./httpServer");
+const lists = require("./lists");
+const docs = require("./docs");
 
 // Dependency / Package Setup:
 const col = jsl.colors;
@@ -21,23 +23,34 @@ dotenv.config();
 // Other stuff:
 console.log(`Init ${settings.info.name} (v${settings.info.version})`);
 let pb;
-if(!noDbg) pb = new jsl.ProgressBar(5, "Parsing Jokes...");
 
 
 //#MARKER init all
 const initAll = () => {
+    process.jokeapi = {};
     debug("Init", "Calling joke parser...");
 
     //#SECTION parse jokes
+    if(!noDbg && !settings.debug.progressBarDisabled)
+        pb = new jsl.ProgressBar(5, "Parsing Jokes...");
     parseJokes.init().then(() => {
-        if(!noDbg) pb.next("Initializing HTTP listener...");
+        
+        //#SECTION init lists
+        if(!jsl.isEmpty(pb)) pb.next("Initializing lists...");
+        lists.init().then(() => {
 
-        // TODO: add black-/whitelist init and docs init before httpserver init
+            //#SECTION init documentation page
+            if(!jsl.isEmpty(pb)) pb.next("Initializing documentation...");
+            docs.init().then(() => {
 
-        httpServer.init().then(() => {
-            if(!noDbg) pb.next("...");
+                //#SECTION init HTTP server
+                if(!jsl.isEmpty(pb)) pb.next("Initializing HTTP listener...");
+                httpServer.init().then(() => {  // <-DEBUG
+                    if(!jsl.isEmpty(pb)) pb.next("...");
 
-        }).catch(err => initError("initializing the HTTP server", err));
+                }).catch(err => initError("initializing the HTTP server", err));
+            }).catch(err => initError("initializing documentation", err));
+        }).catch(err => initError("initializing the lists", err));
     }).catch(err => initError("parsing jokes", err));
 };
 

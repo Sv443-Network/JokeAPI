@@ -76,3 +76,4 @@
         - Added multiple scripts that should be run before contributing to the project
             - "npm run reformat" to reformat jokes from the old pre-2.0.0 syntax to the new 2.0.0 syntax
             - "npm run reassign-ids" to make sure all jokes have the correct IDs
+        - Now the documentation page will only be recompiled if a file has changed
