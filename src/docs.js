@@ -64,6 +64,7 @@ const startDaemon = () => {
 const recompileDocs = () => {
     debug("Docs", "Recompiling docs...");
 
+    let recompileDocsInitTimestamp = new Date().getTime();
     try
     {
         inject(`${settings.documentation.rawDirPath}index.js`).then(injected_js => {
@@ -75,7 +76,8 @@ const recompileDocs = () => {
                         inject(`${settings.documentation.rawDirPath}index.html`).then(injected_html => {
                             fs.writeFile(`${settings.documentation.dirPath}documentation.html`, injected_html, err => {
                                 if(err) injectError(err);
-                                debug("Docs", "Done recompiling docs.");
+                                let recompileDocsTime = new Date().getTime() - recompileDocsInitTimestamp;
+                                debug("Docs", `Done recompiling docs in ${recompileDocsTime}ms`);
                             });
                         }).catch(err => injectError(err));
                     });
