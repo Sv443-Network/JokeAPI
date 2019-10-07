@@ -67,14 +67,20 @@ const recompileDocs = () => {
     try
     {
         inject(`${settings.documentation.rawDirPath}index.js`).then(injected_js => {
-            fs.writeFileSync(`${settings.documentation.dirPath}index_injected.js`, injected_js);
-            inject(`${settings.documentation.rawDirPath}index.css`).then(injected_css => {
-                fs.writeFileSync(`${settings.documentation.dirPath}index_injected.css`, injected_css);
-                inject(`${settings.documentation.rawDirPath}index.html`).then(injected_html => {
-                    fs.writeFileSync(`${settings.documentation.dirPath}documentation.html`, injected_html);
-                    debug("Docs", "Done recompiling docs.");
+            fs.writeFile(`${settings.documentation.dirPath}index_injected.js`, injected_js, err => {
+                if(err) injectError(err);
+                inject(`${settings.documentation.rawDirPath}index.css`).then(injected_css => {
+                    fs.writeFile(`${settings.documentation.dirPath}index_injected.css`, injected_css, err => {
+                        if(err) injectError(err);
+                        inject(`${settings.documentation.rawDirPath}index.html`).then(injected_html => {
+                            fs.writeFile(`${settings.documentation.dirPath}documentation.html`, injected_html, err => {
+                                if(err) injectError(err);
+                                debug("Docs", "Done recompiling docs.");
+                            });
+                        }).catch(err => injectError(err));
+                    });
                 }).catch(err => injectError(err));
-            }).catch(err => injectError(err));
+            });
         }).catch(err => injectError(err));
     }
     catch(err)
