@@ -68,4 +68,7 @@ module.exports = {
         rawDirPath: "./docs/raw/", // path to the raw documentation files directory - needs trailing slash
         daemonInterval: 15,        // interval (in seconds) at which the daemon checks for changes in the documentation directory
     },
+    endpoints: {
+        dirPath: "./endpoints/", // path to the dir containing all the endpoint scripts
+    }
 }

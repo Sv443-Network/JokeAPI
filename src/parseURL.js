@@ -7,9 +7,23 @@ const searchFuzzy = require("./searchFuzzy");
 const settings = require("../settings");
 
 /**
+ * @typedef {Object} ParsedUrl
+ * @prop {null} error If not errored, this will be `null`, else it will contain a string with the error message
+ * @prop {String} initialURL
+ * @prop {Array<String>} pathArray
+ * @prop {Object} queryParams 
+ */
+
+/**
+ * @typedef {Object} ErroredParsedUrl
+ * @prop {String} error
+ * @prop {String} initialURL
+ */
+
+/**
  * Parses the passed URL, returning a fancy object
  * @param {String} url
- * @returns {Object}
+ * @returns {(ParsedUrl|ErroredParsedUrl)}
  */
 const parseURL = url => {
     let error = null;
@@ -55,6 +69,7 @@ const parseURL = url => {
 
     if(!error)
         return {
+            error: null,
             initialURL: url,
             pathArray: pathArr,
             queryParams: qstrObj

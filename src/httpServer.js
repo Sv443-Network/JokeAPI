@@ -3,6 +3,7 @@
 const jsl = require("svjsl");
 const http = require("http");
 const rateLimit = require("http-ratelimit");
+const fs = require("fs");
 
 const settings = require("../settings");
 const debug = require("./verboseLogging");
@@ -13,75 +14,116 @@ const parseURL = require("./parseURL");
 const init = () => {
     debug("HTTP", "Starting HTTP server...");
     return new Promise((resolve, reject) => {
-        let httpServer = http.createServer((req, res) => {
-            let parsedURL = parseURL(req.url);
-            let fileFormat = !jsl.isEmpty(parsedURL.queryParams) && !jsl.isEmpty(parsedURL.queryParams.format) ? parseURL.getFileFormatFromQString(parsedURL.queryParams) : settings.jokes.defaultFileFormat.fileFormat;
+        let endpoints = [];
 
-            try
-            {
-                rateLimit.inboundRequest(req);
-
-                debug("HTTP", `URL obj is: ${JSON.stringify(parsedURL, null, 4)}`);
-
-                if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting))
-                {
-                    // TODO: analytics.rateLimited(req);
-                    return respondWithError(res, 429, 101, fileFormat);
-                }
-            }
-            catch(err)
-            {
+        let initHttpServer = () => {
+            let httpServer = http.createServer((req, res) => {
+                let parsedURL = parseURL(req.url);
                 let fileFormat = !jsl.isEmpty(parsedURL.queryParams) && !jsl.isEmpty(parsedURL.queryParams.format) ? parseURL.getFileFormatFromQString(parsedURL.queryParams) : settings.jokes.defaultFileFormat.fileFormat;
-                // TODO: analytics.internalError("HTTP", err);
-                return respondWithError(res, 500, 100, fileFormat, err);
-            }
 
-            //#SECTION GET
-            if(req.method === "GET")
-            {
-                jsl.unused(); //TODO: all of this shit
-            }
-            //#SECTION PUT
-            else if(req.method === "PUT")
-            {
-                let data = "";
-                req.on("data", chunk => {
-                    data += chunk;
+                try
+                {
+                    rateLimit.inboundRequest(req);
 
-                    if(data == process.env.RESTART_TOKEN)
+                    debug("HTTP", `URL obj is: ${JSON.stringify(parsedURL, null, 4)}`);
+
+                    if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting))
                     {
-                        res.writeHead(200, {"Content-Type": parseURL.getMimeTypeFromFileFormatString(fileFormat)});
-                        res.end(convertFileFormat.auto(fileFormat, {
-                            "success": true,
-                            "timestamp": new Date().getTime()
-                        }));
-                        process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
+                        // TODO: analytics.rateLimited(req);
+                        return respondWithError(res, 429, 101, fileFormat);
                     }
-                });
-            }
-            //#SECTION HEAD / OPTIONS
-            else if(req.method === "HEAD" || req.method === "OPTIONS")
-            {
-                //TODO: all of this shit
-            }
-        });
+                }
+                catch(err)
+                {
+                    let fileFormat = !jsl.isEmpty(parsedURL.queryParams) && !jsl.isEmpty(parsedURL.queryParams.format) ? parseURL.getFileFormatFromQString(parsedURL.queryParams) : settings.jokes.defaultFileFormat.fileFormat;
+                    // TODO: analytics.internalError("HTTP", err);
+                    return respondWithError(res, 500, 100, fileFormat, err);
+                }
 
-        httpServer.listen(settings.httpServer.port, settings.httpServer.hostname, err => {
-            if(!err)
-            {
-                rateLimit.init(settings.httpServer.timeFrame, true);
-                debug("HTTP", `${jsl.colors.fg.green}HTTP Server successfully listens on port ${settings.httpServer.port}${jsl.colors.rst}`);
-                return resolve();
-            }
-            else
-            {
-                debug("HTTP", `${jsl.colors.fg.red}HTTP listener init encountered error: ${settings.httpServer.port}${jsl.colors.rst}`);
-                return reject(err);
-            }
-        });
-    
-        httpServer.on("error", err => {
-            jsl.unused(err); // TODO: handle error
+                //#SECTION GET
+                if(req.method === "GET")
+                {
+                    //TODO: all of this shit
+                    
+                    if(parsedURL.error === null)
+                    {
+                        let urlPath = parsedURL.pathArray;
+                        let requestedEndpoint = "";
+                        let lowerCaseEndpoints = [];
+                        endpoints.forEach(ep => lowerCaseEndpoints.push(ep.name.toLowerCase()));
+
+                        urlPath.forEach(p => {
+                            if(lowerCaseEndpoints.includes(p))
+                                requestedEndpoint = lowerCaseEndpoints[lowerCaseEndpoints.indexOf(p)];
+                        });
+
+                        endpoints.forEach(ep => {
+                            if(ep.name == requestedEndpoint)
+                                require(ep.absPath).call(res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
+                        });
+                    }
+                }
+                //#SECTION PUT
+                else if(req.method === "PUT")
+                {
+                    let data = "";
+                    req.on("data", chunk => {
+                        data += chunk;
+
+                        if(data == process.env.RESTART_TOKEN)
+                        {
+                            res.writeHead(200, {"Content-Type": parseURL.getMimeTypeFromFileFormatString(fileFormat)});
+                            res.end(convertFileFormat.auto(fileFormat, {
+                                "success": true,
+                                "timestamp": new Date().getTime()
+                            }));
+                            process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
+                        }
+                    });
+                }
+                //#SECTION HEAD / OPTIONS
+                else if(req.method === "HEAD" || req.method === "OPTIONS")
+                {
+                    //TODO: all of this shit
+                }
+            });
+
+            httpServer.listen(settings.httpServer.port, settings.httpServer.hostname, err => {
+                if(!err)
+                {
+                    rateLimit.init(settings.httpServer.timeFrame, true);
+                    debug("HTTP", `${jsl.colors.fg.green}HTTP Server successfully listens on port ${settings.httpServer.port}${jsl.colors.rst}`);
+                    return resolve();
+                }
+                else
+                {
+                    debug("HTTP", `${jsl.colors.fg.red}HTTP listener init encountered error: ${settings.httpServer.port}${jsl.colors.rst}`);
+                    return reject(err);
+                }
+            });
+        
+            httpServer.on("error", err => {
+                jsl.unused(err); // TODO: handle error
+            });
+        };
+
+        fs.readdir(settings.endpoints.dirPath, (err1, files) => {
+            files.forEach(file => {
+                let fileName = file.split(".");
+                fileName.pop();
+                fileName = fileName.length > 1 ? fileName.join(".") : fileName[0];
+
+                let endpointFilePath = `${settings.endpoints.dirPath}${file}`;
+
+                let stats = fs.statSync(endpointFilePath);
+                if(stats.isFile())
+                    endpoints.push({
+                        name: fileName,
+                        desc: require(`.${endpointFilePath}`).meta.desc, // needs an extra . cause require() is relative to this file, whereas "fs" is relative to the project root
+                        absPath: endpointFilePath
+                    });
+            });
+            initHttpServer();
         });
     });
 }
