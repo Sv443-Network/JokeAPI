@@ -32,6 +32,21 @@ const init = () => {
                         // TODO: analytics.rateLimited(req);
                         return respondWithError(res, 429, 101, fileFormat);
                     }
+
+                    if(settings.httpServer.allowCORS) {
+                        try
+                        {
+                            res.setHeader("Access-Control-Allow-Origin", "*");
+                            res.setHeader("Access-Control-Request-Method", "GET");
+                            res.setHeader("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS");
+                            res.setHeader("Access-Control-Allow-Headers", "*");
+                        }
+                        catch(err)
+                        {
+                            console.log(`${jsl.colors.fg.red}Error while setting up CORS headers: ${err}${jsl.colors.rst}`);
+                        }
+                    }
+                    res.setHeader("Allow", "GET, HEAD, OPTIONS");
                 }
                 catch(err)
                 {
@@ -85,6 +100,7 @@ const init = () => {
                 else if(req.method === "HEAD" || req.method === "OPTIONS")
                 {
                     //TODO: all of this shit
+
                 }
             });
 
