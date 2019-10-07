@@ -29,7 +29,7 @@ const initJokeAPI = () => {
     {
         return wrap(settings.wrapper.mainFilePath, {
             console: true,
-            crashTimeout: 1000, // big enough of a timeout to hopefully allow all possible hiccups to settle down
+            crashTimeout: settings.wrapper.crashTimeout,
             logFile: settings.wrapper.logFilePath,
             logTimestamp: true,
             restartOnCrash: true,

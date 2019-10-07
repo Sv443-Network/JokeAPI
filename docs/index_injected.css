@@ -1,0 +1,10 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #444;
+    color: white;
+    font-family: "Roboto", "Segoe UI", "Arial", sans-serif;
+    font-size: 15px;
+}

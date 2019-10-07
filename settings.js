@@ -6,9 +6,11 @@ module.exports = {
         progressBarDisabled: true, // set to true to disable the progress bar - can improve readability of verbose debug output
     },
     info: {
-        name: "JokeAPI",                            // the name of JokeAPI
-        version: packageJSON.version,               // the version as a string
-        versionInt: packageJSON.version.split("."), // the version as a number array
+        name: "JokeAPI",                                // the name of JokeAPI
+        desc: packageJSON.description,                  // the description of JokeAPI
+        projGitHub: "https://github.com/Sv443/JokeAPI", // URL to the project's GitHub page
+        version: packageJSON.version,                   // the version as a string
+        versionInt: packageJSON.version.split("."),     // the version as a number array
         author: {
             name: "Sv443",                      // author name
             email: "sven.fehler@web.de",        // author email
@@ -23,17 +25,19 @@ module.exports = {
         mainFilePath: "./src/main.js",     // main script file
         logFilePath: "./data/wrapper.log", // wrapper log file
         skipWrapping: false,               // whether or not to skip the wrapping through node-wrap
+        crashTimeout: 2000,                // big enough of a timeout to hopefully allow all possible hiccups to settle down before restarting
     },
     jokes: {
         jokesFilePath: "./data/jokes.json",                  // path to the jokes file
         jokeSubmissionURL: "https://sv443.net/r/submitjoke", // joke submission url
         possible: {
-            categories: [        // all categories (excluding "Any")
+            anyCategoryName: "Any", // the name of the "Any" category
+            categories: [           // all categories (excluding "Any")
                 "Miscellaneous",
                 "Programming",
                 "Dark"
             ],
-            flags: [             // all flags
+            flags: [                // all flags
                 "nsfw",
                 "religious",
                 "political"
@@ -60,7 +64,8 @@ module.exports = {
         consoleBlacklistPath: "./data/lists/consoleBlacklist.json", // path to the IP console blacklist
     },
     documentation: {
-        dirPath: "./docs/", // path to the documentation directory
-        daemonInterval: 15, // interval (in seconds) at which the daemon checks for changes in the documentation directory
+        dirPath: "./docs/",        // path to the documentation directory - needs trailing slash
+        rawDirPath: "./docs/raw/", // path to the raw documentation files directory - needs trailing slash
+        daemonInterval: 15,        // interval (in seconds) at which the daemon checks for changes in the documentation directory
     },
 }

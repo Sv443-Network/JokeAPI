@@ -5,4 +5,7 @@
     - Start HTTP server
 
 [On HTTP Request]
-    - 
+    > IF path matches a script in ./endpoints
+        - execute that script
+    > ELSE
+        - return 404 error
