@@ -61,7 +61,9 @@ typings/
 .next
 
 
+blacklist.json*
+consoleBlacklist.json*
+whitelist.json*
 test.js
 .github/
 !change.log
-data/lists/
