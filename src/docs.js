@@ -128,6 +128,7 @@ const inject = filePath => {
                 file = file.replace(/<!--%#INSERT:JOKESUBMISSIONURL#%-->/gm, settings.jokes.jokeSubmissionURL);
                 file = file.replace(/<!--%#INSERT:CATEGORYARRAY#%-->/gm, `["${settings.jokes.possible.categories.join(`", "`)}"]`);
                 file = file.replace(/<!--%#INSERT:FLAGSARRAY#%-->/gm, `["${settings.jokes.possible.flags.join(`", "`)}"]`);
+                file = file.replace(/<!--%#INSERT:TOTALJOKES#%-->/gm, "42069"); // TODO:
 
                 resolve(file.toString());
             }
