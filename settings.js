@@ -1,4 +1,5 @@
 const packageJSON = require("./package.json");
+const col = require("svjsl").colors;
 
 module.exports = {
     debug: {
@@ -70,5 +71,12 @@ module.exports = {
     },
     endpoints: {
         dirPath: "./endpoints/", // path to the dir containing all the endpoint scripts
+        docsEndpoint: "docs",    // the name of the documentation endpoint
+    },
+    colors: {
+        success: col.fg.green,  // when request successful
+        error: col.fg.red,      // when request errored
+        ratelimit: col.fg.pink, // when request rate limited
+        docs: col.fg.yellow,    // when docs were requested
     }
 }

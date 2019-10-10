@@ -1,6 +1,7 @@
 // this module starts the HTTP server, parses the request and calls the requested endpoint
 
 const jsl = require("svjsl");
+const UNUSED = jsl.unused;
 const http = require("http");
 const rateLimit = require("http-ratelimit");
 const fs = require("fs");
@@ -67,15 +68,26 @@ const init = () => {
                         let lowerCaseEndpoints = [];
                         endpoints.forEach(ep => lowerCaseEndpoints.push(ep.name.toLowerCase()));
 
-                        urlPath.forEach(p => {
-                            if(lowerCaseEndpoints.includes(p))
-                                requestedEndpoint = lowerCaseEndpoints[lowerCaseEndpoints.indexOf(p)];
-                        });
+                        if(!jsl.isEmpty(urlPath))
+                            urlPath.forEach(p => {
+                                if(lowerCaseEndpoints.includes(p))
+                                    requestedEndpoint = lowerCaseEndpoints[lowerCaseEndpoints.indexOf(p)];
+                            });
+                        else requestedEndpoint = settings.endpoints.docsEndpoint;
 
+                        let foundEndpoint = false;
                         endpoints.forEach(ep => {
                             if(ep.name == requestedEndpoint)
+                            {
+                                foundEndpoint = true;
                                 require(ep.absPath).call(res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
+                            }
                         });
+
+                        if(!foundEndpoint)
+                        {
+                            //TODO: serve 404 page
+                        }
                     }
                 }
                 //#SECTION PUT
@@ -119,7 +131,7 @@ const init = () => {
             });
         
             httpServer.on("error", err => {
-                jsl.unused(err); // TODO: handle error
+                UNUSED(err); // TODO: handle error
             });
         };
 
@@ -178,4 +190,4 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
     }
 };
 
-module.exports = { init, respondWithError }
+module.exports = { init, respondWithError };

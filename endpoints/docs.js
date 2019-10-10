@@ -1,11 +1,15 @@
+const fs = require("fs");
 const http = require("http");
 const jsl = require("svjsl");
+
 const settings = require("../settings");
+const parseURL = require("../src/parseURL");
+const opportunisticResponse = require("../src/opportunisticResponse");
 
 
 const meta = {
-    "name": "Category",
-    "desc": "Returns a joke from the specified category"
+    "name": "Docs",
+    "desc": "The documentation page"
 };
 
 /**
@@ -17,7 +21,17 @@ const meta = {
  * @param {String} format The file format to respond with
  */
 const call = (req, res, url, params, format) => {
+    try
+    {
+        let docsFileStream = fs.createReadStream(`${settings.documentation.dirPath}documentation.html`);
 
+        res.writeHead(200, {"Content-Type": parseURL.getMimeTypeFromFileFormatString(format)});
+        opportunisticResponse(req, res, docsFileStream, format);
+    }
+    catch(err)
+    {
+        
+    }
 };
 
 module.exports = { meta, call };

@@ -10,8 +10,8 @@ const settings = require("../settings");
  * @typedef {Object} ParsedUrl
  * @prop {null} error If not errored, this will be `null`, else it will contain a string with the error message
  * @prop {String} initialURL
- * @prop {Array<String>} pathArray
- * @prop {Object} queryParams 
+ * @prop {(Array<String>|null)} pathArray If empty, this will be `null`, else it will be an array of the URL path
+ * @prop {(Object|null)} queryParams If empty, this will be `null`, else it will be an object of query parameters
  */
 
 /**
@@ -66,6 +66,8 @@ const parseURL = url => {
         error = err;
     }
 
+    if(jsl.isArrayEmpty(pathArr))
+        pathArr = null;
 
     if(!error)
         return {
