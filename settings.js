@@ -65,9 +65,10 @@ module.exports = {
         consoleBlacklistPath: "./data/lists/consoleBlacklist.json", // path to the IP console blacklist
     },
     documentation: {
-        dirPath: "./docs/",        // path to the documentation directory - needs trailing slash
-        rawDirPath: "./docs/raw/", // path to the raw documentation files directory - needs trailing slash
-        daemonInterval: 15,        // interval (in seconds) at which the daemon checks for changes in the documentation directory
+        dirPath: "./docs/",                  // path to the documentation directory - needs trailing slash
+        rawDirPath: "./docs/raw/",           // path to the raw documentation files directory - needs trailing slash
+        daemonInterval: 15,                  // interval (in seconds) at which the daemon checks for changes in the documentation directory
+        error404path: "./docs/err/404.html", // path to the 404 error page
     },
     endpoints: {
         dirPath: "./endpoints/", // path to the dir containing all the endpoint scripts

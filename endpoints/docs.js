@@ -5,6 +5,7 @@ const jsl = require("svjsl");
 const settings = require("../settings");
 const parseURL = require("../src/parseURL");
 const opportunisticResponse = require("../src/opportunisticResponse");
+const httpServer = require("../src/httpServer");
 
 
 const meta = {
@@ -30,7 +31,7 @@ const call = (req, res, url, params, format) => {
     }
     catch(err)
     {
-        
+        httpServer.respondWithErrorPage(req, res, 500, format);
     }
 };
 

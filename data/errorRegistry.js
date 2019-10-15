@@ -1,7 +1,7 @@
 const settings = require("../settings");
 
 module.exports = {
-    //#MARKER Class 1xx
+    //#MARKER Class 1xx (HTTP)
     "100": {
         "errorInternal": true,
         "errorMessage": "HTTP Module | Internal Error",
@@ -14,6 +14,13 @@ module.exports = {
         "errorMessage": "Request Blocked by Rate Limiting",
         "causedBy": [
             `You have sent too many requests. The limit is ${settings.httpServer.rateLimiting} requests within ${settings.httpServer.timeFrame} ${settings.httpServer.timeFrame == 1 ? "minute" : "minutes"}.\nIf you need more requests per minute, please contact me and we can try to figure things out: ${settings.info.author.website}`
+        ]
+    },
+    "102": {
+        "errorInternal": false,
+        "errorMessage": "Requested Endpoint not found",
+        "causedBy": [
+            "You sent a request to the wrong URL"
         ]
     }
     //#MARKER Class 2xx

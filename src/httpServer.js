@@ -10,6 +10,7 @@ const settings = require("../settings");
 const debug = require("./verboseLogging");
 const convertFileFormat = require("./fileFormatConverter");
 const parseURL = require("./parseURL");
+const opportunisticResponse = require("./opportunisticResponse");
 
 
 const init = () => {
@@ -80,13 +81,18 @@ const init = () => {
                             if(ep.name == requestedEndpoint)
                             {
                                 foundEndpoint = true;
-                                require(ep.absPath).call(res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
+                                return require(`.${ep.absPath}`).call(res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
                             }
                         });
 
                         if(!foundEndpoint)
                         {
-                            //TODO: serve 404 page
+                            if(!jsl.isEmpty(fileFormat))
+                            {
+                                // TODO: correct anchor
+                                return respondWithError(res, 102, 404, fileFormat, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at https://sv443.net/jokeapi#endpoints to see all available endpoints`);
+                            }
+                            else return respondWithErrorPage(req, res, 404, fileFormat, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at https://sv443.net/jokeapi#endpoints to see all available endpoints`);
                         }
                     }
                 }
@@ -190,4 +196,36 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
     }
 };
 
-module.exports = { init, respondWithError };
+/**
+ * Responds with an error page (which one is based on the status code).
+ * Defaults to 500
+ * @param {http.IncomingMessage} req
+ * @param {http.ServerResponse} res 
+ * @param {(404|500)} statusCode 
+ * @param {String} fileFormat
+ * @param {String} error
+ */
+const respondWithErrorPage = (req, res, statusCode, fileFormat, error) => {
+    if(isNaN(parseInt(statusCode)))
+        jsl.unused(); // TODO: handle error
+    
+    let filePath = "";
+
+    switch(statusCode)
+    {
+        case 404:
+            filePath = settings.documentation.error404path;
+        break;
+        case 500: default:
+            filePath = settings.documentation.error500path;
+        break;
+    }
+
+    let errPage = fs.createReadStream(filePath);
+    jsl.unused(error); //TODO: inject error message
+
+    res.writeHead(statusCode, {"Content-Type": "text/html"});
+    opportunisticResponse(req, res, errPage, fileFormat);    
+}
+
+module.exports = { init, respondWithError, respondWithErrorPage };
