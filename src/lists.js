@@ -17,7 +17,7 @@ const init = () => {
         fs.readFile(settings.lists.blacklistPath, (err1, blacklist) => {
             if(!jsl.isEmpty(err1) && !err1.toString().includes("ENOENT"))
                 return reject(err1);
-            else if(err1.toString().includes("ENOENT"))
+            else if(!jsl.isEmpty(err1) && err1.toString().includes("ENOENT"))
                 blacklist = "[\n\t\n]";
 
             blacklist = blacklist.toString();
@@ -25,7 +25,7 @@ const init = () => {
             fs.readFile(settings.lists.whitelistPath, (err2, whitelist) => {
                 if(!jsl.isEmpty(err2) && !err2.toString().includes("ENOENT"))
                     return reject(err2);
-                else if(err2.toString().includes("ENOENT"))
+                else if(!jsl.isEmpty(err2) && err2.toString().includes("ENOENT"))
                     whitelist = "[\n\t\n]";
 
                 whitelist = whitelist.toString();
@@ -33,7 +33,7 @@ const init = () => {
                 fs.readFile(settings.lists.consoleBlacklistPath, (err3, consoleBlacklist) => {
                     if(!jsl.isEmpty(err3) && !err3.toString().includes("ENOENT"))
                         return reject(err3);
-                    else if(err3.toString().includes("ENOENT"))
+                    else if(!jsl.isEmpty(err3) && err3.toString().includes("ENOENT"))
                         consoleBlacklist = "[\n\t\n]";
 
                     consoleBlacklist = consoleBlacklist.toString();

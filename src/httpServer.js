@@ -207,7 +207,7 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
  */
 const respondWithErrorPage = (req, res, statusCode, fileFormat, error) => {
     if(isNaN(parseInt(statusCode)))
-        jsl.unused(); // TODO: handle error
+        return jsl.unused(); // TODO: handle error
     
     let filePath = "";
 
