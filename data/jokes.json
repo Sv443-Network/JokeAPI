@@ -1528,6 +1528,41 @@
                 "political": false
             },
             "id": 130
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "I was walking down the street and saw some black guy on a bike and it looked just like mine so I ran home to check.",
+            "delivery": "Thankfully he was still chained up in my basement",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false
+            },
+            "id": 131
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "What time did the man go to the dentist?",
+            "delivery": "Tooth hurt-y.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false
+            },
+            "id": 132
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "joke": "I'm reading a book about anti-gravity. It's impossible to put down!",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false
+            },
+            "id": 133
         }
     ]
 }
