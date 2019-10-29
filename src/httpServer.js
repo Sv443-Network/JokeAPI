@@ -140,10 +140,7 @@ const init = () => {
                 }
                 //#SECTION HEAD / OPTIONS
                 else if(req.method === "HEAD" || req.method === "OPTIONS")
-                {
-                    //TODO: all of this shit
-
-                }
+                    serveDocumentation();
             });
 
             httpServer.listen(settings.httpServer.port, settings.httpServer.hostname, err => {
@@ -257,14 +254,27 @@ const respondWithErrorPage = (req, res, statusCode, fileFormat, error) => {
  * @param {http.ServerResponse} res The HTTP res object
  * @param {String} text The response body
  * @param {String} mimeType The MIME type to respond with
+ * @param {Number} [statusCode=200] The status code to respond with - defaults to 200
  */
-const pipeString = (res, text, mimeType) => {
+const pipeString = (res, text, mimeType, statusCode = 200) => {
+    try
+    {
+        statusCode = parseInt(statusCode);
+        if(isNaN(statusCode)) throw new Error("");
+    }
+    catch(err)
+    {
+        res.writeHead(500, {"Content-Type": `text/plain; UTF-8`});
+        res.end("INTERNAL_ERR:STATUS_CODE_NOT_INT");
+        return;
+    }
+
     let s = new Readable();
     s._read = () => {};
     s.push(text);
     s.push(null);
 
-    res.writeHead(200, {
+    res.writeHead(statusCode, {
         "Content-Type": `${mimeType}; UTF-8`,
         "Content-Length": text.length
     });
@@ -283,6 +293,7 @@ const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
     try
     {
         statusCode = parseInt(statusCode);
+        if(isNaN(statusCode)) throw new Error("");
     }
     catch(err)
     {
@@ -307,6 +318,14 @@ const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
 
     let readStream = fs.createReadStream(filePath);
     readStream.pipe(res);
+}
+
+/**
+ * Serves the documentation page
+ * @param {http.ServerResponse} res The HTTP res object
+ */
+const serveDocumentation = res => {
+    return pipeFile(res, `${settings.documentation.dirPath}documentation.html`, "text/html", 200);
 }
 
 module.exports = { init, respondWithError, respondWithErrorPage, pipeString, pipeFile };
