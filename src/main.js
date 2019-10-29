@@ -1,38 +1,42 @@
 // The main coordination file of JokeAPI
 // This file starts all necessary modules including the joke parser, the JokeAPI Documentation page injection and the HTTP listener
 
-// External Packages:
+
 const jsl = require("svjsl");
 const dotenv = require("dotenv");
+const fs = require("fs");
 
-// JokeAPI Modules:
 const settings = require("../settings");
 const debug = require("./verboseLogging");
+const logger = require("./logger");
 const parseJokes = require("./parseJokes");
 const httpServer = require("./httpServer");
 const lists = require("./lists");
 const docs = require("./docs");
 
-// Dependency / Package Setup:
-const col = jsl.colors;
+const col = jsl.colors.fg;
 process.japi = {};
 process.japi.debuggerActive = typeof v8debug === "object" || /--debug|--inspect/.test(process.execArgv.join(" "));
 const noDbg = process.japi.debuggerActive || false;
 dotenv.config();
 
-// Other stuff:
-console.log(`Init ${settings.info.name} (v${settings.info.version})`);
+
+console.log(`\n\n\n\n\n\n\n\n\n\n\n`);
+console.log(`[${logger.getTimestamp(" | ")}] ${col.cyan}Initializing ${settings.info.name} v${settings.info.version}...${jsl.colors.rst}`);
 let pb;
+
 
 
 //#MARKER init all
 const initAll = () => {
     process.jokeapi = {};
+    initializeDirs();
+
     debug("Init", "Calling joke parser...");
 
     //#SECTION parse jokes
     if(!noDbg && !settings.debug.progressBarDisabled)
-        pb = new jsl.ProgressBar(5, "Parsing Jokes...");
+        pb = new jsl.ProgressBar(4, "Parsing Jokes...");
     parseJokes.init().then(() => {
         
         //#SECTION init lists
@@ -45,8 +49,14 @@ const initAll = () => {
 
                 //#SECTION init HTTP server
                 if(!jsl.isEmpty(pb)) pb.next("Initializing HTTP listener...");
-                httpServer.init().then(() => {  // <-DEBUG
-                    if(!jsl.isEmpty(pb)) pb.next("...");
+                httpServer.init().then(() => {
+                    if(!jsl.isEmpty(pb)) pb.next("Done.");
+
+                    console.log(`\n  ${settings.colors.success}▌ Success ${settings.colors.docs}▌ Docs ${settings.colors.ratelimit}▌ RateLimit ${settings.colors.error}▌ Error${jsl.colors.rst}`);
+                    process.stdout.write("\x1b[2m");
+                    process.stdout.write("└┬─────────────────────────────────────┘\n");
+                    process.stdout.write(" └► ");
+                    process.stdout.write("\x1b[0m");
 
                 }).catch(err => initError("initializing the HTTP server", err));
             }).catch(err => initError("initializing documentation", err));
@@ -55,6 +65,8 @@ const initAll = () => {
 };
 
 
+//#MARKER other
+
 /**
  * This function gets called when JokeAPI encounters an error while initializing.
  * Because the initialization phase is such a delicate and important process, JokeAPI shuts down if an error is encountered.
@@ -62,8 +74,28 @@ const initAll = () => {
  * @param {Error} err 
  */
 const initError = (action, err) => {
-    console.log(`\n\n\n${col.fg.red}JokeAPI encountered an error while ${action}:\n${err}\n\n${col.rst}`);
+    console.log(`\n\n\n${col.red}JokeAPI encountered an error while ${action}:\n${err}\n\n${jsl.colors.rst}`);
     process.exit(1);
+}
+
+/**
+ * Makes sure all directories exist and creates them if they don't
+ */
+const initializeDirs = () => {
+    try
+    {
+        settings.init.initDirs.forEach(dir => {
+            if(!fs.existsSync(dir))
+            {
+                debug("InitDirs", `Dir "${dir}" doesn't exist, creating it...`);
+                fs.mkdirSync(dir);
+            }
+        });
+    }
+    catch(err)
+    {
+        initError("initializing default directories", err);
+    }
 }
 
 

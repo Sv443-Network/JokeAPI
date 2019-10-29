@@ -32,9 +32,7 @@ const logger = (type, content, timestamp) => {
 
         if(timestamp)
         {
-            let d = new Date();
-            let timestamp = `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}.${d.getMilliseconds()}`;
-            errorContent = `[${timestamp}]  ${errorContent}`;
+            errorContent = `[${getTimestamp()}]  ${errorContent}`;
         }
 
         errorContent += "\n";
@@ -53,4 +51,28 @@ const logger = (type, content, timestamp) => {
     }
 };
 
+/**
+ * Returns a preformatted timestamp in local time
+ * @param {String} [separator] A separator to add between the date and the time - leave empty for single whitespace
+ * @returns {String}
+ */
+const getTimestamp = (separator) => {
+    let d = new Date();
+
+    let dt = {
+        y: d.getFullYear(),
+        m: (d.getMonth() + 1),
+        d: d.getDate(),
+        th: d.getHours(),
+        tm: d.getMinutes(),
+        ts: d.getSeconds()
+    }
+
+    return `${dt.y}/${(dt.m < 10 ? "0" : "") + dt.m}/${(dt.d < 10 ? "0" : "") + dt.d}`
+         + `${jsl.isEmpty(separator) ? " " : separator}`
+         + `${(dt.th < 10 ? "0" : "") + dt.th}:${(dt.tm < 10 ? "0" : "") + dt.tm}:${(dt.ts < 10 ? "0" : "") + dt.ts}`;
+
+}
+
 module.exports = logger;
+module.exports.getTimestamp = getTimestamp;

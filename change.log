@@ -66,7 +66,6 @@
         - "?contains" URL parameter to only serve jokes that match the provided search query
         - "?containsFuzzy" URL parameter to only get the joke with the highest match score on a fuzzy search
         - Improve the "Try it out" section in the docs
-        - Gzip encoding
         - Prevent submission of empty jokes
     - DONE:
         - Updated some dependencies
@@ -77,3 +76,4 @@
             - "npm run reformat" to reformat jokes from the old pre-2.0.0 syntax to the new 2.0.0 syntax
             - "npm run reassign-ids" to make sure all jokes have the correct IDs
         - Now the documentation page will only be recompiled if a file has changed
+        - Static content like the stylesheet and client-side JS will now be loaded through the "static" endpoint, decreasing page load time by an order of magnitude

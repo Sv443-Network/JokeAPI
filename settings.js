@@ -1,10 +1,10 @@
 const packageJSON = require("./package.json");
-const col = require("svjsl").colors;
+const col = require("svjsl").colors.fg;
 
 module.exports = {
     debug: {
-        verboseLogging: true,      // set to true to enable extra debug output
-        progressBarDisabled: true, // set to true to disable the progress bar - can improve readability of verbose debug output
+        verboseLogging: false,      // set to true to enable extra debug output
+        progressBarDisabled: false, // set to true to disable the progress bar - greatly improves readability of verbose debug output
     },
     info: {
         name: "JokeAPI",                                // the name of JokeAPI
@@ -20,6 +20,12 @@ module.exports = {
             github: "https://github.com/Sv443", // author github page
         },
         infoMsg: "If you want to be updated on the status of JokeAPI, please consider following me on Twitter (https://twitter.com/Sv443_dev) or joining my Discord server (https://discord.gg/aBH4uRG)",
+    },
+    init: {
+        initDirs: [ // directories that should be generated if they don't exist - paths relative to root of project - doesn't necessarily need trailing slash
+            "./data/logs", 
+            "./src/test"
+        ],
     },
     wrapper: {
         mainFilePath: "./src/main.js",     // main script file
@@ -77,9 +83,9 @@ module.exports = {
         dirPath: "./endpoints/", // path to the dir containing all the endpoint scripts
     },
     colors: {
-        success: col.fg.green,  // when request successful
-        error: col.fg.red,      // when request errored
-        ratelimit: col.fg.pink, // when request rate limited
-        docs: col.fg.yellow,    // when docs were requested
+        success: col.green,     // when request successful
+        error: col.red,         // when request errored
+        ratelimit: col.magenta, // when request rate limited
+        docs: col.yellow,       // when docs were requested
     }
 }
