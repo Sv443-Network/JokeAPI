@@ -97,7 +97,7 @@ const init = () => {
                                 if(lowerCaseEndpoints.includes(p))
                                     requestedEndpoint = lowerCaseEndpoints[lowerCaseEndpoints.indexOf(p)];
                             });
-                        else requestedEndpoint = settings.endpoints.docsEndpoint;
+                        else return serveDocumentation(res);
 
                         let foundEndpoint = false;
                         endpoints.forEach(ep => {
@@ -122,6 +122,8 @@ const init = () => {
                 //#SECTION PUT
                 else if(req.method === "PUT")
                 {
+                    // TODO: joke submissions
+
                     let data = "";
                     req.on("data", chunk => {
                         data += chunk;
@@ -131,6 +133,7 @@ const init = () => {
                             res.writeHead(200, {"Content-Type": parseURL.getMimeTypeFromFileFormatString(fileFormat)});
                             res.end(convertFileFormat.auto(fileFormat, {
                                 "error": false,
+                                "message": `Restarted ${settings.info.name}`,
                                 "timestamp": new Date().getTime()
                             }));
                             process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
@@ -140,6 +143,17 @@ const init = () => {
                 //#SECTION HEAD / OPTIONS
                 else if(req.method === "HEAD" || req.method === "OPTIONS")
                     serveDocumentation();
+                //#SECTION invalid method
+                else
+                {
+                    res.writeHead(405, {"Content-Type": parseURL.getMimeTypeFromFileFormatString(fileFormat)});
+                    res.end(convertFileFormat.auto(fileFormat, {
+                        "error": true,
+                        "internalError": false,
+                        "message": `Wrong method "${req.method}". Expected "GET", "OPTIONS" or "HEAD"`,
+                        "timestamp": new Date().getTime()
+                    }));
+                }
             });
 
             httpServer.listen(settings.httpServer.port, settings.httpServer.hostname, err => {

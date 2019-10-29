@@ -75,7 +75,6 @@ module.exports = {
     },
     endpoints: {
         dirPath: "./endpoints/", // path to the dir containing all the endpoint scripts
-        docsEndpoint: "docs",    // the name of the documentation endpoint
     },
     colors: {
         success: col.fg.green,  // when request successful

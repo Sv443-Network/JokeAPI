@@ -149,18 +149,6 @@ const inject = filePath => {
                     file = file.replace(new RegExp(key, "gm"), !jsl.isEmpty(injection) ? injection : "Error");
                 });
 
-                // file = file.replace(/<!--%#INSERT:VERSION#%-->/gm, settings.info.version);
-                // file = file.replace(/<!--%#INSERT:NAME#%-->/gm, settings.info.name);
-                // file = file.replace(/<!--%#INSERT:DESC#%-->/gm, settings.info.desc);
-                // file = file.replace(/<!--%#INSERT:AUTHORWEBSITEURL#%-->/gm, settings.info.author.website);
-                // file = file.replace(/<!--%#INSERT:AUTHORGITHUBURL#%-->/gm, settings.info.author.github);
-                // file = file.replace(/<!--%#INSERT:PACKAGEJSONCONTRIBUTORS#%-->/gm, !jsl.isEmpty(contributors) ? contributors : "{}");
-                // file = file.replace(/<!--%#INSERT:PROJGITHUBURL#%-->/gm, settings.info.projGitHub);
-                // file = file.replace(/<!--%#INSERT:JOKESUBMISSIONURL#%-->/gm, settings.jokes.jokeSubmissionURL);
-                // file = file.replace(/<!--%#INSERT:CATEGORYARRAY#%-->/gm, `["${settings.jokes.possible.categories.join(`", "`)}"]`);
-                // file = file.replace(/<!--%#INSERT:FLAGSARRAY#%-->/gm, `["${settings.jokes.possible.flags.join(`", "`)}"]`);
-                // file = file.replace(/<!--%#INSERT:TOTALJOKES#%-->/gm, parseJokes.jokeCount.toString());
-
                 resolve(file.toString());
             }
             catch(err)
