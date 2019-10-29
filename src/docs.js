@@ -5,6 +5,8 @@ const farmhash = require("farmhash");
 const fs = require("fs");
 const settings = require("../settings");
 const debug = require("./verboseLogging");
+const packageJSON = require("../package.json");
+const parseJokes = require("./parseJokes");
 
 
 /**
@@ -45,7 +47,10 @@ const startDaemon = () => {
                 process.jokeapi.documentation.oldChecksum = checksum;
             
             if(process.jokeapi.documentation.oldChecksum != process.jokeapi.documentation.newChecksum)
+            {
+                debug("Daemon", "Noticed changed files");
                 recompileDocs();
+            }
 
             process.jokeapi.documentation.oldChecksum = checksum;
         });
@@ -67,12 +72,15 @@ const recompileDocs = () => {
     let recompileDocsInitTimestamp = new Date().getTime();
     try
     {
+        //#SECTION inject JS
         inject(`${settings.documentation.rawDirPath}index.js`).then(injected_js => {
             fs.writeFile(`${settings.documentation.dirPath}index_injected.js`, injected_js, err => {
                 if(err) injectError(err);
+                //#SECTION inject CSS
                 inject(`${settings.documentation.rawDirPath}index.css`).then(injected_css => {
                     fs.writeFile(`${settings.documentation.dirPath}index_injected.css`, injected_css, err => {
                         if(err) injectError(err);
+                        //#SECTION inject HTML
                         inject(`${settings.documentation.rawDirPath}index.html`).then(injected_html => {
                             fs.writeFile(`${settings.documentation.dirPath}documentation.html`, injected_html, err => {
                                 if(err) injectError(err);
@@ -119,16 +127,39 @@ const inject = filePath => {
                 }
 
                 //#SECTION INSERTs
-                file = file.replace(/<!--%#INSERT:VERSION#%-->/gm, settings.info.version);
-                file = file.replace(/<!--%#INSERT:NAME#%-->/gm, settings.info.name);
-                file = file.replace(/<!--%#INSERT:DESC#%-->/gm, settings.info.desc);
-                file = file.replace(/<!--%#INSERT:AUTHORWEBSITEURL#%-->/gm, settings.info.author.website);
-                file = file.replace(/<!--%#INSERT:AUTHORGITHUBURL#%-->/gm, settings.info.author.github);
-                file = file.replace(/<!--%#INSERT:PROJGITHUBURL#%-->/gm, settings.info.projGitHub);
-                file = file.replace(/<!--%#INSERT:JOKESUBMISSIONURL#%-->/gm, settings.jokes.jokeSubmissionURL);
-                file = file.replace(/<!--%#INSERT:CATEGORYARRAY#%-->/gm, `["${settings.jokes.possible.categories.join(`", "`)}"]`);
-                file = file.replace(/<!--%#INSERT:FLAGSARRAY#%-->/gm, `["${settings.jokes.possible.flags.join(`", "`)}"]`);
-                file = file.replace(/<!--%#INSERT:TOTALJOKES#%-->/gm, "42069"); // TODO:
+                let contributors = JSON.stringify(packageJSON.contributors);
+                let jokeCount = parseJokes.jokeCount;
+
+                let injections = {
+                    "<!--%#INSERT:VERSION#%-->":           settings.info.version,
+                    "<!--%#INSERT:NAME#%-->":              settings.info.name,
+                    "<!--%#INSERT:DESC#%-->":              settings.info.desc,
+                    "<!--%#INSERT:AUTHORWEBSITEURL#%-->":  settings.info.author.website,
+                    "<!--%#INSERT:AUTHORGITHUBURL#%-->":   settings.info.author.github,
+                    "<!--%#INSERT:CONTRIBUTORS#%-->":      (!jsl.isEmpty(contributors) ? contributors : "{}"),
+                    "<!--%#INSERT:PROJGITHUBURL#%-->":     settings.info.projGitHub,
+                    "<!--%#INSERT:JOKESUBMISSIONURL#%-->": settings.jokes.jokeSubmissionURL,
+                    "<!--%#INSERT:CATEGORYARRAY#%-->":     JSON.stringify(settings.jokes.possible.categories),
+                    "<!--%#INSERT:FLAGSARRAY#%-->":        JSON.stringify(settings.jokes.possible.flags),
+                    "<!--%#INSERT:TOTALJOKES#%-->":        (!jsl.isEmpty(jokeCount) ? jokeCount.toString() : "N/A")
+                };
+
+                Object.keys(injections).forEach(key => {
+                    let injection = injections[key];
+                    file = file.replace(new RegExp(key, "gm"), !jsl.isEmpty(injection) ? injection : "Error");
+                });
+
+                // file = file.replace(/<!--%#INSERT:VERSION#%-->/gm, settings.info.version);
+                // file = file.replace(/<!--%#INSERT:NAME#%-->/gm, settings.info.name);
+                // file = file.replace(/<!--%#INSERT:DESC#%-->/gm, settings.info.desc);
+                // file = file.replace(/<!--%#INSERT:AUTHORWEBSITEURL#%-->/gm, settings.info.author.website);
+                // file = file.replace(/<!--%#INSERT:AUTHORGITHUBURL#%-->/gm, settings.info.author.github);
+                // file = file.replace(/<!--%#INSERT:PACKAGEJSONCONTRIBUTORS#%-->/gm, !jsl.isEmpty(contributors) ? contributors : "{}");
+                // file = file.replace(/<!--%#INSERT:PROJGITHUBURL#%-->/gm, settings.info.projGitHub);
+                // file = file.replace(/<!--%#INSERT:JOKESUBMISSIONURL#%-->/gm, settings.jokes.jokeSubmissionURL);
+                // file = file.replace(/<!--%#INSERT:CATEGORYARRAY#%-->/gm, `["${settings.jokes.possible.categories.join(`", "`)}"]`);
+                // file = file.replace(/<!--%#INSERT:FLAGSARRAY#%-->/gm, `["${settings.jokes.possible.flags.join(`", "`)}"]`);
+                // file = file.replace(/<!--%#INSERT:TOTALJOKES#%-->/gm, parseJokes.jokeCount.toString());
 
                 resolve(file.toString());
             }

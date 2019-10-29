@@ -90,15 +90,9 @@ const getFileFormatFromQString = qstrObj => {
         let fuzzySearch = searchFuzzy(possibleFormats, qstrObj.format);
         let requestedFormat = possibleFormats[fuzzySearch[0]];
 
-        switch(requestedFormat)
-        {
-            case "json":
-            case "xml":
-            case "yaml":
-                return qstrObj.format;
-            default:
-                return settings.jokes.defaultFileFormat.fileFormat
-        }
+        if(possibleFormats.includes(requestedFormat))
+            return requestedFormat;
+        else return settings.jokes.defaultFileFormat.fileFormat;
     }
     else return settings.jokes.defaultFileFormat.fileFormat;
 };

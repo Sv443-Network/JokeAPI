@@ -4,6 +4,7 @@ const jsl = require("svjsl");
 const UNUSED = jsl.unused;
 const http = require("http");
 const rateLimit = require("http-ratelimit");
+const Readable = require("stream").Readable;
 const fs = require("fs");
 
 const settings = require("../settings");
@@ -21,7 +22,10 @@ const init = () => {
         let initHttpServer = () => {
             let httpServer = http.createServer((req, res) => {
                 let parsedURL = parseURL(req.url);
-                let fileFormat = !jsl.isEmpty(parsedURL.queryParams) && !jsl.isEmpty(parsedURL.queryParams.format) ? parseURL.getFileFormatFromQString(parsedURL.queryParams) : settings.jokes.defaultFileFormat.fileFormat;
+                
+                let fileFormat = settings.jokes.defaultFileFormat.fileFormat;
+                if(!jsl.isEmpty(parsedURL.queryParams) && !jsl.isEmpty(parsedURL.queryParams.format))
+                    fileFormat = parseURL.getFileFormatFromQString(parsedURL.queryParams);
 
                 try
                 {
@@ -35,7 +39,8 @@ const init = () => {
                         return respondWithError(res, 429, 101, fileFormat);
                     }
 
-                    if(settings.httpServer.allowCORS) {
+                    if(settings.httpServer.allowCORS)
+                    {
                         try
                         {
                             res.setHeader("Access-Control-Allow-Origin", "*");
@@ -48,11 +53,30 @@ const init = () => {
                             console.log(`${jsl.colors.fg.red}Error while setting up CORS headers: ${err}${jsl.colors.rst}`);
                         }
                     }
+
                     res.setHeader("Allow", "GET, HEAD, OPTIONS");
+
+                    if(settings.httpServer.disableCache)
+                    {
+                        res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+                        res.setHeader("Pragma", "no-cache");
+                        res.setHeader("Expires", "0");
+                    }
+
+                    if(settings.httpServer.infoHeaders)
+                    {
+                        res.setHeader("API-Info", `${settings.info.name} v${settings.info.version} (${settings.info.docsURL})`);
+                    }
                 }
                 catch(err)
                 {
-                    let fileFormat = !jsl.isEmpty(parsedURL.queryParams) && !jsl.isEmpty(parsedURL.queryParams.format) ? parseURL.getFileFormatFromQString(parsedURL.queryParams) : settings.jokes.defaultFileFormat.fileFormat;
+                    if(jsl.isEmpty(fileFormat))
+                    {
+                        fileFormat = settings.jokes.defaultFileFormat.fileFormat;
+                        if(!jsl.isEmpty(parsedURL.queryParams) && !jsl.isEmpty(parsedURL.queryParams.format))
+                            fileFormat = parseURL.getFileFormatFromQString(parsedURL.queryParams);
+                    }
+
                     // TODO: analytics.internalError("HTTP", err);
                     return respondWithError(res, 500, 100, fileFormat, err);
                 }
@@ -81,7 +105,7 @@ const init = () => {
                             if(ep.name == requestedEndpoint)
                             {
                                 foundEndpoint = true;
-                                return require(`.${ep.absPath}`).call(res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
+                                return require(`.${ep.absPath}`).call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
                             }
                         });
 
@@ -107,7 +131,7 @@ const init = () => {
                         {
                             res.writeHead(200, {"Content-Type": parseURL.getMimeTypeFromFileFormatString(fileFormat)});
                             res.end(convertFileFormat.auto(fileFormat, {
-                                "success": true,
+                                "error": false,
                                 "timestamp": new Date().getTime()
                             }));
                             process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
@@ -228,4 +252,61 @@ const respondWithErrorPage = (req, res, statusCode, fileFormat, error) => {
     opportunisticResponse(req, res, errPage, fileFormat);    
 }
 
-module.exports = { init, respondWithError, respondWithErrorPage };
+/**
+ * Pipes a string into a HTTP response
+ * @param {http.ServerResponse} res The HTTP res object
+ * @param {String} text The response body
+ * @param {String} mimeType The MIME type to respond with
+ */
+const pipeString = (res, text, mimeType) => {
+    let s = new Readable();
+    s._read = () => {};
+    s.push(text);
+    s.push(null);
+
+    res.writeHead(200, {
+        "Content-Type": `${mimeType}; UTF-8`,
+        "Content-Length": text.length
+    });
+
+    s.pipe(res);
+}
+
+/**
+ * Pipes a file into a HTTP response
+ * @param {http.ServerResponse} res The HTTP res object
+ * @param {String} filePath Path to the file to respond with
+ * @param {String} mimeType The MIME type to respond with
+ * @param {Number} [statusCode=200] The status code to respond with - defaults to 200
+ */
+const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
+    try
+    {
+        statusCode = parseInt(statusCode);
+    }
+    catch(err)
+    {
+        res.writeHead(500, {"Content-Type": `text/plain; UTF-8`});
+        res.end("INTERNAL_ERR:STATUS_CODE_NOT_INT");
+        return;
+    }
+
+    if(!fs.existsSync(filePath))
+    {
+        res.writeHead(500, {"Content-Type": `text/plain; UTF-8`});
+        res.end("INTERNAL_ERR:NOT_FOUND");
+        return;
+    }
+
+    let size = fs.statSync(filePath).size;
+
+    res.writeHead(statusCode, {
+        "Content-Type": `${mimeType}; UTF-8`,
+        "Content-Length": size
+    });
+
+    let readStream = fs.createReadStream(filePath);
+    readStream.pipe(res);
+}
+
+module.exports = { init, respondWithError, respondWithErrorPage, pipeString, pipeFile };

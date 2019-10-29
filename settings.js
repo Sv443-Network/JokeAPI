@@ -12,15 +12,14 @@ module.exports = {
         projGitHub: "https://github.com/Sv443/JokeAPI", // URL to the project's GitHub page
         version: packageJSON.version,                   // the version as a string
         versionInt: packageJSON.version.split("."),     // the version as a number array
+        docsURL: "https://sv443.net/jokeapi",           // the URL to the documentation of JokeAPI
         author: {
-            name: "Sv443",                      // author name
-            email: "sven.fehler@web.de",        // author email
-            website: "https://sv443.net/",      // author website
+            name: packageJSON.author.name,      // author name
+            email: packageJSON.author.email,    // author email
+            website: packageJSON.author.url,    // author website
             github: "https://github.com/Sv443", // author github page
         },
-        contributors: [
-            // none yet :(
-        ],
+        infoMsg: "If you want to be updated on the status of JokeAPI, please consider following me on Twitter (https://twitter.com/Sv443_dev) or joining my Discord server (https://discord.gg/aBH4uRG)",
     },
     wrapper: {
         mainFilePath: "./src/main.js",     // main script file
@@ -51,10 +50,12 @@ module.exports = {
         },
     },
     httpServer: {
-        port: 8079,       // http server port
-        allowCORS: true,  // whether or not to allow Cross Origin Resource Sharing
-        rateLimiting: 30, // amount of allowed requests per below defined timeframe
-        timeFrame: 1,     // timeframe in min - also supports floating point numbers
+        port: 8079,         // http server port
+        allowCORS: true,    // whether or not to allow Cross Origin Resource Sharing
+        rateLimiting: 30,   // amount of allowed requests per below defined timeframe
+        timeFrame: 1,       // timeframe in min - also supports floating point numbers
+        disableCache: true, // whether or not to disable the cache - default: true (setting to false may prevent the users from getting new jokes)
+        infoHeaders: true,  // whether or not to add an informational header about JokeAPI to each request
     },
     errors: {
         errorRegistryIncludePath: "./data/errorRegistry", // path to the error registry
@@ -67,7 +68,7 @@ module.exports = {
     documentation: {
         dirPath: "./docs/",                  // path to the documentation directory - needs trailing slash
         rawDirPath: "./docs/raw/",           // path to the raw documentation files directory - needs trailing slash
-        daemonInterval: 15,                  // interval (in seconds) at which the daemon checks for changes in the documentation directory
+        daemonInterval: 5,                   // interval (in seconds) at which the daemon checks for changes in the documentation directory
         error404path: "./docs/err/404.html", // path to the 404 error page
     },
     endpoints: {

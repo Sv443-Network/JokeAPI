@@ -28,6 +28,7 @@ const init = () => {
             }
             
 
+            module.exports.jokeCount = jokesFile.jokes.length;
             jokesFile.jokes.forEach((joke, i) => {
                 //#MARKER joke ID
                 if(!jsl.isEmpty(joke.id) && !isNaN(parseInt(joke.id)))

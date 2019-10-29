@@ -1,6 +1,12 @@
 const http = require("http");
+const convertFileFormat = require("../src/fileFormatConverter");
+const httpServer = require("../src/httpServer");
+const parseURL = require("../src/parseURL");
 const jsl = require("svjsl");
+const parseJokes = require("../src/parseJokes");
 const settings = require("../settings");
+
+jsl.unused(http);
 
 
 const meta = {
@@ -17,7 +23,51 @@ const meta = {
  * @param {String} format The file format to respond with
  */
 const call = (req, res, url, params, format) => {
+    jsl.unused([req, url, params]);
 
+    let errFromRegistry = require("." + settings.errors.errorRegistryIncludePath)["100"];
+    let responseText = {
+        "error": true,
+        "internalError": true,
+        "code": 100,
+        "message": errFromRegistry.errorMessage,
+        "causedBy": errFromRegistry.causedBy
+    };
+
+    if(format != "xml")
+    {
+        responseText = convertFileFormat.auto(format, {
+            "error": false,
+            "version": settings.info.version,
+            "jokes":
+            {
+                "totalCount": (!jsl.isEmpty(parseJokes.jokeCount) ? parseJokes.jokeCount : 0),
+                "categories": settings.jokes.possible.categories,
+                "flags": settings.jokes.possible.flags,
+                "submissionURL": settings.jokes.jokeSubmissionURL
+            },
+            "info": settings.info.infoMsg,
+            "timestamp": new Date().getTime()
+        });
+    }
+    else if(format == "xml")
+    {
+        responseText = convertFileFormat.auto(format, {
+            "error": false,
+            "version": settings.info.version,
+            "jokes":
+            {
+                "totalCount": (!jsl.isEmpty(parseJokes.jokeCount) ? parseJokes.jokeCount : 0),
+                "categories": {"category": settings.jokes.possible.categories},
+                "flags": {"flag": settings.jokes.possible.flags},
+                "submissionURL": settings.jokes.jokeSubmissionURL
+            },
+            "info": settings.info.infoMsg,
+            "timestamp": new Date().getTime()
+        });
+    }
+
+    httpServer.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format));
 };
 
 module.exports = { meta, call };

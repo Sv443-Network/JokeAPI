@@ -21,7 +21,11 @@
     "humor",
     "entertainment"
   ],
-  "author": "Sv443 <sven.fehler@web.de> (https://sv443.net/)",
+  "author": {
+    "name": "Sv443",
+    "email": "sven.fehler@web.de",
+    "url": "https://sv443.net/"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Sv443/JokeAPI/issues"
