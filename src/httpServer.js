@@ -11,7 +11,6 @@ const settings = require("../settings");
 const debug = require("./verboseLogging");
 const convertFileFormat = require("./fileFormatConverter");
 const parseURL = require("./parseURL");
-const opportunisticResponse = require("./opportunisticResponse");
 
 
 const init = () => {
@@ -242,11 +241,9 @@ const respondWithErrorPage = (req, res, statusCode, fileFormat, error) => {
         break;
     }
 
-    let errPage = fs.createReadStream(filePath);
-    jsl.unused(error); //TODO: inject error message
+    res.setHeader("API-Error", error);
 
-    res.writeHead(statusCode, {"Content-Type": "text/html"});
-    opportunisticResponse(req, res, errPage, fileFormat);    
+    pipeFile(res, filePath, "text/html", statusCode);
 }
 
 /**
