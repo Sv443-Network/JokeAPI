@@ -93,10 +93,16 @@ const init = () => {
                         endpoints.forEach(ep => lowerCaseEndpoints.push(ep.name.toLowerCase()));
 
                         if(!jsl.isEmpty(urlPath))
-                            urlPath.forEach(p => {
-                                if(lowerCaseEndpoints.includes(p))
-                                    requestedEndpoint = lowerCaseEndpoints[lowerCaseEndpoints.indexOf(p)];
-                            });
+                        {
+                            for(let i = 0; i < urlPath.length; i++)
+                            {
+                                if(lowerCaseEndpoints.includes(urlPath[i]))
+                                {
+                                    requestedEndpoint = lowerCaseEndpoints[lowerCaseEndpoints.indexOf(urlPath[i])];
+                                    break;
+                                }
+                            }
+                        }
                         else return serveDocumentation(res);
 
                         let foundEndpoint = false;
