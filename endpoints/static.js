@@ -8,7 +8,9 @@ jsl.unused(http);
 
 const meta = {
     "name": "Static",
-    "desc": "Serves static content like scripts, stylesheets and images"
+    "desc": "Serves static content like scripts, stylesheets and images",
+    "noLog": true,
+    "skipRateLimitCheck": true,
 };
 
 /**

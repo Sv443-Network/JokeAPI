@@ -1,10 +1,11 @@
 const packageJSON = require("./package.json");
 const col = require("svjsl").colors.fg;
+const bgc = require("svjsl").colors.bg;
 
 module.exports = {
     debug: {
         verboseLogging: false,      // set to true to enable extra debug output
-        progressBarDisabled: false, // set to true to disable the progress bar - greatly improves readability of verbose debug output
+        progressBarDisabled: true, // set to true to disable the progress bar - greatly improves readability of verbose debug output
     },
     info: {
         name: "JokeAPI",                                // the name of JokeAPI
@@ -24,7 +25,14 @@ module.exports = {
     init: {
         initDirs: [ // directories that should be generated if they don't exist - paths relative to root of project - doesn't necessarily need trailing slash
             "./data/logs",
+            "./data/lists",
         ],
+    },
+    logging: {
+        logChar: "▌",                  // character that gets logged on each request
+        spacerAfter: 10,               // after how many logged requests a spacer should be put - set to 0 to disable
+        disableLogging: false,         // set to true to disable logging a character on each request
+        blacklistLoggingEnabled: true, // whether or not to log the character when an IP is on the blacklist
     },
     wrapper: {
         mainFilePath: "./src/main.js",     // main script file
@@ -67,8 +75,8 @@ module.exports = {
         errorLogDir: "./data/logs/",                      // path to the error log directory - needs trailing slash
     },
     lists: {
-        blacklistPath: "./data/lists/blacklist.json",               // path to the IP blacklist
-        whitelistPath: "./data/lists/whitelist.json",               // path to the IP whitelist
+        blacklistPath: "./data/lists/ipBlacklist.json",             // path to the IP blacklist
+        whitelistPath: "./data/lists/ipWhitelist.json",             // path to the IP whitelist
         consoleBlacklistPath: "./data/lists/consoleBlacklist.json", // path to the IP console blacklist
     },
     documentation: {
@@ -82,9 +90,10 @@ module.exports = {
         dirPath: "./endpoints/", // path to the dir containing all the endpoint scripts
     },
     colors: {
-        success: col.green,     // when request successful
-        error: col.red,         // when request errored
-        ratelimit: col.magenta, // when request rate limited
-        docs: col.yellow,       // when docs were requested
+        success: col.green,                // when request successful
+        error: col.red,                    // when request errored
+        ratelimit: col.magenta,            // when request rate limited
+        docs: col.yellow,                  // when docs were requested
+        blacklisted: bgc.red + col.yellow, // when a request IP is blacklisted
     }
 }
