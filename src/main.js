@@ -22,8 +22,8 @@ const noDbg = process.japi.debuggerActive || false;
 dotenv.config();
 
 
-console.log(`\n\n\n\n\n\n\n\n\n\n\n`);
-console.log(`[${logger.getTimestamp(" | ")}] ${col.cyan}Initializing ${settings.info.name} v${settings.info.version}...${jsl.colors.rst}`);
+console.log(`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n`);
+console.log(`[${logger.getTimestamp(" | ")}] ${col.blue}${settings.info.name} v${settings.info.version}${jsl.colors.rst}`);
 let pb;
 
 

@@ -48,12 +48,17 @@ module.exports = {
             categories: [           // all categories (excluding "Any")
                 "Miscellaneous",
                 "Programming",
-                "Dark"
+                "Dark",
             ],
             flags: [                // all flags
                 "nsfw",
                 "religious",
-                "political"
+                "political",
+            ],
+            formats: [              // all formats
+                "json",
+                "xml",
+                "yaml",
             ],
         },
         fileFormatsPath: "./data/fileFormats.json", // path to the file formats file

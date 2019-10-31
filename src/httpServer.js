@@ -22,6 +22,9 @@ const init = () => {
     return new Promise((resolve, reject) => {
         let endpoints = [];
 
+        /**
+         * Initializes the HTTP server - can only be called once
+         */
         let initHttpServer = () => {
             let httpServer = http.createServer((req, res) => {
                 let parsedURL = parseURL(req.url);
@@ -133,7 +136,16 @@ const init = () => {
                                     logRequest("success");
                                 
                                 if(!jsl.isEmpty(meta) && meta.skipRateLimitCheck === true)
-                                    return callEndpoint.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
+                                {
+                                    try
+                                    {
+                                        return callEndpoint.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
+                                    }
+                                    catch(err)
+                                    {
+                                        return respondWithError(res, 104, 500, fileFormat);
+                                    }
+                                }
                                 else
                                 {
                                     if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting))
@@ -231,6 +243,8 @@ const init = () => {
                         absPath: endpointFilePath
                     });
             });
+
+            //#MARKER call HTTP server init
             initHttpServer();
         });
     });

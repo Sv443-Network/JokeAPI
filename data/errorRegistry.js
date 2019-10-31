@@ -4,9 +4,9 @@ module.exports = {
     //#MARKER Class 1xx (HTTP)
     "100": {
         "errorInternal": true,
-        "errorMessage": "HTTP Module | Internal Error",
+        "errorMessage": "Internal Error in HTTP Server",
         "causedBy": [
-            "An error in the code - please contact me through one of the options on my website (https://sv443.net) with the additional info below."
+            `An error in the code - please contact me through one of the options on my website (${settings.info.author.website}) with the additional info below.`
         ]
     },
     "101": {
@@ -25,9 +25,16 @@ module.exports = {
     },
     "103": {
         "errorInternal": false,
-        "errorMessage": "Disreputable IP address",
+        "errorMessage": "Disreputable IP Address",
         "causedBy": [
             `${settings.info.name} has found your IP address to be disreputable and added it to the blacklist.\nThis is probably because you have shown malicious behavior like an attempted interruption of ${settings.info.name}'s service.\n\nIf you believe this was done in error, please contact me (${settings.info.author.website}) so we can sort things out.`
+        ]
+    },
+    "104": {
+        "errorInternal": true,
+        "errorMessage": "Internal Error while calling Endpoint",
+        "causedBy": [
+            `An error in the code - please contact me through one of the options on my website (${settings.info.author.website}) with the additional info below.`
         ]
     }
     //#MARKER Class 2xx

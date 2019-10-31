@@ -1,6 +1,10 @@
 const http = require("http");
+const convertFileFormat = require("../src/fileFormatConverter");
+const httpServer = require("../src/httpServer");
+const parseURL = require("../src/parseURL");
 const jsl = require("svjsl");
-const settings = require("../settings");
+
+jsl.unused(http);
 
 
 const meta = {
@@ -17,7 +21,17 @@ const meta = {
  * @param {String} format The file format to respond with
  */
 const call = (req, res, url, params, format) => {
+    jsl.unused([req, url, params]);
 
+    //TODO:
+
+    let responseText = convertFileFormat.auto(format, {
+        "error": false,
+        "ping": "Pong!",
+        "timestamp": new Date().getTime()
+    });
+
+    httpServer.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format));
 };
 
 module.exports = { meta, call };
