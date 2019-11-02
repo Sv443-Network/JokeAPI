@@ -1,7 +1,8 @@
 // this reassigns all jokes' IDs. Always run this after something changes in the joke's order
 // run this with the command "npm run reassign-ids"
 
-try {
+try
+{
     const fs = require("fs");
     const settings = require("../settings");
 
@@ -29,7 +30,7 @@ try {
     fs.writeFileSync(settings.jokes.jokesFilePath, JSON.stringify(doneFile, null, 4));
 
 
-    console.log("\x1b[32m\x1b[1mDone reassigning joke IDs.\n\x1b[0m");
+    console.log(`\x1b[32m\x1b[1mDone reassigning IDs of all ${reassignedJokes.length} jokes.\n\x1b[0m`);
     process.exit(0);
 }
 catch(err)

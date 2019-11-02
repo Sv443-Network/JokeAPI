@@ -13,6 +13,7 @@ const parseJokes = require("./parseJokes");
 const httpServer = require("./httpServer");
 const lists = require("./lists");
 const docs = require("./docs");
+const logRequest = require("./logRequest");
 
 const col = jsl.colors.fg;
 process.japi = {};
@@ -21,8 +22,8 @@ const noDbg = process.japi.debuggerActive || false;
 dotenv.config();
 
 
-console.log(`\n\n\n\n\n\n\n\n\n\n\n`);
-console.log(`[${logger.getTimestamp(" | ")}] ${col.cyan}Initializing ${settings.info.name} v${settings.info.version}...${jsl.colors.rst}`);
+console.log(`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n`);
+console.log(`[${logger.getTimestamp(" | ")}] ${col.blue}${settings.info.name} v${settings.info.version}${jsl.colors.rst}`);
 let pb;
 
 
@@ -52,11 +53,7 @@ const initAll = () => {
                 httpServer.init().then(() => {
                     if(!jsl.isEmpty(pb)) pb.next("Done.");
 
-                    console.log(`\n  ${settings.colors.success}▌ Success ${settings.colors.docs}▌ Docs ${settings.colors.ratelimit}▌ RateLimit ${settings.colors.error}▌ Error${jsl.colors.rst}`);
-                    process.stdout.write("\x1b[2m");
-                    process.stdout.write("└┬─────────────────────────────────────┘\n");
-                    process.stdout.write(" └► ");
-                    process.stdout.write("\x1b[0m");
+                    logRequest.initMsg();
 
                 }).catch(err => initError("initializing the HTTP server", err));
             }).catch(err => initError("initializing documentation", err));

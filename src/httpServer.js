@@ -9,8 +9,12 @@ const fs = require("fs");
 
 const settings = require("../settings");
 const debug = require("./verboseLogging");
+const resolveIP = require("./resolveIP");
+const logger = require("./logger");
+const logRequest = require("./logRequest");
 const convertFileFormat = require("./fileFormatConverter");
 const parseURL = require("./parseURL");
+const lists = require("./lists");
 
 
 const init = () => {
@@ -18,9 +22,13 @@ const init = () => {
     return new Promise((resolve, reject) => {
         let endpoints = [];
 
+        /**
+         * Initializes the HTTP server - can only be called once
+         */
         let initHttpServer = () => {
             let httpServer = http.createServer((req, res) => {
                 let parsedURL = parseURL(req.url);
+                let ip = resolveIP(req);
                 
                 let fileFormat = settings.jokes.defaultFileFormat.fileFormat;
                 if(!jsl.isEmpty(parsedURL.queryParams) && !jsl.isEmpty(parsedURL.queryParams.format))
@@ -28,15 +36,15 @@ const init = () => {
 
                 try
                 {
+                    if(lists.isBlacklisted(ip))
+                    {
+                        logRequest("blacklisted");
+                        return respondWithError(res, 103, 403, fileFormat);
+                    }
+
                     rateLimit.inboundRequest(req);
 
-                    debug("HTTP", `URL obj is: ${JSON.stringify(parsedURL, null, 4)}`);
-
-                    if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting))
-                    {
-                        // TODO: analytics.rateLimited(req);
-                        return respondWithError(res, 429, 101, fileFormat);
-                    }
+                    debug("HTTP", `URL obj is:\n${JSON.stringify(parsedURL, null, 4)}`);
 
                     if(settings.httpServer.allowCORS)
                     {
@@ -103,14 +111,51 @@ const init = () => {
                                 }
                             }
                         }
-                        else return serveDocumentation(res);
+                        else
+                        {
+                            if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting))
+                            {
+                                // TODO: analytics.rateLimited(req);
+                                logRequest("ratelimited");
+                                return respondWithError(res, 101, 429, fileFormat);
+                            }
+                            else return serveDocumentation(res);
+                        }
 
                         let foundEndpoint = false;
                         endpoints.forEach(ep => {
                             if(ep.name == requestedEndpoint)
                             {
                                 foundEndpoint = true;
-                                return require(`.${ep.absPath}`).call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
+                                debug("HTTP-Request", `Got a request by ${ip}`);
+
+                                let callEndpoint = require(`.${ep.absPath}`);
+                                let meta = callEndpoint.meta;
+
+                                if(jsl.isEmpty(meta) || (!jsl.isEmpty(meta) && meta.noLog !== true))
+                                    logRequest("success");
+                                
+                                if(!jsl.isEmpty(meta) && meta.skipRateLimitCheck === true)
+                                {
+                                    try
+                                    {
+                                        return callEndpoint.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
+                                    }
+                                    catch(err)
+                                    {
+                                        return respondWithError(res, 104, 500, fileFormat);
+                                    }
+                                }
+                                else
+                                {
+                                    if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting))
+                                    {
+                                        // TODO: analytics.rateLimited(req);
+                                        logRequest("ratelimited");
+                                        return respondWithError(res, 101, 429, fileFormat);
+                                    }
+                                    else return callEndpoint.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
+                                }
                             }
                         });
 
@@ -142,13 +187,14 @@ const init = () => {
                                 "message": `Restarted ${settings.info.name}`,
                                 "timestamp": new Date().getTime()
                             }));
+                            console.log(`${logger.getTimestamp(" | ")} ${jsl.colors.fg.red}\n\nIP ${jsl.colors.fg.yellow}${ip}${jsl.colors.fg.red} sent a restart command\n${jsl.colors.rst}`);
                             process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
                         }
                     });
                 }
                 //#SECTION HEAD / OPTIONS
                 else if(req.method === "HEAD" || req.method === "OPTIONS")
-                    serveDocumentation();
+                    serveDocumentation(res);
                 //#SECTION invalid method
                 else
                 {
@@ -197,6 +243,8 @@ const init = () => {
                         absPath: endpointFilePath
                     });
             });
+
+            //#MARKER call HTTP server init
             initHttpServer();
         });
     });
@@ -213,26 +261,39 @@ const init = () => {
 const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage) => {
     try
     {
-        let errFromRegistry = require(settings.errors.errorRegistryIncludePath)[errorCode.toString()];
+        let errFromRegistry = require(`.${settings.errors.errorRegistryIncludePath}`)[errorCode.toString()];
+        let errObj = {};
 
-        let errObj = {
-            "error": true,
-            "internalError": errFromRegistry.errorInternal,
-            "code": errorCode,
-            "message": errFromRegistry.errorMessage,
-            "causedBy": errFromRegistry.causedBy
+        if(fileFormat != "xml")
+        {
+            errObj = {
+                "error": true,
+                "internalError": errFromRegistry.errorInternal,
+                "code": errorCode,
+                "message": errFromRegistry.errorMessage,
+                "causedBy": errFromRegistry.causedBy
+            }
+        }
+        else if(fileFormat == "xml")
+        {
+            errObj = {
+                "error": true,
+                "internalError": errFromRegistry.errorInternal,
+                "code": errorCode,
+                "message": errFromRegistry.errorMessage,
+                "causedBy": {"cause": errFromRegistry.causedBy} // has to be like this so the conversion to XML looks better
+            }
         }
 
         if(!jsl.isEmpty(errorMessage))
             errObj.additionalInfo = errorMessage;
 
-        res.writeHead(responseCode, {"Content-Type": parseURL.getMimeTypeFromFileFormatString(fileFormat)})
-        res.end(convertFileFormat.auto(fileFormat, errObj));
+        pipeString(res, convertFileFormat.auto(fileFormat, errObj), parseURL.getMimeTypeFromFileFormatString(fileFormat), responseCode);
     }
     catch(err)
     {
-        res.writeHead(responseCode, {"Content-Type": "text/plain"});
-        res.end(`Internal error while sending error message.\nOh, the irony...\nPlease contact me (${settings.info.author.website}) and provide this additional info:\n${err}`);
+        let errMsg = `Internal error while sending error message.\nOh, the irony...\n\nPlease contact me (${settings.info.author.website}) and provide this additional info:\n${err}`;
+        pipeString(res, errMsg, "text/plain", responseCode);
     }
 };
 
@@ -246,6 +307,8 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
  * @param {String} error
  */
 const respondWithErrorPage = (req, res, statusCode, fileFormat, error) => {
+    jsl.unused([req, fileFormat]);
+
     if(isNaN(parseInt(statusCode)))
         return jsl.unused(); // TODO: handle error
     
@@ -328,13 +391,20 @@ const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
 
     let size = fs.statSync(filePath).size;
 
-    res.writeHead(statusCode, {
-        "Content-Type": `${mimeType}; UTF-8`,
-        "Content-Length": size
-    });
+    try
+    {
+        res.writeHead(statusCode, {
+            "Content-Type": `${mimeType}; UTF-8`,
+            "Content-Length": size
+        });
 
-    let readStream = fs.createReadStream(filePath);
-    readStream.pipe(res);
+        let readStream = fs.createReadStream(filePath);
+        readStream.pipe(res);
+    }
+    catch(err)
+    {
+        logger("fatal", err, true);
+    }
 }
 
 /**
@@ -342,7 +412,8 @@ const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
  * @param {http.ServerResponse} res The HTTP res object
  */
 const serveDocumentation = res => {
+    logRequest("docs");
     return pipeFile(res, `${settings.documentation.dirPath}documentation.html`, "text/html", 200);
 }
 
-module.exports = { init, respondWithError, respondWithErrorPage, pipeString, pipeFile };
+module.exports = { init, respondWithError, respondWithErrorPage, pipeString, pipeFile, serveDocumentation };
