@@ -23,6 +23,7 @@ module.exports = {
     },
     init: {
         initDirs: [ // directories that should be generated if they don't exist - paths relative to root of project - doesn't necessarily need trailing slash
+            "./data",
             "./data/logs",
         ],
     },

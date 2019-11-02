@@ -18,12 +18,6 @@ const debuggerActive = typeof v8debug === "object" || /--debug|--inspect/.test(p
 
 
 const initJokeAPI = () => {
-    if(!fs.existsSync("./data"))
-        fs.mkdirSync("./data");
-
-    if(!fs.existsSync(settings.wrapper.logFilePath))
-        fs.writeFileSync(settings.wrapper.logFilePath, "");
-
     // the debugger and child processes don't get along together so only wrap JokeAPI if the debugger is not active:
     if(!debuggerActive && !settings.wrapper.skipWrapping)
     {
