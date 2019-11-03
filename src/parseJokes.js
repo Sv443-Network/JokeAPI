@@ -29,6 +29,12 @@ const init = () => {
             
 
             module.exports.jokeCount = jokesFile.jokes.length;
+            module.exports.jokeFormatVersion = jokesFile.info.formatVersion;
+
+            if(jokesFile.info.formatVersion == settings.jokes.jokesFormatVersion)
+                result.push(true);
+            else result.push(`Joke format version is set to "${jokesFile.info.formatVersion}" - Expected: "${settings.jokes.jokesFormatVersion}"`);
+
             jokesFile.jokes.forEach((joke, i) => {
                 //#MARKER joke ID
                 if(!jsl.isEmpty(joke.id) && !isNaN(parseInt(joke.id)))

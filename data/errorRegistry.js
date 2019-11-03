@@ -36,6 +36,13 @@ module.exports = {
         "causedBy": [
             `An error in the code - please contact me through one of the options on my website (${settings.info.author.website}) with the additional info below.`
         ]
+    },
+    "105": {
+        "errorInternal": false,
+        "errorMessage": "Malformed Joke",
+        "causedBy": [
+            "This joke was formatted incorrectly."
+        ]
     }
     //#MARKER Class 2xx
 }

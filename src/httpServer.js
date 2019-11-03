@@ -15,7 +15,8 @@ const logRequest = require("./logRequest");
 const convertFileFormat = require("./fileFormatConverter");
 const parseURL = require("./parseURL");
 const lists = require("./lists");
-
+const analytics = require("./analytics");
+const parseJokes = require("./parseJokes");
 
 const init = () => {
     debug("HTTP", "Starting HTTP server...");
@@ -84,7 +85,7 @@ const init = () => {
                             fileFormat = parseURL.getFileFormatFromQString(parsedURL.queryParams);
                     }
 
-                    // TODO: analytics.internalError("HTTP", err);
+                    analytics.internalError("HTTP", err);
                     return respondWithError(res, 500, 100, fileFormat, err);
                 }
 
@@ -115,7 +116,7 @@ const init = () => {
                         {
                             if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting))
                             {
-                                // TODO: analytics.rateLimited(req);
+                                analytics.rateLimited(ip);
                                 logRequest("ratelimited");
                                 return respondWithError(res, 101, 429, fileFormat);
                             }
@@ -150,7 +151,7 @@ const init = () => {
                                 {
                                     if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting))
                                     {
-                                        // TODO: analytics.rateLimited(req);
+                                        analytics.rateLimited(ip);
                                         logRequest("ratelimited");
                                         return respondWithError(res, 101, 429, fileFormat);
                                     }
@@ -175,22 +176,66 @@ const init = () => {
                 {
                     // TODO: joke submissions
 
-                    let data = "";
-                    req.on("data", chunk => {
-                        data += chunk;
+                    console.log(`PUT ${parsedURL.pathArray}`);
+                    if(!jsl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "submit")
+                    {
+                        let data = "";
+                        let dataGotten = false;
+                        req.on("data", chunk => {
+                            dataGotten = true;
+                            data += chunk;
+                            
+                            try
+                            {
+                                let joke = JSON.parse(data);
+                                if(jsl.isEmpty(joke))
+                                    return respondWithError(res, 105, 400, fileFormat, "Request body is empty");
+                                
+                                if(joke.formatVersion == parseJokes.jokeFormatVersion && joke.formatVersion == settings.jokes.jokesFormatVersion)
+                                {
+                                    // format version is correct
+                                }
+                                else
+                                {
+                                    // TODO: respond with 400 - format version incorrect
+                                }
+                            }
+                            catch(err)
+                            {
+                                return respondWithError(res, 105, 400, fileFormat, "Request format is not JSON");
+                            }
+                        });
 
-                        if(data == process.env.RESTART_TOKEN)
-                        {
-                            res.writeHead(200, {"Content-Type": parseURL.getMimeTypeFromFileFormatString(fileFormat)});
-                            res.end(convertFileFormat.auto(fileFormat, {
-                                "error": false,
-                                "message": `Restarted ${settings.info.name}`,
-                                "timestamp": new Date().getTime()
-                            }));
-                            console.log(`${logger.getTimestamp(" | ")} ${jsl.colors.fg.red}\n\nIP ${jsl.colors.fg.yellow}${ip}${jsl.colors.fg.red} sent a restart command\n${jsl.colors.rst}`);
-                            process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
-                        }
-                    });
+                        setTimeout(() => {
+                            !dataGotten && respondWithErrorPage(req, res, 400, fileFormat, "Request body is empty");
+                        }, 3000);
+                    }
+                    else
+                    {
+
+                        let data = "";
+                        let dataGotten = false;
+                        req.on("data", chunk => {
+                            data += chunk;
+                            dataGotten = true;
+
+                            if(data == process.env.RESTART_TOKEN)
+                            {
+                                res.writeHead(200, {"Content-Type": parseURL.getMimeTypeFromFileFormatString(fileFormat)});
+                                res.end(convertFileFormat.auto(fileFormat, {
+                                    "error": false,
+                                    "message": `Restarted ${settings.info.name}`,
+                                    "timestamp": new Date().getTime()
+                                }));
+                                console.log(`${logger.getTimestamp(" | ")} ${jsl.colors.fg.red}\n\nIP ${jsl.colors.fg.yellow}${ip}${jsl.colors.fg.red} sent a restart command\n${jsl.colors.rst}`);
+                                process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
+                            }
+                        });
+
+                        setTimeout(() => {
+                            !dataGotten && respondWithErrorPage(req, res, 404, fileFormat, "Not Found");
+                        }, 3000);
+                    }
                 }
                 //#SECTION HEAD / OPTIONS
                 else if(req.method === "HEAD" || req.method === "OPTIONS")

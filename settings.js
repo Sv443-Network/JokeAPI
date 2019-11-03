@@ -4,7 +4,7 @@ const bgc = require("svjsl").colors.bg;
 
 module.exports = {
     debug: {
-        verboseLogging: false,      // set to true to enable extra debug output
+        verboseLogging: true,      // set to true to enable extra debug output
         progressBarDisabled: true, // set to true to disable the progress bar - greatly improves readability of verbose debug output
     },
     info: {
@@ -27,6 +27,7 @@ module.exports = {
             "./data",
             "./data/logs",
             "./data/lists",
+            "./data/analytics",
         ],
     },
     logging: {
@@ -42,6 +43,7 @@ module.exports = {
         crashTimeout: 2000,                // big enough of a timeout to hopefully allow all possible hiccups to settle down before restarting
     },
     jokes: {
+        jokesFormatVersion: 2,                               // current joke format version
         jokesFilePath: "./data/jokes.json",                  // path to the jokes file
         jokeSubmissionURL: "https://sv443.net/r/submitjoke", // joke submission url
         possible: {
@@ -66,7 +68,7 @@ module.exports = {
         defaultFileFormat: {
             fileFormat: "json",           // the default file format string
             mimeType: "application/json", // the default file format mime type
-        },
+        }
     },
     httpServer: {
         port: 8079,         // http server port
@@ -101,5 +103,8 @@ module.exports = {
         ratelimit: col.magenta,            // when request rate limited
         docs: col.yellow,                  // when docs were requested
         blacklisted: bgc.red + col.yellow, // when a request IP is blacklisted
+    },
+    analytics: {
+        dirPath: "./data/analytics/", // path to the analytics directory - needs trailing slash
     }
 }
