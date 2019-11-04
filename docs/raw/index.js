@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
     try
     {
         // only works in modern browsers
-        document.getElementsByTagName("main")[0].onclick = closeNav;
+        document.getElementById("content").onclick = closeNav;
         document.getElementsByTagName("header")[0].onclick = closeNav;
     }
     catch(err) {unused();}
@@ -27,8 +27,7 @@ function openNav()
     }, 50);
 
     document.getElementById("sidenav").style.width = "280px";
-    document.getElementsByTagName("main")[0].style.marginLeft = "280px";
-    document.getElementsByTagName("header")[0].style.marginLeft = "280px";
+    document.getElementById("content").style.marginLeft= "280px";
     document.getElementsByTagName("header")[0].dataset["grayscaled"] = "true";
     document.getElementById("sideNavOpen").style.visibility = "hidden";
 }
@@ -41,8 +40,7 @@ function closeNav()
     document.body.dataset["sidenav"] = "closed";
 
     document.getElementById("sidenav").style.width = "0";
-    document.getElementsByTagName("main")[0].style.marginLeft= "10px";
-    document.getElementsByTagName("header")[0].style.marginLeft = "0";
+    document.getElementById("content").style.marginLeft= "0px";
     document.getElementsByTagName("header")[0].dataset["grayscaled"] = "false";
     document.getElementById("sideNavOpen").style.visibility = "visible";
 }

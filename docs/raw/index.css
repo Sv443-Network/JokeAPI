@@ -11,6 +11,15 @@ html {
     scroll-behavior: smooth;
 }
 
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 body {
     margin: 0;
     background-color: var(--bg-color);
@@ -68,7 +77,7 @@ header {
 header[data-grayscaled="true"] {
     filter: grayscale(100%);
     background-color: var(--header-bg-color-sidenav-opened);
-    width: calc(100% - 280px);
+    width: 100%;
 }
 
 header .headeritem {
@@ -167,10 +176,10 @@ a:not(.noul):hover, .mimica:not(.noul):hover {
     font-size: 20px;
 }
 
-main {
-    transition: margin-left .5s;
+#content {
     padding: 16px;
     margin: 10px;
+    transition: margin-left .5s;
 }
 
 @media screen and (max-height: 450px) {
