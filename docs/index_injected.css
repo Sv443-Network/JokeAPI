@@ -1,10 +1,179 @@
+:root {
+    --bg-color: #444;
+    --bg-color-sidenav-opened: #777;
+    --header-bg-color: #222;
+    --header-bg-color-sidenav-opened: #555;
+
+    --accent-color: #8a2be2;
+}
+
 html {
     scroll-behavior: smooth;
 }
 
 body {
-    background-color: #444;
+    margin: 0;
+    background-color: var(--bg-color);
     color: white;
     font-family: "Roboto", "Segoe UI", "Arial", sans-serif;
     font-size: 15px;
+
+    transition: background-color .5s;
+
+    -webkit-touch-callout: inherit;
+    -webkit-user-select: inherit;
+    -khtml-user-select: inherit;
+    -moz-user-select: inherit;
+    -ms-user-select: inherit;
+    user-select: inherit;
+}
+
+body[data-sidenav="opened"] {
+    background-color: var(--bg-color-sidenav-opened);
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+body[data-sidenav="closed"] {
+    background-color: var(--bg-color);
+
+    -webkit-touch-callout: inherit;
+    -webkit-user-select: inherit;
+    -khtml-user-select: inherit;
+    -moz-user-select: inherit;
+    -ms-user-select: inherit;
+    user-select: inherit;
+}
+
+header {
+    position: -webkit-sticky;
+    position: sticky;
+    top: -1px;
+    background-color: var(--header-bg-color);
+
+    transition: filter linear 0.5s, width linear .5s;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    width: 100%;
+}
+
+header[data-grayscaled="true"] {
+    filter: grayscale(100%);
+    background-color: var(--header-bg-color-sidenav-opened);
+    width: calc(100% - 280px);
+}
+
+header .headeritem {
+    display: inline-block;
+    flex-grow: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    width: 100%;
+}
+
+header .headeritem.m {
+    flex-grow: 1;
+    text-align: center;
+}
+
+header .headeritem.r {
+    text-align: right;
+}
+
+header h1 {
+    margin: 0;
+}
+
+#headerversion {
+    padding-right: 10px;
+}
+
+#headersidenavopenwrapper {
+    padding-left: 10px;
+}
+
+.noul, .mimica {
+    cursor: pointer;
+}
+
+a:not(.noul), .mimica:not(.noul) {
+    color: #152cff;
+}
+
+a:not(.noul):hover, .mimica:not(.noul):hover {
+    color: #5667ff;
+    text-decoration: underline;
+}
+
+#sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.6));
+}
+
+#sidenav a {
+    padding: 5px 8px 5px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #a5a5a5;
+    display: block;
+    transition: 0.3s;
+}
+
+#sidenav a:hover {
+    color: #f1f1f1;
+    filter: drop-shadow(2px 2px 3px rgba(255, 255, 255, 0.5)); 
+}
+
+#sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#sideNavOpen {
+    font-size: 30px;
+    cursor: pointer;
+}
+
+#sidenav > ul {
+    padding-top: 0;
+    margin-top: 0;
+    list-style-type: none;
+    margin-left: 25px;
+    padding-left: 0;
+}
+
+#sidenav > ul > li > a {
+    font-size: 20px;
+}
+
+main {
+    transition: margin-left .5s;
+    padding: 16px;
+    margin: 10px;
+}
+
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
 }

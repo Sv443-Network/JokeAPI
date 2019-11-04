@@ -1,3 +1,56 @@
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("JokeAPI Documentation - JokeAPI version <!--%#INSERT:VERSION#%-->");
+    console.log("JokeAPI Documentation (v<!--%#INSERT:VERSION#%-->)");
+
+    try
+    {
+        // only works in modern browsers
+        document.getElementsByTagName("main")[0].onclick = closeNav;
+        document.getElementsByTagName("header")[0].onclick = closeNav;
+    }
+    catch(err) {unused();}
 });
+
+function unused(...args)
+{
+    args.forEach(arg => {
+        try{arg.toString();}
+        catch(err) {return;}
+        return;
+    });
+}
+
+//#MARKER SideNav
+function openNav()
+{
+    setTimeout(function() {
+        document.body.dataset["sidenav"] = "opened";
+    }, 50);
+
+    document.getElementById("sidenav").style.width = "280px";
+    document.getElementsByTagName("main")[0].style.marginLeft = "280px";
+    document.getElementsByTagName("header")[0].style.marginLeft = "280px";
+    document.getElementsByTagName("header")[0].dataset["grayscaled"] = "true";
+    document.getElementById("sideNavOpen").style.visibility = "hidden";
+}
+  
+function closeNav()
+{
+    if(document.body.dataset["sidenav"] != "opened")
+        return;
+
+    document.body.dataset["sidenav"] = "closed";
+
+    document.getElementById("sidenav").style.width = "0";
+    document.getElementsByTagName("main")[0].style.marginLeft= "10px";
+    document.getElementsByTagName("header")[0].style.marginLeft = "0";
+    document.getElementsByTagName("header")[0].dataset["grayscaled"] = "false";
+    document.getElementById("sideNavOpen").style.visibility = "visible";
+}
+
+
+
+
+
+
+//#MARKER cleanup
+unused([openNav, closeNav]);

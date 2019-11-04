@@ -23,20 +23,68 @@
         <script src="./static/index.js"></script>
     </head>
     <body>
-        <h1>JokeAPI Documentation</h1>
-        <h2>JokeAPI Version: <!--%#INSERT:VERSION#%--></h2>
-        <img src="https://cdn.vox-cdn.com/thumbor/2o-DDN0i7YmpkuvHTfgHzIRgrMk=/0x19:660x459/1200x800/filters:focal(0x19:660x459)/cdn.vox-cdn.com/uploads/chorus_image/image/49742777/Screen_Shot_2016-05-31_at_5.06.18_PM.0.0.png" style="width: 200px;">
-        <br><br>
-        Version: <!--%#INSERT:VERSION#%--><br><br>
-        Name: <!--%#INSERT:NAME#%--><br><br>
-        Desc: <!--%#INSERT:DESC#%--><br><br>
-        Author URL: <!--%#INSERT:AUTHORWEBSITEURL#%--><br><br>
-        Author GH URL: <!--%#INSERT:AUTHORGITHUBURL#%--><br><br>
-        Contributor Object: <!--%#INSERT:CONTRIBUTORS#%--><br><br>
-        Proj GH URL: <!--%#INSERT:PROJGITHUBURL#%--><br><br>
-        Joke Subm. URL: <!--%#INSERT:JOKESUBMISSIONURL#%--><br><br>
-        Categories: <!--%#INSERT:CATEGORYARRAY#%--><br><br>
-        Total Jokes: <!--%#INSERT:TOTALJOKES#%--><br><br>
-        Flags: <!--%#INSERT:FLAGSARRAY#%-->
+        <!-- #MARKER Header -->
+        <header>
+            <span class="headeritem l">
+                <span id="headersidenavopenwrapper">
+                    <span id="sideNavOpen" onclick="openNav()">&#9776; Menu</span>
+                </span>
+            </span>
+            <span class="headeritem m">
+                <h1>JokeAPI Documentation</h1>
+            </span>
+            <span class="headeritem r">
+                <span id="headerversion">
+                    v<!--%#INSERT:VERSION#%-->
+                </span>
+            </span>
+        </header>
+
+
+        <!-- #MARKER Main -->
+        <main>
+            Version: <!--%#INSERT:VERSION#%--><br><br>
+            Name: <!--%#INSERT:NAME#%--><br><br>
+            Desc: <!--%#INSERT:DESC#%--><br><br>
+            Author URL: <!--%#INSERT:AUTHORWEBSITEURL#%--><br><br>
+            Author GH URL: <!--%#INSERT:AUTHORGITHUBURL#%--><br><br>
+            Contributor Object: <!--%#INSERT:CONTRIBUTORS#%--><br><br>
+            Proj GH URL: <!--%#INSERT:PROJGITHUBURL#%--><br><br>
+            Joke Subm. URL: <!--%#INSERT:JOKESUBMISSIONURL#%--><br><br>
+            Categories: <!--%#INSERT:CATEGORYARRAY#%--><br><br>
+            Total Jokes: <!--%#INSERT:TOTALJOKES#%--><br><br>
+            Flags: <!--%#INSERT:FLAGSARRAY#%--><br><br>
+
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+            <h1><a id="legal">§</a>Legal</h1>
+        </main>
+
+
+        <!-- #MARKER SideNav -->
+        <div id="sidenav" class="sidenav">
+            <a class="closebtn mimica noul" onclick="closeNav()">&times;</a>
+            <a class="noul" onclick="closeNav()" href="#">Information</a>
+            <a class="noul" onclick="closeNav()" href="#">Try&nbsp;it&nbsp;out</a>
+            <a class="noul" onclick="closeNav()" href="#">Endpoints</a>
+            <ul>
+                <li><a class="noul" onclick="closeNav()" href="#">Get&nbsp;Joke</a></li>
+                <li><a class="noul" onclick="closeNav()" href="#">Info</a></li>
+                <li><a class="noul" onclick="closeNav()" href="#">Categories</a></li>
+                <li><a class="noul" onclick="closeNav()" href="#">Flags</a></li>
+                <li><a class="noul" onclick="closeNav()" href="#">Formats</a></li>
+                <li><a class="noul" onclick="closeNav()" href="#">Ping</a></li>
+            </ul>
+            <a class="noul" onclick="closeNav()" href="#">Filtering&nbsp;Jokes</a>
+            <a class="noul" onclick="closeNav()" href="#">Response&nbsp;Formats</a>
+            <a class="noul" onclick="closeNav()" href="#">Examples</a>
+            <ul>
+                <li><a class="noul" onclick="closeNav()" href="#">CURL</a></li>
+                <li><a class="noul" onclick="closeNav()" href="#">Node.js</a></li>
+                <li><a class="noul" onclick="closeNav()" href="#">Web&nbsp;JS</a></li>
+                <li><a class="noul" onclick="closeNav()" href="#">C++</a></li>
+            </ul>
+            <a class="noul" onclick="closeNav()" href="#legal">Legal&nbsp;Stuff</a>
+        </div>
     </body>
 </html>
