@@ -43,8 +43,6 @@ const init = () => {
                         return respondWithError(res, 103, 403, fileFormat);
                     }
 
-                    rateLimit.inboundRequest(req);
-
                     debug("HTTP", `URL obj is:\n${JSON.stringify(parsedURL, null, 4)}`);
 
                     if(settings.httpServer.allowCORS)
@@ -125,6 +123,8 @@ const init = () => {
 
                         if(!jsl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "favicon.ico")
                             return pipeFile(res, settings.documentation.faviconPath, "image/x-icon", 200);
+
+                        rateLimit.inboundRequest(req);
 
                         let foundEndpoint = false;
                         endpoints.forEach(ep => {
@@ -250,7 +250,7 @@ const init = () => {
                     res.end(convertFileFormat.auto(fileFormat, {
                         "error": true,
                         "internalError": false,
-                        "message": `Wrong method "${req.method}". Expected "GET", "OPTIONS" or "HEAD"`,
+                        "message": `Wrong method "${req.method}" used. Expected "GET", "OPTIONS" or "HEAD"`,
                         "timestamp": new Date().getTime()
                     }));
                 }
@@ -283,8 +283,7 @@ const init = () => {
 
                 let endpointFilePath = `${settings.endpoints.dirPath}${file}`;
 
-                let stats = fs.statSync(endpointFilePath);
-                if(stats.isFile())
+                if(fs.statSync(endpointFilePath).isFile())
                     endpoints.push({
                         name: fileName,
                         desc: require(`.${endpointFilePath}`).meta.desc, // needs an extra . cause require() is relative to this file, whereas "fs" is relative to the project root
