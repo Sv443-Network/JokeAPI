@@ -89,6 +89,7 @@ module.exports = {
     },
     documentation: {
         dirPath: "./docs/",                  // path to the documentation directory - needs trailing slash
+        faviconPath: "./docs/favicon.ico",   // path to the favicon.ico file - don't add trailing slash
         rawDirPath: "./docs/raw/",           // path to the raw documentation files directory - needs trailing slash
         daemonInterval: 2,                   // interval (in seconds) at which the daemon checks for changes in the documentation directory
         error404path: "./docs/err/404.html", // path to the 404 error page

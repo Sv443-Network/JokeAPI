@@ -123,6 +123,9 @@ const init = () => {
                             else return serveDocumentation(res);
                         }
 
+                        if(!jsl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "favicon.ico")
+                            return pipeFile(res, settings.documentation.faviconPath, "image/x-icon", 200);
+
                         let foundEndpoint = false;
                         endpoints.forEach(ep => {
                             if(ep.name == requestedEndpoint)
