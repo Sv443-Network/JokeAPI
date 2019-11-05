@@ -90,7 +90,7 @@ module.exports = {
     documentation: {
         dirPath: "./docs/",                  // path to the documentation directory - needs trailing slash
         rawDirPath: "./docs/raw/",           // path to the raw documentation files directory - needs trailing slash
-        daemonInterval: 5,                   // interval (in seconds) at which the daemon checks for changes in the documentation directory
+        daemonInterval: 2,                   // interval (in seconds) at which the daemon checks for changes in the documentation directory
         error404path: "./docs/err/404.html", // path to the 404 error page
         error500path: "./docs/err/500.html", // path to the 500 error page
     },

@@ -21,6 +21,9 @@
 
         <!-- JokeAPI-index.js -->
         <script src="./static/index.js"></script>
+
+        <!-- Google Code-Prettify -->
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=sunburst"></script>
     </head>
     <body>
         <!-- #MARKER Main -->
@@ -53,6 +56,14 @@
                 Categories: ["Miscellaneous","Programming","Dark"]<br><br>
                 Total Jokes: 134<br><br>
                 Flags: ["nsfw","religious","political"]<br><br>
+
+                <code class="prettyprint">
+                    class Abc {<br>
+                    &emsp;&emsp;private:<br>
+                    &emsp;&emsp;&emsp;&emsp;void test(int);<br>
+                    &emsp;&emsp;&emsp;&emsp;QString abc(QList&lt;QString&gt;);<br>
+                    };
+                </code>
 
                 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
                 Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
@@ -101,24 +112,34 @@
             <a class="closebtn mimica noul" onclick="closeNav()">&times;</a>
             <a class="noul" onclick="closeNav()" href="#">Information</a>
             <a class="noul" onclick="closeNav()" href="#">Try&nbsp;it&nbsp;out</a>
-            <a class="noul" onclick="closeNav()" href="#">Endpoints</a>
-            <ul>
-                <li><a class="noul" onclick="closeNav()" href="#">Get&nbsp;Joke</a></li>
-                <li><a class="noul" onclick="closeNav()" href="#">Info</a></li>
-                <li><a class="noul" onclick="closeNav()" href="#">Categories</a></li>
-                <li><a class="noul" onclick="closeNav()" href="#">Flags</a></li>
-                <li><a class="noul" onclick="closeNav()" href="#">Formats</a></li>
-                <li><a class="noul" onclick="closeNav()" href="#">Ping</a></li>
-            </ul>
+            <details>
+                <summary>
+                    <span class="sidenav-mimica">Endpoints</span>
+                </summary>
+
+                <ul>
+                    <li><a class="noul" onclick="closeNav()" href="#">Get&nbsp;Joke</a></li>
+                    <li><a class="noul" onclick="closeNav()" href="#">Info</a></li>
+                    <li><a class="noul" onclick="closeNav()" href="#">Categories</a></li>
+                    <li><a class="noul" onclick="closeNav()" href="#">Flags</a></li>
+                    <li><a class="noul" onclick="closeNav()" href="#">Formats</a></li>
+                    <li><a class="noul" onclick="closeNav()" href="#">Ping</a></li>
+                </ul>
+            </details>
             <a class="noul" onclick="closeNav()" href="#">Filtering&nbsp;Jokes</a>
             <a class="noul" onclick="closeNav()" href="#">Response&nbsp;Formats</a>
-            <a class="noul" onclick="closeNav()" href="#">Examples</a>
-            <ul>
-                <li><a class="noul" onclick="closeNav()" href="#">CURL</a></li>
-                <li><a class="noul" onclick="closeNav()" href="#">Node.js</a></li>
-                <li><a class="noul" onclick="closeNav()" href="#">Web&nbsp;JS</a></li>
-                <li><a class="noul" onclick="closeNav()" href="#">C++</a></li>
-            </ul>
+            <details>
+                <summary>
+                    <span class="sidenav-mimica">Examples</span> 
+                </summary>
+
+                <ul>
+                    <li><a class="noul" onclick="closeNav()" href="#">CURL</a></li>
+                    <li><a class="noul" onclick="closeNav()" href="#">Node.js</a></li>
+                    <li><a class="noul" onclick="closeNav()" href="#">Web&nbsp;JS</a></li>
+                    <li><a class="noul" onclick="closeNav()" href="#">C++</a></li>
+                </ul>
+            </details>
             <a class="noul" onclick="closeNav()" href="#legal">Legal&nbsp;Stuff</a>
         </div>
     </body>

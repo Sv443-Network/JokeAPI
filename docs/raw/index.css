@@ -5,6 +5,9 @@
     --header-bg-color-sidenav-opened: #555;
 
     --accent-color: #8a2be2;
+    --accent-color-sidenav-opened: #a779d3;
+
+    --sidenav-animation-speed: 0.3s;
 }
 
 html {
@@ -27,7 +30,7 @@ body {
     font-family: "Roboto", "Segoe UI", "Arial", sans-serif;
     font-size: 15px;
 
-    transition: background-color .5s;
+    transition: background-color var(--sidenav-animation-speed);
 
     -webkit-touch-callout: inherit;
     -webkit-user-select: inherit;
@@ -65,17 +68,19 @@ header {
     top: -1px;
     background-color: var(--header-bg-color);
 
-    transition: filter linear 0.5s, width linear .5s;
+    transition: filter linear var(--sidenav-animation-speed), width linear var(--sidenav-animation-speed);
 
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
 
     width: 100%;
+
+    filter: grayscale(0%) drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.6));
 }
 
 header[data-grayscaled="true"] {
-    filter: grayscale(100%);
+    filter: grayscale(100%) drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.3));
     background-color: var(--header-bg-color-sidenav-opened);
     width: 100%;
 }
@@ -131,24 +136,52 @@ a:not(.noul):hover, .mimica:not(.noul):hover {
     left: 0;
     background-color: #111;
     overflow-x: hidden;
-    transition: 0.5s;
+    transition: var(--sidenav-animation-speed);
     padding-top: 60px;
 
     filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.6));
+
+    white-space: nowrap;
 }
 
-#sidenav a {
+#sidenav a, .sidenav-mimica {
     padding: 5px 8px 5px 32px;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 20px;
     color: #a5a5a5;
     display: block;
     transition: 0.3s;
 }
 
-#sidenav a:hover {
+#sidenav a:hover, .sidenav-mimica:hover {
+    cursor: pointer;
     color: #f1f1f1;
     filter: drop-shadow(2px 2px 3px rgba(255, 255, 255, 0.5)); 
+}
+
+#sidenav details > summary:first-of-type {
+    list-style-type: none;
+}
+
+#sidenav details > summary:-webkit-details-marker {
+    display: none;
+}
+
+#sidenav details:not([open]) > summary::before {
+    padding-left: 32px;
+    content: "► ";
+    display: inline;
+}
+
+#sidenav details[open] > summary::before {
+    padding-left: 32px;
+    content: "▼ ";
+    display: inline;
+}
+
+#sidenav details > summary > span.sidenav-mimica {
+    display: inline-block;
+    padding-left: 0px;
 }
 
 #sidenav .closebtn {
@@ -164,7 +197,7 @@ a:not(.noul):hover, .mimica:not(.noul):hover {
     cursor: pointer;
 }
 
-#sidenav > ul {
+#sidenav ul {
     padding-top: 0;
     margin-top: 0;
     list-style-type: none;
@@ -172,17 +205,39 @@ a:not(.noul):hover, .mimica:not(.noul):hover {
     padding-left: 0;
 }
 
-#sidenav > ul > li > a {
-    font-size: 20px;
+#sidenav ul > li > a {
+    font-size: 15px;
 }
 
 #content {
     padding: 16px;
     margin: 10px;
-    transition: margin-left .5s;
+    transition: margin-left var(--sidenav-animation-speed);
 }
 
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
+}
+
+body[data-sidenav="closed"] code, body code {
+    background-color: #000;
+    display: block;
+    padding: 10px 10px 10px 30px;
+
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border-left: 5px solid var(--accent-color) !important;
+
+    filter: grayscale(0%);
+
+    transition: filter linear var(--sidenav-animation-speed);
+}
+
+body[data-sidenav="opened"] code {
+    background-color: #555;
+
+    filter: grayscale(50%);
+
+    transition: filter linear var(--sidenav-animation-speed);
 }

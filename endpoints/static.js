@@ -24,7 +24,7 @@ const meta = {
 const call = (req, res, url, params, format) => {
     jsl.unused([req, params, format]);
 
-    let filePath = "";
+    let filePath = settings.documentation.error404path;
     let mimeType = "text/plain";
     let statusCode = 500;
     let requestedFile = !jsl.isEmpty(url[1]) ? url[1] : null;
