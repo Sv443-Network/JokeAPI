@@ -139,8 +139,9 @@ const inject = filePath => {
                     "<!--%#INSERT:CONTRIBUTORS#%-->":      (!jsl.isEmpty(contributors) ? contributors : "{}"),
                     "<!--%#INSERT:PROJGITHUBURL#%-->":     settings.info.projGitHub,
                     "<!--%#INSERT:JOKESUBMISSIONURL#%-->": settings.jokes.jokeSubmissionURL,
-                    "<!--%#INSERT:CATEGORYARRAY#%-->":     JSON.stringify(settings.jokes.possible.categories),
+                    "<!--%#INSERT:CATEGORYARRAY#%-->":     JSON.stringify([settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories]),
                     "<!--%#INSERT:FLAGSARRAY#%-->":        JSON.stringify(settings.jokes.possible.flags),
+                    "<!--%#INSERT:FILEFORMATARRAY#%-->":   JSON.stringify(settings.jokes.possible.formats),
                     "<!--%#INSERT:TOTALJOKES#%-->":        (!jsl.isEmpty(jokeCount) ? jokeCount.toString() : "N/A")
                 };
 

@@ -1,7 +1,6 @@
 // this module starts the HTTP server, parses the request and calls the requested endpoint
 
 const jsl = require("svjsl");
-const UNUSED = jsl.unused;
 const http = require("http");
 const rateLimit = require("http-ratelimit");
 const Readable = require("stream").Readable;
@@ -89,9 +88,7 @@ const init = () => {
 
                 //#SECTION GET
                 if(req.method === "GET")
-                {
-                    //TODO: all of this shit
-                    
+                {   
                     if(parsedURL.error === null)
                     {
                         let urlPath = parsedURL.pathArray;
@@ -121,15 +118,18 @@ const init = () => {
                             else return serveDocumentation(res);
                         }
 
+                        // serve favicon:
                         if(!jsl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "favicon.ico")
-                            return pipeFile(res, settings.documentation.faviconPath, "image/x-icon", 200);
-
-                        rateLimit.inboundRequest(req);
+                            return pipeFile(res, settings.documentation.faviconPath, "image/x-icon", 200);                       
 
                         let foundEndpoint = false;
                         endpoints.forEach(ep => {
                             if(ep.name == requestedEndpoint)
                             {
+                                // now that the request is not a docs / favicon request, the blacklist is checked and it is made eligible for rate limiting
+                                if(!settings.endpoints.ratelimitBlacklist.includes(ep.name))
+                                    return rateLimit.inboundRequest(req);
+
                                 foundEndpoint = true;
                                 debug("HTTP-Request", `Got a request by ${ip}`);
 
@@ -177,8 +177,6 @@ const init = () => {
                 //#SECTION PUT
                 else if(req.method === "PUT")
                 {
-                    // TODO: joke submissions
-
                     console.log(`PUT ${parsedURL.pathArray}`);
                     if(!jsl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "submit")
                     {
@@ -197,6 +195,7 @@ const init = () => {
                                 if(joke.formatVersion == parseJokes.jokeFormatVersion && joke.formatVersion == settings.jokes.jokesFormatVersion)
                                 {
                                     // format version is correct
+                                    // TODO: validate joke and save to directory
                                 }
                                 else
                                 {
@@ -271,7 +270,7 @@ const init = () => {
             });
         
             httpServer.on("error", err => {
-                UNUSED(err); // TODO: handle error
+                jsl.unused(err); // TODO: handle error
             });
         };
 

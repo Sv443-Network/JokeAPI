@@ -67,6 +67,7 @@ header {
     position: sticky;
     top: -1px;
     background-color: var(--header-bg-color);
+    z-index: 1000;
 
     transition: filter linear var(--sidenav-animation-speed), width linear var(--sidenav-animation-speed);
 
@@ -138,6 +139,7 @@ a:not(.noul):hover, .mimica:not(.noul):hover {
     overflow-x: hidden;
     transition: var(--sidenav-animation-speed);
     padding-top: 60px;
+    z-index: 1001;
 
     filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.6));
 
@@ -169,19 +171,30 @@ a:not(.noul):hover, .mimica:not(.noul):hover {
 
 #sidenav details:not([open]) > summary::before {
     padding-left: 32px;
-    content: "► ";
+    content: "⯈ ";
     display: inline;
 }
 
 #sidenav details[open] > summary::before {
     padding-left: 32px;
-    content: "▼ ";
+    content: "⯆ ";
     display: inline;
 }
 
 #sidenav details > summary > span.sidenav-mimica {
     display: inline-block;
     padding-left: 0px;
+}
+
+#sidenav details > summary {
+    cursor: pointer;
+    color: #a5a5a5;
+    transition: 0.3s;
+}
+
+#sidenav details > summary:hover {
+    color: #f1f1f1;
+    transition: 0.3s;
 }
 
 #sidenav .closebtn {

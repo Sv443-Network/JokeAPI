@@ -68,7 +68,7 @@ module.exports = {
         defaultFileFormat: {
             fileFormat: "json",           // the default file format string
             mimeType: "application/json", // the default file format mime type
-        }
+        },
     },
     httpServer: {
         port: 8079,         // http server port
@@ -97,6 +97,9 @@ module.exports = {
     },
     endpoints: {
         dirPath: "./endpoints/", // path to the dir containing all the endpoint scripts
+        ratelimitBlacklist: [    // calling an endpoint in this array will not count towards the rate limit counter
+            "static",
+        ],
     },
     colors: {
         success: col.green,                // when request successful
@@ -107,5 +110,5 @@ module.exports = {
     },
     analytics: {
         dirPath: "./data/analytics/", // path to the analytics directory - needs trailing slash
-    }
+    },
 }
