@@ -255,6 +255,10 @@ const init = () => {
                 }
             });
 
+            httpServer.on("error", err => {
+                logger("error", `HTTP Server Error: ${err}`, true);
+            });
+
             httpServer.listen(settings.httpServer.port, settings.httpServer.hostname, err => {
                 if(!err)
                 {
@@ -267,10 +271,6 @@ const init = () => {
                     debug("HTTP", `${jsl.colors.fg.red}HTTP listener init encountered error: ${settings.httpServer.port}${jsl.colors.rst}`);
                     return reject(err);
                 }
-            });
-        
-            httpServer.on("error", err => {
-                jsl.unused(err); // TODO: handle error
             });
         };
 
