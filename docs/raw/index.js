@@ -3,11 +3,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.jokeapi = {};
 
+    document.getElementById("content").onclick = closeNav;
+    document.getElementsByTagName("header")[0].onclick = closeNav;
+
     try
     {
         // only works in modern browsers
-        document.getElementById("content").onclick = closeNav;
-        document.getElementsByTagName("header")[0].onclick = closeNav;
     }
     catch(err) {unused();}
 
