@@ -1533,7 +1533,7 @@
             "category": "Dark",
             "type": "twopart",
             "setup": "I was walking down the street and saw some black guy on a bike and it looked just like mine so I ran home to check.",
-            "delivery": "Thankfully he was still chained up in my basement",
+            "delivery": "Thankfully he was still chained up in my basement.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -1563,6 +1563,17 @@
                 "political": false
             },
             "id": 133
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "setup": "How do you generate a random string?",
+            "delivery": "Put a Windows user in front of Vim and tell him to exit.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false
+            }
         }
     ]
 }
