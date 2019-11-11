@@ -28,5 +28,6 @@ const resolveIP = req => {
     }
 
     return (ipaddr.length<15?ipaddr:(ipaddr.substr(0,7)==='::ffff:'?ipaddr.substr(7):"err"));
+    //return "blacklist_test";
 };
 module.exports = resolveIP;

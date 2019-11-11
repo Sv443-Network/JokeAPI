@@ -29,6 +29,8 @@ const init = () => {
             let httpServer = http.createServer((req, res) => {
                 let parsedURL = parseURL(req.url);
                 let ip = resolveIP(req);
+
+                debug("HTTP", `Incoming request from "${ip}"`);
                 
                 let fileFormat = settings.jokes.defaultFileFormat.fileFormat;
                 if(!jsl.isEmpty(parsedURL.queryParams) && !jsl.isEmpty(parsedURL.queryParams.format))
@@ -126,12 +128,11 @@ const init = () => {
                         endpoints.forEach(ep => {
                             if(ep.name == requestedEndpoint)
                             {
-                                // now that the request is not a docs / favicon request, the blacklist is checked and it is made eligible for rate limiting
+                                // now that the request is not a docs / favicon request, the blacklist is checked and the request is made eligible for rate limiting
                                 if(!settings.endpoints.ratelimitBlacklist.includes(ep.name))
-                                    return rateLimit.inboundRequest(req);
+                                    rateLimit.inboundRequest(req);
 
                                 foundEndpoint = true;
-                                debug("HTTP-Request", `Got a request by ${ip}`);
 
                                 let callEndpoint = require(`.${ep.absPath}`);
                                 let meta = callEndpoint.meta;
