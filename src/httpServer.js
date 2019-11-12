@@ -424,16 +424,12 @@ const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
     }
     catch(err)
     {
-        res.writeHead(500, {"Content-Type": `text/plain; UTF-8`});
-        res.end("INTERNAL_ERR:STATUS_CODE_NOT_INT");
-        return;
+        return respondWithErrorPage(null, res, 500, null, `Encountered internal server error while piping file: wrong type for status code.`);
     }
 
     if(!fs.existsSync(filePath))
     {
-        res.writeHead(500, {"Content-Type": `text/plain; UTF-8`});
-        res.end("INTERNAL_ERR:NOT_FOUND");
-        return;
+        return respondWithErrorPage(null, res, 404, null, `File at "${filePath}" not found.`);
     }
 
     try
