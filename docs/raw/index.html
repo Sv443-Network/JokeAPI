@@ -25,7 +25,7 @@
         <!-- Google Code-Prettify -->
         <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=sunburst"></script>
     </head>
-    <body>
+    <body onload="onLoad()">
         <!-- #MARKER Main -->
         <main>
             <!-- #MARKER Header -->
@@ -58,13 +58,27 @@
                 Flags: <!--%#INSERT:FLAGSARRAY#%--><br><br>
                 File Formats: <!--%#INSERT:FILEFORMATARRAY#%--> <br><br>
 
-                <code class="prettyprint">
-                    class Abc {<br>
-                    &emsp;&emsp;private:<br>
-                    &emsp;&emsp;&emsp;&emsp;void test(int);<br>
-                    &emsp;&emsp;&emsp;&emsp;QString abc(QList&lt;QString&gt;);<br>
-                    };
-                </code>
+<code class="prettyprint"><span class="nocode codeheader">Header</span>
+#include &lt;QString&gt;
+
+#ifndef BAR
+	#define BAR "hello"
+#endif
+
+class Test
+{
+	private:
+		int x = 0;
+
+	protected slots:
+		void test(QString x = "test", int test = "abc");
+
+		void test2()
+		{
+			int * bla = new Test();
+			bla->something().foo = BAR;
+		}
+}</code>
 
                 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
                 Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
@@ -109,7 +123,7 @@
 
 
         <!-- #MARKER SideNav -->
-        <div id="sidenav" class="sidenav">
+        <div id="sidenav" class="sidenav noselect">
             <a class="closebtn mimica noul" onclick="closeNav()">&times;</a>
             <a class="noul" onclick="closeNav()" href="#">Information</a>
             <a class="noul" onclick="closeNav()" href="#">Try it out</a>
@@ -145,3 +159,12 @@
         </div>
     </body>
 </html>
+
+<!-- #MARKER TODO:
+
+Include Licenses:
+    - Cascadia Code Font: https://raw.githubusercontent.com/microsoft/cascadia-code/master/LICENSE
+
+
+
+-->

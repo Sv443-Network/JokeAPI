@@ -20,7 +20,7 @@ module.exports = {
             website: packageJSON.author.url,    // author website
             github: "https://github.com/Sv443", // author github page
         },
-        infoMsg: "If you want to be updated on the status of JokeAPI, please consider following me on Twitter (https://twitter.com/Sv443_dev) or joining my Discord server (https://discord.gg/aBH4uRG)",
+        infoMsg: "If you want to be updated on the status of JokeAPI, please consider joining my Discord server (https://discord.gg/aBH4uRG)",
     },
     init: {
         initDirs: [ // directories that should be generated if they don't exist - paths relative to root of project - doesn't necessarily need trailing slash
@@ -77,6 +77,10 @@ module.exports = {
         timeFrame: 1,       // timeframe in min - also supports floating point numbers
         disableCache: true, // whether or not to disable the cache - default: true (setting to false may prevent the users from getting new jokes)
         infoHeaders: true,  // whether or not to add an informational header about JokeAPI to each request
+        regexes: {          // regular expressions to validate IP addresses - thanks to https://nbviewer.jupyter.org/github/rasbt/python_reference/blob/master/tutorials/useful_regex.ipynb
+            ipv4: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/gm,
+            ipv6: /^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/gm,
+        },
     },
     errors: {
         errorRegistryIncludePath: "./data/errorRegistry", // path to the error registry
@@ -88,12 +92,14 @@ module.exports = {
         consoleBlacklistPath: "./data/lists/consoleBlacklist.json", // path to the IP console blacklist
     },
     documentation: {
-        dirPath: "./docs/",                  // path to the documentation directory - needs trailing slash
-        faviconPath: "./docs/favicon.ico",   // path to the favicon.ico file - don't add trailing slash
-        rawDirPath: "./docs/raw/",           // path to the raw documentation files directory - needs trailing slash
-        daemonInterval: 2,                   // interval (in seconds) at which the daemon checks for changes in the documentation directory
+        dirPath: "./docs/",                // path to the documentation directory - needs trailing slash
+        faviconPath: "./docs/favicon.ico", // path to the favicon.ico file - don't add trailing slash
+        rawDirPath: "./docs/raw/",         // path to the raw documentation files directory - needs trailing slash
+        daemonInterval: 2,                 // interval (in seconds) at which the daemon checks for changes in the documentation directory
         error404path: "./docs/err/404.html", // path to the 404 error page
         error500path: "./docs/err/500.html", // path to the 500 error page
+        codeFontFileName: "CascadiaCode-Regular-VTT_1910.04.ttf", // the name of the font file that is going to be used in code blocks - has to be in the directory specified with the above property "dirPath"
+        codeFontLicenseURL: "https://raw.githubusercontent.com/microsoft/cascadia-code/master/LICENSE", // URL to the code font license
     },
     endpoints: {
         dirPath: "./endpoints/", // path to the dir containing all the endpoint scripts

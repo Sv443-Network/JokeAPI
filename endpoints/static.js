@@ -41,6 +41,11 @@ const call = (req, res, url, params, format) => {
             statusCode = 200;
             mimeType = "application/javascript";
         break;
+        case "cascadia-code.ttf":
+            filePath = `${settings.documentation.dirPath}${settings.documentation.codeFontFileName}`;
+            statusCode = 200;
+            mimeType = "application/x-font-ttf";
+        break;
         default:
             filePath = settings.documentation.error404path;
             statusCode = 404;

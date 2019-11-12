@@ -186,7 +186,7 @@ const init = () => {
                         req.on("data", chunk => {
                             dataGotten = true;
                             data += chunk;
-                            
+
                             try
                             {
                                 let joke = JSON.parse(data);
@@ -436,13 +436,11 @@ const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
         return;
     }
 
-    let size = fs.statSync(filePath).size;
-
     try
     {
         res.writeHead(statusCode, {
             "Content-Type": `${mimeType}; UTF-8`,
-            "Content-Length": size
+            "Content-Length": fs.statSync(filePath).size
         });
 
         let readStream = fs.createReadStream(filePath);

@@ -42,7 +42,7 @@ const call = (req, res, url, params, format) => {
             "jokes":
             {
                 "totalCount": (!jsl.isEmpty(parseJokes.jokeCount) ? parseJokes.jokeCount : 0),
-                "categories": settings.jokes.possible.categories,
+                "categories": [settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories],
                 "flags": settings.jokes.possible.flags,
                 "submissionURL": settings.jokes.jokeSubmissionURL
             },
@@ -58,7 +58,7 @@ const call = (req, res, url, params, format) => {
             "jokes":
             {
                 "totalCount": (!jsl.isEmpty(parseJokes.jokeCount) ? parseJokes.jokeCount : 0),
-                "categories": {"category": settings.jokes.possible.categories},
+                "categories": {"category": [settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories]},
                 "flags": {"flag": settings.jokes.possible.flags},
                 "submissionURL": settings.jokes.jokeSubmissionURL
             },

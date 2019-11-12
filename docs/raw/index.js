@@ -1,4 +1,5 @@
-document.addEventListener("DOMContentLoaded", () => {
+function onLoad()
+{
     console.log("JokeAPI Documentation (v<!--%#INSERT:VERSION#%-->)");
 
     window.jokeapi = {};
@@ -6,9 +7,11 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("content").onclick = closeNav;
     document.getElementsByTagName("header")[0].onclick = closeNav;
 
+    addCodeTabs();
+
     try
     {
-        // only works in modern browsers
+        // put ES6+ code here
     }
     catch(err) {unused();}
 
@@ -23,7 +26,21 @@ document.addEventListener("DOMContentLoaded", () => {
         else if(e.key == "Escape" && window.jokeapi.sidenavOpened)
             closeNav();
     });
-});
+}
+unused(onLoad);
+
+function addCodeTabs()
+{
+    var codeElements = document.getElementsByTagName("code");
+
+    for(var i = 0; i < codeElements; i++)
+    {
+        if(codeElements[i].classList.contains("prettyprint"))
+        {
+            codeElements[i].innerHTML = codeElements[i].innerHTML.replace(/&tab;/gm, "&nbsp;&nbsp;&nbsp;&nbsp;");
+        }
+    }
+}
 
 function unused(...args)
 {
