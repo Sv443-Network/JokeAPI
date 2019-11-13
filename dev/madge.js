@@ -3,10 +3,16 @@ const fs = require("fs");
 const settings = require("../settings");
 
 
+
+const madgeOptions = {
+    graphVizPath: null // set to null to use the path inside the PATH environment variable
+};
+
 var fileList = [];
+var firstIframePos = {url: "./madge/src-main.html", name: "main"};
 let isWindows = process.platform == "win32";
 
-if(isWindows && !process.env.PATH.includes("gvpr.exe"))
+if(isWindows && !process.env.PATH.includes("gvpr.exe") && madgeOptions.graphVizPath == null)
 {
     console.log("\x1b[31m\x1b[1m\nMadge needs the GraphViz software to generate the SVG graphs. Please download it (https://graphviz.gitlab.io/download/) and add it to your PATH environment variable.\x1b[0m");
     process.exit(1);
@@ -27,7 +33,7 @@ const generateForSrc = () => {
 
             try
             {
-                madge(`./src/${file}`)
+                madge(`./src/${file}`, madgeOptions)
                 .then((res) => res.svg())
                 .then((output) => {
                     iterCount++;
@@ -37,7 +43,7 @@ const generateForSrc = () => {
                     resolve();
                 });
 
-                fileList.push(`<li><span class="mimica" onclick="setIframe('./madge/src-${filename}.html')">src/${filename}.js</span></li>`);
+                fileList.push(`<li><span class="mimica" onclick="setIframe('./madge/src-${filename}.html', '${filename}')">src/${filename}.js</span></li>`);
             }
             catch(err)
             {
@@ -62,7 +68,7 @@ const generateForEndpoints = () => {
 
             try
             {
-                madge(`./endpoints/${file}`)
+                madge(`./endpoints/${file}`, madgeOptions)
                 .then((res) => res.svg())
                 .then((output) => {
                     iterCount++;
@@ -72,7 +78,7 @@ const generateForEndpoints = () => {
                     resolve();
                 });
 
-                fileList.push(`<li><span class="mimica" onclick="setIframe('./madge/endpoints-${filename}.html')">endpoints/${filename}.js</span></li>`);
+                fileList.push(`<li><span class="mimica" onclick="setIframe('./madge/endpoints-${filename}.html', '${filename}')">endpoints/${filename}.js</span></li>`);
             }
             catch(err)
             {
@@ -97,7 +103,7 @@ const generateForTools = () => {
 
             try
             {
-                madge(`./tools/${file}`)
+                madge(`./tools/${file}`, madgeOptions)
                 .then((res) => res.svg())
                 .then((output) => {
                     iterCount++;
@@ -107,7 +113,7 @@ const generateForTools = () => {
                     resolve();
                 });
 
-                fileList.push(`<li><span class="mimica" onclick="setIframe('./madge/tools-${filename}.html')">tools/${filename}.js</span></li>`);
+                fileList.push(`<li><span class="mimica" onclick="setIframe('./madge/tools-${filename}.html', '${filename}')">tools/${filename}.js</span></li>`);
             }
             catch(err)
             {
@@ -131,7 +137,7 @@ const getIndex = () => `\
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Index - ${settings.info.name} Dependency Graph</title>
+        <title>${settings.info.name} Dependency Graph</title>
         <style>
             body {font-family: "Source Sans Pro", "Segoe UI", sans-serif; margin: 5px; overflow-x: hidden;}
             .mimica {color: #00e; cursor: pointer;}
@@ -142,34 +148,41 @@ const getIndex = () => `\
             table, table tr {width: 98vw;}
             #iframewrapper {width: 100%; height: 100%;}
 
-            #flexcontainer {display: flex; flex-direction: row; flex-wrap: nowrap;}
+            #flexcontainer {display: flex; flex-direction: row; flex-wrap: nowrap; min-height: 99vh;}
             .flexitem {flex-grow: 0;}
-            .flexitem.grow {flex-grow: 3;}
+            .flexitem.grow {flex-grow: 3; padding-left: 20px;}
+
+            h2 {margin-bottom: 10px; margin-top: 16px;}
+
+            footer {position: fixed; bottom: 10px; right: 10px;}
         </style>
         <script>
-            function setIframe(url)
+            function onLoad()
+            {
+                setIframe("${firstIframePos.url}", "${firstIframePos.name}");
+            }
+            function setIframe(url, name)
             {
                 document.getElementById("iframe").src = url;
+                document.getElementById("selectedgraphtitle").innerHTML = name + ".js:";
             }
         </script>
     </head>
-    <body>
+    <body onload="onLoad()">
         <div id="flexcontainer">
             <div class="flexitem">
-                <h2>${settings.info.name} Dependency Graphs:</h2>
-
                 <ul>
                     ${fileList.join("\n\t\t\t")}
                 </ul>
-
-                <br>
-
-                Generated with <a href="https://www.npmjs.com/package/madge" target="_blank">Madge</a>
             </div>
             <div class="flexitem grow">
-                <iframe id="iframe">
+                <h2 id="selectedgraphtitle"></h2>
+                <iframe id="iframe"></iframe>
             </div>
         </div>
+        <footer>
+            Generated with <a href="https://www.npmjs.com/package/madge" target="_blank">Madge</a>
+        </footer>
     </body>
 </html>`;
 

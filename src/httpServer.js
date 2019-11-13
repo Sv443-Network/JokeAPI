@@ -23,7 +23,7 @@ const init = () => {
         let endpoints = [];
 
         /**
-         * Initializes the HTTP server - can only be called once
+         * Initializes the HTTP server - should only be called once
          */
         let initHttpServer = () => {
             let httpServer = http.createServer((req, res) => {
@@ -62,13 +62,6 @@ const init = () => {
                     }
 
                     res.setHeader("Allow", "GET, HEAD, OPTIONS");
-
-                    if(settings.httpServer.disableCache)
-                    {
-                        res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-                        res.setHeader("Pragma", "no-cache");
-                        res.setHeader("Expires", "0");
-                    }
 
                     if(settings.httpServer.infoHeaders)
                     {
@@ -119,6 +112,14 @@ const init = () => {
                                 return respondWithError(res, 101, 429, fileFormat);
                             }
                             else return serveDocumentation(res);
+                        }
+
+                        // Disable caching now that the request is not a docs request
+                        if(settings.httpServer.disableCache)
+                        {
+                            res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+                            res.setHeader("Pragma", "no-cache");
+                            res.setHeader("Expires", "0");
                         }
 
                         // serve favicon:
