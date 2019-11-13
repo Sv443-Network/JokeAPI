@@ -1575,6 +1575,18 @@
                 "political": false
             },
             "id": 134
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "What's the difference between a jew and a pizza?",
+            "delivery": "The pizza doesn't scream when you put it in the oven.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false
+            },
+            "id": 135
         }
     ]
 }

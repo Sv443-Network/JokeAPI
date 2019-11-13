@@ -4,7 +4,7 @@
   "description": "A RESTful API that serves jokes from many categories while also offering a lot of filtering methods",
   "main": "JokeAPI.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"No test script specified\" && exit 0",
     "reformat": "call node tools/reformat",
     "reassign-ids": "call node tools/reassign-ids",
     "validate-jokes": "call node tools/validate-jokes",
