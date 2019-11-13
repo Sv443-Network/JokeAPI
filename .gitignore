@@ -61,8 +61,18 @@ typings/
 .next
 
 
-test.js*
+
+# GitHub stuff:
 .github/*
-!change.log*
-madge/
+
+# Dev stuff:
+dev/madge/
 dependency-graph.html
+test.js
+
+# Docs:
+docs/documentation.html
+docs/*_injected.*
+
+# Re-inclusions:
+!change.log*
