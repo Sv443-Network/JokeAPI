@@ -90,7 +90,8 @@ const init = () => {
 
                 //#SECTION GET
                 if(req.method === "GET")
-                {   
+                {
+                    //#MARKER GET
                     if(parsedURL.error === null)
                     {
                         let urlPath = parsedURL.pathArray;
@@ -169,77 +170,147 @@ const init = () => {
                             if(!jsl.isEmpty(fileFormat))
                             {
                                 // TODO: correct anchor
-                                return respondWithError(res, 102, 404, fileFormat, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at https://sv443.net/jokeapi#endpoints to see all available endpoints`);
+                                return respondWithError(res, 102, 404, fileFormat, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at ${settings.info.docsURL}#endpoints to see all available endpoints`);
                             }
-                            else return respondWithErrorPage(req, res, 404, fileFormat, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at https://sv443.net/jokeapi#endpoints to see all available endpoints`);
+                            else return respondWithErrorPage(req, res, 404, fileFormat, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at ${settings.info.docsURL}#endpoints to see all available endpoints`);
                         }
                     }
                 }
                 //#SECTION PUT
                 else if(req.method === "PUT")
                 {
-                    console.log(`PUT ${parsedURL.pathArray}`);
+                    //#MARKER Joke submission
                     if(!jsl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "submit")
                     {
                         let data = "";
                         let dataGotten = false;
                         req.on("data", chunk => {
-                            dataGotten = true;
                             data += chunk;
+                            
+                            if(!jsl.isEmpty(data))
+                                dataGotten = true;
 
                             try
                             {
-                                let joke = JSON.parse(data);
-                                if(jsl.isEmpty(joke))
+                                let submittedJoke = JSON.parse(data);
+                                if(jsl.isEmpty(submittedJoke))
                                     return respondWithError(res, 105, 400, fileFormat, "Request body is empty");
                                 
-                                if(joke.formatVersion == parseJokes.jokeFormatVersion && joke.formatVersion == settings.jokes.jokesFormatVersion)
+                                if(submittedJoke.formatVersion == parseJokes.jokeFormatVersion && submittedJoke.formatVersion == settings.jokes.jokesFormatVersion)
                                 {
-                                    // format version is correct
-                                    // TODO: validate joke and save to directory
+                                    // format version is correct, validate joke now
+                                    let validationResult = parseJokes.validateSingle(submittedJoke);
+
+                                    if(typeof validationResult === "object")
+                                        return respondWithError(res, 105, 400, fileFormat, `Submitted joke format is incorrect - encountered error${validationResult.length == 1 ? "" : "s"}:\n${validationResult.join("\n")}`);
+                                    else if(validationResult === true)
+                                    {
+                                        // joke is valid, find file name and then write to file
+
+                                        let sanitizedIP = ip.replace(/[^A-Za-z0-9\-_./]|^COM[0-9]([/.]|$)|^LPT[0-9]([/.]|$)|^PRN([/.]|$)|^CLOCK\$([/.]|$)|^AUX([/.]|$)|^NUL([/.]|$)|^CON([/.]|$)/gm, "#")
+                                        let curUnix = new Date().getTime();
+                                        let fileName = `${settings.jokes.jokeSubmissionPath}submission_${sanitizedIP}_0_${curUnix}.json`;
+                                        let iter = 0;
+
+                                        if(fs.existsSync(`${settings.jokes.jokeSubmissionPath}${fileName}`))
+                                            fileName = `${settings.jokes.jokeSubmissionPath}submission_${sanitizedIP}_${findNextNum()}_${curUnix}.json`;
+
+                                        let findNextNum = currentNum => {
+                                            iter++;
+                                            if(iter >= settings.httpServer.rateLimiting)
+                                            {
+                                                logRequest("ratelimited");
+                                                return respondWithError(res, 101, 429, fileFormat);
+                                            }
+
+                                            if(fs.existsSync(`${settings.jokes.jokeSubmissionPath}submission_${sanitizedIP}_${currentNum}_${curUnix}.json`))
+                                                return findNextNum(currentNum + 1);
+                                            else return currentNum;
+                                        }
+
+                                        try
+                                        {
+                                            // file name was found, write to file now:
+                                            fs.writeFile(fileName, JSON.stringify(submittedJoke, null, 4), err => {
+                                                if(!err)
+                                                {
+                                                    // successfully wrote to file
+                                                    let responseObj = {
+                                                        "error": false,
+                                                        "message": "Joke submission was successfully saved. It will soon be checked out by the author.",
+                                                        "submission": submittedJoke,
+                                                        "timestamp": new Date().getTime()
+                                                    };
+                                                    return pipeString(res, convertFileFormat.auto(fileFormat, responseObj), parseURL.getMimeTypeFromFileFormatString(fileFormat), 201);
+                                                }
+                                                // error while writing to file
+                                                else return respondWithError(res, 100, 500, fileFormat, `Internal error while saving joke: ${err}`);
+                                            });
+                                        }
+                                        catch(err)
+                                        {
+                                            return respondWithError(res, 100, 500, fileFormat, `Internal error while saving joke: ${err}`);
+                                        }
+                                    }
                                 }
                                 else
                                 {
-                                    // TODO: respond with 400 - format version incorrect
+                                    return respondWithError(res, 105, 400, fileFormat, `Joke format version is incorrect - expected "${parseJokes.jokeFormatVersion}"`);
                                 }
                             }
                             catch(err)
                             {
-                                return respondWithError(res, 105, 400, fileFormat, "Request format is not JSON");
+                                return respondWithError(res, 105, 400, fileFormat, `Request body contains invalid JSON: ${err}`);
                             }
                         });
 
                         setTimeout(() => {
-                            !dataGotten && respondWithErrorPage(req, res, 400, fileFormat, "Request body is empty");
+                            if(!dataGotten)
+                            {
+                                debug("HTTP", "PUT request timed out");
+                                return respondWithError(res, 105, 400, fileFormat, "Request body is empty");
+                            }
                         }, 3000);
                     }
                     else
                     {
-
+                        //#MARKER Restart / invalid PUT
                         let data = "";
                         let dataGotten = false;
                         req.on("data", chunk => {
                             data += chunk;
-                            dataGotten = true;
+
+                            if(!jsl.isEmpty(data))
+                                dataGotten = true;
 
                             if(data == process.env.RESTART_TOKEN)
                             {
                                 res.writeHead(200, {"Content-Type": parseURL.getMimeTypeFromFileFormatString(fileFormat)});
                                 res.end(convertFileFormat.auto(fileFormat, {
                                     "error": false,
-                                    "message": `Restarted ${settings.info.name}`,
+                                    "message": `Restarting ${settings.info.name}`,
                                     "timestamp": new Date().getTime()
                                 }));
-                                console.log(`${logger.getTimestamp(" | ")} ${jsl.colors.fg.red}\n\nIP ${jsl.colors.fg.yellow}${ip}${jsl.colors.fg.red} sent a restart command\n${jsl.colors.rst}`);
+                                console.log(`\n\n[${logger.getTimestamp(" | ")}]  ${jsl.colors.fg.red}IP ${jsl.colors.fg.yellow}${ip}${jsl.colors.fg.red} sent a restart command\n\n\n${jsl.colors.rst}`);
                                 process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
+                            }
+                            else
+                            {
+                                // TODO: correct anchor
+                                return respondWithErrorPage(req, res, 400, fileFormat, `Request body is invalid or was sent to the wrong endpoint, please refer to the documentation at ${settings.info.docsURL}#submit-joke to see how to correctly structure a joke submission.`);
                             }
                         });
 
                         setTimeout(() => {
-                            !dataGotten && respondWithErrorPage(req, res, 404, fileFormat, "Not Found");
+                            if(!dataGotten)
+                            {
+                                debug("HTTP", "PUT request timed out");
+                                return respondWithErrorPage(req, res, 400, fileFormat, "Request body is empty");
+                            }
                         }, 3000);
                     }
                 }
+                //#MARKER Preflight
                 //#SECTION HEAD / OPTIONS
                 else if(req.method === "HEAD" || req.method === "OPTIONS")
                     serveDocumentation(res);
@@ -256,6 +327,7 @@ const init = () => {
                 }
             });
 
+            //#MARKER other HTTP stuff
             httpServer.on("error", err => {
                 logger("error", `HTTP Server Error: ${err}`, true);
             });
@@ -276,6 +348,7 @@ const init = () => {
         };
 
         fs.readdir(settings.endpoints.dirPath, (err1, files) => {
+            jsl.unused(err1);
             files.forEach(file => {
                 let fileName = file.split(".");
                 fileName.pop();
@@ -349,15 +422,15 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
  * Defaults to 500
  * @param {http.IncomingMessage} req
  * @param {http.ServerResponse} res 
- * @param {(404|500)} statusCode 
+ * @param {(404|500)} [statusCode=500] HTTP status code - defaults to 500
  * @param {String} fileFormat
- * @param {String} error
+ * @param {String} [error] Additional error message that gets added to the "API-Error" response header
  */
 const respondWithErrorPage = (req, res, statusCode, fileFormat, error) => {
     jsl.unused([req, fileFormat]);
 
     if(isNaN(parseInt(statusCode)))
-        return jsl.unused(); // TODO: handle error
+        statusCode = 500;
     
     let filePath = "";
 
@@ -371,7 +444,8 @@ const respondWithErrorPage = (req, res, statusCode, fileFormat, error) => {
         break;
     }
 
-    res.setHeader("API-Error", error);
+    if(!jsl.isEmpty(error))
+        res.setHeader("API-Error", error);
 
     pipeFile(res, filePath, "text/html", statusCode);
 }

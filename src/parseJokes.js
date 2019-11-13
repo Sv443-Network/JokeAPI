@@ -30,10 +30,12 @@ const init = () => {
 
             module.exports.jokeCount = jokesFile.jokes.length;
             module.exports.jokeFormatVersion = jokesFile.info.formatVersion;
+            this.jokeFormatVersion = jokesFile.info.formatVersion;
 
+            //#MARKER format version
             if(jokesFile.info.formatVersion == settings.jokes.jokesFormatVersion)
                 result.push(true);
-            else result.push(`Joke format version is set to "${jokesFile.info.formatVersion}" - Expected: "${settings.jokes.jokesFormatVersion}"`);
+            else result.push(`Joke file format version is set to "${jokesFile.info.formatVersion}" - Expected: "${settings.jokes.jokesFormatVersion}"`);
 
             jokesFile.jokes.forEach((joke, i) => {
                 //#MARKER joke ID
@@ -63,15 +65,15 @@ const init = () => {
                 //#MARKER flags
                 if(!jsl.isEmpty(joke.flags))
                 {
-                    if(!jsl.isEmpty(joke.flags.nsfw) && (joke.flags.nsfw === false || joke.flags.nsfw === true))
+                    if(!jsl.isEmpty(joke.flags.nsfw) || (joke.flags.nsfw !== false && joke.flags.nsfw !== true))
                         result.push(true);
                     else result.push(`Joke with index/ID ${i} has an invalid "NSFW" flag`);
 
-                    if(!jsl.isEmpty(joke.flags.political) && (joke.flags.political === false || joke.flags.political === true))
+                    if(!jsl.isEmpty(joke.flags.political) || (joke.flags.political !== false && joke.flags.political !== true))
                         result.push(true);
                     else result.push(`Joke with index/ID ${i} has an invalid "political" flag`);
 
-                    if(!jsl.isEmpty(joke.flags.religious) && (joke.flags.religious === false || joke.flags.religious === true))
+                    if(!jsl.isEmpty(joke.flags.religious) || (joke.flags.religious !== false && joke.flags.religious !== true))
                         result.push(true);
                     else result.push(`Joke with index/ID ${i} has an invalid "religious" flag`);
                 }
@@ -95,4 +97,109 @@ const init = () => {
     });
 }
 
-module.exports = { init }
+/**
+ * @typedef {Object} SingleJoke A joke of type single
+ * @prop {Number} formatVersion
+ * @prop {Object} joke
+ * @prop {String} joke.category The category of the joke
+ * @prop {("single")} joke.type The type of the joke
+ * @prop {String} joke.joke The joke itself
+ * @prop {Object} flags
+ * @prop {Boolean} flags.nsfw Whether the joke is NSFW or not
+ * @prop {Boolean} flags.religious Whether the joke is religiously offensive or not
+ * @prop {Boolean} flags.political Whether the joke is politically offensive or not
+ */
+
+/**
+ * @typedef {Object} TwopartJoke A joke of type twopart
+ * @prop {Number} formatVersion
+ * @prop {Object} joke
+ * @prop {String} joke.category The category of the joke
+ * @prop {("twopart")} joke.type The type of the joke
+ * @prop {String} joke.setup The setup of the joke
+ * @prop {String} joke.delivery The delivery of the joke
+ * @prop {Object} flags
+ * @prop {Boolean} flags.nsfw Whether the joke is NSFW or not
+ * @prop {Boolean} flags.religious Whether the joke is religiously offensive or not
+ * @prop {Boolean} flags.political Whether the joke is politically offensive or not
+ */
+
+/**
+ * Validates a single joke passed as a parameter
+ * @param {(SingleJoke|TwopartJoke)} joke A joke object of type single or twopart
+ * @returns {(Boolean|Array<String>)} Returns true if the joke has the correct format, returns string array containing error(s) if invalid
+ */
+const validateSingle = joke => {
+    let jokeErrors = [];
+
+    try
+    {
+        if(typeof joke == "object")
+            joke = JSON.stringify(joke);
+
+        joke = JSON.parse(joke);
+
+
+        //#MARKER format version
+        if(joke.formatVersion != null)
+        {
+            if(joke.formatVersion != settings.jokes.jokesFormatVersion || joke.formatVersion != this.jokeFormatVersion)
+                jokeErrors.push(`Joke format version "${joke.formatVersion}" doesn't match up with required version "${this.jokeFormatVersion}"`);
+        }
+        else jokeErrors.push(`Joke doesn't have a "formatVersion" property`);
+
+        //#MARKER type and actual joke
+        if(joke.type == "single")
+        {
+            if(jsl.isEmpty(joke.joke))
+                jokeErrors.push(`Joke is of type "single" but doesn't have a "joke" property`);
+        }
+        else if(joke.type == "twopart")
+        {
+            if(jsl.isEmpty(joke.setup))
+                jokeErrors.push(`Joke is of type "twopart" but doesn't have a "setup" property`);
+
+            if(jsl.isEmpty(joke.delivery))
+                jokeErrors.push(`Joke is of type "twopart" but doesn't have a "delivery" property`);
+        }
+        else jokeErrors.push(`Joke doesn't have a "type" property or it is invalid - it has to be either "single" or "twopart"`);
+
+        //#MARKER joke category
+        if(joke.category == null)
+            jokeErrors.push(`Joke doesn't have a "category" property`);
+        else
+        {
+            let categoryValid = false;
+            settings.jokes.possible.categories.forEach(cat => {
+                if(joke.category.toLowerCase() == cat.toLowerCase())
+                    categoryValid = true;
+            });
+            if(!categoryValid)
+                jokeErrors.push(`Joke category is invalid`);
+        }
+
+        //#MARKER flags
+        if(!jsl.isEmpty(joke.flags))
+        {
+            if(jsl.isEmpty(joke.flags.nsfw) || (joke.flags.nsfw !== false && joke.flags.nsfw !== true))
+                jokeErrors.push(`Joke doesn't have the "nsfw" flag or it is invalid`);
+
+            if(jsl.isEmpty(joke.flags.political) || (joke.flags.political !== false && joke.flags.political !== true))
+                jokeErrors.push(`Joke doesn't have the "political" flag or it is invalid`);
+
+            if(jsl.isEmpty(joke.flags.religious) || (joke.flags.religious !== false && joke.flags.religious !== true))
+                jokeErrors.push(`Joke doesn't have the "religious" flag or it is invalid`);
+        }
+        else jokeErrors.push(`Joke doesn't have a "flags" object or it is invalid`);
+    }
+    catch(err)
+    {
+        jokeErrors.push("Joke couldn't be parsed as valid JSON");
+    }
+
+    if(jsl.isEmpty(jokeErrors))
+        return true;
+    else return jokeErrors;
+}
+
+module.exports = { init, validateSingle }

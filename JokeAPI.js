@@ -3,14 +3,13 @@
 // GitHub:    https://github.com/Sv443/JokeAPI
 // API Docs:  https://sv443.net/jokeapi
 // ️
-// ⚠️ Please read the LICENSE.txt file before distributing JokeAPI.
+// ⚠️ Please read the LICENSE.txt file before redistributing JokeAPI.
 // ⚠️ I don't want to take legal action on anyone so please do me that favor.
 // ⚠️ Thanks :)
 
 
 const wrap = require("node-wrap");
 const settings = require("./settings");
-const fs = require("fs");
 
 process.japi = {};
 const debuggerActive = typeof v8debug === "object" || /--debug|--inspect/.test(process.execArgv.join(" "));

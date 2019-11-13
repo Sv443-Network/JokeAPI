@@ -76,3 +76,6 @@ docs/*_injected.*
 
 # Re-inclusions:
 !change.log*
+
+# Joke submissions:
+data/submissions/submission_*.json

@@ -10,6 +10,7 @@ jsl.unused(http);
  * @param {String} error 
  */
 const internalError = (type, error) => {
+    jsl.unused(error);
     switch(type)
     {
         case "HTTP":
@@ -23,6 +24,7 @@ const internalError = (type, error) => {
  * @param {String} ip The IP address of the request sender
  */
 const rateLimited = (ip) => {
+    jsl.unused(ip);
 
 }
 
