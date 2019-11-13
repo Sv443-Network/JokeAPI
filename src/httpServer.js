@@ -208,7 +208,7 @@ const init = () => {
                                     {
                                         // joke is valid, find file name and then write to file
 
-                                        let sanitizedIP = ip.replace(/[^A-Za-z0-9\-_./]|^COM[0-9]([/.]|$)|^LPT[0-9]([/.]|$)|^PRN([/.]|$)|^CLOCK\$([/.]|$)|^AUX([/.]|$)|^NUL([/.]|$)|^CON([/.]|$)/gm, "#")
+                                        let sanitizedIP = ip.replace(settings.httpServer.ipSanitization.regex, settings.httpServer.ipSanitization.replaceChar);
                                         let curUnix = new Date().getTime();
                                         let fileName = `${settings.jokes.jokeSubmissionPath}submission_${sanitizedIP}_0_${curUnix}.json`;
                                         let iter = 0;
