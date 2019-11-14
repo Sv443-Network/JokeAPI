@@ -19,10 +19,13 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: npm install, build, and test
       run: |
-        cd ../JokeAPI_Server
+        dir
+        cd JokeAPI_Server
         npm ci
-        npm run build --if-present
-        npm test
+        npm run lint
+        npm run validate-jokes
+        npm run reassign-ids
+        npm test --if-present
       env:
         CI: true
     - name: Discord notification
