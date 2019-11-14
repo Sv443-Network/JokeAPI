@@ -18,9 +18,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: npm install, build, and test
       run: |
-        dir
         npm ci
-        dir
         npm run lint --if-present
         npm run validate-jokes --if-present
         npm run reassign-ids --if-present
@@ -29,7 +27,6 @@ jobs:
     - name: Discord notification
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        COMMIT_SHA: ${{ env.GITHUB_SHA }}
       uses: Ilshidur/action-discord@master
       with:
-        args: '☑️ JokeAPI CI run was successful.\nSee https://github.com/Sv443/JokeAPI/commit/${COMMIT_SHA}/checks'
+        args: '☑️ JokeAPI CI run was successful (https://github.com/Sv443/JokeAPI/actions)'
