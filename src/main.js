@@ -25,7 +25,7 @@ dotenv.config();
 
 
 console.log(`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n`);
-console.log(`[${logger.getTimestamp(" | ")}] ${col.blue}${settings.info.name} v${settings.info.version}${jsl.colors.rst}`);
+console.log(`${col.blue}[${logger.getTimestamp(" | ")}] ${col.green}Started ${settings.info.name} v${settings.info.version}${jsl.colors.rst}`);
 let pb;
 
 
