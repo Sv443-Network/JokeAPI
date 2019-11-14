@@ -4,7 +4,6 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -19,17 +18,15 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: npm install, build, and test
       run: |
-        dir
-        cd JokeAPI_Server
         npm ci
         npm run lint --if-present
         npm run validate-jokes --if-present
         npm run reassign-ids --if-present
       env:
-        CI: true
+        CI: "true"
     - name: Discord notification
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      uses: Ilshidur/action-discord@master
+      uses: Ilshidur/action-discord@6d5d0e2
       with:
-        args: 'JokeAPI was built.'
+        args: '☑️ JokeAPI CI run was successful.\nSee https://github.com/Sv443/JokeAPI/actions'
