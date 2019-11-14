@@ -25,7 +25,6 @@ jobs:
         npm run lint --if-present
         npm run validate-jokes --if-present
         npm run reassign-ids --if-present
-        npm test --if-present
       env:
         CI: true
     - name: Discord notification
