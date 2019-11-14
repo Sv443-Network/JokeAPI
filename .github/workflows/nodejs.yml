@@ -1,4 +1,4 @@
-name: Node CI
+name: JokeAPI CI
 
 on: [push]
 
@@ -9,7 +9,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [8.x, 10.x, 12.x]
+        node-version: [10.x, 12.x]
 
     steps:
     - uses: actions/checkout@v1
@@ -22,9 +22,9 @@ jobs:
         dir
         cd JokeAPI_Server
         npm ci
-        npm run lint
-        npm run validate-jokes
-        npm run reassign-ids
+        npm run lint --if-present
+        npm run validate-jokes --if-present
+        npm run reassign-ids --if-present
         npm test --if-present
       env:
         CI: true
