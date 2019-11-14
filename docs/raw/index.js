@@ -1,3 +1,6 @@
+var qstr = null;
+
+
 function onLoad()
 {
     console.log("JokeAPI Documentation (v<!--%#INSERT:VERSION#%-->)");
@@ -12,6 +15,15 @@ function onLoad()
     try
     {
         // put ES6+ code here
+        qstr = getQueryStringObject();
+
+        console.warn(qstr);
+
+        if(qstr != null && qstr["devFeatures"] == "true")
+        {
+            console.warn("ye")
+            document.getElementById("devStuff").style.display = "inline-block";
+        }
     }
     catch(err) {unused();}
 
@@ -81,6 +93,32 @@ function closeNav()
     document.getElementById("sideNavOpen").style.visibility = "visible";
 }
 
+function getQueryStringObject()
+{
+    var qstrObj = {};
+
+    if(!window.location.href.includes("?"))
+        return null;
+
+    var rawQstr = window.location.href.split("?")[1];
+    var qstrArr = [];
+
+    if(rawQstr != null && rawQstr.includes("&"))
+        qstrArr = rawQstr.split("&");
+    else if(rawQstr != null)
+        qstrArr = [rawQstr];
+    else return null;
+
+
+    if(qstrArr.length > 0)
+        qstrArr.forEach(qstrEntry => {
+            if(qstrEntry.includes("="))
+                qstrObj[qstrEntry.split("=")[0]] = qstrEntry.split("=")[1];
+        });
+    else return null;
+
+    return qstrObj;
+}
 
 
 

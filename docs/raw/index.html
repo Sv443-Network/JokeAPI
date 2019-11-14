@@ -26,6 +26,7 @@
         <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=sunburst"></script>
     </head>
     <body onload="onLoad()">
+        <a id="topAnchor" name="top" class="noa"></a>
         <!-- #MARKER Main -->
         <main>
             <!-- #MARKER Header -->
@@ -36,7 +37,7 @@
                     </span>
                 </span>
                 <span class="headeritem m">
-                    <h1>JokeAPI Documentation</h1>
+                    <a id="docTitle" class="noselect">JokeAPI Documentation</a>
                 </span>
                 <span class="headeritem r">
                     <span id="headerversion">
@@ -45,18 +46,63 @@
                 </span>
             </header>
             <div id="content">
-                Version: <!--%#INSERT:VERSION#%--><br><br>
-                Name: <!--%#INSERT:NAME#%--><br><br>
-                Desc: <!--%#INSERT:DESC#%--><br><br>
-                Author URL: <!--%#INSERT:AUTHORWEBSITEURL#%--><br><br>
-                Author GH URL: <!--%#INSERT:AUTHORGITHUBURL#%--><br><br>
-                Contributor Object: <!--%#INSERT:CONTRIBUTORS#%--><br><br>
-                Proj GH URL: <!--%#INSERT:PROJGITHUBURL#%--><br><br>
-                Joke Subm. URL: <!--%#INSERT:JOKESUBMISSIONURL#%--><br><br>
-                Categories: <!--%#INSERT:CATEGORYARRAY#%--><br><br>
-                Total Jokes: <!--%#INSERT:TOTALJOKES#%--><br><br>
-                Flags: <!--%#INSERT:FLAGSARRAY#%--><br><br>
-                File Formats: <!--%#INSERT:FILEFORMATARRAY#%--> <br><br>
+                <div id="devStuff" style="display: none;">
+                    <br><br>
+                    &lt;kbd&gt;-Test: <kbd>Ctrl</kbd>
+                    <br><br>
+
+
+                    <table>
+                        <tr>
+                            <td>Version:</td>
+                            <td><!--%#INSERT:VERSION#%--></td>
+                        </tr>
+                        <tr>
+                            <td>Name:</td>
+                            <td><!--%#INSERT:NAME#%--></td>
+                        </tr>
+                        <tr>
+                            <td>Desc:</td>
+                            <td><!--%#INSERT:DESC#%--></td>
+                        </tr>
+                        <tr>
+                            <td>Author URL:</td>
+                            <td><a href="<!--%#INSERT:AUTHORWEBSITEURL#%-->"><!--%#INSERT:AUTHORWEBSITEURL#%--></a></td>
+                        </tr>
+                        <tr>
+                            <td>Author GH URL:</td>
+                            <td><a href="<!--%#INSERT:AUTHORGITHUBURL#%-->"><!--%#INSERT:AUTHORGITHUBURL#%--></a></td>
+                        </tr>
+                        <tr>
+                            <td>Contributor Obj:</td>
+                            <td><!--%#INSERT:CONTRIBUTORS#%--></td>
+                        </tr>
+                        <tr>
+                            <td>Proj GH URL:</td>
+                            <td><a href="<!--%#INSERT:PROJGITHUBURL#%-->"><!--%#INSERT:PROJGITHUBURL#%--></a></td>
+                        </tr>
+                        <tr>
+                            <td>Joke Subm URL:</td>
+                            <td><a href="<!--%#INSERT:JOKESUBMISSIONURL#%-->"><!--%#INSERT:JOKESUBMISSIONURL#%--></a></td>
+                        </tr>
+                        <tr>
+                            <td>Categories:</td>
+                            <td><!--%#INSERT:CATEGORYARRAY#%--></td>
+                        </tr>
+                        <tr>
+                            <td>Total Jokes:</td>
+                            <td><!--%#INSERT:TOTALJOKES#%--></td>
+                        </tr>
+                        <tr>
+                            <td>Flags:</td>
+                            <td><!--%#INSERT:FLAGSARRAY#%--></td>
+                        </tr>
+                        <tr>
+                            <td>Formats:</td>
+                            <td><!--%#INSERT:FILEFORMATARRAY#%--></td>
+                        </tr>
+                    </table>
+                </div>
 
 <code class="prettyprint"><span class="nocode codeheader">This is some example code</span>
 #include &lt;QString&gt;
@@ -134,8 +180,8 @@ class Test
                 <div class="sidenavHeaderItem spacerItem"></div>
                 <a class="sidenavHeaderItem closebtn mimica noul noselect nopad rtext" onclick="closeNav()" title="Click or press Esc to close">&times;</a>
             </div>
-            <a class="noul" onclick="closeNav()" href="#">Information</a>
-            <a class="noul" onclick="closeNav()" href="#">Try it out</a>
+            <a class="noul" onclick="closeNav()" href="#top">Information</a>
+            <a class="noul" onclick="closeNav()" href="#try-it">Try it out</a>
             <details>
                 <summary>
                     <span class="sidenav-mimica">Endpoints</span>
@@ -172,8 +218,8 @@ class Test
 <!-- #MARKER TODO:
 
 Include Licenses:
-    - Cascadia Code Font: https://raw.githubusercontent.com/microsoft/cascadia-code/master/LICENSE
-
+    - Cascadia Code Font:        https://raw.githubusercontent.com/microsoft/cascadia-code/master/LICENSE
+    - Roboto + Roboto Mono Font: https://raw.githubusercontent.com/google/roboto/master/LICENSE
 
 
 -->
