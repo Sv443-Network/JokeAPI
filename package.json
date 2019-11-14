@@ -8,7 +8,7 @@
     "reformat": "call node tools/reformat",
     "reassign-ids": "call node tools/reassign-ids",
     "validate-jokes": "call node tools/validate-jokes",
-    "lint": "call ./tools/lint.bat"
+    "lint": "call tools/lint.bat"
   },
   "repository": {
     "type": "git",
