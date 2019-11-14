@@ -29,6 +29,7 @@ jobs:
     - name: Discord notification
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        COMMIT_SHA: ${{ GITHUB_SHA }}
       uses: Ilshidur/action-discord@master
       with:
-        args: '☑️ JokeAPI CI run was successful.\nSee https://github.com/Sv443/JokeAPI/commit/${{ GITHUB_SHA }}/checks'
+        args: '☑️ JokeAPI CI run was successful.\nSee https://github.com/Sv443/JokeAPI/commit/${{ COMMIT_SHA }}/checks'
