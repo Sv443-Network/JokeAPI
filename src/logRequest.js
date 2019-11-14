@@ -54,6 +54,7 @@ const logRequest = (type, additionalInfo) => {
  * Sends an initialization message - called when the initialization is done
  */
 const initMsg = () => {
+    console.log(`Open ${settings.info.name} at http://127.0.0.1:${settings.httpServer.port}/`);
     console.log(`\n  ${settings.colors.success}${settings.logging.logChar} Success ${settings.colors.docs}${settings.logging.logChar} Docs ${settings.colors.ratelimit}${settings.logging.logChar} RateLimited ${settings.colors.error}${settings.logging.logChar} Error${jsl.colors.rst}`);
     process.stdout.write("\x1b[2m");
     process.stdout.write("└┬───────────────────────────────────────┘\n");

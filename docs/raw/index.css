@@ -208,14 +208,6 @@ a:not(.noul):hover, .mimica:not(.noul):hover {
     transition: 0.3s;
 }
 
-#sidenav .closebtn {
-    position: absolute;
-    top: 0;
-    right: 25px;
-    font-size: 36px;
-    margin-left: 50px;
-}
-
 #sideNavOpen {
     font-size: 30px;
     cursor: pointer;
@@ -231,6 +223,39 @@ a:not(.noul):hover, .mimica:not(.noul):hover {
 
 #sidenav ul > li > a {
     font-size: 15px;
+}
+
+#sidenav #sidenavHeader {
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    font-size: 36px;
+    width: 100%;
+}
+
+#sidenav #sidenavHeader .sidenavHeaderItem:not(.nopad) {
+    flex-grow: 1;
+    padding: 10px;
+}
+
+#sidenav #sidenavHeader .sidenavHeaderItem.nopad {
+    flex-grow: 1;
+    padding: 0px;
+    padding-right: 15px;
+}
+
+#sidenav #sidenavHeader .sidenavHeaderItem.spacer {
+    flex-grow: 5;
+}
+
+#sidenav .closebtn {
+    font-size: 36px;
+}
+
+.rtext {
+    text-align: right;
 }
 
 #content {
@@ -275,9 +300,15 @@ body[data-sidenav="opened"] code {
 
 body code .nocode.codeheader {
     display: block;
-    font-size: 20px;
+    font-size: 19px;
     margin-bottom: 10px;
     
     border: 1px solid white;
     border-style: none none solid none;
+}
+
+body code .nocode.codeheader::before {
+    font-size: 15px;
+    content: "</>";
+    padding-right: 5px;
 }

@@ -58,7 +58,7 @@
                 Flags: <!--%#INSERT:FLAGSARRAY#%--><br><br>
                 File Formats: <!--%#INSERT:FILEFORMATARRAY#%--> <br><br>
 
-<code class="prettyprint"><span class="nocode codeheader">Header</span>
+<code class="prettyprint"><span class="nocode codeheader">This is some example code</span>
 #include &lt;QString&gt;
 
 #ifndef BAR
@@ -73,10 +73,15 @@ class Test
 	protected slots:
 		void test(QString x = "test", int test = "abc");
 
+    public:
 		void test2()
 		{
+            auto lambda = [=](QString bar){
+                return (bar + "test");
+            };
+
 			int * bla = new Test();
-			bla->something().foo = BAR;
+			bla->something().foo = lambda(BAR);
 		}
 }</code>
 
@@ -124,7 +129,11 @@ class Test
 
         <!-- #MARKER SideNav -->
         <div id="sidenav" class="sidenav noselect">
-            <a class="closebtn mimica noul" onclick="closeNav()">&times;</a>
+            <div id="sidenavHeader">
+                <div class="sidenavHeaderItem noselect">Menu</div>
+                <div class="sidenavHeaderItem spacerItem"></div>
+                <a class="sidenavHeaderItem closebtn mimica noul noselect nopad rtext" onclick="closeNav()" title="Click or press Esc to close">&times;</a>
+            </div>
             <a class="noul" onclick="closeNav()" href="#">Information</a>
             <a class="noul" onclick="closeNav()" href="#">Try it out</a>
             <details>
