@@ -1,11 +1,16 @@
 [Init]
-    - Parse Jokes (make sure the format is correct)
+    - Parse Jokes (make sure the format is correct) + load to memory
     - Initialize Black- and Whitelists
     - Initialize Documentation Page
     - Start HTTP server
 
 [On HTTP Request]
-    > IF path matches a script in ./endpoints
-        - execute that script
+    > IF IP is on blacklist
+        - return 429 error
     > ELSE
-        - return 404 error
+        > IF path matches a script in ./endpoints
+            - execute that script
+        > ELSE IF path == ./
+            - serve documentation
+        > ELSE
+            - return 404 error

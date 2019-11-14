@@ -3,12 +3,13 @@ var qstr = null;
 
 function onLoad()
 {
-    console.log("JokeAPI Documentation (v<!--%#INSERT:VERSION#%-->)");
+    console.log("%cJokeAPI %cDocumentation (v<!--%#INSERT:VERSION#%-->)", "color: #8a2be2; background-color: black; padding: 5px;", "color: white; background-color: black; padding: 5px;");
 
     window.jokeapi = {};
 
     document.getElementById("content").onclick = closeNav;
     document.getElementsByTagName("header")[0].onclick = closeNav;
+    document.getElementById("docTitle").onclick = function() {window.location.reload()};
 
     addCodeTabs();
 
@@ -17,18 +18,12 @@ function onLoad()
         // put ES6+ code here
         qstr = getQueryStringObject();
 
-        console.warn(qstr);
-
         if(qstr != null && qstr["devFeatures"] == "true")
-        {
-            console.warn("ye")
             document.getElementById("devStuff").style.display = "inline-block";
-        }
     }
     catch(err) {unused();}
 
     document.addEventListener("keyup", e => {
-        console.log(`Key: "${e.key}" - ${window.jokeapi.sidenavOpened}`);
         if(e.key == "m")
         {
             if(window.jokeapi.sidenavOpened)
@@ -39,7 +34,6 @@ function onLoad()
             closeNav();
     });
 }
-unused(onLoad);
 
 function addCodeTabs()
 {
@@ -48,9 +42,7 @@ function addCodeTabs()
     for(var i = 0; i < codeElements; i++)
     {
         if(codeElements[i].classList.contains("prettyprint"))
-        {
             codeElements[i].innerHTML = codeElements[i].innerHTML.replace(/&tab;/gm, "&nbsp;&nbsp;&nbsp;&nbsp;");
-        }
     }
 }
 
@@ -125,4 +117,4 @@ function getQueryStringObject()
 
 
 //#MARKER cleanup
-unused([openNav, closeNav]);
+unused(openNav, closeNav, onLoad);

@@ -3,10 +3,11 @@
 :root {
     --bg-color: #444;
     --bg-color-sidenav-opened: #777;
-    --header-bg-color: #222;
-    --header-bg-color-sidenav-opened: #555;
+    --header-bg-color: #101747;
+    --header-bg-color-sidenav-opened: #101747;
 
     --accent-color: #8a2be2;
+    --accent-color-light: #b05ffc;
     --accent-color-sidenav-opened: #a779d3;
 
     --sidenav-animation-speed: 0.3s;
@@ -35,6 +36,44 @@ html {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+.noa {
+    color: inherit;
+}
+
+.noul, .mimica {
+    cursor: pointer;
+}
+
+a:not(.noul), .mimica:not(.noul) {
+    color: #5869ff;
+    text-decoration: none;
+}
+
+a:not(.noul):hover, .mimica:not(.noul):hover {
+    color: #949fff;
+    text-decoration: underline;
+}
+
+.rtext {
+    text-align: right;
+}
+
+.blackshadow {
+    text-shadow:
+        -1px -1px 0 #000,  
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000;
+}
+
+.whiteshadow {
+    text-shadow:
+        -1px -1px 0 #fff,  
+         1px -1px 0 #fff,
+        -1px  1px 0 #fff,
+         1px  1px 0 #fff;
 }
 
 body {
@@ -76,6 +115,7 @@ body[data-sidenav="closed"] {
     user-select: inherit;
 }
 
+/*#MARKER header*/
 header {
     position: -webkit-sticky;
     position: sticky;
@@ -102,6 +142,7 @@ header[data-grayscaled="true"] {
 
 header .headeritem {
     display: inline-block;
+    white-space: nowrap;
     flex-grow: 0;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -123,10 +164,37 @@ header #docTitle {
     color: white;
 }
 
-.noa {
-    color: inherit;
+#headerversion {
+    padding-right: 10px;
 }
 
+#headersidenavopenwrapper {
+    padding-left: 10px;
+}
+
+#docTitle {
+    display: inline-block;
+    color: white;
+    white-space: nowrap;
+
+    transition: color 0.4s linear, filter 0.2s linear, transform 0.4s cubic-bezier(0,0,.27,1.77);
+
+    transform: rotate(0deg) scale(1.0);
+    filter: none;
+}
+
+#docTitle:hover {
+    color: var(--accent-color-light);
+
+    transform: rotate(1deg) scale(1.15);
+    filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.8));
+}
+
+.noa, header #docTitle:hover {
+    text-decoration: none;
+}
+
+/*#MARKER main content*/
 #devStuff {
     border: 2px solid orangered;
     border-radius: 10px;
@@ -143,32 +211,84 @@ header #docTitle {
     color: orangered;
 }
 
-.noa, header #docTitle:hover {
-    text-decoration: none;
+#content {
+    padding: 16px;
+    margin: 10px;
+    transition: margin-left var(--sidenav-animation-speed);
 }
 
-#headerversion {
-    padding-right: 10px;
+body[data-sidenav="closed"] code, body code {
+    font-family: "Cascadia Code", "Inconsolata", "Courier New", "Consolas", monospace;
+
+    white-space: pre;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    background-color: #000;
+    display: block;
+
+    border-top-left-radius: 8px !important;
+    border-bottom-left-radius: 8px !important;
+    border-left: 8px solid var(--accent-color) !important;
+
+    filter: grayscale(0%);
+
+    transition: filter linear var(--sidenav-animation-speed);
 }
 
-#headersidenavopenwrapper {
-    padding-left: 10px;
+body code > .actualCode {
+    padding: 0px 10px 20px 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
-.noul, .mimica {
-    cursor: pointer;
+body code .pln:first {
+    display: none;
 }
 
-a:not(.noul), .mimica:not(.noul) {
-    color: #5869ff;
-    text-decoration: none;
+body[data-sidenav="opened"] code {
+    background-color: #555;
+
+    filter: grayscale(50%);
+
+    transition: filter linear var(--sidenav-animation-speed);
 }
 
-a:not(.noul):hover, .mimica:not(.noul):hover {
-    color: #949fff;
-    text-decoration: underline;
+body code .nocode.codeheader {
+    font-family: "Roboto Mono", monospace;
+    font-size: 19px;
+
+    display: block;
+    padding-top: 6px;
+    padding-bottom: 4px;
+    
+    border: 3px solid var(--accent-color);
+    border-style: none none solid none;
 }
 
+body code .nocode.codeheader::before {
+    font-size: 19px;
+    color: var(--accent-color-light);
+    content: "</>";
+    padding: 30px 15px;
+}
+
+kbd {
+    font-family: "Cascadia Code", monospace;
+    font-size: 13px;
+    display: inline-block;
+    padding: 3.5px 4px;
+    line-height: 10px;
+    color: #eee;
+    vertical-align: middle;
+    background-color: #555;
+    border: 1px solid #333;
+    border-radius: 3px;
+    box-shadow: inset 0 -2px 0 #222;
+}
+
+/*#MARKER sidenav*/
 #sidenav {
     height: 100%;
     width: 0;
@@ -238,6 +358,7 @@ a:not(.noul):hover, .mimica:not(.noul):hover {
 }
 
 #sideNavOpen {
+    white-space: nowrap;
     font-size: 30px;
     cursor: pointer;
 }
@@ -283,77 +404,7 @@ a:not(.noul):hover, .mimica:not(.noul):hover {
     font-size: 36px;
 }
 
-.rtext {
-    text-align: right;
-}
-
-#content {
-    padding: 16px;
-    margin: 10px;
-    transition: margin-left var(--sidenav-animation-speed);
-}
-
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
-}
-
-body[data-sidenav="closed"] code, body code {
-    font-family: "Cascadia Code", "Inconsolata", "Courier New", "Consolas", monospace;
-
-    white-space: pre;
-    -moz-tab-size: 4;
-    -o-tab-size: 4;
-    tab-size: 4;
-
-    background-color: #000;
-    display: block;
-    padding: 10px 10px 10px 20px;
-
-    border-top-left-radius: 8px !important;
-    border-bottom-left-radius: 8px !important;
-    border-left: 8px solid var(--accent-color) !important;
-
-    filter: grayscale(0%);
-
-    transition: filter linear var(--sidenav-animation-speed);
-}
-
-body[data-sidenav="opened"] code {
-    background-color: #555;
-
-    filter: grayscale(50%);
-
-    transition: filter linear var(--sidenav-animation-speed);
-}
-
-body code .nocode.codeheader {
-    font-family: "Roboto Mono", monospace;
-    font-size: 19px;
-
-    display: block;
-    margin-bottom: 10px;
-    
-    border: 1px solid white;
-    border-style: none none solid none;
-}
-
-body code .nocode.codeheader::before {
-    font-size: 19px;
-    content: "</>";
-    padding-right: 10px;
-}
-
-kbd {
-    font-family: "Cascadia Code", monospace;
-    font-size: 13px;
-    display: inline-block;
-    padding: 3.5px 4px;
-    line-height: 10px;
-    color: #eee;
-    vertical-align: middle;
-    background-color: #555;
-    border: 1px solid #333;
-    border-radius: 3px;
-    box-shadow: inset 0 -2px 0 #222;
 }
