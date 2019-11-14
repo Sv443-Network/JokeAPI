@@ -76,3 +76,4 @@
             - "npm run reassign-ids" to make sure all jokes have the correct IDs
         - Now the documentation page will only be recompiled if a file has changed
         - Static content like the stylesheet and client-side JS will now be loaded through the "static" endpoint, decreasing page load time by an order of magnitude
+        - renamed "category" endpoint to "joke"
