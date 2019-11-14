@@ -5,10 +5,10 @@
   "main": "JokeAPI.js",
   "scripts": {
     "test": "echo \"No test script specified\" && exit 0",
-    "reformat": "call node tools/reformat",
-    "reassign-ids": "call node tools/reassign-ids",
-    "validate-jokes": "call node tools/validate-jokes",
-    "lint": "call eslint ./ && exit $?"
+    "reformat": "node tools/reformat",
+    "reassign-ids": "node tools/reassign-ids",
+    "validate-jokes": "node tools/validate-jokes",
+    "lint": "eslint ./ && exit $?"
   },
   "repository": {
     "type": "git",
