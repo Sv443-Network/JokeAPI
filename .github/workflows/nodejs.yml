@@ -31,4 +31,4 @@ jobs:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       uses: Ilshidur/action-discord@master
       with:
-        args: '☑️ JokeAPI CI run was successful.\nSee https://github.com/Sv443/JokeAPI/actions'
+        args: '☑️ JokeAPI CI run was successful.\nSee https://github.com/Sv443/JokeAPI/commit/${{ GITHUB_SHA }}/checks'
