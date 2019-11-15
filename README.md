@@ -5,7 +5,7 @@
 [![Uptime / 7 Days](https://img.shields.io/uptimerobot/ratio/7/m782998549-afcc0d10c27c87df47e73289)](https://status.sv443.net/)
 [![Open Issues](https://img.shields.io/github/issues/Sv443/JokeAPI)](https://github.com/Sv443/JokeAPI/issues)
   
-[![Actions Status](https://github.com/Sv443/JokeAPI/workflows/JokeAPI%20CI/badge.svg)](https://github.com/{owner}/{repo}/actions)
+[![Actions Status](https://github.com/Sv443/JokeAPI/workflows/JokeAPI%20CI/badge.svg)](https://github.com/Sv443/JokeAPI/actions)
 [![Known Vulnerabilities](https://snyk.io/test/github/Sv443/JokeAPI/badge.svg)](https://snyk.io/test/github/Sv443/JokeAPI)
   
 [![Discord](https://img.shields.io/discord/565933531214118942)](https://discord.gg/aBH4uRG)
