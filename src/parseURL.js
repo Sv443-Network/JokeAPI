@@ -46,6 +46,16 @@ const parseURL = url => {
                 pathArr.splice(i, 1);
         });
 
+        // if a URL path offset was set in the settings, remove the first n elements from the path array
+        if(settings.httpServer.urlPathOffset > 0)
+        {
+            for(let i = 0; i < settings.httpServer.urlPathOffset; i++)
+            {
+                if(pathArr.length > 0)
+                    pathArr.shift();
+            }
+        }
+
 
         let qstrArr = [];
         if(!jsl.isEmpty(rawQstr) && rawQstr.includes("&"))

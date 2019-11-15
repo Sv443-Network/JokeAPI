@@ -321,6 +321,10 @@ kbd {
     color: #f1f1f1;
 }
 
+#sidenav details > summary {
+    padding-left: 32px;
+}
+
 #sidenav details > summary:first-of-type {
     list-style-type: none;
 }
@@ -330,19 +334,28 @@ kbd {
 }
 
 #sidenav details:not([open]) > summary::before {
-    padding-left: 32px;
-    content: "⯈ ";
-    display: inline;
+    padding-left: 0px;
+    padding-top: 0px;
+    content: "⯈";
+    transform: rotate(0deg);
+    display: inline-block;
+
+    transition: transform 0.1s ease-out;
 }
 
 #sidenav details[open] > summary::before {
-    padding-left: 32px;
-    content: "⯆ ";
-    display: inline;
+    padding-left: 0px;
+    padding-top: 0px;
+    content: "⯈";
+    transform: rotate(90deg);
+    display: inline-block;
+
+    transition: transform 0.1s ease-out;
 }
 
 #sidenav details > summary > span.sidenav-mimica {
     display: inline-block;
+    width: 100%;
     padding-left: 0px;
 }
 

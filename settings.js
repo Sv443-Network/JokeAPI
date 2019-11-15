@@ -1,6 +1,7 @@
 const packageJSON = require("./package.json");
-const col = require("svjsl").colors.fg;
-const bgc = require("svjsl").colors.bg;
+const jsl = require("svjsl");
+const col = jsl.colors.fg;
+const bgc = jsl.colors.bg;
 
 module.exports = {
     debug: {
@@ -77,6 +78,7 @@ module.exports = {
         allowCORS: true,    // whether or not to allow Cross Origin Resource Sharing
         rateLimiting: 30,   // amount of allowed requests per below defined timeframe
         timeFrame: 1,       // timeframe in min - also supports floating point numbers
+        urlPathOffset: 1,   // example: "sv443.net/jokeapi/info" with an offset of 1 will only start parsing the path beginning at "info"
         disableCache: true, // whether or not to disable the cache - default: true (setting to false may prevent the users from getting new jokes)
         infoHeaders: true,  // whether or not to add an informational header about JokeAPI to each request
         regexes: {          // regular expressions to validate IP addresses - thanks to https://nbviewer.jupyter.org/github/rasbt/python_reference/blob/master/tutorials/useful_regex.ipynb
@@ -105,7 +107,6 @@ module.exports = {
         error404path: "./docs/err/404.html", // path to the 404 error page
         error500path: "./docs/err/500.html", // path to the 500 error page
         codeFontFileName: "CascadiaCode-Regular-VTT_1910.04.ttf", // the name of the font file that is going to be used in code blocks - has to be in the directory specified with the above property "dirPath"
-        codeFontLicenseURL: "https://raw.githubusercontent.com/microsoft/cascadia-code/master/LICENSE", // URL to the code font license
     },
     endpoints: {
         dirPath: "./endpoints/", // path to the dir containing all the endpoint scripts
@@ -114,11 +115,12 @@ module.exports = {
         ],
     },
     colors: {
-        success: col.green,                // when request successful
-        error: col.red,                    // when request errored
-        ratelimit: col.magenta,            // when request rate limited
-        docs: col.yellow,                  // when docs were requested
-        blacklisted: bgc.red + col.yellow, // when a request IP is blacklisted
+        success: col.green,     // when request was successful
+        error: col.red,         // when request was errored
+        ratelimit: col.magenta, // when request was rate limited
+        docs: col.yellow,                             // when docs were requested
+        blacklisted: bgc.red + col.yellow,            // when a request IP is blacklisted
+        docsrecompiled: bgc.yellow + col.blue, // when the docs were recompiled
     },
     analytics: {
         dirPath: "./data/analytics/", // path to the analytics directory - needs trailing slash

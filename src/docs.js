@@ -7,6 +7,7 @@ const settings = require("../settings");
 const debug = require("./verboseLogging");
 const packageJSON = require("../package.json");
 const parseJokes = require("./parseJokes");
+const logRequest = require("./logRequest");
 
 
 /**
@@ -49,6 +50,7 @@ const startDaemon = () => {
             if(process.jokeapi.documentation.oldChecksum != process.jokeapi.documentation.newChecksum)
             {
                 debug("Daemon", "Noticed changed files");
+                logRequest("docsrecompiled");
                 recompileDocs();
             }
 

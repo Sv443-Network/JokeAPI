@@ -146,14 +146,15 @@ class Test
     public:
 		void test2()
 		{
-            auto lambda = [=](QString bar){
+            auto lambdaFunct = [=](QString bar) 
+            {
                 return (bar + "test");
             };
 
             QString longlonglonglonglonglonglonglonglonglonglongline = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 
 			int * bla = new Test();
-			bla->something().foo = lambda(BAR);
+			bla->something().foo = lambdaFunct(BAR);
 		}
 }</div></code>
 

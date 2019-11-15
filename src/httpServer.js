@@ -242,6 +242,9 @@ const init = () => {
                                                         "submission": submittedJoke,
                                                         "timestamp": new Date().getTime()
                                                     };
+
+                                                    logRequest("submission", ip);
+
                                                     return pipeString(res, convertFileFormat.auto(fileFormat, responseObj), parseURL.getMimeTypeFromFileFormatString(fileFormat), 201);
                                                 }
                                                 // error while writing to file
@@ -284,7 +287,7 @@ const init = () => {
                             if(!jsl.isEmpty(data))
                                 dataGotten = true;
 
-                            if(data == process.env.RESTART_TOKEN)
+                            if(data == process.env.RESTART_TOKEN && parsedURL.pathArray != null && parsedURL.pathArray[0] == "restart")
                             {
                                 res.writeHead(200, {"Content-Type": parseURL.getMimeTypeFromFileFormatString(fileFormat)});
                                 res.end(convertFileFormat.auto(fileFormat, {
@@ -298,7 +301,7 @@ const init = () => {
                             else
                             {
                                 // TODO: correct anchor
-                                return respondWithErrorPage(req, res, 400, fileFormat, `Request body is invalid or was sent to the wrong endpoint, please refer to the documentation at ${settings.info.docsURL}#submit-joke to see how to correctly structure a joke submission.`);
+                                return respondWithErrorPage(req, res, 400, fileFormat, `Request body is invalid or was sent to the wrong endpoint "${parsedURL.pathArray != null ? parsedURL.pathArray[0] : "/"}", please refer to the documentation at ${settings.info.docsURL}#submit-joke to see how to correctly structure a joke submission.`);
                             }
                         });
 
