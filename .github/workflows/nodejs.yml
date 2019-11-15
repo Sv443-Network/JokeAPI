@@ -1,4 +1,4 @@
-name: JokeAPI CI
+name: build
 
 on: [push]
 
