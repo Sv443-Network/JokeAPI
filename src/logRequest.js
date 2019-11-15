@@ -34,7 +34,7 @@ const logRequest = (type, additionalInfo) => {
         break;
         case "docsrecompiled":
             color = settings.colors.docsrecompiled;
-            logChar = "r";
+            logChar = `r${jsl.colors.rst} `;
         break;
         case "submission":
             logChar = `\n\n${jsl.colors.fg.blue}⯈ Got a submission${!jsl.isEmpty(additionalInfo) ? ` from ${jsl.colors.fg.yellow}${additionalInfo}` : ""}${jsl.colors.rst}\n\n`;

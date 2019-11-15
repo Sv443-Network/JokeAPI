@@ -78,7 +78,7 @@ module.exports = {
         allowCORS: true,    // whether or not to allow Cross Origin Resource Sharing
         rateLimiting: 30,   // amount of allowed requests per below defined timeframe
         timeFrame: 1,       // timeframe in min - also supports floating point numbers
-        urlPathOffset: 1,   // example: "sv443.net/jokeapi/info" with an offset of 1 will only start parsing the path beginning at "info"
+        urlPathOffset: 0,   // example: "sv443.net/jokeapi/info" with an offset of 1 will only start parsing the path beginning at "info"
         disableCache: true, // whether or not to disable the cache - default: true (setting to false may prevent the users from getting new jokes)
         infoHeaders: true,  // whether or not to add an informational header about JokeAPI to each request
         regexes: {          // regular expressions to validate IP addresses - thanks to https://nbviewer.jupyter.org/github/rasbt/python_reference/blob/master/tutorials/useful_regex.ipynb
