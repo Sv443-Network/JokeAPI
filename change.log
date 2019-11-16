@@ -64,6 +64,7 @@
         - Add support for selecting multiple categories at once (for example: "https://sv443.net/jokeapi/category/Dark,Miscellaneous/")
         - "?type" URL parameter to specify the type of the served joke ("single" or "twopart")
         - "?contains" URL parameter to only serve jokes that match the provided search query (fuzzy search)
+        - "?id" URL parameter to get jokes from a single ID or an ID range (examples: "https://sv443.net/jokeapi/category/Any?id=50" or "https://sv443.net/jokeapi/category/Any?id=50-75")
         - Improve the "Try it out" section in the docs
         - Prevent submission of empty jokes
     - DONE:
