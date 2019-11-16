@@ -18,12 +18,12 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Install # runs the npm ci command to install all dependencies
+    - name: Install Dependencies # runs the npm ci command to install all dependencies
       run: |
         npm ci
       env:
         CI: "true"
-    - name: Lint # lints the code to find any errors
+    - name: Lint Script # lints the code to find any errors
       run: |
         npm run lint --if-present
       env:
@@ -44,3 +44,10 @@ jobs:
       uses: Ilshidur/action-discord@master
       with:
         args: '☑️ JokeAPI CI run was successful (https://github.com/Sv443/JokeAPI/actions)'
+    - name: Discord notification # sends a Discord notification
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      uses: Ilshidur/action-discord@master
+      with:
+        args: '🚫 JokeAPI CI run failed (https://github.com/Sv443/JokeAPI/actions)'
+      if: job.status == "failure"
