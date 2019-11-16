@@ -31,7 +31,6 @@ jobs:
         CI: "true"
     - name: Validate Jokes # validates the jokes' structures
       run: |
-        npm run i-dont-exist
         npm run validate-jokes --if-present
       env:
         CI: "true"
