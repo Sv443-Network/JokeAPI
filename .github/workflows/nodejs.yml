@@ -40,31 +40,16 @@ jobs:
         npm run reassign-ids --if-present
       env:
         CI: "true"
-
-
-        
-  discord-notif:
-    runs-on: ubuntu-latest
-
-    timeout-minutes: 10
-
-    strategy:
-      fail-fast: false
-      matrix:
-        node-version: [12.x]
-    
-    steps:
+    - name: Discord success notification # sends a Discord notification
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      uses: Ilshidur/action-discord@master
+      with:
+        args: '☑️ JokeAPI CI run was successful (https://github.com/Sv443/JokeAPI/actions)' 
     - name: Discord failure notification # sends a Discord notification
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       uses: Ilshidur/action-discord@master
       with:
         args: '🚫 JokeAPI CI run failed (https://github.com/Sv443/JokeAPI/actions)'
-      if: "job.status == 'failure'"
-    - name: Discord success notification # sends a Discord notification
-      env:
-        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      uses: Ilshidur/action-discord@master
-      with:
-        args: '☑️ JokeAPI CI run was successful (https://github.com/Sv443/JokeAPI/actions)'
-    
+      if: failure()
