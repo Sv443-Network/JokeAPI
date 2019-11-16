@@ -50,4 +50,4 @@ jobs:
       uses: Ilshidur/action-discord@master
       with:
         args: '🚫 JokeAPI CI run failed (https://github.com/Sv443/JokeAPI/actions)'
-      if: ${{ job.status }} == failure
+      if: "job.status == failure"
