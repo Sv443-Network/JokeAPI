@@ -1,30 +1,44 @@
 name: build
 
-on: [push]
+on: [push] # runs on every push
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    timeout-minutes: 10
 
     strategy:
       matrix:
         node-version: [12.x]
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node-version }}
+    - uses: actions/checkout@v1 # checkout latest commit
+    - name: Use Node.js ${{ matrix.node-version }} # set up Node.js
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: npm install, build, and test
+    - name: Install # runs the npm ci command to install all dependencies
       run: |
         npm ci
+      env:
+        CI: "true"
+    - name: Lint # lints the code to find any errors
+      run: |
         npm run lint --if-present
+      env:
+        CI: "true"
+    - name: Validate Jokes # validates the jokes' structures
+      run: |
         npm run validate-jokes --if-present
+      env:
+        CI: "true"
+    - name: Reassign Joke IDs # makes sure all jokes have the correct ID
+      run: |
         npm run reassign-ids --if-present
       env:
         CI: "true"
-    - name: Discord notification
+    - name: Discord notification # sends a Discord notification
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       uses: Ilshidur/action-discord@master
