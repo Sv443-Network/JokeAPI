@@ -131,7 +131,7 @@ module.exports = {
     analytics: {
         dirPath: "./data/analytics/", // path to the analytics directory - needs trailing slash
     },
-    searchFuzzy: {
+    searchFuzzy: { // Fuse.js fuzzy search options - they can be found here: https://fusejs.io/
         shouldSort: true,
         tokenize: true,
         threshold: 0.6,

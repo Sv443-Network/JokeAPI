@@ -123,6 +123,41 @@ const generateForTools = () => {
     });
 }
 
+const generateForClasses = () => {
+    let iterCount = 0;
+    let classesFiles = fs.readdirSync("./src/classes");
+    return new Promise((resolve, reject) => {
+        classesFiles.forEach(file => {
+            if(!file.endsWith(".js"))
+            {
+                iterCount++;
+                return;
+            }
+
+            let filename = file.replace(/\.js/g, "");
+
+            try
+            {
+                madge(`./src/classes/${file}`, madgeOptions)
+                .then((res) => res.svg())
+                .then((output) => {
+                    iterCount++;
+                    fs.writeFileSync(`./dev/madge/classes-${filename}.html`, output.toString());
+
+                    if(iterCount == classesFiles.length)
+                    resolve();
+                });
+
+                fileList.push(`<li><span class="mimica" onclick="setIframe('./madge/classes-${filename}.html', '${filename}')">classes/${filename}.js</span></li>`);
+            }
+            catch(err)
+            {
+                reject(err);
+            }
+        });
+    });
+}
+
 const writeIndex = () => {
     let index = getIndex();
     fs.writeFileSync("./dev/dependency-graph.html", index);
@@ -198,10 +233,12 @@ try
     generateForSrc().then(() => {
         generateForEndpoints().then(() => {
             generateForTools().then(() => {
-                writeIndex();
-            }).catch(err => {throw new Error(err)});
-        }).catch(err => {throw new Error(err)});
-    }).catch(err => {throw new Error(err)});
+                generateForClasses().then(() => {
+                    writeIndex();
+                });
+            });
+        });
+    });
 }
 catch(err)
 {
