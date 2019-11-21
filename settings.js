@@ -60,11 +60,16 @@ module.exports = {
                 "nsfw",
                 "religious",
                 "political",
+                "racist",
             ],
             formats: [ // all formats
                 "json",
                 "xml",
                 "yaml",
+            ],
+            types: [
+                "single",
+                "twopart"
             ],
         },
         fileFormatsPath: "./data/fileFormats.json", // path to the file formats file
@@ -124,5 +129,14 @@ module.exports = {
     },
     analytics: {
         dirPath: "./data/analytics/", // path to the analytics directory - needs trailing slash
+    },
+    searchFuzzy: {
+        shouldSort: true,
+        tokenize: true,
+        threshold: 0.6,
+        location: 0,
+        distance: 100,
+        maxPatternLength: 32,
+        minMatchCharLength: 1,
     },
 }

@@ -20,6 +20,7 @@ try
             joke: joke.joke,
             flags: {
                 nsfw: isEmpty(joke.nsfw) ? false : true,
+                racist: isEmpty(joke.racist) ? false : true,
                 religious: isEmpty(joke.religious) ? false : true,
                 political: isEmpty(joke.political) ? false : true
             },
@@ -33,6 +34,7 @@ try
             delivery: joke.delivery,
             flags: {
                 nsfw: isEmpty(joke.nsfw) ? false : true,
+                racist: isEmpty(joke.racist) ? false : true,
                 religious: isEmpty(joke.religious) ? false : true,
                 political: isEmpty(joke.political) ? false : true
             },

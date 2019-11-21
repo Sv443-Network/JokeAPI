@@ -1,4 +1,5 @@
 const Fuse = require("fuse.js");
+const settings = require("../settings");
 
 /**
  * Does a fuzzy search through a passed array and returns an array with all matches where the lowest index is the best match
@@ -7,15 +8,7 @@ const Fuse = require("fuse.js");
  * @returns {Array<*>}
  */
 const searchFuzzy = (array, searchPattern) => {
-    let fuzzySearch = new Fuse(array, {
-        shouldSort: true,
-        tokenize: true,
-        threshold: 0.6,
-        location: 0,
-        distance: 100,
-        maxPatternLength: 32,
-        minMatchCharLength: 1,
-    })
+    let fuzzySearch = new Fuse(array, settings.searchFuzzy);
     return fuzzySearch.search(searchPattern);
 };
 

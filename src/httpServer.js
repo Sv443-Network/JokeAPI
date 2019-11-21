@@ -138,14 +138,13 @@ const init = () => {
 
                                 let callEndpoint = require(`.${ep.absPath}`);
                                 let meta = callEndpoint.meta;
-
-                                if(jsl.isEmpty(meta) || (!jsl.isEmpty(meta) && meta.noLog !== true))
-                                    logRequest("success");
                                 
                                 if(!jsl.isEmpty(meta) && meta.skipRateLimitCheck === true)
                                 {
                                     try
                                     {
+                                        if(jsl.isEmpty(meta) || (!jsl.isEmpty(meta) && meta.noLog !== true))
+                                            logRequest("success");
                                         return callEndpoint.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
                                     }
                                     catch(err)
@@ -161,7 +160,12 @@ const init = () => {
                                         logRequest("ratelimited");
                                         return respondWithError(res, 101, 429, fileFormat);
                                     }
-                                    else return callEndpoint.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
+                                    else
+                                    {
+                                        if(jsl.isEmpty(meta) || (!jsl.isEmpty(meta) && meta.noLog !== true))
+                                            logRequest("success");
+                                        return callEndpoint.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
+                                    }
                                 }
                             }
                         });

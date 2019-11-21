@@ -159,6 +159,7 @@ header .headeritem.r {
 }
 
 header #docTitle {
+    cursor: pointer;
     margin: 0;
     font-size: 30px;
     color: white;
@@ -219,13 +220,14 @@ header #docTitle {
 
 body[data-sidenav="closed"] code, body code {
     font-family: "Cascadia Code", "Inconsolata", "Courier New", "Consolas", monospace;
+    font-size: 14px;
 
     white-space: pre;
     -moz-tab-size: 4;
     -o-tab-size: 4;
     tab-size: 4;
 
-    background-color: #000;
+    background-color: #111;
     display: block;
 
     border-top-left-radius: 8px !important;

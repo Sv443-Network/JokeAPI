@@ -2,6 +2,8 @@ const http = require("http");
 const convertFileFormat = require("../src/fileFormatConverter");
 const httpServer = require("../src/httpServer");
 const parseURL = require("../src/parseURL");
+const parseJokes = require("../src/parseJokes");
+const FilteredJoke = require("../src/classes/FilteredJoke");
 const jsl = require("svjsl");
 
 jsl.unused(http);
@@ -23,15 +25,27 @@ const meta = {
 const call = (req, res, url, params, format) => {
     jsl.unused([req, url, params]);
 
-    //TODO:
+    // DEBUG
+    let filterJoke = new FilteredJoke(parseJokes.allJokes);
+    filterJoke.setAllowedCategories(["Programming"]);
+    // DEBUG
 
-    let responseText = convertFileFormat.auto(format, {
-        "error": false,
-        "ping": "Pong!",
-        "timestamp": new Date().getTime()
+    filterJoke.getJoke().then(joke => {
+        let responseText = convertFileFormat.auto(format, joke);
+        httpServer.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format));
+    }).catch(err => {
+        //TODO: format all error occurrencies for XML
+        let errorObj = {
+            error: true,
+            internalError: false,
+            code: 106,
+            message: "Error while filtering jokes",
+            causedBy: [err]
+        };
+
+        let responseText = convertFileFormat.auto(format, errorObj);
+        httpServer.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format));
     });
-
-    httpServer.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format));
 };
 
 module.exports = { meta, call };

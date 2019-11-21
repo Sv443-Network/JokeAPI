@@ -5,6 +5,7 @@ const jsl = require("svjsl");
 
 const settings = require("../settings");
 const debug = require("./verboseLogging");
+const AllJokes = require("./classes/AllJokes");
 
 /**
  * Parses all jokes
@@ -69,6 +70,10 @@ const init = () => {
                         result.push(true);
                     else result.push(`Joke with index/ID ${i} has an invalid "NSFW" flag`);
 
+                    if(!jsl.isEmpty(joke.flags.racist) || (joke.flags.racist !== false && joke.flags.racist !== true))
+                        result.push(true);
+                    else result.push(`Joke with index/ID ${i} has an invalid "racist" flag`);
+
                     if(!jsl.isEmpty(joke.flags.political) || (joke.flags.political !== false && joke.flags.political !== true))
                         result.push(true);
                     else result.push(`Joke with index/ID ${i} has an invalid "political" flag`);
@@ -87,6 +92,8 @@ const init = () => {
                     errors.push(res);
             });
 
+            module.exports.allJokes = new AllJokes(jokesFile);
+
             debug("JokeParser", `Done parsing jokes. Errors: ${errors.length === 0 ? jsl.colors.fg.green : jsl.colors.fg.red}${errors.length}${jsl.colors.rst}`);
 
             if(jsl.allEqual(result) && result[0] === true && errors.length === 0)
@@ -99,29 +106,29 @@ const init = () => {
 
 /**
  * @typedef {Object} SingleJoke A joke of type single
- * @prop {Number} formatVersion
- * @prop {Object} joke
- * @prop {String} joke.category The category of the joke
- * @prop {("single")} joke.type The type of the joke
- * @prop {String} joke.joke The joke itself
+ * @prop {String} category The category of the joke
+ * @prop {("single")} type The type of the joke
+ * @prop {String} joke The joke itself
  * @prop {Object} flags
  * @prop {Boolean} flags.nsfw Whether the joke is NSFW or not
+ * @prop {Boolean} flags.racist Whether the joke is racist or not
  * @prop {Boolean} flags.religious Whether the joke is religiously offensive or not
  * @prop {Boolean} flags.political Whether the joke is politically offensive or not
+ * @prop {Number} id The ID of the joke
  */
 
 /**
  * @typedef {Object} TwopartJoke A joke of type twopart
- * @prop {Number} formatVersion
- * @prop {Object} joke
- * @prop {String} joke.category The category of the joke
- * @prop {("twopart")} joke.type The type of the joke
- * @prop {String} joke.setup The setup of the joke
- * @prop {String} joke.delivery The delivery of the joke
+ * @prop {String} category The category of the joke
+ * @prop {("twopart")} type The type of the joke
+ * @prop {String} setup The setup of the joke
+ * @prop {String} delivery The delivery of the joke
  * @prop {Object} flags
  * @prop {Boolean} flags.nsfw Whether the joke is NSFW or not
+ * @prop {Boolean} flags.racist Whether the joke is racist or not
  * @prop {Boolean} flags.religious Whether the joke is religiously offensive or not
  * @prop {Boolean} flags.political Whether the joke is politically offensive or not
+ * @prop {Number} id The ID of the joke
  */
 
 /**
@@ -183,6 +190,9 @@ const validateSingle = joke => {
         {
             if(jsl.isEmpty(joke.flags.nsfw) || (joke.flags.nsfw !== false && joke.flags.nsfw !== true))
                 jokeErrors.push(`Joke doesn't have the "nsfw" flag or it is invalid`);
+
+            if(jsl.isEmpty(joke.flags.racist) || (joke.flags.racist !== false && joke.flags.racist !== true))
+                jokeErrors.push(`Joke doesn't have the "racist" flag or it is invalid`);
 
             if(jsl.isEmpty(joke.flags.political) || (joke.flags.political !== false && joke.flags.political !== true))
                 jokeErrors.push(`Joke doesn't have the "political" flag or it is invalid`);
