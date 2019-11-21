@@ -290,7 +290,7 @@ class FilteredJoke
 
     /**
      * Applies all filters and returns an array of all jokes that are viable
-     * @returns {Promise<SingleJoke|TwopartJoke>} Returns a promise containing a single, randomly selected joke that matches the previously set filters. If the filters didn't match, rejects promise.
+     * @returns {Promise<Array<SingleJoke|TwopartJoke>>} Returns a promise containing a single, randomly selected joke that matches the previously set filters. If the filters didn't match, rejects promise.
      */
     getAllJokes()
     {
