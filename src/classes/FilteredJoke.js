@@ -56,6 +56,8 @@ class FilteredJoke
         this._searchString = null;
         this._idRange = [0, (parseJokes.jokeCount - 1)];
         this._flags = [];
+
+        this._lastIDs = [];
     }
 
     //#MARKER categories
@@ -82,6 +84,10 @@ class FilteredJoke
 
         if(catsValid.length != categories.length)
             return false;
+        
+        if((typeof categories == "string" && categories.toLowerCase() == "any")
+        || (typeof categories != "string" && categories.map(c => c = c.toLowerCase()).includes("Any")))
+            categories = [...settings.jokes.possible.categories];
         
         this._allowedCategories = categories;
         return true;
@@ -222,13 +228,16 @@ class FilteredJoke
                         return;
 
                     //#SECTION flags
-                    let flagMatches = false;
-                    Object.keys(joke.flags).forEach(flKey => {
-                        if(this.getBlacklistFlags().includes(joke.flags[flKey]))
-                            flagMatches = true;
-                    });
-                    if(flagMatches)
-                        return;
+                    if(!jsl.isEmpty(this.getBlacklistFlags()))
+                    {
+                        let flagMatches = false;
+                        Object.keys(joke.flags).forEach(flKey => {
+                            if(this.getBlacklistFlags().includes(joke.flags[flKey]) && joke.flags[flKey] === true)
+                                flagMatches = true;
+                        });
+                        if(flagMatches)
+                            return;
+                    }
                     
                     //#SECTION type
                     if(!this.getAllowedTypes().includes(joke.type))
@@ -242,7 +251,7 @@ class FilteredJoke
                         && joke.joke.toLowerCase().includes(this.getSearchString()))
                             searchMatches = true;
                         else if (joke.type == "twopart"
-                        && (joke.setup + joke.delivery).includes(this.getSearchString()))
+                        && (joke.setup + " -////- " + joke.delivery).includes(this.getSearchString()))
                             searchMatches = true;
                     }
                     else searchMatches = true;
@@ -279,9 +288,34 @@ class FilteredJoke
             this._applyFilters().then(filteredJokes => {
                 if(filteredJokes.length == 0 || isNaN(parseInt(filteredJokes.length)))
                     return reject("No jokes were found that match the provided filter(s)");
+                
+                /**
+                 * @param {Array<SingleJoke|TwopartJoke>} jokes 
+                 */
+                let selectRandomJoke = jokes => {
+                    let selectedJoke = filteredJokes[jsl.randRange(0, (filteredJokes.length - 1))];
 
-                let selectedJoke = filteredJokes[jsl.randRange(0, (filteredJokes.length - 1))];
-                return resolve(selectedJoke);
+                    this._lastIDs.push(selectedJoke.id);
+
+                    if(this._lastIDs.length > settings.jokes.lastIDsMaxLength)
+                        this._lastIDs.shift();
+                    
+                    if(jokes.length > settings.jokes.lastIDsMaxLength && this._lastIDs.includes(selectedJoke.id))
+                    {
+                        let reducedJokeArray = [];
+
+                        jokes.forEach(j => {
+                            if(!this._lastIDs.includes(j.id))
+                                reducedJokeArray.push(j);
+                        });
+
+                        return selectRandomJoke(reducedJokeArray);
+                    }
+
+                    return selectedJoke;
+                };
+
+                return resolve(selectRandomJoke(filteredJokes));
             }).catch(err => {
                 return reject(err);
             });

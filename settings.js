@@ -77,6 +77,7 @@ module.exports = {
             fileFormat: "json",           // the default file format string
             mimeType: "application/json", // the default file format mime type
         },
+        lastIDsMaxLength: 10, // the maximum amount of joke IDs that get saved to the blacklist-array
     },
     httpServer: {
         port: 8079,         // http server port
