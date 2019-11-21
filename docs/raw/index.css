@@ -166,7 +166,12 @@ header #docTitle {
 }
 
 #headerversion {
+    display: inline-block;
     padding-right: 10px;
+}
+
+#headerVersionNumber {
+    padding-right: 6px;
 }
 
 #headersidenavopenwrapper {
@@ -174,6 +179,7 @@ header #docTitle {
 }
 
 #docTitle {
+    cursor: pointer;
     display: inline-block;
     color: white;
     white-space: nowrap;
@@ -192,6 +198,7 @@ header #docTitle {
 }
 
 .noa, header #docTitle:hover {
+    cursor: default;
     text-decoration: none;
 }
 

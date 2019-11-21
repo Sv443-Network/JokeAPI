@@ -3,7 +3,7 @@ var qstr = null;
 
 function onLoad()
 {
-    console.log("%cJokeAPI %cDocumentation (v<!--%#INSERT:VERSION#%-->)", "color: #8a2be2; background-color: black; padding: 5px;", "color: white; background-color: black; padding: 5px;");
+    console.log("%cJokeAPI%cDocumentation (v<!--%#INSERT:VERSION#%-->)", "color: #b05ffc; background-color: black; padding: 5px; padding-right: 0;", "color: white; background-color: black; padding: 5px;");
 
     window.jokeapi = {};
 
@@ -112,9 +112,14 @@ function getQueryStringObject()
     return qstrObj;
 }
 
+function openChangelog()
+{
+    unused();
+}
+
 
 
 
 
 //#MARKER cleanup
-unused(openNav, closeNav, onLoad);
+unused(openNav, closeNav, onLoad, openChangelog);
