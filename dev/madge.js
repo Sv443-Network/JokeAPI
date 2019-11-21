@@ -12,9 +12,9 @@ var fileList = [];
 var firstIframePos = {url: "./madge/src-main.html", name: "main"};
 let isWindows = process.platform == "win32";
 
-if(isWindows && !process.env.PATH.includes("gvpr.exe") && madgeOptions.graphVizPath == null)
+if(isWindows && !process.env.PATH.toLowerCase().includes("graphviz") && madgeOptions.graphVizPath == null)
 {
-    console.log("\x1b[31m\x1b[1m\nMadge needs the GraphViz software to generate the SVG graphs. Please download it (https://graphviz.gitlab.io/download/) and add it to your PATH environment variable.\x1b[0m");
+    console.log("\x1b[31m\x1b[1m\nMadge needs the GraphViz software to generate the SVG graphs. Please download it (https://graphviz.gitlab.io/download/) and add it to your PATH environment variable.\nAlso make sure the path to it contains the word \"Graphviz\"\x1b[0m");
     process.exit(1);
 }
 
