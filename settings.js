@@ -14,14 +14,14 @@ module.exports = {
         projGitHub: "https://github.com/Sv443/JokeAPI", // URL to the project's GitHub page
         version: packageJSON.version,                   // the version as a string
         versionInt: packageJSON.version.split("."),     // the version as a number array
-        docsURL: "https://sv443.net/jokeapi",           // the URL to the documentation of JokeAPI
+        docsURL: packageJSON.homepage,                  // the URL to the documentation of JokeAPI
         author: {
-            name: packageJSON.author.name,      // author name
-            email: packageJSON.author.email,    // author email
-            website: packageJSON.author.url,    // author website
-            github: "https://github.com/Sv443", // author github page
+            name: packageJSON.author.name,   // author name
+            email: packageJSON.author.email, // author email
+            website: packageJSON.author.url, // author website
+            github: `https://github.com/${packageJSON.author.name}`, // author github page
         },
-        infoMsg: "If you want to be updated on the status of JokeAPI, please consider joining my Discord server (https://discord.gg/aBH4uRG)",
+        infoMsg: "If you want to be updated on the status and future updates of JokeAPI or need some help, please consider joining my Discord server: https://discord.gg/aBH4uRG",
     },
     init: {
         initDirs: [ // directories that should be generated if they don't exist - paths relative to root of project - doesn't necessarily need trailing slash
@@ -77,7 +77,9 @@ module.exports = {
             fileFormat: "json",           // the default file format string
             mimeType: "application/json", // the default file format mime type
         },
-        lastIDsMaxLength: 10, // the maximum amount of joke IDs that get saved to the blacklist-array
+        lastIDsMaxLength: 10,        // the maximum amount of joke IDs that get saved to the blacklist-array
+        splitChars: [",", "+", "-"], // which characters should separate the values of parameters with support for multiple values
+        splitCharRegex: /[,+-]/gm,   // which characters should separate the values of parameters with support for multiple values
     },
     httpServer: {
         port: 8079,         // http server port

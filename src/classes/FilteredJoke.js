@@ -69,7 +69,7 @@ class FilteredJoke
     setAllowedCategories(categories)
     {
         if(isNaN(parseInt(categories.length)))
-            categories = [categories];
+            categories = new Array(categories);
 
         let allCategories = [
             settings.jokes.possible.anyCategoryName.toLowerCase(),
@@ -77,10 +77,11 @@ class FilteredJoke
         ];
         let catsValid = [];
 
-        categories.forEach(cat => {
-            if(allCategories.includes(cat.toLowerCase()))
-                catsValid.push(true);
-        });
+        if(typeof categories == "object" && categories.length != undefined)
+            categories.forEach(cat => {
+                if(allCategories.includes(cat.toLowerCase()))
+                    catsValid.push(true);
+            });
 
         if(catsValid.length != categories.length)
             return false;
