@@ -26,8 +26,11 @@ const call = (req, res, url, params, format) => {
     jsl.unused([req, url, params]);
 
     // DEBUG
+
     let filterJoke = new FilteredJoke(parseJokes.allJokes);
-    filterJoke.setAllowedCategories(["Programming"]);
+    filterJoke.setAllowedCategories(["Dark"]);
+    filterJoke.setBlacklistFlags(["nsfw", "political", "racist", "religious"]);
+
     // DEBUG
 
     filterJoke.getJoke().then(joke => {

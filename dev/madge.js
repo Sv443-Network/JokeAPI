@@ -12,9 +12,9 @@ var fileList = [];
 var firstIframePos = {url: "./madge/src-main.html", name: "main"};
 let isWindows = process.platform == "win32";
 
-if(isWindows && !process.env.PATH.includes("gvpr.exe") && madgeOptions.graphVizPath == null)
+if(isWindows && !process.env.PATH.toLowerCase().includes("graphviz") && madgeOptions.graphVizPath == null)
 {
-    console.log("\x1b[31m\x1b[1m\nMadge needs the GraphViz software to generate the SVG graphs. Please download it (https://graphviz.gitlab.io/download/) and add it to your PATH environment variable.\x1b[0m");
+    console.log("\x1b[31m\x1b[1m\nMadge needs the GraphViz software to generate the SVG graphs. Please download it (https://graphviz.gitlab.io/download/) and add it to your PATH environment variable.\nAlso make sure the path to it contains the word \"Graphviz\"\x1b[0m");
     process.exit(1);
 }
 
@@ -123,6 +123,41 @@ const generateForTools = () => {
     });
 }
 
+const generateForClasses = () => {
+    let iterCount = 0;
+    let classesFiles = fs.readdirSync("./src/classes");
+    return new Promise((resolve, reject) => {
+        classesFiles.forEach(file => {
+            if(!file.endsWith(".js"))
+            {
+                iterCount++;
+                return;
+            }
+
+            let filename = file.replace(/\.js/g, "");
+
+            try
+            {
+                madge(`./src/classes/${file}`, madgeOptions)
+                .then((res) => res.svg())
+                .then((output) => {
+                    iterCount++;
+                    fs.writeFileSync(`./dev/madge/classes-${filename}.html`, output.toString());
+
+                    if(iterCount == classesFiles.length)
+                    resolve();
+                });
+
+                fileList.push(`<li><span class="mimica" onclick="setIframe('./madge/classes-${filename}.html', '${filename}')">classes/${filename}.js</span></li>`);
+            }
+            catch(err)
+            {
+                reject(err);
+            }
+        });
+    });
+}
+
 const writeIndex = () => {
     let index = getIndex();
     fs.writeFileSync("./dev/dependency-graph.html", index);
@@ -198,10 +233,12 @@ try
     generateForSrc().then(() => {
         generateForEndpoints().then(() => {
             generateForTools().then(() => {
-                writeIndex();
-            }).catch(err => {throw new Error(err)});
-        }).catch(err => {throw new Error(err)});
-    }).catch(err => {throw new Error(err)});
+                generateForClasses().then(() => {
+                    writeIndex();
+                });
+            });
+        });
+    });
 }
 catch(err)
 {
