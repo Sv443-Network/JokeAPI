@@ -64,6 +64,31 @@ const call = (req, res, url, params, format) => {
                         }
                     }
                 });
+
+                // TODO: correct anchors:
+                if(format != "xml")
+                {
+                    endpointList.push({
+                        name: "Submit",
+                        description: `Used to submit a joke to be added to ${settings.info.name}`,
+                        usages: [
+                            `PUT ${settings.info.docsURL}/submit | Submits a joke to be added to ${settings.info.name} - Payload has to be a valid joke object in JSON format (for more info go to ${settings.info.docsURL}#joke-format)`
+                        ]
+                    });
+                }
+                else if(format == "xml")
+                {
+                    endpointList.push({
+                        name: "Submit",
+                        description: `Used to submit a joke to be added to ${settings.info.name}`,
+                        usages: {
+                            "usage": [
+                                `PUT ${settings.info.docsURL}/submit | Submits a joke to be added to ${settings.info.name} - Payload has to be a valid joke object in JSON format (for more info go to ${settings.info.docsURL}#joke-format)`
+                            ]
+                        }
+                    });
+                }
+
                 return httpServer.pipeString(res, convertFileFormat.auto(format, endpointList), parseURL.getMimeTypeFromFileFormatString(format));
             }
             else return epError(res, format, err);

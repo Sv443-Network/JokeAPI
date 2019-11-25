@@ -51,24 +51,24 @@ module.exports = {
         jokeSubmissionPath: "./data/submissions/",           // path to a directory where joke submissions should be saved to - needs trailing slash
         possible: {
             anyCategoryName: "Any", // the name of the "Any" category
-            categories: [           // all categories (excluding "Any")
+            categories: [           // all categories (excluding "Any") - case insensitive
                 "Miscellaneous",
                 "Programming",
-                "Dark",
-                "Pun"
+                "Dark"
             ],
-            flags: [ // all flags
+            flags: [ // all flags - CASE SENSITIVE!
                 "nsfw",
                 "religious",
                 "political",
                 "racist",
+                "sexist",
             ],
-            formats: [ // all formats
+            formats: [ // all formats - CASE SENSITIVE!
                 "json",
                 "xml",
                 "yaml",
             ],
-            types: [
+            types: [ // all joke types - CASE SENSITIVE!
                 "single",
                 "twopart"
             ],

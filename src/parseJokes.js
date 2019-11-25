@@ -25,7 +25,7 @@ const init = () => {
             }
             catch(err)
             {
-                reject(`Error while parsing file "${settings.jokes.jokesFilePath}" as JSON: ${err}`);
+                return reject(`Error while parsing file "${settings.jokes.jokesFilePath}" as JSON: ${err}`);
             }
             
 

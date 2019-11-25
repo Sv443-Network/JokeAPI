@@ -18,8 +18,6 @@ const meta = {
     ]
 };
 
-let dbg_filterJoke;
-
 /**
  * Calls this endpoint
  * @param {http.IncomingMessage} req The HTTP server request
@@ -32,7 +30,6 @@ const call = (req, res, url, params, format) => {
     jsl.unused([req, url]);
 
     let filterJoke = new FilteredJoke(parseJokes.allJokes);
-    dbg_filterJoke = filterJoke;
 
     //#SECTION category
     let category = settings.jokes.possible.anyCategoryName;
@@ -134,8 +131,6 @@ const call = (req, res, url, params, format) => {
  */
 const isErrored = (res, format, msg) => {
     //TODO: format all error occurrencies for XML
-
-    console.log(dbg_filterJoke);
 
     let errFromRegistry = require("." + settings.errors.errorRegistryIncludePath)["106"];
     let errorObj = {
