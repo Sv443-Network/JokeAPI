@@ -110,12 +110,12 @@ module.exports = {
     },
     documentation: {
         dirPath: "./docs/",                // path to the documentation directory - needs trailing slash
-        faviconPath: "./docs/favicon.ico", // path to the favicon.ico file - don't add trailing slash
+        faviconPath: "./docs/static/favicon.ico", // path to the favicon.ico file - don't add trailing slash
         rawDirPath: "./docs/raw/",         // path to the raw documentation files directory - needs trailing slash
         daemonInterval: 2,                 // interval (in seconds) at which the daemon checks for changes in the documentation directory
         error404path: "./docs/err/404.html", // path to the 404 error page
         error500path: "./docs/err/500.html", // path to the 500 error page
-        codeFontFileName: "CascadiaCode-Regular-VTT_1911.21.ttf", // the name of the font file that is going to be used in code blocks - has to be in the directory specified with the above property "dirPath"
+        codeFontFileName: "static/CascadiaCode-Regular-VTT_1911.21.ttf", // the name of the font file that is going to be used in code blocks - has to be in the directory specified with the above property "dirPath"
     },
     endpoints: {
         dirPath: "./endpoints/", // path to the dir containing all the endpoint scripts
