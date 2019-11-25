@@ -1,7 +1,8 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap");
 
 :root {
     --bg-color: #444;
+    --bg-accent-color: #333;
     --bg-color-sidenav-opened: #777;
     --header-bg-color: #101747;
     --header-bg-color-sidenav-opened: #101747;
@@ -9,6 +10,9 @@
     --accent-color: #8a2be2;
     --accent-color-light: #b05ffc;
     --accent-color-sidenav-opened: #a779d3;
+
+    --doc-header-font-size: 27px;
+    --doc-sub-header-font-size: 19px;
 
     --sidenav-animation-speed: 0.3s;
 }
@@ -29,6 +33,24 @@ html {
     scroll-behavior: smooth;
 }
 
+body {
+    margin: 0;
+    background-color: var(--bg-color);
+    color: white;
+    font-family: "Roboto", "Segoe UI", "Arial", sans-serif;
+    font-size: 15px;
+
+    transition: background-color var(--sidenav-animation-speed);
+
+    /* I had to do this for some unknown reason - don't ask me why: */
+    -webkit-touch-callout: inherit;
+    -webkit-user-select: inherit;
+    -khtml-user-select: inherit;
+    -moz-user-select: inherit;
+    -ms-user-select: inherit;
+    user-select: inherit;
+}
+
 .noselect {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -47,12 +69,12 @@ html {
 }
 
 a:not(.noul), .mimica:not(.noul) {
-    color: #5869ff;
+    color: #8f9aff;
     text-decoration: none;
 }
 
 a:not(.noul):hover, .mimica:not(.noul):hover {
-    color: #949fff;
+    color: #bcc2ff;
     text-decoration: underline;
 }
 
@@ -74,23 +96,6 @@ a:not(.noul):hover, .mimica:not(.noul):hover {
          1px -1px 0 #fff,
         -1px  1px 0 #fff,
          1px  1px 0 #fff;
-}
-
-body {
-    margin: 0;
-    background-color: var(--bg-color);
-    color: white;
-    font-family: "Roboto", "Segoe UI", "Arial", sans-serif;
-    font-size: 15px;
-
-    transition: background-color var(--sidenav-animation-speed);
-
-    -webkit-touch-callout: inherit;
-    -webkit-user-select: inherit;
-    -khtml-user-select: inherit;
-    -moz-user-select: inherit;
-    -ms-user-select: inherit;
-    user-select: inherit;
 }
 
 body[data-sidenav="opened"] {
@@ -130,6 +135,7 @@ header {
     flex-wrap: nowrap;
 
     width: 100%;
+    height: 50px;
 
     filter: grayscale(0%) drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.6));
 }
@@ -207,6 +213,8 @@ header #docTitle {
 
 /*#MARKER main content*/
 #devStuff {
+    display: inline-block;
+    width: 95vw;
     border: 2px solid orangered;
     border-radius: 10px;
     padding: 10px;
@@ -429,9 +437,127 @@ kbd {
     font-size: 36px;
 }
 
-a.headerAnchor {
+.docHeader .headerAnchorContainer {
     cursor: pointer;
     padding-right: 10px;
+    filter: opacity(40%);
+
+    transition: filter 0.075s linear;
+}
+
+.docHeader .headerAnchorContainer:hover {
+    filter: opacity(100%);
+}
+
+.headerAnchorContainer {
+    display: inline-block;
+    padding-top: 80px;
+}
+
+.targetBlink:target {
+    animation: targetBlink 1.5s;
+    animation-iteration-count: 1;
+}
+
+@keyframes targetBlink {
+    0% {
+        border-color: inherit;
+        color: inherit;
+
+        border-width: 2px;
+    }
+    10% {
+        border-width: 200%;
+    }
+    25% {
+        border-color: red;
+        color: red;
+    }
+    75% {
+        border-color: red;
+        color: red;
+    }
+    90% {
+        border-width: 200%;
+    }
+    100% {
+        border-color: inherit;
+        color: inherit;
+
+        border-width: 2px;
+    }
+}
+
+.docHeader {
+    font-size: var(--doc-header-font-size);
+    border: 2px solid white;
+    border-style: none none solid none;
+    padding-bottom: 2px;
+    margin-bottom: 10px;
+}
+
+.docHeader:not(:first)
+{
+    margin-top: 50px;
+}
+
+.subHeader {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 8px;
+    text-decoration: underline;
+    text-underline-offset: 3px; /* currently only supported in FF70+ and SF12.1+ (see https://caniuse.com/#search=text-underline-offset) */
+    font-size: var(--doc-sub-header-font-size);
+}
+
+/*#SECTION try it */
+#tryItContainer table tr td {
+    vertical-align: top;
+}
+
+#tryItContainer table tr:not(:last-of-type) > td {
+    padding-bottom: 15px;
+}
+
+#tryItContainer {
+    display: block;
+    background-color: var(--bg-accent-color);
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+#tryItContainer table tr td {
+    padding-right: 20px;
+}
+
+#catSelectMulti {
+    padding-left: 20px;
+}
+
+.multiselect {
+    background-color: #222;
+    border: 1px solid white;
+    padding: 6px;
+    padding-right: 11px;
+    border-radius: 5px;
+}
+
+input[disabled] {
+    cursor: not-allowed;
+}
+
+input[disabled]+label {
+    color: #bbb;
+    cursor: not-allowed;
+}
+
+#searchStringInput {
+    width: 100%;
 }
 
 @media screen and (max-height: 450px) {

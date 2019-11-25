@@ -133,18 +133,19 @@ const inject = filePath => {
                 let jokeCount = parseJokes.jokeCount;
 
                 let injections = {
-                    "<!--%#INSERT:VERSION#%-->":           settings.info.version,
-                    "<!--%#INSERT:NAME#%-->":              settings.info.name,
-                    "<!--%#INSERT:DESC#%-->":              settings.info.desc,
-                    "<!--%#INSERT:AUTHORWEBSITEURL#%-->":  settings.info.author.website,
-                    "<!--%#INSERT:AUTHORGITHUBURL#%-->":   settings.info.author.github,
-                    "<!--%#INSERT:CONTRIBUTORS#%-->":      (!jsl.isEmpty(contributors) ? contributors : "{}"),
-                    "<!--%#INSERT:PROJGITHUBURL#%-->":     settings.info.projGitHub,
-                    "<!--%#INSERT:JOKESUBMISSIONURL#%-->": settings.jokes.jokeSubmissionURL,
-                    "<!--%#INSERT:CATEGORYARRAY#%-->":     JSON.stringify([settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories]),
-                    "<!--%#INSERT:FLAGSARRAY#%-->":        JSON.stringify(settings.jokes.possible.flags),
-                    "<!--%#INSERT:FILEFORMATARRAY#%-->":   JSON.stringify(settings.jokes.possible.formats),
-                    "<!--%#INSERT:TOTALJOKES#%-->":        (!jsl.isEmpty(jokeCount) ? jokeCount.toString() : "N/A")
+                    "<!--%#INSERT:VERSION#%-->":               settings.info.version,
+                    "<!--%#INSERT:NAME#%-->":                  settings.info.name,
+                    "<!--%#INSERT:DESC#%-->":                  settings.info.desc,
+                    "<!--%#INSERT:AUTHORWEBSITEURL#%-->":      settings.info.author.website,
+                    "<!--%#INSERT:AUTHORGITHUBURL#%-->":       settings.info.author.github,
+                    "<!--%#INSERT:CONTRIBUTORS#%-->":          (!jsl.isEmpty(contributors) ? contributors : "{}"),
+                    "<!--%#INSERT:PROJGITHUBURL#%-->":         settings.info.projGitHub,
+                    "<!--%#INSERT:JOKESUBMISSIONURL#%-->":     settings.jokes.jokeSubmissionURL,
+                    "<!--%#INSERT:CATEGORYARRAY#%-->":         JSON.stringify([settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories]),
+                    "<!--%#INSERT:FLAGSARRAY#%-->":            JSON.stringify(settings.jokes.possible.flags),
+                    "<!--%#INSERT:FILEFORMATARRAY#%-->":       JSON.stringify(settings.jokes.possible.formats),
+                    "<!--%#INSERT:TOTALJOKES#%-->":            (!jsl.isEmpty(jokeCount) ? jokeCount.toString() : "N/A"),
+                    "<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->": (!jsl.isEmpty(jokeCount) ? (jokeCount - 1).toString() : "N/A")
                 };
 
                 Object.keys(injections).forEach(key => {

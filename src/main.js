@@ -10,7 +10,6 @@ const fs = require("fs");
 
 const settings = require("../settings");
 const debug = require("./verboseLogging");
-const logger = require("./logger");
 const parseJokes = require("./parseJokes");
 const httpServer = require("./httpServer");
 const lists = require("./lists");
@@ -23,9 +22,6 @@ process.japi.debuggerActive = typeof v8debug === "object" || /--debug|--inspect/
 const noDbg = process.japi.debuggerActive || false;
 dotenv.config();
 
-
-console.log(`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n`);
-console.log(`${col.blue}[${logger.getTimestamp(" | ")}] ${col.green}Started ${settings.info.name} v${settings.info.version}${jsl.colors.rst}`);
 let pb;
 
 

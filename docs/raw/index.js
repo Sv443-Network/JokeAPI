@@ -33,6 +33,8 @@ function onLoad()
         else if(e.key == "Escape" && window.jokeapi.sidenavOpened)
             closeNav();
     });
+
+    resetTryItForm();
 }
 
 function addCodeTabs()
@@ -95,6 +97,9 @@ function getQueryStringObject()
     var rawQstr = window.location.href.split("?")[1];
     var qstrArr = [];
 
+    if(rawQstr.includes("#"))
+        rawQstr = rawQstr.split("#")[0];
+
     if(rawQstr != null && rawQstr.includes("&"))
         qstrArr = rawQstr.split("&");
     else if(rawQstr != null)
@@ -114,7 +119,50 @@ function getQueryStringObject()
 
 function openChangelog()
 {
+    //TODO:
     unused();
+}
+
+function reRender()
+{
+    document.getElementsByName("catSelect").forEach(function(el) {
+        if(!el.checked)
+            return;
+
+        if(el.value == "any")
+        {
+            ["cat-cb1", "cat-cb2", "cat-cb3"].forEach(function(cat) {
+                document.getElementById(cat).disabled = true;
+            });
+        }
+        else
+        {
+            ["cat-cb1", "cat-cb2", "cat-cb3"].forEach(function(cat) {
+                document.getElementById(cat).disabled = false;
+            });
+        }
+    });
+}
+
+function resetTryItForm()
+{
+    ["cat-cb1", "cat-cb2", "cat-cb3"].forEach(function(cat) {
+        document.getElementById(cat).checked = false;
+    });
+
+    document.getElementById("cat-radio1").checked = true;
+
+    ["blf-cb1", "blf-cb2", "blf-cb3", "blf-cb4", "blf-cb5"].forEach(function(flg) {
+        document.getElementById(flg).checked = false;
+    });
+
+    document.getElementById("fmt-cb1").checked = true;
+
+    ["typ-cb1", "typ-cb2"].forEach(function(type) {
+        document.getElementById(type).checked = true;
+    });
+
+    reRender();
 }
 
 
@@ -122,4 +170,4 @@ function openChangelog()
 
 
 //#MARKER cleanup
-unused(openNav, closeNav, onLoad, openChangelog);
+unused(openNav, closeNav, onLoad, openChangelog, reRender);

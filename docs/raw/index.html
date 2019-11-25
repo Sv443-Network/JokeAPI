@@ -9,7 +9,7 @@
 <html>
     <head>
         <!-- #MARKER head -->
-        <title>JokeAPI - Documentation</title>
+        <title><!--%#INSERT:NAME#%--> - Documentation</title>
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,12 +63,13 @@
                     </span>
                 </span>
                 <span class="headeritem m">
-                    <a id="docTitle" class="noselect" title="Click to reload">JokeAPI Documentation</a>
+                    <a id="docTitle" class="noselect" title="Click to reload"><!--%#INSERT:NAME#%--> Documentation</a>
                 </span>
                 <span class="headeritem r">
                     <span id="headerversion">
                         <span id="headerVersionNumber">v<!--%#INSERT:VERSION#%--></span>
-                        (<a class="mimica" onclick="openChangelog()">Changelog</a>)
+                        (<a class="mimica" onclick="openChangelog()">Changelog</a>)<br>
+                        <a href="<!--%#INSERT:PROJGITHUBURL#%-->">GitHub</a> &bull; <a href="<!--%#INSERT:AUTHORGITHUBURL#%-->">Author</a>
                     </span>
                 </span>
             </header>
@@ -81,7 +82,7 @@
                     <br><br><br><br>
                 </noscript>
 
-                <div id="devStuff" style="display: none;"> <!-- #MARKER dev stuff -->
+                <div id="devStuff" style="display: none;"> <!-- #MARKER dev stuff - gets enabled when URL has query parameter "devFeatures=true" -->
                     <br><br>
                     &lt;kbd&gt;-Test: <kbd>Ctrl</kbd>
                     <br><br>
@@ -139,52 +140,142 @@
                         </tr>
                     </table>
 
+                    <br><br><br><br>
+
 <code class="prettyprint"><span class="nocode codeheader">This is some example code</span>
     <div class="actualCode">#include &lt;QString&gt;
-    
-    #ifndef BAR
-        #define BAR "hello"
-    #endif
-    
-    class Test
-    {
-        private:
-            int x = 0;
-    
-        protected slots:
-            void test(QString x = "test", int test = "abc");
-    
-        public:
-            void test2()
+
+#ifndef BAR
+    #define BAR "hello"
+#endif
+
+class Test
+{
+    private:
+        int x = 0;
+
+    protected slots:
+        void test(QString x = "test", int test = "abc");
+
+    public:
+        void test2()
+        {
+            auto lambdaFunct = [=](QString bar) 
             {
-                auto lambdaFunct = [=](QString bar) 
-                {
-                    return (bar + "test");
-                };
-    
-                QString longlonglonglonglonglonglonglonglonglonglongline = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-    
-                int * bla = new Test();
-                bla->something().foo = lambdaFunct(BAR);
-            }
-    }</div></code>
+                return (bar + "test");
+            };
+
+            QString longlonglonglonglonglonglonglonglonglonglongline = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+
+            int * bla = new Test();
+            bla->something().foo = lambdaFunct(BAR);
+        }
+}</div></code>
                 </div> <!-- #MARKER end dev stuff -->
 
-                <h1 class="docHeader"><a class="headerAnchor" name="info" href="#info">🔗</a>Information</h1>
+                <div class="docHeader targetBlink" id="info"><a class="headerAnchorContainer" href="#info" title="Click to link to this header">🔗</a><span class="docHeaderText">Information:</span></div>
 
-                <br><br><br><br>
-                <h1 class="docHeader"><a class="headerAnchor" name="try-it" href="#try-it">🔗</a>Try it out here:</h1>
+                This is a RESTful API blah blah blah<br>
+                Serves jokes in a uniform way and so on<br>
+                Pls use me I'm lonely uwu<br>
+                <span class="subHeader">Lorem ipsum:</span>
+                Laborum eiusmod elit reprehenderit fugiat duis sit. Pariatur do aliquip qui exercitation est ullamco veniam. Enim ut velit irure incididunt laboris Lorem non sit nostrud laborum esse quis amet minim. Mollit aliquip nisi irure non commodo. Deserunt irure anim esse in. Lorem amet amet esse ut exercitation ipsum ex.<br>
+                In ut id minim sunt minim deserunt ea. Do duis commodo esse occaecat esse ea ad et sit occaecat commodo aliqua cupidatat. Anim in consectetur qui anim in voluptate velit minim commodo irure aute. Duis in irure anim ad labore dolore. Eu voluptate duis sunt adipisicing minim nostrud in ullamco proident.<br>
+                Cupidatat do aute nulla anim magna. Quis sint in enim labore. Qui laborum non do enim irure magna quis. Adipisicing voluptate ut id sint esse Lorem elit aute aute. Voluptate consectetur mollit dolore mollit ex ex aute sint nisi eu ipsum eiusmod sunt. Nulla nisi ut aute nostrud officia in.<br>
+                Dolore officia sit irure aliqua irure aliquip dolor minim voluptate. Nulla magna minim nulla esse eiusmod culpa minim aute commodo reprehenderit cillum culpa nostrud dolor. Adipisicing ut nulla commodo excepteur nostrud aliqua aliqua magna nostrud.<br>
+                Quis cupidatat dolor voluptate fugiat amet adipisicing magna anim cillum dolor proident magna tempor. Sit minim aliquip proident culpa. Irure nostrud dolore excepteur aliqua laborum ut ea eu ipsum pariatur velit. Id excepteur excepteur minim irure aute laborum cupidatat occaecat.<br>
+                Non adipisicing amet elit ad ex veniam voluptate nisi ea sunt. Culpa est qui culpa veniam occaecat labore. Reprehenderit irure est minim sunt ea ea irure enim. Quis minim nostrud occaecat amet consequat laborum culpa excepteur. Minim eiusmod est officia minim nulla magna velit. Culpa dolor sunt do ullamco aliqua irure eu aute.<br>
 
-                <br><br><br><br>
-                <h1 class="docHeader"><a class="headerAnchor" name="legal" href="#legal">🔗</a>Legal</h1>
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                <br><br><br><br><br><br><br><br><br><br>
-                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+                <div class="docHeader targetBlink" id="try-it"><a class="headerAnchorContainer" href="#try-it" title="Click to link to this header">🔗</a><span class="docHeaderText">Try it out here:</span></div>
+                
+                <div id="tryItContainer">
+                    <table>
+                        <tr>
+                            <td>
+                                Select <a href="#categories">category / categories</a>:
+                            </td>
+                            <td>
+                                <div class="multiselect noselect">
+                                    <div>
+                                        <input type="radio" name="catSelect" value="any" id="cat-radio1" onchange="reRender()"><label for="cat-radio1">Any</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" name="catSelect" value="multi" id="cat-radio2" onchange="reRender()"><label for="cat-radio2">Custom:</label>
+                                        <span id="catSelectMulti">
+                                            <input type="checkbox" id="cat-cb1" onchange="reRender()" disabled><label for="cat-cb1">Programming</label>
+                                            <input type="checkbox" id="cat-cb2" onchange="reRender()" disabled><label for="cat-cb2">Miscellaneous</label>
+                                            <input type="checkbox" id="cat-cb3" onchange="reRender()" disabled><label for="cat-cb3">Dark</label>
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Select <a href="#blacklist-flags">flags</a> to blacklist:
+                            </td>
+                            <td>
+                                <div class="multiselect noselect">
+                                    (optional)&nbsp;&nbsp;&nbsp;
+                                    <input type="checkbox" id="blf-cb1" onchange="reRender()"><label for="blf-cb1">nsfw</label>
+                                    <input type="checkbox" id="blf-cb2" onchange="reRender()"><label for="blf-cb2">religious</label>
+                                    <input type="checkbox" id="blf-cb3" onchange="reRender()"><label for="blf-cb3">political</label>
+                                    <input type="checkbox" id="blf-cb4" onchange="reRender()"><label for="blf-cb4">racist</label>
+                                    <input type="checkbox" id="blf-cb5" onchange="reRender()"><label for="blf-cb5">sexist</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Select <a href="#response-formats">response format</a>:
+                            </td>
+                            <td>
+                                <div class="multiselect noselect">
+                                    <input type="radio" id="fmt-cb1" name="formatRadio" value="json" onchange="reRender()"><label for="fmt-cb1">json</label>
+                                    <input type="radio" id="fmt-cb2" name="formatRadio" value="xml" onchange="reRender()"><label for="fmt-cb2">xml</label>
+                                    <input type="radio" id="fmt-cb3" name="formatRadio" value="yaml" onchange="reRender()"><label for="fmt-cb3">yaml</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Select <a href="#joke-types">joke type</a>:
+                            </td>
+                            <td>
+                                <div class="multiselect noselect">
+                                    <input type="checkbox" id="typ-cb1" onchange="reRender()"><label for="typ-cb1">single</label>
+                                    <input type="checkbox" id="typ-cb2" onchange="reRender()"><label for="typ-cb2">twopart</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Search for a joke that<br>contains this <a href="#search-string">search string</a>:
+                            </td>
+                            <td>
+                                <div class="multiselect noselect">
+                                    <input type="text" id="searchStringInput" placeholder="(optional)">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Search for a joke<br>in this <a href="#id-range">ID range</a>:
+                            </td>
+                            <td>
+                                <div class="multiselect noselect">
+                                    (optional)&nbsp;&nbsp;&nbsp;
+                                    From: <input type="number" id="idRangeInputFrom" value="0" min="0" step="1" max="<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->">
+                                    To: <input type="number" id="idRangeInputTo" value="<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->" min="0" step="1" max="<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->">
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <br><br><br>
+                    URL gets built here + <button>Send button</button>
+                </div>
+
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
             </div>
         </main>
 
@@ -196,7 +287,7 @@
                 <div class="sidenavHeaderItem spacerItem"></div>
                 <a class="sidenavHeaderItem closebtn mimica noul noselect nopad rtext" onclick="closeNav()" title="Click or press Esc to close">&times;</a>
             </div>
-            <a class="noul" onclick="closeNav()" href="#top">Information</a>
+            <a class="noul" onclick="closeNav()" href="#info">Information</a>
             <a class="noul" onclick="closeNav()" href="#try-it">Try it out</a>
             <details>
                 <summary>
