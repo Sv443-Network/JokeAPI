@@ -34,12 +34,10 @@ const init = () => {
                 module.exports.sqlConn = sqlConnection;
 
                 sendQuery("SHOW TABLES LIKE \"analytics\"").then(res => {
-                    console.log(res);
                     if(typeof res != "object" || res.length <= 0)
                     {
                         let createAnalyticsTableQuery = fs.readFileSync(`${settings.analytics.dirPath}create_analytics.sql`).toString();
-                        sendQuery(createAnalyticsTableQuery).then(res2 => {
-                            console.log(res2);
+                        sendQuery(createAnalyticsTableQuery).then(() => {
                             return resolve();
                         }).catch(err => {
                             return reject(err);
