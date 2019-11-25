@@ -14,6 +14,7 @@ const parseJokes = require("./parseJokes");
 const httpServer = require("./httpServer");
 const lists = require("./lists");
 const docs = require("./docs");
+const analytics = require("./analytics");
 const logRequest = require("./logRequest");
 
 const col = jsl.colors.fg;
@@ -23,6 +24,10 @@ const noDbg = process.japi.debuggerActive || false;
 dotenv.config();
 
 let pb;
+
+settings.init.exitSignals.forEach(sig => {
+    process.on(sig, () => softExit(0));
+});
 
 
 
@@ -35,7 +40,7 @@ const initAll = () => {
 
     //#SECTION parse jokes
     if(!noDbg && !settings.debug.progressBarDisabled)
-        pb = new jsl.ProgressBar(4, "Parsing Jokes...");
+        pb = new jsl.ProgressBar(5, "Parsing Jokes...");
     parseJokes.init().then(() => {
         
         //#SECTION init lists
@@ -49,10 +54,15 @@ const initAll = () => {
                 //#SECTION init HTTP server
                 if(!jsl.isEmpty(pb)) pb.next("Initializing HTTP listener...");
                 httpServer.init().then(() => {
-                    if(!jsl.isEmpty(pb)) pb.next("Done.");
 
-                    logRequest.initMsg();
+                    //#SECTION init analytics
+                    if(!jsl.isEmpty(pb)) pb.next("Initializing analytics module...");
+                    analytics.init().then(() => {
+                        if(!jsl.isEmpty(pb)) pb.next("Done.");
+                        logRequest.initMsg();
 
+                        // done.
+                    }).catch(err => initError("initializing the analytics module", err));
                 }).catch(err => initError("initializing the HTTP server", err));
             }).catch(err => initError("initializing documentation", err));
         }).catch(err => initError("initializing the lists", err));
@@ -93,5 +103,16 @@ const initializeDirs = () => {
     }
 }
 
+/**
+ * Ends all open connections and then shuts down the process with the specified exit code
+ * @param {Number} code 
+ */
+const softExit = code => {
+    analytics.endSqlConnection().then(() => {
+        process.exit(code);
+    });
+}
 
+
+module.exports = { softExit };
 initAll();
