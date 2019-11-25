@@ -63,7 +63,7 @@ class FilteredJoke
     //#MARKER categories
     /**
      * Sets the category / categories a joke can be from
-     * @param {("Any"|"Programming"|"Miscellaneous"|"Dark"|Array<"Any"|"Programming"|"Miscellaneous"|"Dark">} categories 
+     * @param {("Any"|"Programming"|"Miscellaneous"|"Dark"|"Pun"|Array<"Any"|"Programming"|"Miscellaneous"|"Dark"|"Pun">} categories 
      * @returns {Boolean} Returns true if the category / categories were set successfully, else returns false
      */
     setAllowedCategories(categories)
@@ -96,7 +96,7 @@ class FilteredJoke
 
     /**
      * Returns the category / categories a joke can be in
-     * @returns {Array<"Any"|"Programming"|"Miscellaneous"|"Dark">}
+     * @returns {Array<"Any"|"Programming"|"Miscellaneous"|"Dark"|"Pun">}
      */
     getAllowedCategories()
     {
@@ -225,8 +225,14 @@ class FilteredJoke
                 let allJokes = this._allJokes.getJokeArray();
                 allJokes.forEach(joke => {
                     //#SECTION categories
-                    if(!this.getAllowedCategories().includes(joke.category.toLowerCase()))
-                        return;
+                    let cats = this.getAllowedCategories().map(c => c = c.toLowerCase());
+
+                    if((typeof cats == "object" && !cats.includes(settings.jokes.possible.anyCategoryName.toLowerCase()))
+                    || (typeof cats == "string" && cats != settings.jokes.possible.anyCategoryName.toLowerCase()))
+                    {
+                        if(!cats.includes(joke.category.toLowerCase()))
+                            return;
+                    }
 
                     //#SECTION flags
                     if(!jsl.isEmpty(this.getBlacklistFlags()))
@@ -287,7 +293,7 @@ class FilteredJoke
     {
         return new Promise((resolve, reject) => {
             this._applyFilters().then(filteredJokes => {
-                if(filteredJokes.length == 0 || isNaN(parseInt(filteredJokes.length)))
+                if(filteredJokes.length == 0 || typeof filteredJokes != "object")
                     return reject("No jokes were found that match the provided filter(s)");
                 
                 /**

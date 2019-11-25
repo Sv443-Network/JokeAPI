@@ -10,7 +10,10 @@ jsl.unused(http);
 
 const meta = {
     "name": "Categories",
-    "desc": "Returns all available categories"
+    "desc": "Returns a list of all available categories",
+    "usages": [
+        `GET ${settings.info.docsURL}/categories[?format] | Returns a list of all available categories`
+    ]
 };
 
 /**

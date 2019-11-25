@@ -3,13 +3,17 @@ const convertFileFormat = require("../src/fileFormatConverter");
 const httpServer = require("../src/httpServer");
 const parseURL = require("../src/parseURL");
 const jsl = require("svjsl");
+const settings = require("../settings");
 
 jsl.unused(http);
 
 
 const meta = {
     "name": "Ping",
-    "desc": "Checks if JokeAPI is online"
+    "desc": `Can be used to check if ${settings.info.name} is online`,
+    "usages": [
+        `GET ${settings.info.docsURL}/ping[?format] | Can be used to check if ${settings.info.name} is online`
+    ]
 };
 
 /**

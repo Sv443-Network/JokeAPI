@@ -68,6 +68,7 @@
         - Improve the "Try it out" section in the docs
         - Add an analytics module that keeps track of everything and makes it possible for me to finally see some (anonymous) usage statistics
         - Completely rewrite the documentation
+        - Re-flag and re-categorize the jokes with the new "racist" flag and the new "Pun" category
     - DONE:
         - Updated some dependencies
         - Updated contributor guide
@@ -80,3 +81,5 @@
         - Static content like the stylesheet and client-side JS will now be loaded through the "static" endpoint, decreasing page load time by an order of magnitude
         - renamed "category" endpoint to "joke"
         - The submission of empty jokes will now be prevented
+        - Added the "racist" flag
+        - Added the "Pun" category

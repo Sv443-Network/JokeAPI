@@ -11,7 +11,10 @@ jsl.unused(http);
 
 const meta = {
     "name": "Info",
-    "desc": "Returns some information on JokeAPI"
+    "desc": `Returns some information on ${settings.info.name}`,
+    "usages": [
+        `GET ${settings.info.docsURL}/info[?format] | Returns some information on ${settings.info.name}`
+    ]
 };
 
 /**

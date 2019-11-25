@@ -12,8 +12,13 @@ jsl.unused(http);
 
 const meta = {
     "name": "Category",
-    "desc": "Returns a joke from the specified category"
+    "desc": "Returns a joke from the specified category that is also matching the provided filters",
+    "usages": [
+        `GET ${settings.info.docsURL}/joke/{CATEGORY_NAME}[?format&blacklistFlags&idRange&contains&type] | Returns a joke from the specified category that is also matching the provided filters`
+    ]
 };
+
+let dbg_filterJoke;
 
 /**
  * Calls this endpoint
@@ -27,13 +32,14 @@ const call = (req, res, url, params, format) => {
     jsl.unused([req, url]);
 
     let filterJoke = new FilteredJoke(parseJokes.allJokes);
+    dbg_filterJoke = filterJoke;
 
     //#SECTION category
     let category = settings.jokes.possible.anyCategoryName;
 
     let includesSplitChar = false;
     settings.jokes.splitChars.forEach(splC => {
-        if(url[settings.httpServer.urlPathOffset + 1].includes(splC))
+        if(!jsl.isEmpty(url[settings.httpServer.urlPathOffset + 1]) && url[settings.httpServer.urlPathOffset + 1].includes(splC))
             includesSplitChar = true;
     });
 
@@ -42,11 +48,15 @@ const call = (req, res, url, params, format) => {
     
     let categoryValid = false;
     [settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories].forEach(cat => {
-        if(category == cat)
+        if(category.toLowerCase() == cat.toLowerCase())
             categoryValid = true;
     });
 
-    let fCat = filterJoke.setAllowedCategories(category);
+    let fCat = false;
+    if(typeof category != "object")
+        fCat = filterJoke.setAllowedCategories([category]);
+    else fCat = filterJoke.setAllowedCategories(category);
+
     if(!fCat || !categoryValid)
         return isErrored(res, format, `The specified categor${category.length == undefined || typeof category != "object" || category.length == 1 ? "y is" : "ies are"} invalid - Got: "${category.length == undefined || typeof category != "object" ? category : category.join(", ")}" - Possible categories are: "${[settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories].join(", ")}"`);
     
@@ -124,12 +134,17 @@ const call = (req, res, url, params, format) => {
  */
 const isErrored = (res, format, msg) => {
     //TODO: format all error occurrencies for XML
+
+    console.log(dbg_filterJoke);
+
+    let errFromRegistry = require("." + settings.errors.errorRegistryIncludePath)["106"];
     let errorObj = {
         error: true,
         internalError: false,
         code: 106,
-        message: "Error while filtering jokes",
-        causedBy: [msg]
+        message: errFromRegistry.errorMessage,
+        causedBy: errFromRegistry.causedBy,
+        additionalInfo: msg
     };
 
     let responseText = convertFileFormat.auto(format, errorObj);

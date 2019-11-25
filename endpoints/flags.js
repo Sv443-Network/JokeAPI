@@ -10,7 +10,10 @@ jsl.unused(http);
 
 const meta = {
     "name": "Flags",
-    "desc": "Returns all available flags"
+    "desc": "Returns a list of all available blacklist flags",
+    "usages": [
+        `GET ${settings.info.docsURL}/flags[?format] | Returns a list of all available blacklist flags`
+    ]
 };
 
 /**

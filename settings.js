@@ -55,6 +55,7 @@ module.exports = {
                 "Miscellaneous",
                 "Programming",
                 "Dark",
+                "Pun"
             ],
             flags: [ // all flags
                 "nsfw",

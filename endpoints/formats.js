@@ -10,7 +10,10 @@ jsl.unused(http);
 
 const meta = {
     "name": "Formats",
-    "desc": "Returns all available file formats"
+    "desc": "Returns a list of all available response file formats",
+    "usages": [
+        `GET ${settings.info.docsURL}/formats[?format] | Returns a list of all available response file formats`
+    ]
 };
 
 /**

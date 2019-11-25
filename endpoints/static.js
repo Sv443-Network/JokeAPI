@@ -9,6 +9,7 @@ jsl.unused(http);
 const meta = {
     "name": "Static",
     "desc": "Serves static content like scripts, stylesheets and images",
+    "unlisted": true,
     "noLog": true,
     "skipRateLimitCheck": true,
 };

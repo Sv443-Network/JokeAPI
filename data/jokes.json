@@ -1720,9 +1720,35 @@
                 "nsfw": false,
                 "religious": false,
                 "political": false,
-                "racist": false
+                "racist": true
             },
             "id": 135
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "What do you use to blindfold an Asian?",
+            "delivery": "Floss.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": true
+            },
+            "id": 136
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "What do you call a pile of kittens?",
+            "delivery": "A meowntain.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false
+            },
+            "id": 137
         }
     ]
 }
