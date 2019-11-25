@@ -6,6 +6,7 @@
  * @prop {Object} flags
  * @prop {Boolean} flags.nsfw Whether the joke is NSFW or not
  * @prop {Boolean} flags.racist Whether the joke is racist or not
+ * @prop {Boolean} flags.sexist Whether the joke is sexist or not
  * @prop {Boolean} flags.religious Whether the joke is religiously offensive or not
  * @prop {Boolean} flags.political Whether the joke is politically offensive or not
  * @prop {Number} id The ID of the joke
@@ -20,6 +21,7 @@
  * @prop {Object} flags
  * @prop {Boolean} flags.nsfw Whether the joke is NSFW or not
  * @prop {Boolean} flags.racist Whether the joke is racist or not
+ * @prop {Boolean} flags.sexist Whether the joke is sexist or not
  * @prop {Boolean} flags.religious Whether the joke is religiously offensive or not
  * @prop {Boolean} flags.political Whether the joke is politically offensive or not
  * @prop {Number} id The ID of the joke
@@ -45,6 +47,7 @@ class AllJokes
 
         this.info = jokeArray["info"];
         this.jokes = jokeArray["jokes"];
+        this._jokeCount = jokeArray["jokes"].length;
     }
 
     /**
@@ -61,6 +64,24 @@ class AllJokes
      * @returns {Number}
      */
     getFormatVersion()
+    {
+        return this.info.formatVersion;
+    }
+
+    /**
+     * Returns the (human readable / 1-indexed) count of jokes
+     * @returns {Number}
+     */
+    getJokeCount()
+    {
+        return this._jokeCount;
+    }
+
+    /**
+     * Returns the joke format version
+     * @returns {Number}
+     */
+    getJokeFormatVersion()
     {
         return this.info.formatVersion;
     }

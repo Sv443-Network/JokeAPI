@@ -10,6 +10,7 @@
  * @prop {Object} flags
  * @prop {Boolean} flags.nsfw Whether the joke is NSFW or not
  * @prop {Boolean} flags.racist Whether the joke is racist or not
+ * @prop {Boolean} flags.sexist Whether the joke is sexist or not
  * @prop {Boolean} flags.religious Whether the joke is religiously offensive or not
  * @prop {Boolean} flags.political Whether the joke is politically offensive or not
  * @prop {Number} id The ID of the joke
@@ -24,6 +25,7 @@
  * @prop {Object} flags
  * @prop {Boolean} flags.nsfw Whether the joke is NSFW or not
  * @prop {Boolean} flags.racist Whether the joke is racist or not
+ * @prop {Boolean} flags.sexist Whether the joke is sexist or not
  * @prop {Boolean} flags.religious Whether the joke is religiously offensive or not
  * @prop {Boolean} flags.political Whether the joke is politically offensive or not
  * @prop {Number} id The ID of the joke
@@ -183,7 +185,7 @@ class FilteredJoke
     //#MARKER flags
     /**
      * Sets the blacklist flags
-     * @param {Array<"nsfw"|"racist"|"religious"|"political">} flags 
+     * @param {Array<"nsfw"|"racist"|"sexist"|"religious"|"political">} flags 
      * @returns {Boolean} Returns true if the flags were set, false if they are invalid
      */
     setBlacklistFlags(flags)
@@ -203,7 +205,7 @@ class FilteredJoke
 
     /**
      * Returns the set blacklist flags
-     * @returns {Array<"nsfw"|"racist"|"religious"|"political">}
+     * @returns {Array<"nsfw"|"racist"|"sexist"|"religious"|"political">}
      */
     getBlacklistFlags()
     {
@@ -224,6 +226,12 @@ class FilteredJoke
 
                 let allJokes = this._allJokes.getJokeArray();
                 allJokes.forEach(joke => {
+
+                    //#SECTION id range
+                    let idRange = this.getIdRange();
+                    if(joke.id < idRange[0] || joke.id > idRange[1])
+                        return;
+
                     //#SECTION categories
                     let cats = this.getAllowedCategories().map(c => c = c.toLowerCase());
 
@@ -235,11 +243,12 @@ class FilteredJoke
                     }
 
                     //#SECTION flags
-                    if(!jsl.isEmpty(this.getBlacklistFlags()))
+                    let blFlags = this.getBlacklistFlags();
+                    if(!jsl.isEmpty(blFlags))
                     {
                         let flagMatches = false;
                         Object.keys(joke.flags).forEach(flKey => {
-                            if(this.getBlacklistFlags().includes(joke.flags[flKey]) && joke.flags[flKey] === true)
+                            if(blFlags.includes(flKey) && joke.flags[flKey] === true)
                                 flagMatches = true;
                         });
                         if(flagMatches)
@@ -264,11 +273,6 @@ class FilteredJoke
                     else searchMatches = true;
 
                     if(!searchMatches)
-                        return;
-
-                    //#SECTION id range
-                    let idRange = this.getIdRange();
-                    if(joke.id < idRange[0] || joke.id > idRange[1])
                         return;
                     
 

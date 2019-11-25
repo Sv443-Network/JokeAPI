@@ -31,22 +31,30 @@ const call = (req, res, url, params, format) => {
 
     let filterJoke = new FilteredJoke(parseJokes.allJokes);
 
-    //#SECTION category
-    let category = settings.jokes.possible.anyCategoryName;
+    //#SECTION category validation
+    let category = url[settings.httpServer.urlPathOffset + 1].toLowerCase() || "";
 
     let includesSplitChar = false;
     settings.jokes.splitChars.forEach(splC => {
-        if(!jsl.isEmpty(url[settings.httpServer.urlPathOffset + 1]) && url[settings.httpServer.urlPathOffset + 1].includes(splC))
+        if(!jsl.isEmpty(category) && category.includes(splC))
             includesSplitChar = true;
     });
 
     if(includesSplitChar)
-        category = url[settings.httpServer.urlPathOffset + 1].split(settings.jokes.splitCharRegex) || settings.jokes.possible.anyCategoryName;
+        category = category.split(settings.jokes.splitCharRegex);
     
     let categoryValid = false;
     [settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories].forEach(cat => {
-        if(category.toLowerCase() == cat.toLowerCase())
-            categoryValid = true;
+        if(typeof category == "string")
+        {
+            if(category.toLowerCase() == cat.toLowerCase())
+                categoryValid = true;
+        }
+        else if(typeof category == "object")
+        {
+            if(category.map(c => c = c.toLowerCase()).includes(cat.toLowerCase()))
+                categoryValid = true;
+        }
     });
 
     let fCat = false;

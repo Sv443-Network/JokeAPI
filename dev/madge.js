@@ -1,21 +1,73 @@
+// IMPORTANT:
+// Madge needs the Graphviz software to generate the SVG graphs.
+// 
+// On Windows, download it here: https://graphviz.gitlab.io/download/, then add the path to the "bin" folder to your PATH variable or specify the path to the bin folder in the "madgeOptions" object below.
+// On Linux, run "sudo apt-get install graphviz"
+// On Mac, run "brew install graphviz || port install graphviz"
+//
+// To add files to be included in the graphing process, add them to the "otherFiles" array below (path is relative to project root).
+// Before running this script by using "node dev/madge", make sure all dev dependencies are installed by running the command "npm i --save-dev"
+
+
+const madgeOptions = {
+    graphVizPath: "C:/Users/fes/Desktop/Graphviz/bin" // set to null to use the path inside the PATH environment variable
+};
+
+const otherFiles = [
+    "./JokeAPI.js"
+];
+
+
+
+
+
 const madge = require("madge");
 const fs = require("fs");
 const settings = require("../settings");
 
-
-
-const madgeOptions = {
-    graphVizPath: null // set to null to use the path inside the PATH environment variable
-};
-
 var fileList = [];
-var firstIframePos = {url: "./madge/src-main.html", name: "main"};
+var firstIframePos = {url: "./madge/JokeAPI.html", name: "./JokeAPI"};
 let isWindows = process.platform == "win32";
 
 if(isWindows && !process.env.PATH.toLowerCase().includes("graphviz") && madgeOptions.graphVizPath == null)
 {
     console.log("\x1b[31m\x1b[1m\nMadge needs the GraphViz software to generate the SVG graphs. Please download it (https://graphviz.gitlab.io/download/) and add it to your PATH environment variable.\nAlso make sure the path to it contains the word \"Graphviz\"\x1b[0m");
     process.exit(1);
+}
+
+const generateForOther = () => {
+    let iterCount = 0;
+
+    return new Promise((resolve, reject) => {
+        otherFiles.forEach(file => {
+            if(!file.endsWith(".js"))
+            {
+                iterCount++;
+                return;
+            }
+
+            let filename = file.replace(/\.js/g, "");
+
+            try
+            {
+                madge(`${file}`, madgeOptions)
+                .then((res) => res.svg())
+                .then((output) => {
+                    iterCount++;
+                    fs.writeFileSync(`./dev/madge/${filename}.html`, output.toString());
+
+                    if(iterCount == otherFiles.length)
+                    resolve();
+                });
+
+                fileList.push(`<li><span class="mimica" onclick="setIframe('./madge/${filename}.html', '${filename}')">${filename}.js</span></li>`);
+            }
+            catch(err)
+            {
+                reject(err);
+            }
+        });
+    });
 }
 
 const generateForSrc = () => {
@@ -209,6 +261,10 @@ const getIndex = () => `\
                 <ul>
                     ${fileList.join("\n\t\t\t")}
                 </ul>
+                <br><br>
+                Blue has dependencies.<br>
+                Green has no dependencies.<br>
+                Red has circular dependencies.
             </div>
             <div class="flexitem grow">
                 <h2 id="selectedgraphtitle"></h2>
@@ -230,11 +286,13 @@ try
     if(!fs.existsSync("./dev/madge"))
         fs.mkdirSync("./dev/madge");
 
-    generateForSrc().then(() => {
-        generateForEndpoints().then(() => {
-            generateForTools().then(() => {
-                generateForClasses().then(() => {
-                    writeIndex();
+    generateForOther().then(() => {
+        generateForSrc().then(() => {
+            generateForEndpoints().then(() => {
+                generateForTools().then(() => {
+                    generateForClasses().then(() => {
+                        writeIndex();
+                    });
                 });
             });
         });

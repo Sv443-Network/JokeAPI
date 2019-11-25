@@ -27,11 +27,6 @@ const init = () => {
             {
                 return reject(`Error while parsing file "${settings.jokes.jokesFilePath}" as JSON: ${err}`);
             }
-            
-
-            module.exports.jokeCount = jokesFile.jokes.length;
-            module.exports.jokeFormatVersion = jokesFile.info.formatVersion;
-            this.jokeFormatVersion = jokesFile.info.formatVersion;
 
             //#MARKER format version
             if(jokesFile.info.formatVersion == settings.jokes.jokesFormatVersion)
@@ -74,6 +69,10 @@ const init = () => {
                         result.push(true);
                     else result.push(`Joke with index/ID ${i} has an invalid "racist" flag`);
 
+                    if(!jsl.isEmpty(joke.flags.sexist) || (joke.flags.sexist !== false && joke.flags.sexist !== true))
+                        result.push(true);
+                    else result.push(`Joke with index/ID ${i} has an invalid "sexist" flag`);
+
                     if(!jsl.isEmpty(joke.flags.political) || (joke.flags.political !== false && joke.flags.political !== true))
                         result.push(true);
                     else result.push(`Joke with index/ID ${i} has an invalid "political" flag`);
@@ -92,7 +91,12 @@ const init = () => {
                     errors.push(res);
             });
 
-            module.exports.allJokes = new AllJokes(jokesFile);
+            let allJokesObj = new AllJokes(jokesFile);
+            module.exports.allJokes = allJokesObj;
+            module.exports.jokeCount = allJokesObj.getJokeCount();
+            module.exports.jokeFormatVersion = allJokesObj.getFormatVersion();
+            this.jokeFormatVersion = allJokesObj.getFormatVersion();
+
 
             debug("JokeParser", `Done parsing jokes. Errors: ${errors.length === 0 ? jsl.colors.fg.green : jsl.colors.fg.red}${errors.length}${jsl.colors.rst}`);
 
@@ -193,6 +197,9 @@ const validateSingle = joke => {
 
             if(jsl.isEmpty(joke.flags.racist) || (joke.flags.racist !== false && joke.flags.racist !== true))
                 jokeErrors.push(`Joke doesn't have the "racist" flag or it is invalid`);
+            
+            if(jsl.isEmpty(joke.flags.sexist) || (joke.flags.sexist !== false && joke.flags.sexist !== true))
+                jokeErrors.push(`Joke doesn't have the "sexist" flag or it is invalid`);
 
             if(jsl.isEmpty(joke.flags.political) || (joke.flags.political !== false && joke.flags.political !== true))
                 jokeErrors.push(`Joke doesn't have the "political" flag or it is invalid`);
