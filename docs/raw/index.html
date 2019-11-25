@@ -4,9 +4,11 @@
     By Sv443 (https://sv443.net or https://github.com/Sv443)
     Licensed under the MIT license (https://sv443.net/LICENSE)
 -->
+
 <!DOCTYPE html>
 <html>
     <head>
+        <!-- #MARKER head -->
         <title>JokeAPI - Documentation</title>
 
         <meta charset="UTF-8">
@@ -33,6 +35,7 @@
         <meta name="application-name" content="JokeAPI">
         <meta name="theme-color" content="#101747">
 
+        <!-- #MARKER dependencies -->
         <!-- JokeAPI Stylesheet: -->
         <link rel="stylesheet" href="./static/index.css">
 
@@ -77,7 +80,8 @@
                     </span>
                     <br><br><br><br>
                 </noscript>
-                <div id="devStuff" style="display: none;">
+
+                <div id="devStuff" style="display: none;"> <!-- #MARKER dev stuff -->
                     <br><br>
                     &lt;kbd&gt;-Test: <kbd>Ctrl</kbd>
                     <br><br>
@@ -134,69 +138,41 @@
                             <td><!--%#INSERT:FILEFORMATARRAY#%--></td>
                         </tr>
                     </table>
-                </div>
 
 <code class="prettyprint"><span class="nocode codeheader">This is some example code</span>
-<div class="actualCode">#include &lt;QString&gt;
-
-#ifndef BAR
-	#define BAR "hello"
-#endif
-
-class Test
-{
-	private:
-		int x = 0;
-
-	protected slots:
-		void test(QString x = "test", int test = "abc");
-
-    public:
-		void test2()
-		{
-            auto lambdaFunct = [=](QString bar) 
+    <div class="actualCode">#include &lt;QString&gt;
+    
+    #ifndef BAR
+        #define BAR "hello"
+    #endif
+    
+    class Test
+    {
+        private:
+            int x = 0;
+    
+        protected slots:
+            void test(QString x = "test", int test = "abc");
+    
+        public:
+            void test2()
             {
-                return (bar + "test");
-            };
+                auto lambdaFunct = [=](QString bar) 
+                {
+                    return (bar + "test");
+                };
+    
+                QString longlonglonglonglonglonglonglonglonglonglongline = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+    
+                int * bla = new Test();
+                bla->something().foo = lambdaFunct(BAR);
+            }
+    }</div></code>
+                </div> <!-- #MARKER end dev stuff -->
 
-            QString longlonglonglonglonglonglonglonglonglonglongline = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+                <h1><a class="headerAnchor" id="legal" href="#legal">§</a>Legal</h1>
 
-			int * bla = new Test();
-			bla->something().foo = lambdaFunct(BAR);
-		}
-}</div></code>
-
-                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
-                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-
-                <h1><a id="legal">§</a>Legal</h1>
+                <h1><a class="headerAnchor" id="legal" href="#legal">§</a>Legal</h1>
                 Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
                 Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.
                 Duis commodo quis enim quis esse laborum cillum qui sit exercitation mollit consequat. Id pariatur commodo do fugiat pariatur. Cupidatat aute ipsum aliqua pariatur excepteur do et excepteur. Excepteur ea voluptate excepteur laboris minim. Incididunt sunt aliqua deserunt nulla ullamco quis id nulla quis aliqua ipsum incididunt culpa.

@@ -15,7 +15,7 @@
 
 @font-face { 
     font-family: "Cascadia Code";
-    src: url("./cascadia-code.ttf");
+    src: url("./cascadia-code.ttf"); /* URL can't have the "./static/" path since this CSS file is already loaded from "./static/" */
 }
 
 
@@ -427,6 +427,11 @@ kbd {
 
 #sidenav .closebtn {
     font-size: 36px;
+}
+
+a.headerAnchor {
+    cursor: pointer;
+    padding-right: 10px;
 }
 
 @media screen and (max-height: 450px) {

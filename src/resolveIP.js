@@ -14,8 +14,6 @@ jsl.unused(http);
 const resolveIP = req => {
     let ipaddr = null;
 
-    //return "blacklist_test";
-
     try
     {
         if(!jsl.isEmpty(req.headers) && !jsl.isEmpty(req.headers["x-forwarded-for"]))
