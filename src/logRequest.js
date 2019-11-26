@@ -1,6 +1,7 @@
 const jsl = require("svjsl");
 const logger = require("./logger");
 const parseJokes = require("./parseJokes");
+const analytics = require("./analytics");
 const settings = require("../settings");
 
 
@@ -21,6 +22,13 @@ const logRequest = (type, additionalInfo) => {
     {
         case "success":
             color = settings.colors.success;
+
+            analytics({
+                type: "SuccessfulRequest",
+                data: {
+
+                }
+            });
         break;
         case "docs":
             color = settings.colors.docs;
@@ -28,6 +36,13 @@ const logRequest = (type, additionalInfo) => {
         case "ratelimited":
             color = settings.colors.ratelimit;
             logType = "ratelimit";
+
+            analytics({
+                type: "RateLimited",
+                data: {
+
+                }
+            });
         break;
         case "error":
             color = settings.colors.ratelimit;
@@ -66,7 +81,7 @@ const logRequest = (type, additionalInfo) => {
  * Sends an initialization message - called when the initialization is done
  */
 const initMsg = () => {
-    console.log(`\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n`);
+    console.log("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     console.log(`${jsl.colors.fg.blue}[${logger.getTimestamp(" | ")}] ${jsl.colors.fg.green}Started ${settings.info.name} v${settings.info.version}${jsl.colors.rst}`);
     console.log(` ├─ Registered and validated ${jsl.colors.fg.green}${parseJokes.jokeCount}${jsl.colors.rst} jokes`);
     console.log(` └─ Open ${settings.info.name} at ${jsl.colors.fg.green}http://127.0.0.1:${settings.httpServer.port}/${jsl.colors.rst}`);

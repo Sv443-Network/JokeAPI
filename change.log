@@ -77,9 +77,9 @@
         - Static content like the stylesheet and client-side JS will now be loaded through the "static" endpoint, decreasing page load time by an order of magnitude
         - renamed "category" endpoint to "joke"
         - The submission of empty jokes will now be prevented
-        - Added the "racist" flag
+        - Added the "racist" and "sexist" flags
         - Add support for selecting multiple categories at once (for example: "https://sv443.net/jokeapi/category/Dark,Miscellaneous/")
-        - "?type" URL parameter to specify the type of the served joke ("single" or "twopart")
-        - "?contains" URL parameter to only serve jokes that match the provided search query
-        - "?id" URL parameter to get jokes from a single ID or an ID range (examples: "https://sv443.net/jokeapi/category/Any?id=50" or "https://sv443.net/jokeapi/category/Any?id=50-75")
+        - Added the "?type" URL parameter to specify the type of the served joke ("single" or "twopart")
+        - Added the "?contains" URL parameter to only serve jokes that match the provided search query
+        - Added the "?idRange" URL parameter to get jokes from a single ID or an ID range (examples: "https://sv443.net/jokeapi/category/Any?id=50" or "https://sv443.net/jokeapi/category/Any?id=50-75")
         - Re-validated all jokes and removed duplicates

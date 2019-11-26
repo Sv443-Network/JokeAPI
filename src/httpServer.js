@@ -77,7 +77,7 @@ const init = () => {
                             fileFormat = parseURL.getFileFormatFromQString(parsedURL.queryParams);
                     }
 
-                    analytics.internalError("HTTP", err);
+                    analytics(); // TODO:
                     return respondWithError(res, 500, 100, fileFormat, err);
                 }
 

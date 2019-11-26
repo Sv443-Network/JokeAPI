@@ -100,27 +100,41 @@ const sendQuery = (query, insertValues) => {
 };
 
 /**
- * General internal error
- * @param {("HTTP")} type 
- * @param {String} error 
+ * @typedef {Object} AnalyticsSuccessfulRequest
+ * @prop {("SuccessfulRequest")} type
+ * @prop {Object} data
  */
-const internalError = (type, error) => {
-    jsl.unused(error);
-    switch(type)
+
+/**
+ * @typedef {Object} AnalyticsRateLimited
+ * @prop {("RateLimited")} type
+ * @prop {Object} data
+ */
+
+/**
+ * Logs something to the analytics database
+ * @param {(AnalyticsSuccessfulRequest|AnalyticsRateLimited)} analyticsDataObject
+ * @returns {(Boolean|String)} Returns a string containing an error message if errored, else returns true
+ */
+const logAnalytics = analyticsDataObject => {
+    if(!settings.analytics.enabled)
+        return true;
+    
+    if(jsl.isEmpty(this.sqlConn) || (this.sqlConn.state != "connected" && this.sqlConn.state != "authenticated"))
+        return `DB connection is not established yet. Current connection state is "${this.sqlConn.state || "disconnected"}"`;
+
+    switch(analyticsDataObject.type)
     {
-        case "HTTP":
+        case "SuccessfulRequest":
+
+        break;
+        case "RateLimited":
 
         break;
     }
-}
 
-/**
- * IP address was rate limited
- * @param {String} ip The IP address of the request sender
- */
-const rateLimited = (ip) => {
-    jsl.unused(ip);
+    return true;
+};
 
-}
-
-module.exports = { init, internalError, rateLimited, sendQuery, endSqlConnection }
+module.exports = logAnalytics;
+module.exports = { init, sendQuery, endSqlConnection }

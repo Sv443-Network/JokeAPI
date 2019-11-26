@@ -25,10 +25,7 @@ module.exports = {
     },
     init: {
         initDirs: [ // directories that should be generated if they don't exist - paths relative to root of project - doesn't necessarily need trailing slash
-            "./data",
             "./data/logs",
-            "./data/lists",
-            "./data/analytics",
             "./data/submissions",
         ],
         exitSignals: [ // all signals that should cause a soft exit
@@ -87,11 +84,11 @@ module.exports = {
         splitCharRegex: /[,+-]/gm,   // which characters should separate the values of parameters with support for multiple values
     },
     httpServer: {
-        port: 8079,         // http server port
+        port: 8076,         // http server port
         allowCORS: true,    // whether or not to allow Cross Origin Resource Sharing
         rateLimiting: 30,   // amount of allowed requests per below defined timeframe
         timeFrame: 1,       // timeframe in min - also supports floating point numbers
-        urlPathOffset: 0,   // example: "sv443.net/jokeapi/info" with an offset of 1 will only start parsing the path beginning at "info"
+        urlPathOffset: 0,   // example: "/jokeapi/info" with an offset of 1 will only start parsing the path beginning at "info" - an Apache reverse proxy will do this automatically though
         disableCache: true, // whether or not to disable the cache - default: true (setting to false may prevent the users from getting new jokes)
         infoHeaders: true,  // whether or not to add an informational header about JokeAPI to each request
         regexes: {          // regular expressions to validate IP addresses - thanks to https://nbviewer.jupyter.org/github/rasbt/python_reference/blob/master/tutorials/useful_regex.ipynb
@@ -153,7 +150,7 @@ module.exports = {
         host: "127.0.0.1",   // IP address to the DB host - default for local PC is "127.0.0.1"
         database: "jokeapi", // The name of the DB
         username: "Sv443",   // (password is in .env file)
-        port: 3306,          // The port of the DB - default is 3306
+        port: 3307,          // The port of the DB - default is 3306
         timeout: 10,         // in seconds
     }
 }

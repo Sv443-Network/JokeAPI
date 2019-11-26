@@ -30,7 +30,7 @@
   "bugs": {
     "url": "https://github.com/Sv443/JokeAPI/issues"
   },
-  "homepage": "https://sv443.net/jokeapi",
+  "homepage": "https://sv443.net/jokeapi/v2",
   "dependencies": {
     "dotenv": "^6.2.0",
     "farmhash": "^3.0.0",

@@ -89,6 +89,9 @@ const call = (req, res, url, params, format) => {
                     });
                 }
 
+                if(format == "xml")
+                    endpointList = { "endpoint": endpointList};
+
                 return httpServer.pipeString(res, convertFileFormat.auto(format, endpointList), parseURL.getMimeTypeFromFileFormatString(format));
             }
             else return epError(res, format, err);

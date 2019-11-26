@@ -37,6 +37,8 @@ const call = (req, res, url, params, format) => {
         "causedBy": errFromRegistry.causedBy
     };
 
+    //TODO: add formats
+
     if(format != "xml")
     {
         responseText = convertFileFormat.auto(format, {
