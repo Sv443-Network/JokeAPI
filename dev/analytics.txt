@@ -1,0 +1,13 @@
+SuccessfulRequest
+{
+    ipAddress,
+    urlPath,
+    urlParameters,
+}
+
+RateLimited
+{
+    ipAddress,
+    urlPath,
+    urlParameters,
+}

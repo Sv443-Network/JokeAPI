@@ -103,12 +103,18 @@ const sendQuery = (query, insertValues) => {
  * @typedef {Object} AnalyticsSuccessfulRequest
  * @prop {("SuccessfulRequest")} type
  * @prop {Object} data
+ * @prop {String} data.ipAddress
+ * @prop {Array<String>} data.pathArray
+ * @prop {Object} data.urlParameters
  */
 
 /**
  * @typedef {Object} AnalyticsRateLimited
  * @prop {("RateLimited")} type
  * @prop {Object} data
+ * @prop {String} data.ipAddress
+ * @prop {Array<String>} data.pathArray
+ * @prop {Object} data.urlParameters
  */
 
 /**
@@ -131,7 +137,15 @@ const logAnalytics = analyticsDataObject => {
         case "RateLimited":
 
         break;
+        default: return `Analytics log type is invalid`;
     }
+
+    //TODO: construct object
+    let writeObject = {
+
+    };
+
+    sendQuery("INSERT INTO ?? () VALUES (NULL, ?, ?, NULL)", [settings.analytics.sqlTableName, analyticsDataObject.type, writeObject]);
 
     return true;
 };
