@@ -84,6 +84,7 @@ const call = (req, res, url, params, format) => {
         }
 
         //#SECTION idRange
+        // TODO: add support for ID without separator
         if(!jsl.isEmpty(params["idRange"]))
         {
             try
