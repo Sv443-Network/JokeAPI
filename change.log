@@ -83,3 +83,7 @@
         - Added the "?contains" URL parameter to only serve jokes that match the provided search query
         - Added the "?idRange" URL parameter to get jokes from a single ID or an ID range (examples: "https://sv443.net/jokeapi/category/Any?id=50" or "https://sv443.net/jokeapi/category/Any?id=50-75")
         - Re-validated all jokes and removed duplicates
+   
+[2.0.1] - The hotfix that will probably be necessary a few days after the 2.0.0 release
+    - TODO:
+        - remove the ".vscode/settings.json" file if once the new VS:Code version is released (see https://github.com/microsoft/vscode/issues/85549)
