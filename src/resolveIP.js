@@ -42,7 +42,7 @@ const resolveIP = req => {
 
     try
     {
-        if(settings.httpServer.hashIpAddresses)
+        if(settings.httpServer.ipHashing.enabled)
             ipaddr = hashIP(ipaddr);
         return typeof ipaddr == "string" ? ipaddr : ipaddr.toString();
     }
@@ -53,7 +53,7 @@ const resolveIP = req => {
 };
 
 const isValidIP = ip => (ip.match(settings.httpServer.regexes.ipv4) || ip.match(settings.httpServer.regexes.ipv6));
-const hashIP = ip => crypto.createHash("sha256").update(ip, "utf8").digest("hex").toString();
+const hashIP = ip => crypto.createHash(settings.httpServer.ipHashing.algorithm).update(ip, "utf8").digest(settings.httpServer.ipHashing.digest).toString();
 
 module.exports = resolveIP;
 module.exports.isValidIP = isValidIP;

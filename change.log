@@ -88,4 +88,4 @@
    
 [2.0.1] - The hotfix that will probably be necessary a few days after the 2.0.0 release
     - TODO:
-        - remove the ".vscode/settings.json" file if once the new VS:Code version is released (see https://github.com/microsoft/vscode/issues/85549)
+        - remove the ".vscode/settings.json" file once the new VS:Code version is released (see https://github.com/microsoft/vscode/issues/85549)

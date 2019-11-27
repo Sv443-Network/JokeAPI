@@ -100,7 +100,11 @@ module.exports = {
             regex: /[^A-Za-z0-9\-_./]|^COM[0-9]([/.]|$)|^LPT[0-9]([/.]|$)|^PRN([/.]|$)|^CLOCK\$([/.]|$)|^AUX([/.]|$)|^NUL([/.]|$)|^CON([/.]|$)/gm,
             replaceChar: "#",  // what character to use instead of illegal characters
         },
-        hashIpAddresses: true, // hashes all IP addresses with SHA-256. If set to false, JokeAPI is not GDPR compliant anymore!
+        ipHashing: {
+            enabled: true,       // hashes all IP addresses. If set to false, JokeAPI is not GDPR compliant anymore!
+            algorithm: "sha256", // the algorithm of the hash - available algorithms depend on the OpenSSL version installed on the machine (on linux can be listed with "openssl list -digest-algorithms")
+            digest: "hex",       // the output format of the hash - can be "base64", "hex" or "latin1"
+        },
     },
     errors: {
         errorRegistryIncludePath: "./data/errorRegistry", // path to the error registry
