@@ -1,7 +1,7 @@
 CREATE TABLE analytics (
     aID INT(10) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     aType VARCHAR(30),
-    aIpAddress VARCHAR(80),
+    aIpAddress BINARY(80),
     aUrlPath LONGTEXT,
     aUrlParameters LONGTEXT,
     aErrorMessage VARCHAR(250),

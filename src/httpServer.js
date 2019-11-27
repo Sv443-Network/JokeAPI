@@ -251,7 +251,9 @@ const init = () => {
                                                         "timestamp": new Date().getTime()
                                                     };
 
-                                                    logRequest("submission", ip, analyticsObject);
+                                                    let submissionObject = analyticsObject;
+                                                    submissionObject.submission = submittedJoke;
+                                                    logRequest("submission", ip, submissionObject);
 
                                                     return pipeString(res, convertFileFormat.auto(fileFormat, responseObj), parseURL.getMimeTypeFromFileFormatString(fileFormat), 201);
                                                 }
