@@ -30,7 +30,7 @@ const parseURL = url => {
     let pathArr = [];
     let qstrObj = {};
 
-    try 
+    try
     {
         let rawPath = url.split("?")[0];
         let rawQstr = url.split("?")[1];

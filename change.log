@@ -65,6 +65,7 @@
         - Completely rewrite the documentation
         - Set up a new reverse proxy at "https://sv443.net/jokeapi/v2/" to let people slowly migrate to the new version
         - Make the lists work again
+        - Make good looking error pages
     - DONE:
         - Updated some dependencies
         - Updated contributor guide
