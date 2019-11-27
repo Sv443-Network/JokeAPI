@@ -1,6 +1,62 @@
 var qstr = null;
+const dIHTML = `
+<h2>To provide this service to you, JokeAPI needs to collect some anonymous data.</h2>
 
+<br>
 
+<a href="<!--%#INSERT:PRIVACYPOLICYURL#%-->" target="_blank">View the privacy policy by clicking here.</a>
+
+<br><br><br>
+
+<b>This is a list of everything JokeAPI stores temporarily (this data will be deleted after about a month):</b><br>
+<ul>
+    <li>A hash of your IP address, your request headers, the request method and the request date and time (this will be kept inside a secure log file so I can debug JokeAPI and help you solve any issues you might have)</li>
+</ul>
+
+<br><br>
+
+<b>This is a list of everything JokeAPI stores indefinitely:</b><br>
+<ul>
+    <li>A hash of your IP address <u>if it gets added to the <i>blacklist</i>.</u> This happens if you have shown malicious behavior or have exceeded the rate limiting for too long / often</li>
+    <li>A hash of your IP address <u>if it gets added to a <i>whitelist</i>.</u> This only happens if you contacted me to get more requests per minute or are partnered with me and have been informed that this is happening</li>
+    <li>A hash of your IP address <u>if it gets added to a <i>console blacklist</i>.</u> This (if at all) also only happens if you are partnered with me</li>
+    <li>The requested URL, consisting of the URL path, the URL parameters and the URL anchor</li>
+    <li>The body of joke submissions (using PUT requests on the submission endpoint)</li>
+</ul>
+
+<br><br>
+
+<b>Terminology:</b><br>
+&nbsp;&nbsp;&nbsp;&nbsp;Hash:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;A hash uses an algorithm to encode the input to something that cannot be reconstructed to the initial input again.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;In the case of JokeAPI, your IP address gets hashed and stored to a database. In this hashed state, your original IP address can not be reconstructed and you will stay completely anonymous.
+
+<br><br><br>
+
+Please note that the collection of the above listed data is necessary to provide you this service.<br>
+Without it, rate limiting wouldn't be possible. This would lead to the API and all of my other services being taken down by DoS-attacks.<br>
+This has already happened before and it has impacted all of my services to the point of them being completely unresponsive.<br><br>
+You can request to get your collected data deleted or to view the data about you that JokeAPI collected (according to <a href="http://www.privacy-regulation.eu/en/article-12-transparent-information-communication-and-modalities-for-the-exercise-of-the-rights-of-the-data-subject-GDPR.htm">article 12 GDPR</a>) by sending me an e-mail: <a href="mailto:sven.fehler@web.de">sven.fehler@web.de</a>
+`;
+
+const sMenu=new function(){this.new=function(id,title,innerhtml,width,height,border_rounded,closable_ESC,closable_btn,on_close,close_img_src){if(typeof id=="string"&&typeof title=="string"&&typeof innerhtml=="string"&&typeof width=="number"&&typeof height=="number"){if(gebid("jsg_menu_"+id)!=null){console.error("a menu with the ID "+id+" already exists - not creating a new one");return}
+/* eslint-disable-next-line */
+if(!border_rounded)border_rounded=!0;if(typeof closable_ESC!="boolean")closable_ESC=!0;if(typeof closable_btn!="boolean")closable_btn=!0;if(!on_close)on_close=function(){};if(!close_img_src)close_img_src="https://sv443.net/resources/images/jsg_menu_close.png";var menuelem=document.createElement("div");menuelem.style.display="none";menuelem.style.opacity="0";menuelem.style.transition="opacity 0.3s ease-in";menuelem.className="jsg_menu";menuelem.id="jsg_menu_"+id;menuelem.style.position="fixed";menuelem.style.top=((100-height)/2)+"vh";menuelem.style.left=((100-width)/2)+"vw";menuelem.style.width=width+"vw";menuelem.style.height=height+"vh";menuelem.style.padding="10px";menuelem.style.border="0.25em solid #454545";if(border_rounded)menuelem.style.borderRadius="1.2em";else menuelem.style.borderRadius="0";if(closable_btn)closebtnih='<img onclick="sMenu.close(\''+id+'\')" class="jsg_menuclosebtn" title="Close" src="https://sv443.net/cdn/jsl/closebtn.png" style="cursor:pointer;position:absolute;top:0;right:0;width:1.5em;height:1.5em;">';else closebtnih="";menuelem.style.backgroundColor="#ddd";menuelem.innerHTML="<div class='jsg_menutitle' style='font-size:1.5em;text-align:center;'>"+title+"</div>"+closebtnih+"<br>"+innerhtml;document.body.appendChild(menuelem);if(closable_ESC)document.addEventListener("keydown",e=>{if(e.keyCode==27)sMenu.close(id)})}
+else{console.error("the arguments for Menu.new() are wrong");return!1}}
+this.close=function(id){try{setTimeout(()=>{gebid("jsg_menu_"+id).style.display="none"},500);gebid("jsg_menu_"+id).style.opacity="0";gebid("jsg_menu_"+id).style.transition="opacity 0.3s ease-in"}
+catch(err){console.error("couldn't find menu with id "+id+". Is the ID correct and was the menu created correctly?");return!1}}
+this.open=function(id){try{gebid("jsg_menu_"+id).style.display="block";setTimeout(()=>{gebid("jsg_menu_"+id).style.opacity="1";gebid("jsg_menu_"+id).style.transition="opacity 0.3s ease-out"},20)}
+catch(err){console.error("couldn't find menu with id "+id+". Is the ID correct and was the menu created correctly?");return!1}}
+this.theme=function(id,theme){try{if(theme=="dark"){gebid("jsg_menu_"+id).style.backgroundColor="#454545";gebid("jsg_menu_"+id).style.color="white";gebid("jsg_menu_"+id).style.borderColor="#ddd";gebid("jsg_menu_"+id).style.transition="background-color 0.4s ease-out, color 0.4s ease-out, border-color 0.4s ease-out"}
+else{gebid("jsg_menu_"+id).style.backgroundColor="#ddd";gebid("jsg_menu_"+id).style.color="black";gebid("jsg_menu_"+id).style.borderColor="#454545";gebid("jsg_menu_"+id).style.transition="background-color 0.4s ease-out, color 0.4s ease-out, border-color 0.4s ease-out"}}
+catch(err){console.error("couldn't find menu with id "+id+". Is the ID correct and was the menu created correctly?");return!1}}
+this.setInnerHTML=function(id,inner_html){try{gebid("jsg_menu_"+id).innerHTML=inner_html}
+catch(err){console.error("couldn't find menu or inner_html is not valid");return!1}}
+this.setOuterHTML=function(id,outer_html){try{gebid("jsg_menu_"+id).outerHTML=outer_html}
+catch(err){console.error("couldn't find menu or outer_html is not valid");return!1}}}
+function gebid(id){return document.getElementById(id);}
+
+//#MARKER onload
 function onLoad()
 {
     console.log("%cJokeAPI%cDocumentation (v<!--%#INSERT:VERSION#%-->)", "color: #b05ffc; background-color: black; padding: 5px; padding-right: 0;", "color: white; background-color: black; padding: 5px;");
@@ -12,6 +68,9 @@ function onLoad()
     document.getElementById("docTitle").onclick = function() {window.location.reload()};
 
     addCodeTabs();
+
+    sMenu.new("privacyPolicy", "What data does JokeAPI collect?", dIHTML, 85, 85, true, true, true);
+    sMenu.theme("privacyPolicy", "dark");
 
     try
     {
@@ -144,6 +203,7 @@ function reRender()
     });
 }
 
+//#MARKER interactive elements
 function resetTryItForm()
 {
     ["cat-cb1", "cat-cb2", "cat-cb3"].forEach(function(cat) {
@@ -165,9 +225,15 @@ function resetTryItForm()
     reRender();
 }
 
+//#MARKER privacy policy
+function privPolMoreInfo()
+{
+    sMenu.open("privacyPolicy");
+}
+
 
 
 
 
 //#MARKER cleanup
-unused(openNav, closeNav, onLoad, openChangelog, reRender);
+unused(openNav, closeNav, onLoad, openChangelog, reRender, privPolMoreInfo);

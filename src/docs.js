@@ -144,8 +144,9 @@ const inject = filePath => {
                     "<!--%#INSERT:CATEGORYARRAY#%-->":         JSON.stringify([settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories]),
                     "<!--%#INSERT:FLAGSARRAY#%-->":            JSON.stringify(settings.jokes.possible.flags),
                     "<!--%#INSERT:FILEFORMATARRAY#%-->":       JSON.stringify(settings.jokes.possible.formats),
-                    "<!--%#INSERT:TOTALJOKES#%-->":            (!jsl.isEmpty(jokeCount) ? jokeCount.toString() : "N/A"),
-                    "<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->": (!jsl.isEmpty(jokeCount) ? (jokeCount - 1).toString() : "N/A")
+                    "<!--%#INSERT:TOTALJOKES#%-->":            (!jsl.isEmpty(jokeCount) ? jokeCount.toString() : 0),
+                    "<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->": (!jsl.isEmpty(jokeCount) ? (jokeCount - 1).toString() : 0),
+                    "<!--%#INSERT:PRIVACYPOLICYURL#%-->":      settings.info.privacyPolicyUrl
                 };
 
                 Object.keys(injections).forEach(key => {

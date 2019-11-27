@@ -22,6 +22,7 @@ module.exports = {
             github: `https://github.com/${packageJSON.author.name}`, // author github page
         },
         infoMsg: "If you want to be updated on the status and future updates of JokeAPI or need some help, please consider joining my Discord server: https://discord.gg/aBH4uRG",
+        privacyPolicyUrl: "https://sv443.net/privacypolicy/en"
     },
     init: {
         initDirs: [ // directories that should be generated if they don't exist - paths relative to root of project - doesn't necessarily need trailing slash
@@ -97,8 +98,9 @@ module.exports = {
         },
         ipSanitization: { // used to sanitize IP addresses so they can be used in file paths
             regex: /[^A-Za-z0-9\-_./]|^COM[0-9]([/.]|$)|^LPT[0-9]([/.]|$)|^PRN([/.]|$)|^CLOCK\$([/.]|$)|^AUX([/.]|$)|^NUL([/.]|$)|^CON([/.]|$)/gm,
-            replaceChar: "#", // what character to use instead of illegal characters
+            replaceChar: "#",  // what character to use instead of illegal characters
         },
+        hashIpAddresses: true, // hashes all IP addresses with SHA-256. If set to false, JokeAPI is not GDPR compliant anymore!
     },
     errors: {
         errorRegistryIncludePath: "./data/errorRegistry", // path to the error registry

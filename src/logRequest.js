@@ -6,12 +6,22 @@ const settings = require("../settings");
 
 
 
+
+/**
+ * @typedef {Object} AnalyticsData
+ * @prop {String} ipAddress
+ * @prop {Array<String>} urlPath
+ * @prop {Object} urlParameters
+ * @prop {Object} [submission] Only has to be used on type = "submission"
+ */
+
 /**
  * Logs a request to the console. The `type` parameter specifies the color and additional logging level
  * @param {("success"|"docs"|"ratelimited"|"error"|"blacklisted"|"docsrecompiled"|"submission")} type 
  * @param {String} [additionalInfo] Provides additional information in certain log types
+ * @param {AnalyticsData} [analyticsData] Additional analytics data
  */
-const logRequest = (type, additionalInfo) => {
+const logRequest = (type, additionalInfo, analyticsData) => {
     let color = "";
     let logType = null;
     let logDisabled = false;
@@ -23,12 +33,19 @@ const logRequest = (type, additionalInfo) => {
         case "success":
             color = settings.colors.success;
 
-            analytics({
-                type: "SuccessfulRequest",
-                data: {
+            console.log(analyticsData.urlPath); // DEBUG
 
-                }
-            });
+            if(!jsl.isEmpty(analyticsData))
+            {
+                analytics({
+                    type: "SuccessfulRequest",
+                    data: {
+                        ipAddress: analyticsData.ipAddress,
+                        urlPath: analyticsData.urlPath,
+                        urlParameters: analyticsData.urlParameters
+                    }
+                });
+            }
         break;
         case "docs":
             color = settings.colors.docs;
@@ -37,24 +54,55 @@ const logRequest = (type, additionalInfo) => {
             color = settings.colors.ratelimit;
             logType = "ratelimit";
 
-            analytics({
-                type: "RateLimited",
-                data: {
-
-                }
-            });
+            if(!jsl.isEmpty(analyticsData))
+            {
+                analytics({
+                    type: "RateLimited",
+                    data: {
+                        ipAddress: analyticsData.ipAddress,
+                        urlPath: analyticsData.urlPath,
+                        urlParameters: analyticsData.urlParameters
+                    }
+                });
+            }
         break;
         case "error":
             color = settings.colors.ratelimit;
             logType = "error";
+
+            if(!jsl.isEmpty(analyticsData))
+            {
+                analytics({
+                    type: "Error",
+                    data: {
+                        ipAddress: analyticsData.ipAddress,
+                        urlPath: analyticsData.urlPath,
+                        urlParameters: analyticsData.urlParameters,
+                        errorMessage: additionalInfo
+                    }
+                });
+            }
         break;
         case "docsrecompiled":
             color = settings.colors.docsrecompiled;
             logChar = `r${jsl.colors.rst} `;
         break;
         case "submission":
-            logChar = `\n\n${jsl.colors.fg.blue}⯈ Got a submission${!jsl.isEmpty(additionalInfo) ? ` from ${jsl.colors.fg.yellow}${additionalInfo}` : ""}${jsl.colors.rst}\n\n`;
+            logChar = `\n\n${jsl.colors.fg.blue}⯈ Got a submission${!jsl.isEmpty(additionalInfo) ? ` from ${jsl.colors.fg.yellow}${additionalInfo.substring(0, 8)}` : ""}${jsl.colors.rst}\n\n`;
             spacerDisabled = true;
+
+            if(!jsl.isEmpty(analyticsData))
+            {
+                analytics({
+                    type: "JokeSubmission",
+                    data: {
+                        ipAddress: analyticsData.ipAddress,
+                        urlPath: analyticsData.urlPath,
+                        urlParameters: analyticsData.urlParameters,
+                        submission: analyticsData.submission
+                    }
+                });
+            }
         break;
         case "blacklisted":
             color = settings.colors.blacklisted;

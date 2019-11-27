@@ -18,9 +18,8 @@ const analytics = require("./analytics");
 const logRequest = require("./logRequest");
 
 const col = jsl.colors.fg;
-process.japi = {};
-process.japi.debuggerActive = typeof v8debug === "object" || /--debug|--inspect/.test(process.execArgv.join(" "));
-const noDbg = process.japi.debuggerActive || false;
+process.debuggerActive = (typeof v8debug === "object" || /--debug|--inspect/.test(process.execArgv.join(" ")));
+const noDbg = process.debuggerActive || false;
 dotenv.config();
 
 let pb;

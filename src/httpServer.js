@@ -29,6 +29,11 @@ const init = () => {
             let httpServer = http.createServer((req, res) => {
                 let parsedURL = parseURL(req.url);
                 let ip = resolveIP(req);
+                let analyticsObject = {
+                    ipAddress: ip,
+                    urlPath: parsedURL.pathArray,
+                    urlParameters: parsedURL.queryParams
+                };
 
                 debug("HTTP", `Incoming request from "${ip}"`);
                 
@@ -40,7 +45,7 @@ const init = () => {
                 {
                     if(lists.isBlacklisted(ip))
                     {
-                        logRequest("blacklisted");
+                        logRequest("blacklisted", null, analyticsObject);
                         return respondWithError(res, 103, 403, fileFormat);
                     }
 
@@ -77,7 +82,7 @@ const init = () => {
                             fileFormat = parseURL.getFileFormatFromQString(parsedURL.queryParams);
                     }
 
-                    analytics(); // TODO:
+                    //analytics(); // TODO:
                     return respondWithError(res, 500, 100, fileFormat, err);
                 }
 
@@ -108,7 +113,7 @@ const init = () => {
                             if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting))
                             {
                                 analytics.rateLimited(ip);
-                                logRequest("ratelimited");
+                                logRequest("ratelimited", null, analyticsObject);
                                 return respondWithError(res, 101, 429, fileFormat);
                             }
                             else return serveDocumentation(res);
@@ -144,7 +149,7 @@ const init = () => {
                                     try
                                     {
                                         if(jsl.isEmpty(meta) || (!jsl.isEmpty(meta) && meta.noLog !== true))
-                                            logRequest("success");
+                                            logRequest("success", null, analyticsObject);
                                         return callEndpoint.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
                                     }
                                     catch(err)
@@ -156,14 +161,13 @@ const init = () => {
                                 {
                                     if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting))
                                     {
-                                        analytics.rateLimited(ip);
-                                        logRequest("ratelimited");
+                                        logRequest("ratelimited", null, analyticsObject);
                                         return respondWithError(res, 101, 429, fileFormat);
                                     }
                                     else
                                     {
                                         if(jsl.isEmpty(meta) || (!jsl.isEmpty(meta) && meta.noLog !== true))
-                                            logRequest("success");
+                                            logRequest("success", null, analyticsObject);
                                         return callEndpoint.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
                                     }
                                 }
@@ -212,7 +216,7 @@ const init = () => {
                                     {
                                         // joke is valid, find file name and then write to file
 
-                                        let sanitizedIP = ip.replace(settings.httpServer.ipSanitization.regex, settings.httpServer.ipSanitization.replaceChar);
+                                        let sanitizedIP = ip.replace(settings.httpServer.ipSanitization.regex, settings.httpServer.ipSanitization.replaceChar).substring(0, 8);
                                         let curUnix = new Date().getTime();
                                         let fileName = `${settings.jokes.jokeSubmissionPath}submission_${sanitizedIP}_0_${curUnix}.json`;
                                         let iter = 0;
@@ -224,7 +228,7 @@ const init = () => {
                                             iter++;
                                             if(iter >= settings.httpServer.rateLimiting)
                                             {
-                                                logRequest("ratelimited");
+                                                logRequest("ratelimited", null, analyticsObject);
                                                 return respondWithError(res, 101, 429, fileFormat);
                                             }
 
@@ -247,7 +251,7 @@ const init = () => {
                                                         "timestamp": new Date().getTime()
                                                     };
 
-                                                    logRequest("submission", ip);
+                                                    logRequest("submission", ip, analyticsObject);
 
                                                     return pipeString(res, convertFileFormat.auto(fileFormat, responseObj), parseURL.getMimeTypeFromFileFormatString(fileFormat), 201);
                                                 }

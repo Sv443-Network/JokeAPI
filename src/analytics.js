@@ -2,6 +2,7 @@ const http = require("http");
 const jsl = require("svjsl");
 const sql = require("mysql");
 const fs = require("fs");
+const logger = require("./logger");
 const settings = require("../settings");
 const debug = require("./verboseLogging");
 jsl.unused(http);
@@ -70,7 +71,7 @@ const endSqlConnection = () => {
  * Sends a formatted (SQLI-protected) query
  * @param {String} query The SQL query with question marks where the values are
  * @param {Array<String>} insertValues The values to insert into the question marks
- * @returns {Promise} Returns a 
+ * @returns {Promise} Returns a Promise - resolves with the query results or rejects with the error string
  */
 const sendQuery = (query, insertValues) => {
     return new Promise((resolve, reject) => {
@@ -88,7 +89,8 @@ const sendQuery = (query, insertValues) => {
             {
                 try
                 {
-                    return resolve(JSON.parse(JSON.stringify(result)));
+                    if(resolve)
+                        return resolve(JSON.parse(JSON.stringify(result)));
                 }
                 catch(err)
                 {
@@ -104,7 +106,7 @@ const sendQuery = (query, insertValues) => {
  * @prop {("SuccessfulRequest")} type
  * @prop {Object} data
  * @prop {String} data.ipAddress
- * @prop {Array<String>} data.pathArray
+ * @prop {Array<String>} data.urlPath
  * @prop {Object} data.urlParameters
  */
 
@@ -113,42 +115,77 @@ const sendQuery = (query, insertValues) => {
  * @prop {("RateLimited")} type
  * @prop {Object} data
  * @prop {String} data.ipAddress
- * @prop {Array<String>} data.pathArray
+ * @prop {Array<String>} data.urlPath
  * @prop {Object} data.urlParameters
  */
 
 /**
+ * @typedef {Object} AnalyticsError
+ * @prop {("Error")} type
+ * @prop {Object} data
+ * @prop {String} data.ipAddress
+ * @prop {Array<String>} data.urlPath
+ * @prop {Object} data.urlParameters
+ * @prop {String} data.errorMessage
+ */
+
+/**
+ * @typedef {Object} AnalyticsSubmission
+ * @prop {("JokeSubmission")} type
+ * @prop {Object} data
+ * @prop {String} data.ipAddress
+ * @prop {Array<String>} data.urlPath
+ * @prop {Object} data.urlParameters
+ * @prop {Object} data.submission
+ */
+
+/**
  * Logs something to the analytics database
- * @param {(AnalyticsSuccessfulRequest|AnalyticsRateLimited)} analyticsDataObject
+ * @param {(AnalyticsSuccessfulRequest|AnalyticsRateLimited|AnalyticsError|AnalyticsSubmission)} analyticsDataObject The analytics data
  * @returns {(Boolean|String)} Returns a string containing an error message if errored, else returns true
  */
 const logAnalytics = analyticsDataObject => {
-    if(!settings.analytics.enabled)
-        return true;
-    
-    if(jsl.isEmpty(this.sqlConn) || (this.sqlConn.state != "connected" && this.sqlConn.state != "authenticated"))
-        return `DB connection is not established yet. Current connection state is "${this.sqlConn.state || "disconnected"}"`;
-
-    switch(analyticsDataObject.type)
+    try
     {
-        case "SuccessfulRequest":
+        let type = analyticsDataObject.type;
 
-        break;
-        case "RateLimited":
+        if(!settings.analytics.enabled)
+            return true;
+        
+        if(jsl.isEmpty(this.sqlConn) || (this.sqlConn.state != "connected" && this.sqlConn.state != "authenticated"))
+            return `DB connection is not established yet. Current connection state is "${this.sqlConn.state || "disconnected"}"`;
 
-        break;
-        default: return `Analytics log type is invalid`;
+        let writeObject = {
+            type: type,
+            ipAddress: analyticsDataObject.data.ipAddress || null,
+            urlPath: (analyticsDataObject.data.urlPath != null ? JSON.stringify(analyticsDataObject.data.urlPath) : null) || null,
+            urlParameters: (analyticsDataObject.data.urlParameters != null ? JSON.stringify(analyticsDataObject.data.urlParameters) : null) || null,
+            errorMessage: analyticsDataObject.data.errorMessage || null,
+            submission: (analyticsDataObject.data.submission != null ? JSON.stringify(analyticsDataObject.data.submission) : null) || null
+        };
+        
+        if(!["SuccessfulRequest", "RateLimited", "Error", "JokeSubmission"].includes(type))
+            return `Analytics log type "${type}" is invalid`;
+
+        sendQuery("INSERT INTO ?? (aID, aType, aIpAddress, aUrlPath, aUrlParameters, aErrorMessage, aSubmission, aTimestamp) VALUES (NULL, ?, ?, ?, ?, ?, ?, NULL)", [
+            settings.analytics.sqlTableName,
+            writeObject.type,
+            writeObject.ipAddress,
+            writeObject.urlPath,
+            writeObject.urlParameters,
+            writeObject.errorMessage,
+            writeObject.submission
+        ]).catch(err => {
+            return logger("error", `Error while saving analytics data to database - Error: ${err}\nAnalytics Data: ${writeObject}`, true);
+        });
     }
-
-    //TODO: construct object
-    let writeObject = {
-
-    };
-
-    sendQuery("INSERT INTO ?? () VALUES (NULL, ?, ?, NULL)", [settings.analytics.sqlTableName, analyticsDataObject.type, writeObject]);
-
-    return true;
+    catch(err)
+    {
+        return logger("error", `Error while preparing analytics data - Error: ${err}`, true);
+    }
 };
 
 module.exports = logAnalytics;
-module.exports = { init, sendQuery, endSqlConnection }
+module.exports.init = init;
+module.exports.sendQuery = sendQuery;
+module.exports.endSqlConnection = endSqlConnection;

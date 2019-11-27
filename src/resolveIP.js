@@ -1,5 +1,6 @@
 const http = require("http");
 const jsl = require("svjsl");
+const crypto = require("crypto");
 const settings = require("../settings");
 
 jsl.unused(http);
@@ -41,6 +42,8 @@ const resolveIP = req => {
 
     try
     {
+        if(settings.httpServer.hashIpAddresses)
+            ipaddr = hashIP(ipaddr);
         return typeof ipaddr == "string" ? ipaddr : ipaddr.toString();
     }
     catch(err)
@@ -50,6 +53,7 @@ const resolveIP = req => {
 };
 
 const isValidIP = ip => (ip.match(settings.httpServer.regexes.ipv4) || ip.match(settings.httpServer.regexes.ipv6));
+const hashIP = ip => crypto.createHash("sha256").update(ip, "utf8").digest("hex").toString();
 
 module.exports = resolveIP;
 module.exports.isValidIP = isValidIP;

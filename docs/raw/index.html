@@ -71,7 +71,7 @@
                     <span id="headerversion">
                         <span id="headerVersionNumber">v<!--%#INSERT:VERSION#%--></span>
                         (<a class="mimica" onclick="openChangelog()">Changelog</a>)<br>
-                        <a href="<!--%#INSERT:PROJGITHUBURL#%-->">GitHub</a> &bull; <a href="<!--%#INSERT:AUTHORGITHUBURL#%-->">Author</a>
+                        <a href="<!--%#INSERT:PROJGITHUBURL#%-->">GitHub</a>&nbsp;&bull;&nbsp;<a href="<!--%#INSERT:PRIVACYPOLICYURL#%-->">Privacy&nbsp;Policy</a>&nbsp;&bull;&nbsp;<a href="https://sv443.net/imprint/en">Legal&nbsp;Information</a>
                     </span>
                 </span>
             </header>
@@ -81,7 +81,7 @@
                     <span style="color: orangered;">
                         If you didn't disable JavaScript code, the website might have loaded incorrectly. In this case, please press the <kbd>F5</kbd> key to try again.
                     </span>
-                    <br><br><br><br>
+                    <br><br>
                 </noscript>
 
                 <div id="devStuff" style="display: none;"> <!-- #MARKER dev stuff - gets enabled when URL has query parameter "devFeatures=true" -->
@@ -175,6 +175,9 @@ class Test
 }</div></code>
 
                 </div> <!-- #MARKER end dev stuff -->
+
+                <h2 style="color: orangered;">&gt; By using this website and API you are agreeing to the <a href="<!--%#INSERT:PRIVACYPOLICYURL#%-->">privacy policy</a> &lt;</h2>
+                <span class="mimica" onclick="privPolMoreInfo()">(Click here to get more information on what data JokeAPI collects)</span>
 
                 <div class="docHeader targetBlink" id="info"><a class="headerAnchorContainer" href="#info" title="Click to link to this header">🔗</a><span class="docHeaderText">Information:</span></div>
 
