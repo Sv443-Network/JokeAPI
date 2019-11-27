@@ -33,8 +33,6 @@ const logRequest = (type, additionalInfo, analyticsData) => {
         case "success":
             color = settings.colors.success;
 
-            console.log(analyticsData.urlPath); // DEBUG
-
             if(!jsl.isEmpty(analyticsData))
             {
                 analytics({

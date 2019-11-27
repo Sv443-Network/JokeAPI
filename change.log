@@ -64,6 +64,7 @@
         - Add an analytics module that keeps track of everything and makes it possible for me to finally see some (anonymous) usage statistics
         - Completely rewrite the documentation
         - Set up a new reverse proxy at "https://sv443.net/jokeapi/v2/" to let people slowly migrate to the new version
+        - Make the lists work again
     - DONE:
         - Updated some dependencies
         - Updated contributor guide

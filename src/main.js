@@ -28,8 +28,6 @@ settings.init.exitSignals.forEach(sig => {
     process.on(sig, () => softExit(0));
 });
 
-
-
 //#MARKER init all
 const initAll = () => {
     process.jokeapi = {};

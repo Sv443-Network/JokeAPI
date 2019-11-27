@@ -3,7 +3,6 @@
 const jsl = require("svjsl");
 const fs = require("fs");
 
-const searchFuzzy = require("./searchFuzzy");
 const settings = require("../settings");
 
 /**
@@ -97,11 +96,9 @@ const getFileFormatFromQString = qstrObj => {
     if(!jsl.isEmpty(qstrObj.format))
     {
         let possibleFormats = Object.keys(JSON.parse(fs.readFileSync(settings.jokes.fileFormatsPath).toString()));
-        let fuzzySearch = searchFuzzy(possibleFormats, qstrObj.format);
-        let requestedFormat = possibleFormats[fuzzySearch[0]];
 
-        if(possibleFormats.includes(requestedFormat))
-            return requestedFormat;
+        if(possibleFormats.includes(qstrObj.format))
+            return qstrObj.format;
         else return settings.jokes.defaultFileFormat.fileFormat;
     }
     else return settings.jokes.defaultFileFormat.fileFormat;

@@ -139,20 +139,11 @@ module.exports = {
         dirPath: "./data/analytics/", // path to the analytics directory - needs trailing slash
         sqlTableName: "analytics",    // name of the SQL table
     },
-    searchFuzzy: { // Fuse.js fuzzy search options - they can be found here: https://fusejs.io/
-        shouldSort: true,
-        tokenize: true,
-        threshold: 0.6,
-        location: 0,
-        distance: 100,
-        maxPatternLength: 32,
-        minMatchCharLength: 1,
-    },
     sql: {
         host: "127.0.0.1",   // IP address to the DB host - default for local PC is "127.0.0.1"
         database: "jokeapi", // The name of the DB
         username: "Sv443",   // (password is in .env file)
-        port: 3307,          // The port of the DB - default is 3306
+        port: 3306,          // The port of the DB - default is 3306
         timeout: 10,         // in seconds
     }
 }
