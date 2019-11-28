@@ -66,7 +66,7 @@ const parseURL = url => {
         if(qstrArr.length > 0)
             qstrArr.forEach(qstrEntry => {
                 if(qstrEntry.includes("="))
-                    qstrObj[qstrEntry.split("=")[0]] = qstrEntry.split("=")[1];
+                    qstrObj[decodeURIComponent(qstrEntry.split("=")[0])] = decodeURIComponent(qstrEntry.split("=")[1]);
             });
         else qstrObj = null;
     }

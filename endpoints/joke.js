@@ -11,8 +11,8 @@ jsl.unused(http);
 
 
 const meta = {
-    "name": "Category",
-    "desc": "Returns a joke from the specified category that is also matching the provided filters",
+    "name": "Joke",
+    "desc": "Returns a joke from the specified category that is also matching the provided (optional) filters",
     "usages": [
         `GET ${settings.info.docsURL}/joke/{CATEGORY_NAME}[?format&blacklistFlags&idRange&contains&type] | Returns a joke from the specified category that is also matching the provided filters`
     ]
@@ -32,7 +32,7 @@ const call = (req, res, url, params, format) => {
     let filterJoke = new FilteredJoke(parseJokes.allJokes);
 
     //#SECTION category validation
-    let category = url[settings.httpServer.urlPathOffset + 1].toLowerCase() || "";
+    let category = (url[settings.httpServer.urlPathOffset + 1]|| "empty_category").toLowerCase() || "";
 
     let includesSplitChar = false;
     settings.jokes.splitChars.forEach(splC => {
@@ -63,7 +63,7 @@ const call = (req, res, url, params, format) => {
     else fCat = filterJoke.setAllowedCategories(category);
 
     if(!fCat || !categoryValid)
-        return isErrored(res, format, `The specified categor${category.length == undefined || typeof category != "object" || category.length == 1 ? "y is" : "ies are"} invalid - Got: "${category.length == undefined || typeof category != "object" ? category : category.join(", ")}" - Possible categories are: "${[settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories].join(", ")}"`);
+        return isErrored(res, format, `The specified categor${category.length == undefined || typeof category != "object" || category.length == 1 ? "y is" : "ies are"} invalid - Got: "${category.length == undefined || typeof category != "object" ? category : category.join(", ")}" - Possible categories are: "${[settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories].join(", ")}" (case insensitive)`);
     
     if(!jsl.isEmpty(params))
     {

@@ -39,12 +39,23 @@ const init = () => {
                     {
                         let createAnalyticsTableQuery = fs.readFileSync(`${settings.analytics.dirPath}create_analytics.sql`).toString();
                         sendQuery(createAnalyticsTableQuery).then(() => {
+                            module.exports.connectionInfo = {
+                                connected: true,
+                                info: `${settings.sql.host}:${settings.sql.port}/${settings.sql.database}`
+                            };
                             return resolve();
                         }).catch(err => {
                             return reject(err);
                         });
                     }
-                    else return resolve();
+                    else
+                    {
+                        module.exports.connectionInfo = {
+                            connected: true,
+                            info: `${settings.sql.host}:${settings.sql.port}/${settings.sql.database}`
+                        };
+                        return resolve();
+                    }
                 }).catch(err => {
                     return reject(err);
                 });

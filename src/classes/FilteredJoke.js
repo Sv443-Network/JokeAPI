@@ -267,14 +267,13 @@ class FilteredJoke
                         && joke.joke.toLowerCase().includes(this.getSearchString()))
                             searchMatches = true;
                         else if (joke.type == "twopart"
-                        && (joke.setup + " -////- " + joke.delivery).includes(this.getSearchString()))
+                        && (joke.setup + joke.delivery).toLowerCase().includes(this.getSearchString()))
                             searchMatches = true;
                     }
                     else searchMatches = true;
 
                     if(!searchMatches)
                         return;
-                    
 
                     //#SECTION done, joke is allowed
                     this._filteredJokes.push(joke);
