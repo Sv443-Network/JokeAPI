@@ -420,12 +420,12 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
         if(!jsl.isEmpty(errorMessage))
             errObj.additionalInfo = errorMessage;
 
-        pipeString(res, convertFileFormat.auto(fileFormat, errObj), parseURL.getMimeTypeFromFileFormatString(fileFormat), responseCode);
+        return pipeString(res, convertFileFormat.auto(fileFormat, errObj), parseURL.getMimeTypeFromFileFormatString(fileFormat), responseCode);
     }
     catch(err)
     {
         let errMsg = `Internal error while sending error message.\nOh, the irony...\n\nPlease contact me (${settings.info.author.website}) and provide this additional info:\n${err}`;
-        pipeString(res, errMsg, "text/plain", responseCode);
+        return pipeString(res, errMsg, "text/plain", responseCode);
     }
 };
 
@@ -494,7 +494,7 @@ const pipeString = (res, text, mimeType, statusCode = 200) => {
 /**
  * Pipes a file into a HTTP response
  * @param {http.ServerResponse} res The HTTP res object
- * @param {String} filePath Path to the file to respond with
+ * @param {String} filePath Path to the file to respond with - relative to the project root directory
  * @param {String} mimeType The MIME type to respond with
  * @param {Number} [statusCode=200] The status code to respond with - defaults to 200
  */
