@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap");
+
+:root {
+    --bg-color: #444;
+    --bg-accent-color: #333;
+    --bg-color-sidenav-opened: #777;
+    --header-bg-color: #101747;
+    --header-bg-color-sidenav-opened: #101747;
+
+    --accent-color: #8a2be2;
+    --accent-color-light: #b05ffc;
+    --accent-color-sidenav-opened: #a779d3;
+}
+
+body {
+    margin: 0;
+    background-color: var(--bg-color);
+    color: white;
+    font-family: "Roboto", "Segoe UI", "Arial", sans-serif;
+    font-size: 15px;
+}
+
+header {
+    margin-top: 30px;
+    text-align: center;
+    display: block;
+}
+
+#errorContainer {
+    display: inline-block;
+    padding: 15px;
+    border: 2px solid white;
+    border-radius: 10px;
+    background-color: var(--bg-accent-color);
+}
+
+#errorContainer h1, #errorContainer h3 {
+    margin: 0;
+    padding: 0;
+}
+
+#errorContainer h1 {
+    margin-bottom: 10px;
+}

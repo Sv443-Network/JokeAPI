@@ -47,6 +47,9 @@ class FilteredJoke
      */
     constructor(allJokes)
     {
+        if(jsl.isEmpty(allJokes))
+            throw new Error(`Error while constructing new FilteredJoke object: parameter "allJokes" is empty`);
+
         this._allJokes = allJokes;
         this._filteredJokes = null;
 
@@ -70,7 +73,7 @@ class FilteredJoke
      */
     setAllowedCategories(categories)
     {
-        if(isNaN(parseInt(categories.length)))
+        if(!Array.isArray(categories))
             categories = new Array(categories);
 
         let allCategories = [
@@ -216,6 +219,7 @@ class FilteredJoke
     /**
      * Applies the previously set filters and modifies the `this._filteredJokes` property with the applied filters
      * @private
+     * @returns {Promise}
      */
     _applyFilters()
     {
@@ -224,12 +228,11 @@ class FilteredJoke
             {
                 this._filteredJokes = [];
 
-                let allJokes = this._allJokes.getJokeArray();
-                allJokes.forEach(joke => {
+                this._allJokes.getJokeArray().forEach(joke => { // iterate over each joke, reading all set filters and thereby checking if it suits the request
 
                     //#SECTION id range
                     let idRange = this.getIdRange();
-                    if(joke.id < idRange[0] || joke.id > idRange[1])
+                    if(joke.id < idRange[0] || joke.id > idRange[1]) // if the joke is 
                         return;
 
                     //#SECTION categories
@@ -238,7 +241,7 @@ class FilteredJoke
                     if((typeof cats == "object" && !cats.includes(settings.jokes.possible.anyCategoryName.toLowerCase()))
                     || (typeof cats == "string" && cats != settings.jokes.possible.anyCategoryName.toLowerCase()))
                     {
-                        if(!cats.includes(joke.category.toLowerCase()))
+                        if(!cats.includes(joke.category.toLowerCase())) // if possible categories don't contain the requested category, joke is invalid
                             return;
                     }
 
@@ -251,12 +254,12 @@ class FilteredJoke
                             if(blFlags.includes(flKey) && joke.flags[flKey] === true)
                                 flagMatches = true;
                         });
-                        if(flagMatches)
+                        if(flagMatches) // joke has one or more of the set blacklist flags, joke is invalid
                             return;
                     }
                     
                     //#SECTION type
-                    if(!this.getAllowedTypes().includes(joke.type))
+                    if(!this.getAllowedTypes().includes(joke.type)) // if joke type doesn't match the requested type(s), joke is invalid
                         return;
                     
                     //#SECTION search string
@@ -272,11 +275,11 @@ class FilteredJoke
                     }
                     else searchMatches = true;
 
-                    if(!searchMatches)
+                    if(!searchMatches) // if the provided search string doesn't match the joke, the joke is invalid
                         return;
 
-                    //#SECTION done, joke is allowed
-                    this._filteredJokes.push(joke);
+                    //#SECTION done
+                    this._filteredJokes.push(joke); // joke is valid, push it to the array that gets passed in the resolve()
                 });
                 resolve(this._filteredJokes);
             }

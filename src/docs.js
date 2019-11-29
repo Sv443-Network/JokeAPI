@@ -86,8 +86,20 @@ const recompileDocs = () => {
                         inject(`${settings.documentation.rawDirPath}index.html`).then(injected_html => {
                             fs.writeFile(`${settings.documentation.dirPath}documentation.html`, injected_html, err => {
                                 if(err) injectError(err);
-                                let recompileDocsTime = new Date().getTime() - recompileDocsInitTimestamp;
-                                debug("Docs", `Done recompiling docs in ${recompileDocsTime}ms`);
+                                //#SECTION inject error page CSS
+                                inject(`${settings.documentation.rawDirPath}errorPage.css`).then(injected_css_2 => {
+                                    fs.writeFile(`${settings.documentation.dirPath}errorPage_injected.css`, injected_css_2, err => {
+                                        if(err) injectError(err);
+                                        //#SECTION inject error page JS
+                                        inject(`${settings.documentation.rawDirPath}errorPage.js`).then(injected_js_2 => {
+                                            fs.writeFile(`${settings.documentation.dirPath}errorPage_injected.js`, injected_js_2, err => {
+                                                if(err) injectError(err);
+                                                let recompileDocsTime = new Date().getTime() - recompileDocsInitTimestamp;
+                                                debug("Docs", `Done recompiling docs in ${recompileDocsTime}ms`);
+                                            });
+                                        }).catch(err => injectError(err));
+                                    });
+                                }).catch(err => injectError(err));
                             });
                         }).catch(err => injectError(err));
                     });

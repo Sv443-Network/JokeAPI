@@ -34,7 +34,6 @@
   "dependencies": {
     "dotenv": "^6.2.0",
     "farmhash": "^3.0.0",
-    "fuse.js": "^3.4.5",
     "http-ratelimit": "^0.2.3",
     "js2xmlparser": "^4.0.0",
     "json-to-pretty-yaml": "^1.2.2",

@@ -32,7 +32,7 @@ const call = (req, res, url, params, format) => {
     let filterJoke = new FilteredJoke(parseJokes.allJokes);
 
     //#SECTION category validation
-    let category = (url[settings.httpServer.urlPathOffset + 1]|| "empty_category").toLowerCase() || "";
+    let category = (url[settings.httpServer.urlPathOffset + 1]|| "(empty)").toLowerCase() || "";
 
     let includesSplitChar = false;
     settings.jokes.splitChars.forEach(splC => {
@@ -58,7 +58,7 @@ const call = (req, res, url, params, format) => {
     });
 
     let fCat = false;
-    if(typeof category != "object")
+    if(!Array.isArray(category))
         fCat = filterJoke.setAllowedCategories([category]);
     else fCat = filterJoke.setAllowedCategories(category);
 
@@ -70,16 +70,14 @@ const call = (req, res, url, params, format) => {
         //#SECTION type
         if(!jsl.isEmpty(params["type"]) && settings.jokes.possible.types.map(t => t = t.toLowerCase()).includes(params["type"].toLowerCase()))
         {
-            let fType = filterJoke.setAllowedType(params["type"].toLowerCase());
-            if(!fType)
+            if(!filterJoke.setAllowedType(params["type"].toLowerCase()))
                 return isErrored(res, format, `The specified type is invalid - Got: "${params["type"]}" - Possible types are: "${settings.jokes.possible.types}"`);
         }
         
         //#SECTION contains
         if(!jsl.isEmpty(params["contains"]))
         {
-            let fCont = filterJoke.setSearchString(params["contains"].toLowerCase());
-            if(!fCont)
+            if(!filterJoke.setSearchString(params["contains"].toLowerCase()))
                 return isErrored(res, format, `The specified type is invalid - Got: "${params["type"]}" - Possible types are: "${settings.jokes.possible.types.join(", ")}"`);
         }
 
@@ -94,8 +92,7 @@ const call = (req, res, url, params, format) => {
                 if(splitParams.length < 2)
                     throw new Error("");
 
-                let fIdR = filterJoke.setIdRange(parseInt(splitParams[0]), parseInt(splitParams[1]));
-                if(!fIdR)
+                if(!filterJoke.setIdRange(parseInt(splitParams[0]), parseInt(splitParams[1])))
                     return isErrored(res, format, `The specified ID range is invalid - Got: "${splitParams[0]} to ${splitParams[1]}" - Max ID range is: "0-${(parseJokes.jokeCount - 1)}"`);
             }
             catch(err)

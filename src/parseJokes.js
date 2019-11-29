@@ -37,7 +37,7 @@ const init = () => {
                 //#MARKER joke ID
                 if(!jsl.isEmpty(joke.id) && !isNaN(parseInt(joke.id)))
                     result.push(true);
-                else result.push(`Joke with index/ID ${i} doesn't have an "id" property`);
+                else result.push(`Joke with index/ID ${i} doesn't have an "id" property or it is invalid`);
 
                 //#MARKER type and actual joke
                 if(joke.type == "single")

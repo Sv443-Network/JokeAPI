@@ -99,14 +99,15 @@ const init = () => {
 
                         if(!jsl.isEmpty(urlPath))
                         {
-                            for(let i = 0; i < urlPath.length; i++)
-                            {
-                                if(lowerCaseEndpoints.includes(urlPath[i]))
-                                {
-                                    requestedEndpoint = lowerCaseEndpoints[lowerCaseEndpoints.indexOf(urlPath[i])];
-                                    break;
-                                }
-                            }
+                            requestedEndpoint = urlPath[0];
+                            // for(let i = 0; i < urlPath.length; i++)
+                            // {
+                            //     if(lowerCaseEndpoints.includes(urlPath[i]))
+                            //     {
+                            //         requestedEndpoint = lowerCaseEndpoints[lowerCaseEndpoints.indexOf(urlPath[i])];
+                            //         break;
+                            //     }
+                            // }
                         }
                         else
                         {
@@ -176,7 +177,7 @@ const init = () => {
 
                         if(!foundEndpoint)
                         {
-                            if(!jsl.isEmpty(fileFormat))
+                            if(!jsl.isEmpty(fileFormat) && req.url.toLowerCase().includes("format"))
                             {
                                 // TODO: correct anchor
                                 return respondWithError(res, 102, 404, fileFormat, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at ${settings.info.docsURL}#endpoints to see all available endpoints`);
@@ -308,11 +309,8 @@ const init = () => {
                                 console.log(`\n\n[${logger.getTimestamp(" | ")}]  ${jsl.colors.fg.red}IP ${jsl.colors.fg.yellow}${ip}${jsl.colors.fg.red} sent a restart command\n\n\n${jsl.colors.rst}`);
                                 process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
                             }
-                            else
-                            {
-                                // TODO: correct anchor
-                                return respondWithErrorPage(req, res, 400, fileFormat, `Request body is invalid or was sent to the wrong endpoint "${parsedURL.pathArray != null ? parsedURL.pathArray[0] : "/"}", please refer to the documentation at ${settings.info.docsURL}#submit-joke to see how to correctly structure a joke submission.`);
-                            }
+                            // TODO: correct anchor
+                            else return respondWithErrorPage(req, res, 400, fileFormat, `Request body is invalid or was sent to the wrong endpoint "${parsedURL.pathArray != null ? parsedURL.pathArray[0] : "/"}", please refer to the documentation at ${settings.info.docsURL}#submit-joke to see how to correctly structure a joke submission.`);
                         });
 
                         setTimeout(() => {
@@ -443,25 +441,21 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
 const respondWithErrorPage = (req, res, statusCode, fileFormat, error) => {
     jsl.unused([req, fileFormat]);
 
-    if(isNaN(parseInt(statusCode)))
-        statusCode = 500;
-    
-    let filePath = "";
+    statusCode = parseInt(statusCode);
 
-    switch(statusCode)
+    if(isNaN(statusCode))
     {
-        case 404:
-            filePath = settings.documentation.error404path;
-        break;
-        case 500: default:
-            filePath = settings.documentation.error500path;
-        break;
+        statusCode = 500;
+        error += ((!jsl.isEmpty(error) ? " - Ironically, an additional " : "An ") + "error was encountered while sending this error page: \"statusCode is not a number (in: httpServer.respondWithErrorPage)\"");
     }
 
     if(!jsl.isEmpty(error))
+    {
+        res.setHeader("Set-Cookie", `errorInfo=${JSON.stringify({"API-Error-Message": error, "API-Error-StatusCode": statusCode})}`);
         res.setHeader("API-Error", error);
+    }
 
-    pipeFile(res, filePath, "text/html", statusCode);
+    return pipeFile(res, settings.documentation.errorPagePath, "text/html", statusCode);
 }
 
 /**

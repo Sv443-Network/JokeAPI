@@ -47,6 +47,16 @@ const call = (req, res, url, params, format) => {
             statusCode = 200;
             mimeType = "application/x-font-ttf";
         break;
+        case "errorPage.css":
+            filePath = `${settings.documentation.dirPath}errorPage_injected.css`;
+            statusCode = 200;
+            mimeType = "text/css";
+        break;
+        case "errorPage.js":
+            filePath = `${settings.documentation.dirPath}errorPage_injected.js`;
+            statusCode = 200;
+            mimeType = "application/javascript";
+        break;
         default:
             filePath = settings.documentation.error404path;
             statusCode = 404;

@@ -42,8 +42,8 @@ class AllJokes
      */
     constructor(jokeArray)
     {
-        if(typeof jokeArray != "object" && !isNaN(parseInt(jokeArray.length)))
-            return false;
+        if(typeof jokeArray != "object" || Array.isArray(jokeArray) || !Array.isArray(jokeArray.jokes))
+            throw new Error(`Error while constructing a new AllJokes object: parameter "jokeArray" is invalid`);
 
         this.info = jokeArray["info"];
         this.jokes = jokeArray["jokes"];
@@ -61,10 +61,12 @@ class AllJokes
 
     /**
      * Returns the joke format version
-     * @returns {Number}
+     * @returns {(Number|undefined)} Returns a number, if the format version was set, returns undefined, if not
      */
     getFormatVersion()
     {
+        if(this.info == undefined)
+            return undefined;
         return this.info.formatVersion;
     }
 
