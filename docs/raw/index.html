@@ -35,6 +35,27 @@
         <meta name="application-name" content="JokeAPI">
         <meta name="theme-color" content="#101747">
 
+        <!-- IE detection -->
+        <script>
+        var isIExp = isIE();
+        function isIE() {
+            var ua = window.navigator.userAgent;
+            var msie = ua.indexOf("MSIE ");
+
+            if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv:11\./)) // is IE
+            {
+                return true;
+            }
+            // other browser
+            return false;
+        }
+
+        if(isIExp === true)
+        {
+            alert("Your browser is outdated.\nYou might still be able to view the content but everything interactive will not work.\n\nPlease update to a newer browser like Mozilla Firefox or Google Chrome to view this page correctly.");
+        }
+        </script>
+
         <!-- #MARKER dependencies -->
         <!-- JokeAPI Stylesheet: -->
         <link rel="stylesheet" href="./static/index.css">
@@ -56,12 +77,12 @@
     <body onload="onLoad()">
         <a id="topAnchor" name="top" class="noa"></a>
         <!-- #MARKER Main -->
-        <main>
+        <main class="scroller">
             <!-- #MARKER Header -->
             <header>
                 <span class="headeritem l">
                     <span id="headersidenavopenwrapper" class="noselect">
-                        <span id="sideNavOpen" onclick="openNav()" title="Click to close the Menu">&#9776; Menu</span>
+                        <span id="sideNavOpen" onclick="openNav()" title="Click to open">&#9776; Menu</span>
                     </span>
                 </span>
                 <span class="headeritem m">
@@ -175,8 +196,13 @@ class Test
 
                 </div> <!-- #MARKER end dev stuff -->
 
-                <h2 style="color: orangered;">&gt; By using this website and API you are agreeing to the <a href="<!--%#INSERT:PRIVACYPOLICYURL#%-->">privacy policy</a> &lt;</h2>
-                <span class="mimica" onclick="privPolMoreInfo()">(Click here to get more information on what data JokeAPI collects)</span>
+                <div id="usageTerms">
+                    <h2 style="color: orangered;">&gt; By using this website and API you are agreeing to the <a href="<!--%#INSERT:PRIVACYPOLICYURL#%-->">privacy policy</a> &lt;</h2>
+                    <div id="usageTermsInnerLayout">
+                        <span class="itm mimica" onclick="privPolMoreInfo()">(Click here to get more information on what data JokeAPI collects)</span>
+                        <span class="itm mimica" onclick="hideUsageTerms()"><span class="lText">&times;</span> Dismiss</span>
+                    </div>
+                </div>
 
                 <div class="docHeader targetBlink" id="info"><a class="headerAnchorContainer" href="#info" title="Click to link to this header">🔗</a><span class="docHeaderText">Information:</span></div>
 
@@ -329,9 +355,9 @@ class Test
 
 <!-- #MARKER TODO:
 
-Include Licenses:
-    - Cascadia Code Font:        https://raw.githubusercontent.com/microsoft/cascadia-code/master/LICENSE
-    - Roboto + Roboto Mono Font: https://raw.githubusercontent.com/google/roboto/master/LICENSE
+Include credit:
+    - Cascadia Code Font:        https://github.com/microsoft/cascadia-code/
+    - Roboto + Roboto Mono Font: https://github.com/google/roboto/
 
 
 -->

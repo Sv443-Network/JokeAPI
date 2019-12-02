@@ -502,7 +502,8 @@ const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
     try
     {
         statusCode = parseInt(statusCode);
-        if(isNaN(statusCode)) throw new Error("");
+        if(isNaN(statusCode))
+            throw new Error("err_statuscode_isnan");
     }
     catch(err)
     {

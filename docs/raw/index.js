@@ -1,5 +1,8 @@
+"use strict";
+
+
 var qstr = null;
-const dIHTML = `
+var dIHTML = `
 <h2>To provide this service to you, JokeAPI needs to collect some anonymous data.</h2>
 
 <br>
@@ -36,12 +39,13 @@ const dIHTML = `
 Please note that the collection of the above listed data is necessary to provide you this service.<br>
 Without it, rate limiting wouldn't be possible. This would lead to the API and all of my other services being taken down by DoS-attacks.<br>
 This has already happened before and it has impacted all of my services to the point of them being completely unresponsive.<br><br>
-You can request to get your collected data deleted or to view the data about you that JokeAPI collected (according to <a href="http://www.privacy-regulation.eu/en/article-12-transparent-information-communication-and-modalities-for-the-exercise-of-the-rights-of-the-data-subject-GDPR.htm">article 12 GDPR</a>) by sending me an e-mail: <a href="mailto:sven.fehler@web.de">sven.fehler@web.de</a>
+You can request to get your collected data deleted or to view the data about you that JokeAPI collected (according to <a href="https://www.privacy-regulation.eu/en/article-12-transparent-information-communication-and-modalities-for-the-exercise-of-the-rights-of-the-data-subject-GDPR.htm">article 12 GDPR</a>) by sending me an e-mail: <a href="mailto:sven.fehler@web.de">sven.fehler@web.de</a>
+<br><br><br>
 `;
 
 const sMenu=new function(){this.new=function(id,title,innerhtml,width,height,border_rounded,closable_ESC,closable_btn,on_close,close_img_src){if(typeof id=="string"&&typeof title=="string"&&typeof innerhtml=="string"&&typeof width=="number"&&typeof height=="number"){if(gebid("jsg_menu_"+id)!=null){console.error("a menu with the ID "+id+" already exists - not creating a new one");return}
 /* eslint-disable-next-line */
-if(!border_rounded)border_rounded=!0;if(typeof closable_ESC!="boolean")closable_ESC=!0;if(typeof closable_btn!="boolean")closable_btn=!0;if(!on_close)on_close=function(){};if(!close_img_src)close_img_src="https://sv443.net/resources/images/jsg_menu_close.png";var menuelem=document.createElement("div");menuelem.style.display="none";menuelem.style.opacity="0";menuelem.style.transition="opacity 0.3s ease-in";menuelem.style.overflow="auto";menuelem.className="jsg_menu";menuelem.id="jsg_menu_"+id;menuelem.style.position="fixed";menuelem.style.top=((100-height)/2)+"vh";menuelem.style.left=((100-width)/2)+"vw";menuelem.style.width=width+"vw";menuelem.style.height=height+"vh";menuelem.style.padding="10px";menuelem.style.border="0.25em solid #454545";if(border_rounded)menuelem.style.borderRadius="1.2em";else menuelem.style.borderRadius="0";if(closable_btn)closebtnih='<img onclick="sMenu.close(\''+id+'\')" class="jsg_menuclosebtn" title="Close" src="https://sv443.net/cdn/jsl/closebtn.png" style="cursor:pointer;position:absolute;top:0;right:0;width:1.5em;height:1.5em;">';else closebtnih="";menuelem.style.backgroundColor="#ddd";menuelem.innerHTML="<div class='jsg_menutitle' style='font-size:1.5em;text-align:center;'>"+title+"</div>"+closebtnih+"<br>"+innerhtml;document.body.appendChild(menuelem);if(closable_ESC)document.addEventListener("keydown",e=>{if(e.keyCode==27)sMenu.close(id)})}
+if(!border_rounded)border_rounded=!0;if(typeof closable_ESC!="boolean")closable_ESC=!0;if(typeof closable_btn!="boolean")closable_btn=!0;if(!on_close)on_close=function(){};if(!close_img_src)close_img_src="https://sv443.net/resources/images/jsg_menu_close.png";var menuelem=document.createElement("div");menuelem.style.display="none";menuelem.style.opacity="0";menuelem.style.transition="opacity 0.3s ease-in";menuelem.style.overflow="auto";menuelem.className="jsg_menu";menuelem.id="jsg_menu_"+id;menuelem.style.position="fixed";menuelem.style.top=((100-height)/2)+"vh";menuelem.style.left=((100-width)/2)+"vw";menuelem.style.width=width+"vw";menuelem.style.height=height+"vh";menuelem.style.padding="10px";menuelem.style.border="0.25em solid #454545";if(border_rounded)menuelem.style.borderRadius="1.2em";else menuelem.style.borderRadius="0";if(closable_btn)var closebtnih='<img onclick="sMenu.close(\''+id+'\')" class="jsg_menuclosebtn" title="Close" src="https://sv443.net/cdn/jsl/closebtn.png" style="cursor:pointer;position:absolute;top:0;right:0;width:1.5em;height:1.5em;">';else closebtnih="";menuelem.style.backgroundColor="#ddd";menuelem.innerHTML="<div class='jsg_menutitle' style='font-size:1.5em;text-align:center;'>"+title+"</div>"+closebtnih+"<br>"+innerhtml;document.body.appendChild(menuelem);if(closable_ESC)document.addEventListener("keydown",e=>{if(e.keyCode==27)sMenu.close(id)})}
 else{console.error("the arguments for Menu.new() are wrong");return!1}}
 this.close=function(id){try{setTimeout(()=>{gebid("jsg_menu_"+id).style.display="none"},500);gebid("jsg_menu_"+id).style.opacity="0";gebid("jsg_menu_"+id).style.transition="opacity 0.3s ease-in"}
 catch(err){console.error("couldn't find menu with id "+id+". Is the ID correct and was the menu created correctly?");return!1}}
@@ -71,6 +75,12 @@ function onLoad()
 
     sMenu.new("privacyPolicy", "What data does JokeAPI collect?", dIHTML, 85, 85, true, true, true);
     sMenu.theme("privacyPolicy", "dark");
+
+    // eslint-disable-next-line no-undef
+    if(Cookies.get("hideUsageTerms") == "true")
+    {
+        document.getElementById("usageTerms").style.visibility = "hidden";
+    }
 
     try
     {
@@ -231,9 +241,16 @@ function privPolMoreInfo()
     sMenu.open("privacyPolicy");
 }
 
+function hideUsageTerms()
+{
+    document.getElementById("usageTerms").style.visibility = "hidden";
+    // eslint-disable-next-line no-undef
+    Cookies.set("hideUsageTerms", "true", {"expires": 365});
+}
+
 
 
 
 
 //#MARKER cleanup
-unused(openNav, closeNav, onLoad, openChangelog, reRender, privPolMoreInfo);
+unused(openNav, closeNav, onLoad, openChangelog, reRender, privPolMoreInfo, hideUsageTerms);
