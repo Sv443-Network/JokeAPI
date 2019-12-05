@@ -5,4 +5,10 @@ A carefully formatted and easy to use RESTful JokeAPI that serves jokes in JSON,
 JokeAPI is in the process of being rewritten and it will then be bumped to version 2.0.0  
 To see the changes that were made, switch to the `wip/2.0.0` branch by clicking [here](https://github.com/Sv443/JokeAPI/tree/wip/2.0.0)
 
-# [Documentation](https://sv443.net/jokeapi) - [Try it out online](https://sv443.net/jokeapi#try-it)
+# > [Documentation](https://sv443.net/jokeapi) - [Try it out online](https://sv443.net/jokeapi#try-it) <
+
+<br><br><br>
+
+# Projects (I'm aware of) that use JokeAPI:
+- [Dozens Advices by ZephyrVentum](https://github.com/ZephyrVentum/dozens-Advices)
+([Contact me](https://discord.gg/aBH4uRG) to get your project added here)
