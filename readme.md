@@ -10,6 +10,6 @@ To see the changes that were made, switch to the `wip/2.0.0` branch by clicking 
 <br><br><br>
 
 # Projects (I'm aware of) that use JokeAPI:
-- [Dozens Advices by ZephyrVentum](https://github.com/ZephyrVentum/dozens-Advices)
+- [Dozens Advices](https://github.com/ZephyrVentum/dozens-Advices) by [ZephyrVentum](https://github.com/ZephyrVentum)
   
 ([Contact me](https://discord.gg/aBH4uRG) to get your project added here)
