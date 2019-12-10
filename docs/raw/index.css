@@ -327,7 +327,7 @@ body code .nocode.codeheader::before {
     font-size: 19px;
     color: var(--accent-color-light);
     content: "</>";
-    padding: 30px 15px;
+    padding: 0px 15px;
 }
 
 kbd {
@@ -650,9 +650,10 @@ input[disabled]+label {
 
 #urlBuilderWrapper {
     display: inline-block;
-    margin-bottom: 7px;
+    margin-bottom: 12px;
 }
 
 #urlBuilderUrl {
-    margin-left: 20px;
+    display: inline-block;
+    padding: 10px 5px 10px 8px;
 }

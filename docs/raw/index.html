@@ -232,7 +232,7 @@ class Test
                                 Select <a href="#categories">category / categories</a>:
                             </td>
                             <td>
-                                <div class="multiselect noselect">
+                                <div class="multiselect noselect" id="categoryWrapper">
                                     <div>
                                         <input type="radio" name="catSelect" value="any" id="cat-radio1" onchange="reRender()"><label for="cat-radio1">Any</label>
                                     </div>
@@ -268,7 +268,7 @@ class Test
                             </td>
                             <td>
                                 <div class="multiselect noselect">
-                                    <input type="radio" id="fmt-cb1" name="formatRadio" value="json" onchange="reRender()"><label for="fmt-cb1">json</label>
+                                    <input type="radio" id="fmt-cb1" name="formatRadio" value="json" onchange="reRender()"><label for="fmt-cb1">default (json)</label>
                                     <input type="radio" id="fmt-cb2" name="formatRadio" value="xml" onchange="reRender()"><label for="fmt-cb2">xml</label>
                                     <input type="radio" id="fmt-cb3" name="formatRadio" value="yaml" onchange="reRender()"><label for="fmt-cb3">yaml</label>
                                 </div>
@@ -291,7 +291,7 @@ class Test
                             </td>
                             <td>
                                 <div class="multiselect noselect">
-                                    <input type="text" id="searchStringInput" onchange="reRender()" placeholder="(optional)">
+                                    <input type="text" id="searchStringInput" oninput="reRender()" placeholder="(optional)">
                                 </div>
                             </td>
                         </tr>
@@ -310,8 +310,8 @@ class Test
                     </table>
                     <br><br><br><br>
                     <div id="urlBuilderWrapper">
-                        <button onclick="sendTryItRequest()">Send Request &gt;</button>
-                        <span id="urlBuilderUrl">(Loading...)</span>
+                        URL: <span id="urlBuilderUrl">(Loading...)</span><br>
+                        <button onclick="resetTryItForm()">Reset Form</button> <button onclick="sendTryItRequest()">Send Request &gt;</button>
                     </div>
 <code id="urlBuilderPrettyprint" class="lang-json"><span class="nocode codeheader">Result:</span>
 <div class="actualCode" id="tryItResult">(Set parameters and click "Send Request" above)</div>

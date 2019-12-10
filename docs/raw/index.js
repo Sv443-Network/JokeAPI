@@ -1,8 +1,16 @@
 "use strict";
 
+var settings = {
+    // baseURL: "https://sv443.net/jokeapi/v2",
+    baseURL: "http://localhost:8076",
+    jokeEndpoint: "joke",
+    anyCategoryName: "Any",
+    defaultFormat: "json"
+};
 
 var qstr = null;
-var tryItURL = "https://sv443.net/jokeapi/v2/joke/Any";
+var tryItOk = false;
+var tryItURL = "";
 var dIHTML = `
 <h2>To provide this service to you, JokeAPI needs to collect some anonymous data.</h2>
 
@@ -68,9 +76,9 @@ function onLoad()
 
     window.jokeapi = {};
 
-    document.getElementById("content").onclick = closeNav;
+    gebid("content").onclick = closeNav;
     document.getElementsByTagName("header")[0].onclick = closeNav;
-    document.getElementById("docTitle").onclick = function() {window.location.reload()};
+    gebid("docTitle").onclick = function() {window.location.reload()};
 
     addCodeTabs();
 
@@ -80,11 +88,11 @@ function onLoad()
     // eslint-disable-next-line no-undef
     if(Cookies.get("hideUsageTerms") == "true")
     {
-        document.getElementById("usageTerms").style.display = "none";
+        gebid("usageTerms").style.display = "none";
     }
     else
     {
-        document.getElementById("usageTerms").style.display = "inline-block";
+        gebid("usageTerms").style.display = "inline-block";
     }
 
     try
@@ -93,26 +101,22 @@ function onLoad()
         qstr = getQueryStringObject();
 
         if(qstr != null && qstr["devFeatures"] == "true")
-            document.getElementById("devStuff").style.display = "inline-block";
+            gebid("devStuff").style.display = "inline-block";
     }
     catch(err) {unused();}
 
     document.addEventListener("keyup", e => {
-        if(e.key == "m")
-        {
-            if(window.jokeapi.sidenavOpened)
-                closeNav();
-            else openNav();
-        }
-        else if(e.key == "Escape" && window.jokeapi.sidenavOpened)
+        if(e.key == "Escape" && window.jokeapi.sidenavOpened)
             closeNav();
     });
 
     resetTryItForm();
 
     setTimeout(function() {
-        document.getElementById("usageTerms").dataset.animateBorder = "true";
+        gebid("usageTerms").dataset.animateBorder = "true";
     }, 800);
+
+    buildURL();
 }
 
 function addCodeTabs()
@@ -135,10 +139,10 @@ function openNav()
 
     window.jokeapi.sidenavOpened = true;
 
-    document.getElementById("sidenav").style.width = "280px";
-    document.getElementById("content").style.marginLeft= "280px";
+    gebid("sidenav").style.width = "280px";
+    gebid("content").style.marginLeft= "280px";
     document.getElementsByTagName("header")[0].dataset["grayscaled"] = "true";
-    document.getElementById("sideNavOpen").style.visibility = "hidden";
+    gebid("sideNavOpen").style.visibility = "hidden";
 }
   
 function closeNav()
@@ -150,10 +154,10 @@ function closeNav()
 
     document.body.dataset["sidenav"] = "closed";
 
-    document.getElementById("sidenav").style.width = "0";
-    document.getElementById("content").style.marginLeft= "10px";
+    gebid("sidenav").style.width = "0";
+    gebid("content").style.marginLeft= "10px";
     document.getElementsByTagName("header")[0].dataset["grayscaled"] = "false";
-    document.getElementById("sideNavOpen").style.visibility = "visible";
+    gebid("sideNavOpen").style.visibility = "visible";
 }
 
 function getQueryStringObject()
@@ -195,27 +199,45 @@ function openChangelog()
 function reRender()
 {
     var allOk = true;
-    var gebid = function(id) {return document.getElementById(id);}
-
 
     //#SECTION category
+    var isValid = false;
     document.getElementsByName("catSelect").forEach(function(el) {
         if(!el.checked)
             return;
 
         if(el.value == "any")
         {
+            isValid = true;
             ["cat-cb1", "cat-cb2", "cat-cb3"].forEach(function(cat) {
                 gebid(cat).disabled = true;
             });
         }
         else
         {
+            var isChecked = false;
             ["cat-cb1", "cat-cb2", "cat-cb3"].forEach(function(cat) {
-                gebid(cat).disabled = false;
+                var cel = gebid(cat);
+                cel.disabled = false;
+
+                if(cel.checked)
+                    isChecked = true;
             });
+
+            if(isChecked)
+                isValid = true;
         }
     });
+
+    if(!isValid)
+    {
+        allOk = false;
+        gebid("categoryWrapper").style.borderColor = "red";
+    }
+    else
+    {
+        gebid("categoryWrapper").style.borderColor = "initial";
+    }
 
 
     //#SECTION format
@@ -246,27 +268,123 @@ function reRender()
     }
 
     if(allOk)
-        buildURL();
+    {
+        tryItOk = true;
+    }
+    else
+    {
+        tryItOk = false;
+    }
+
+    buildURL();
 }
 
+//#MARKER build URL
 function buildURL()
 {
-    document.getElementById("urlBuilderUrl").innerHTML = tryItURL;
+    var queryParams = [];
+
+    //#SECTION categories
+    var selectedCategories = [settings.anyCategoryName];
+    if(gebid("cat-radio2").checked)
+    {
+        selectedCategories = [];
+        if(gebid("cat-cb1").checked)
+        {
+            selectedCategories.push("Programming");
+        }
+        if(gebid("cat-cb2").checked)
+        {
+            selectedCategories.push("Miscellaneous");
+        }
+        if(gebid("cat-cb3").checked)
+        {
+            selectedCategories.push("Dark");
+        }
+
+        if(selectedCategories.length == 0)
+        {
+            selectedCategories.push(settings.anyCategoryName);
+        }
+    }
+
+
+    //#SECTION flags
+    var flagElems = [gebid("blf-cb1"), gebid("blf-cb2"), gebid("blf-cb3"), gebid("blf-cb4"), gebid("blf-cb5")];
+    var flagNames = ["nsfw", "religious", "political", "racist", "sexist"];
+    var selectedFlags = [];
+    flagElems.forEach(function(el, i) {
+        if(el.checked)
+        {
+            selectedFlags.push(flagNames[i]);
+        }
+    });
+
+    if(selectedFlags.length > 0)
+    {
+        queryParams.push("blacklistFlags=" + selectedFlags.join(","));
+    }
+
+
+    //#SECTION format
+    var formatElems = [gebid("fmt-cb1"), gebid("fmt-cb2"), gebid("fmt-cb3")];
+    formatElems.forEach(function(el) {
+        if(el.checked && el.value != settings.defaultFormat)
+        {
+            queryParams.push("format=" + el.value);
+        }
+    });
+
+
+    //#SECTION type
+    var singleJoke = gebid("typ-cb1").checked;
+    var twopartJoke = gebid("typ-cb2").checked;
+    if(singleJoke ^ twopartJoke == 1)
+    {
+        if(singleJoke)
+        {
+            queryParams.push("type=single");
+        }
+        else if(twopartJoke)
+        {
+            queryParams.push("type=twopart");
+        }
+    }
+
+
+    //#SECTION search string
+    var sstr = gebid("searchStringInput").value;
+    if(sstr)
+    {
+        queryParams.push("contains=" + encodeURIComponent(sstr));
+    }
+
+
+    //#SECTION id range
+    var range = [parseInt(gebid("idRangeInputFrom").value), parseInt(gebid("idRangeInputTo").value)];
+    if(!isNaN(range[0]) && !isNaN(range[1]) && range[0] >= 0 && range[1] <= parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->"))
+    {
+        if(range[0] != 0 || range[1] != parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->"))
+        {
+            queryParams.push("idRange=" + range[0] + "-" + range[1]);
+        }
+    }
+
+
+    tryItURL = settings.baseURL + "/" + settings.jokeEndpoint + "/" + selectedCategories.join(",");
+
+    if(queryParams.length > 0)
+    {
+        tryItURL += "?" + queryParams.join("&");
+    }
+
+    gebid("urlBuilderUrl").innerHTML = tryItURL;
 }
 
+//#MARKER send request
 function sendTryItRequest()
 {
-    var prpr = document.getElementById("urlBuilderPrettyprint");
-    if(!prpr.classList.contains("prettyprint"))
-    {
-        prpr.classList.add("prettyprint");
-    }
-
-    if(prpr.classList.contains("prettyprinted"))
-    {
-        prpr.classList.remove("prettyprinted");
-    }
-
+    var prpr = gebid("urlBuilderPrettyprint");
     var tryItRequestError = function(err) {
         if(!prpr.classList.contains("prettyprint"))
         {
@@ -278,8 +396,40 @@ function sendTryItRequest()
             prpr.classList.remove("prettyprinted");
         }
 
-        document.getElementById("tryItResult").innerHTML = "Error: " + err;
+        gebid("tryItResult").innerHTML = "Error:<br><br>" + err;
     }
+
+    if(!tryItOk) // TODO: make this better
+    {
+        return tryItRequestError("One or more of the parameters you specified are invalid.\nThey are outlined with a red border.\n\nPlease correct the parameters and try again.");
+    }
+
+    if(!prpr.classList.contains("prettyprint"))
+    {
+        prpr.classList.add("prettyprint");
+    }
+
+    if(prpr.classList.contains("prettyprinted"))
+    {
+        prpr.classList.remove("prettyprinted");
+    }
+
+    if(prpr.classList.contains("lang-json"))
+    {
+        prpr.classList.remove("lang-json");
+    }
+
+    if(prpr.classList.contains("lang-yaml"))
+    {
+        prpr.classList.remove("lang-yaml");
+    }
+
+    if(prpr.classList.contains("lang-xml"))
+    {
+        prpr.classList.remove("lang-xml");
+    }
+
+    prpr.classList.add("lang-json");
 
     try
     {
@@ -288,7 +438,30 @@ function sendTryItRequest()
         xhr.onreadystatechange = function() {
             if(xhr.readyState == 4 && (xhr.status < 300 || xhr.status == 429))
             {
-                document.getElementById("tryItResult").innerHTML = JSON.stringify(JSON.parse(xhr.responseText.toString()), null, 4);
+                var result = "";
+                if(xhr.getResponseHeader("content-type").includes("json"))
+                {
+                    result = JSON.stringify(JSON.parse(xhr.responseText.toString()), null, 4);
+                }
+                else
+                {
+                    if(xhr.getResponseHeader("content-type").includes("xml"))
+                    {
+                        gebid("urlBuilderPrettyprint").classList.remove("lang-json");
+                        gebid("urlBuilderPrettyprint").classList.add("lang-xml");
+                    }
+                    else
+                    {
+                        gebid("urlBuilderPrettyprint").classList.remove("lang-json");
+                        gebid("urlBuilderPrettyprint").classList.add("lang-yaml");
+                    }
+
+                    result = xhr.responseText.toString();
+                    result = result.replace(/[<]/gm, "&lt;");
+                    result = result.replace(/[>]/gm, "&gt;");
+                }
+
+                gebid("tryItResult").innerHTML = result;
 
                 PR.prettyPrint(); // eslint-disable-line no-undef
             }
@@ -309,23 +482,25 @@ function sendTryItRequest()
 function resetTryItForm()
 {
     ["cat-cb1", "cat-cb2", "cat-cb3"].forEach(function(cat) {
-        document.getElementById(cat).checked = false;
+        gebid(cat).checked = false;
     });
 
-    document.getElementById("cat-radio1").checked = true;
+    gebid("cat-radio1").checked = true;
 
     ["blf-cb1", "blf-cb2", "blf-cb3", "blf-cb4", "blf-cb5"].forEach(function(flg) {
-        document.getElementById(flg).checked = false;
+        gebid(flg).checked = false;
     });
 
-    document.getElementById("fmt-cb1").checked = true;
+    gebid("fmt-cb1").checked = true;
 
     ["typ-cb1", "typ-cb2"].forEach(function(type) {
-        document.getElementById(type).checked = true;
+        gebid(type).checked = true;
     });
 
-    document.getElementById("idRangeInputFrom").value = 0;
-    document.getElementById("idRangeInputTo").value = parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->");
+    gebid("searchStringInput").value = "";
+
+    gebid("idRangeInputFrom").value = 0;
+    gebid("idRangeInputTo").value = parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->");
 
     reRender();
 }
@@ -338,7 +513,7 @@ function privPolMoreInfo()
 
 function hideUsageTerms()
 {
-    document.getElementById("usageTerms").style.display = "none";
+    gebid("usageTerms").style.display = "none";
     // eslint-disable-next-line no-undef
     Cookies.set("hideUsageTerms", "true", {"expires": 365});
 }
