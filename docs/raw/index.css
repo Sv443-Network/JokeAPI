@@ -3,6 +3,7 @@
 :root {
     --bg-color: #444;
     --bg-accent-color: #333;
+    --bg-accent-color-sidenav-opened: #666;
     --bg-color-sidenav-opened: #777;
     --header-bg-color: #101747;
     --header-bg-color-sidenav-opened: #101747;
@@ -15,6 +16,10 @@
     --doc-sub-header-font-size: 19px;
 
     --sidenav-animation-speed: 0.3s;
+
+    --scrollbar-track-color: #1d1d1d;
+    --scrollbar-thumb-color: rgba(175, 175, 175, .7);
+    --scrollbar-webkit-hover-color: rgba(65, 131, 196, .8);
 }
 
 @font-face { 
@@ -124,31 +129,28 @@ body[data-sidenav="closed"] {
 }
 
 /*#MARKER scrollbar*/
-/* From https://github.com/DarkThemeHub/GithubDarkTheme/blob/master/Theme.css#L5121 */
-/* TODO: wait for issue: https://github.com/DarkThemeHub/GithubDarkTheme/issues/108 */
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
     max-width: 10px !important;
     max-height: 10px !important;
-    background: #1d1d1d !important;
+    background: var(--scrollbar-track-color) !important;
 }
 
-::-webkit-scrollbar-track,
-::-webkit-scrollbar-corner {
-    background: #1d1d1d !important;
+::-webkit-scrollbar-track, ::-webkit-scrollbar-corner {
+    background: var(--scrollbar-track-color) !important;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(175, 175, 175, .5) !important;
+    background: var(--scrollbar-thumb-color) !important;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(65, 131, 196, .8) !important;
+    background: var(--scrollbar-webkit-hover-color) !important;
 }
 
 :root {
-    scrollbar-color: rgba(175, 175, 175, .5) #1d1d1d !important;
+    scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color) !important;
     scrollbar-width: thin !important;
-} */
+}
 
 /*#MARKER header*/
 header {
@@ -263,6 +265,10 @@ header #docTitle {
 #content {
     padding: 16px;
     margin: 10px;
+
+    padding-top: 0;
+    margin-top: 0;
+
     transition: margin-left var(--sidenav-animation-speed);
 }
 
@@ -278,8 +284,7 @@ body[data-sidenav="closed"] code, body code {
     background-color: #111;
     display: block;
 
-    border-top-left-radius: 8px !important;
-    border-bottom-left-radius: 8px !important;
+    border-radius: 8px !important;
     border-left: 8px solid var(--accent-color) !important;
 
     filter: grayscale(0%);
@@ -288,9 +293,10 @@ body[data-sidenav="closed"] code, body code {
 }
 
 body code > .actualCode {
-    padding: 0px 10px 20px 20px;
+    padding: 0px 10px 0px 20px;
     overflow-x: auto;
     overflow-y: hidden;
+    line-height: 1.25;
 }
 
 body code .pln:first {
@@ -467,6 +473,11 @@ kbd {
     font-size: 36px;
 }
 
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
 .docHeader .headerAnchorContainer {
     cursor: pointer;
     padding-right: 10px;
@@ -477,6 +488,7 @@ kbd {
 
 .docHeader .headerAnchorContainer:hover {
     filter: opacity(100%);
+    text-decoration: none !important;
 }
 
 .headerAnchorContainer {
@@ -540,9 +552,47 @@ kbd {
     font-size: var(--doc-sub-header-font-size);
 }
 
+/*#SECTION usage terms */
+#usageTerms {
+    display: none;
+    background-color: var(--bg-accent-color);
+    border: 2px solid white;
+    border-radius: 10px;
+    padding: 13px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+#usageTerms[data-animate-border="true"] {
+    animation: targetBlink 1.5s;
+    animation-iteration-count: 1;
+}
+
+#usageTerms > h2 {
+    margin-top: 0;
+    color: orangered;
+}
+
+#usageTermsInnerLayout {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+#usageTermsInnerLayout > .itm {
+    flex-grow: 1;
+}
+
+#usageTermsInnerLayout > .itm:last-of-type {
+    text-align: right;
+}
+/*#SECTION information */
+
 /*#SECTION try it */
 #tryItContainer table tr td {
-    vertical-align: top;
+    vertical-align: middle;
 }
 
 #tryItContainer table tr:not(:last-of-type) > td {
@@ -561,6 +611,10 @@ kbd {
     margin-top: 20px;
 }
 
+body[data-sidenav="opened"] #tryItContainer {
+    background-color: var(--bg-accent-color-sidenav-opened);
+}
+
 #tryItContainer table tr td {
     padding-right: 20px;
 }
@@ -569,12 +623,16 @@ kbd {
     padding-left: 20px;
 }
 
-.multiselect {
+.multiselect, #urlBuilderWrapper, #resultWrapper {
     background-color: #222;
     border: 1px solid white;
     padding: 6px;
     padding-right: 11px;
     border-radius: 5px;
+}
+
+body[data-sidenav="opened"] .multiselect, body[data-sidenav="opened"] #urlBuilderWrapper, body[data-sidenav="opened"] #resultWrapper {
+    background-color: #555;
 }
 
 input[disabled] {
@@ -590,7 +648,11 @@ input[disabled]+label {
     width: 100%;
 }
 
-@media screen and (max-height: 450px) {
-    .sidenav {padding-top: 15px;}
-    .sidenav a {font-size: 18px;}
+#urlBuilderWrapper {
+    display: inline-block;
+    margin-bottom: 7px;
+}
+
+#urlBuilderUrl {
+    margin-left: 20px;
 }

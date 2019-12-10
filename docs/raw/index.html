@@ -197,10 +197,16 @@ class Test
                 </div> <!-- #MARKER end dev stuff -->
 
                 <div id="usageTerms">
-                    <h2 style="color: orangered;">&gt; By using this website and API you are agreeing to the <a href="<!--%#INSERT:PRIVACYPOLICYURL#%-->">privacy policy</a> &lt;</h2>
+                    <h2 style="color: orangered;">By using this website and API you are agreeing to the <a href="<!--%#INSERT:PRIVACYPOLICYURL#%-->">privacy policy</a></h2>
                     <div id="usageTermsInnerLayout">
-                        <span class="itm mimica" onclick="privPolMoreInfo()">(Click here to get more information on what data JokeAPI collects)</span>
-                        <span class="itm mimica" onclick="hideUsageTerms()"><span class="lText">&times;</span> Dismiss</span>
+                        <span class="itm">
+                            <span class="mimica" onclick="privPolMoreInfo()">(Click here to get more information on what data JokeAPI collects)</span>
+                        </span>
+                        <span class="itm">
+                            <span class="mimica" onclick="hideUsageTerms()">
+                                <span class="lText">&#10004;</span> I agree
+                            </span>
+                        </span>
                     </div>
                 </div>
 
@@ -270,10 +276,10 @@ class Test
                         </tr>
                         <tr>
                             <td>
-                                Select <a href="#joke-types">joke type</a>:
+                                Select at least one <a href="#joke-types">joke type</a>:
                             </td>
                             <td>
-                                <div class="multiselect noselect">
+                                <div class="multiselect noselect" id="typeSelectWrapper">
                                     <input type="checkbox" id="typ-cb1" onchange="reRender()"><label for="typ-cb1">single</label>
                                     <input type="checkbox" id="typ-cb2" onchange="reRender()"><label for="typ-cb2">twopart</label>
                                 </div>
@@ -285,7 +291,7 @@ class Test
                             </td>
                             <td>
                                 <div class="multiselect noselect">
-                                    <input type="text" id="searchStringInput" placeholder="(optional)">
+                                    <input type="text" id="searchStringInput" onchange="reRender()" placeholder="(optional)">
                                 </div>
                             </td>
                         </tr>
@@ -294,16 +300,22 @@ class Test
                                 Search for a joke<br>in this <a href="#id-range">ID range</a>:
                             </td>
                             <td>
-                                <div class="multiselect noselect">
+                                <div class="multiselect noselect" id="idRangeWrapper">
                                     (optional)&nbsp;&nbsp;&nbsp;
-                                    From: <input type="number" id="idRangeInputFrom" value="0" min="0" step="1" max="<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->">
-                                    To: <input type="number" id="idRangeInputTo" value="<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->" min="0" step="1" max="<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->">
+                                    From: <input type="number" id="idRangeInputFrom" value="0" min="0" step="1" oninput="reRender()" max="<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->">
+                                    To: <input type="number" id="idRangeInputTo" value="<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->" min="0" step="1" oninput="reRender()" max="<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->">
                                 </div>
                             </td>
                         </tr>
                     </table>
-                    <br><br><br>
-                    URL gets built here + <button>Send button</button>
+                    <br><br><br><br>
+                    <div id="urlBuilderWrapper">
+                        <button onclick="sendTryItRequest()">Send Request &gt;</button>
+                        <span id="urlBuilderUrl">(Loading...)</span>
+                    </div>
+<code id="urlBuilderPrettyprint" class="lang-json"><span class="nocode codeheader">Result:</span>
+<div class="actualCode" id="tryItResult">(Set parameters and click "Send Request" above)</div>
+</code>
                 </div>
 
                 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

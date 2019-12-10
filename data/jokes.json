@@ -1832,6 +1832,16 @@
                 "sexist": false
             },
             "id": 133
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "How does a Jewish person make tea?",
+            "delivery": "Hebrews it.",
+            "flags": {
+                "religious": true
+            },
+            "id": 134
         }
     ]
 }

@@ -2,6 +2,7 @@
 
 
 var qstr = null;
+var tryItURL = "https://sv443.net/jokeapi/v2/joke/Any";
 var dIHTML = `
 <h2>To provide this service to you, JokeAPI needs to collect some anonymous data.</h2>
 
@@ -79,7 +80,11 @@ function onLoad()
     // eslint-disable-next-line no-undef
     if(Cookies.get("hideUsageTerms") == "true")
     {
-        document.getElementById("usageTerms").style.visibility = "hidden";
+        document.getElementById("usageTerms").style.display = "none";
+    }
+    else
+    {
+        document.getElementById("usageTerms").style.display = "inline-block";
     }
 
     try
@@ -104,6 +109,10 @@ function onLoad()
     });
 
     resetTryItForm();
+
+    setTimeout(function() {
+        document.getElementById("usageTerms").dataset.animateBorder = "true";
+    }, 800);
 }
 
 function addCodeTabs()
@@ -115,15 +124,6 @@ function addCodeTabs()
         if(codeElements[i].classList.contains("prettyprint"))
             codeElements[i].innerHTML = codeElements[i].innerHTML.replace(/&tab;/gm, "&nbsp;&nbsp;&nbsp;&nbsp;");
     }
-}
-
-function unused(...args)
-{
-    args.forEach(arg => {
-        try{arg.toString();}
-        catch(err) {return;}
-        return;
-    });
 }
 
 //#MARKER SideNav
@@ -194,6 +194,11 @@ function openChangelog()
 
 function reRender()
 {
+    var allOk = true;
+    var gebid = function(id) {return document.getElementById(id);}
+
+
+    //#SECTION category
     document.getElementsByName("catSelect").forEach(function(el) {
         if(!el.checked)
             return;
@@ -201,16 +206,103 @@ function reRender()
         if(el.value == "any")
         {
             ["cat-cb1", "cat-cb2", "cat-cb3"].forEach(function(cat) {
-                document.getElementById(cat).disabled = true;
+                gebid(cat).disabled = true;
             });
         }
         else
         {
             ["cat-cb1", "cat-cb2", "cat-cb3"].forEach(function(cat) {
-                document.getElementById(cat).disabled = false;
+                gebid(cat).disabled = false;
             });
         }
     });
+
+
+    //#SECTION format
+    if(!gebid("typ-cb1").checked && !gebid("typ-cb2").checked)
+    {
+        allOk = false;
+        gebid("typeSelectWrapper").style.borderColor = "red";
+    }  
+    else
+    {
+        gebid("typeSelectWrapper").style.borderColor = "initial";
+    }
+
+
+    //#SECTION id range
+    var numRegex = /^[0-9]+$/gm;
+    var outOfRange = gebid("idRangeInputFrom").value < 0 || gebid("idRangeInputTo").value > parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->");
+    var notNumber = ((gebid("idRangeInputFrom").value.match(numRegex) == null) || (gebid("idRangeInputTo").value.match(numRegex) == null));
+    
+    if(outOfRange || notNumber)
+    {
+        allOk = false;
+        gebid("idRangeWrapper").style.borderColor = "red";
+    }
+    else
+    {
+        gebid("idRangeWrapper").style.borderColor = "initial";
+    }
+
+    if(allOk)
+        buildURL();
+}
+
+function buildURL()
+{
+    document.getElementById("urlBuilderUrl").innerHTML = tryItURL;
+}
+
+function sendTryItRequest()
+{
+    var prpr = document.getElementById("urlBuilderPrettyprint");
+    if(!prpr.classList.contains("prettyprint"))
+    {
+        prpr.classList.add("prettyprint");
+    }
+
+    if(prpr.classList.contains("prettyprinted"))
+    {
+        prpr.classList.remove("prettyprinted");
+    }
+
+    var tryItRequestError = function(err) {
+        if(!prpr.classList.contains("prettyprint"))
+        {
+            prpr.classList.remove("prettyprint");
+        }
+
+        if(prpr.classList.contains("prettyprinted"))
+        {
+            prpr.classList.remove("prettyprinted");
+        }
+
+        document.getElementById("tryItResult").innerHTML = "Error: " + err;
+    }
+
+    try
+    {
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", tryItURL);
+        xhr.onreadystatechange = function() {
+            if(xhr.readyState == 4 && (xhr.status < 300 || xhr.status == 429))
+            {
+                document.getElementById("tryItResult").innerHTML = JSON.stringify(JSON.parse(xhr.responseText.toString()), null, 4);
+
+                PR.prettyPrint(); // eslint-disable-line no-undef
+            }
+            else
+            {
+                tryItRequestError(xhr.responseText);
+            }
+        }
+        xhr.send();
+    }
+    catch(err)
+    {
+        tryItRequestError(err);
+    }
 }
 
 //#MARKER interactive elements
@@ -232,6 +324,9 @@ function resetTryItForm()
         document.getElementById(type).checked = true;
     });
 
+    document.getElementById("idRangeInputFrom").value = 0;
+    document.getElementById("idRangeInputTo").value = parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->");
+
     reRender();
 }
 
@@ -243,7 +338,7 @@ function privPolMoreInfo()
 
 function hideUsageTerms()
 {
-    document.getElementById("usageTerms").style.visibility = "hidden";
+    document.getElementById("usageTerms").style.display = "none";
     // eslint-disable-next-line no-undef
     Cookies.set("hideUsageTerms", "true", {"expires": 365});
 }
@@ -253,4 +348,12 @@ function hideUsageTerms()
 
 
 //#MARKER cleanup
-unused(openNav, closeNav, onLoad, openChangelog, reRender, privPolMoreInfo, hideUsageTerms);
+function unused(...args)
+{
+    args.forEach(arg => {
+        try{arg.toString();}
+        catch(err) {return;}
+        return;
+    });
+}
+unused(openNav, closeNav, onLoad, openChangelog, reRender, privPolMoreInfo, hideUsageTerms, sendTryItRequest);
