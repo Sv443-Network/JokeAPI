@@ -399,7 +399,7 @@ function sendTryItRequest()
         gebid("tryItResult").innerHTML = "Error:<br><br>" + err;
     }
 
-    if(!tryItOk) // TODO: make this better
+    if(!tryItOk)
     {
         return tryItRequestError("One or more of the parameters you specified are invalid.\nThey are outlined with a red border.\n\nPlease correct the parameters and try again.");
     }
