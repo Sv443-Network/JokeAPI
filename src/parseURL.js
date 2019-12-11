@@ -114,7 +114,7 @@ const getFileFormatFromQString = qstrObj => {
  */
 const getMimeTypeFromFileFormatString = fileFormatString => {
     let allFileTypes = JSON.parse(fs.readFileSync(settings.jokes.fileFormatsPath).toString());
-    
+
     if(!jsl.isEmpty(allFileTypes[fileFormatString]))
         return allFileTypes[fileFormatString].mimeType;
     else return settings.jokes.defaultFileFormat.mimeType;

@@ -67,14 +67,13 @@
 
 > [2.0.0] - The complete rewrite - JokeAPI was completely rewritten and should now run like 100x better and be more easy to develop and maintain
     - TODO:
-        - Improve the "Try it out" section in the docs
-        - Add an analytics module that keeps track of everything and makes it possible for me to finally see some (anonymous) usage statistics
         - Completely rewrite the documentation
-        - Set up a new reverse proxy at "https://sv443.net/jokeapi/v2/" to let people slowly migrate to the new version
-        - Make the lists work again
         - Make good looking error pages
         - Make the documentation page be able to be served with gzip and brotli encoding
+    - DEV:
+        - Make the lists work again
     - DONE:
+        - Massively improved the "Try it out" section in the docs
         - Updated some dependencies
         - Updated contributor guide
         - Reformatted the jokes to always contain all flags
@@ -88,11 +87,14 @@
         - renamed "category" endpoint to "joke"
         - The submission of empty jokes will now be prevented
         - Added the "racist" and "sexist" flags
-        - Add support for selecting multiple categories at once (for example: "https://sv443.net/jokeapi/category/Dark,Miscellaneous/")
+        - Set up a new reverse proxy at "https://sv443.net/jokeapi/v2/" to let people slowly migrate to the new version
+        - Added support for selecting multiple categories at once (for example: "https://sv443.net/jokeapi/v2/joke/Dark,Miscellaneous/")
         - Added the "?type" URL parameter to specify the type of the served joke ("single" or "twopart")
         - Added the "?contains" URL parameter to only serve jokes that match the provided search query
-        - Added the "?idRange" URL parameter to get jokes from a single ID or an ID range (examples: "https://sv443.net/jokeapi/category/Any?id=50" or "https://sv443.net/jokeapi/category/Any?id=50-75")
+        - Added the "?idRange" URL parameter to get jokes from a single ID or an ID range (examples: "https://sv443.net/jokeapi/v2/joke/Any?id=50" or "https://sv443.net/jokeapi/v2/joke/Any?id=50-75")
         - Re-validated all jokes and removed duplicates
+        - Added an analytics module that keeps track of everything and makes it possible for me to finally see some (anonymous) usage statistics (complies with the GDPR/DSGVO)
+        - Joke IDs will now be cached to prevent the same joke from being served multiple times in a row
 
 
 [2.0.1] - The hotfix that will probably be necessary a few days after the 2.0.0 release

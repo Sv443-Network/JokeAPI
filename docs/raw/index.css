@@ -244,6 +244,10 @@ header #docTitle {
 }
 
 /*#MARKER main content*/
+.jsg_menu {
+    z-index: 1001;
+}
+
 #devStuff {
     display: inline-block;
     width: 95vw;
@@ -356,7 +360,7 @@ kbd {
     overflow-x: hidden;
     transition: var(--sidenav-animation-speed);
     padding-top: 60px;
-    z-index: 1001;
+    z-index: 1002;
 
     filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.6));
 

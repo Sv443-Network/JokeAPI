@@ -12,9 +12,6 @@ node_modules/
 # dotenv environment variables file
 .env
 
-# GitHub stuff:
-.github/*
-
 # Dev stuff:
 dev/madge/
 dependency-graph.html
