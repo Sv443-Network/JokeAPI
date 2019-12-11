@@ -70,6 +70,7 @@
         - Completely rewrite the documentation
         - Make good looking error pages
         - Make the documentation page be able to be served with gzip and brotli encoding
+        - Add Babel support in the docs compilation
     - DEV:
         - Make the lists work again
     - DONE:
