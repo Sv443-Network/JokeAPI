@@ -12,4 +12,4 @@ If the grammar mistake is in a joke, put the joke's ID right here, else just des
 Screenshots are also welcome.  
 
 ## What is the correct spelling?
-Tell me how to correctly spell it.
+Tell me how to correctly spell it.  
