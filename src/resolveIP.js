@@ -57,3 +57,4 @@ const hashIP = ip => crypto.createHash(settings.httpServer.ipHashing.algorithm).
 
 module.exports = resolveIP;
 module.exports.isValidIP = isValidIP;
+module.exports.hashIP = hashIP;

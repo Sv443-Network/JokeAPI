@@ -8,15 +8,15 @@ const settings = require("../settings");
 /**
  * @typedef {Object} ParsedUrl
  * @prop {null} error If not errored, this will be `null`, else it will contain a string with the error message
- * @prop {String} initialURL
+ * @prop {String} initialURL The requested URL
  * @prop {(Array<String>|null)} pathArray If empty, this will be `null`, else it will be an array of the URL path
  * @prop {(Object|null)} queryParams If empty, this will be `null`, else it will be an object of query parameters
  */
 
 /**
  * @typedef {Object} ErroredParsedUrl
- * @prop {String} error
- * @prop {String} initialURL
+ * @prop {String} error If not errored, this will be `null`, else it will contain a string with the error message
+ * @prop {String} initialURL The requested URL
  */
 
 /**
@@ -66,7 +66,10 @@ const parseURL = url => {
         if(qstrArr.length > 0)
             qstrArr.forEach(qstrEntry => {
                 if(qstrEntry.includes("="))
-                    qstrObj[decodeURIComponent(qstrEntry.split("=")[0])] = decodeURIComponent(qstrEntry.split("=")[1]);
+                {
+                    let splitEntry = qstrEntry.split("=");
+                    qstrObj[decodeURIComponent(splitEntry[0])] = decodeURIComponent(splitEntry[1].toLowerCase());
+                }
             });
         else qstrObj = null;
     }

@@ -5,6 +5,7 @@ const fs = require("fs");
 const settings = require("../settings");
 const debug = require("./verboseLogging");
 const logger = require("./logger");
+const resolveIP = require("./resolveIP");
 
 
 /**
@@ -91,6 +92,8 @@ const isBlacklisted = ip => {
 
     process.jokeapi.lists.blacklist.forEach(blIP => {
         if(ip == blIP)
+            returnVal = true;
+        else if(ip == resolveIP.hashIP(blIP))
             returnVal = true;
     });
     return returnVal;

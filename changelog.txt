@@ -1,0 +1,100 @@
+[0.1.0]
+    - basic functionality
+        - 47 jokes
+        - category filter
+
+
+[0.1.1]
+    - added interactive example on docs page
+    - made icon on docs page smaller
+    - added wrapper script
+
+
+[0.1.2]
+    - added "Dark" category
+    - added joke submission form
+    - improved interactive example
+    - modified gitignore
+
+
+[1.0.0]
+    - turned the single endpoint into multiple endpoints
+        - "categories" to get all available categories
+        - "info" to get all information about JokeAPI
+        - "category/XY" to get a joke
+    - added flag filter to blacklist certain jokes
+    - added very sophisticated analytics
+    - added "Allow" header to all incoming requests to better support preflight requests
+    - added multiple file format support
+        - JSON
+        - XML
+        - YAML
+    - added JS and CSS injection into docs page to separate everything into three files (can be expanded to more files ofc)
+    - fixed minor style glitches on the docs page
+    - made the HTML and CSS of the docs way better
+        - "scroll to top" button
+            - smooth scroll
+        - anchors to make linking to a certain header possible
+        - turned "add joke" link into a button and moved it next to "scroll to top" button
+        - fixed @import's
+        - updated <meta>'s
+        - turned "blank_" into "_blank" (sigh)
+    - added flag filter to interactive example
+    - did even more internal detail work
+        - reformatted log files
+        - clearing certain log files after a threshold is reached
+    - updated dependencies
+    - made better and more uniformly formatted error messages
+    - added this changelog
+
+
+[1.1.0]
+    - switched to ReadStreams instead of just loading the entire file to RAM to massively improve request performance (more details in GitHub issue #2)
+        - this basically means it transmits the data over time, instead of loading it all to RAM and sending it at once
+	- added rate limiting to counter DoS attacks (yes I've been getting some of those *sigh*)
+
+
+[1.1.1]
+	- better IP getter for the rate limiting
+	- updated dependencies
+	- very small improvements to the console window
+
+
+[1.1.2]
+	- joke categories are now case insensitive
+	- trailing slashes now don't produce an "invalid category" error anymore
+
+
+> [2.0.0] - The complete rewrite - JokeAPI was completely rewritten and should now run like 100x better and be more easy to develop and maintain
+    - TODO:
+        - Improve the "Try it out" section in the docs
+        - Add an analytics module that keeps track of everything and makes it possible for me to finally see some (anonymous) usage statistics
+        - Completely rewrite the documentation
+        - Set up a new reverse proxy at "https://sv443.net/jokeapi/v2/" to let people slowly migrate to the new version
+        - Make the lists work again
+        - Make good looking error pages
+        - Make the documentation page be able to be served with gzip and brotli encoding
+    - DONE:
+        - Updated some dependencies
+        - Updated contributor guide
+        - Reformatted the jokes to always contain all flags
+        - Reformatted the jokes to have the IDs beforehand, furthermore increasing performance and making it easier to know which joke ID belongs to which joke
+        - Added multiple scripts that should be run before contributing to the project / that are run through GitHub Continuous Integration
+            - "npm run reformat" to reformat jokes from the old pre-2.0.0 syntax to the new 2.0.0 syntax
+            - "npm run reassign-ids" to make sure all jokes have the correct IDs
+            - "npm run validate-jokes" to make sure all jokes are in the correct format
+        - Now the documentation page runs on a daemon, meaning it will only be recompiled if a file has changed, furthermore improving JokeAPIs perfomance
+        - Static content like the stylesheet and client-side JS will now be loaded through the "static" endpoint, decreasing page load time by an order of magnitude
+        - renamed "category" endpoint to "joke"
+        - The submission of empty jokes will now be prevented
+        - Added the "racist" and "sexist" flags
+        - Add support for selecting multiple categories at once (for example: "https://sv443.net/jokeapi/category/Dark,Miscellaneous/")
+        - Added the "?type" URL parameter to specify the type of the served joke ("single" or "twopart")
+        - Added the "?contains" URL parameter to only serve jokes that match the provided search query
+        - Added the "?idRange" URL parameter to get jokes from a single ID or an ID range (examples: "https://sv443.net/jokeapi/category/Any?id=50" or "https://sv443.net/jokeapi/category/Any?id=50-75")
+        - Re-validated all jokes and removed duplicates
+
+
+[2.0.1] - The hotfix that will probably be necessary a few days after the 2.0.0 release
+    - TODO:
+        - remove the ".vscode/settings.json" file once the new VS:Code version is released (see https://github.com/microsoft/vscode/issues/85549)

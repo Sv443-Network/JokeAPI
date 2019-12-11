@@ -111,7 +111,7 @@ const init = () => {
                         }
                         else
                         {
-                            if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting))
+                            if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting) && !lists.isWhitelisted(ip))
                             {
                                 analytics.rateLimited(ip);
                                 logRequest("ratelimited", null, analyticsObject);
@@ -160,7 +160,7 @@ const init = () => {
                                 }
                                 else
                                 {
-                                    if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting))
+                                    if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting) && !lists.isWhitelisted(ip))
                                     {
                                         logRequest("ratelimited", null, analyticsObject);
                                         return respondWithError(res, 101, 429, fileFormat);
@@ -212,7 +212,7 @@ const init = () => {
                                     let validationResult = parseJokes.validateSingle(submittedJoke);
 
                                     if(typeof validationResult === "object")
-                                        return respondWithError(res, 105, 400, fileFormat, `Submitted joke format is incorrect - encountered error${validationResult.length == 1 ? "" : "s"}:\n${validationResult.join("\n")}`);
+                                        return respondWithError(res, 105, 400, fileFormat, `Submitted joke format is incorrect - encountered error${validationResult.length == 1 ? ": " : "s:\n"}${validationResult.join("\n")}`);
                                     else if(validationResult === true)
                                     {
                                         // joke is valid, find file name and then write to file
@@ -270,7 +270,7 @@ const init = () => {
                                 }
                                 else
                                 {
-                                    return respondWithError(res, 105, 400, fileFormat, `Joke format version is incorrect - expected "${parseJokes.jokeFormatVersion}"`);
+                                    return respondWithError(res, 105, 400, fileFormat, `Joke format version is incorrect - expected "${parseJokes.jokeFormatVersion}" - got "${submittedJoke.formatVersion}"`);
                                 }
                             }
                             catch(err)
