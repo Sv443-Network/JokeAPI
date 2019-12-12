@@ -17,7 +17,7 @@ const resolveIP = req => {
 
     try
     {
-        if(!jsl.isEmpty(req.headers) && !jsl.isEmpty(req.headers["x-forwarded-for"]))
+        if(!jsl.isEmpty(req.headers) && !jsl.isEmpty(req.headers["x-forwarded-for"]) && settings.httpServer.reverseProxy)
         {
             ipaddr = req.headers["x-forwarded-for"]; // I have to use the X-Forwarded-For header because I'm using a reverse proxy
             if(ipaddr.includes(",")) ipaddr = ipaddr.split(",")[0];

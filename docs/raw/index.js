@@ -542,4 +542,5 @@ function unused(...args)
         return;
     });
 }
+
 unused(openNav, closeNav, onLoad, openChangelog, reRender, privPolMoreInfo, hideUsageTerms, sendTryItRequest);

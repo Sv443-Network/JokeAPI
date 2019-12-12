@@ -200,7 +200,7 @@ header #docTitle {
     cursor: pointer;
     margin: 0;
     font-size: 30px;
-    color: white;
+    color: #fff;
 }
 
 #headerversion {
@@ -219,7 +219,7 @@ header #docTitle {
 #docTitle {
     cursor: pointer;
     display: inline-block;
-    color: white;
+    color: #fff;
     white-space: nowrap;
 
     transition: color 0.4s linear, filter 0.2s linear, transform 0.4s cubic-bezier(0,0,.27,1.77);
@@ -251,7 +251,7 @@ header #docTitle {
 #devStuff {
     display: inline-block;
     width: 95vw;
-    border: 2px solid orangered;
+    border: 2px solid #f40;
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 20px;
@@ -263,7 +263,7 @@ header #docTitle {
     font-size: 20px;
     text-decoration: underline;
     margin-bottom: 15px;
-    color: orangered;
+    color: #f40;
 }
 
 #content {
@@ -516,12 +516,12 @@ kbd {
         border-width: 200%;
     }
     25% {
-        border-color: red;
-        color: red;
+        border-color: #f00;
+        color: #f00;
     }
     75% {
-        border-color: red;
-        color: red;
+        border-color: #f00;
+        color: #f00;
     }
     90% {
         border-width: 200%;
@@ -536,7 +536,7 @@ kbd {
 
 .docHeader {
     font-size: var(--doc-header-font-size);
-    border: 2px solid white;
+    border: 2px solid #fff;
     border-style: none none solid none;
     padding-bottom: 2px;
     margin-bottom: 10px;
@@ -560,7 +560,7 @@ kbd {
 #usageTerms {
     display: none;
     background-color: var(--bg-accent-color);
-    border: 2px solid white;
+    border: 2px solid #fff;
     border-radius: 10px;
     padding: 13px;
     padding-top: 20px;
@@ -606,7 +606,7 @@ kbd {
 #tryItContainer {
     display: block;
     background-color: var(--bg-accent-color);
-    border: 2px solid white;
+    border: 2px solid #fff;
     border-radius: 10px;
     padding: 10px;
     padding-top: 20px;
@@ -629,7 +629,7 @@ body[data-sidenav="opened"] #tryItContainer {
 
 .multiselect, #urlBuilderWrapper, #resultWrapper {
     background-color: #222;
-    border: 1px solid white;
+    border: 1px solid #fff;
     padding: 6px;
     padding-right: 11px;
     border-radius: 5px;
