@@ -58,19 +58,19 @@ module.exports = {
                 "Programming",
                 "Dark"
             ],
-            flags: [ // all flags - CASE SENSITIVE!
+            flags: [ // all flags - HAS TO BE LOWER CASE!
                 "nsfw",
                 "religious",
                 "political",
                 "racist",
                 "sexist",
             ],
-            formats: [ // all formats - CASE SENSITIVE!
+            formats: [ // all formats - HAS TO BE LOWER CASE!
                 "json",
                 "xml",
                 "yaml",
             ],
-            types: [ // all joke types - CASE SENSITIVE!
+            types: [ // all joke types - HAS TO BE LOWER CASE!
                 "single",
                 "twopart"
             ],
