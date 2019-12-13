@@ -42,7 +42,7 @@
     "svjsl": "^1.8.1"
   },
   "devDependencies": {
-    "eslint": "^6.7.1",
+    "eslint": "^6.7.2",
     "madge": "^3.6.0"
   }
 }
