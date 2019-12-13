@@ -48,6 +48,7 @@ class AllJokes
         this.info = jokeArray["info"];
         this.jokes = jokeArray["jokes"];
         this._jokeCount = jokeArray["jokes"].length;
+        this._formatVersion = this.info.formatVersion;
     }
 
     /**
@@ -85,7 +86,7 @@ class AllJokes
      */
     getJokeFormatVersion()
     {
-        return this.info.formatVersion;
+        return this._formatVersion;
     }
 }
 

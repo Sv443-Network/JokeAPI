@@ -68,7 +68,7 @@ class FilteredJoke
     //#MARKER categories
     /**
      * Sets the category / categories a joke can be from
-     * @param {("Any"|"Programming"|"Miscellaneous"|"Dark"|"Pun"|Array<"Any"|"Programming"|"Miscellaneous"|"Dark"|"Pun">} categories 
+     * @param {("Any"|"Programming"|"Miscellaneous"|"Dark"|Array<"Any"|"Programming"|"Miscellaneous"|"Dark">} categories 
      * @returns {Boolean} Returns true if the category / categories were set successfully, else returns false
      */
     setAllowedCategories(categories)
@@ -91,8 +91,8 @@ class FilteredJoke
         if(catsValid.length != categories.length)
             return false;
         
-        if((typeof categories == "string" && categories.toLowerCase() == "any")
-        || (typeof categories != "string" && categories.map(c => c = c.toLowerCase()).includes("Any")))
+        if((typeof categories == "string" && categories.toLowerCase() == settings.jokes.possible.anyCategoryName.toLowerCase())
+        || (typeof categories != "string" && categories.map(c => c = c.toLowerCase()).includes(settings.jokes.possible.anyCategoryName.toLowerCase())))
             categories = [...settings.jokes.possible.categories];
         
         this._allowedCategories = categories;
@@ -101,7 +101,7 @@ class FilteredJoke
 
     /**
      * Returns the category / categories a joke can be in
-     * @returns {Array<"Any"|"Programming"|"Miscellaneous"|"Dark"|"Pun">}
+     * @returns {Array<"Any"|"Programming"|"Miscellaneous"|"Dark">}
      */
     getAllowedCategories()
     {
