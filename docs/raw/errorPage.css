@@ -15,7 +15,7 @@
 body {
     margin: 0;
     background-color: var(--bg-color);
-    color: white;
+    color: #fff;
     font-family: "Roboto", "Segoe UI", "Arial", sans-serif;
     font-size: 15px;
 }
@@ -29,7 +29,7 @@ header {
 #errorContainer {
     display: inline-block;
     padding: 15px;
-    border: 2px solid white;
+    border: 2px solid #fff;
     border-radius: 10px;
     background-color: var(--bg-accent-color);
 }

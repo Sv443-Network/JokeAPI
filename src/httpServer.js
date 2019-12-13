@@ -117,7 +117,8 @@ const init = () => {
                                 logRequest("ratelimited", null, analyticsObject);
                                 return respondWithError(res, 101, 429, fileFormat);
                             }
-                            else return serveDocumentation(res);
+                            /*DEBUG*/ else return respondWithErrorPage(req, res, 500, fileFormat, "ErrorMsg"); // eslint-disable-line
+                            // else return serveDocumentation(res);
                         }
 
                         // Disable caching now that the request is not a docs request
