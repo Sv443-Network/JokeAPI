@@ -61,6 +61,10 @@ const init = () => {
                 });
             }
         });
+
+        sqlConnection.on("error", err => {
+            logger("error", `SQL connection error: ${err}`, true);
+        });
     });
 };
 
