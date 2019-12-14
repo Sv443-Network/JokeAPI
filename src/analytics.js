@@ -28,7 +28,7 @@ const init = () => {
 
         sqlConnection.connect(err => {
             if(err)
-                return reject(err);
+                return reject(`${err}\nMaybe the database server isn't running or doesn't allow the connection.\nAlternatively, set the property "analytics.enabled" in the file "settings.js" to "false"`);
             else
             {
                 this.sqlConn = sqlConnection;
@@ -45,7 +45,7 @@ const init = () => {
                             };
                             return resolve();
                         }).catch(err => {
-                            return reject(err);
+                            return reject(`${err}\nMaybe the database server isn't running or doesn't allow the connection.\nAlternatively, set the property "analytics.enabled" in the file "settings.js" to "false"`);
                         });
                     }
                     else
@@ -57,7 +57,7 @@ const init = () => {
                         return resolve();
                     }
                 }).catch(err => {
-                    return reject(err);
+                    return reject(`${err}\nMaybe the database server isn't running or doesn't allow the connection.\nAlternatively, set the property "analytics.enabled" in the file "settings.js" to "false"`);
                 });
             }
         });
