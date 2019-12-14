@@ -55,7 +55,7 @@ class FilteredJoke
 
         this._allowedCategories = [
             settings.jokes.possible.anyCategoryName.toLowerCase(),
-            ...settings.jokes.possible.categories.map(c => c = c.toLowerCase())
+            ...settings.jokes.possible.categories.map(c => c.toLowerCase())
         ];
         this._allowedTypes = [...settings.jokes.possible.types];
         this._searchString = null;
@@ -78,7 +78,7 @@ class FilteredJoke
 
         let allCategories = [
             settings.jokes.possible.anyCategoryName.toLowerCase(),
-            ...settings.jokes.possible.categories.map(c => c = c.toLowerCase())
+            ...settings.jokes.possible.categories.map(c => c.toLowerCase())
         ];
         let catsValid = [];
 
@@ -92,7 +92,7 @@ class FilteredJoke
             return false;
         
         if((typeof categories == "string" && categories.toLowerCase() == settings.jokes.possible.anyCategoryName.toLowerCase())
-        || (typeof categories != "string" && categories.map(c => c = c.toLowerCase()).includes(settings.jokes.possible.anyCategoryName.toLowerCase())))
+        || (typeof categories != "string" && categories.map(c => c.toLowerCase()).includes(settings.jokes.possible.anyCategoryName.toLowerCase())))
             categories = [...settings.jokes.possible.categories];
         
         this._allowedCategories = categories;
@@ -105,7 +105,7 @@ class FilteredJoke
      */
     getAllowedCategories()
     {
-        return this._allowedCategories.map(c => c = c.toLowerCase());
+        return this._allowedCategories.map(c => c.toLowerCase());
     }
 
     //#MARKER type
@@ -236,7 +236,7 @@ class FilteredJoke
                         return;
 
                     //#SECTION categories
-                    let cats = this.getAllowedCategories().map(c => c = c.toLowerCase());
+                    let cats = this.getAllowedCategories().map(c => c.toLowerCase());
 
                     if((typeof cats == "object" && !cats.includes(settings.jokes.possible.anyCategoryName.toLowerCase()))
                     || (typeof cats == "string" && cats != settings.jokes.possible.anyCategoryName.toLowerCase()))

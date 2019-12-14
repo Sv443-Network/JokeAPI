@@ -19,7 +19,7 @@ const init = () => {
 
         let sqlConnection = sql.createConnection({
             host: settings.sql.host,
-            user: settings.sql.username,
+            user: settings.sql.dbUser,
             password: process.env["DB_PASSWORD"],
             database: settings.sql.database,
             port: settings.sql.port,
