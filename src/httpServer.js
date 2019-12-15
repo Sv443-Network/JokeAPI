@@ -1,4 +1,4 @@
-// this module starts the HTTP server, parses the request and calls the requested endpoint
+// This module starts the HTTP server, parses the request and calls the requested endpoint
 
 const jsl = require("svjsl");
 const http = require("http");

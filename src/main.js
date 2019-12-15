@@ -30,14 +30,15 @@ settings.init.exitSignals.forEach(sig => {
 
 //#MARKER init all
 const initAll = () => {
+    debug("Init", "Initializing all modules - calling joke parser...");
+
     process.jokeapi = {};
     initializeDirs();
-
-    debug("Init", "Calling joke parser...");
 
     //#SECTION parse jokes
     if(!noDbg && !settings.debug.progressBarDisabled)
         pb = new jsl.ProgressBar(5, "Parsing Jokes...");
+
     parseJokes.init().then(() => {
         
         //#SECTION init lists
