@@ -1,4 +1,4 @@
-// this module starts the HTTP server, parses the request and calls the requested endpoint
+// This module starts the HTTP server, parses the request and calls the requested endpoint
 
 const jsl = require("svjsl");
 const http = require("http");
@@ -223,9 +223,6 @@ const init = () => {
                                         let fileName = `${settings.jokes.jokeSubmissionPath}submission_${sanitizedIP}_0_${curUnix}.json`;
                                         let iter = 0;
 
-                                        if(fs.existsSync(`${settings.jokes.jokeSubmissionPath}${fileName}`))
-                                            fileName = `${settings.jokes.jokeSubmissionPath}submission_${sanitizedIP}_${findNextNum()}_${curUnix}.json`;
-
                                         let findNextNum = currentNum => {
                                             iter++;
                                             if(iter >= settings.httpServer.rateLimiting)
@@ -237,7 +234,10 @@ const init = () => {
                                             if(fs.existsSync(`${settings.jokes.jokeSubmissionPath}submission_${sanitizedIP}_${currentNum}_${curUnix}.json`))
                                                 return findNextNum(currentNum + 1);
                                             else return currentNum;
-                                        }
+                                        };
+
+                                        if(fs.existsSync(`${settings.jokes.jokeSubmissionPath}${fileName}`))
+                                            fileName = `${settings.jokes.jokeSubmissionPath}submission_${sanitizedIP}_${findNextNum()}_${curUnix}.json`;
 
                                         try
                                         {

@@ -52,7 +52,7 @@ const call = (req, res, url, params, format) => {
         }
         else if(typeof category == "object")
         {
-            if(category.map(c => c = c.toLowerCase()).includes(cat.toLowerCase()))
+            if(category.map(c => c.toLowerCase()).includes(cat.toLowerCase()))
                 categoryValid = true;
         }
     });
@@ -68,7 +68,7 @@ const call = (req, res, url, params, format) => {
     if(!jsl.isEmpty(params))
     {
         //#SECTION type
-        if(!jsl.isEmpty(params["type"]) && settings.jokes.possible.types.map(t => t = t.toLowerCase()).includes(params["type"].toLowerCase()))
+        if(!jsl.isEmpty(params["type"]) && settings.jokes.possible.types.map(t => t.toLowerCase()).includes(params["type"].toLowerCase()))
         {
             if(!filterJoke.setAllowedType(params["type"].toLowerCase()))
                 return isErrored(res, format, `The specified type is invalid - Got: "${params["type"]}" - Possible types are: "${settings.jokes.possible.types}"`);

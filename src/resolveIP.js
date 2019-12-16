@@ -39,11 +39,11 @@ const resolveIP = req => {
 
     if(jsl.isEmpty(ipaddr)) // if the reverse proxy didn't work, try getting the IP from the Cloudflare headers
     {
-        if(!jsl.isEmpty(req.headers["cf_connecting_ip"]) && (isValidIP(req.headers["cf_connecting_ip"]) || isValidIP(req.headers["cf_connecting_ip"]))) // Cloudflare
+        if(!jsl.isEmpty(req.headers["cf_connecting_ip"]) && (isValidIP(req.headers["cf_connecting_ip"]))) // Cloudflare
             ipaddr = req.headers["cf_connecting_ip"];
-        else if(!jsl.isEmpty(req.headers["x_real_ip"]) && (isValidIP(req.headers["x_real_ip"]) || isValidIP(req.headers["x_real_ip"]))) // Cloudflare
+        else if(!jsl.isEmpty(req.headers["x_real_ip"]) && (isValidIP(req.headers["x_real_ip"]))) // Cloudflare
             ipaddr = req.headers["x_real_ip"];
-        else if(!jsl.isEmpty(req.headers["x-proxyuser-ip"]) && (isValidIP(req.headers["x-proxyuser-ip"]) || isValidIP(req.headers["x-proxyuser-ip"]))) // Google services
+        else if(!jsl.isEmpty(req.headers["x-proxyuser-ip"]) && (isValidIP(req.headers["x-proxyuser-ip"]))) // Google services
             ipaddr = req.headers["x-proxyuser-ip"];
         else ipaddr = "err";
     }

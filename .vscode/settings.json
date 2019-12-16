@@ -1,5 +1,4 @@
 {
-    "css.lint.unknownProperties": "ignore", // TODO: remove in next monaco build (ref: https://github.com/microsoft/vscode/issues/85549)
     "highlight.regexes": { // REQUIRES EXTENSION: fabiospampinato.vscode-highlight
         "(<!--%#INSERT:[a-zA-Z0-9\\-]+#%-->|<!--%#INJECT:[a-zA-Z0-9\\-]+#%-->)": [ // <!--%#INSERT:TEST#%--> / <!--%#INJECT:TEST#%-->
             {

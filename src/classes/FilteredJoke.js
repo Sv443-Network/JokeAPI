@@ -55,7 +55,7 @@ class FilteredJoke
 
         this._allowedCategories = [
             settings.jokes.possible.anyCategoryName.toLowerCase(),
-            ...settings.jokes.possible.categories.map(c => c = c.toLowerCase())
+            ...settings.jokes.possible.categories.map(c => c.toLowerCase())
         ];
         this._allowedTypes = [...settings.jokes.possible.types];
         this._searchString = null;
@@ -68,7 +68,7 @@ class FilteredJoke
     //#MARKER categories
     /**
      * Sets the category / categories a joke can be from
-     * @param {("Any"|"Programming"|"Miscellaneous"|"Dark"|"Pun"|Array<"Any"|"Programming"|"Miscellaneous"|"Dark"|"Pun">} categories 
+     * @param {("Any"|"Programming"|"Miscellaneous"|"Dark"|Array<"Any"|"Programming"|"Miscellaneous"|"Dark">} categories 
      * @returns {Boolean} Returns true if the category / categories were set successfully, else returns false
      */
     setAllowedCategories(categories)
@@ -78,7 +78,7 @@ class FilteredJoke
 
         let allCategories = [
             settings.jokes.possible.anyCategoryName.toLowerCase(),
-            ...settings.jokes.possible.categories.map(c => c = c.toLowerCase())
+            ...settings.jokes.possible.categories.map(c => c.toLowerCase())
         ];
         let catsValid = [];
 
@@ -91,8 +91,8 @@ class FilteredJoke
         if(catsValid.length != categories.length)
             return false;
         
-        if((typeof categories == "string" && categories.toLowerCase() == "any")
-        || (typeof categories != "string" && categories.map(c => c = c.toLowerCase()).includes("Any")))
+        if((typeof categories == "string" && categories.toLowerCase() == settings.jokes.possible.anyCategoryName.toLowerCase())
+        || (typeof categories != "string" && categories.map(c => c.toLowerCase()).includes(settings.jokes.possible.anyCategoryName.toLowerCase())))
             categories = [...settings.jokes.possible.categories];
         
         this._allowedCategories = categories;
@@ -101,11 +101,11 @@ class FilteredJoke
 
     /**
      * Returns the category / categories a joke can be in
-     * @returns {Array<"Any"|"Programming"|"Miscellaneous"|"Dark"|"Pun">}
+     * @returns {Array<"Any"|"Programming"|"Miscellaneous"|"Dark">}
      */
     getAllowedCategories()
     {
-        return this._allowedCategories.map(c => c = c.toLowerCase());
+        return this._allowedCategories.map(c => c.toLowerCase());
     }
 
     //#MARKER type
@@ -236,7 +236,7 @@ class FilteredJoke
                         return;
 
                     //#SECTION categories
-                    let cats = this.getAllowedCategories().map(c => c = c.toLowerCase());
+                    let cats = this.getAllowedCategories().map(c => c.toLowerCase());
 
                     if((typeof cats == "object" && !cats.includes(settings.jokes.possible.anyCategoryName.toLowerCase()))
                     || (typeof cats == "string" && cats != settings.jokes.possible.anyCategoryName.toLowerCase()))

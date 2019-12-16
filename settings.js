@@ -3,10 +3,10 @@ const jsl = require("svjsl");
 const col = jsl.colors.fg;
 const bgc = jsl.colors.bg;
 
-module.exports = {
+const settings = {
     debug: {
-        verboseLogging: true,     // set to true to enable extra debug output
-        progressBarDisabled: true, // set to true to disable the progress bar - greatly improves readability of verbose debug output
+        verboseLogging: false,      // set to true to enable extra debug output
+        progressBarDisabled: false, // set to true to disable the progress bar - greatly improves readability of verbose debug output
     },
     info: {
         name: "JokeAPI",                                // the name of JokeAPI
@@ -147,15 +147,17 @@ module.exports = {
         docsrecompiled: bgc.yellow + col.blue, // when the docs were recompiled
     },
     analytics: {
-        enabled: true, // whether or not the analytics module should be enabled
+        enabled: false, // whether or not the analytics module should be enabled
         dirPath: "./data/analytics/", // path to the analytics directory - needs trailing slash
         sqlTableName: "analytics",    // name of the SQL table
     },
     sql: {
         host: "127.0.0.1",   // IP address to the DB host - default for local PC is "127.0.0.1"
         database: "jokeapi", // The name of the DB
-        username: "Sv443",   // (password is in .env file)
+        user: "Sv443",       // (password is in .env file)                      //lgtm [js/hardcoded-credentials]
         port: 3306,          // The port of the DB - default is 3306
         timeout: 10,         // in seconds
     }
 }
+
+module.exports = settings;

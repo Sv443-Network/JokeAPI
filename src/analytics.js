@@ -19,7 +19,7 @@ const init = () => {
 
         let sqlConnection = sql.createConnection({
             host: settings.sql.host,
-            user: settings.sql.username,
+            user: settings.sql.user,
             password: process.env["DB_PASSWORD"],
             database: settings.sql.database,
             port: settings.sql.port,
@@ -28,7 +28,7 @@ const init = () => {
 
         sqlConnection.connect(err => {
             if(err)
-                return reject(err);
+                return reject(`${err}\nMaybe the database server isn't running or doesn't allow the connection.\nAlternatively, set the property "analytics.enabled" in the file "settings.js" to "false"`);
             else
             {
                 this.sqlConn = sqlConnection;
@@ -45,7 +45,7 @@ const init = () => {
                             };
                             return resolve();
                         }).catch(err => {
-                            return reject(err);
+                            return reject(`${err}\nMaybe the database server isn't running or doesn't allow the connection.\nAlternatively, set the property "analytics.enabled" in the file "settings.js" to "false"`);
                         });
                     }
                     else
@@ -57,9 +57,13 @@ const init = () => {
                         return resolve();
                     }
                 }).catch(err => {
-                    return reject(err);
+                    return reject(`${err}\nMaybe the database server isn't running or doesn't allow the connection.\nAlternatively, set the property "analytics.enabled" in the file "settings.js" to "false"`);
                 });
             }
+        });
+
+        sqlConnection.on("error", err => {
+            logger("error", `SQL connection error: ${err}`, true);
         });
     });
 };
