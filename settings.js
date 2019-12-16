@@ -5,7 +5,7 @@ const bgc = jsl.colors.bg;
 
 module.exports = {
     debug: {
-        verboseLogging: false,     // set to true to enable extra debug output
+        verboseLogging: true,     // set to true to enable extra debug output
         progressBarDisabled: true, // set to true to disable the progress bar - greatly improves readability of verbose debug output
     },
     info: {
@@ -106,6 +106,14 @@ module.exports = {
             algorithm: "sha256", // the algorithm of the hash - available algorithms depend on the OpenSSL version installed on the machine (on linux can be listed with "openssl list -digest-algorithms")
             digest: "hex",       // the output format of the hash - can be "base64", "hex" or "latin1"
         },
+        encodings: {
+            gzip: true,    // Whether or not Gzip encoding should be enabled for the documentation page
+            deflate: true, // Whether or not Deflate encoding should be enabled for the documentation page
+            brotli: false,  // Whether or not Brotli encoding should be enabled for the documentation page - TODO: re-enable when I bump my Node to v11.7.0+
+        },
+        encodingPriority: [ // The priority of the encodings. Items with a lower array index have a higher priority
+            "brotli", "gzip", "deflate"
+        ],
     },
     errors: {
         errorRegistryIncludePath: "./data/errorRegistry", // path to the error registry

@@ -8,6 +8,7 @@ const debug = require("./verboseLogging");
 const packageJSON = require("../package.json");
 const parseJokes = require("./parseJokes");
 const logRequest = require("./logRequest");
+const zlib = require("zlib");
 
 
 /**
@@ -74,44 +75,88 @@ const recompileDocs = () => {
     let recompileDocsInitTimestamp = new Date().getTime();
     try
     {
-        //#SECTION inject JS
-        inject(`${settings.documentation.rawDirPath}index.js`).then(injected_js => {
-            fs.writeFile(`${settings.documentation.dirPath}index_injected.js`, injected_js, err => {
-                if(err) injectError(err);
-                //#SECTION inject CSS
-                inject(`${settings.documentation.rawDirPath}index.css`).then(injected_css => {
-                    fs.writeFile(`${settings.documentation.dirPath}index_injected.css`, injected_css, err => {
-                        if(err) injectError(err);
-                        //#SECTION inject HTML
-                        inject(`${settings.documentation.rawDirPath}index.html`).then(injected_html => {
-                            fs.writeFile(`${settings.documentation.dirPath}documentation.html`, injected_html, err => {
-                                if(err) injectError(err);
-                                //#SECTION inject error page CSS
-                                inject(`${settings.documentation.rawDirPath}errorPage.css`).then(injected_css_2 => {
-                                    fs.writeFile(`${settings.documentation.dirPath}errorPage_injected.css`, injected_css_2, err => {
-                                        if(err) injectError(err);
-                                        //#SECTION inject error page JS
-                                        inject(`${settings.documentation.rawDirPath}errorPage.js`).then(injected_js_2 => {
-                                            fs.writeFile(`${settings.documentation.dirPath}errorPage_injected.js`, injected_js_2, err => {
-                                                if(err) injectError(err);
-                                                let recompileDocsTime = new Date().getTime() - recompileDocsInitTimestamp;
-                                                debug("Docs", `Done recompiling docs in ${recompileDocsTime}ms`);
-                                            });
-                                        }).catch(err => injectError(err));
-                                    });
-                                }).catch(err => injectError(err));
-                            });
-                        }).catch(err => injectError(err));
+        let filesToInject = [
+            `${settings.documentation.rawDirPath}index.js`,
+            `${settings.documentation.rawDirPath}index.css`,
+            `${settings.documentation.rawDirPath}index.html`,
+            `${settings.documentation.rawDirPath}errorPage.css`,
+            `${settings.documentation.rawDirPath}errorPage.js`
+        ];
+
+        let injectedFileNames = [
+            `${settings.documentation.dirPath}index_injected.js`,
+            `${settings.documentation.dirPath}index_injected.css`,
+            `${settings.documentation.dirPath}documentation.html`,
+            `${settings.documentation.dirPath}errorPage_injected.css`,
+            `${settings.documentation.dirPath}errorPage_injected.js`
+        ];
+
+        let promises = [];
+
+        filesToInject.forEach((fti, i) => {
+            promises.push(new Promise((resolve, reject) => {
+                jsl.unused(reject);
+                inject(fti).then(injected => {
+
+                    if(settings.httpServer.encodings.gzip)
+                        saveEncoded("gzip", injectedFileNames[i], injected);
+                    if(settings.httpServer.encodings.deflate)
+                        saveEncoded("deflate", injectedFileNames[i], injected);
+                    if(settings.httpServer.encodings.brotli)
+                        saveEncoded("brotli", injectedFileNames[i], injected);
+
+                    fs.writeFile(injectedFileNames[i], injected, err => {
+                        if(err)
+                            injectError(err);
+
+                        resolve();
                     });
-                }).catch(err => injectError(err));
-            });
-        }).catch(err => injectError(err));
+                })
+            }));
+        });
+
+        Promise.all(promises).then(() => {
+            let recompileDocsTime = new Date().getTime() - recompileDocsInitTimestamp;
+            debug("Docs", `Done recompiling docs in ${recompileDocsTime}ms`);
+        }).catch(err => {
+            console.log(`Injection error: ${err}`);
+        });
     }
     catch(err)
     {
         injectError(err);
     }
 };
+
+/**
+ * Encodes a string and saves it encoded with the selected encoding
+ * @param {("gzip"|"deflate"|"brotli")} encoding 
+ * @param {String} filePath 
+ * @param {String} content 
+ */
+const saveEncoded = (encoding, filePath, content) => {
+    switch(encoding)
+    {
+        case "gzip":
+            zlib.gzip(content, (err, res) => {
+                if(!err)
+                    fs.writeFile(`${filePath}.gz`, res, () => {});
+            });
+        break;
+        case "deflate":
+            zlib.deflate(content, (err, res) => {
+                if(!err)
+                    fs.writeFile(`${filePath}.zz`, res, () => {});
+            });
+        break;
+        case "brotli":
+            zlib.brotliCompress(content, (err, res) => {
+                if(!err)
+                    fs.writeFile(`${filePath}.br`, res, () => {});
+            });
+        break;
+    }
+}
 
 const injectError = err => {
     console.log(`${jsl.colors.fg.red}Error while injecting docs: ${err}${jsl.colors.rst}`);

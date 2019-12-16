@@ -20,6 +20,9 @@ test.js
 # Docs:
 docs/documentation.html
 docs/*_injected.*
+docs/*.br*
+docs/*.gz*
+docs/*.zz*
 
 # Re-inclusions:
 !change.log*
