@@ -70,7 +70,7 @@
         - Completely rewrite the documentation
         - Make good looking error pages
     - DEV:
-        - Make the lists work again
+        - Re-enable brotli encoding once I update my Node version
     - DONE:
         - Massively improved the "Try it out" section in the docs
         - Updated some dependencies

@@ -29,7 +29,7 @@ header {
 #errorContainer {
     display: inline-block;
     padding: 15px;
-    border: 2px solid #fff;
+    border: 2px solid #f00;
     border-radius: 10px;
     background-color: var(--bg-accent-color);
 }
@@ -41,4 +41,28 @@ header {
 
 #errorContainer h1 {
     margin-bottom: 10px;
+}
+
+.noa {
+    color: inherit;
+}
+
+.noul, .mimica {
+    cursor: pointer;
+}
+
+a:not(.noul), .mimica:not(.noul) {
+    color: #8f9aff;
+    text-decoration: none;
+}
+
+a:not(.noul):hover, .mimica:not(.noul):hover {
+    color: #bcc2ff;
+    text-decoration: underline;
+}
+
+#errSubText {
+    text-align: center;
+    display: inline-block;
+    width: 60%;
 }

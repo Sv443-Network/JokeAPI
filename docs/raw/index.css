@@ -40,7 +40,7 @@ html {
 body {
     margin: 0;
     background-color: var(--bg-color);
-    color: white;
+    color: #fff;
     font-family: "Roboto", "Segoe UI", "Arial", sans-serif;
     font-size: 15px;
 

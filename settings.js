@@ -87,7 +87,7 @@ const settings = {
     httpServer: {
         port: 8076,         // http server port
         allowCORS: true,    // whether or not to allow Cross Origin Resource Sharing
-        rateLimiting: 5,   // amount of allowed requests per below defined timeframe DEBUG
+        rateLimiting: 35,   // amount of allowed requests per below defined timeframe
         timeFrame: 1,       // timeframe in min - also supports floating point numbers
         urlPathOffset: 0,   // example: "/jokeapi/info" with an offset of 1 will only start parsing the path beginning at "info" - an Apache reverse proxy will do this automatically though
         disableCache: true, // whether or not to disable the cache - default: true (setting to false may prevent the users from getting new jokes)
@@ -109,7 +109,7 @@ const settings = {
         encodings: {
             gzip: true,    // Whether or not Gzip encoding should be enabled for the documentation page
             deflate: true, // Whether or not Deflate encoding should be enabled for the documentation page
-            brotli: false,  // Whether or not Brotli encoding should be enabled for the documentation page - TODO: re-enable when I bump my Node to v11.7.0+
+            brotli: false,  // Whether or not Brotli encoding should be enabled for the documentation page - TODO: re-enable when I bump my Node version to v11.7.0+
         },
         encodingPriority: [ // The priority of the encodings. Items with a lower array index have a higher priority
             "brotli", "gzip", "deflate"
