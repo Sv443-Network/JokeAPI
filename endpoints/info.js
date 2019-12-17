@@ -29,15 +29,29 @@ const call = (req, res, url, params, format) => {
     jsl.unused([req, url, params]);
 
     let errFromRegistry = require("." + settings.errors.errorRegistryIncludePath)["100"];
-    let responseText = {
-        "error": true,
-        "internalError": true,
-        "code": 100,
-        "message": errFromRegistry.errorMessage,
-        "causedBy": errFromRegistry.causedBy
-    };
-
-    //TODO: add formats
+    let responseText = {};
+    if(format != "xml")
+    {
+        responseText = {
+            "error": true,
+            "internalError": true,
+            "code": 100,
+            "message": errFromRegistry.errorMessage,
+            "causedBy": errFromRegistry.causedBy,
+            "timestamp": new Date().getTime()
+        };
+    }
+    else if(format == "xml")
+    {
+        responseText = {
+            "error": true,
+            "internalError": true,
+            "code": 100,
+            "message": errFromRegistry.errorMessage,
+            "causedBy": {"cause": errFromRegistry.causedBy},
+            "timestamp": new Date().getTime()
+        };
+    }
 
     if(format != "xml")
     {

@@ -105,14 +105,35 @@ const call = (req, res, url, params, format) => {
 
 const epError = (res, format, err) => {
     let errFromRegistry = require("." + settings.errors.errorRegistryIncludePath)["100"];
-    httpServer.pipeString(res, convertFileFormat.auto(format, {
-        "error": true,
-        "internalError": true,
-        "code": 100,
-        "message": errFromRegistry.errorMessage,
-        "causedBy": errFromRegistry.causedBy,
-        "additionalInfo": err
-    }), parseURL.getMimeTypeFromFileFormatString(format));
+
+    let errObj = {};
+
+    if(format != "xml")
+    {
+        errObj = {
+            "error": true,
+            "internalError": true,
+            "code": 100,
+            "message": errFromRegistry.errorMessage,
+            "causedBy": errFromRegistry.causedBy,
+            "additionalInfo": err,
+            "timestamp": new Date().getTime()
+        }
+    }
+    else if(format == "xml")
+    {
+        errObj = {
+            "error": true,
+            "internalError": true,
+            "code": 100,
+            "message": errFromRegistry.errorMessage,
+            "causedBy": {"cause": errFromRegistry.causedBy},
+            "additionalInfo": err,
+            "timestamp": new Date().getTime()
+        }
+    }
+
+    httpServer.pipeString(res, convertFileFormat.auto(format, errObj), parseURL.getMimeTypeFromFileFormatString(format));
 }
 
 module.exports = { meta, call };

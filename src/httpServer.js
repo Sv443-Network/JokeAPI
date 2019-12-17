@@ -394,7 +394,8 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
                 "internalError": errFromRegistry.errorInternal,
                 "code": errorCode,
                 "message": errFromRegistry.errorMessage,
-                "causedBy": errFromRegistry.causedBy
+                "causedBy": errFromRegistry.causedBy,
+                "timestamp": new Date().getTime()
             }
         }
         else if(fileFormat == "xml")
@@ -404,7 +405,8 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
                 "internalError": errFromRegistry.errorInternal,
                 "code": errorCode,
                 "message": errFromRegistry.errorMessage,
-                "causedBy": {"cause": errFromRegistry.causedBy} // has to be like this so the conversion to XML looks better
+                "causedBy": {"cause": errFromRegistry.causedBy},
+                "timestamp": new Date().getTime()
             }
         }
 

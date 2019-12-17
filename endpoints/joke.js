@@ -136,17 +136,32 @@ const call = (req, res, url, params, format) => {
  * @param {String} msg 
  */
 const isErrored = (res, format, msg) => {
-    //TODO: format all error occurrencies for XML
-
     let errFromRegistry = require("." + settings.errors.errorRegistryIncludePath)["106"];
-    let errorObj = {
-        error: true,
-        internalError: false,
-        code: 106,
-        message: errFromRegistry.errorMessage,
-        causedBy: errFromRegistry.causedBy,
-        additionalInfo: msg
-    };
+    let errorObj = {}
+    if(format != "xml")
+    {
+        errorObj = {
+            error: true,
+            internalError: false,
+            code: 106,
+            message: errFromRegistry.errorMessage,
+            causedBy: errFromRegistry.causedBy,
+            additionalInfo: msg,
+            timestamp: new Date().getTime()
+        };
+    }
+    else if(format == "xml")
+    {
+        errorObj = {
+            error: true,
+            internalError: false,
+            code: 106,
+            message: errFromRegistry.errorMessage,
+            causedBy: {"cause": errFromRegistry.causedBy},
+            additionalInfo: msg,
+            timestamp: new Date().getTime()
+        };
+    }
 
     let responseText = convertFileFormat.auto(format, errorObj);
     httpServer.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format));
