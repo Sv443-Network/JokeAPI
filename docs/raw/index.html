@@ -41,13 +41,8 @@
         function isIE() {
             var ua = window.navigator.userAgent;
             var msie = ua.indexOf("MSIE ");
-
-            if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv:11\./)) // is IE
-            {
-                return true;
-            }
-            // other browser
-            return false;
+            if(msie > 0 || !!navigator.userAgent.match(/Trident.*rv:11\./)) {return true;} // is IE
+            return false; // other browser
         }
 
         if(isIExp === true)
@@ -149,16 +144,28 @@
                             <td><!--%#INSERT:CATEGORYARRAY#%--></td>
                         </tr>
                         <tr>
-                            <td>Total Jokes:</td>
-                            <td><!--%#INSERT:TOTALJOKES#%--></td>
-                        </tr>
-                        <tr>
                             <td>Flags:</td>
                             <td><!--%#INSERT:FLAGSARRAY#%--></td>
                         </tr>
                         <tr>
                             <td>Formats:</td>
                             <td><!--%#INSERT:FILEFORMATARRAY#%--></td>
+                        </tr>
+                        <tr>
+                            <td>Total Jokes:</td>
+                            <td><!--%#INSERT:TOTALJOKES#%--></td>
+                        </tr>
+                        <tr>
+                            <td>Total Jokes (0-indexed):</td>
+                            <td><!--%#INSERT:TOTALJOKESZEROINDEXED#%--></td>
+                        </tr>
+                        <tr>
+                            <td>PrivPol URL:</td>
+                            <td><!--%#INSERT:PRIVACYPOLICYURL#%--></td>
+                        </tr>
+                        <tr>
+                            <td>Docs URL:</td>
+                            <td><!--%#INSERT:DOCSURL#%--></td>
                         </tr>
                     </table>
 

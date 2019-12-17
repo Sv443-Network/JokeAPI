@@ -48,7 +48,7 @@ module.exports = {
         "errorInternal": false,
         "errorMessage": "No matching joke found",
         "causedBy": [
-            "No joke(s) was/were found that match your provided filter(s)"
+            "No jokes were found that match your provided filter(s)"
         ]
     }
     //#MARKER Class 2xx
