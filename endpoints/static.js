@@ -2,6 +2,7 @@ const http = require("http");
 const httpServer = require("../src/httpServer");
 const jsl = require("svjsl");
 const settings = require("../settings");
+const fs = require("fs");
 
 jsl.unused(http);
 
@@ -67,7 +68,29 @@ const call = (req, res, url, params, format) => {
         break;
     }
 
-    httpServer.pipeFile(res, filePath, mimeType, statusCode);
+    let selectedEncoding = httpServer.getAcceptedEncoding(req);
+    let fileExtension = "";
+
+
+    if(selectedEncoding != null)
+        fileExtension = `.${httpServer.getFileExtensionFromEncoding(selectedEncoding)}`;
+
+    let fallbackPath = filePath;
+    filePath = `${filePath}${fileExtension}`;
+
+    fs.exists(filePath, exists => {
+        if(exists)
+        {
+            if(selectedEncoding == null)
+                selectedEncoding = "identity"; // identity = no encoding (see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding)
+            
+            res.setHeader("Content-Encoding", selectedEncoding);
+
+            return httpServer.pipeFile(res, filePath, mimeType, statusCode);
+        }
+        else
+            return httpServer.pipeFile(res, fallbackPath, mimeType, statusCode);
+    });
 };
 
 module.exports = { call, meta };

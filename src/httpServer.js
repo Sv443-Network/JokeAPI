@@ -118,7 +118,7 @@ const init = () => {
                                 return respondWithError(res, 101, 429, fileFormat);
                             }
                             /*DEBUG*/ //else return respondWithErrorPage(req, res, 500, fileFormat, "Example Error @ex@"); // eslint-disable-line
-                            else return serveDocumentation(res);
+                            else return serveDocumentation(req, res);
                         }
 
                         // Disable caching now that the request is not a docs request
@@ -326,7 +326,7 @@ const init = () => {
                 //#MARKER Preflight
                 //#SECTION HEAD / OPTIONS
                 else if(req.method === "HEAD" || req.method === "OPTIONS")
-                    serveDocumentation(res);
+                    serveDocumentation(req, res);
                 //#SECTION invalid method
                 else
                 {
@@ -534,11 +534,85 @@ const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
 
 /**
  * Serves the documentation page
+ * @param {http.IncomingMessage} req The HTTP req object
  * @param {http.ServerResponse} res The HTTP res object
  */
-const serveDocumentation = res => {
+const serveDocumentation = (req, res) => {
     logRequest("docs");
-    return pipeFile(res, `${settings.documentation.dirPath}documentation.html`, "text/html", 200);
+
+    let selectedEncoding = getAcceptedEncoding(req);
+    let fileExtension = "";
+
+
+    if(selectedEncoding != null)
+        fileExtension = `.${getFileExtensionFromEncoding(selectedEncoding)}`;
+
+    debug("HTTP", `Serving docs with encoding "${selectedEncoding}"`);
+
+    let filePath = `${settings.documentation.dirPath}documentation.html${fileExtension}`;
+    let fallbackPath = `${settings.documentation.dirPath}documentation.html`;
+
+    fs.exists(filePath, exists => {
+        if(exists)
+        {
+            if(selectedEncoding == null)
+                selectedEncoding = "identity"; // identity = no encoding (see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding)
+            
+            res.setHeader("Content-Encoding", selectedEncoding);
+
+            return pipeFile(res, filePath, "text/html", 200);
+        }
+        else
+            return pipeFile(res, fallbackPath, "text/html", 200);
+    }); 
 }
 
-module.exports = { init, respondWithError, respondWithErrorPage, pipeString, pipeFile, serveDocumentation };
+/**
+ * Returns the name of the client's accepted encoding with the highest priority
+ * @param {http.IncomingMessage} req The HTTP req object
+ * @returns {null|"gzip"|"deflate"|"brotli"} Returns null if no encodings are supported, else returns the encoding name
+ */
+const getAcceptedEncoding = req => {
+    let selectedEncoding = null;
+
+    let encodingPriority = [];
+
+    settings.httpServer.encodings.brotli  && encodingPriority.push("brotli");
+    settings.httpServer.encodings.gzip    && encodingPriority.push("gzip");
+    settings.httpServer.encodings.deflate && encodingPriority.push("deflate");
+
+    encodingPriority = encodingPriority.reverse();
+
+    let acceptedEncodings = [];
+    if(req.headers["accept-encoding"])
+        acceptedEncodings = req.headers["accept-encoding"].split(/\s*[,]\s*/gm);
+    acceptedEncodings = acceptedEncodings.reverse();
+
+    encodingPriority.forEach(encPrio => {
+        if(acceptedEncodings.includes(encPrio))
+            selectedEncoding = encPrio;
+    });
+
+    return selectedEncoding;
+}
+
+/**
+ * Returns the file extension for the provided encoding
+ * @param {null|"gzip"|"deflate"|"brotli"} encoding
+ * @returns {String}
+ */
+const getFileExtensionFromEncoding = encoding => {
+    switch(encoding)
+    {
+        case "gzip":
+            return "gz";
+        case "deflate":
+            return "zz";
+        case "brotli":
+            return "br";
+        default:
+            return "";
+    }
+}
+
+module.exports = { init, respondWithError, respondWithErrorPage, pipeString, pipeFile, serveDocumentation, getAcceptedEncoding, getFileExtensionFromEncoding };
