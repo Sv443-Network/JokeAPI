@@ -85,7 +85,7 @@ const endSqlConnection = () => {
 /**
  * Sends a formatted (SQLI-protected) query
  * @param {String} query The SQL query with question marks where the values are
- * @param {Array<String>} insertValues The values to insert into the question marks
+ * @param {Array<String>} insertValues The values to insert into the question marks - use the primitive type null for an empty value
  * @returns {Promise} Returns a Promise - resolves with the query results or rejects with the error string
  */
 const sendQuery = (query, insertValues) => {
@@ -93,7 +93,7 @@ const sendQuery = (query, insertValues) => {
         if(jsl.isEmpty(this.sqlConn) || (this.sqlConn.state != "connected" && this.sqlConn.state != "authenticated"))
             return reject(`DB connection is not established yet. Current connection state is "${this.sqlConn.state || "disconnected"}"`);
 
-        debug("SQL", `Sending query: "${query}" with values "${(typeof insertValues == "object") ? insertValues.join(",") : "(empty)"}"`);
+        debug("SQL", `Sending query: "${query}" with values "${(typeof insertValues == "object") ? insertValues.map((v) => (v == null ? "NULL" : v)).join(",") : "(empty)"}"`);
 
         this.sqlConn.query({
             sql: (typeof insertValues == "object" && insertValues.length > 0) ? this.sqlConn.format(query, insertValues) : query,
