@@ -1,9 +1,10 @@
 [
     "#MARKER Local:",
 
-    "DISABLED 127.0.0.1",
-    "DISABLED localhost",
-    "DISABLED 192.168.178.58",
+	"::1",
+    "127.0.0.1",
+    "localhost",
+    "192.168.178.58",
 
 
     "#MARKER UptimeRobot:",

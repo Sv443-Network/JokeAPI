@@ -69,14 +69,13 @@
     - TODO:
         - Completely rewrite the documentation
         - Make good looking error pages
-        - Make the documentation page be able to be served with gzip and brotli encoding
     - DEV:
         - Make the lists work again
-        - Make the HTTP server able to serve the (gz, zz and br) encoded files
     - DONE:
         - Massively improved the "Try it out" section in the docs
         - Updated some dependencies
         - Updated contributor guide
+        - The documentation page and static content are now able to be served with gzip, deflate and brotli encoding, decreasing the required bandwidth
         - Reformatted the jokes to always contain all flags
         - Reformatted the jokes to have the IDs beforehand, furthermore increasing performance and making it easier to know which joke ID belongs to which joke
         - Added multiple scripts that should be run before contributing to the project / that are run through GitHub Continuous Integration

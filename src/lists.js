@@ -91,9 +91,7 @@ const isBlacklisted = ip => {
     let returnVal = false;
 
     process.jokeapi.lists.blacklist.forEach(blIP => {
-        if(ip == blIP)
-            returnVal = true;
-        else if(ip == resolveIP.hashIP(blIP))
+        if(!returnVal && (ip == blIP || ip == resolveIP.hashIP(blIP)))
             returnVal = true;
     });
     return returnVal;
@@ -102,9 +100,12 @@ const isBlacklisted = ip => {
 /**
  * Checks whether a provided IP address is in the whitelist
  * @param {String} ip
- * @returns {Bool} true if whitelisted, false if not
+ * @returns {Bool} Returns true if whitelisted, false if not
+ * @throws Throws an error if the lists module was not previously initialized
  */
 const isWhitelisted = ip => {
+    let whitelisted = false;
+
     if(jsl.isEmpty(process.jokeapi) || jsl.isEmpty(process.jokeapi.lists) || !(process.jokeapi.lists.whitelist instanceof Array))
     {
         logger("fatal", `Whitelist was not initialized when calling lists.isWhitelisted()`, true);
@@ -115,9 +116,9 @@ const isWhitelisted = ip => {
         return false;
 
     process.jokeapi.lists.whitelist.forEach(wlIP => {
-        if(ip == wlIP)
-            return true;
+        if(!whitelisted && (ip == wlIP || ip == resolveIP.hashIP(wlIP)))
+            whitelisted = true;
     });
-    return false;
+    return whitelisted;
 }
 module.exports = { init, isBlacklisted, isWhitelisted };

@@ -98,17 +98,7 @@ const init = () => {
                         endpoints.forEach(ep => lowerCaseEndpoints.push(ep.name.toLowerCase()));
 
                         if(!jsl.isEmpty(urlPath))
-                        {
                             requestedEndpoint = urlPath[0];
-                            // for(let i = 0; i < urlPath.length; i++)
-                            // {
-                            //     if(lowerCaseEndpoints.includes(urlPath[i]))
-                            //     {
-                            //         requestedEndpoint = lowerCaseEndpoints[lowerCaseEndpoints.indexOf(urlPath[i])];
-                            //         break;
-                            //     }
-                            // }
-                        }
                         else
                         {
                             if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting) && !lists.isWhitelisted(ip))
@@ -131,7 +121,7 @@ const init = () => {
 
                         // serve favicon:
                         if(!jsl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "favicon.ico")
-                            return pipeFile(res, settings.documentation.faviconPath, "image/x-icon", 200);                       
+                            return pipeFile(res, settings.documentation.faviconPath, "image/x-icon", 200);
 
                         let foundEndpoint = false;
                         endpoints.forEach(ep => {
