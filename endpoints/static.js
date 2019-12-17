@@ -3,6 +3,7 @@ const httpServer = require("../src/httpServer");
 const jsl = require("svjsl");
 const settings = require("../settings");
 const fs = require("fs");
+const debug = require("../src/verboseLogging");
 
 jsl.unused(http);
 
@@ -62,6 +63,7 @@ const call = (req, res, url, params, format) => {
             mimeType = "text/plain";
         break;
         default:
+            requestedFile = "fallback_err_404";
             filePath = settings.documentation.error404path;
             statusCode = 404;
             mimeType = "text/html";
@@ -84,12 +86,17 @@ const call = (req, res, url, params, format) => {
             if(selectedEncoding == null)
                 selectedEncoding = "identity"; // identity = no encoding (see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding)
             
+            debug("Static", `Serving static content "${requestedFile}" with encoding "${selectedEncoding}"`);
+
             res.setHeader("Content-Encoding", selectedEncoding);
 
             return httpServer.pipeFile(res, filePath, mimeType, statusCode);
         }
         else
+        {
+            debug("Static", `Serving static content "${requestedFile}" without encoding`);
             return httpServer.pipeFile(res, fallbackPath, mimeType, statusCode);
+        }
     });
 };
 

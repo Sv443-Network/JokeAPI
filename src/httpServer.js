@@ -35,7 +35,7 @@ const init = () => {
                     urlParameters: parsedURL.queryParams
                 };
 
-                debug("HTTP", `Incoming request from "${ip}"`);
+                debug("HTTP", `Incoming request from "${ip.substring(0, 8)}..."`);
                 
                 let fileFormat = settings.jokes.defaultFileFormat.fileFormat;
                 if(!jsl.isEmpty(parsedURL.queryParams) && !jsl.isEmpty(parsedURL.queryParams.format))
