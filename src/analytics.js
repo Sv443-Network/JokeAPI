@@ -126,6 +126,15 @@ const sendQuery = (query, insertValues) => {
  */
 
 /**
+ * @typedef {Object} AnalyticsDocsRequest
+ * @prop {("Docs")} type
+ * @prop {Object} data
+ * @prop {String} data.ipAddress
+ * @prop {Array<String>} data.urlPath
+ * @prop {Object} data.urlParameters
+ */
+
+/**
  * @typedef {Object} AnalyticsRateLimited
  * @prop {("RateLimited")} type
  * @prop {Object} data
@@ -156,7 +165,7 @@ const sendQuery = (query, insertValues) => {
 
 /**
  * Logs something to the analytics database
- * @param {(AnalyticsSuccessfulRequest|AnalyticsRateLimited|AnalyticsError|AnalyticsSubmission)} analyticsDataObject The analytics data
+ * @param {(AnalyticsDocsRequest|AnalyticsSuccessfulRequest|AnalyticsRateLimited|AnalyticsError|AnalyticsSubmission)} analyticsDataObject The analytics data
  * @returns {(Boolean|String)} Returns a string containing an error message if errored, else returns true
  */
 const logAnalytics = analyticsDataObject => {
@@ -179,7 +188,7 @@ const logAnalytics = analyticsDataObject => {
             submission: (analyticsDataObject.data.submission != null ? JSON.stringify(analyticsDataObject.data.submission) : null) || null
         };
         
-        if(!["SuccessfulRequest", "RateLimited", "Error", "JokeSubmission"].includes(type))
+        if(!["Docs", "SuccessfulRequest", "RateLimited", "Error", "JokeSubmission"].includes(type))
             return `Analytics log type "${type}" is invalid`;
 
         sendQuery("INSERT INTO ?? (aID, aType, aIpAddress, aUrlPath, aUrlParameters, aErrorMessage, aSubmission, aTimestamp) VALUES (NULL, ?, ?, ?, ?, ?, ?, NULL)", [
@@ -191,7 +200,7 @@ const logAnalytics = analyticsDataObject => {
             writeObject.errorMessage,
             writeObject.submission
         ]).catch(err => {
-            return logger("error", `Error while saving analytics data to database - Error: ${err}\nAnalytics Data: ${writeObject}`, true);
+            return logger("error", `Error while saving analytics data to database - Error: ${err}\nAnalytics Data: ${JSON.stringify(writeObject)}`, true);
         });
     }
     catch(err)

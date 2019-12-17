@@ -47,6 +47,18 @@ const logRequest = (type, additionalInfo, analyticsData) => {
         break;
         case "docs":
             color = settings.colors.docs;
+
+            if(!jsl.isEmpty(analyticsData))
+            {
+                analytics({
+                    type: "Docs",
+                    data: {
+                        ipAddress: analyticsData.ipAddress,
+                        urlPath: analyticsData.urlPath,
+                        urlParameters: analyticsData.urlParameters
+                    }
+                });
+            }
         break;
         case "ratelimited":
             color = settings.colors.ratelimit;

@@ -530,7 +530,13 @@ const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
  * @param {http.ServerResponse} res The HTTP res object
  */
 const serveDocumentation = (req, res) => {
-    logRequest("docs");
+    let resolvedURL = parseURL(req.url);
+
+    logRequest("docs", null, {
+        ipAddress: resolveIP(req),
+        urlParameters: resolvedURL.queryParams,
+        urlPath: resolvedURL.pathArray
+    });
 
     let selectedEncoding = getAcceptedEncoding(req);
     let fileExtension = "";
