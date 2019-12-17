@@ -151,10 +151,9 @@ const settings = {
         dirPath: "./data/analytics/", // path to the analytics directory - needs trailing slash
         sqlTableName: "analytics",    // name of the SQL table
     },
-    sql: {
+    sql: { // (login credentials are set in the .env file)
         host: "127.0.0.1",   // IP address to the DB host - default for local PC is "127.0.0.1"
         database: "jokeapi", // The name of the DB
-        user: "Sv443",       // (password is in .env file)                      //lgtm [js/hardcoded-credentials]
         port: 3306,          // The port of the DB - default is 3306
         timeout: 10,         // in seconds
     }
