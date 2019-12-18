@@ -109,7 +109,7 @@ const settings = {
         encodings: {
             gzip: true,    // Whether or not Gzip encoding should be enabled for the documentation page
             deflate: true, // Whether or not Deflate encoding should be enabled for the documentation page
-            brotli: false,  // Whether or not Brotli encoding should be enabled for the documentation page - TODO: re-enable when I bump my Node version to v11.7.0+
+            brotli: true,  // Whether or not Brotli encoding should be enabled for the documentation page - TODO: re-enable when I bump my Node version to v11.7.0+
         },
         encodingPriority: [ // The priority of the encodings. Items with a lower array index have a higher priority
             "brotli", "gzip", "deflate"
@@ -147,7 +147,7 @@ const settings = {
         docsrecompiled: bgc.yellow + col.blue, // when the docs were recompiled
     },
     analytics: {
-        enabled: false, // whether or not the analytics module should be enabled
+        enabled: true, // whether or not the analytics module should be enabled
         dirPath: "./data/analytics/", // path to the analytics directory - needs trailing slash
         sqlTableName: "analytics",    // name of the SQL table
     },

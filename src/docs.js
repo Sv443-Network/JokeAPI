@@ -9,6 +9,7 @@ const packageJSON = require("../package.json");
 const parseJokes = require("./parseJokes");
 const logRequest = require("./logRequest");
 const zlib = require("zlib");
+const semver = require("semver");
 
 
 /**
@@ -72,7 +73,6 @@ const startDaemon = () => {
 const recompileDocs = () => {
     debug("Docs", "Recompiling docs...");
 
-    let recompileDocsInitTimestamp = new Date().getTime();
     try
     {
         let filesToInject = [
@@ -116,8 +116,7 @@ const recompileDocs = () => {
         });
 
         Promise.all(promises).then(() => {
-            let recompileDocsTime = new Date().getTime() - recompileDocsInitTimestamp;
-            debug("Docs", `Done recompiling docs in ${recompileDocsTime}ms`);
+            debug("Docs", `Done recompiling docs`);
         }).catch(err => {
             console.log(`Injection error: ${err}`);
         });
@@ -129,33 +128,63 @@ const recompileDocs = () => {
 };
 
 /**
- * Encodes a string and saves it encoded with the selected encoding
- * @param {("gzip"|"deflate"|"brotli")} encoding 
- * @param {String} filePath 
- * @param {String} content 
+ * Asynchronously encodes a string and saves it encoded with the selected encoding
+ * @param {("gzip"|"deflate"|"brotli")} encoding The encoding method
+ * @param {String} filePath The path to a file to save the encoded string to - respective file extensions will automatically be added
+ * @param {String} content The string to encode
+ * @returns {Promise<null|String>} Returns a Promise. Resolve contains no parameters, reject contains error message as a string
  */
 const saveEncoded = (encoding, filePath, content) => {
-    switch(encoding)
-    {
-        case "gzip":
-            zlib.gzip(content, (err, res) => {
-                if(!err)
-                    fs.writeFile(`${filePath}.gz`, res, () => {});
-            });
-        break;
-        case "deflate":
-            zlib.deflate(content, (err, res) => {
-                if(!err)
-                    fs.writeFile(`${filePath}.zz`, res, () => {});
-            });
-        break;
-        case "brotli":
-            zlib.brotliCompress(content, (err, res) => {
-                if(!err)
-                    fs.writeFile(`${filePath}.br`, res, () => {});
-            });
-        break;
-    }
+    return new Promise((resolve, reject) => {
+        switch(encoding)
+        {
+            case "gzip":
+                zlib.gzip(content, (err, res) => {
+                    if(!err)
+                    {
+                        fs.writeFile(`${filePath}.gz`, res, err => {
+                            if(!err)
+                                return resolve();
+                            else return reject(err);
+                        });
+                    }
+                    else return reject(err);
+                });
+            break;
+            case "deflate":
+                zlib.deflate(content, (err, res) => {
+                    if(!err)
+                    {
+                        fs.writeFile(`${filePath}.zz`, res, err => {
+                            if(!err)
+                                return resolve();
+                            else return reject(err);
+                        });
+                    }
+                    else return reject(err);
+                });
+            break;
+            case "brotli":
+                if(!semver.lt(process.version, "v11.7.0")) // Brotli was added in Node v11.7.0
+                {
+                    zlib.brotliCompress(content, (err, res) => {
+                        if(!err)
+                        {
+                            fs.writeFile(`${filePath}.br`, res, err => {
+                                if(!err)
+                                    return resolve();
+                                else return reject(err);
+                            });
+                        }
+                        else return reject(err);
+                    });
+                }
+                else return reject(`Brotli compression is only supported since Node.js version "v11.7.0" - current Node.js version is "${process.version}"`);
+            break;
+            default:
+                return reject(`Encoding method "${encoding}" not found - valid methods are: "gzip", "deflate", "brotli"`);
+        }
+    });
 }
 
 const injectError = err => {

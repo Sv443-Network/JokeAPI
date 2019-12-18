@@ -104,7 +104,7 @@ const init = () => {
                             if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting) && !lists.isWhitelisted(ip))
                             {
                                 analytics.rateLimited(ip);
-                                logRequest("ratelimited", null, analyticsObject);
+                                logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
                                 return respondWithError(res, 101, 429, fileFormat);
                             }
                             /*DEBUG*/ //else return respondWithErrorPage(req, res, 500, fileFormat, "Example Error @ex@"); // eslint-disable-line
@@ -153,7 +153,7 @@ const init = () => {
                                 {
                                     if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting) && !lists.isWhitelisted(ip))
                                     {
-                                        logRequest("ratelimited", null, analyticsObject);
+                                        logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
                                         return respondWithError(res, 101, 429, fileFormat);
                                     }
                                     else
@@ -217,7 +217,7 @@ const init = () => {
                                             iter++;
                                             if(iter >= settings.httpServer.rateLimiting)
                                             {
-                                                logRequest("ratelimited", null, analyticsObject);
+                                                logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
                                                 return respondWithError(res, 101, 429, fileFormat);
                                             }
 
@@ -530,7 +530,13 @@ const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
  * @param {http.ServerResponse} res The HTTP res object
  */
 const serveDocumentation = (req, res) => {
-    logRequest("docs");
+    let resolvedURL = parseURL(req.url);
+
+    logRequest("docs", null, {
+        ipAddress: resolveIP(req),
+        urlParameters: resolvedURL.queryParams,
+        urlPath: resolvedURL.pathArray
+    });
 
     let selectedEncoding = getAcceptedEncoding(req);
     let fileExtension = "";
