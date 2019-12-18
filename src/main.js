@@ -5,8 +5,8 @@
 
 
 const jsl = require("svjsl");
-const dotenv = require("dotenv");
 const fs = require("fs");
+require("dotenv").config();
 
 const settings = require("../settings");
 const debug = require("./verboseLogging");
@@ -20,7 +20,6 @@ const logRequest = require("./logRequest");
 const col = jsl.colors.fg;
 process.debuggerActive = (typeof v8debug === "object" || /--debug|--inspect/.test(process.execArgv.join(" ")));
 const noDbg = process.debuggerActive || false;
-dotenv.config();
 
 let pb;
 
@@ -106,9 +105,7 @@ const initializeDirs = () => {
  * @param {Number} code 
  */
 const softExit = code => {
-    analytics.endSqlConnection().then(() => {
-        process.exit(code);
-    });
+    analytics.endSqlConnection().then(() => process.exit(code)).catch(() => process.exit(code));
 }
 
 

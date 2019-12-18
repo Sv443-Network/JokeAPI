@@ -7,6 +7,11 @@ const settings = require("../settings");
 const debug = require("./verboseLogging");
 jsl.unused(http);
 
+module.exports.connectionInfo = {
+    connected: false,
+    info: ""
+};
+
 
 /**
  * Initializes the Analytics module by setting up the MySQL connection
