@@ -29,6 +29,7 @@ settings.init.exitSignals.forEach(sig => {
 
 //#MARKER init all
 const initAll = () => {
+    let initTimestamp = new Date().getTime();
     debug("Init", "Initializing all modules - calling joke parser...");
 
     process.jokeapi = {};
@@ -56,7 +57,7 @@ const initAll = () => {
                     if(!jsl.isEmpty(pb)) pb.next("Initializing analytics module...");
                     analytics.init().then(() => {
                         if(!jsl.isEmpty(pb)) pb.next("Done.");
-                        logRequest.initMsg();
+                        logRequest.initMsg(initTimestamp);
 
                         // done.
                     }).catch(err => initError("initializing the analytics module", err));

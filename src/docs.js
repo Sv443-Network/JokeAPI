@@ -98,12 +98,20 @@ const recompileDocs = () => {
                 jsl.unused(reject);
                 inject(fti).then(injected => {
 
+                    process.brCompErrOnce = false;
+
                     if(settings.httpServer.encodings.gzip)
-                        saveEncoded("gzip", injectedFileNames[i], injected);
+                        saveEncoded("gzip", injectedFileNames[i], injected).catch(err => void(err));
                     if(settings.httpServer.encodings.deflate)
-                        saveEncoded("deflate", injectedFileNames[i], injected);
+                        saveEncoded("deflate", injectedFileNames[i], injected).catch(err => void(err));
                     if(settings.httpServer.encodings.brotli)
-                        saveEncoded("brotli", injectedFileNames[i], injected);
+                        saveEncoded("brotli", injectedFileNames[i], injected).catch(() => {
+                            if(!process.brCompErrOnce)
+                            {
+                                process.brCompErrOnce = true;
+                                injectError(`Brotli compression is only supported since Node.js version "v11.7.0" - current Node.js version is "${process.version}"`, false);
+                            }
+                        });
 
                     fs.writeFile(injectedFileNames[i], injected, err => {
                         if(err)
@@ -187,9 +195,15 @@ const saveEncoded = (encoding, filePath, content) => {
     });
 }
 
-const injectError = err => {
-    console.log(`${jsl.colors.fg.red}Error while injecting docs: ${err}${jsl.colors.rst}`);
-    process.exit(1);
+/**
+ * Logs an injection error to the console
+ * @param {String} err The error message
+ * @param {Boolean} [exit=true] Whether or not to exit the process with code 1 - default: true
+ */
+const injectError = (err, exit = true) => {
+    console.log(`\n${jsl.colors.fg.red}Error while injecting docs: ${err}${jsl.colors.rst}\n`);
+    if(exit)
+        process.exit(1);
 }
 
 /**

@@ -137,8 +137,9 @@ const logRequest = (type, additionalInfo, analyticsData) => {
 
 /**
  * Sends an initialization message - called when the initialization is done
+ * @param {Number} initTimestamp The timestamp of when JokeAPI was initialized
  */
-const initMsg = () => {
+const initMsg = (initTimestamp) => {
     console.log("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
     console.log(`${jsl.colors.fg.blue}[${logger.getTimestamp(" | ")}] ${jsl.colors.fg.green}Started ${settings.info.name} v${settings.info.version}${jsl.colors.rst}`);
     console.log(` ├─ Registered and validated ${jsl.colors.fg.green}${parseJokes.jokeCount}${jsl.colors.rst} jokes`);
@@ -146,7 +147,8 @@ const initMsg = () => {
         console.log(` ├─ Connected to analytics database at ${jsl.colors.fg.green}${analytics.connectionInfo.info}${jsl.colors.rst}`);
     else
         console.log(` ├─ Analytics database ${jsl.colors.fg.red}not connected${jsl.colors.rst}`);
-    console.log(` └─ ${settings.info.name} is listening at ${jsl.colors.fg.green}0.0.0.0:${settings.httpServer.port}${jsl.colors.rst}`);
+    console.log(` ├─ ${settings.info.name} is listening at ${jsl.colors.fg.green}0.0.0.0:${settings.httpServer.port}${jsl.colors.rst}`);
+    console.log(` └─ Initialization took ${jsl.colors.fg.green}${(new Date().getTime() - initTimestamp).toFixed(0)}ms${jsl.colors.rst}`);
     console.log(`\n\n  ${settings.colors.success}${settings.logging.logChar} Success ${settings.colors.docs}${settings.logging.logChar} Docs ${settings.colors.ratelimit}${settings.logging.logChar} RateLimited ${settings.colors.error}${settings.logging.logChar} Error${jsl.colors.rst}`);
     process.stdout.write("\x1b[2m");
     process.stdout.write("└┬───────────────────────────────────────┘\n");
