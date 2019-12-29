@@ -27,8 +27,7 @@ const init = () => {
             user: (process.env["DB_USERNAME"] || ""),
             password: (process.env["DB_PASSWORD"] || ""),
             database: settings.sql.database,
-            port: settings.sql.port,
-            connectTimeout: settings.sql.timeout * 1000
+            port: settings.sql.port
         });
 
         sqlConnection.connect(err => {
