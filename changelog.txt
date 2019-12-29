@@ -77,11 +77,9 @@
 > [2.0.0] - The complete rewrite - JokeAPI was completely rewritten and should now run like 100x better and be more easy to develop and maintain
     - TODO:
         - Completely rewrite the documentation
-    - DEV:
-        - Re-enable brotli encoding once I update my Node version
     - DONE:
         - Massively improved the "Try it out" section in the docs
-        - The documentation page and static content are now able to be served with gzip, deflate and brotli encoding, decreasing the required bandwidth
+        - The documentation page and static content are now able to be served with gzip, deflate and brotli encoding, decreasing the required bandwidth and speeding up page loading time
         - Reformatted the jokes to always contain all flags
         - Added support for selecting multiple categories at once (for example: "https://sv443.net/jokeapi/v2/joke/Dark,Miscellaneous/")
         - Massive performance improvements:
@@ -98,6 +96,7 @@
             - "npm run reformat" to reformat jokes from the old pre-2.0.0 syntax to the new 2.0.0 syntax
             - "npm run reassign-ids" to make sure all jokes have the correct IDs
             - "npm run validate-jokes" to make sure all jokes are in the correct format
+            - "npm run add-joke" to add a joke
         - renamed "category" endpoint to "joke"
         - The submission of empty jokes will now be prevented
         - Set up a new reverse proxy at "https://sv443.net/jokeapi/v2/" to let people slowly migrate to the new version
