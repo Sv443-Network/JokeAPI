@@ -28,6 +28,7 @@ const settings = {
         initDirs: [ // directories that should be generated if they don't exist - paths relative to root of project - doesn't necessarily need trailing slash
             "./data/logs",
             "./data/submissions",
+            "./docs/compiled",
         ],
         exitSignals: [ // all signals that should cause a soft exit
             "SIGINT",
@@ -109,7 +110,7 @@ const settings = {
         encodings: {
             gzip: true,    // Whether or not Gzip encoding should be enabled for the documentation page
             deflate: true, // Whether or not Deflate encoding should be enabled for the documentation page
-            brotli: true,  // Whether or not Brotli encoding should be enabled for the documentation page - TODO: re-enable when I bump my Node version to v11.7.0+
+            brotli: true,  // Whether or not Brotli encoding should be enabled for the documentation page
         },
         encodingPriority: [ // The priority of the encodings. Items with a lower array index have a higher priority
             "brotli", "gzip", "deflate"
@@ -126,6 +127,7 @@ const settings = {
     },
     documentation: {
         dirPath: "./docs/",                // path to the documentation directory - needs trailing slash
+        compiledPath: "./docs/compiled/", // path to the compiled docs directory - needs trailing slash
         faviconPath: "./docs/static/favicon.ico", // path to the favicon.ico file - don't add trailing slash
         rawDirPath: "./docs/raw/",            // path to the raw documentation files directory - needs trailing slash
         daemonInterval: 2,                    // interval (in seconds) at which the daemon checks for changes in the documentation directory

@@ -84,11 +84,11 @@ const recompileDocs = () => {
         ];
 
         let injectedFileNames = [
-            `${settings.documentation.dirPath}index_injected.js`,
-            `${settings.documentation.dirPath}index_injected.css`,
-            `${settings.documentation.dirPath}documentation.html`,
-            `${settings.documentation.dirPath}errorPage_injected.css`,
-            `${settings.documentation.dirPath}errorPage_injected.js`
+            `${settings.documentation.compiledPath}index_injected.js`,
+            `${settings.documentation.compiledPath}index_injected.css`,
+            `${settings.documentation.compiledPath}documentation.html`,
+            `${settings.documentation.compiledPath}errorPage_injected.css`,
+            `${settings.documentation.compiledPath}errorPage_injected.js`
         ];
 
         let promises = [];
@@ -222,10 +222,10 @@ const inject = filePath => {
                 file = file.toString();
 
                 //#SECTION INJECTs
-                if(fs.existsSync(`${settings.documentation.dirPath}index_injected.js`) && fs.existsSync(`${settings.documentation.dirPath}index_injected.css`))
+                if(fs.existsSync(`${settings.documentation.compiledPath}index_injected.js`) && fs.existsSync(`${settings.documentation.compiledPath}index_injected.css`))
                 {
-                    file = file.replace(/<!--%#INJECT:SCRIPT#%-->/gm, `<script>${minify(fs.readFileSync(`${settings.documentation.dirPath}index_injected.js`))}</script>`);
-                    file = file.replace(/<!--%#INJECT:STYLESHEET#%-->/gm, `<style>${minify(fs.readFileSync(`${settings.documentation.dirPath}index_injected.css`))}</style>`);
+                    file = file.replace(/<!--%#INJECT:SCRIPT#%-->/gm, `<script>${minify(fs.readFileSync(`${settings.documentation.compiledPath}index_injected.js`))}</script>`);
+                    file = file.replace(/<!--%#INJECT:STYLESHEET#%-->/gm, `<style>${minify(fs.readFileSync(`${settings.documentation.compiledPath}index_injected.css`))}</style>`);
                 }
 
                 //#SECTION INSERTs
@@ -255,11 +255,11 @@ const inject = filePath => {
                     file = file.replace(new RegExp(key, "gm"), !jsl.isEmpty(injection) ? injection : "Error");
                 });
 
-                resolve(file.toString());
+                return resolve(file.toString());
             }
             catch(err)
             {
-                reject(err);
+                return reject(err);
             }
         });
     });

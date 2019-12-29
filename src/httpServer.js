@@ -390,7 +390,7 @@ const pipeString = (res, text, mimeType, statusCode = 200) => {
     }
     catch(err)
     {
-        res.writeHead(500, {"Content-Type": `text/plain; UTF-8`});
+        res.writeHead(500, {"Content-Type": `text/plain; charset=UTF-8`});
         res.end("INTERNAL_ERR:STATUS_CODE_NOT_INT");
         return;
     }
@@ -401,7 +401,7 @@ const pipeString = (res, text, mimeType, statusCode = 200) => {
     s.push(null);
 
     res.writeHead(statusCode, {
-        "Content-Type": `${mimeType}; UTF-8`,
+        "Content-Type": `${mimeType}; charset=UTF-8`,
         "Content-Length": text.length
     });
 
@@ -435,7 +435,7 @@ const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
     try
     {
         res.writeHead(statusCode, {
-            "Content-Type": `${mimeType}; UTF-8`,
+            "Content-Type": `${mimeType}; charset=UTF-8`,
             "Content-Length": fs.statSync(filePath).size
         });
 
@@ -471,8 +471,8 @@ const serveDocumentation = (req, res) => {
 
     debug("HTTP", `Serving docs with encoding "${selectedEncoding}"`);
 
-    let filePath = `${settings.documentation.dirPath}documentation.html${fileExtension}`;
-    let fallbackPath = `${settings.documentation.dirPath}documentation.html`;
+    let filePath = `${settings.documentation.compiledPath}documentation.html${fileExtension}`;
+    let fallbackPath = `${settings.documentation.compiledPath}documentation.html`;
 
     fs.exists(filePath, exists => {
         if(exists)
@@ -519,7 +519,7 @@ const getAcceptedEncoding = req => {
 }
 
 /**
- * Returns the file extension for the provided encoding
+ * Returns the file extension for the provided encoding (without dot prefix)
  * @param {null|"gzip"|"deflate"|"brotli"} encoding
  * @returns {String}
  */

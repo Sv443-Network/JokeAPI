@@ -33,12 +33,12 @@ const call = (req, res, url, params, format) => {
     switch(requestedFile)
     {
         case "index.css":
-            filePath = `${settings.documentation.dirPath}index_injected.css`;
+            filePath = `${settings.documentation.compiledPath}index_injected.css`;
             statusCode = 200;
             mimeType = "text/css";
         break;
         case "index.js":
-            filePath = `${settings.documentation.dirPath}index_injected.js`;
+            filePath = `${settings.documentation.compiledPath}index_injected.js`;
             statusCode = 200;
             mimeType = "application/javascript";
         break;
@@ -48,12 +48,12 @@ const call = (req, res, url, params, format) => {
             mimeType = "application/x-font-ttf";
         break;
         case "errorPage.css":
-            filePath = `${settings.documentation.dirPath}errorPage_injected.css`;
+            filePath = `${settings.documentation.compiledPath}errorPage_injected.css`;
             statusCode = 200;
             mimeType = "text/css";
         break;
         case "errorPage.js":
-            filePath = `${settings.documentation.dirPath}errorPage_injected.js`;
+            filePath = `${settings.documentation.compiledPath}errorPage_injected.js`;
             statusCode = 200;
             mimeType = "application/javascript";
         break;
