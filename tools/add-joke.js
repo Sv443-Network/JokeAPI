@@ -1,6 +1,7 @@
 const readline = require("readline");
 const jsl = require("svjsl");
 const settings = require("../settings");
+const fs = require("fs");
 
 let rl = readline.createInterface({
     input: process.stdin,
@@ -19,7 +20,61 @@ const init = () => {
             joke["type"] = type;
 
             let contFlags = () => {
-                // TODO: flags + ID + save to file
+                joke["flags"] = {};
+                let allFlags = settings.jokes.possible.flags;
+
+                let flagIteration = (idx) => {
+                    if(idx >= allFlags.length)
+                        return flagIterFinished();
+                    else
+                    {
+                        rl.resume();
+                        rl.question(`Is this joke ${allFlags[idx]}? (y/N): `, flgAns => {
+                            rl.pause();
+
+                            if(flgAns.toLowerCase() == "y")
+                                joke["flags"][allFlags[idx]] = true;
+                            else joke["flags"][allFlags[idx]] = false;
+
+                            return flagIteration((idx + 1));
+                        });
+                    }
+                };
+
+                let flagIterFinished = () => {
+
+                    fs.readFile(settings.jokes.jokesFilePath, (err, res) => {
+                        if(!err)
+                        {
+                            let jokeFile = JSON.parse(res.toString());
+
+                            joke["id"] = jokeFile.jokes.length;
+
+                            jokeFile.jokes.push(joke);
+
+                            fs.writeFile(settings.jokes.jokesFilePath, JSON.stringify(jokeFile, null, 4), (err) => {
+                                if(err)
+                                {
+                                    console.log(`${jsl.colors.fg.red}\n${err}${jsl.colors.rst}\n\n`);
+                                    process.exit(1);
+                                }
+                                else
+                                {
+                                    console.clear();
+                                    console.log(`${jsl.colors.fg.green}\nJoke was successfully added.${jsl.colors.rst}\n\n`);
+                                    process.exit(0);
+                                }
+                            });
+                        }
+                        else
+                        {
+                            console.log(`${jsl.colors.fg.red}\n${err}${jsl.colors.rst}\n\n`);
+                            process.exit(1);
+                        }
+                    });
+                }
+
+                return flagIteration(0);
             };
 
             if(type != "twopart")
@@ -45,8 +100,6 @@ const init = () => {
                     });
                 });
             }
-
-            console.log(joke);
         });
     });
 };
