@@ -355,6 +355,11 @@ kbd {
 
 ul {
     margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+abbr {
+    cursor: help;
 }
 
 /*#MARKER sidenav*/

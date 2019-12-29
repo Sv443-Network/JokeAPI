@@ -13,10 +13,10 @@
 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="pagename" content="JokeAPI">
+        <meta name="pagename" content="<!--%#INSERT:NAME#%-->">
 
         <meta charset="UTF-8">
-        <meta name="pagename" content="JokeAPI">
+        <meta name="pagename" content="<!--%#INSERT:NAME#%-->">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="HandheldFriendly" content="true">
         <meta name="description" content="A RESTful API that serves jokes from many categories while also offering a lot of filtering methods">
@@ -24,7 +24,7 @@
         <meta name="subject" content="API">
         <meta name="copyright" content="Sv443 - Licensed under MIT license (https://sv443.net/LICENSE)">
         <meta name="author" content="Sv443, sven.fehler@web.de">
-        <meta property="og:title" content="JokeAPI">
+        <meta property="og:title" content="<!--%#INSERT:NAME#%-->">
         <meta property="og:url" content="https://sv443.net/jokeapi/v2">
         <meta property="og:description" content="A RESTful API that serves jokes from many categories while also offering a lot of filtering methods">
         <meta property="og:image" content="https://sv443.net/jokeapi/v2/favicon.ico">
@@ -32,7 +32,7 @@
         <meta property="og:locale" content="en_US">
         <meta property="og:locale:alternate" content="en_GB">
         <meta property="og:locale:alternate" content="en_AU">
-        <meta name="application-name" content="JokeAPI">
+        <meta name="application-name" content="<!--%#INSERT:NAME#%-->">
         <meta name="theme-color" content="#101747">
 
         <!-- IE detection -->
@@ -87,7 +87,7 @@
                     <span id="headerversion">
                         <span id="headerVersionNumber">v<!--%#INSERT:VERSION#%--></span>
                         (<a class="mimica" onclick="openChangelog()">Changelog</a>)<br>
-                        <a href="<!--%#INSERT:PROJGITHUBURL#%-->">GitHub</a>&nbsp;&bull;&nbsp;<a href="<!--%#INSERT:PRIVACYPOLICYURL#%-->">Privacy&nbsp;Policy</a>&nbsp;&bull;&nbsp;<a href="https://sv443.net/imprint/en">Legal&nbsp;Information</a>
+                        <a href="<!--%#INSERT:PROJGITHUBURL#%-->">GitHub</a>&nbsp;&bull;&nbsp;xy
                     </span>
                 </span>
             </header>
@@ -207,7 +207,7 @@ class Test
                     <h2 style="color: orangered;">By using this website and API you are agreeing to the <a href="<!--%#INSERT:PRIVACYPOLICYURL#%-->">privacy policy</a></h2>
                     <div id="usageTermsInnerLayout">
                         <span class="itm">
-                            <span class="mimica" onclick="privPolMoreInfo()">(Click here to get more information on what data JokeAPI collects)</span>
+                            <span class="mimica" onclick="privPolMoreInfo()">(Click here to get more information on what data <!--%#INSERT:NAME#%--> collects)</span>
                         </span>
                         <span class="itm">
                             <span class="mimica" onclick="hideUsageTerms()">
@@ -220,16 +220,11 @@ class Test
                 <!-- #MARKER Information -->
                 <div class="docHeader targetBlink" id="info"><a class="headerAnchorContainer" href="#info" title="Click to link to this header">🔗</a><span class="docHeaderText">Information:</span></div>
 
-                    This is a RESTful API blah blah blah<br>
-                    Serves jokes in a uniform way and so on<br>
-                    Pls use me I'm lonely uwu<br>
-                    <span class="subHeader">Lorem ipsum:</span>
-                    Laborum eiusmod elit reprehenderit fugiat duis sit. Pariatur do aliquip qui exercitation est ullamco veniam. Enim ut velit irure incididunt laboris Lorem non sit nostrud laborum esse quis amet minim. Mollit aliquip nisi irure non commodo. Deserunt irure anim esse in. Lorem amet amet esse ut exercitation ipsum ex.<br>
-                    In ut id minim sunt minim deserunt ea. Do duis commodo esse occaecat esse ea ad et sit occaecat commodo aliqua cupidatat. Anim in consectetur qui anim in voluptate velit minim commodo irure aute. Duis in irure anim ad labore dolore. Eu voluptate duis sunt adipisicing minim nostrud in ullamco proident.<br>
-                    Cupidatat do aute nulla anim magna. Quis sint in enim labore. Qui laborum non do enim irure magna quis. Adipisicing voluptate ut id sint esse Lorem elit aute aute. Voluptate consectetur mollit dolore mollit ex ex aute sint nisi eu ipsum eiusmod sunt. Nulla nisi ut aute nostrud officia in.<br>
-                    Dolore officia sit irure aliqua irure aliquip dolor minim voluptate. Nulla magna minim nulla esse eiusmod culpa minim aute commodo reprehenderit cillum culpa nostrud dolor. Adipisicing ut nulla commodo excepteur nostrud aliqua aliqua magna nostrud.<br>
-                    Quis cupidatat dolor voluptate fugiat amet adipisicing magna anim cillum dolor proident magna tempor. Sit minim aliquip proident culpa. Irure nostrud dolore excepteur aliqua laborum ut ea eu ipsum pariatur velit. Id excepteur excepteur minim irure aute laborum cupidatat occaecat.<br>
-                    Non adipisicing amet elit ad ex veniam voluptate nisi ea sunt. Culpa est qui culpa veniam occaecat labore. Reprehenderit irure est minim sunt ea ea irure enim. Quis minim nostrud occaecat amet consequat laborum culpa excepteur. Minim eiusmod est officia minim nulla magna velit. Culpa dolor sunt do ullamco aliqua irure eu aute.<br>
+                This is a uniformly and carefully formatted RESTful joke API that can be used <u>without any API token, membership, registration or payment.</u><br>
+                It supports a variety of filters that can be applied to get just the right jokes you need.<br>
+                The usage is very simple and similar to other RESTful APIs and requires only basic knowledge of HTTP/HTTPS requests and JSON/XML/YAML.<br>
+                <br>
+                Note: <!--%#INSERT:NAME#%--> has been a target of <abbr title="Denial of Service attack - a large number of consecutive requests to make a server busy and completely overload it to the point of the network behind the server crashing">DoS attacks</abbr> in the past, which is why there is now a limit of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute.<br>
 
                 <!-- #MARKER Try It -->
                 <div class="docHeader targetBlink" id="try-it"><a class="headerAnchorContainer" href="#try-it" title="Click to link to this header">🔗</a><span class="docHeaderText">Try it out here:</span></div>
@@ -333,27 +328,53 @@ class Test
                 <!-- #SECTION License -->
                 <span class="subHeader">License:</span>
                 <div class="indented">
-                    JokeAPI is licensed under the MIT License.<br>
+                    <!--%#INSERT:NAME#%--> is licensed under the MIT License.<br>
                     Before modifying and / or redistributing the source code, please take two minutes to read the license text.<br>
                     <a href="https://sv443.net/LICENSE">You can view the full license text by clicking here.</a>
+                </div>
+
+                <!-- #SECTION Privacy -->
+                <br><br><span class="subHeader">Privacy:</span>
+                <div class="indented">
+                    <!--%#INSERT:NAME#%--> has to collect some anonymized data to work.<br>
+                    To view a list with details, please <span class="mimica" onclick="privPolMoreInfo()">click here.</span><br>
+                    To view the privacy policy, please <a href="https://sv443.net/privacypolicy/en">click here.</a><br>
+                    To view the site notice, <a href="https://sv443.net/imprint/en">click here.</a>
                 </div>
 
                 <!-- #SECTION Disclaimer -->
                 <br><br><span class="subHeader">Disclaimer:</span>
                 <div class="indented">
-                    I will hereby not claim any legal responsibility or liability for JSLib-npm.<br>
-                    Whether it is used maliciously or breaks something, I can't be held accountable.<br><br>
+                    I will hereby not claim any legal responsibility or liability for <!--%#INSERT:NAME#%-->.<br>
+                    Whether it is used maliciously or breaks something in your project, I can't be held accountable.<br><br>
                     I am doing my best to ensure security and stability but there's only so much a single developer can do.<br>
-                    Please report any issue that may arise to <a href="<!--%#INSERT:PROJGITHUBURL#%-->/issues/new/choose">the GitHub issue tracker</a> and I will try my best to fix it as soon as possible.
+                    Please report any issue that may arise to <a href="<!--%#INSERT:PROJGITHUBURL#%-->/issues/new/choose">the GitHub issue tracker</a> and I will try my best to fix it as soon as possible.<br>
+                    If you want to contact me, you can <a href="https://sv443.net/discord">join my Discord server</a> (fastest way to contact me).
                 </div>
 
                 <!-- #SECTION Fonts -->
                 <br><br><span class="subHeader">Fonts:</span>
                 <div class="indented">
-                    JokeAPI uses these third party fonts on this documentation page:
+                    <!--%#INSERT:NAME#%--> uses these third party fonts on this documentation page:
                     <ul>
                         <li><a href="https://github.com/Microsoft/Cascadia-Code" style="font-family: 'Cascadia Code';">Cascadia Code</a> by <a href="https://github.com/Microsoft">Microsoft</a></li>
                         <li><a href="https://github.com/Google/Roboto" style="font-family: 'Roboto', monospace;">Roboto</a> by <a href="https://github.com/Google">Google</a></li>
+                    </ul>
+                </div>
+
+                <!-- #SECTION Dependencies -->
+                <br><br><span class="subHeader">Dependencies:</span>
+                <div class="indented">
+                    These are the libraries / packages <!--%#INSERT:NAME#%--> depends on (excluding dependencies of dependencies):
+                    <ul>
+                        <li><a href="https://npmjs.com/package/dotenv">dotenv</a></li>
+                        <li><a href="https://npmjs.com/package/farmhash">farmhash</a></li>
+                        <li><a href="https://npmjs.com/package/http-ratelimit">HTTP-RateLimit</a></li>
+                        <li><a href="https://npmjs.com/package/js2xmlparser">js2xmlparser</a></li>
+                        <li><a href="https://npmjs.com/package/json-to-pretty-yaml">json-to-pretty-yaml</a></li>
+                        <li><a href="https://npmjs.com/package/mysql">MySQL</a></li>
+                        <li><a href="https://npmjs.com/package/node-wrap">Node-Wrap</a></li>
+                        <li><a href="https://npmjs.com/package/svjsl">JSLib</a></li>
                     </ul>
                 </div>
 
@@ -403,12 +424,3 @@ class Test
         </div>
     </body>
 </html>
-
-<!-- #MARKER TODO:
-
-Include credit:
-    - Cascadia Code Font:        https://github.com/microsoft/cascadia-code/
-    - Roboto + Roboto Mono Font: https://github.com/google/roboto/
-
-
--->
