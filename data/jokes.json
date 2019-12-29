@@ -1859,6 +1859,199 @@
                 "sexist": false
             },
             "id": 135
+        },
+        {
+            "category": "Dark",
+            "type": "single",
+            "joke": "Nowadays people are so sensitive, you can't even say \"black paint\" anymore.\nInstead you have to say \"Jamal, please paint the fence\".",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": true,
+                "sexist": false
+            },
+            "id": 136
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "Why does Beyonce sing \"to the left, to the left\"?",
+            "delivery": "Because women don't have rights.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": true
+            },
+            "id": 137
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "What's black and sits at the top of a stairwell?",
+            "delivery": "A paraplegic after a house fire.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 138
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "Why do Hong Kong cops like to go to work early?",
+            "delivery": "To beat the crowd.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 139
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "What does tofu and a dildo have in common?",
+            "delivery": "They're both meat substitutes.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 140
+        },
+        {
+            "category": "Dark",
+            "type": "single",
+            "joke": "Doctor: \"I have some news about your baby.\"\nParents: \"Don't tell us the gender, we want to keep it a surprise.\"\nDoctor: \"Ohh, you're those type of people. Okay, well IT is not breathing.\"",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 141
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "joke": "If you're here for the yodeling lesson, please form an orderly orderly orderly queue.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 142
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "What kind of doctor is Dr. Pepper?",
+            "delivery": "He's a fizzician.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 143
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "What's the difference between a hot potato and a flying pig?",
+            "delivery": "One's a heated yam, the other's a yeeted ham.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 144
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "What's the difference between a feminist and a grenade?",
+            "delivery": "The grenade actually accomplishes something when it triggers.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 145
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "When I was a kid, I made a really big sandcastle with my grandma.",
+            "delivery": "Unfortunately that didn't impress anyone at the cremation...",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 146
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "What did the boy with no arms get for Christmas?",
+            "delivery": "I don't know, he hasn't opened it yet.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 147
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "My neighbor is a 90 year old with Alzheimer's, I see him every morning and he asks me If I've seen his wife.\nEvery day I have to tell this poor man that his wife died 20 years ago.\nI could have moved to another house or even ignore his question.",
+            "delivery": "But the look of joy in his eyes whenever I answer him is worth the world.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 148
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "This morning I accidentally made my coffee with Red Bull instead of water.",
+            "delivery": "I was already on the highway when I noticed I forgot my car at home.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 149
         }
     ]
 }
