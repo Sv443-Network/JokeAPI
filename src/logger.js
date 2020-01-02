@@ -53,7 +53,7 @@ const logger = (type, content, timestamp) => {
 
 /**
  * Returns a preformatted timestamp in local time
- * @param {String} [separator] A separator to add between the date and the time - leave empty for single whitespace
+ * @param {String} [separator] A separator to add between the date and the time - leave empty for " | "
  * @returns {String}
  */
 const getTimestamp = (separator) => {
@@ -69,7 +69,7 @@ const getTimestamp = (separator) => {
     }
 
     return `${dt.y}/${(dt.m < 10 ? "0" : "") + dt.m}/${(dt.d < 10 ? "0" : "") + dt.d}`
-         + `${jsl.isEmpty(separator) ? " " : separator}`
+         + `${jsl.isEmpty(separator) ? " | " : separator}`
          + `${(dt.th < 10 ? "0" : "") + dt.th}:${(dt.tm < 10 ? "0" : "") + dt.tm}:${(dt.ts < 10 ? "0" : "") + dt.ts}`;
 
 }

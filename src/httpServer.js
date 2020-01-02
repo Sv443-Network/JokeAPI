@@ -221,7 +221,7 @@ const init = () => {
                                     "message": `Restarting ${settings.info.name}`,
                                     "timestamp": new Date().getTime()
                                 }));
-                                console.log(`\n\n[${logger.getTimestamp(" | ")}]  ${jsl.colors.fg.red}IP ${jsl.colors.fg.yellow}${ip}${jsl.colors.fg.red} sent a restart command\n\n\n${jsl.colors.rst}`);
+                                console.log(`\n\n[${logger.getTimestamp(" | ")}]  ${jsl.colors.fg.red}IP ${jsl.colors.fg.yellow}${ip.substr(0, 8)}[...]${jsl.colors.fg.red} sent a restart command\n\n\n${jsl.colors.rst}`);
                                 process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
                             }
                             // TODO: correct anchor
