@@ -89,9 +89,8 @@ function onLoad()
     addCodeTabs();
 
     sMenu.new("privacyPolicy", "What data does JokeAPI collect?", dIHTML, 85, 85, true, true, true);
-    sMenu.new("changelog", "JokeAPI Changelog:", cIHTML, 85, 85, true, true, true);
     sMenu.theme("privacyPolicy", "dark");
-    sMenu.theme("changelog", "dark");
+
 
     // eslint-disable-next-line no-undef
     if(Cookies.get("hideUsageTerms") == "true")
@@ -125,6 +124,14 @@ function onLoad()
     }, 800);
 
     buildURL();
+
+    document.getElementById("content").addEventListener("click", function(e) {
+        if(document.body.dataset["sidenav"] == "opened")
+        {
+            e.preventDefault();
+            closeNav();
+        }
+    });
 }
 
 function addCodeTabs()
@@ -200,6 +207,11 @@ function getQueryStringObject()
 
 function openChangelog()
 {
+    if(!document.getElementById("jsg_menu_changelog"))
+    {
+        sMenu.new("changelog", "JokeAPI Changelog:", cIHTML, 85, 85, true, true, true);
+        sMenu.theme("changelog", "dark");
+    }
     sMenu.open("changelog");
 }
 

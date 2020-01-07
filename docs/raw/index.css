@@ -3,6 +3,7 @@
 :root {
     --bg-color: #444;
     --bg-accent-color: #333;
+    --bg-accent-color-darker: #222;
     --bg-accent-color-sidenav-opened: #666;
     --bg-color-sidenav-opened: #777;
     --header-bg-color: #101747;
@@ -297,7 +298,7 @@ body[data-sidenav="closed"] code, body code {
 }
 
 body code > .actualCode {
-    padding: 0px 10px 0px 20px;
+    padding: 0px 10px 18px 20px;
     overflow-x: auto;
     overflow-y: hidden;
     line-height: 1.25;
@@ -360,6 +361,49 @@ ul {
 
 abbr {
     cursor: help;
+}
+
+/*#SECTION Endpoints*/
+.requestURLwrapper {
+    border: 1px solid #777;
+    border-radius: 2px;
+    background-color: var(--bg-accent-color-darker);
+    display: inline-block;
+    font-size: 110%;
+    padding: 3px;
+    padding-left: 10px;
+    padding-right: 40px;
+}
+
+.requestMethodGET, .requestMethodPUT {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.requestMethodGET {
+    color: #7cfc00;
+}
+
+.requestMethodPUT {
+    color: #6495ed;
+}
+
+.requestURL {
+    color: #ccc;
+    font-family: "Roboto", "Courier New", monospace;
+}
+
+.supportedParamsBox {
+    display: inline-block;
+    /* border: 1px solid #bbb;
+    border-radius: 2px;
+    background-color: var(--bg-accent-color);
+    padding: 6px; */
+    padding-right: 30px;
+}
+
+.placeholder {
+    color: #777;
 }
 
 /*#MARKER sidenav*/
@@ -554,6 +598,7 @@ abbr {
     border-style: none none solid none;
     padding-bottom: 2px;
     margin-bottom: 10px;
+    margin-top: 70px;
 }
 
 .docHeader:not(:first)
@@ -563,7 +608,7 @@ abbr {
 
 .subHeader {
     display: block;
-    margin-top: 12px;
+    margin-top: 25px;
     margin-bottom: 8px;
     text-decoration: underline;
     text-underline-offset: 3px; /* currently only supported in FF70+ and SF12.1+ (see https://caniuse.com/#search=text-underline-offset) */
