@@ -82,18 +82,23 @@ const call = (req, res, url, params, format) => {
         }
 
         //#SECTION idRange
-        // TODO: add support for ID without separator
         if(!jsl.isEmpty(params["idRange"]))
         {
             try
             {
-                let splitParams = params["idRange"].split(settings.jokes.splitCharRegex);
+                if(params["idRange"].match(settings.jokes.splitCharRegex))
+                {
+                    let splitParams = params["idRange"].split(settings.jokes.splitCharRegex);
 
-                if(splitParams.length < 2)
-                    throw new Error("");
-
-                if(!filterJoke.setIdRange(parseInt(splitParams[0]), parseInt(splitParams[1])))
-                    return isErrored(res, format, `The specified ID range is invalid - Got: "${splitParams[0]} to ${splitParams[1]}" - Max ID range is: "0-${(parseJokes.jokeCount - 1)}"`);
+                    if(!filterJoke.setIdRange(parseInt(splitParams[0]), parseInt(splitParams[1])))
+                        return isErrored(res, format, `The specified ID range is invalid - Got: "${splitParams[0]} to ${splitParams[1]}" - ID range is: "0-${(parseJokes.jokeCount - 1)}"`);
+                }
+                else
+                {
+                    let id = parseInt(params["idRange"]);
+                    if(!filterJoke.setIdRange(id, id))
+                        return isErrored(res, format, `The specified ID range is invalid - Got: "${params["idRange"]}" - ID range is: "0-${(parseJokes.jokeCount - 1)}"`);
+                }
             }
             catch(err)
             {

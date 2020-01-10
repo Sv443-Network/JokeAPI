@@ -29,7 +29,7 @@
         - Added a few new URL parameters:
             - Added the "?type" URL parameter to specify the type of the served joke ("single" or "twopart")
             - Added the "?contains" URL parameter to only serve jokes that match the provided search query
-            - Added the "?idRange" URL parameter to get jokes from a single ID or an ID range (example: "https://sv443.net/jokeapi/v2/joke/Any?id=50-75")
+            - Added the "?idRange" URL parameter to get jokes from a single ID or an ID range (example: "https://sv443.net/jokeapi/v2/joke/Any?id=50-75" or "...?id=15")
         - Added the "racist" and "sexist" flags
         - IP addresses are now hashed, protecting my users better and making JokeAPI GDPR/DSGVO compliant
         - Added multiple scripts that should be run before contributing to the project / that are run through GitHub Continuous Integration:

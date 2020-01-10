@@ -5,9 +5,12 @@
     --bg-accent-color: #333;
     --bg-accent-color-darker: #222;
     --bg-accent-color-sidenav-opened: #666;
+    --bg-accent-color-darker-sidenav-opened: #555;
     --bg-color-sidenav-opened: #777;
     --header-bg-color: #101747;
     --header-bg-color-sidenav-opened: #101747;
+
+    --header-height: 50px;
 
     --accent-color: #8a2be2;
     --accent-color-light: #b05ffc;
@@ -44,6 +47,8 @@ body {
     color: #fff;
     font-family: "Roboto", "Segoe UI", "Arial", sans-serif;
     font-size: 15px;
+
+    overflow-y: hidden;
 
     transition: background-color var(--sidenav-animation-speed);
 
@@ -155,9 +160,11 @@ body[data-sidenav="closed"] {
 
 /*#MARKER header*/
 header {
-    position: -webkit-sticky;
-    position: sticky;
-    top: -1px;
+    /* position: -webkit-sticky;
+    position: sticky; */
+    position: relative;
+    top: 0;
+    left: 0;
     background-color: var(--header-bg-color);
     z-index: 1000;
 
@@ -168,7 +175,7 @@ header {
     flex-wrap: nowrap;
 
     width: 100%;
-    height: 50px;
+    height: var(--header-height);
 
     filter: grayscale(0%) drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.6));
 }
@@ -268,8 +275,12 @@ header #docTitle {
 }
 
 #content {
-    padding: 16px;
-    margin: 10px;
+    overflow-y: scroll;
+    padding: 26px;
+    margin-left: 10px;
+
+    /*TODO: do this better*/
+    height: calc(97vh - var(--header-height));
 
     padding-top: 0;
     margin-top: 0;
@@ -373,6 +384,12 @@ abbr {
     padding: 3px;
     padding-left: 10px;
     padding-right: 40px;
+    transition: background-color linear var(--sidenav-animation-speed);
+}
+
+body[data-sidenav="opened"] .requestURLwrapper {
+    background-color: var(--bg-accent-color-darker-sidenav-opened);
+    transition: background-color linear var(--sidenav-animation-speed);
 }
 
 .requestMethodGET, .requestMethodPUT {
@@ -555,7 +572,7 @@ abbr {
 
 .headerAnchorContainer {
     display: inline-block;
-    padding-top: 80px;
+    margin-top: 80px;
 }
 
 .targetBlink:target {

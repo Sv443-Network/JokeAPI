@@ -82,7 +82,15 @@ const init = () => {
                             fileFormat = parseURL.getFileFormatFromQString(parsedURL.queryParams);
                     }
 
-                    //analytics(); // TODO:
+                    analytics({
+                        type: "Error",
+                        data: {
+                            errorMessage: `Error while setting up the HTTP response to "${ip.substr(8)}...": ${err}`,
+                            ipAddress: ip,
+                            urlParameters: parsedURL.queryParams,
+                            urlPath: parsedURL.pathArray
+                        }
+                    });
                     return respondWithError(res, 500, 100, fileFormat, err);
                 }
 
@@ -169,10 +177,7 @@ const init = () => {
                         if(!foundEndpoint)
                         {
                             if(!jsl.isEmpty(fileFormat) && req.url.toLowerCase().includes("format"))
-                            {
-                                // TODO: correct anchor
                                 return respondWithError(res, 102, 404, fileFormat, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at ${settings.info.docsURL}#endpoints to see all available endpoints`);
-                            }
                             else return respondWithErrorPage(req, res, 404, fileFormat, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at ${settings.info.docsURL}#endpoints to see all available endpoints`);
                         }
                     }
@@ -224,7 +229,6 @@ const init = () => {
                                 console.log(`\n\n[${logger.getTimestamp(" | ")}]  ${jsl.colors.fg.red}IP ${jsl.colors.fg.yellow}${ip.substr(0, 8)}[...]${jsl.colors.fg.red} sent a restart command\n\n\n${jsl.colors.rst}`);
                                 process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
                             }
-                            // TODO: correct anchor
                             else return respondWithErrorPage(req, res, 400, fileFormat, `Request body is invalid or was sent to the wrong endpoint "${parsedURL.pathArray != null ? parsedURL.pathArray[0] : "/"}", please refer to the documentation at ${settings.info.docsURL}#submit-joke to see how to correctly structure a joke submission.`);
                         });
 

@@ -166,7 +166,7 @@ class FilteredJoke
      */
     setIdRange(start, end = null)
     {
-        if(typeof start != "number" || (!jsl.isEmpty(end) && typeof end != "number"))
+        if(isNaN(start) || isNaN(end) || typeof start != "number" || (!jsl.isEmpty(end) && typeof end != "number") || jsl.isEmpty(start))
             return false;
 
         if(jsl.isEmpty(end))

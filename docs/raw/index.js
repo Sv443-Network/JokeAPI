@@ -385,10 +385,16 @@ function buildURL()
 
     //#SECTION id range
     var range = [parseInt(gebid("idRangeInputFrom").value), parseInt(gebid("idRangeInputTo").value)];
-    if(!isNaN(range[0]) && !isNaN(range[1]) && range[0] >= 0 && range[1] <= parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->"))
+    if(!isNaN(range[0]) && !isNaN(range[1]) && range[0] >= 0 && range[1] <= parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->") && range[1] >= range[0])
     {
-        if(range[0] != 0 || range[1] != parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->"))
+        if(range[0] == range[1] && range[0] > 0 && range[0] <= parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->"))
         {
+            // Use "x" format
+            queryParams.push("idRange=" + range[0]);
+        }
+        else if(range[0] != 0 || range[1] != parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->"))
+        {
+            // Use "x-y" format
             queryParams.push("idRange=" + range[0] + "-" + range[1]);
         }
     }

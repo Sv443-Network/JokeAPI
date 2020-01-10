@@ -68,6 +68,7 @@ const getTimestamp = (separator) => {
         ts: d.getSeconds()
     }
 
+    // Why is there no Date.format() function in JS :(
     return `${dt.y}/${(dt.m < 10 ? "0" : "") + dt.m}/${(dt.d < 10 ? "0" : "") + dt.d}`
          + `${jsl.isEmpty(separator) ? " | " : separator}`
          + `${(dt.th < 10 ? "0" : "") + dt.th}:${(dt.tm < 10 ? "0" : "") + dt.tm}:${(dt.ts < 10 ? "0" : "") + dt.ts}`;
