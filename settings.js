@@ -42,10 +42,16 @@ const settings = {
         blacklistLoggingEnabled: true, // whether or not to log the character when an IP is on the blacklist
     },
     wrapper: {
-        mainFilePath: "./src/main.js",     // main script file
-        logFilePath: "./data/wrapper.log", // wrapper log file
-        skipWrapping: false,               // whether or not to skip the wrapping through node-wrap
-        crashTimeout: 2000,                // big enough of a timeout to hopefully allow all possible hiccups to settle down before restarting
+        mainFilePath: "./src/main.js",          // main script file
+        skipWrapping: false,                    // whether or not to skip the wrapping through node-wrap
+        wrapperSettings: {
+            console: true,                      // whether Node-Wrap should log to the console
+            crashTimeout: 2000,                 // timeout (in ms) until the process should be restarted after a crash
+            logFile: "./data/logs/wrapper.log", // Node-Wrap log file
+            logTimestamp: true,                 // whether to add a timestamp to the log
+            restartOnCrash: true,               // whether to restart the process after a crash
+            restartTimeout: 0,                  // timeout (in ms) until the process should be started again after a restart has been requested
+        },
     },
     jokes: {
         jokesFormatVersion: 2,                               // current joke format version
