@@ -94,7 +94,7 @@ const endSqlConnection = () => {
  */
 const sendQuery = (query, insertValues) => {
     return new Promise((resolve, reject) => {
-        if(jsl.isEmpty(this.sqlConn) || (this.sqlConn.state != "connected" && this.sqlConn.state != "authenticated"))
+        if(jsl.isEmpty(this.sqlConn) || (this.sqlConn && this.sqlConn.state != "connected" && this.sqlConn.state != "authenticated"))
             return reject(`DB connection is not established yet. Current connection state is "${this.sqlConn.state || "disconnected"}"`);
 
         debug("SQL", `Sending query: "${query}" with values "${(typeof insertValues == "object") ? insertValues.map((v) => (v == null ? "NULL" : v)).join(",") : "(empty)"}"`);
