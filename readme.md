@@ -21,6 +21,6 @@
 <br><br>
 
 # Projects (I'm aware of) that use JokeAPI:
-- [Dozens Advices](https://github.com/ZephyrVentum/dozens-Advices) by [ZephyrVentum](https://github.com/ZephyrVentum)
+- [dozens Advices](https://github.com/ZephyrVentum/dozens-Advices) by [ZephyrVentum](https://github.com/ZephyrVentum)
   
 ([Contact me](https://discord.gg/aBH4uRG) to get your project added here)
