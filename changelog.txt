@@ -9,7 +9,8 @@
 
 [PLANNED: 2.0.1] - The hotfix that will probably be necessary a few days after the 2.0.0 release
     - TODO:
-        (nothing)
+        - Allow definition of max requests per minute per each client
+        - Add an authorization header to make whitelisting possible without needing to have a static IP
     - DONE:
         (nothing)
 
