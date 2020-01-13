@@ -10,6 +10,8 @@
     --header-bg-color: #101747;
     --header-bg-color-sidenav-opened: #101747;
 
+    --doc-header-color: #5a83c0;
+
     --header-height: 50px;
 
     --accent-color: #8a2be2;
@@ -37,7 +39,7 @@
 
 
 /* #MARKER BEGIN */
-html {
+html, body, #main {
     scroll-behavior: smooth;
 }
 
@@ -252,6 +254,20 @@ header #docTitle {
 }
 
 /*#MARKER main content*/
+
+#bodyFlexContainer {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    height: 100vh;
+    scroll-behavior: smooth;
+}
+
+#bodyFlexContainer .bodyFlexItem {
+    flex-grow: 1;
+}
+
 .jsg_menu {
     z-index: 1001;
 }
@@ -275,12 +291,12 @@ header #docTitle {
 }
 
 #content {
-    overflow-y: scroll;
+    overflow-y: auto;
     padding: 26px;
     margin-left: 10px;
 
     /*TODO: do this better*/
-    height: calc(97vh - var(--header-height));
+    /* height: calc(97vh - var(--header-height)); */
 
     padding-top: 0;
     margin-top: 0;
@@ -572,7 +588,7 @@ body[data-sidenav="opened"] .requestURLwrapper {
 
 .headerAnchorContainer {
     display: inline-block;
-    margin-top: 80px;
+    margin-top: 20px;
 }
 
 .targetBlink:target {
@@ -582,8 +598,8 @@ body[data-sidenav="opened"] .requestURLwrapper {
 
 @keyframes targetBlink {
     0% {
-        border-color: inherit;
-        color: inherit;
+        border-color: var(--doc-header-color);
+        color: #fff;
 
         border-width: 2px;
     }
@@ -602,8 +618,8 @@ body[data-sidenav="opened"] .requestURLwrapper {
         border-width: 200%;
     }
     100% {
-        border-color: inherit;
-        color: inherit;
+        border-color: var(--doc-header-color);
+        color: #fff;
 
         border-width: 2px;
     }
@@ -611,7 +627,7 @@ body[data-sidenav="opened"] .requestURLwrapper {
 
 .docHeader {
     font-size: var(--doc-header-font-size);
-    border: 2px solid #fff;
+    border: 2px solid var(--doc-header-color);
     border-style: none none solid none;
     padding-bottom: 2px;
     margin-bottom: 10px;

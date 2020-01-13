@@ -40,6 +40,14 @@ const parseURL = url => {
             pathArr = rawPath.split("/");
         else pathArr = [rawQstr];
 
+        if(pathArr.includes("v2"))
+        {
+            pathArr.forEach((itm, i) => {
+                if(itm == "v2")
+                    pathArr.splice(i, 1);
+            });
+        }
+
         pathArr.forEach((pathSection, i) => {
             if(jsl.isEmpty(pathSection))
                 pathArr.splice(i, 1);

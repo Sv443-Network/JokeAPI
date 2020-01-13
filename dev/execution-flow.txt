@@ -2,15 +2,28 @@
     - Parse Jokes (make sure the format is correct) + load to memory
     - Initialize Black- and Whitelists
     - Initialize Documentation Page
+    - Start Daemon
     - Start HTTP server
 
 [On HTTP Request]
-    > IF IP is on blacklist
+    > IF IP is rate limited
         - return 429 error
+    > ELSE IF IP is on blacklist
+        - return 403 error
     > ELSE
         > IF path matches a script in ./endpoints
             - execute that script
         > ELSE IF path == ./
-            - serve documentation
+            > IF browser supports encoding
+                - serve documentation with encoding according to encoding priority
+            > ELSE
+                - serve documentation without encoding
         > ELSE
             - return 404 error
+
+[On Init + Daemon Interval]
+    > IF documentation file(s) changed
+        - inject variables into documentation files
+        - encode all files with Gzip, Deflate and Brotli encoding
+    > ELSE
+        - return

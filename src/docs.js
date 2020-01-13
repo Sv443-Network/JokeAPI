@@ -10,6 +10,7 @@ const parseJokes = require("./parseJokes");
 const logRequest = require("./logRequest");
 const zlib = require("zlib");
 const semver = require("semver");
+const analytics = require("./analytics");
 
 
 /**
@@ -202,6 +203,15 @@ const saveEncoded = (encoding, filePath, content) => {
  */
 const injectError = (err, exit = true) => {
     console.log(`\n${jsl.colors.fg.red}Error while injecting docs: ${err}${jsl.colors.rst}\n`);
+    analytics({
+        type: "Error",
+        data: {
+            errorMessage: `Error while injecting into documentation: ${err}`,
+            ipAddress: `N/A`,
+            urlPath: [],
+            urlParameters: {}
+        }
+    })
     if(exit)
         process.exit(1);
 }
@@ -220,13 +230,6 @@ const inject = filePath => {
             try
             {
                 file = file.toString();
-
-                //#SECTION INJECTs
-                if(fs.existsSync(`${settings.documentation.compiledPath}index_injected.js`) && fs.existsSync(`${settings.documentation.compiledPath}index_injected.css`))
-                {
-                    file = file.replace(/<!--%#INJECT:SCRIPT#%-->/gm, `<script>${minify(fs.readFileSync(`${settings.documentation.compiledPath}index_injected.js`))}</script>`);
-                    file = file.replace(/<!--%#INJECT:STYLESHEET#%-->/gm, `<style>${minify(fs.readFileSync(`${settings.documentation.compiledPath}index_injected.css`))}</style>`);
-                }
 
                 //#SECTION INSERTs
                 let contributors = JSON.stringify(packageJSON.contributors);
@@ -275,4 +278,4 @@ const inject = filePath => {
 const minify = input => input.toString().replace(/(\n|\r\n|\t)/gm, "");
 
 
-module.exports = { init, recompileDocs };
+module.exports = { init, recompileDocs, minify };

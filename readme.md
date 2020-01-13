@@ -12,6 +12,11 @@
 [![GitHub watchers](https://img.shields.io/github/watchers/Sv443/JokeAPI?style=social)](https://github.com/Sv443/JokeAPI/watchers)
 [![GitHub stars](https://img.shields.io/github/stars/Sv443/JokeAPI?style=social)](https://github.com/Sv443/JokeAPI/stargazers)
 
+<br><br>
+
+# [Documentation](https://sv443.net/jokeapi/v2) &bull; [Try it out](https://sv443.net/jokeapi/v2#try-it)
+
+
 </div>
 <br><br>
 

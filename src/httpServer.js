@@ -35,7 +35,7 @@ const init = () => {
                     urlParameters: parsedURL.queryParams
                 };
 
-                debug("HTTP", `Incoming request from "${ip.substring(0, 8)}..."`);
+                debug("HTTP", `Incoming ${req.method} request from "${ip.substring(0, 8)}..."`);
                 
                 let fileFormat = settings.jokes.defaultFileFormat.fileFormat;
                 if(!jsl.isEmpty(parsedURL.queryParams) && !jsl.isEmpty(parsedURL.queryParams.format))
@@ -69,9 +69,7 @@ const init = () => {
                     res.setHeader("Allow", "GET, HEAD, OPTIONS");
 
                     if(settings.httpServer.infoHeaders)
-                    {
                         res.setHeader("API-Info", `${settings.info.name} v${settings.info.version} (${settings.info.docsURL})`);
-                    }
                 }
                 catch(err)
                 {
@@ -115,8 +113,8 @@ const init = () => {
                                 logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
                                 return respondWithError(res, 101, 429, fileFormat);
                             }
-                            /*DEBUG*/ //else return respondWithErrorPage(req, res, 500, fileFormat, "Example Error @ex@"); // eslint-disable-line
                             else return serveDocumentation(req, res);
+                            /*DEBUG*/ //else return respondWithErrorPage(req, res, 500, fileFormat, "Example Error @ex@");
                         }
 
                         // Disable caching now that the request is not a docs request
@@ -301,6 +299,8 @@ const init = () => {
     });
 }
 
+
+//#MARKER error stuff
 /**
  * Ends the request with an error. This error gets pulled from the error registry
  * @param {http.ServerResponse} res 
@@ -379,6 +379,7 @@ const respondWithErrorPage = (req, res, statusCode, fileFormat, error) => {
     return pipeFile(res, settings.documentation.errorPagePath, "text/html", statusCode);
 }
 
+//#MARKER response piping
 /**
  * Pipes a string into a HTTP response
  * @param {http.ServerResponse} res The HTTP res object
@@ -452,6 +453,7 @@ const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
     }
 }
 
+//#MARKER serve docs
 /**
  * Serves the documentation page
  * @param {http.IncomingMessage} req The HTTP req object
@@ -493,6 +495,7 @@ const serveDocumentation = (req, res) => {
     }); 
 }
 
+//#MARKER util
 /**
  * Returns the name of the client's accepted encoding with the highest priority
  * @param {http.IncomingMessage} req The HTTP req object
