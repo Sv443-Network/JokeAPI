@@ -127,6 +127,8 @@ const call = (req, res, url, params, format) => {
     
 
     filterJoke.getJoke().then(joke => {
+        if(!joke["error"])
+            joke["error"] = false;
         let responseText = convertFileFormat.auto(format, joke);
         httpServer.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format));
     }).catch(err => {

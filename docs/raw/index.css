@@ -23,7 +23,7 @@
 
     --sidenav-animation-speed: 0.3s;
 
-    --scrollbar-track-color: #1d1d1d;
+    --scrollbar-track-color: #222;
     --scrollbar-thumb-color: rgba(175, 175, 175, .7);
     --scrollbar-webkit-hover-color: rgba(65, 131, 196, .8);
 }
@@ -254,6 +254,44 @@ header #docTitle {
 }
 
 /*#MARKER main content*/
+#statusCodeTable {
+    margin: 0;
+    padding: 0;
+}
+
+#statusCodeTable tr td:not(:last-child):not(:first-child), #statusCodeTable tr th {
+    border: 1px solid white;
+    border-style: none none none solid;
+}
+
+.colB {
+    color: #a9a9ff;
+}
+
+.colY {
+    color: #ffffa9;
+}
+
+details summary {
+    font-size: 110%;
+    padding-top: 2px;
+    padding-bottom: 5px;
+    cursor: pointer;
+}
+
+mark {
+    border: 1px solid #777;
+    border-radius: 2px;
+    background-color: var(--bg-accent-color);
+    display: inline-block;
+    padding: 3px;
+    color: #ccc;
+    transition: background-color linear var(--sidenav-animation-speed);
+}
+
+body[data-sidenav="opened"] mark {
+    background-color: var(--bg-accent-color-sidenav-opened);
+}
 
 #bodyFlexContainer {
     display: flex;
