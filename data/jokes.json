@@ -2052,6 +2052,33 @@
                 "sexist": false
             },
             "id": 149
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "setup": "How did you make your friend rage?",
+            "delivery": "I implemented a greek question mark in his JavaScript code.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 150
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "joke": "The gas Argon walks into a bar.\nThe barkeeper says \"What would you like to drink?\", but Argon doesn't react.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 151
         }
     ]
 }
