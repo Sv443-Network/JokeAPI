@@ -255,10 +255,15 @@ const inject = filePath => {
                     "<!--%#INSERT:FORMATVERSION#%-->":         settings.jokes.jokesFormatVersion.toString()
                 };
 
+                let allMatches = 0;
                 Object.keys(injections).forEach(key => {
+                    let regex = new RegExp(key, "gm");
+                    allMatches += ((file.toString().match(regex) || []).length || 0);
                     let injection = injections[key];
-                    file = file.replace(new RegExp(key, "gm"), !jsl.isEmpty(injection) ? injection : "Error");
+                    file = file.replace(regex, !jsl.isEmpty(injection) ? injection : "Error");
                 });
+
+                debug("Docs", `Injected ${allMatches} times into file "${filePath}"`);
 
                 return resolve(file.toString());
             }

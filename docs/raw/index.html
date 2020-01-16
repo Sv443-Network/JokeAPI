@@ -677,7 +677,18 @@ class Test
 
                 <!-- #MARKER Filtering -->
                 <div class="docHeader targetBlink" id="filtering"><a class="headerAnchorContainer" href="#filtering" title="Click to link to this header">🔗</a><span class="docHeaderText">Filtering Jokes:</span></div>
-                I created <!--%#INSERT:NAME#%--> with the main purpose of it having many versatile filtering options as other APIs didn't offer this amount of customization. In this section you will learn how the filtering works.<br>
+                I created <!--%#INSERT:NAME#%--> with the main purpose of it having many versatile filtering options as other APIs didn't offer this amount of customization.<br>
+                In this section you will learn how the filtering works.<br><br>
+
+                There are six different filtering methods in <!--%#INSERT:NAME#%-->:<br>
+                <ul>
+                    <li><a href="#category-filtering">Joke Category</a></li>
+                    <li><a href="#category-filtering">Blacklist Flags</a></li>
+                    <li><a href="#category-filtering">Response Format</a></li>
+                    <li><a href="#category-filtering">Joke Type</a></li>
+                    <li><a href="#category-filtering">Search String</a></li>
+                    <li><a href="#category-filtering">ID Range</a></li>
+                </ul>
                 <!-- TODO: finish this -->
 
 
@@ -691,7 +702,10 @@ class Test
 
                 <span class="subHeader" id="categories">Categories:</span>
                 <!--%#INSERT:NAME#%--> has a first, coarse filter that just categorizes the jokes depending on what the joke is about or who the joke is directed at.<br>
-                A joke about programming will be in the "Programming" category, dark humor will be in the "Dark" category and so on.
+                A joke about programming will be in the "Programming" category, dark humor will be in the "Dark" category and so on.<br>
+                If you want jokes from all categories, you can instead use "Any", which will make <!--%#INSERT:NAME#%--> randomly choose a category.<br>
+                To set the category you want, you need to add it to the URL path, just after the "/joke" endpoint, like this:<br>
+                <mark><!--%#INSERT:DOCSURL#%-->/joke/Programming</mark>
 
                 <span class="subHeader" id="blacklist-flags">(Blacklist-) Flags:</span>
                 Blacklist Flags (or just "Flags") are a more fine layer of filtering.<br>

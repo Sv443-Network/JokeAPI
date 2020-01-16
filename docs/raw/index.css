@@ -333,9 +333,6 @@ body[data-sidenav="opened"] mark {
     padding: 26px;
     margin-left: 10px;
 
-    /*TODO: do this better*/
-    /* height: calc(97vh - var(--header-height)); */
-
     padding-top: 0;
     margin-top: 0;
 
