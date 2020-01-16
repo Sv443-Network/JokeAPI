@@ -37,7 +37,7 @@ var dIHTML = `
     <li>A hash of your IP address <u>if it gets added to a <i>whitelist</i>.</u> This only happens if you contacted me to get more requests per minute or are partnered with me and have been informed that this is happening</li>
     <li>A hash of your IP address <u>if it gets added to a <i>console blacklist</i>.</u> This (if at all) also only happens if you are partnered with me</li>
     <li>The requested URL, consisting of the URL path, the URL parameters and the URL anchor</li>
-    <li>The body of joke submissions (using PUT requests on the submission endpoint)</li>
+    <li>The payload of joke submissions (using PUT requests on the submission endpoint)</li>
 </ul>
 
 <br><br>
@@ -149,6 +149,10 @@ function onLoad()
 
     var formats = JSON.parse('<!--%#INSERT:FILEFORMATARRAY#%-->');
     document.getElementById("insFormats2").innerHTML = formats.join(", ").toLowerCase();
+
+    var categories = JSON.parse('<!--%#INSERT:CATEGORYARRAY#%-->');
+    categories.unshift("Any");
+    document.getElementById("insCategories").innerHTML = categories.join(", ");
 }
 
 function addCodeTabs()

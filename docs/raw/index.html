@@ -222,7 +222,7 @@ class Test
                 <!--%#INSERT:NAME#%--> is a RESTful API that serves uniformly and well formatted jokes.<br>
                 It can be used <u>without any API token, membership, registration or payment.</u><br>
                 It supports a variety of filters that can be applied to get just the right jokes you need.<br>
-                The usage is very simple and similar to other RESTful APIs and requires only basic knowledge of HTTP/HTTPS requests and JSON/XML/YAML.<br>
+                The usage is very simple and similar to other RESTful APIs and requires only basic knowledge of HTTP/HTTPS requests and JSON, XML or YAML.<br><br>
                 If you come across a term you don't understand, you can try <span class="mimica" onclick="openNav()">opening the menu</span> and clicking on the section "Terminology".<br>
                 To submit a joke, <a href="#submit-joke">click here</a>.<br>
                 <br>
@@ -330,11 +330,11 @@ class Test
                 <!-- #MARKER Getting Started -->
                 <div class="docHeader targetBlink" id="getting-started"><a class="headerAnchorContainer" href="#getting-started" title="Click to link to this header">🔗</a><span class="docHeaderText">Getting Started:</span></div>
                 <!--%#INSERT:NAME#%--> doesn't require any API token, authorization or payment to work, although there is a hard limit of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute due to some DoS attacks I have been getting.<br>
-                To start using <!--%#INSERT:NAME#%-->, you first need to know a way to send HTTP requests (XHR) from within your code (<a href="https://medium.com/better-programming/crash-course-in-http-requests-using-python-59246373a187">Python XHR Crash Course</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest">JavaScript XHR Documentation</a>).<br>
+                To start using <!--%#INSERT:NAME#%-->, you first need to know a way to send HTTP requests (XHR) from within your code (<a href="https://medium.com/better-programming/crash-course-in-http-requests-using-python-59246373a187" target="_blank">Python XHR Crash Course</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest" target="_blank">JavaScript XHR Documentation</a>).<br>
                 Now that you know how to send HTTP requests, please take a look at <a href="#endpoints">all the endpoints <!--%#INSERT:NAME#%--> has.</a><br>
-                After you've finished reading that, you can start testing out the different endpoints with a client such as <a href="https://www.getpostman.com/">Postman</a> and look at some examples by <span class="mimica" onclick="openNav()">opening the menu</span> and choosing an option in the "Examples" dropdown.<br>
-                If you know any good jokes and want to add them to <!--%#INSERT:NAME#%-->, please <a href="#submit-joke"></a>
-                If you need any help, feel free to join my Discord server by <a href="https://sv443.net/discord">clicking here.</a><br>
+                After you've finished reading that, you can start testing out the different endpoints with a client such as <a href="https://www.getpostman.com/" target="_blank">Postman</a> and look at some examples by <span class="mimica" onclick="openNav()">opening the menu</span> and choosing an option in the "Examples" dropdown.<br>
+                If you know any good jokes and want to add them to <!--%#INSERT:NAME#%-->, please <a href="#submit-joke">click here.</a><br>
+                If you need any help, feel free to <a href="https://sv443.net/discord" target="_blank">join my Discord server.</a><br>
 
 
                 <!-- #MARKER Submit Joke -->
@@ -346,7 +346,7 @@ class Test
                 <!-- #MARKER URL parameters -->
                 <div class="docHeader targetBlink" id="url-parameters"><a class="headerAnchorContainer" href="#url-parameters" title="Click to link to this header">🔗</a><span class="docHeaderText">URL Parameters:</span></div>
                 URL parameters are like the settings or the configuration of an HTTP request.<br>
-                The parameter "section" needs to be prefixed by a question mark (?) and separate key/value pairs need to be delimited from another by an ampersand (&amp;). Keys are separated from values with an equals sign (=).<br>
+                The parameters need to be prefixed by a single question mark (?) and separate key/value pairs need to be delimited from another by an ampersand (&amp;). Keys are separated from values with an equals sign (=).<br>
                 Example: <mark>https://example.org/some/page<span class="colB">?</span><span class="colY">key1=foo</span><span class="colB">&</span><span class="colY">key2=bar</span><span class="colB">&</span><span class="colY">key3=baz</span> ...</mark> (yellow = key/value pair)<br>
                 
                 <span class="subHeader" id="format-param">Format:</span>
@@ -423,9 +423,8 @@ class Test
                 <br><br>
                 <span class="subHeader" id="contains-param">Contains:</span>
                 This parameter can only be used on the "joke" endpoint.<br>
-                If this parameter is specified, only jokes that contain the value of this parameter will be served.<br>
-                The value of this parameter is case insensitive.<br>
-                <span class="colY">IMPORTANT:</span> If the value of this parameter contains special characters, it needs to be <a href="https://tools.ietf.org/html/rfc3986#section-2.1">percent-encoded</a> according to the URI standard (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent">MDN Reference</a>), otherwise you might get an error or a wrong response.<br><br>
+                If this parameter is specified, only jokes that contain the value of this parameter will be served (case insensitive).<br>
+                <span class="colY">IMPORTANT:</span> If the value of this parameter contains special characters, it needs to be <a href="https://tools.ietf.org/html/rfc3986#section-2.1" target="_blank">percent-encoded</a> according to the URI standard (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent" target="_blank">MDN Reference</a>), otherwise you might get an error or a wrong response.<br><br>
 
                 <details><summary>Example (click to view)</summary>
                     URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?contains=C%23</mark> (%23 = pound character / hashtag / # - so the thing searched for here is "C#")<br><br>
@@ -448,15 +447,49 @@ class Test
                 </details>
 
 
+                <br><br>
+                <span class="subHeader" id="idrange-param">ID Range:</span>
+                This parameter can only be used on the "joke" endpoint.<br>
+                If it is used, you will only get jokes that are inside the specified range of IDs.<br>
+                The lower and upper boundary of the ID range needs to be delimited with a minus (-), comma (,) or a plus sign (+).<br>
+                If you only want to get a single joke by its ID, you can also ignore the delimiter and just use the single ID as the value for this parameter.<br><br>
+
+                <details><summary>Example 1 (click to view)</summary>
+                    URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?idRange=0-55</mark><br>
+                    Using the above URL will make <!--%#INSERT:NAME#%--> only serve you jokes that are inside the ID range of 0 to 55.
+                </details><br>
+
+                <details><summary>Example 2 (click to view)</summary>
+                    URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?idRange=33</mark><br>
+                    Using the above URL will make <!--%#INSERT:NAME#%--> only serve you the joke with the ID 33 (provided there are no other filters that are blacklisting that joke).
+                </details>
+
+
                 <!-- #MARKER Errors -->
                 <div class="docHeader targetBlink" id="errors"><a class="headerAnchorContainer" href="#errors" title="Click to link to this header">🔗</a><span class="docHeaderText">Errors:</span></div>
                 In <!--%#INSERT:NAME#%--> all response data, no matter from which endpoint will have an "error" parameter.<br>
                 Usually, it is set to false, which means there was no error in your request or on the server.<br>
                 If the "error" parameter is set to true though, there was an error and <!--%#INSERT:NAME#%--> will add an "internalError", "message", "causedBy", "additionalInfo" and "timestamp" parameter.<br>
                 The "internalError" parameter will be set to false, if the error was due to a malformed or failed request and it will be true, if the error is <!--%#INSERT:NAME#%-->'s fault.<br>
-                The "message" parameter will contain a short version of the error message and the "timestamp" parameter will contain a UNIX timestamp in Central European time (GMT+1).<br>
+                The "message" parameter will contain a short version of the error message and the "timestamp" parameter will contain a 13-character UNIX timestamp in Central European time (GMT+1).<br>
                 The "causedBy" parameter is an array of possible causes of this error and the "addidionalInfo" parameter contains a more descriptive error message.<br>
-                Together with the <a href="#status-codes">HTTP status code</a>, which will also be set accordingly to the type of error, these parameters can be used to improve error handling massively from what was the error system in previous versions.<br>
+                You can view an example of an error, where an invalid category was used, just below this paragraph.<br>
+                Together with the <a href="#status-codes">HTTP status code</a>, which will also be set accordingly to the type of error, these parameters can be used to improve error handling massively from what was the error system in previous versions of <!--%#INSERT:NAME#%-->.<br><br><br>
+
+<code class="prettyprint"><span class="nocode codeheader">Example Error:</span>
+    <div class="actualCode">{
+    "error": true,
+    "internalError": false,
+    "code": 106,
+    "message": "No matching joke found",
+    "causedBy": [
+        "No jokes were found that match your provided filter(s)"
+    ],
+    "additionalInfo": "The specified category is invalid - Got: \"foo\" - Possible categories are: \"Any, Miscellaneous, Programming, Dark\" (case insensitive)",
+    "timestamp": 1579170794412
+}
+</div></code><br>
+                
                 <span class="subHeader" id="status-codes">Status Codes:</span>
                 <table id="statusCodeTable">
                     <tr>
@@ -465,32 +498,32 @@ class Test
                         <th>Description</th>
                     </tr>
                     <tr>
-                        <td>200</td>
+                        <td class="g">200</td>
                         <td>Ok</td>
                         <td>The request was accepted and processed successfully and the respose text contains the requested data or a status message.</td>
                     </tr>
                     <tr>
-                        <td>400</td>
+                        <td class="r">400</td>
                         <td>Bad Request</td>
                         <td>The request you have sent to <!--%#INSERT:NAME#%--> is formatted incorrectly and cannot be processed.</td>
                     </tr>
                     <tr>
-                        <td>403</td>
+                        <td class="r">403</td>
                         <td>Forbidden</td>
                         <td>You have been added to the blacklist due to malicious behavior and are not allowed to send requests to <!--%#INSERT:NAME#%--> anymore.</td>
                     </tr>
                     <tr>
-                        <td>404</td>
+                        <td class="r">404</td>
                         <td>Not Found</td>
                         <td>The URL you have requested couldn't be found.</td>
                     </tr>
                     <tr>
-                        <td>429</td>
+                        <td class="r">429</td>
                         <td>Too Many Requests</td>
                         <td>You have exceeded the limit of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute and have to wait a bit until you are allowed to send requests again.</td>
                     </tr>
                     <tr>
-                        <td>500</td>
+                        <td class="dr">500</td>
                         <td>Internal Server Error</td>
                         <td>There was a general internal error within <!--%#INSERT:NAME#%-->. You can get more info from the properties in the response text.</td>
                     </tr>
@@ -512,14 +545,13 @@ class Test
                 </span>
                 <br><br>
                 This endpoint is the one you want to call to get a joke.<br>
-                A valid <a href="#categories">joke category</a> or multiple joke categories, separated by commas must be provided in the URL.<br>
-                To see how this URL is built with certain parameters set, <a href="#try-it">visit the "Try It" section</a>.<br>
+                A valid <a href="#categories">joke category</a> or multiple joke categories, delimited with a comma char (,) must be provided in the URL.<br>
+                To see how this URL is built with certain parameters set, <a href="#try-it">visit the "Try It" section.</a><br>
                 <details>
                     <summary>Example - click to view</summary>
-                    <br>
                     <span class="requestURLwrapper">
                         <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/joke/Programming,Miscellaneous?format=xml&blacklistFlags=nsfw,sexist&type=single</span>
-                    </span><br>
+                    </span><br><br>
                     Will give a joke from either the Programming or the Miscellaneous category, with the payload <a href="#response-formats">format</a> XML,<br>
                     with the <a href="#joke-type">joke type</a> "single", while also preventing all jokes that are potentially not safe for work and sexist from being served.
                 </details>
@@ -529,10 +561,10 @@ class Test
                     <li><a class="requestURL" href="#response-formats">?format</a></li>
                     <li><a class="requestURL" href="#flags-param">?blacklistFlags</a></li>
                     <li><a class="requestURL" href="#idRange">?idRange</a></li>
-                    <li><a class="requestURL" href="#contains">?contains</a></li>
-                    <li><a class="requestURL" href="#type">?type</a></li>
+                    <li><a class="requestURL" href="#search-string">?contains</a></li>
+                    <li><a class="requestURL" href="#joke-type">?type</a></li>
                 </ul>
-                <a href="">(More info on filtering parameters)</a>
+                <a href="#url-parameters">(More info on filtering parameters)</a>
                 <br><br>
 
 
@@ -546,7 +578,7 @@ class Test
                 This endpoint provides some information on <!--%#INSERT:NAME#%-->:<br>
                 - The version number<br>
                 - The amount of jokes<br>
-                - A UNIX timestamp to verify integrity<br>
+                - A 13-character UNIX timestamp<br>
                 - The URL to a joke submission form
                 <br><br>
                 Supported URL parameters:<br>
@@ -563,7 +595,7 @@ class Test
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/categories</span>
                 </span>
                 <br><br>
-                This endpoint returns a list / an array of all available joke categories and a UNIX timestamp.
+                This endpoint returns a list / an array of all available <a href="#categories">joke categories</a> and a 13-character UNIX timestamp.
                 <br><br>
                 Supported URL parameters:<br>
                 <ul>
@@ -579,7 +611,7 @@ class Test
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/flags</span>
                 </span>
                 <br><br>
-                This endpoint returns a list / an array of all available <a href="#blacklist-flags">blacklist flags</a> and a UNIX timestamp.
+                This endpoint returns a list / an array of all available <a href="#blacklist-flags">blacklist flags</a> and a 13-character UNIX timestamp.
                 <br><br>
                 Supported URL parameters:<br>
                 <ul>
@@ -589,13 +621,13 @@ class Test
 
 
                 <!--#SECTION Formats-->
-                <span class="subHeader">Categories:</span>
+                <span class="subHeader">Formats:</span>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
-                    <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/categories</span>
+                    <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/formats</span>
                 </span>
                 <br><br>
-                This endpoint returns a list / an array of all available joke categories and a UNIX timestamp.
+                This endpoint returns a list / an array of all available <a href="#response-formats">response formats</a> and a 13-character UNIX timestamp.
                 <br><br>
                 Supported URL parameters:<br>
                 <ul>
@@ -605,13 +637,14 @@ class Test
 
 
                 <!--#SECTION Ping-->
-                <span class="subHeader">Categories:</span>
+                <span class="subHeader">Ping:</span>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
-                    <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/categories</span>
+                    <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/ping</span>
                 </span>
                 <br><br>
-                This endpoint returns a list / an array of all available joke categories and a UNIX timestamp.
+                This endpoint returns a parameter named "ping" that contains the word "Pong!" and a 13-character UNIX timestamp.<br>
+                It is intended for external uptime monitoring but you can also use it if you want to.
                 <br><br>
                 Supported URL parameters:<br>
                 <ul>
@@ -645,8 +678,8 @@ class Test
                 <br><br>
                 This endpoint is used to submit a joke to be reviewed and added to <!--%#INSERT:NAME#%-->'s official jokes.<br>
                 The payload needs to be sent as JSON. Different <a href="#response-formats">formats</a> are not allowed here.<br>
-                The request payload has to follow the same object structure that the jokes are served in when using the "joke" endpoint.<br><br>
-                Make sure to add a "formatVersion" property, which just contains the current joke format version (<!--%#INSERT:FORMATVERSION#%-->).<br>
+                The request payload has to follow the same object structure that the jokes are served in when using the "joke" endpoint.<br>
+                Make sure to add a "formatVersion" property, which just contains the current joke format version (<!--%#INSERT:FORMATVERSION#%-->), though.<br><br>
                 The joke category has to be any valid <a href="#categories">category</a>, excluding "Any".<br>
                 If the <a href="#joke-type">joke type</a> is set to "single", the properties "setup" and "delivery" will need to be omitted and the joke is to be put in the "joke" property.<br>
                 If the <a href="#joke-type">joke type</a> is set to "twopart", the "joke" property is to be replaced with the properties "setup" and "delivery".<br>
@@ -682,18 +715,18 @@ class Test
 
                 There are six different filtering methods in <!--%#INSERT:NAME#%-->:<br>
                 <ul>
-                    <li><a href="#category-filtering">Joke Category</a></li>
-                    <li><a href="#category-filtering">Blacklist Flags</a></li>
-                    <li><a href="#category-filtering">Response Format</a></li>
-                    <li><a href="#category-filtering">Joke Type</a></li>
-                    <li><a href="#category-filtering">Search String</a></li>
-                    <li><a href="#category-filtering">ID Range</a></li>
+                    <li><a href="#categories">Joke Category</a></li>
+                    <li><a href="#blacklist-flags">Blacklist Flags</a></li>
+                    <li><a href="#response-formats">Response Format</a></li>
+                    <li><a href="#joke-type">Joke Type</a></li>
+                    <li><a href="#search-string">Search String</a></li>
+                    <li><a href="#id-range">ID Range</a></li>
                 </ul>
-                <!-- TODO: finish this -->
 
 
                 <!-- #MARKER Examples -->
                 <div class="docHeader targetBlink" id="examples"><a class="headerAnchorContainer" href="#examples" title="Click to link to this header">🔗</a><span class="docHeaderText">Examples:</span></div>
+                <!-- TODO: this -->
 
 
                 <!-- #MARKER Terminology -->
@@ -703,8 +736,9 @@ class Test
                 <span class="subHeader" id="categories">Categories:</span>
                 <!--%#INSERT:NAME#%--> has a first, coarse filter that just categorizes the jokes depending on what the joke is about or who the joke is directed at.<br>
                 A joke about programming will be in the "Programming" category, dark humor will be in the "Dark" category and so on.<br>
-                If you want jokes from all categories, you can instead use "Any", which will make <!--%#INSERT:NAME#%--> randomly choose a category.<br>
-                To set the category you want, you need to add it to the URL path, just after the "/joke" endpoint, like this:<br>
+                If you want jokes from all categories, you can instead use "Any", which will make <!--%#INSERT:NAME#%--> randomly choose a category.<br><br>
+                These are all the available categories: <mark id="insCategories"></mark><br>
+                To set the category you want, you need to add it to the URL path, just after the "/joke" endpoint, like this:
                 <mark><!--%#INSERT:DOCSURL#%-->/joke/Programming</mark>
 
                 <span class="subHeader" id="blacklist-flags">(Blacklist-) Flags:</span>
@@ -728,6 +762,12 @@ class Test
                 If the search string filter is used, only jokes that contain the specified string will be returned.<br>
                 You can specify this search string by using the <a href="#contains-param">?contains</a> URL parameter.
 
+                <span class="subHeader" id="id-range">ID Range:</span>
+                If this filter is used, you will only get jokes that are within the provided range of IDs.<br>
+                You don't necessarily need to provide an ID <i>range</i> though, a single ID will work just fine as well.<br>
+                Example: an ID range of 0-9 will mean you will only get one of the first 10 jokes.y<br>
+                You can set the ID range by using the <a href="#idrange-param">?idRange</a> URL parameter.
+
 
                 <!-- #MARKER Legal Stuff -->
                 <div class="docHeader targetBlink" id="legal"><a class="headerAnchorContainer" href="#legal" title="Click to link to this header">🔗</a><span class="docHeaderText">Legal Stuff:</span></div>
@@ -737,7 +777,7 @@ class Test
                 <div class="indented">
                     <!--%#INSERT:NAME#%--> is licensed under the MIT License.<br>
                     Before modifying and / or redistributing the source code, please take two minutes to read the license text.<br>
-                    <a href="https://sv443.net/LICENSE">You can view the full license text by clicking here.</a>
+                    <a href="https://sv443.net/LICENSE" target="_blank">You can view the full license text by clicking here.</a>
                 </div>
 
                 <!-- #SECTION Privacy -->
@@ -745,8 +785,8 @@ class Test
                 <div class="indented">
                     <!--%#INSERT:NAME#%--> has to collect some anonymized data to work.<br>
                     To view a list with details, please <span class="mimica" onclick="privPolMoreInfo()">click here.</span><br>
-                    To view the privacy policy, please <a href="https://sv443.net/privacypolicy/en">click here.</a><br>
-                    To view the site notice, <a href="https://sv443.net/imprint/en">click here.</a>
+                    To view the privacy policy, please <a href="https://sv443.net/privacypolicy/en" target="_blank">click here.</a><br>
+                    To view the site notice / imprint, <a href="https://sv443.net/imprint/en" target="_blank">click here.</a>
                 </div>
 
                 <!-- #SECTION Disclaimer -->
@@ -762,7 +802,7 @@ class Test
                 <!-- #SECTION Fonts -->
                 <br><br><span class="subHeader">Fonts:</span>
                 <div class="indented">
-                    <!--%#INSERT:NAME#%--> uses these third party fonts on its documentation pages:
+                    <!--%#INSERT:NAME#%--> uses these third party fonts on its documentation page:
                     <ul>
                         <li><a href="https://github.com/Microsoft/Cascadia-Code" style="font-family: 'Cascadia Code';">Cascadia Code</a> by <a href="https://github.com/Microsoft">Microsoft</a></li>
                         <li><a href="https://github.com/Google/Roboto" style="font-family: 'Roboto', monospace;">Roboto</a> by <a href="https://github.com/Google">Google</a></li>
@@ -840,6 +880,9 @@ class Test
                     <li><a class="noul" onclick="closeNav()" href="#categories">Categories</a></li>
                     <li><a class="noul" onclick="closeNav()" href="#blacklist-flags">(Blacklist-)&nbsp;Flags</a></li>
                     <li><a class="noul" onclick="closeNav()" href="#response-formats">Formats</a></li>
+                    <li><a class="noul" onclick="closeNav()" href="#joke-type">Joke Type</a></li>
+                    <li><a class="noul" onclick="closeNav()" href="#search-string">Search String</a></li>
+                    <li><a class="noul" onclick="closeNav()" href="#id-range">ID Range</a></li>
                 </ul>
             </details>
             <a class="noul" onclick="closeNav()" href="#legal">Legal Stuff</a>

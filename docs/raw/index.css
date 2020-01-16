@@ -257,11 +257,43 @@ header #docTitle {
 #statusCodeTable {
     margin: 0;
     padding: 0;
+    border-spacing: 0;
 }
 
-#statusCodeTable tr td:not(:last-child):not(:first-child), #statusCodeTable tr th {
-    border: 1px solid white;
+#statusCodeTable tr:nth-child(1) > th {
+    border: 1px solid #fff;
+    border-style: none none solid none;
+    text-align: left;
+}
+
+#statusCodeTable tr > td:nth-child(1) {
+    padding-top: 3px;
+}
+
+#statusCodeTable tr th:not(:first-child), #statusCodeTable tr td:not(:first-child) {
+    padding: 2px 10px 2px 10px;
+}
+
+#statusCodeTable tr th:first-child {
+    padding-right: 10px;
+    padding-bottom: 2px;
+}
+
+#statusCodeTable tr td:not(:first-child) {
+    border: 1px solid #fff;
     border-style: none none none solid;
+}
+
+#statusCodeTable tr td.g {
+    color: #89ff89;
+}
+
+#statusCodeTable tr td.r {
+    color: #f36643;
+}
+
+#statusCodeTable tr td.dr {
+    color: #da1313;
 }
 
 .colB {
@@ -285,6 +317,7 @@ mark {
     background-color: var(--bg-accent-color);
     display: inline-block;
     padding: 3px;
+    font-family: "Cascadia Code", "Roboto", "Courier New", monospace;
     color: #ccc;
     transition: background-color linear var(--sidenav-animation-speed);
 }
