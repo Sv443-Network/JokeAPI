@@ -53,7 +53,7 @@
 
         <!-- #MARKER dependencies -->
         <!-- JokeAPI Stylesheet: -->
-        <link rel="stylesheet" href="<!--%#INSERT:DOCSURL#%-->/v2/static/index.css"> <!-- Have to do it like this because browser compatibility 🤮 -->
+        <link rel="stylesheet" href="<!--%#INSERT:DOCSURL#%-->/v2/static/index.css"> <!-- Have to do it like this because the page doesn't always have a trailing slash 🤮 -->
         <link rel="stylesheet" href="./static/index.css"></link> <!--DEBUG-->
 
         <!-- Icon: -->
@@ -63,7 +63,7 @@
         <script src="https://sv443.net/cdn/jsl/1.5.0.js"></script>
 
         <!-- JokeAPI index.js -->
-        <script src="<!--%#INSERT:DOCSURL#%-->/v2/static/index.js"></script> <!-- Have to do it like this because browser compatibility 🤮 -->
+        <script src="<!--%#INSERT:DOCSURL#%-->/v2/static/index.js"></script> <!-- Have to do it like this because the page doesn't always have a trailing slash 🤮 -->
         <script src="./static/index.js"></script> <!--DEBUG-->
 
         <!-- Google Code-Prettify -->
@@ -167,38 +167,6 @@
                             <td><!--%#INSERT:DOCSURL#%--></td>
                         </tr>
                     </table>
-
-                    <br><br><br><br>
-
-<code class="prettyprint"><span class="nocode codeheader">This is some example code</span>
-    <div class="actualCode">#include &lt;QString&gt;
-
-#ifndef BAR
-    #define BAR "hello"
-#endif
-
-class Test
-{
-    private:
-        int x = 0;
-
-    protected slots:
-        void test(QString x = "test", int test = "abc");
-
-    public:
-        void test2()
-        {
-            auto lambdaFunct = [=](QString bar) 
-            {
-                return (bar + "test");
-            };
-
-            QString longlonglonglonglonglonglonglonglonglonglongline = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
-
-            int * bla = new Test();
-            bla->something().foo = lambdaFunct(BAR);
-        }
-}</div></code>
 
                 </div> <!-- #MARKER end dev stuff -->
 
@@ -349,6 +317,7 @@ class Test
                 The parameters need to be prefixed by a single question mark (?) and separate key/value pairs need to be delimited from another by an ampersand (&amp;). Keys are separated from values with an equals sign (=).<br>
                 Example: <mark>https://example.org/some/page<span class="colB">?</span><span class="colY">key1=foo</span><span class="colB">&</span><span class="colY">key2=bar</span><span class="colB">&</span><span class="colY">key3=baz</span> ...</mark> (yellow = key/value pair)<br>
                 
+                <!--#SECTION Format-->
                 <span class="subHeader" id="format-param">Format:</span>
                 This parameter is global - it can be used on every single endpoint of <!--%#INSERT:NAME#%--> (excluding the documentation and static content).<br>
                 It is used to change the response format from the default (JSON) to <span id="insFormats">(Loading...)</span>, depending on what you need.<br>
@@ -374,7 +343,7 @@ class Test
                 </details>
 
 
-                <br><br>
+                <br><br><!--#SECTION Blacklist Flags-->
                 <span class="subHeader" id="flags-param">Blacklist Flags:</span>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If it is used, jokes that match the specified flag(s) will not be served (<a href="#blacklist-flags">what is a flag?</a>).<br>
@@ -392,7 +361,7 @@ class Test
                 </details>
 
 
-                <br><br>
+                <br><br><!--#SECTION Joke Type-->
                 <span class="subHeader" id="type-param">Joke Type:</span>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If it is set, you will only receive jokes with the specified joke type (<a href="#joke-type">what is a joke type?</a>).<br>
@@ -420,7 +389,7 @@ class Test
                 </details>
 
 
-                <br><br>
+                <br><br><!--#SECTION Contains-->
                 <span class="subHeader" id="contains-param">Contains:</span>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If this parameter is specified, only jokes that contain the value of this parameter will be served (case insensitive).<br>
@@ -447,7 +416,7 @@ class Test
                 </details>
 
 
-                <br><br>
+                <br><br><!--#SECTION ID Range-->
                 <span class="subHeader" id="idrange-param">ID Range:</span>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If it is used, you will only get jokes that are inside the specified range of IDs.<br>
@@ -677,6 +646,7 @@ class Test
                 </span>
                 <br><br>
                 This endpoint is used to submit a joke to be reviewed and added to <!--%#INSERT:NAME#%-->'s official jokes.<br>
+                If you instead just want to manually submit a joke, please <a href="#submit-joke">click here.</a><br>
                 The payload needs to be sent as JSON. Different <a href="#response-formats">formats</a> are not allowed here.<br>
                 The request payload has to follow the same object structure that the jokes are served in when using the "joke" endpoint.<br>
                 Make sure to add a "formatVersion" property, which just contains the current joke format version (<!--%#INSERT:FORMATVERSION#%-->), though.<br><br>
@@ -687,8 +657,8 @@ class Test
                 The joke ID doesn't need to be provided as it will be automatically assigned to the joke.<br>
 
                 <br>
-                <code class="prettyprint"><span class="nocode codeheader">Example Payload:</span>
-    <div class="actualCode">{
+<code class="prettyprint"><span class="nocode codeheader">Example Payload:</span>
+<div class="actualCode">{
     "formatVersion": <!--%#INSERT:FORMATVERSION#%-->,
     "category": "Miscellaneous",
     "type": "single",
@@ -726,13 +696,170 @@ class Test
 
                 <!-- #MARKER Examples -->
                 <div class="docHeader targetBlink" id="examples"><a class="headerAnchorContainer" href="#examples" title="Click to link to this header">🔗</a><span class="docHeaderText">Examples:</span></div>
-                <!-- TODO: this -->
+                These are some examples in some commonly used languages to show you how you could implement <!--%#INSERT:NAME#%-->:<br><br>
+
+                <!--#SECTION Node-->
+                <details><summary id="example-node" class="big">Node.js (click to show)</summary>
+<code class="prettyprint"><span class="nocode codeheader">Node.js:</span>
+<div class="actualCode">const https = require("https"); // Native module, no need to explicitly install
+
+const baseURL = "<!--%#INSERT:DOCSURL#%-->";
+const categories = ["Programming", "Miscellaneous"];
+const params = [
+    "blacklistFlags=nsfw,religious,racist",
+    "idRange=0-100"
+];
+
+https.get(`${baseURL}/joke/${categories.join(",")}?${params.join("&")}`, res => {
+    console.log("\n");
+    res.on("data", chunk => {
+        // On data received, convert it to a JSON object
+        let randomJoke = JSON.parse(chunk.toString());
+
+        if(randomJoke.type == "single")
+        {
+            // If type == "single", the joke only has the "joke" property
+            console.log(randomJoke.joke);
+            console.log("\n");
+        }
+        else
+        {
+            // If type == "twopart", the joke has the "setup" and "delivery" properties
+            console.log(randomJoke.setup);
+            setTimeout(() => {
+                console.log(randomJoke.delivery);
+                console.log("\n");
+            }, 3000);
+        }
+    });
+
+    res.on("error", err => {
+        // On error, log to console
+        console.error(`Error: ${err}`);
+    });
+});
+</div></code>
+                </details><br>
+
+                <!--#SECTION Web-JS-->
+                <details><summary id="example-js" class="big">Web-JavaScript (click to show)</summary>
+<code class="prettyprint"><span class="nocode codeheader">Web-JS:</span>
+<div class="actualCode">var baseURL = "<!--%#INSERT:DOCSURL#%-->";
+var categories = ["Programming", "Miscellaneous"];
+var params = [
+    "blacklistFlags=nsfw,religious,racist",
+    "idRange=0-100"
+];
+
+var xhr = new XMLHttpRequest();
+xhr.open("GET", baseURL + "/joke/" + categories.join(",") + "?" + params.join("&"));
+
+xhr.onreadystatechange = function() {
+    if(xhr.readyState == 4 && xhr.status < 300) // readyState 4 means request has finished + we only want to parse the joke if the request was successful (status code lower than 300)
+    {
+        var randomJoke = JSON.parse(xhr.responseText);
+
+        if(randomJoke.type == "single")
+        {
+            // If type == "single", the joke only has the "joke" property
+            alert(randomJoke.joke);
+        }
+        else
+        {
+            // If type == "single", the joke only has the "joke" property
+            alert(randomJoke.setup);
+            alert(randomJoke.delivery);
+        }
+    }
+    else if(xhr.readyState == 4)
+    {
+        alert("Error while requesting joke.\n\nStatus code: " + xhr.status + "\nServer response: " + xhr.responseText);
+    }
+};
+
+xhr.send();
+</div></code>
+                </details><br>
+
+                <!--#SECTION C#-->
+                <details><summary id="example-cs" class="big">C# (click to show)</summary>
+<code class="prettyprint"><span class="nocode codeheader">C#:</span>
+<div class="actualCode">using System;
+using System.IO;
+using System.Net;
+using System.Web.Script.Serialization; // Requires you to include the assembly "System.Web.Extensions" in your project
+
+
+private void getJoke()
+{
+    string baseURL = "<!--%#INSERT:DOCSURL#%-->";
+    string[] categories = { "Programming", "Miscellaneous" };
+    string[] parameters = {
+        "blacklistFlags=nsfw,religious,racist",
+        "idRange=0-100"
+    };
+
+    // Create request and wait for response
+    WebRequest request = WebRequest.Create($"{baseURL}/joke/{string.Join(",", categories)}?{string.Join("&", parameters)}");
+    WebResponse response = request.GetResponse();
+
+    using (Stream dataStream = response.GetResponseStream())
+    {
+        // Convert the stream to a string
+        StreamReader reader = new StreamReader(dataStream);
+        string responseFromServer = reader.ReadToEnd();
+
+        // Deserialize the string into an object of the Joke class
+        JavaScriptSerializer ser = new JavaScriptSerializer();
+        Joke randomJoke = ser.Deserialize<Joke>(responseFromServer);
+
+        if (randomJoke.type == "single")
+        {
+            // If type == "single", the joke only has the "joke" property
+            Console.WriteLine(randomJoke.joke);
+        }
+        else
+        {
+            // If type == "twopart", the joke has the "setup" and "delivery" properties
+            Console.WriteLine(randomJoke.setup);
+            System.Threading.Thread.Sleep(3000);
+            Console.WriteLine(randomJoke.delivery);
+        }
+    }
+
+    // Close the request
+    response.Close();
+}
+
+
+public class Joke
+{
+    public string type { get; set; }
+    public string joke { get; set; }
+    public string setup { get; set; }
+    public string delivery { get; set; }
+    public int id { get; set; }
+    public Flags flags { get; set; }
+}
+
+
+public class Flags
+{
+    public bool nsfw { get; set; }
+    public bool religious { get; set; }
+    public bool political { get; set; }
+    public bool racist { get; set; }
+    public bool sexist { get; set; }
+}
+</div></code>
+                </details><br>
 
 
                 <!-- #MARKER Terminology -->
                 <div class="docHeader targetBlink" id="terminology"><a class="headerAnchorContainer" href="#terminology" title="Click to link to this header">🔗</a><span class="docHeaderText">Terminology:</span></div>
                 You might come across some terms in this documentation you don't understand. This section teaches you what those terms mean.<br>
 
+                <!--#SECTION Categories-->
                 <span class="subHeader" id="categories">Categories:</span>
                 <!--%#INSERT:NAME#%--> has a first, coarse filter that just categorizes the jokes depending on what the joke is about or who the joke is directed at.<br>
                 A joke about programming will be in the "Programming" category, dark humor will be in the "Dark" category and so on.<br>
@@ -741,16 +868,19 @@ class Test
                 To set the category you want, you need to add it to the URL path, just after the "/joke" endpoint, like this:
                 <mark><!--%#INSERT:DOCSURL#%-->/joke/Programming</mark>
 
+                <!--#SECTION Flags-->
                 <span class="subHeader" id="blacklist-flags">(Blacklist-) Flags:</span>
                 Blacklist Flags (or just "Flags") are a more fine layer of filtering.<br>
                 Multiple flags can be set on each joke and they tell you something about the offensiveness of each joke.<br>
                 You can tell <!--%#INSERT:NAME#%--> to not give you jokes that have the specified flags by using the <a href="#flags-param">?blacklistFlags</a> URL parameter.
 
+                <!--#SECTION Formats-->
                 <span class="subHeader" id="response-formats">(Response-) Formats:</span>
                 Response Formats (or just "Formats") are a way to get your data in a different file format.<br>
                 Maybe you are using some other code that only accepts XML. In that case, <!--%#INSERT:NAME#%--> is able to convert the JSON-formatted joke to XML for you.<br>
                 You can tell <!--%#INSERT:NAME#%--> which file format to respond with by using the <a href="#format-param">?format</a> URL parameter.
 
+                <!--#SECTION Type-->
                 <span class="subHeader" id="joke-type">Joke Type:</span>
                 Each joke comes with one of two types: single or twopart.<br>
                 If a joke is of type "twopart", it has a setup string and a delivery string, which are both part of the joke.<br>
@@ -758,10 +888,12 @@ class Test
                 A joke of type "single" only has a single string, which is the entire joke.<br>
                 If you only want one type of joke, you can use the <a href="#type-param">?type</a> URL parameter.
 
+                <!--#SECTION Search String-->
                 <span class="subHeader" id="search-string">Search String:</span>
                 If the search string filter is used, only jokes that contain the specified string will be returned.<br>
                 You can specify this search string by using the <a href="#contains-param">?contains</a> URL parameter.
 
+                <!--#SECTION ID Range-->
                 <span class="subHeader" id="id-range">ID Range:</span>
                 If this filter is used, you will only get jokes that are within the provided range of IDs.<br>
                 You don't necessarily need to provide an ID <i>range</i> though, a single ID will work just fine as well.<br>
@@ -809,10 +941,20 @@ class Test
                     </ul>
                 </div>
 
+                <!-- #SECTION Libraries -->
+                <br><br><span class="subHeader">Libraries:</span>
+                <div class="indented">
+                    <!--%#INSERT:NAME#%--> uses these libraries:
+                    <ul>
+                        <li><a href="https://github.com/google/code-prettify">Code-Prettify</a> by <a href="https://github.com/Google">Google</a></li>
+                        <li><a href="https://github.com/Sv443/JSLib">JSLib</a> by <a href="https://github.com/Sv443">Sv443</a></li>
+                    </ul>
+                </div>
+
                 <!-- #SECTION Dependencies -->
                 <br><br><span class="subHeader">Dependencies:</span>
                 <div class="indented">
-                    These are the libraries / packages <!--%#INSERT:NAME#%--> depends on (excluding dependencies of dependencies):
+                    These are the packages <!--%#INSERT:NAME#%--> depends on (excluding dependencies of dependencies):
                     <ul>
                         <li><a href="https://npmjs.com/package/dotenv">dotenv</a></li>
                         <li><a href="https://npmjs.com/package/farmhash">farmhash</a></li>
@@ -821,7 +963,7 @@ class Test
                         <li><a href="https://npmjs.com/package/json-to-pretty-yaml">json-to-pretty-yaml</a></li>
                         <li><a href="https://npmjs.com/package/mysql">MySQL</a></li>
                         <li><a href="https://npmjs.com/package/node-wrap">Node-Wrap</a></li>
-                        <li><a href="https://npmjs.com/package/svjsl">JSLib</a></li>
+                        <li><a href="https://npmjs.com/package/svjsl">JSLib (npm)</a></li>
                     </ul>
                 </div>
 
@@ -865,10 +1007,9 @@ class Test
                 </summary>
 
                 <ul>
-                    <li><a class="noul" onclick="closeNav()" href="#">CURL</a></li>
-                    <li><a class="noul" onclick="closeNav()" href="#">Node.js</a></li>
-                    <li><a class="noul" onclick="closeNav()" href="#">Web-JS</a></li>
-                    <li><a class="noul" onclick="closeNav()" href="#">C++</a></li>
+                    <li><a class="noul" onclick="closeNav()" href="#example-node">Node.js</a></li>
+                    <li><a class="noul" onclick="closeNav()" href="#example-js">Web-JS</a></li>
+                    <li><a class="noul" onclick="closeNav()" href="#example-cs">C#</a></li>
                 </ul>
             </details>
             <details>

@@ -311,6 +311,10 @@ details summary {
     cursor: pointer;
 }
 
+details summary.big {
+    font-size: 110%;
+}
+
 mark {
     border: 1px solid #777;
     border-radius: 2px;

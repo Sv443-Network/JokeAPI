@@ -21,6 +21,7 @@ const init = () => {
     return new Promise((resolve, reject) => {
         try
         {
+            process.injectionCounter = 0;
             debug("Docs", "Starting Daemon and recompiling docs files...")
             startDaemon();
             recompileDocs();
@@ -93,11 +94,16 @@ const recompileDocs = () => {
         ];
 
         let promises = [];
+        
+        process.injectionCounter = 0;
+        process.injectionTimestamp = new Date().getTime();
 
         filesToInject.forEach((fti, i) => {
             promises.push(new Promise((resolve, reject) => {
                 jsl.unused(reject);
-                inject(fti).then(injected => {
+                inject(fti).then((injected, injectionsNum) => {
+                    if(!jsl.isEmpty(injectionsNum) && !isNaN(parseInt(injectionsNum)))
+                        process.injectionCounter += parseInt(injectionsNum);
 
                     process.brCompErrOnce = false;
 
@@ -110,7 +116,7 @@ const recompileDocs = () => {
                             if(!process.brCompErrOnce)
                             {
                                 process.brCompErrOnce = true;
-                                injectError(`Brotli compression is only supported since Node.js version "v11.7.0" - current Node.js version is "${process.version}"`, false);
+                                injectError(`Brotli compression is only supported since Node.js version 11.7.0 - current Node.js version is ${semver.clean(process.version)}`, false);
                             }
                         });
 
@@ -118,14 +124,14 @@ const recompileDocs = () => {
                         if(err)
                             injectError(err);
 
-                        resolve();
+                        return resolve();
                     });
                 })
             }));
         });
 
         Promise.all(promises).then(() => {
-            debug("Docs", `Done recompiling docs`);
+            debug("Docs", `Done recompiling docs in ${jsl.colors.fg.yellow}${new Date().getTime() - process.injectionTimestamp}ms${jsl.colors.rst}, injected ${jsl.colors.fg.yellow}${process.injectionCounter}${jsl.colors.rst} values`);
         }).catch(err => {
             console.log(`Injection error: ${err}`);
         });
@@ -219,13 +225,13 @@ const injectError = (err, exit = true) => {
 /**
  * Injects all constants and external files into the passed file
  * @param {String} filePath Path to the file to inject things into
- * @returns {Promise<String>} Returns the done file as a passed argument in a promise
+ * @returns {Promise<String, Number>} Returns the finished file content as passed argument in a promise
  */
 const inject = filePath => {
     return new Promise((resolve, reject) => {
         fs.readFile(filePath, (err, file) => {
             if(err)
-                reject(err);
+                return reject(err);
 
             try
             {
@@ -263,8 +269,10 @@ const inject = filePath => {
                     file = file.replace(regex, !jsl.isEmpty(injection) ? injection : "Error");
                 });
 
-                debug("Docs", `Injected ${allMatches} times into file "${filePath}"`);
-
+                if(isNaN(parseInt(allMatches)))
+                    allMatches = 0;
+                
+                process.injectionCounter += allMatches;
                 return resolve(file.toString());
             }
             catch(err)
