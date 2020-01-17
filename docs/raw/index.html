@@ -507,7 +507,7 @@
 
 
                 <!--#SECTION Get Joke-->
-                <span class="subHeader">Get Joke:</span>
+                <span id="joke-endpoint" class="subHeader">Get Joke:</span>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/joke/<span class="placeholder">[Category/-ies]</span></span>
@@ -538,7 +538,7 @@
 
 
                 <!--#SECTION Info-->
-                <span class="subHeader">Info:</span>
+                <span id="info-endpoint" class="subHeader">Info:</span>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/info</span>
@@ -558,7 +558,7 @@
 
 
                 <!--#SECTION Categories-->
-                <span class="subHeader">Categories:</span>
+                <span id="categories-endpoint" class="subHeader">Categories:</span>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/categories</span>
@@ -574,7 +574,7 @@
 
 
                 <!--#SECTION Flags-->
-                <span class="subHeader">Flags:</span>
+                <span id="flags-endpoint" class="subHeader">Flags:</span>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/flags</span>
@@ -590,7 +590,7 @@
 
 
                 <!--#SECTION Formats-->
-                <span class="subHeader">Formats:</span>
+                <span id="formats-endpoint" class="subHeader">Formats:</span>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/formats</span>
@@ -606,7 +606,7 @@
 
 
                 <!--#SECTION Ping-->
-                <span class="subHeader">Ping:</span>
+                <span id="ping-endpoint" class="subHeader">Ping:</span>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/ping</span>
@@ -623,7 +623,7 @@
 
 
                 <!--#SECTION Endpoints-->
-                <span class="subHeader">Endpoints:</span>
+                <span id="endpoints-endpoint" class="subHeader">Endpoints:</span>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/endpoints</span>
@@ -639,7 +639,7 @@
 
 
                 <!--#SECTION Submit-->
-                <span class="subHeader">Submit Joke:</span>
+                <span id="submit-endpoint" class="subHeader">Submit Joke:</span>
                 <span class="requestURLwrapper">
                     <span class="requestMethodPUT">PUT</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/submit</span>
@@ -985,21 +985,23 @@ public class Flags
             <a class="noul" onclick="closeNav()" href="#submit-joke">Submit a Joke</a>
             <a class="noul" onclick="closeNav()" href="#url-parameters">URL Parameters</a>
             <a class="noul" onclick="closeNav()" href="#errors">Errors</a>
-            <a class="noul" onclick="closeNav()" href="#endpoints">Endpoints</a>
-            <!-- <details>
+            <!-- <a class="noul" onclick="closeNav()" href="#endpoints">Endpoints</a> -->
+            <details>
                 <summary>
                     <span class="sidenav-mimica">Endpoints</span>
                 </summary>
 
                 <ul>
-                    <li><a class="noul" onclick="closeNav()" href="#">Get Joke</a></li>
-                    <li><a class="noul" onclick="closeNav()" href="#">Info</a></li>
-                    <li><a class="noul" onclick="closeNav()" href="#">Categories</a></li>
-                    <li><a class="noul" onclick="closeNav()" href="#">Flags</a></li>
-                    <li><a class="noul" onclick="closeNav()" href="#">Formats</a></li>
-                    <li><a class="noul" onclick="closeNav()" href="#">Ping</a></li>
+                    <li><a class="noul" onclick="closeNav()" href="#joke-endpoint">Get Joke</a></li>
+                    <li><a class="noul" onclick="closeNav()" href="#info-endpoint">Info</a></li>
+                    <li><a class="noul" onclick="closeNav()" href="#categories-endpoint">Categories</a></li>
+                    <li><a class="noul" onclick="closeNav()" href="#flags-endpoint">Flags</a></li>
+                    <li><a class="noul" onclick="closeNav()" href="#formats-endpoint">Formats</a></li>
+                    <li><a class="noul" onclick="closeNav()" href="#ping-endpoint">Ping</a></li>
+                    <li><a class="noul" onclick="closeNav()" href="#endpoints-endpoint">Endpoints</a></li>
+                    <li><a class="noul" onclick="closeNav()" href="#submit-endpoint">Submit</a></li>
                 </ul>
-            </details> -->
+            </details>
             <a class="noul" onclick="closeNav()" href="#filtering">Filtering Jokes</a>
             <details>
                 <summary>
