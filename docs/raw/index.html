@@ -192,7 +192,8 @@
                 It supports a variety of filters that can be applied to get just the right jokes you need.<br>
                 The usage is very simple and similar to other RESTful APIs and requires only basic knowledge of HTTP/HTTPS requests and JSON, XML or YAML.<br><br>
                 If you come across a term you don't understand, you can try <span class="mimica" onclick="openNav()">opening the menu</span> and clicking on the section "Terminology".<br>
-                To submit a joke, <a href="#submit-joke">click here</a>.<br>
+                If you want to report a bug or an illegal joke, please <a href="<!--%#INSERT:PROJGITHUBURL#%-->/issues/new/choose">use the GitHub issue tracker.</a>
+                To submit a joke, <a href="#submit-joke">click here.</a><br>
                 <br>
                 <span style="color: orangered;">If you are new to <!--%#INSERT:NAME#%-->, please start by reading the <a href="#getting-started">Getting Started Guide</a></span><br>
                 <br>
@@ -979,56 +980,58 @@ public class Flags
                 <div class="sidenavHeaderItem spacerItem"></div>
                 <a class="sidenavHeaderItem closebtn mimica noul noselect nopad rtext" onclick="closeNav()" title="Click or press Esc to close">&times;</a>
             </div>
-            <a class="noul" onclick="closeNav()" href="#info">Information</a>
-            <a class="noul" onclick="closeNav()" href="#try-it">Try it out</a>
-            <a class="noul" onclick="closeNav()" href="#getting-started">Getting Started</a>
-            <a class="noul" onclick="closeNav()" href="#submit-joke">Submit a Joke</a>
-            <a class="noul" onclick="closeNav()" href="#url-parameters">URL Parameters</a>
-            <a class="noul" onclick="closeNav()" href="#errors">Errors</a>
-            <!-- <a class="noul" onclick="closeNav()" href="#endpoints">Endpoints</a> -->
-            <details>
-                <summary>
-                    <span class="sidenav-mimica">Endpoints</span>
-                </summary>
+            <div id="sidenavContent">
+                <a class="noul" onclick="closeNav()" href="#info">Information</a>
+                <a class="noul" onclick="closeNav()" href="#try-it">Try it out</a>
+                <a class="noul" onclick="closeNav()" href="#getting-started">Getting Started</a>
+                <a class="noul" onclick="closeNav()" href="#submit-joke">Submit a Joke</a>
+                <a class="noul" onclick="closeNav()" href="#url-parameters">URL Parameters</a>
+                <a class="noul" onclick="closeNav()" href="#errors">Errors</a>
+                <details>
+                    <summary>
+                        <span class="sidenav-mimica">Endpoints</span>
+                    </summary>
 
-                <ul>
-                    <li><a class="noul" onclick="closeNav()" href="#joke-endpoint">Get Joke</a></li>
-                    <li><a class="noul" onclick="closeNav()" href="#info-endpoint">Info</a></li>
-                    <li><a class="noul" onclick="closeNav()" href="#categories-endpoint">Categories</a></li>
-                    <li><a class="noul" onclick="closeNav()" href="#flags-endpoint">Flags</a></li>
-                    <li><a class="noul" onclick="closeNav()" href="#formats-endpoint">Formats</a></li>
-                    <li><a class="noul" onclick="closeNav()" href="#ping-endpoint">Ping</a></li>
-                    <li><a class="noul" onclick="closeNav()" href="#endpoints-endpoint">Endpoints</a></li>
-                    <li><a class="noul" onclick="closeNav()" href="#submit-endpoint">Submit</a></li>
-                </ul>
-            </details>
-            <a class="noul" onclick="closeNav()" href="#filtering">Filtering Jokes</a>
-            <details>
-                <summary>
-                    <span class="sidenav-mimica">Examples</span> 
-                </summary>
+                    <ul>
+                        <li><a class="noul" onclick="closeNav()" href="#joke-endpoint">Get Joke</a></li>
+                        <li><a class="noul" onclick="closeNav()" href="#info-endpoint">Info</a></li>
+                        <li><a class="noul" onclick="closeNav()" href="#categories-endpoint">Categories</a></li>
+                        <li><a class="noul" onclick="closeNav()" href="#flags-endpoint">Flags</a></li>
+                        <li><a class="noul" onclick="closeNav()" href="#formats-endpoint">Formats</a></li>
+                        <li><a class="noul" onclick="closeNav()" href="#ping-endpoint">Ping</a></li>
+                        <li><a class="noul" onclick="closeNav()" href="#endpoints-endpoint">Endpoints</a></li>
+                        <li><a class="noul" onclick="closeNav()" href="#submit-endpoint">Submit</a></li>
+                    </ul>
+                </details>
+                <a class="noul" onclick="closeNav()" href="#filtering">Filtering Jokes</a>
+                <a class="noul" onclick="closeNav()" href="#examples">Examples</a>
+                <!-- <details>
+                    <summary>
+                        <span class="sidenav-mimica">Examples</span> 
+                    </summary>
 
-                <ul>
-                    <li><a class="noul" onclick="closeNav()" href="#example-node">Node.js</a></li>
-                    <li><a class="noul" onclick="closeNav()" href="#example-js">Web-JS</a></li>
-                    <li><a class="noul" onclick="closeNav()" href="#example-cs">C#</a></li>
-                </ul>
-            </details>
-            <details>
-                <summary>
-                    <span class="sidenav-mimica">Terminology</span> 
-                </summary>
+                    <ul>
+                        <li><a class="noul" onclick="closeNav()" href="#example-node">Node.js</a></li>
+                        <li><a class="noul" onclick="closeNav()" href="#example-js">Web-JS</a></li>
+                        <li><a class="noul" onclick="closeNav()" href="#example-cs">C#</a></li>
+                    </ul>
+                </details> -->
+                <details>
+                    <summary>
+                        <span class="sidenav-mimica">Terminology</span> 
+                    </summary>
 
-                <ul>
-                    <li><a class="noul" onclick="closeNav()" href="#categories">Categories</a></li>
-                    <li><a class="noul" onclick="closeNav()" href="#blacklist-flags">(Blacklist-)&nbsp;Flags</a></li>
-                    <li><a class="noul" onclick="closeNav()" href="#response-formats">Formats</a></li>
-                    <li><a class="noul" onclick="closeNav()" href="#joke-type">Joke Type</a></li>
-                    <li><a class="noul" onclick="closeNav()" href="#search-string">Search String</a></li>
-                    <li><a class="noul" onclick="closeNav()" href="#id-range">ID Range</a></li>
-                </ul>
-            </details>
-            <a class="noul" onclick="closeNav()" href="#legal">Legal Stuff</a>
+                    <ul>
+                        <li><a class="noul" onclick="closeNav()" href="#categories">Categories</a></li>
+                        <li><a class="noul" onclick="closeNav()" href="#blacklist-flags">(Blacklist-)&nbsp;Flags</a></li>
+                        <li><a class="noul" onclick="closeNav()" href="#response-formats">Formats</a></li>
+                        <li><a class="noul" onclick="closeNav()" href="#joke-type">Joke Type</a></li>
+                        <li><a class="noul" onclick="closeNav()" href="#search-string">Search String</a></li>
+                        <li><a class="noul" onclick="closeNav()" href="#id-range">ID Range</a></li>
+                    </ul>
+                </details>
+                <a class="noul bottomspacer" onclick="closeNav()" href="#legal">Legal Stuff</a>
+            </div>
         </div>
     </body>
 </html>
