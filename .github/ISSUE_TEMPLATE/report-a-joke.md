@@ -2,7 +2,7 @@
 name: Report a joke
 about: Report a joke that is too offensive / illegal and/or not in the "Dark" category
 title: ''
-labels: reported joke
+labels: ❗ reported joke
 assignees: Sv443
 
 ---

@@ -2,7 +2,7 @@
 name: Feature request
 about: Suggest an idea / feature for JokeAPI
 title: ''
-labels: enhancement
+labels: ✨ enhancement
 assignees: Sv443
 
 ---

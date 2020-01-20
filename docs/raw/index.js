@@ -1,12 +1,16 @@
 "use strict";
 
 var settings = {
-    // baseURL: "https://sv443.net/jokeapi/v2",
-    baseURL: "http://localhost:8076",
+    baseURL: "<!--%#INSERT:DOCSURL#%-->",
     jokeEndpoint: "joke",
     anyCategoryName: "Any",
     defaultFormat: "json"
 };
+
+if(settings.baseURL.endsWith("/"))
+{
+    settings.baseURL = settings.baseURL.substr(0, (settings.baseURL.length - 1));
+}
 
 var qstr = null;
 var tryItOk = false;
@@ -33,7 +37,7 @@ var dIHTML = `
     <li>A hash of your IP address <u>if it gets added to a <i>whitelist</i>.</u> This only happens if you contacted me to get more requests per minute or are partnered with me and have been informed that this is happening</li>
     <li>A hash of your IP address <u>if it gets added to a <i>console blacklist</i>.</u> This (if at all) also only happens if you are partnered with me</li>
     <li>The requested URL, consisting of the URL path, the URL parameters and the URL anchor</li>
-    <li>The body of joke submissions (using PUT requests on the submission endpoint)</li>
+    <li>The payload of joke submissions (using PUT requests on the submission endpoint)</li>
 </ul>
 
 <br><br>
@@ -132,6 +136,23 @@ function onLoad()
             closeNav();
         }
     });
+
+    var fileFormats = JSON.parse('<!--%#INSERT:FILEFORMATARRAY#%-->');
+    if(fileFormats.includes("JSON"))
+    {
+        fileFormats.splice(fileFormats.indexOf("JSON"), 1);
+    }
+    document.getElementById("insFormats").innerHTML = fileFormats.join(" and ");
+
+    var flags = JSON.parse('<!--%#INSERT:FLAGSARRAY#%-->');
+    document.getElementById("insFlags").innerHTML = flags.join(", ");
+
+    var formats = JSON.parse('<!--%#INSERT:FILEFORMATARRAY#%-->');
+    document.getElementById("insFormats2").innerHTML = formats.join(", ").toLowerCase();
+
+    var categories = JSON.parse('<!--%#INSERT:CATEGORYARRAY#%-->');
+    categories.unshift("Any");
+    document.getElementById("insCategories").innerHTML = categories.join(", ");
 }
 
 function addCodeTabs()
@@ -543,11 +564,54 @@ function privPolMoreInfo()
 function hideUsageTerms()
 {
     gebid("usageTerms").style.display = "none";
-    // eslint-disable-next-line no-undef
-    Cookies.set("hideUsageTerms", "true", {"expires": 365});
+    Cookies.set("hideUsageTerms", "true", {"expires": 365}); // eslint-disable-line no-undef
 }
 
 
+//#MARKER misc
+function restart(token)
+{
+    if(!token)
+    {
+        token = prompt("Enter restart token:");
+    }
+
+    if(!token)
+    {
+        return;
+    }
+
+    var restartXhr = new XMLHttpRequest();
+    restartXhr.open("PUT", settings.baseURL + "/restart");
+    restartXhr.onreadystatechange = function() {
+        if(restartXhr.readyState == 4)
+        {
+            if(restartXhr.status == 400)
+            {
+                console.warn("Error 400 - The entered token is invalid");
+                alert("Error 400 - The entered token is invalid");
+            }
+            else if(restartXhr.status >= 300)
+            {
+                console.warn("Error " + restartXhr.status + " - " + restartXhr.responseText);
+                alert("Error " + restartXhr.status + " - " + restartXhr.responseText);
+            }
+            else if(restartXhr.status < 300)
+            {
+                var xhrData = JSON.parse(restartXhr.responseText);
+                console.info(xhrData.message + "\nInternal Time of Restart: " + toFormattedDate(xhrData.timestamp));
+                alert(xhrData.message + "\nInternal Time of Restart: " + toFormattedDate(xhrData.timestamp));
+            }
+        }
+    };
+    restartXhr.send(token.toString());
+}
+
+function toFormattedDate(unixTimestamp)
+{
+    var d = new Date(unixTimestamp);
+    return d.toLocaleString("de-DE");
+}
 
 
 
@@ -561,4 +625,4 @@ function unused(...args)
     });
 }
 
-unused(openNav, closeNav, onLoad, openChangelog, reRender, privPolMoreInfo, hideUsageTerms, sendTryItRequest);
+unused(openNav, closeNav, onLoad, openChangelog, reRender, privPolMoreInfo, hideUsageTerms, sendTryItRequest, restart);

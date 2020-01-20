@@ -45,7 +45,7 @@ const resolveIP = req => {
             ipaddr = req.headers["x_real_ip"];
         else if(!jsl.isEmpty(req.headers["x-proxyuser-ip"]) && (isValidIP(req.headers["x-proxyuser-ip"]))) // Google services
             ipaddr = req.headers["x-proxyuser-ip"];
-        else ipaddr = "err";
+        else ipaddr = "err_no_IP";
     }
 
     ipaddr = (ipaddr.length < 15 ? ipaddr : (ipaddr.substr(0,7) === "::ffff:" ? ipaddr.substr(7) : "err"));
@@ -55,12 +55,12 @@ const resolveIP = req => {
         if(settings.httpServer.ipHashing.enabled && isValidIP(ipaddr))
             ipaddr = hashIP(ipaddr);
         else if(settings.httpServer.ipHashing.enabled)
-            ipaddr = "err";
+            ipaddr = "err_invalid_IP_format";
         return typeof ipaddr == "string" ? ipaddr : ipaddr.toString();
     }
     catch(err)
     {
-        return "err";
+        return "err_couldnt_hash";
     }
 };
 
@@ -68,7 +68,11 @@ const ipv4regex = settings.httpServer.regexes.ipv4;
 const ipv6regex = settings.httpServer.regexes.ipv6;
 
 const isValidIP = ip => (ip.match(ipv4regex) || ip.match(ipv6regex));
-const hashIP = ip => crypto.createHash(settings.httpServer.ipHashing.algorithm).update(ip, "utf8").digest(settings.httpServer.ipHashing.digest).toString();
+const hashIP = ip => {
+    let hash = crypto.createHash(settings.httpServer.ipHashing.algorithm);
+    hash.update(ip, "utf8");
+    return hash.digest(settings.httpServer.ipHashing.digest).toString();
+}
 
 module.exports = resolveIP;
 module.exports.isValidIP = isValidIP;

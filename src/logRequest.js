@@ -5,8 +5,6 @@ const analytics = require("./analytics");
 const settings = require("../settings");
 
 
-
-
 /**
  * @typedef {Object} AnalyticsData
  * @prop {String} ipAddress

@@ -22,8 +22,9 @@
     --doc-sub-header-font-size: 19px;
 
     --sidenav-animation-speed: 0.3s;
+    --targetblink-animation-delay: 0.5s;
 
-    --scrollbar-track-color: #1d1d1d;
+    --scrollbar-track-color: #222;
     --scrollbar-thumb-color: rgba(175, 175, 175, .7);
     --scrollbar-webkit-hover-color: rgba(65, 131, 196, .8);
 }
@@ -254,6 +255,81 @@ header #docTitle {
 }
 
 /*#MARKER main content*/
+#statusCodeTable {
+    margin: 0;
+    padding: 0;
+    border-spacing: 0;
+}
+
+#statusCodeTable tr:nth-child(1) > th {
+    border: 1px solid #fff;
+    border-style: none none solid none;
+    text-align: left;
+}
+
+#statusCodeTable tr > td:nth-child(1) {
+    padding-top: 3px;
+}
+
+#statusCodeTable tr th:not(:first-child), #statusCodeTable tr td:not(:first-child) {
+    padding: 2px 10px 2px 10px;
+}
+
+#statusCodeTable tr th:first-child {
+    padding-right: 10px;
+    padding-bottom: 2px;
+}
+
+#statusCodeTable tr td:not(:first-child) {
+    border: 1px solid #fff;
+    border-style: none none none solid;
+}
+
+#statusCodeTable tr td.g {
+    color: #89ff89;
+}
+
+#statusCodeTable tr td.r {
+    color: #f36643;
+}
+
+#statusCodeTable tr td.dr {
+    color: #da1313;
+}
+
+.colB {
+    color: #a9a9ff;
+}
+
+.colY {
+    color: #ffffa9;
+}
+
+details summary {
+    font-size: 110%;
+    padding-top: 2px;
+    padding-bottom: 5px;
+    cursor: pointer;
+}
+
+details summary.big {
+    font-size: 110%;
+}
+
+mark {
+    border: 1px solid #777;
+    border-radius: 2px;
+    background-color: var(--bg-accent-color);
+    display: inline-block;
+    padding: 3px;
+    font-family: "Cascadia Code", "Roboto", "Courier New", monospace;
+    color: #ccc;
+    transition: background-color linear var(--sidenav-animation-speed);
+}
+
+body[data-sidenav="opened"] mark {
+    background-color: var(--bg-accent-color-sidenav-opened);
+}
 
 #bodyFlexContainer {
     display: flex;
@@ -294,9 +370,6 @@ header #docTitle {
     overflow-y: auto;
     padding: 26px;
     margin-left: 10px;
-
-    /*TODO: do this better*/
-    /* height: calc(97vh - var(--header-height)); */
 
     padding-top: 0;
     margin-top: 0;
@@ -441,6 +514,10 @@ body[data-sidenav="opened"] .requestURLwrapper {
 
 /*#MARKER sidenav*/
 #sidenav {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+
     height: 100%;
     width: 0;
     position: fixed;
@@ -449,8 +526,8 @@ body[data-sidenav="opened"] .requestURLwrapper {
     left: 0;
     background-color: #111;
     overflow-x: hidden;
+    overflow-y: hidden;
     transition: var(--sidenav-animation-speed);
-    padding-top: 60px;
     z-index: 1002;
 
     filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.6));
@@ -459,6 +536,8 @@ body[data-sidenav="opened"] .requestURLwrapper {
 }
 
 #sidenav a, .sidenav-mimica {
+    flex-grow: 1;
+
     padding: 5px 8px 5px 32px;
     text-decoration: none;
     font-size: 20px;
@@ -485,6 +564,8 @@ body[data-sidenav="opened"] .requestURLwrapper {
 }
 
 #sidenav details:not([open]) > summary::before {
+    flex-grow: 1;
+
     padding-left: 0px;
     padding-top: 0px;
     content: "⯈";
@@ -495,6 +576,8 @@ body[data-sidenav="opened"] .requestURLwrapper {
 }
 
 #sidenav details[open] > summary::before {
+    flex-grow: 1;
+
     padding-left: 0px;
     padding-top: 0px;
     content: "⯈";
@@ -528,6 +611,8 @@ body[data-sidenav="opened"] .requestURLwrapper {
 }
 
 #sidenav ul {
+    flex-grow: 1;
+
     padding-top: 0;
     margin-top: 0;
     list-style-type: none;
@@ -539,9 +624,16 @@ body[data-sidenav="opened"] .requestURLwrapper {
     font-size: 15px;
 }
 
+#sidenav #sidenavContent {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#sidenav .bottomspacer {
+    margin-bottom: 50px;
+}
+
 #sidenav #sidenavHeader {
-    position: absolute;
-    top: 0;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -592,8 +684,9 @@ body[data-sidenav="opened"] .requestURLwrapper {
 }
 
 .targetBlink:target {
-    animation: targetBlink 1.5s;
+    animation: targetBlink 1s;
     animation-iteration-count: 1;
+    animation-delay: var(--targetblink-animation-delay);
 }
 
 @keyframes targetBlink {
@@ -662,7 +755,7 @@ body[data-sidenav="opened"] .requestURLwrapper {
 }
 
 #usageTerms[data-animate-border="true"] {
-    animation: targetBlink 1.5s;
+    animation: targetBlink 1s;
     animation-iteration-count: 1;
 }
 

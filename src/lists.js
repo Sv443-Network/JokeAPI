@@ -121,4 +121,29 @@ const isWhitelisted = ip => {
     });
     return whitelisted;
 }
-module.exports = { init, isBlacklisted, isWhitelisted };
+
+/**
+ * Checks whether a provided IP address is in the console blacklist
+ * @param {String} ip
+ * @returns {Bool} true if console blacklisted, false if not
+ */
+const isConsoleBlacklisted = ip => {
+    if(jsl.isEmpty(process.jokeapi) || jsl.isEmpty(process.jokeapi.lists) || !(process.jokeapi.lists.consoleBlacklist instanceof Array))
+    {
+        logger("fatal", `Console blacklist was not initialized when calling lists.isConsoleBlacklisted()`, true);
+        throw new Error(`Console blacklist was not initialized`);
+    }
+
+    if(jsl.isEmpty(process.jokeapi.lists.consoleBlacklist) || process.jokeapi.lists.consoleBlacklist.length == 0)
+        return false;
+    
+    let returnVal = false;
+
+    process.jokeapi.lists.consoleBlacklist.forEach(cblIP => {
+        if(!returnVal && (ip == cblIP || ip == resolveIP.hashIP(cblIP)))
+            returnVal = true;
+    });
+    return returnVal;
+}
+
+module.exports = { init, isBlacklisted, isWhitelisted, isConsoleBlacklisted };

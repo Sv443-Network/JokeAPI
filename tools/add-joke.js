@@ -82,7 +82,7 @@ const init = () => {
                 rl.resume();
                 rl.question("Enter Joke: ", jokeText => {
                     rl.pause();
-                    joke["joke"] = jokeText;
+                    joke["joke"] = jokeText.replace(/\\n/gm, "\n");
 
                     contFlags();
                 });
@@ -93,8 +93,8 @@ const init = () => {
                 rl.question("Enter Joke Setup: ", jokeSetup => {
                     rl.question("Enter Joke Delivery: ", jokeDelivery => {
                         rl.pause();
-                        joke["setup"] = jokeSetup;
-                        joke["delivery"] = jokeDelivery;
+                        joke["setup"] = jokeSetup.replace(/\\n/gm, "\n");
+                        joke["delivery"] = jokeDelivery.replace(/\\n/gm, "\n");
 
                         contFlags();
                     });

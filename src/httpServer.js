@@ -147,7 +147,10 @@ const init = () => {
                                     try
                                     {
                                         if(jsl.isEmpty(meta) || (!jsl.isEmpty(meta) && meta.noLog !== true))
-                                            logRequest("success", null, analyticsObject);
+                                        {
+                                            if(!lists.isConsoleBlacklisted(ip))
+                                                logRequest("success", null, analyticsObject);
+                                        }
                                         return callEndpoint.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
                                     }
                                     catch(err)
@@ -165,7 +168,11 @@ const init = () => {
                                     else
                                     {
                                         if(jsl.isEmpty(meta) || (!jsl.isEmpty(meta) && meta.noLog !== true))
-                                            logRequest("success", null, analyticsObject);
+                                        {
+                                            if(!lists.isConsoleBlacklisted(ip))
+                                                logRequest("success", null, analyticsObject);
+                                        }
+                                            
                                         return callEndpoint.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
                                     }
                                 }
@@ -221,6 +228,7 @@ const init = () => {
                                 res.writeHead(200, {"Content-Type": parseURL.getMimeTypeFromFileFormatString(fileFormat)});
                                 res.end(convertFileFormat.auto(fileFormat, {
                                     "error": false,
+                                    "internalError": false,
                                     "message": `Restarting ${settings.info.name}`,
                                     "timestamp": new Date().getTime()
                                 }));
@@ -462,11 +470,14 @@ const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
 const serveDocumentation = (req, res) => {
     let resolvedURL = parseURL(req.url);
 
-    logRequest("docs", null, {
-        ipAddress: resolveIP(req),
-        urlParameters: resolvedURL.queryParams,
-        urlPath: resolvedURL.pathArray
-    });
+    if(!lists.isConsoleBlacklisted(resolveIP(req)))
+    {
+        logRequest("docs", null, {
+            ipAddress: resolveIP(req),
+            urlParameters: resolvedURL.queryParams,
+            urlPath: resolvedURL.pathArray
+        });
+    }
 
     let selectedEncoding = getAcceptedEncoding(req);
     let fileExtension = "";
