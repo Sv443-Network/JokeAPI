@@ -62,6 +62,12 @@ var cIHTML = `
 (Current Version is [<!--%#INSERT:VERSION#%-->])
 `;
 
+var rsIHTML = `
+<form onsubmit="submitRestartForm()">
+<input type="password" id="restartFormToken" placeholder="Restart Token" style="width:30vw"> <button type="submit">Send &gt;</button>
+</form>
+`;
+
 var sMenu=new function(){this.new=function(id,title,innerhtml,width,height,border_rounded,closable_ESC,closable_btn,on_close,close_img_src){if(typeof id=="string"&&typeof title=="string"&&typeof innerhtml=="string"&&typeof width=="number"&&typeof height=="number"){if(gebid("jsg_menu_"+id)!=null){console.error("a menu with the ID "+id+" already exists - not creating a new one");return}
 /* eslint-disable-next-line */
 if(!border_rounded)border_rounded=!0;if(typeof closable_ESC!="boolean")closable_ESC=!0;if(typeof closable_btn!="boolean")closable_btn=!0;if(!on_close)on_close=function(){};if(!close_img_src)close_img_src="https://sv443.net/resources/images/jsg_menu_close.png";var menuelem=document.createElement("div");menuelem.style.display="none";menuelem.style.opacity="0";menuelem.style.transition="opacity 0.3s ease-in";menuelem.style.overflow="auto";menuelem.className="jsg_menu";menuelem.id="jsg_menu_"+id;menuelem.style.position="fixed";menuelem.style.top=((100-height)/2)+"vh";menuelem.style.left=((100-width)/2)+"vw";menuelem.style.width=width+"vw";menuelem.style.height=height+"vh";menuelem.style.padding="10px";menuelem.style.border="2px solid #454545";if(border_rounded)menuelem.style.borderRadius="1.2em";else menuelem.style.borderRadius="0";if(closable_btn)var closebtnih='<img onclick="sMenu.close(\''+id+'\')" class="jsg_menuclosebtn" title="Close" src="https://sv443.net/cdn/jsl/closebtn.png" style="cursor:pointer;position:absolute;top:0;right:0;width:1.5em;height:1.5em;">';else closebtnih="";menuelem.style.backgroundColor="#ddd";menuelem.innerHTML="<div class='jsg_menutitle' style='font-size:1.5em;text-align:center;'>"+title+"</div>"+closebtnih+"<br>"+innerhtml;document.body.appendChild(menuelem);if(closable_ESC)document.addEventListener("keydown",function(e){if(e.keyCode==27)sMenu.close(id)})}
@@ -95,6 +101,9 @@ function onLoad()
     sMenu.new("privacyPolicy", "What data does JokeAPI collect?", dIHTML, 85, 85, true, true, true);
     sMenu.theme("privacyPolicy", "dark");
 
+    sMenu.new("restartPrompt", "Restart <!--%#INSERT:NAME#%-->", rsIHTML, 40, 30, true, true, true);
+    sMenu.theme("restartPrompt", "dark");
+
 
     // eslint-disable-next-line no-undef
     if(Cookies.get("hideUsageTerms") == "true")
@@ -119,6 +128,10 @@ function onLoad()
     document.addEventListener("keydown", function(e) {
         if(e.key == "Escape" && window.jokeapi.sidenavOpened)
             closeNav();
+        else if(e.key == "R" && e.altKey && e.shiftKey)
+        {
+            openRestartForm();
+        }
     });
 
     resetTryItForm();
@@ -569,6 +582,17 @@ function hideUsageTerms()
 
 
 //#MARKER misc
+function openRestartForm()
+{
+    sMenu.open("restartPrompt");
+}
+
+function submitRestartForm()
+{
+    restart(document.getElementById("restartFormToken").value || null);
+    sMenu.close("restartPrompt");
+}
+
 function restart(token)
 {
     if(!token)
@@ -625,4 +649,4 @@ function unused(...args)
     });
 }
 
-unused(openNav, closeNav, onLoad, openChangelog, reRender, privPolMoreInfo, hideUsageTerms, sendTryItRequest, restart);
+unused(openNav, closeNav, onLoad, openChangelog, reRender, privPolMoreInfo, hideUsageTerms, sendTryItRequest, submitRestartForm);
