@@ -116,7 +116,7 @@ function onLoad()
     }
     catch(err) {unused();}
 
-    document.addEventListener("keyup", function(e) {
+    document.addEventListener("keydown", function(e) {
         if(e.key == "Escape" && window.jokeapi.sidenavOpened)
             closeNav();
     });
