@@ -17,7 +17,7 @@
 
 > [CURRENT: 2.0.0] - The complete rewrite - JokeAPI was completely rewritten and should now run like 100x better and be more easy to develop and maintain
     - TODO:
-        - Completely rewrite the documentation
+        (nothing anymore, thank god)
     - DONE:
         - Massively improved the "Try it out" section in the docs
         - The documentation page and static content are now able to be served with gzip, deflate and brotli encoding, decreasing the required bandwidth and speeding up page loading time
@@ -44,6 +44,7 @@
         - Re-validated all jokes and removed duplicates
         - Added an analytics module that keeps track of everything and makes it possible for me to finally see some (anonymous) usage statistics (complies with the GDPR/DSGVO)
         - Joke IDs will now be cached to prevent the same joke from being served multiple times in a row (this is not perfect yet but much better than before)
+        - The documentation page was completely rewritten
         - Updated dependencies
         - Updated contributor guide
 
