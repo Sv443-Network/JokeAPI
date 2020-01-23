@@ -192,7 +192,7 @@
                 It supports a variety of filters that can be applied to get just the right jokes you need.<br>
                 The usage is very simple and similar to other RESTful APIs and requires only basic knowledge of HTTP/HTTPS requests and JSON, XML or YAML.<br><br>
                 If you come across a term you don't understand, you can try <span class="mimica" onclick="openNav()">opening the menu</span> and clicking on the section "Terminology".<br>
-                If you want to report a bug or an illegal joke, please <a href="<!--%#INSERT:PROJGITHUBURL#%-->/issues/new/choose">use the GitHub issue tracker.</a>
+                If you want to report a bug or an illegal joke, please <a href="<!--%#INSERT:PROJGITHUBURL#%-->/issues/new/choose" target="_blank">use the GitHub issue tracker.</a>
                 To submit a joke, <a href="#submit-joke">click here.</a><br>
                 <br>
                 <span style="color: orangered;">If you are new to <!--%#INSERT:NAME#%-->, please start by reading the <a href="#getting-started">Getting Started Guide</a></span><br>
@@ -301,15 +301,17 @@
                 <!--%#INSERT:NAME#%--> doesn't require any API token, authorization or payment to work, although there is a hard limit of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute due to some DoS attacks I have been getting.<br>
                 To start using <!--%#INSERT:NAME#%-->, you first need to know a way to send HTTP requests (XHR) from within your code (<a href="https://medium.com/better-programming/crash-course-in-http-requests-using-python-59246373a187" target="_blank">Python XHR Crash Course</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest" target="_blank">JavaScript XHR Documentation</a>).<br>
                 Now that you know how to send HTTP requests, please take a look at <a href="#endpoints">all the endpoints <!--%#INSERT:NAME#%--> has.</a><br>
-                After you've finished reading that, you can start testing out the different endpoints with a client such as <a href="https://www.getpostman.com/" target="_blank">Postman</a> and look at some examples by <span class="mimica" onclick="openNav()">opening the menu</span> and choosing an option in the "Examples" dropdown.<br>
+                After you've finished reading that, you can start testing out the different endpoints with a client such as <a href="https://www.getpostman.com/" target="_blank">Postman</a> and look at some examples by <a href="#examples">going to the "Examples" section.</a><br>
                 If you know any good jokes and want to add them to <!--%#INSERT:NAME#%-->, please <a href="#submit-joke">click here.</a><br>
                 If you need any help, feel free to <a href="https://sv443.net/discord" target="_blank">join my Discord server.</a><br>
 
 
                 <!-- #MARKER Submit Joke -->
                 <div class="docHeader targetBlink" id="submit-joke"><a class="headerAnchorContainer" href="#submit-joke" title="Click to link to this header">🔗</a><span class="docHeaderText">Submit a Joke:</span></div>
-                To submit a joke, please <a href="https://sv443.net/r/submitjoke_v2" target="_blank">click here.</a><br>
-                (I will soon add a form here)
+                <!-- To submit a joke, please <a href="https://sv443.net/r/submitjoke_v2" target="_blank">click here.</a><br>
+                (I will soon add a form here) -->
+                This section is still being worked on.<br>
+                Please use the <a href="#submit-endpoint">"Submit" endpoint</a> instead.
 
 
                 <!-- #MARKER URL parameters -->
@@ -440,9 +442,11 @@
                 In <!--%#INSERT:NAME#%--> all response data, no matter from which endpoint will have an "error" parameter.<br>
                 Usually, it is set to false, which means there was no error in your request or on the server.<br>
                 If the "error" parameter is set to true though, there was an error and <!--%#INSERT:NAME#%--> will add an "internalError", "message", "causedBy", "additionalInfo" and "timestamp" parameter.<br>
+                <br>
                 The "internalError" parameter will be set to false, if the error was due to a malformed or failed request and it will be true, if the error is <!--%#INSERT:NAME#%-->'s fault.<br>
                 The "message" parameter will contain a short version of the error message and the "timestamp" parameter will contain a 13-character UNIX timestamp in Central European time (GMT+1).<br>
                 The "causedBy" parameter is an array of possible causes of this error and the "addidionalInfo" parameter contains a more descriptive error message.<br>
+                <br>
                 You can view an example of an error, where an invalid category was used, just below this paragraph.<br>
                 Together with the <a href="#status-codes">HTTP status code</a>, which will also be set according to the type of error, these parameters can be used to improve error handling massively from what was the error system in previous versions of <!--%#INSERT:NAME#%-->.<br><br><br>
 
@@ -665,7 +669,7 @@
     "type": "single",
     "joke": "A horse walks into a bar...",
     "flags": {
-        "nsfw": false,
+        "nsfw": true,
         "religious": false,
         "political": true,
         "racist": false,
@@ -673,9 +677,34 @@
     }
 }
 </div></code>
+
                 <br>
                 Supported URL parameters:<br>
                 (none)
+                <br><br>
+
+                <details><summary>Click here to see how the server responds to a joke submission</summary>
+<code class="prettyprint"><span class="nocode codeheader">Server Response:</span>
+<div class="actualCode">{
+    "error": false,
+    "message": "Joke submission was successfully saved. It will soon be checked out by the author.",
+    "submission": {
+        "formatVersion": 2,
+        "category": "Miscellaneous",
+        "type": "single",
+        "joke": "A horse walks into a bar...",
+        "flags": {
+            "nsfw": true,
+            "religious": false,
+            "political": true,
+            "racist": false,
+            "sexist": false
+        }
+    },
+    "timestamp": 1579685839560
+}
+</div></code>
+                </details>
                 <br><br><br>
 
 
@@ -928,7 +957,7 @@ public class Flags
                     I will hereby not claim any legal responsibility or liability for <!--%#INSERT:NAME#%--> and the jokes it serves.<br>
                     Whether it is used maliciously or breaks something in your project or someone gets offended by a joke, I can't be held accountable.<br><br>
                     I am doing my best to ensure security and stability but there's only so much a single developer can do.<br>
-                    Please report any issue that may arise to <a href="<!--%#INSERT:PROJGITHUBURL#%-->/issues/new/choose">the GitHub issue tracker</a> and I will try my best to fix it as soon as possible.<br>
+                    Please report any issue that may arise to <a href="<!--%#INSERT:PROJGITHUBURL#%-->/issues/new/choose" target="_blank">the GitHub issue tracker</a> and I will try my best to fix it as soon as possible.<br>
                     If you want to contact me, you can <a href="https://sv443.net/discord">join my Discord server</a> (fastest way to contact me).
                 </div>
 

@@ -228,7 +228,6 @@ const init = () => {
                                 res.writeHead(200, {"Content-Type": parseURL.getMimeTypeFromFileFormatString(fileFormat)});
                                 res.end(convertFileFormat.auto(fileFormat, {
                                     "error": false,
-                                    "internalError": false,
                                     "message": `Restarting ${settings.info.name}`,
                                     "timestamp": new Date().getTime()
                                 }));

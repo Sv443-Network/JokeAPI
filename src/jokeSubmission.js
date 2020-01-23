@@ -2,7 +2,7 @@ const jsl = require("svjsl");
 const fs = require("fs");
 const http = require("http");
 
-const httpServer = require("./httpServer");
+var httpServer = require("./httpServer"); // module loading order is a bit fucked, so this module has to be loaded multiple times
 const parseJokes = require("./parseJokes");
 const logRequest = require("./logRequest");
 const convertFileFormat = require("./fileFormatConverter");
@@ -24,6 +24,9 @@ jsl.unused([http, analytics]);
 const jokeSubmission = (res, data, fileFormat, ip, analyticsObject) => {
     try
     {
+        if(typeof httpServer == "object" && Object.keys(httpServer).length <= 0)
+            httpServer = require("./httpServer");
+
         let submittedJoke = JSON.parse(data);
         if(jsl.isEmpty(submittedJoke))
             return httpServer.respondWithError(res, 105, 400, fileFormat, "Request body is empty");
@@ -92,6 +95,9 @@ const jokeSubmission = (res, data, fileFormat, ip, analyticsObject) => {
  * @param {(analytics.AnalyticsDocsRequest|analytics.AnalyticsSuccessfulRequest|analytics.AnalyticsRateLimited|analytics.AnalyticsError|analytics.AnalyticsSubmission)} analyticsObject
  */
 const writeJokeToFile = (res, filePath, submittedJoke, fileFormat, ip, analyticsObject) => {
+    if(typeof httpServer == "object" && Object.keys(httpServer).length <= 0)
+        httpServer = require("./httpServer");
+
     fs.writeFile(filePath, JSON.stringify(submittedJoke, null, 4), err => {
         if(!err)
         {
