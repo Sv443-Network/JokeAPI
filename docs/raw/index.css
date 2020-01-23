@@ -512,6 +512,16 @@ body[data-sidenav="opened"] .requestURLwrapper {
     color: #777;
 }
 
+footer#copyrightNotice {
+    display: block;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+footer#copyrightNotice span {
+    display: inline-block;
+}
+
 /*#MARKER sidenav*/
 #sidenav {
     display: flex;
@@ -667,8 +677,8 @@ body[data-sidenav="opened"] .requestURLwrapper {
 
 .docHeader .headerAnchorContainer {
     cursor: pointer;
-    padding-right: 10px;
-    filter: opacity(40%);
+    margin-right: 10px;
+    filter: opacity(30%);
 
     transition: filter 0.075s linear;
 }

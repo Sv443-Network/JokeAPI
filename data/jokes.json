@@ -2066,6 +2066,19 @@
                 "sexist": false
             },
             "id": 150
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "joke": "Women are like KFC, once you're done with the breasts and thighs, you just have a greasy box to put your bone in.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 151
         }
     ]
 }

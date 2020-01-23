@@ -32,28 +32,37 @@ const init = () => {
 
         sqlConnection.connect(err => {
             if(err)
+            {
+                debug("SQL", `Error while connecting to DB: ${err}`);
                 return reject(`${err}\nMaybe the database server isn't running or doesn't allow the connection.\nAlternatively, set the property "analytics.enabled" in the file "settings.js" to "false"`);
+            }
             else
             {
+                debug("SQL", `Successfully connected to database at ${settings.sql.host}:${settings.sql.port}/${settings.sql.database}`);
+
                 this.sqlConn = sqlConnection;
                 module.exports.sqlConn = sqlConnection;
 
                 sendQuery("SHOW TABLES LIKE \"analytics\"").then(res => {
                     if(typeof res != "object" || res.length <= 0)
                     {
+                        debug("SQL", `DB table doesn't exist, creating it...`);
                         let createAnalyticsTableQuery = fs.readFileSync(`${settings.analytics.dirPath}create_analytics.sql`).toString();
                         sendQuery(createAnalyticsTableQuery).then(() => {
                             module.exports.connectionInfo = {
                                 connected: true,
                                 info: `${settings.sql.host}:${settings.sql.port}/${settings.sql.database}`
                             };
+                            debug("SQL", `Successfully created analytics DB, analytics init is done`);
                             return resolve();
                         }).catch(err => {
+                            debug("SQL", `Error while creating DB table: ${err}`);
                             return reject(`${err}\nMaybe the database server isn't running or doesn't allow the connection.\nAlternatively, set the property "analytics.enabled" in the file "settings.js" to "false"`);
                         });
                     }
                     else
                     {
+                        debug("SQL", `DB table exists, analytics init is done`);
                         module.exports.connectionInfo = {
                             connected: true,
                             info: `${settings.sql.host}:${settings.sql.port}/${settings.sql.database}`
@@ -61,6 +70,7 @@ const init = () => {
                         return resolve();
                     }
                 }).catch(err => {
+                    debug("SQL", `Error while detecting analytics table in DB: ${err}`);
                     return reject(`${err}\nMaybe the database server isn't running or doesn't allow the connection.\nAlternatively, set the property "analytics.enabled" in the file "settings.js" to "false"`);
                 });
             }
@@ -97,13 +107,17 @@ const sendQuery = (query, insertValues) => {
         if(jsl.isEmpty(this.sqlConn) || (this.sqlConn && this.sqlConn.state != "connected" && this.sqlConn.state != "authenticated"))
             return reject(`DB connection is not established yet. Current connection state is "${this.sqlConn.state || "disconnected"}"`);
 
-        debug("SQL", `Sending query: "${query}" with values "${(typeof insertValues == "object") ? insertValues.map((v) => (v == null ? "NULL" : v)).join(",") : "(empty)"}"`);
+        debug("SQL", `Sending query: "${query.replace(/"/g, "'")}" with values "${(typeof insertValues == "object") ? insertValues.map((v) => (v == null ? "NULL" : v)).join(",").replace(/"/g, "'") : "(empty)"}"`);
 
         this.sqlConn.query({
             sql: (typeof insertValues == "object" && insertValues.length > 0) ? this.sqlConn.format(query, insertValues) : query,
             timeout: settings.sql.timeout * 1000
         }, (err, result) => {
-            if(err) return reject(err);
+            if(err)
+            {
+                debug("SQL", `Error while sending query: ${err}`);
+                return reject(err);
+            }
             else
             {
                 try
@@ -113,6 +127,7 @@ const sendQuery = (query, insertValues) => {
                 }
                 catch(err)
                 {
+                    debug("SQL", `Error while sending query: ${err}`);
                     return reject(err);
                 }
             }
@@ -181,7 +196,10 @@ const logAnalytics = analyticsDataObject => {
             return true;
         
         if(jsl.isEmpty(this.sqlConn) || (this.sqlConn.state != "connected" && this.sqlConn.state != "authenticated"))
+        {
+            debug("Analytics", `Error while logging some analytics data - SQL connection state is invalid: ${this.sqlConn.state || "disconnected"}`);
             return `DB connection is not established yet. Current connection state is "${this.sqlConn.state || "disconnected"}"`;
+        }
 
         let writeObject = {
             type: type,
@@ -203,12 +221,16 @@ const logAnalytics = analyticsDataObject => {
             writeObject.urlParameters,
             writeObject.errorMessage,
             writeObject.submission
-        ]).catch(err => {
+        ]).then(() => {
+            debug("Analytics", `Successfully logged some analytics data to the DB`);
+        }).catch(err => {
+            debug("Analytics", `Error while logging some analytics data - query returned error: ${err}`);
             return logger("error", `Error while saving analytics data to database - Error: ${err}\nAnalytics Data: ${JSON.stringify(writeObject)}`, true);
         });
     }
     catch(err)
     {
+        debug("Analytics", `General error while preparing analytics data: ${err}`);
         return logger("error", `Error while preparing analytics data - Error: ${err}`, true);
     }
 };
