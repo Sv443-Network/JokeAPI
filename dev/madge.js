@@ -10,7 +10,8 @@
 
 
 const madgeOptions = {
-    graphVizPath: "C:/Users/fes/Desktop/Graphviz/bin" // set to null to use the path inside the PATH environment variable
+    // graphVizPath: "C:/Users/fes/Desktop/Graphviz/bin" // set to null to use the path inside the PATH environment variable
+    graphVizPath: null
 };
 
 const otherFiles = [
