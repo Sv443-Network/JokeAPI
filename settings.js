@@ -5,7 +5,7 @@ const bgc = jsl.colors.bg;
 
 const settings = {
     debug: {
-        verboseLogging: true,      // set to true to enable extra debug output
+        verboseLogging: false,      // set to true to enable extra debug output
         progressBarDisabled: false, // set to true to disable the progress bar - greatly improves readability of verbose debug output
     },
     info: {
