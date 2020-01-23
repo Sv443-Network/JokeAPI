@@ -13,5 +13,6 @@
                 "color": "#f88"
             }
         ]
-    }
+    },
+    "npm-scripts.showStartNotification": false
 }
