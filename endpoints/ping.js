@@ -11,9 +11,13 @@ jsl.unused(http);
 const meta = {
     "name": "Ping",
     "desc": `Can be used to check if ${settings.info.name} is online`,
-    "usages": [
-        `GET ${settings.info.docsURL}/ping[?format] | Can be used to check if ${settings.info.name} is online`
-    ]
+    "usage": {
+        "method": "GET",
+        "url": `${settings.info.docsURL}/ping`,
+        "supportedParams": [
+            "format"
+        ]
+    }
 };
 
 /**

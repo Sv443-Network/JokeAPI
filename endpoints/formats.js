@@ -11,9 +11,13 @@ jsl.unused(http);
 const meta = {
     "name": "Formats",
     "desc": "Returns a list of all available response file formats",
-    "usages": [
-        `GET ${settings.info.docsURL}/formats[?format] | Returns a list of all available response file formats`
-    ]
+    "usage": {
+        "method": "GET",
+        "url": `${settings.info.docsURL}/formats`,
+        "supportedParams": [
+            "format"
+        ]
+    }
 };
 
 /**

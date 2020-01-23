@@ -17,6 +17,7 @@ const lists = require("./lists");
 const analytics = require("./analytics");
 const jokeSubmission = require("./jokeSubmission");
 
+
 const init = () => {
     debug("HTTP", "Starting HTTP server...");
     return new Promise((resolve, reject) => {
@@ -440,9 +441,7 @@ const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
     }
 
     if(!fs.existsSync(filePath))
-    {
         return respondWithErrorPage(null, res, 404, null, `File at "${filePath}" not found.`);
-    }
 
     try
     {
@@ -516,7 +515,7 @@ const getAcceptedEncoding = req => {
 
     let encodingPriority = [];
 
-    settings.httpServer.encodings.brotli  && encodingPriority.push("brotli");
+    settings.httpServer.encodings.brotli  && encodingPriority.push("br");
     settings.httpServer.encodings.gzip    && encodingPriority.push("gzip");
     settings.httpServer.encodings.deflate && encodingPriority.push("deflate");
 
@@ -537,7 +536,7 @@ const getAcceptedEncoding = req => {
 
 /**
  * Returns the file extension for the provided encoding (without dot prefix)
- * @param {null|"gzip"|"deflate"|"brotli"} encoding
+ * @param {null|"gzip"|"deflate"|"br"} encoding
  * @returns {String}
  */
 const getFileExtensionFromEncoding = encoding => {
@@ -547,7 +546,7 @@ const getFileExtensionFromEncoding = encoding => {
             return "gz";
         case "deflate":
             return "zz";
-        case "brotli":
+        case "br":
             return "br";
         default:
             return "";

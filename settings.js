@@ -5,7 +5,7 @@ const bgc = jsl.colors.bg;
 
 const settings = {
     debug: {
-        verboseLogging: false,      // set to true to enable extra debug output
+        verboseLogging: true,      // set to true to enable extra debug output
         progressBarDisabled: false, // set to true to disable the progress bar - greatly improves readability of verbose debug output
     },
     info: {
@@ -21,7 +21,7 @@ const settings = {
             website: packageJSON.author.url, // author website
             github: `https://github.com/${packageJSON.author.name}`, // author github page
         },
-        infoMsg: "If you want to be updated on the status and future updates of JokeAPI or need some help, please consider joining my Discord server: https://discord.gg/aBH4uRG",
+        infoMsg: "If you want to be updated on the status and future updates of JokeAPI or need some help, please consider joining my Discord server: https://sv443.net/discord",
         privacyPolicyUrl: "https://sv443.net/privacypolicy/en"
     },
     init: {
@@ -54,10 +54,10 @@ const settings = {
         },
     },
     jokes: {
-        jokesFormatVersion: 2,                               // current joke format version
-        jokesFilePath: "./data/jokes.json",                  // path to the jokes file
-        jokeSubmissionURL: "https://sv443.net/r/submitjoke", // joke submission url
-        jokeSubmissionPath: "./data/submissions/",           // path to a directory where joke submissions should be saved to - needs trailing slash
+        jokesFormatVersion: 2,                                  // current joke format version
+        jokesFilePath: "./data/jokes.json",                     // path to the jokes file
+        jokeSubmissionURL: "https://sv443.net/r/submitjoke_v2", // joke submission url
+        jokeSubmissionPath: "./data/submissions/",              // path to a directory where joke submissions should be saved to - needs trailing slash
         possible: {
             anyCategoryName: "Any", // the name of the "Any" category
             categories: [           // all categories (excluding "Any") - case insensitive

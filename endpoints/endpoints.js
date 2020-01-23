@@ -12,9 +12,13 @@ jsl.unused(http);
 const meta = {
     "name": "Endpoints",
     "desc": "Returns a list of all endpoints and how to use them",
-    "usages": [
-        `GET ${settings.info.docsURL}/endpoints[?format] | Returns a list of all endpoints and how to use them`
-    ]
+    "usage": {
+        "method": "GET",
+        "url": `${settings.info.docsURL}/endpoints`,
+        "supportedParams": [
+            "format"
+        ]
+    }
 };
 
 /**
@@ -43,14 +47,18 @@ const call = (req, res, url, params, format) => {
                         if(jsl.isEmpty(fileMeta))
                             return epError(res, format, `Couldn't find metadata object of endpoint "${f.replace(".js", "")}"`);
 
-                        if(jsl.isEmpty(fileMeta.unlisted))
+                        if(jsl.isEmpty(fileMeta.unlisted) && !jsl.isEmpty(fileMeta.usage))
                         {
                             if(format != "xml")
                             {
                                 endpointList.push({
                                     name: fileMeta.name,
                                     description: fileMeta.desc,
-                                    usages: fileMeta.usages
+                                    usage: {
+                                        method: fileMeta.usage.method,
+                                        url: fileMeta.usage.url,
+                                        supportedParams: fileMeta.usage.supportedParams
+                                    }
                                 });
                             }
                             else if(format == "xml")
@@ -58,35 +66,26 @@ const call = (req, res, url, params, format) => {
                                 endpointList.push({
                                     name: fileMeta.name,
                                     description: fileMeta.desc,
-                                    usages: {"usage": fileMeta.usages}
+                                    usage: {
+                                        method: fileMeta.usage.method,
+                                        url: fileMeta.usage.url,
+                                        supportedParams: {"param": fileMeta.usage.supportedParams}
+                                    }
                                 });
                             }
                         }
                     }
                 });
 
-                if(format != "xml")
-                {
-                    endpointList.push({
-                        name: "Submit",
-                        description: `Used to submit a joke to be added to ${settings.info.name}`,
-                        usages: [
-                            `PUT ${settings.info.docsURL}/submit | Submits a joke to be added to ${settings.info.name} - Payload has to be a valid joke object in JSON format (for more info go to ${settings.info.docsURL}#response-formats)`
-                        ]
-                    });
-                }
-                else if(format == "xml")
-                {
-                    endpointList.push({
-                        name: "Submit",
-                        description: `Used to submit a joke to be added to ${settings.info.name}`,
-                        usages: {
-                            "usage": [
-                                `PUT ${settings.info.docsURL}/submit | Submits a joke to be added to ${settings.info.name} - Payload has to be a valid joke object in JSON format (for more info go to ${settings.info.docsURL}#response-formats)`
-                            ]
-                        }
-                    });
-                }
+                endpointList.push({
+                    name: "Submit",
+                    description: `Used to submit a joke to be added to ${settings.info.name}`,
+                    usage: {
+                        method: "PUT",
+                        url: `${settings.info.docsURL}/submit`,
+                        supportedParams: []
+                    }
+                });
 
                 if(format == "xml")
                     endpointList = { "endpoint": endpointList};

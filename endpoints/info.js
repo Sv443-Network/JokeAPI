@@ -12,9 +12,13 @@ jsl.unused(http);
 const meta = {
     "name": "Info",
     "desc": `Returns some information on ${settings.info.name}`,
-    "usages": [
-        `GET ${settings.info.docsURL}/info[?format] | Returns some information on ${settings.info.name}`
-    ]
+    "usage": {
+        "method": "GET",
+        "url": `${settings.info.docsURL}/info`,
+        "supportedParams": [
+            "format"
+        ]
+    }
 };
 
 /**

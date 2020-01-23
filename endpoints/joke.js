@@ -12,10 +12,18 @@ jsl.unused(http);
 
 const meta = {
     "name": "Joke",
-    "desc": "Returns a joke from the specified category that is also matching the provided (optional) filters",
-    "usages": [
-        `GET ${settings.info.docsURL}/joke/{CATEGORY_NAME}[?format&blacklistFlags&idRange&contains&type] | Returns a joke from the specified category that is also matching the provided filters`
-    ]
+    "desc": "Returns a joke from the specified category / categories that is also matching the provided (optional) filters",
+    "usage": {
+        "method": "GET",
+        "url": `${settings.info.docsURL}/joke/{CATEGORY}`,
+        "supportedParams": [
+            "format",
+            "blacklistFlags",
+            "type",
+            "contains",
+            "idRange"
+        ]
+    }
 };
 
 /**
