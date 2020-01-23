@@ -28,5 +28,6 @@
 # Projects (I'm aware of) that use JokeAPI:
 - [dozens Advices](https://github.com/ZephyrVentum/dozens-Advices) by [ZephyrVentum](https://github.com/ZephyrVentum)
 - [Shadow-bot](https://github.com/QGIsK/Shadow-bot) by [QGIsK](https://github.com/QGIsK)
+- [Random Jokes](https://github.com/thombenjamin/randomjokes) by [Thom Benjamin](https://github.com/thombenjamin)
   
 ([Contact me](https://discord.gg/aBH4uRG) to get your project added here)
