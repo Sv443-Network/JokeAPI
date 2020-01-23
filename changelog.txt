@@ -15,37 +15,34 @@ Planned for the next version (2.1.0):
 
 
 > [CURRENT: 2.0.0] - The complete rewrite - JokeAPI was completely rewritten and should now run like 100x better and be more easy to develop and maintain
-    - TODO:
-        (nothing anymore, thank god)
-    - DONE:
-        - Massively improved the "Try it out" section in the docs
-        - Reformatted the jokes to always contain all flags
-        - Added support for selecting multiple categories at once (for example: "https://sv443.net/jokeapi/v2/joke/Dark,Miscellaneous/")
-        - Massive performance improvements:
-            - The documentation page and some static content are now able to be served with gzip, deflate and brotli encoding, decreasing the required bandwidth and speeding up page loading time
-            - Reformatted the jokes to have the IDs beforehand, furthermore increasing performance and making it easier to know which joke ID belongs to which joke
-            - Now the documentation page runs on a daemon, meaning it will only be recompiled if a file has changed, massively improving JokeAPIs perfomance
-            - Static content like the stylesheet, client-side JS and images will now be loaded separately, through the "static" endpoint, decreasing page load time by an order of magnitude
-        - Added a few new URL parameters:
-            - Added the "?type" URL parameter to specify the type of the served joke ("single" or "twopart")
-            - Added the "?contains" URL parameter to only serve jokes that match the provided search query
-            - Added the "?idRange" URL parameter to get jokes from a single ID or an ID range (example: "https://sv443.net/jokeapi/v2/joke/Any?id=50-75" or "...?id=15")
-        - Added the "racist" and "sexist" flags for better filtering of offensive jokes
-        - IP addresses are now hashed, protecting JokeAPI's users better and making it GDPR/DSGVO compliant
-        - Added multiple scripts that should be run before contributing to the project / that are run through GitHub's Continuous Integration:
-            - "npm run reformat" to reformat jokes from the old pre-2.0.0 syntax to the new 2.0.0 syntax
-            - "npm run reassign-ids" to make sure all jokes have the correct IDs
-            - "npm run validate-jokes" to make sure all jokes are in the correct format
-            - "npm run add-joke" to add a joke
-        - Renamed "category" endpoint to "joke"
-        - The submission of empty jokes will now be prevented
-        - Set up a new reverse proxy at "https://sv443.net/jokeapi/v2/" to let people slowly migrate to the new version
-        - Re-validated all jokes and removed duplicates and re-flagged them
-        - Added an analytics module that keeps track of everything and makes it possible for me to finally see some (anonymous) usage statistics (complies with the GDPR/DSGVO)
-        - Joke IDs will now be cached to prevent the same joke from being served multiple times in a row (this is not perfect yet but much better than before)
-        - The documentation page was completely rewritten and should now be easier to use and more concise
-        - Updated dependencies and added some new ones
-        - Updated the contributor guide (contributing.md file)
+    - Massively improved the "Try it out" section in the docs
+    - Reformatted the jokes to always contain all flags
+    - Added support for selecting multiple categories at once (for example: "https://sv443.net/jokeapi/v2/joke/Dark,Miscellaneous/")
+    - Massive performance improvements:
+        - The documentation page and some static content are now able to be served with gzip, deflate and brotli encoding, decreasing the required bandwidth and speeding up page loading time
+        - Reformatted the jokes to have the IDs beforehand, furthermore increasing performance and making it easier to know which joke ID belongs to which joke
+        - Now the documentation page runs on a daemon, meaning it will only be recompiled if a file has changed, massively improving JokeAPIs perfomance
+        - Static content like the stylesheet, client-side JS and images will now be loaded separately, through the "static" endpoint, decreasing page load time by an order of magnitude
+    - Added a few new URL parameters:
+        - Added the "?type" URL parameter to specify the type of the served joke ("single" or "twopart")
+        - Added the "?contains" URL parameter to only serve jokes that match the provided search query
+        - Added the "?idRange" URL parameter to get jokes from a single ID or an ID range (example: "https://sv443.net/jokeapi/v2/joke/Any?id=50-75" or "...?id=15")
+    - Added the "racist" and "sexist" flags for better filtering of offensive jokes
+    - IP addresses are now hashed, protecting JokeAPI's users better and making it GDPR/DSGVO compliant
+    - Added multiple scripts that should be run before contributing to the project / that are run through GitHub's Continuous Integration:
+        - "npm run reformat" to reformat jokes from the old pre-2.0.0 syntax to the new 2.0.0 syntax
+        - "npm run reassign-ids" to make sure all jokes have the correct IDs
+        - "npm run validate-jokes" to make sure all jokes are in the correct format
+        - "npm run add-joke" to add a joke
+    - Renamed "category" endpoint to "joke"
+    - The submission of empty jokes will now be prevented
+    - Set up a new reverse proxy at "https://sv443.net/jokeapi/v2/" to let people slowly migrate to the new version
+    - Re-validated all jokes and removed duplicates and re-flagged them
+    - Added an analytics module that keeps track of everything and makes it possible for me to finally see some (anonymous) usage statistics (complies with the GDPR/DSGVO)
+    - Joke IDs will now be cached to prevent the same joke from being served multiple times in a row (this is not perfect yet but much better than before)
+    - The documentation page was completely rewritten and should now be easier to use and more concise
+    - Updated dependencies and added some new ones
+    - Updated the contributor guide (contributing.md file)
 
 
 [OLD: 1.1.2]
