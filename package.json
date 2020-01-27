@@ -1,0 +1,54 @@
+{
+  "name": "@sv443/jokeapi",
+  "version": "2.0.0",
+  "description": "A RESTful API that serves jokes from many categories while also offering a lot of filtering methods",
+  "main": "JokeAPI.js",
+  "homepage": "https://sv443.net/jokeapi/v2",
+  "scripts": {
+    "start": "node . && exit $?",
+    "test": "echo \"No test script specified\" && exit 0",
+    "reformat": "node tools/reformat",
+    "reassign-ids": "node tools/reassign-ids",
+    "validate-jokes": "node tools/validate-jokes",
+    "add-joke": "node tools/add-joke",
+    "lint": "eslint ./ && exit $?"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sv443/JokeAPI.git"
+  },
+  "keywords": [
+    "api",
+    "restful",
+    "jokes",
+    "humor",
+    "entertainment"
+  ],
+  "author": {
+    "name": "Sv443",
+    "email": "sven.fehler@web.de",
+    "url": "https://sv443.net/"
+  },
+  "contributors": [
+    
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Sv443/JokeAPI/issues/new/choose",
+    "email": "sven.fehler@web.de"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "farmhash": "^3.0.0",
+    "http-ratelimit": "^0.2.3",
+    "js2xmlparser": "^4.0.0",
+    "json-to-pretty-yaml": "^1.2.2",
+    "mysql": "^2.18.1",
+    "node-wrap": "^0.2.0",
+    "svjsl": "^1.8.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "madge": "^3.6.0"
+  }
+}

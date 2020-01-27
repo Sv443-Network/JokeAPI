@@ -1,0 +1,40 @@
+Type
+{
+    {DataType} propertyName [aColumnName:DB_DATA_TYPE:lengthInBytes]
+}
+
+Type names have to be a VARCHAR with a max size of 30 bytes
+
+
+=============================================================================
+
+
+SuccessfulRequest
+{
+    {String}        ipAddress     [aIpAddress:VARCHAR:50],
+    {Array<String>} urlPath       [aUrlPath:LONGTEXT:X],
+    {Object}        urlParameters [aUrlParameters:LONGTEXT:X]
+}
+
+RateLimited
+{
+    {String}        ipAddress     [aIpAddress:VARCHAR:50],
+    {Array<String>} urlPath       [aUrlPath:LONGTEXT:X],
+    {Object}        urlParameters [aUrlParameters:LONGTEXT:X]
+}
+
+Error
+{
+    {String}        ipAddress     [aIpAddress:VARCHAR:50],
+    {Array<String>} urlPath       [aUrlPath:LONGTEXT:X],
+    {Object}        urlParameters [aUrlParameters:LONGTEXT:X],
+    {String}        errorMessage  [aErrorMessage:VARCHAR:250]
+}
+
+JokeSubmission
+{
+    {String}        ipAddress     [aIpAddress:VARCHAR:50],
+    {Array<String>} urlPath       [aUrlPath:LONGTEXT:X],
+    {Object}        urlParameters [aUrlParameters:LONGTEXT:X],
+    {Object}        submission    [aSubmission:LONGTEXT:X]
+}
