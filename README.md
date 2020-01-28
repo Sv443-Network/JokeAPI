@@ -1,6 +1,6 @@
 <div align="center" style="text-align:center">
 
-# JokeAPI v2.0.0
+# JokeAPI v2.1.0
 [![GitHub](https://img.shields.io/github/license/Sv443/JokeAPI)](https://sv443.net/LICENSE)
 [![Uptime / 7 Days](https://img.shields.io/uptimerobot/ratio/7/m782998549-afcc0d10c27c87df47e73289)](https://status.sv443.net/)
 [![Open Issues](https://img.shields.io/github/issues/Sv443/JokeAPI)](https://github.com/Sv443/JokeAPI/issues)
@@ -20,14 +20,17 @@
 </div>
 <br><br>
 
-## You are currently on the `wip/2.0.0` branch. This branch contains work in progress features.
-## To go back to the currently active 1.1.3 version, click [here](https://github.com/Sv443/JokeAPI/tree/master)
-
-<br><br>
-
 # Projects (I'm aware of) that use JokeAPI:
 - [dozens Advices](https://github.com/ZephyrVentum/dozens-Advices) by [ZephyrVentum](https://github.com/ZephyrVentum)
 - [Shadow-bot](https://github.com/QGIsK/Shadow-bot) by [QGIsK](https://github.com/QGIsK)
 - [Random Jokes](https://github.com/thombenjamin/randomjokes) by [Thom Benjamin](https://github.com/thombenjamin)
   
 ([Contact me](https://discord.gg/aBH4uRG) to get your project added here)
+
+
+<br><br>
+<div align="center" style="text-align:center">
+
+Made with ❤️ by [Sv443](https://github.com/Sv443)
+
+</div>
