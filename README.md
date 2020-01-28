@@ -20,11 +20,6 @@
 </div>
 <br><br>
 
-## You are currently on the `wip/2.0.0` branch. This branch contains work in progress features.
-## To go back to the currently active 1.1.3 version, click [here](https://github.com/Sv443/JokeAPI/tree/master)
-
-<br><br>
-
 # Projects (I'm aware of) that use JokeAPI:
 - [dozens Advices](https://github.com/ZephyrVentum/dozens-Advices) by [ZephyrVentum](https://github.com/ZephyrVentum)
 - [Shadow-bot](https://github.com/QGIsK/Shadow-bot) by [QGIsK](https://github.com/QGIsK)
