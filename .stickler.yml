@@ -1,8 +1,12 @@
 linters:
   eslint:
     config: './.eslintrc.json'
+    fixer: true
 
 files:
   ignore:
     - 'bower_components/*'
     - 'node_modules/*'
+
+fixers:
+  enable: true
