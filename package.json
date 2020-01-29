@@ -10,6 +10,7 @@
     "reformat": "node tools/reformat",
     "reassign-ids": "node tools/reassign-ids",
     "validate-jokes": "node tools/validate-jokes",
+    "validate-ids": "node tools/validate-ids",
     "add-joke": "node tools/add-joke",
     "lint": "eslint ./ && exit $?"
   },

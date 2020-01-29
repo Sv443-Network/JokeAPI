@@ -33,7 +33,7 @@ const settings = {
         exitSignals: [ // all signals that should cause a soft exit
             "SIGINT",
             "SIGTERM"
-        ]
+        ],
     },
     logging: {
         logChar: "▌",                  // character that gets logged on each request

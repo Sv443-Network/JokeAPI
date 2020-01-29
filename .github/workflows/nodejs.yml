@@ -26,17 +26,17 @@ jobs:
         CI: "true"
     - name: Lint Script # lints the code to find any errors
       run: |
-        npm run lint --if-present
+        npm run lint
       env:
         CI: "true"
     - name: Validate Jokes # validates the jokes' structures
       run: |
-        npm run validate-jokes --if-present
+        npm run validate-jokes
       env:
         CI: "true"
-    - name: Reassign Joke IDs # makes sure all jokes have the correct ID
+    - name: Validate Joke IDs # makes sure all jokes have the correct ID
       run: |
-        npm run reassign-ids --if-present
+        npm run validate-ids
       env:
         CI: "true"
     - name: Discord success notification # sends a Discord notification
