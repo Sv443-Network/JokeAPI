@@ -14,5 +14,8 @@
 9. Check if the CI script and checks for your pull request were successful
     > If they were unsuccessful, view the log, fix the errors and push to the same branch. This will automatically update your pull request and re-run the checks
 10. Once the pull request is approved and merged, delete the source branch  
+  
+  
+If you are working on the documentation, I recommend using [Visual Studio Code](https://code.visualstudio.com/) with the extension `fabiospampinato.vscode-highlight` - it will make the raw documentation a bit easier to read and work with.  
 
 ## If you need any help, please feel free to contact me with one of the methods listed on [my homepage](https://sv443.net/)
