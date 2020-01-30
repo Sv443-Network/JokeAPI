@@ -12,7 +12,8 @@
     "validate-jokes": "node tools/validate-jokes",
     "validate-ids": "node tools/validate-ids",
     "add-joke": "node tools/add-joke",
-    "lint": "eslint ./ && exit $?"
+    "lint": "eslint ./ && exit $?",
+    "all": "npm run validate-jokes && npm run validate-ids && npm run lint"
   },
   "repository": {
     "type": "git",
