@@ -327,9 +327,7 @@ class FilteredJoke
                             if(!global._lastIDs.includes(j.id))
                                 reducedJokeArray.push(j);
                         });
-
-                        console.log(`Selection attempts: ${global._selectionAttempts}`);
-                        console.log(`DEBUG >>> Joke ID is in cache, trying again with reduced array...`);
+                        
                         return selectRandomJoke(reducedJokeArray);
                     }
                     else
