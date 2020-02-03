@@ -1,6 +1,11 @@
 // this validates all jokes' IDs. This will be run through the CI to make sure the IDs are correct
 // run this with the command "npm run reassign-ids"
 
+const exitWithError = (msg, err) => {
+    console.log(`\n\n\x1b[31m\x1b[1m>> ${msg}:\n${err}\n\n\x1b[0m`);
+    process.exit(1);
+}
+
 try
 {
     const fs = require("fs");
@@ -45,9 +50,4 @@ try
 catch(err)
 {
     return exitWithError("General error while validating joke IDs", err);
-}
-
-const exitWithError = (msg, err) => {
-    console.log(`\n\n\x1b[31m\x1b[1m>> ${msg}:\n${err}\n\n\x1b[0m`);
-    process.exit(1);
 }
