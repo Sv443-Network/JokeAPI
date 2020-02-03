@@ -41,7 +41,7 @@
     "dotenv": "^8.2.0",
     "farmhash": "^3.0.0",
     "http-ratelimit": "^0.2.3",
-    "js2xmlparser": "^4.0.0",
+    "js2xmlparser": "^4.0.1",
     "json-to-pretty-yaml": "^1.2.2",
     "mysql": "^2.18.1",
     "node-wrap": "^0.2.0",
