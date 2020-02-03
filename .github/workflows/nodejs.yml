@@ -44,11 +44,11 @@ jobs:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       uses: Ilshidur/action-discord@master
       with:
-        args: '☑️ JokeAPI CI run (triggered by {{GITHUB_ACTOR}} on ref `{{GITHUB_REF}}`) was successful (see https://github.com/Sv443/JokeAPI/commit/{{GITHUB_SHA}}/checks)' 
+        args: '☑️ **JokeAPI CI** (triggered by `{{GITHUB_ACTOR}}` on `{{GITHUB_REF}}`) was successful (see https://github.com/Sv443/JokeAPI/commit/{{GITHUB_SHA}}/checks)' 
     - name: Discord failure notification # sends a Discord notification
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       uses: Ilshidur/action-discord@master
       with:
-        args: '🚫 JokeAPI CI run (triggered by {{GITHUB_ACTOR}} on ref `{{GITHUB_REF}}`) failed (see https://github.com/Sv443/JokeAPI/commit/{{GITHUB_SHA}}/checks)'
+        args: '🚫 **JokeAPI CI** (triggered by `{{GITHUB_ACTOR}}` on `{{GITHUB_REF}}`) failed (see https://github.com/Sv443/JokeAPI/commit/{{GITHUB_SHA}}/checks)'
       if: failure()
