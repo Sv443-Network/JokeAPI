@@ -115,7 +115,7 @@ const init = () => {
                                 return respondWithError(res, 101, 429, fileFormat);
                             }
                             else return serveDocumentation(req, res);
-                            /*DEBUG*/ //else return respondWithErrorPage(req, res, 500, fileFormat, "Example Error @ex@");
+                            //else return respondWithErrorPage(req, res, 500, fileFormat, "Example Error @ex@");
                         }
 
                         // Disable caching now that the request is not a docs request
