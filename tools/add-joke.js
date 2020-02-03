@@ -148,6 +148,6 @@ const getJokeType = () => {
         });
         typeMP.open();
     });
-}
+};
 
 init();

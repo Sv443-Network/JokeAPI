@@ -132,6 +132,6 @@ const epError = (res, format, err) => {
     }
 
     httpServer.pipeString(res, convertFileFormat.auto(format, errObj), parseURL.getMimeTypeFromFileFormatString(format));
-}
+};
 
 module.exports = { meta, call };

@@ -72,7 +72,7 @@ const hashIP = ip => {
     let hash = crypto.createHash(settings.httpServer.ipHashing.algorithm);
     hash.update(ip, "utf8");
     return hash.digest(settings.httpServer.ipHashing.digest).toString();
-}
+};
 
 module.exports = resolveIP;
 module.exports.isValidIP = isValidIP;

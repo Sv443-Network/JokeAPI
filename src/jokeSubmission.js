@@ -58,7 +58,7 @@ const jokeSubmission = (res, data, fileFormat, ip, analyticsObject) => {
                     if(fs.existsSync(`${settings.jokes.jokeSubmissionPath}submission_${sanitizedIP}_${currentNum}_${curUnix}.json`))
                         return findNextNum(currentNum + 1);
                     else return currentNum;
-                }
+                };
 
                 if(fs.existsSync(`${settings.jokes.jokeSubmissionPath}${fileName}`))
                     fileName = `${settings.jokes.jokeSubmissionPath}submission_${sanitizedIP}_${findNextNum()}_${curUnix}.json`;
