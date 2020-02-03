@@ -62,7 +62,8 @@ class FilteredJoke
         this._idRange = [0, (parseJokes.jokeCount - 1)];
         this._flags = [];
 
-        this._lastIDs = [];
+        if(!global._lastIDs || !Array.isArray(global._lastIDs))
+            global._lastIDs = [];
     }
 
     //#MARKER categories
@@ -302,33 +303,50 @@ class FilteredJoke
                 if(filteredJokes.length == 0 || typeof filteredJokes != "object")
                     return reject("No jokes were found that match the provided filter(s)");
                 
+                if(!global._lastIDs || !Array.isArray(global._lastIDs))
+                    global._lastIDs = [];
+                
+                if(typeof global._selectionAttempts != "number")
+                    global._selectionAttempts = 0;
+
                 /**
                  * @param {Array<SingleJoke|TwopartJoke>} jokes 
                  */
                 let selectRandomJoke = jokes => {
                     let selectedJoke = filteredJokes[jsl.randRange(0, (filteredJokes.length - 1))];
 
-                    this._lastIDs.push(selectedJoke.id);
-
-                    if(this._lastIDs.length > settings.jokes.lastIDsMaxLength)
-                        this._lastIDs.shift();
-                    
-                    if(jokes.length > settings.jokes.lastIDsMaxLength && this._lastIDs.includes(selectedJoke.id))
+                    if(jokes.length > settings.jokes.lastIDsMaxLength && global._lastIDs.includes(selectedJoke.id))
                     {
+                        if(global._selectionAttempts > settings.jokes.jokeRandomizationAttempts)
+                            return reject();
+
+                        global._selectionAttempts++;
                         let reducedJokeArray = [];
 
                         jokes.forEach(j => {
-                            if(!this._lastIDs.includes(j.id))
+                            if(!global._lastIDs.includes(j.id))
                                 reducedJokeArray.push(j);
                         });
 
+                        console.log(`Selection attempts: ${global._selectionAttempts}`);
+                        console.log(`DEBUG >>> Joke ID is in cache, trying again with reduced array...`);
                         return selectRandomJoke(reducedJokeArray);
                     }
+                    else
+                    {
+                        global._lastIDs.push(selectedJoke.id);
 
-                    return selectedJoke;
+                        if(global._lastIDs.length > settings.jokes.lastIDsMaxLength)
+                            global._lastIDs.shift();
+
+                        global._selectionAttempts = 0;
+
+                        return selectedJoke;
+                    }
                 };
 
-                return resolve(selectRandomJoke(filteredJokes));
+                let randJoke = selectRandomJoke(filteredJokes);
+                return resolve(randJoke);
             }).catch(err => {
                 return reject(err);
             });

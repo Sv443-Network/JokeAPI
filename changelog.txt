@@ -1,7 +1,7 @@
 ====================
 
  JokeAPI Changelog
- - Version 2.0.0 -
+ - Version 2.0.1 -
 
 ====================
 
@@ -10,11 +10,16 @@
 Planned for the next version (2.1.0):
     - Allow definition of max requests per minute per each client
     - Add an authorization header to make whitelisting possible without needing to have a static IP
-    - Fix joke ID caching (to not serve the same jokes multiple times)
-    - Hotfix any bugs from the big 2.0.0 update
 
 
-> [CURRENT: 2.0.0] - The complete rewrite - JokeAPI was completely rewritten and should now run like 100x better and be more easy to develop and maintain
+> [CURRENT: 2.0.1] - A few hotfixes for the big 2.0.0 updates and some very very minor features I wanted to add
+    - Hotfixed a few bugs from the big 2.0.0 update
+    - Fixed joke ID caching (to not serve the same jokes multiple times)
+    - Added three new commands that are run through CI and before contributing
+    - Enabled automated code fixing with ESLint
+
+
+[OLD: 2.0.0] - The complete rewrite - JokeAPI was completely rewritten and should now run like 100x better and be more easy to develop and maintain
     - Massively improved the "Try it out" section in the docs
     - Reformatted the jokes to always contain all flags
     - Added support for selecting multiple categories at once (for example: "https://sv443.net/jokeapi/v2/joke/Dark,Miscellaneous/")

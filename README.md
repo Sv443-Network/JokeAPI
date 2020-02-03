@@ -1,6 +1,7 @@
 <div align="center" style="text-align:center">
 
-# JokeAPI v2.0.0
+# JokeAPI
+### A RESTful API that serves uniformly and well formatted jokes and offers a great variety of filtering methods
 [![GitHub](https://img.shields.io/github/license/Sv443/JokeAPI)](https://sv443.net/LICENSE)
 [![Uptime / 7 Days](https://img.shields.io/uptimerobot/ratio/7/m782998549-afcc0d10c27c87df47e73289)](https://status.sv443.net/)
 [![Open Issues](https://img.shields.io/github/issues/Sv443/JokeAPI)](https://github.com/Sv443/JokeAPI/issues)
@@ -26,3 +27,12 @@
 - [Random Jokes](https://github.com/thombenjamin/randomjokes) by [Thom Benjamin](https://github.com/thombenjamin)
   
 ([Contact me](https://discord.gg/aBH4uRG) to get your project added here)
+
+
+<br><br>
+<div align="center" style="text-align:center">
+
+Made with ❤️ by [Sv443](https://github.com/Sv443)  
+Support me on [Patreon](https://patreon.com/Sv443_), [Ko-fi](https://ko-fi.com/Sv443_) or [PayPal](https://paypal.me/SvenFehler)
+
+</div>
