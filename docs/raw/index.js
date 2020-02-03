@@ -57,7 +57,7 @@ You can request to get your collected data deleted or to view the data about you
 `;
 
 var cIHTML = `
-<iframe src="static/changelog" style="width: 100%; height: 80%; font-family: 'Roboto', 'Segoe UI', 'Arial', sans-serif; color: black !important; background-color: white !important;"></iframe><br>
+<iframe src="<!--%#INSERT:DOCSURL#%-->/static/changelog" style="width: 100%; height: 80%; font-family: 'Roboto', 'Segoe UI', 'Arial', sans-serif; color: black !important; background-color: white !important;"></iframe><br>
 <br>
 (Current Version is [<!--%#INSERT:VERSION#%-->])
 `;
