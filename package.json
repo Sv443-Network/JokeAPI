@@ -48,7 +48,7 @@
     "json-to-pretty-yaml": "^1.2.2",
     "mysql": "^2.18.1",
     "node-wrap": "^0.2.0",
-    "svjsl": "^1.8.1"
+    "svjsl": "^1.8.3"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
