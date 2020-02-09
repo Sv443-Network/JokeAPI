@@ -25,6 +25,7 @@
 - [dozens Advices](https://github.com/ZephyrVentum/dozens-Advices) by [ZephyrVentum](https://github.com/ZephyrVentum)
 - [Shadow-bot](https://github.com/QGIsK/Shadow-bot) by [QGIsK](https://github.com/QGIsK)
 - [Random Jokes](https://github.com/thombenjamin/randomjokes) by [Thom Benjamin](https://github.com/thombenjamin)
+- [Sv443 JokeAPI Wrapper](https://github.com/canarado/sv443_jokeapi_wrapper) by [canarado](https://github.com/canarado)
   
 ([Contact me](https://discord.gg/aBH4uRG) to get your project added here)
 
