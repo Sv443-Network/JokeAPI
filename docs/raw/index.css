@@ -463,6 +463,10 @@ abbr {
     cursor: help;
 }
 
+ul.lispacer li {
+    margin-bottom: 5px;
+}
+
 /*#SECTION Endpoints*/
 .requestURLwrapper {
     border: 1px solid #777;
@@ -496,7 +500,7 @@ body[data-sidenav="opened"] .requestURLwrapper {
 
 .requestURL {
     color: #ccc;
-    font-family: "Roboto", "Courier New", monospace;
+    font-family: "Roboto Mono", "Courier New", monospace;
 }
 
 .supportedParamsBox {
@@ -520,6 +524,28 @@ footer#copyrightNotice {
 
 footer#copyrightNotice span {
     display: inline-block;
+}
+
+/*#SECTION Wrappers*/
+#wrapperTable {
+    border-spacing: 0;
+    font-size: 105%;
+}
+
+#wrapperTable tr th {
+    text-align: left;
+    padding: 2px;
+    border: 1px solid white;
+    border-style: none none solid none;
+}
+
+#wrapperTable tr th:first-child {
+    padding-right: 20px;
+}
+
+#wrapperTable tr td {
+    text-align: left;
+    padding: 2px;
 }
 
 /*#MARKER sidenav*/

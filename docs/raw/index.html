@@ -54,6 +54,7 @@
         <!-- #MARKER dependencies -->
         <!-- JokeAPI Stylesheet: -->
         <link rel="stylesheet" href="<!--%#INSERT:DOCSURL#%-->/static/index.css"> <!-- Have to do it like this because the page doesn't always have a trailing slash 🤮 -->
+        <link rel="stylesheet" href="static/index.css">
 
         <!-- Icon: -->
         <link rel="icon" type="image/png" href="<!--%#INSERT:DOCSURL#%-->/favicon.ico">
@@ -297,11 +298,38 @@
                 <!-- #MARKER Getting Started -->
                 <div class="docHeader targetBlink" id="getting-started"><a class="headerAnchorContainer" href="#getting-started" title="Click to link to this header">🔗</a><span class="docHeaderText">Getting Started:</span></div>
                 <!--%#INSERT:NAME#%--> doesn't require any API token, authorization or payment to work, although there is a hard limit of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute due to some DoS attacks I have been getting.<br>
-                To start using <!--%#INSERT:NAME#%-->, you first need to know a way to send HTTP requests (XHR) from within your code (<a href="https://medium.com/better-programming/crash-course-in-http-requests-using-python-59246373a187" target="_blank">Python XHR Crash Course</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest" target="_blank">JavaScript XHR Documentation</a>).<br>
-                Now that you know how to send HTTP requests, please take a look at <a href="#endpoints">all the endpoints <!--%#INSERT:NAME#%--> has.</a><br>
-                After you've finished reading that, you can start testing out the different endpoints with a client such as <a href="https://www.getpostman.com/" target="_blank">Postman</a> and look at some examples by <a href="#examples">going to the "Examples" section.</a><br>
+                To start using <!--%#INSERT:NAME#%-->, you can do one of these two things:<br>
+                <ul class="lispacer">
+                    <li>You can see if your language has a wrapper for <!--%#INSERT:NAME#%--> (to see a list of officially supported wrappers, <a href="#wrappers">click here</a>)</li>
+                    <li>
+                        You can directly communicate with <!--%#INSERT:NAME#%--> with HTTP requests (XHR) from within your code (<a href="https://medium.com/better-programming/crash-course-in-http-requests-using-python-59246373a187" target="_blank">Python XHR Crash Course</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest" target="_blank">JavaScript XHR Documentation</a>)<br>
+                        When/If you know how to send HTTP requests, please take a look at <a href="#endpoints">all the endpoints <!--%#INSERT:NAME#%--> has.</a><br>
+                        After you've finished reading that, you can start testing out the different endpoints with a client such as <a href="https://www.getpostman.com/" target="_blank">Postman</a> and look at some examples by <a href="#examples">going to the "Examples" section.</a>
+                    </li>
+                </ul>
                 If you know any good jokes and want to add them to <!--%#INSERT:NAME#%-->, please <a href="#submit-joke">click here.</a><br>
                 If you need any help, feel free to <a href="https://sv443.net/discord" target="_blank">join my Discord server.</a><br>
+
+
+                <!-- #MARKER Wrappers -->
+                <div class="docHeader targetBlink" id="wrappers"><a class="headerAnchorContainer" href="#wrappers" title="Click to link to this header">🔗</a><span class="docHeaderText">Official API Wrappers:</span></div>
+                A wrapper is generally a library that wraps around a certain function to make your life easier.<br>
+                In the case of RESTful APIs like <!--%#INSERT:NAME#%-->, a wrapper library makes it so you can use functions and objects to communicate with the API and the wrapper will do all the HTTP requests for you in the background.<br>
+                The following is a list of officially supported <!--%#INSERT:NAME#%--> wrappers:<br>
+
+                <br>
+
+                <table id="wrapperTable">
+                    <tr>
+                        <th>Language</th>
+                        <th>Wrapper</th>
+                    </tr>
+                    <tr>
+                        <td>Rust</td>
+                        <td><a href="https://github.com/canarado/sv443_jokeapi_wrapper" target="_blank">Sv443_JokeAPI Rust Crate</a></td>
+                    </tr>
+                </table>
+
 
 
                 <!-- #MARKER Submit Joke -->
@@ -965,7 +993,7 @@ public class Flags
                     <!--%#INSERT:NAME#%--> uses these third party fonts on its documentation page:
                     <ul>
                         <li><a href="https://github.com/Microsoft/Cascadia-Code" style="font-family: 'Cascadia Code';" target="_blank">Cascadia Code</a> by <a href="https://github.com/Microsoft" target="_blank">Microsoft</a></li>
-                        <li><a href="https://github.com/Google/Roboto" style="font-family: 'Roboto', monospace;" target="_blank">Roboto</a> by <a href="https://github.com/Google" target="_blank">Google</a></li>
+                        <li><a href="https://github.com/Google/Roboto" style="font-family: 'Roboto Mono', monospace;" target="_blank">Roboto</a> by <a href="https://github.com/Google" target="_blank">Google</a></li>
                     </ul>
                 </div>
 
@@ -1003,7 +1031,6 @@ public class Flags
                     <li><a href="https://github.com/ZephyrVentum/dozens-Advices" target="_blank">dozens Advices</a> by <a href="https://github.com/ZephyrVentum" target="_blank">ZephyrVentum</a></li>
                     <li><a href="https://github.com/QGIsK/Shadow-bot" target="_blank">shadow-bot</a> by <a href="https://github.com/QGIsK" target="_blank">QGIsK</a></li>
                     <li><a href="https://github.com/thombenjamin/randomjokes" target="_blank">Random Jokes</a> by <a href="https://github.com/thombenjamin" target="_blank">Thom Benjamin</a></li>
-                    <li><a href="https://github.com/canarado/sv443_jokeapi_wrapper" target="_blank">Sv443 JokeAPI Wrapper</a> by <a href="https://github.com/canarado">Canarado</a></li>
                 </ul>
                 (<a href="https://sv443.net/discord" target="_blank">Contact me</a> to get your project added here)
 
@@ -1028,6 +1055,7 @@ public class Flags
                 <a class="noul" onclick="closeNav()" href="#info">Information</a>
                 <a class="noul" onclick="closeNav()" href="#try-it">Try it out</a>
                 <a class="noul" onclick="closeNav()" href="#getting-started">Getting Started</a>
+                <a class="noul" onclick="closeNav()" href="#wrappers">API Wrappers</a>
                 <a class="noul" onclick="closeNav()" href="#submit-joke">Submit a Joke</a>
                 <a class="noul" onclick="closeNav()" href="#url-parameters">URL Parameters</a>
                 <a class="noul" onclick="closeNav()" href="#errors">Errors</a>
