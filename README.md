@@ -21,6 +21,11 @@
 </div>
 <br><br>
 
+# Official API Wrappers:
+- [Sv443_JokeAPI Rust Crate](https://github.com/canarado/sv443_jokeapi_wrapper) by [Canarado](https://github.com/canarado)
+
+<br>
+
 # Projects (I'm aware of) that use JokeAPI:
 - [dozens Advices](https://github.com/ZephyrVentum/dozens-Advices) by [ZephyrVentum](https://github.com/ZephyrVentum)
 - [Shadow-bot](https://github.com/QGIsK/Shadow-bot) by [QGIsK](https://github.com/QGIsK)
