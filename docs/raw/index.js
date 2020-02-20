@@ -164,7 +164,6 @@ function onLoad()
     document.getElementById("insFormats2").innerHTML = formats.join(", ").toLowerCase();
 
     var categories = JSON.parse('<!--%#INSERT:CATEGORYARRAY#%-->');
-    categories.unshift("Any");
     document.getElementById("insCategories").innerHTML = categories.join(", ");
 }
 
