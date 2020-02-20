@@ -1,18 +1,25 @@
 ====================
 
  JokeAPI Changelog
- - Version 2.0.1 -
+ - Version 2.1.0 -
 
 ====================
 
 
 
-Planned for the next version (2.1.0):
+Planned for the next version (2.2.0):
     - Allow definition of max requests per minute per each client
-    - Add an authorization header to make whitelisting possible without needing to have a static IP
 
 
-> [CURRENT: 2.0.1] - A few hotfixes for the big 2.0.0 updates and some very very minor features I wanted to add
+
+[CURRENT: 2.1.0] - A few small features that didn't make it into the v2.0.0 deadline
+    - Added an authorization header to make whitelisting possible without needing to have a static IP
+        - Added the script "npm run add-token [amount]" to add one or more tokens
+    - Improved the documentation (see GitHub issue #52)
+    - Fixed a few bugs in the documentation
+
+
+[OLD: 2.0.1] - A few hotfixes for the big 2.0.0 updates and some very very minor features I wanted to add
     - Hotfixed a few bugs from the big 2.0.0 update
     - Fixed joke ID caching (to not serve the same jokes multiple times)
     - Added three new commands that are run through CI and before contributing

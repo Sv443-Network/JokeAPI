@@ -26,3 +26,6 @@ data/submissions/submission_*.json
 
 # Re-inclusions:
 !change.log*
+
+# Auth Tokens
+data/tokens.json
