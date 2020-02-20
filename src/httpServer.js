@@ -16,6 +16,7 @@ const parseURL = require("./parseURL");
 const lists = require("./lists");
 const analytics = require("./analytics");
 const jokeSubmission = require("./jokeSubmission");
+const auth = require("./auth");
 
 
 const init = () => {
@@ -134,9 +135,22 @@ const init = () => {
                         endpoints.forEach(ep => {
                             if(ep.name == requestedEndpoint)
                             {
+                                let hasHeaderAuth = auth.authByHeader(req);
                                 // now that the request is not a docs / favicon request, the blacklist is checked and the request is made eligible for rate limiting
-                                if(!settings.endpoints.ratelimitBlacklist.includes(ep.name))
+                                if(!settings.endpoints.ratelimitBlacklist.includes(ep.name) && !hasHeaderAuth)
                                     rateLimit.inboundRequest(req);
+                                
+                                if(hasHeaderAuth)
+                                {
+                                    analytics({
+                                        type: "AuthTokenIncluded",
+                                        data: {
+                                            ipAddress: ip,
+                                            urlParameters: parsedURL.queryParams,
+                                            urlPath: parsedURL.pathArray
+                                        }
+                                    });
+                                }
 
                                 foundEndpoint = true;
 
@@ -161,7 +175,7 @@ const init = () => {
                                 }
                                 else
                                 {
-                                    if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting) && !lists.isWhitelisted(ip))
+                                    if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting) && !lists.isWhitelisted(ip) && !hasHeaderAuth)
                                     {
                                         logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
                                         return respondWithError(res, 101, 429, fileFormat);

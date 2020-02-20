@@ -183,8 +183,17 @@ const sendQuery = (query, insertValues) => {
  */
 
 /**
+ * @typedef {Object} AnalyticsTokenIncluded
+ * @prop {("AuthTokenIncluded")} type
+ * @prop {Object} data
+ * @prop {String} data.ipAddress
+ * @prop {Array<String>} data.urlPath
+ * @prop {Object} data.urlParameters
+ */
+
+/**
  * Logs something to the analytics database
- * @param {(AnalyticsDocsRequest|AnalyticsSuccessfulRequest|AnalyticsRateLimited|AnalyticsError|AnalyticsSubmission)} analyticsDataObject The analytics data
+ * @param {(AnalyticsDocsRequest|AnalyticsSuccessfulRequest|AnalyticsRateLimited|AnalyticsError|AnalyticsSubmission|AnalyticsTokenIncluded)} analyticsDataObject The analytics data
  * @returns {(Boolean|String)} Returns a string containing an error message if errored, else returns true
  */
 const logAnalytics = analyticsDataObject => {

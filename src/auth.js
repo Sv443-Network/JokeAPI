@@ -1,0 +1,55 @@
+const http = require("http");
+const jsl = require("svjsl");
+const fs = require("fs");
+const settings = require("../settings");
+
+jsl.unused([http]);
+
+
+
+
+const init = () => {
+    return new Promise((resolve, reject) => {
+        fs.exists(settings.auth.tokenListFile, exists => {
+            if(!exists)
+                fs.writeFileSync(settings.auth.tokenListFile, "");
+            
+            try
+            {
+                let tokens = JSON.parse(fs.readFileSync(settings.auth.tokenListFile).toString());
+                process._tokenList = tokens;
+            }
+            catch(err)
+            {
+                process._tokenList = [];
+                return reject(err);
+            }
+            
+            return resolve();
+        });
+    });
+};
+
+/**
+ * Checks if the requester has provided an auth header and if the auth header is valid
+ * @param {http.IncomingMessage} req 
+ * @returns {Boolean} true, if auth header is present and valid and false if not
+ */
+const authByHeader = (req) => {
+    let isAuthorized = false;
+
+    if(req.headers && req.headers[settings.auth.tokenHeaderName])
+    {
+        if(Array.isArray(process._tokenList) && process._tokenList.length > 0)
+        {
+            process._tokenList.forEach(tokenObj => {
+                if(tokenObj.token == req.headers[settings.auth.tokenHeaderName].toString())
+                    isAuthorized = true;
+            });
+        }
+    }
+
+    return isAuthorized;
+};
+
+module.exports = { init, authByHeader };

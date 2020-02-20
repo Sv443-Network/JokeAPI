@@ -16,6 +16,7 @@ const lists = require("./lists");
 const docs = require("./docs");
 const analytics = require("./analytics");
 const logRequest = require("./logRequest");
+const auth = require("./auth");
 
 const col = jsl.colors.fg;
 process.debuggerActive = (typeof v8debug === "object" || /--debug|--inspect/.test(process.execArgv.join(" ")));
@@ -37,7 +38,7 @@ const initAll = () => {
 
     //#SECTION parse jokes
     if(!noDbg && !settings.debug.progressBarDisabled)
-        pb = new jsl.ProgressBar(5, "Parsing Jokes...");
+        pb = new jsl.ProgressBar(6, "Parsing Jokes...");
 
     parseJokes.init().then(() => {
         
@@ -49,19 +50,24 @@ const initAll = () => {
             if(!jsl.isEmpty(pb)) pb.next("Initializing documentation...");
             docs.init().then(() => {
 
-                //#SECTION init HTTP server
-                if(!jsl.isEmpty(pb)) pb.next("Initializing HTTP listener...");
-                httpServer.init().then(() => {
+                //#SECTION init auth
+                if(!jsl.isEmpty(pb)) pb.next("Initializing Authorization module...");
+                auth.init().then(() => {
 
-                    //#SECTION init analytics
-                    if(!jsl.isEmpty(pb)) pb.next("Initializing analytics module...");
-                    analytics.init().then(() => {
-                        if(!jsl.isEmpty(pb)) pb.next("Done.");
-                        logRequest.initMsg(initTimestamp);
+                    //#SECTION init HTTP server
+                    if(!jsl.isEmpty(pb)) pb.next("Initializing HTTP listener...");
+                    httpServer.init().then(() => {
 
-                        // done.
-                    }).catch(err => initError("initializing the analytics module", err));
-                }).catch(err => initError("initializing the HTTP server", err));
+                        //#SECTION init analytics
+                        if(!jsl.isEmpty(pb)) pb.next("Initializing analytics module...");
+                        analytics.init().then(() => {
+                            if(!jsl.isEmpty(pb)) pb.next("Done.");
+                            logRequest.initMsg(initTimestamp);
+
+                            // done.
+                        }).catch(err => initError("initializing the analytics module", err));
+                    }).catch(err => initError("initializing the HTTP server", err));
+                }).catch(err => initError("initializing the Auth module", err));
             }).catch(err => initError("initializing documentation", err));
         }).catch(err => initError("initializing the lists", err));
     }).catch(err => initError("parsing jokes", err));
