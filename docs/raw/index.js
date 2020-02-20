@@ -155,16 +155,24 @@ function onLoad()
     {
         fileFormats.splice(fileFormats.indexOf("JSON"), 1);
     }
-    document.getElementById("insFormats").innerHTML = fileFormats.join(" and ");
+    Array.from(document.getElementsByClassName("insFormatsS")).forEach(function(el) {
+        el.innerHTML = fileFormats.join(" and ");
+    });
 
     var flags = JSON.parse('<!--%#INSERT:FLAGSARRAY#%-->');
-    document.getElementById("insFlags").innerHTML = flags.join(", ");
+    Array.from(document.getElementsByClassName("insFlags")).forEach(function(el) {
+        el.innerHTML = flags.join(", ");
+    });
 
     var formats = JSON.parse('<!--%#INSERT:FILEFORMATARRAY#%-->');
-    document.getElementById("insFormats2").innerHTML = formats.join(", ").toLowerCase();
+    Array.from(document.getElementsByClassName("insFormats")).forEach(function(el) {
+        el.innerHTML = formats.join(", ").toLowerCase();
+    });
 
     var categories = JSON.parse('<!--%#INSERT:CATEGORYARRAY#%-->');
-    document.getElementById("insCategories").innerHTML = categories.join(", ");
+    Array.from(document.getElementsByClassName("insCategories")).forEach(function(el) {
+        el.innerHTML = categories.join(", ");
+    });
 }
 
 function addCodeTabs()

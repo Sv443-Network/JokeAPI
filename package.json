@@ -3,7 +3,8 @@
   "version": "2.0.1",
   "description": "A RESTful API that serves jokes from many categories while also offering a lot of filtering methods",
   "main": "JokeAPI.js",
-  "homepage": "https://sv443.net/jokeapi/v2",
+  "__homepage": "https://sv443.net/jokeapi/v2",
+  "homepage": "http://127.0.0.1",
   "scripts": {
     "start": "node . && exit $?",
     "test": "echo \"No test script specified\" && exit 0",
