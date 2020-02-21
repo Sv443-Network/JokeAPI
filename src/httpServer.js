@@ -31,6 +31,7 @@ const init = () => {
             let httpServer = http.createServer((req, res) => {
                 let parsedURL = parseURL(req.url);
                 let ip = resolveIP(req);
+                let hasHeaderAuth = auth.authByHeader(req);
                 let analyticsObject = {
                     ipAddress: ip,
                     urlPath: parsedURL.pathArray,
@@ -109,7 +110,7 @@ const init = () => {
                             requestedEndpoint = urlPath[0];
                         else
                         {
-                            if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting) && !lists.isWhitelisted(ip))
+                            if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting) && !lists.isWhitelisted(ip) && !hasHeaderAuth)
                             {
                                 analytics.rateLimited(ip);
                                 logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
@@ -135,13 +136,13 @@ const init = () => {
                         endpoints.forEach(ep => {
                             if(ep.name == requestedEndpoint)
                             {
-                                let hasHeaderAuth = auth.authByHeader(req);
                                 // now that the request is not a docs / favicon request, the blacklist is checked and the request is made eligible for rate limiting
                                 if(!settings.endpoints.ratelimitBlacklist.includes(ep.name) && !hasHeaderAuth)
                                     rateLimit.inboundRequest(req);
                                 
                                 if(hasHeaderAuth)
                                 {
+                                    debug("HTTP", `Requester has valid token ${jsl.colors.fg.green}${req.headers[settings.auth.tokenHeaderName] || null}${jsl.colors.rst}`);
                                     analytics({
                                         type: "AuthTokenIncluded",
                                         data: {

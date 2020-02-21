@@ -4,7 +4,7 @@ const settings = require("../settings");
 
 try
 {
-    let amount = 1;
+    let amount;
 
     try
     {

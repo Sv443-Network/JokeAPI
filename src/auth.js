@@ -9,23 +9,23 @@ jsl.unused([http]);
 
 
 const init = () => {
-    return new Promise((resolve, reject) => {
+    return new Promise(resolve => {
         fs.exists(settings.auth.tokenListFile, exists => {
             if(!exists)
-                fs.writeFileSync(settings.auth.tokenListFile, "");
+                fs.writeFileSync(settings.auth.tokenListFile, JSON.stringify([], null, 4));
             
             try
             {
                 let tokens = JSON.parse(fs.readFileSync(settings.auth.tokenListFile).toString());
                 process._tokenList = tokens;
+                return resolve();
             }
             catch(err)
             {
                 process._tokenList = [];
-                return reject(err);
+                fs.writeFileSync(settings.auth.tokenListFile, JSON.stringify([], null, 4));
+                return resolve();
             }
-            
-            return resolve();
         });
     });
 };
