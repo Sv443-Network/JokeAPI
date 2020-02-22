@@ -6,13 +6,14 @@
     - `npm run validate-jokes` to make sure all jokes are formatted correctly
     - `npm run validate-ids` to verify that all jokes have the correct ID
     - `npm run lint` to check the code for any warnings or errors
-4. Run JokeAPI locally with the batch file or with the command `node JokeAPI`, request some jokes and test the areas you modified / added to make sure everything still works
+4. Run JokeAPI locally by running the command `node JokeAPI`, request some jokes and test the areas you modified / added to make sure everything still works
 5. Make sure all your changes are in a separate branch (not in the master branch)
 6. Add yourself to the `contributors` object in the file `package.json` :)
     - **If it doesn't exist or is empty** please add it using the second format on [this website](https://flaviocopes.com/package-json/#contributors)
 7. Submit a pull request on your forked repository, selecting `Sv443/JokeAPI` as the base repo and `master` as the base branch and select `YourUsername/JokeAPI` as the head repo and `YourBranch` as the compare branch
+    - If your pull request is not ready to be merged yet, you can add `[WIP]` to the beginning of the title which will tell the repo maintainer(s) not to merge it yet.
 8. Request a review from me (Sv443)
-9. Check if the CI script and checks for your pull request were successful
+9. Check if the CI script and other checks for your pull request were successful (they can be found below the comments)
     - **If they were unsuccessful:** view the log, fix the errors, commit the code and push to the same branch. This will automatically update your pull request and re-run the checks
 10. Once the pull request is approved and merged, delete the source branch  
   
