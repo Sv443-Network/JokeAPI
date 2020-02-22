@@ -162,8 +162,12 @@ const settings = {
     },
     sql: { // (login credentials are set in the .env file)
         host: "localhost",   // IP address to the DB host - default for local device is "localhost"
-        database: "jokeapi", // The name of the DB
-        port: 3306,          // The port of the DB - default is 3306
+        database: "jokeapi", // the name of the DB
+        port: 3306,          // the port of the DB - default is 3306
+    },
+    auth: {
+        tokenListFile: "./data/tokens.json", // path to the token list file
+        tokenHeaderName: "x-auth-token",     // the name of the token header (lower case)
     }
 }
 

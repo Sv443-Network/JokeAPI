@@ -54,7 +54,7 @@
         <!-- #MARKER dependencies -->
         <!-- JokeAPI Stylesheet: -->
         <link rel="stylesheet" href="<!--%#INSERT:DOCSURL#%-->/static/index.css"> <!-- Have to do it like this because the page doesn't always have a trailing slash 🤮 -->
-        <link rel="stylesheet" href="static/index.css">
+        <!-- <link rel="stylesheet" href="static/index.css"> -->
 
         <!-- Icon: -->
         <link rel="icon" type="image/png" href="<!--%#INSERT:DOCSURL#%-->/favicon.ico">
@@ -64,9 +64,10 @@
 
         <!-- JokeAPI index.js -->
         <script src="<!--%#INSERT:DOCSURL#%-->/static/index.js"></script> <!-- Have to do it like this because the page doesn't always have a trailing slash 🤮 -->
+        <!-- <script src="static/index.js"></script> -->
 
         <!-- Google Code-Prettify -->
-        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=sunburst"></script>
+        <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=sunburst"></script></script>
     </head>
     <body onload="onLoad()">
         <!-- #MARKER Main -->
@@ -349,9 +350,9 @@
                 <!--#SECTION Format-->
                 <span class="subHeader" id="format-param">Format:</span>
                 This parameter is global - it can be used on every single endpoint of <!--%#INSERT:NAME#%--> (excluding the documentation and static content).<br>
-                It is used to change the response format from the default (JSON) to <span id="insFormats">(Loading...)</span>, depending on what you need.<br>
+                It is used to change the response format from the default (JSON) to <span class="insFormatsS">(Loading...)</span>, depending on what you need.<br>
                 If the format parameter is invalid or not specified at all, the default value of JSON will be used.<br>
-                Available formats are <mark id="insFormats2">(Loading...)</mark><br><br>
+                Available formats are <mark class="insFormats">(Loading...)</mark><br><br>
                 <details><summary>Example (click to view)</summary>
                     URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?format=xml</mark><br><br>
 <code class="prettyprint"><div class="actualCode" id="tryItResult">
@@ -377,7 +378,7 @@
                 This parameter can only be used on the "joke" endpoint.<br>
                 If it is used, jokes that match the specified flag(s) will not be served (<a href="#blacklist-flags">what is a flag?</a>).<br>
                 If you want to use multiple flags, separate them with a comma (,) or a plus sign (+).<br>
-                These are all the available flags: <mark id="insFlags">(Loading...)</mark><br><br>
+                These are all the available flags: <mark class="insFlags">(Loading...)</mark><br><br>
 
                 <details><summary>Example 1 (click to view)</summary>
                     URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?blacklistFlags=nsfw</mark><br>
@@ -450,7 +451,8 @@
                 This parameter can only be used on the "joke" endpoint.<br>
                 If it is used, you will only get jokes that are inside the specified range of IDs.<br>
                 The lower and upper boundary of the ID range needs to be delimited with a minus (-), comma (,) or a plus sign (+).<br>
-                If you only want to get a single joke by its ID, you can also ignore the delimiter and just use the single ID as the value for this parameter.<br><br>
+                If you only want to get a single joke by its ID, you can also ignore the delimiter and just use the single ID as the value for this parameter.<br>
+                As there are currently <!--%#INSERT:TOTALJOKES#%--> jokes, the ID range can be any range from <mark>0 - <!--%#INSERT:TOTALJOKESZEROINDEXED#%--></mark><br><br>
 
                 <details><summary>Example 1 (click to view)</summary>
                     URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?idRange=0-55</mark><br>
@@ -545,7 +547,8 @@
                 </span>
                 <br><br>
                 This endpoint is the one you want to call to get a joke.<br>
-                A valid <a href="#categories">joke category</a> or multiple joke categories, delimited with a comma char (,) must be provided in the URL.<br>
+                A valid <a href="#categories">joke category</a> or multiple joke categories, delimited with a comma, plus or minus character (, + -) must be provided in the URL.<br>
+                These are all the available categories: <mark class="insCategories">(Loading...)</mark><br>
                 To see how this URL is built with certain parameters set, <a href="#try-it">visit the "Try It" section.</a><br>
                 <details>
                     <summary>Example - click to view</summary>
@@ -920,7 +923,7 @@ public class Flags
                 <!--%#INSERT:NAME#%--> has a first, coarse filter that just categorizes the jokes depending on what the joke is about or who the joke is directed at.<br>
                 A joke about programming will be in the "Programming" category, dark humor will be in the "Dark" category and so on.<br>
                 If you want jokes from all categories, you can instead use "Any", which will make <!--%#INSERT:NAME#%--> randomly choose a category.<br><br>
-                These are all the available categories: <mark id="insCategories"></mark><br>
+                These are all the available categories: <mark class="insCategories">(Loading...)</mark><br>
                 To set the category you want, you need to add it to the URL path, just after the "/joke" endpoint, like this:
                 <mark><!--%#INSERT:DOCSURL#%-->/joke/Programming</mark>
 
@@ -928,13 +931,15 @@ public class Flags
                 <span class="subHeader" id="blacklist-flags">(Blacklist-) Flags:</span>
                 Blacklist Flags (or just "Flags") are a more fine layer of filtering.<br>
                 Multiple flags can be set on each joke and they tell you something about the offensiveness of each joke.<br>
-                You can tell <!--%#INSERT:NAME#%--> to not give you jokes that have the specified flags by using the <a href="#flags-param">?blacklistFlags</a> URL parameter.
+                You can tell <!--%#INSERT:NAME#%--> to not give you jokes that have the specified flags by using the <a href="#flags-param">?blacklistFlags</a> URL parameter.<br><br>
+                These are all the available flags: <mark class="insFlags">(Loading...)</mark><br>
 
                 <!--#SECTION Formats-->
                 <span class="subHeader" id="response-formats">(Response-) Formats:</span>
                 Response Formats (or just "Formats") are a way to get your data in a different file format.<br>
                 Maybe you are using some other code that only accepts XML. In that case, <!--%#INSERT:NAME#%--> is able to convert the JSON-formatted joke to XML for you.<br>
-                You can tell <!--%#INSERT:NAME#%--> which file format to respond with by using the <a href="#format-param">?format</a> URL parameter.
+                You can tell <!--%#INSERT:NAME#%--> which file format to respond with by using the <a href="#format-param">?format</a> URL parameter.<br><br>
+                These are all the available formats: <mark class="insFormats">(Loading...)</mark><br>
 
                 <!--#SECTION Type-->
                 <span class="subHeader" id="joke-type">Joke Type:</span>
@@ -942,19 +947,23 @@ public class Flags
                 If a joke is of type "twopart", it has a setup string and a delivery string, which are both part of the joke.<br>
                 They are separated because you might want to present the users the delivery after a timeout or in a different section of the UI.<br>
                 A joke of type "single" only has a single string, which is the entire joke.<br>
-                If you only want one type of joke, you can use the <a href="#type-param">?type</a> URL parameter.
+                If you only want one type of joke, you can use the <a href="#type-param">?type</a> URL parameter.<br><br>
+                These are the available types: <mark>single, twopart</mark><br>
 
                 <!--#SECTION Search String-->
                 <span class="subHeader" id="search-string">Search String:</span>
                 If the search string filter is used, only jokes that contain the specified string will be returned.<br>
-                You can specify this search string by using the <a href="#contains-param">?contains</a> URL parameter.
+                You can specify this search string by using the <a href="#contains-param">?contains</a> URL parameter.<br>
+                <span class="colY">IMPORTANT:</span> If the value of this parameter contains special characters, it needs to be <a href="https://tools.ietf.org/html/rfc3986#section-2.1" target="_blank">percent-encoded</a> according to the URI standard (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent" target="_blank">MDN Reference</a>), otherwise you might get an error or a wrong response.<br>
+
 
                 <!--#SECTION ID Range-->
                 <span class="subHeader" id="id-range">ID Range:</span>
                 If this filter is used, you will only get jokes that are within the provided range of IDs.<br>
                 You don't necessarily need to provide an ID <i>range</i> though, a single ID will work just fine as well.<br>
                 Example: an ID range of 0-9 will mean you will only get one of the first 10 jokes.y<br>
-                You can set the ID range by using the <a href="#idrange-param">?idRange</a> URL parameter.
+                You can set the ID range by using the <a href="#idrange-param">?idRange</a> URL parameter.<br>
+                As there are currently <!--%#INSERT:TOTALJOKES#%--> jokes, the ID range can be any range from <mark>0 - <!--%#INSERT:TOTALJOKESZEROINDEXED#%--></mark><br>
 
 
                 <!-- #MARKER Legal Stuff -->
@@ -981,7 +990,8 @@ public class Flags
                 <br><br><span class="subHeader">Disclaimer:</span>
                 <div class="indented">
                     I will hereby not claim any legal responsibility or liability for <!--%#INSERT:NAME#%--> and the jokes it serves (especially those from the "Dark" category).<br>
-                    Whether it is used maliciously or breaks something in your project or someone gets offended by a joke, I can't be held accountable.<br><br>
+                    Whether it is used maliciously or breaks something in your project or someone gets offended by a joke, I can't be held accountable.<br>
+                    Additionally, I will only be able to provide security updates for a small selection of versions, a list of which you can find <a href="https://github.com/Sv443/JokeAPI/security/policy" target="_blank">here.</a><br>
                     I am doing my best to ensure security and stability but there's only so much a single developer can do.<br>
                     Please report any issue that may arise to <a href="<!--%#INSERT:PROJGITHUBURL#%-->/issues/new/choose" target="_blank">the GitHub issue tracker</a> and I will try my best to fix it as soon as possible.<br>
                     If you want to contact me, you can <a href="https://sv443.net/discord" target="_blank">join my Discord server</a> (fastest way to contact me) or send me an E-Mail at <a href="mailto:sven.fehler@web.de?subject=JokeAPI">sven.fehler@web.de</a>

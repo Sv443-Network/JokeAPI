@@ -2079,6 +2079,20 @@
                 "sexist": false
             },
             "id": 151
-        }
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "The KKK isn't really that racist.",
+            "delivery": "I went to one of their meetings and there were a lot of black people hanging around.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": true,
+                "sexist": false
+            },
+            "id": 152
+        } 
     ]
 }
