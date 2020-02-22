@@ -8,7 +8,7 @@
 
 
 Planned for the next version (2.2.0):
-    - Allow definition of max requests per minute per each client
+    - Allow definition of max requests per minute per each client (see GitHub issue #37)
 
 
 

@@ -189,6 +189,7 @@ const sendQuery = (query, insertValues) => {
  * @prop {String} data.ipAddress
  * @prop {Array<String>} data.urlPath
  * @prop {Object} data.urlParameters
+ * @prop {String} data.submission
  */
 
 /**

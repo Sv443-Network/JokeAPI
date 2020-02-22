@@ -33,10 +33,11 @@ const init = () => {
 /**
  * Checks if the requester has provided an auth header and if the auth header is valid
  * @param {http.IncomingMessage} req 
- * @returns {Boolean} true, if auth header is present and valid and false if not
+ * @returns {Object}
  */
 const authByHeader = (req) => {
     let isAuthorized = false;
+    let requestersToken = "";
 
     if(req.headers && req.headers[settings.auth.tokenHeaderName])
     {
@@ -44,12 +45,18 @@ const authByHeader = (req) => {
         {
             process._tokenList.forEach(tokenObj => {
                 if(tokenObj.token == req.headers[settings.auth.tokenHeaderName].toString())
+                {
+                    requestersToken = req.headers[settings.auth.tokenHeaderName].toString();
                     isAuthorized = true;
+                }
             });
         }
     }
 
-    return isAuthorized;
+    return {
+        isAuthorized: isAuthorized,
+        token: requestersToken
+    };
 };
 
 module.exports = { init, authByHeader };
