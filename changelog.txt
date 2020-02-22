@@ -12,7 +12,7 @@ Planned for the next version (2.2.0):
 
 
 
-[CURRENT: 2.1.0] - A few small features that didn't make it into the v2.0.0 deadline
+[CURRENT: 2.1.0] - The auth update
     - Added an authorization header to make whitelisting possible without needing to have a static IP
         - Added the script "npm run add-token [amount]" to add one or more tokens
     - Improved the documentation (see GitHub issue #52)
