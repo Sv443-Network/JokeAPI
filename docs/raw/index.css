@@ -255,6 +255,14 @@ header #docTitle {
 }
 
 /*#MARKER main content*/
+.miniimg {
+    height: 1.1em;
+}
+
+.shadow {
+    filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.5));
+}
+
 #statusCodeTable {
     margin: 0;
     padding: 0;
@@ -546,6 +554,7 @@ footer#copyrightNotice span {
 #wrapperTable tr td {
     text-align: left;
     padding: 2px;
+    padding-right: 20px;
 }
 
 /*#MARKER sidenav*/
