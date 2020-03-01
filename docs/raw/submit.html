@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Submit a Joke</title>
+
+        <script src="./static/submit.js"></script>
+        <link rel="stylesheet" href="./static/submit.css">
+    </head>
+    <body>
+        <main>
+            <h1>Submit a Joke:</h1>
+            <table>
+                <tr>
+                    <td>Category:</td>
+                    <td>
+                        <select id="f_category">
+                            <option value="Miscellaneous">Miscellaneous</option>
+                            <option value="Programming">Programming</option>
+                            <option value="Dark">Dark</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Type:</td>
+                    <td>
+                        <select id="f_type">
+                            <option value="single">Single</option>
+                            <option value="twopart">Two Part</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Flags:</td>
+                    <td>
+                        <input type="checkbox" id="f_flags_nsfw" value="nsfw"><label for="f_flags_nsfw">NSFW</label>
+                        <input type="checkbox" id="f_flags_religious" value="religious"><label for="f_flags_religious">Religious</label>
+                        <input type="checkbox" id="f_flags_political" value="political"><label for="f_flags_political">Political</label>
+                        <input type="checkbox" id="f_flags_racist" value="racist"><label for="f_flags_racist">Racist</label>
+                        <input type="checkbox" id="f_flags_sexist" value="sexist"><label for="f_flags_sexist">Sexist</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Joke:</td>
+                    <td>
+                        <textarea id="f_setup" placeholder="Setup / Joke"></textarea><br>
+                        <textarea id="f_delivery" placeholder="Delivery"></textarea>
+                    </td>
+                </tr>
+            </table>
+            <button id="submit">Submit &gt;</button>
+        </main>
+
+    </body>
+</html>

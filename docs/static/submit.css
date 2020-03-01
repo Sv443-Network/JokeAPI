@@ -1,0 +1,69 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+
+:root {
+    --bg-color: #444;
+    --bg-accent-color: #333;
+    --bg-accent-color-darker: #222;
+    --bg-accent-color-sidenav-opened: #666;
+    --bg-accent-color-darker-sidenav-opened: #555;
+    --bg-color-sidenav-opened: #777;
+    --header-bg-color: #101747;
+    --header-bg-color-sidenav-opened: #101747;
+
+    --doc-header-color: #5a83c0;
+
+    --header-height: 50px;
+
+    --accent-color: #8a2be2;
+    --accent-color-light: #b05ffc;
+    --accent-color-sidenav-opened: #a779d3;
+
+    --doc-header-font-size: 27px;
+    --doc-sub-header-font-size: 19px;
+
+    --sidenav-animation-speed: 0.3s;
+    --targetblink-animation-delay: 0.5s;
+
+    --scrollbar-track-color: #222;
+    --scrollbar-thumb-color: rgba(175, 175, 175, .7);
+    --scrollbar-webkit-hover-color: rgba(65, 131, 196, .8);
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.noa {
+    color: inherit;
+}
+
+.noul, .mimica {
+    cursor: pointer;
+}
+
+a:not(.noul), .mimica:not(.noul) {
+    color: #8f9aff;
+    text-decoration: none;
+}
+
+a:not(.noul):hover, .mimica:not(.noul):hover {
+    color: #bcc2ff;
+    text-decoration: underline;
+}
+
+body {
+    margin: 0;
+    background-color: var(--bg-color);
+    color: #fff;
+    font-family: "Roboto", "Segoe UI", "Arial", sans-serif;
+    font-size: 15px;
+}
+
+main {
+    margin-left: 20px;
+}

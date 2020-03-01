@@ -29,6 +29,7 @@ const call = (req, res, url, params, format) => {
 
     let filePath, mimeType, statusCode;
     let requestedFile = !jsl.isEmpty(url[1]) ? url[1] : null;
+    let allowEncoding = true;
 
     switch(requestedFile)
     {
@@ -62,6 +63,18 @@ const call = (req, res, url, params, format) => {
             statusCode = 200;
             mimeType = "text/plain";
         break;
+        case "submit.js":
+            filePath = `./docs/static/submit.js`;
+            statusCode = 200;
+            allowEncoding = false;
+            mimeType = "application/javascript";
+        break;
+        case "submit.css":
+            filePath = `./docs/static/submit.css`;
+            statusCode = 200;
+            allowEncoding = false;
+            mimeType = "text/css";
+        break;
         default:
             requestedFile = "fallback_err_404";
             filePath = settings.documentation.error404path;
@@ -70,20 +83,22 @@ const call = (req, res, url, params, format) => {
         break;
     }
 
-    let selectedEncoding = httpServer.getAcceptedEncoding(req);
-    let fileExtension = "";
+    let selectedEncoding = null;
 
+    if(allowEncoding)
+        selectedEncoding = httpServer.getAcceptedEncoding(req);
+
+    let fileExtension = "";
 
     if(selectedEncoding != null)
         fileExtension = `.${httpServer.getFileExtensionFromEncoding(selectedEncoding)}`;
 
-    let fallbackPath = filePath;
     filePath = `${filePath}${fileExtension}`;
 
     fs.exists(filePath, exists => {
         if(exists)
         {
-            if(selectedEncoding == null)
+            if(selectedEncoding == null || selectedEncoding == "identity")
                 selectedEncoding = "identity"; // identity = no encoding (see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding)
             
             debug("Static", `Serving static content "${requestedFile}" with encoding "${selectedEncoding}"`);
@@ -95,7 +110,7 @@ const call = (req, res, url, params, format) => {
         else
         {
             debug("Static", `Serving static content "${requestedFile}" without encoding`);
-            return httpServer.pipeFile(res, fallbackPath, mimeType, statusCode);
+            return httpServer.pipeFile(res, filePath, mimeType, statusCode);
         }
     });
 };
