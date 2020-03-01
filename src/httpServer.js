@@ -31,6 +31,7 @@ const init = () => {
             let httpServer = http.createServer((req, res) => {
                 let parsedURL = parseURL(req.url);
                 let ip = resolveIP(req);
+                let localhostIP = resolveIP.isLocal(ip);
                 let hasHeaderAuth = auth.authByHeader(req);
                 let analyticsObject = {
                     ipAddress: ip,
@@ -38,7 +39,7 @@ const init = () => {
                     urlParameters: parsedURL.queryParams
                 };
 
-                debug("HTTP", `Incoming ${req.method} request from "${ip.substring(0, 8)}..."`);
+                debug("HTTP", `Incoming ${req.method} request from "${ip.substring(0, 8)}${localhostIP ? `..." ${jsl.colors.fg.blue}(local)${jsl.colors.rst}` : "...\""}`);
                 
                 let fileFormat = settings.jokes.defaultFileFormat.fileFormat;
                 if(!jsl.isEmpty(parsedURL.queryParams) && !jsl.isEmpty(parsedURL.queryParams.format))
@@ -117,7 +118,7 @@ const init = () => {
                                 return respondWithError(res, 101, 429, fileFormat);
                             }
                             else return serveDocumentation(req, res);
-                            //else return respondWithErrorPage(req, res, 500, fileFormat, "Example Error @ex@");
+                            //else return respondWithErrorPage(res, 500, "Example Error @ex@");
                         }
 
                         // Disable caching now that the request is not a docs request
@@ -204,7 +205,7 @@ const init = () => {
                         {
                             if(!jsl.isEmpty(fileFormat) && req.url.toLowerCase().includes("format"))
                                 return respondWithError(res, 102, 404, fileFormat, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at ${settings.info.docsURL}#endpoints to see all available endpoints`);
-                            else return respondWithErrorPage(req, res, 404, fileFormat, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at ${settings.info.docsURL}#endpoints to see all available endpoints`);
+                            else return respondWithErrorPage(res, 404, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at ${settings.info.docsURL}#endpoints to see all available endpoints`);
                         }
                     }
                 }
@@ -255,14 +256,14 @@ const init = () => {
                                 console.log(`\n\n[${logger.getTimestamp(" | ")}]  ${jsl.colors.fg.red}IP ${jsl.colors.fg.yellow}${ip.substr(0, 8)}[...]${jsl.colors.fg.red} sent a restart command\n\n\n${jsl.colors.rst}`);
                                 process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
                             }
-                            else return respondWithErrorPage(req, res, 400, fileFormat, `Request body is invalid or was sent to the wrong endpoint "${parsedURL.pathArray != null ? parsedURL.pathArray[0] : "/"}", please refer to the documentation at ${settings.info.docsURL}#submit-joke to see how to correctly structure a joke submission.`);
+                            else return respondWithErrorPage(res, 400, `Request body is invalid or was sent to the wrong endpoint "${parsedURL.pathArray != null ? parsedURL.pathArray[0] : "/"}", please refer to the documentation at ${settings.info.docsURL}#submit-joke to see how to correctly structure a joke submission.`);
                         });
 
                         setTimeout(() => {
                             if(!dataGotten)
                             {
                                 debug("HTTP", "PUT request timed out");
-                                return respondWithErrorPage(req, res, 400, fileFormat, "Request body is empty");
+                                return respondWithErrorPage(res, 400, "Request body is empty");
                             }
                         }, 3000);
                     }
@@ -305,7 +306,8 @@ const init = () => {
         };
 
         fs.readdir(settings.endpoints.dirPath, (err1, files) => {
-            jsl.unused(err1);
+            if(err1)
+                return reject(`Error while reading the endpoints directory: ${err1}`);
             files.forEach(file => {
                 let fileName = file.split(".");
                 fileName.pop();
@@ -314,11 +316,13 @@ const init = () => {
                 let endpointFilePath = `${settings.endpoints.dirPath}${file}`;
 
                 if(fs.statSync(endpointFilePath).isFile())
+                {
                     endpoints.push({
                         name: fileName,
                         desc: require(`.${endpointFilePath}`).meta.desc, // needs an extra . cause require() is relative to this file, whereas "fs" is relative to the project root
                         absPath: endpointFilePath
                     });
+                }
             });
 
             //#MARKER call HTTP server init
@@ -381,14 +385,11 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
 /**
  * Responds with an error page (which one is based on the status code).
  * Defaults to 500
- * @param {http.IncomingMessage} req
  * @param {http.ServerResponse} res 
  * @param {(404|500)} [statusCode=500] HTTP status code - defaults to 500
- * @param {String} fileFormat
  * @param {String} [error] Additional error message that gets added to the "API-Error" response header
  */
-const respondWithErrorPage = (req, res, statusCode, fileFormat, error) => {
-    jsl.unused([req, fileFormat]);
+const respondWithErrorPage = (res, statusCode, error) => {
 
     statusCode = parseInt(statusCode);
 
@@ -457,11 +458,11 @@ const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
     }
     catch(err)
     {
-        return respondWithErrorPage(null, res, 500, null, `Encountered internal server error while piping file: wrong type for status code.`);
+        return respondWithErrorPage(res, 500, `Encountered internal server error while piping file: wrong type for status code.`);
     }
 
     if(!fs.existsSync(filePath))
-        return respondWithErrorPage(null, res, 404, null, `File at "${filePath}" not found.`);
+        return respondWithErrorPage(res, 404, `File at "${filePath}" not found.`);
 
     try
     {
