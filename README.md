@@ -22,7 +22,8 @@
 <br><br>
 
 # Official API Wrappers:
-- [Sv443_JokeAPI Rust Crate](https://github.com/canarado/sv443_jokeapi_wrapper) by [Canarado](https://github.com/canarado)
+- [Rust](https://github.com/canarado/sv443_jokeapi_wrapper)
+- [Python](https://github.com/thenamesweretakenalready/Sv443s-JokeAPI-Python-Wrapper)
 
 <br>
 
@@ -30,6 +31,7 @@
 - [dozens Advices](https://github.com/ZephyrVentum/dozens-Advices) by [ZephyrVentum](https://github.com/ZephyrVentum)
 - [Shadow-bot](https://github.com/QGIsK/Shadow-bot) by [QGIsK](https://github.com/QGIsK)
 - [Random Jokes](https://github.com/thombenjamin/randomjokes) by [Thom Benjamin](https://github.com/thombenjamin)
+- [Jokepy](https://github.com/aksty/Jokepy) by [aksty](https://github.com/aksty)
   
 ([Contact me](https://discord.gg/aBH4uRG) to get your project added here)
 
