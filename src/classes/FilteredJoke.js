@@ -61,6 +61,7 @@ class FilteredJoke
         this._searchString = null;
         this._idRange = [0, (parseJokes.jokeCount - 1)];
         this._flags = [];
+        this._errors = [];
 
         if(!global._lastIDs || !Array.isArray(global._lastIDs))
             global._lastIDs = [];
@@ -90,7 +91,10 @@ class FilteredJoke
             });
 
         if(catsValid.length != categories.length)
+        {
+            this._errors.push("The joke category is invalid");
             return false;
+        }
         
         if((typeof categories == "string" && categories.toLowerCase() == settings.jokes.possible.anyCategoryName.toLowerCase())
         || (typeof categories != "string" && categories.map(c => c.toLowerCase()).includes(settings.jokes.possible.anyCategoryName.toLowerCase())))
@@ -122,7 +126,11 @@ class FilteredJoke
             this._allowedTypes = [type];
             return true;
         }
-        else return false;
+        else
+        {
+            this._errors.push("The \"type\" parameter is invalid");
+            return false;
+        }
     }
 
     /**
@@ -143,7 +151,10 @@ class FilteredJoke
     setSearchString(searchString)
     {
         if(typeof searchString != "string")
+        {
+            this._errors.push("The \"contains\" parameter is invalid");
             return false;
+        }
         
         this._searchString = decodeURIComponent(searchString);
         return true;
@@ -167,11 +178,20 @@ class FilteredJoke
      */
     setIdRange(start, end = null)
     {
-        if(isNaN(start) || isNaN(end) || typeof start != "number" || (!jsl.isEmpty(end) && typeof end != "number") || jsl.isEmpty(start))
-            return false;
-
         if(jsl.isEmpty(end))
             end = start;
+
+        if(isNaN(parseInt(start)) || isNaN(parseInt(end)) || typeof start != "number" || typeof end != "number" || jsl.isEmpty(start) || jsl.isEmpty(end))
+        {
+            this._errors.push("The \"idRange\" parameter values are not numbers");
+            return false;
+        }
+
+        if(start < 0 || end > (parseJokes.jokeCount - 1))
+        {
+            this._errors.push("The \"idRange\" parameter values are out of range");
+            return false;
+        }
         
         this._idRange = [start, end];
         return true;
@@ -201,7 +221,10 @@ class FilteredJoke
         });
 
         if(flagsInvalid)
+        {
+            this._errors.push("The \"blacklistFlags\" parameter is invalid or contains one or more invalid flags");
             return false;
+        }
         
         this._flags = flags;
         return true;
@@ -301,7 +324,12 @@ class FilteredJoke
         return new Promise((resolve, reject) => {
             this._applyFilters().then(filteredJokes => {
                 if(filteredJokes.length == 0 || typeof filteredJokes != "object")
-                    return reject("No jokes were found that match the provided filter(s)");
+                {
+                    if(this._errors)
+                        return reject(this._errors);
+                    else
+                        return reject("No jokes were found that match your provided filter(s)");
+                }
                 
                 if(!global._lastIDs || !Array.isArray(global._lastIDs))
                     global._lastIDs = [];

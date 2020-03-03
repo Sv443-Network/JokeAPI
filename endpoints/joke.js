@@ -140,7 +140,7 @@ const call = (req, res, url, params, format) => {
         let responseText = convertFileFormat.auto(format, joke);
         httpServer.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format));
     }).catch(err => {
-        return isErrored(res, format, `Error while finalizing joke filtering: ${err}`);
+        return isErrored(res, format, `Error while finalizing joke filtering: ${Array.isArray(err) ? err.join("; ") : err}`);
     });
 };
 
