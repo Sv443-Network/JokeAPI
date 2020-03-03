@@ -1732,7 +1732,7 @@
                 "nsfw": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
+                "racist": true,
                 "sexist": false
             },
             "id": 126

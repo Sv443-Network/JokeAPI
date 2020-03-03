@@ -61,7 +61,7 @@ const init = () => {
                         {
                             res.setHeader("Access-Control-Allow-Origin", "*");
                             res.setHeader("Access-Control-Request-Method", "GET");
-                            res.setHeader("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS");
+                            res.setHeader("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS, PUT");
                             res.setHeader("Access-Control-Allow-Headers", "*");
                         }
                         catch(err)
@@ -70,7 +70,7 @@ const init = () => {
                         }
                     }
 
-                    res.setHeader("Allow", "GET, HEAD, OPTIONS");
+                    res.setHeader("Allow", "GET, HEAD, OPTIONS, PUT");
 
                     if(settings.httpServer.infoHeaders)
                         res.setHeader("API-Info", `${settings.info.name} v${settings.info.version} (${settings.info.docsURL})`);
@@ -268,7 +268,6 @@ const init = () => {
                         }, 3000);
                     }
                 }
-                //#MARKER Preflight
                 //#SECTION HEAD / OPTIONS
                 else if(req.method === "HEAD" || req.method === "OPTIONS")
                     serveDocumentation(req, res);
