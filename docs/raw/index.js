@@ -86,6 +86,9 @@ catch(err){console.error("couldn't find menu or outer_html is not valid");return
 function gebid(id){return document.getElementById(id);}
 
 //#MARKER onload
+
+document.addEventListener("DOMContentLoaded", function() {return onLoad();});
+
 function onLoad()
 {
     console.log("%cJokeAPI%cDocumentation (v<!--%#INSERT:VERSION#%-->)", "color: #b05ffc; background-color: black; padding: 5px; padding-right: 0;", "color: white; background-color: black; padding: 5px;");
@@ -142,7 +145,7 @@ function onLoad()
 
     buildURL();
 
-    document.getElementById("content").addEventListener("click", function(e) {
+    gebid("content").addEventListener("click", function(e) {
         if(document.body.dataset["sidenav"] == "opened")
         {
             e.preventDefault();
@@ -150,29 +153,36 @@ function onLoad()
         }
     });
 
-    var fileFormats = JSON.parse('<!--%#INSERT:FILEFORMATARRAY#%-->');
-    if(fileFormats.includes("JSON"))
+    try
     {
-        fileFormats.splice(fileFormats.indexOf("JSON"), 1);
+        var fileFormats = JSON.parse('<!--%#INSERT:FILEFORMATARRAY#%-->');
+        if(fileFormats.includes("JSON"))
+        {
+            fileFormats.splice(fileFormats.indexOf("JSON"), 1);
+        }
+        Array.from(document.getElementsByClassName("insFormatsS")).forEach(function(el) {
+            el.innerHTML = fileFormats.join(" and ");
+        });
+
+        var flags = JSON.parse('<!--%#INSERT:FLAGSARRAY#%-->');
+        Array.from(document.getElementsByClassName("insFlags")).forEach(function(el) {
+            el.innerHTML = flags.join(", ");
+        });
+
+        var formats = JSON.parse('<!--%#INSERT:FILEFORMATARRAY#%-->');
+        Array.from(document.getElementsByClassName("insFormats")).forEach(function(el) {
+            el.innerHTML = formats.join(", ").toLowerCase();
+        });
+
+        var categories = JSON.parse('<!--%#INSERT:CATEGORYARRAY#%-->');
+        Array.from(document.getElementsByClassName("insCategories")).forEach(function(el) {
+            el.innerHTML = categories.join(", ");
+        });
     }
-    Array.from(document.getElementsByClassName("insFormatsS")).forEach(function(el) {
-        el.innerHTML = fileFormats.join(" and ");
-    });
-
-    var flags = JSON.parse('<!--%#INSERT:FLAGSARRAY#%-->');
-    Array.from(document.getElementsByClassName("insFlags")).forEach(function(el) {
-        el.innerHTML = flags.join(", ");
-    });
-
-    var formats = JSON.parse('<!--%#INSERT:FILEFORMATARRAY#%-->');
-    Array.from(document.getElementsByClassName("insFormats")).forEach(function(el) {
-        el.innerHTML = formats.join(", ").toLowerCase();
-    });
-
-    var categories = JSON.parse('<!--%#INSERT:CATEGORYARRAY#%-->');
-    Array.from(document.getElementsByClassName("insCategories")).forEach(function(el) {
-        el.innerHTML = categories.join(", ");
-    });
+    catch(err)
+    {
+        return alert("Documentation compilation was unsuccessful: Value insertion error:\n" + err);
+    }
 }
 
 function addCodeTabs()
@@ -248,7 +258,7 @@ function getQueryStringObject()
 
 function openChangelog()
 {
-    if(!document.getElementById("jsg_menu_changelog"))
+    if(!gebid("jsg_menu_changelog"))
     {
         sMenu.new("changelog", "JokeAPI Changelog:", cIHTML, 85, 85, true, true, true);
         sMenu.theme("changelog", "dark");
@@ -596,7 +606,7 @@ function openRestartForm()
 
 function submitRestartForm()
 {
-    restart(document.getElementById("restartFormToken").value || null);
+    restart(gebid("restartFormToken").value || null);
     sMenu.close("restartPrompt");
 }
 

@@ -1,6 +1,8 @@
 // var submitUrl = "https://sv443.net/jokeapi/v2/submit";
 var submitUrl = "http://127.0.0.1:8076/submit"
 
+var submission = {};
+
 document.addEventListener("DOMContentLoaded", function() {
     var inputElems = [
         "f_category",
@@ -16,14 +18,29 @@ document.addEventListener("DOMContentLoaded", function() {
 
     for(var i = 0; i < inputElems.length; i++)
     {
-        document.getElementById(inputElems[i]).onchange = function() {
-            return valChanged(this);
+        var elm = document.getElementById(inputElems[i]);
+
+        if(elm.tagName.toLowerCase() != "textarea")
+        {
+            elm.onchange = function()
+            {
+                return valChanged(this);
+            }
+        }
+        else
+        {
+            elm.oninput = function()
+            {
+                return valChanged(this);
+            }
         }
     }
 
     document.getElementById("submit").addEventListener("click", function() {
         submit();
     });
+
+    buildSubmission();
 });
 
 function valChanged(element)
@@ -43,14 +60,16 @@ function valChanged(element)
             document.getElementById("f_delivery").style.display = "initial";
         }
     }
+
+    buildSubmission();
 }
 
-function submit()
+function buildSubmission()
 {
     var category = document.getElementById("f_category").value;
     var type = document.getElementById("f_type").value;
 
-    var submission = {
+    submission = {
         formatVersion: 2,
         category: category,
         type: type,
@@ -73,6 +92,11 @@ function submit()
         submission.delivery = document.getElementById("f_delivery").value;
     }
 
+    document.getElementById("submissionDisplay").innerHTML = JSON.stringify(submission, null, 4);
+}
+
+function submit()
+{
     var xhr = new XMLHttpRequest();
     xhr.open("PUT", submitUrl);
 
@@ -99,5 +123,5 @@ function submit()
         }
     };
 
-    xhr.send(JSON.stringify(submission));
+    xhr.send(JSON.stringify(submission, null, 4));
 }

@@ -69,7 +69,7 @@
         <!-- Google Code-Prettify -->
         <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=sunburst"></script></script>
     </head>
-    <body onload="onLoad()">
+    <body>
         <!-- #MARKER Main -->
         <div id="bodyFlexContainer">
             <!-- #MARKER Header -->
@@ -513,6 +513,11 @@
                         <td>The request was accepted and processed successfully and the respose text contains the requested data or a status message.</td>
                     </tr>
                     <tr>
+                        <td class="g">201</td>
+                        <td>Created</td>
+                        <td>The joke submission is formatted correctly and was accepted and successfully saved.</td>
+                    </tr>
+                    <tr>
                         <td class="r">400</td>
                         <td>Bad Request</td>
                         <td>The request you have sent to <!--%#INSERT:NAME#%--> is formatted incorrectly and cannot be processed.</td>
@@ -691,12 +696,17 @@
                 If you instead just want to manually submit a joke, please <a href="#submit-joke">click here.</a><br>
                 The payload needs to be sent as JSON. Different <a href="#response-formats">formats</a> are not allowed here.<br>
                 The request payload has to follow the same object structure that the jokes are served in when using the "joke" endpoint.<br>
-                Make sure to add a "formatVersion" property, which just contains the current joke format version (<!--%#INSERT:FORMATVERSION#%-->), though.<br><br>
+                <br>
+                Make sure to add a "formatVersion" property, which just contains the current joke format version (<!--%#INSERT:FORMATVERSION#%-->).<br>
+                This is needed since there were a few changes to the object format since the previous versions and this ensures consistency.<br>
+                <br>
                 The joke category has to be any valid <a href="#categories">category</a>, excluding "Any".<br>
                 If the <a href="#joke-type">joke type</a> is set to "single", the properties "setup" and "delivery" will need to be omitted and the joke is to be put in the "joke" property.<br>
                 If the <a href="#joke-type">joke type</a> is set to "twopart", the "joke" property is to be replaced with the properties "setup" and "delivery".<br>
                 The <a href="#blacklist-flags">"flags"</a> property needs to be an object that contains the boolean properties "nsfw", "religious", "political", "racist" and "sexist". These need to be set accordingly.<br>
                 The joke ID doesn't need to be provided as it will be automatically assigned to the joke.<br>
+                <br>
+                If the joke is valid and the server accepted the submission, you will get a response with the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201" target="_blank">status code 201.</a><br>
 
                 <br>
 <code class="prettyprint"><span class="nocode codeheader">Example Payload:</span>
@@ -1049,6 +1059,8 @@ public class Flags
                     <li><a href="https://github.com/ZephyrVentum/dozens-Advices" target="_blank">dozens Advices</a> by <a href="https://github.com/ZephyrVentum" target="_blank">ZephyrVentum</a></li>
                     <li><a href="https://github.com/QGIsK/Shadow-bot" target="_blank">shadow-bot</a> by <a href="https://github.com/QGIsK" target="_blank">QGIsK</a></li>
                     <li><a href="https://github.com/thombenjamin/randomjokes" target="_blank">Random Jokes</a> by <a href="https://github.com/thombenjamin" target="_blank">Thom Benjamin</a></li>
+                    <li><a href="https://github.com/aksty/Jokepy" target="_blank">Jokepy</a> by <a href="https://github.com/aksty/Jokepy" target="_blank">aksty</a></li>
+                    <li><a href="https://github.com/whiteadi/Dark1" target="_blank">Dark1</a> by <a href="https://github.com/whiteadi" target="_blank">whiteadi</a></li>
                 </ul>
                 (<a href="https://sv443.net/discord" target="_blank">Contact me</a> to get your project added here)
 
@@ -1056,7 +1068,8 @@ public class Flags
                 <br><br><br><br>
 
                 <footer id="copyrightNotice">
-                    <span>&copy; Copyright 2018-2020 Sv443 / The Sv443 Network - licensed under the <a href="https://sv443.net/LICENSE" target="_blank">MIT license</a></span>
+                    <span>&copy; Copyright 2018-2020 Sv443 - licensed under the <a href="https://sv443.net/LICENSE" target="_blank">MIT license</a></span><br>
+                    <span>This project is a part of the <a href="https://sv443.net/" target="_blank">Sv443 Network</a></span>
                 </footer>
             </main>
         </div>
