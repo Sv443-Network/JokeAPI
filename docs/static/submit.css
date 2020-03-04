@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Roboto%20Mono&display=swap");
 
 :root {
     --bg-color: #444;
@@ -73,4 +74,11 @@ main {
     -moz-tab-size: 4;
     -o-tab-size: 4;
     tab-size: 4;
+
+    font-family: "Roboto Mono", monospace;
+}
+
+textarea {
+    white-space: pre;
+    overflow: auto;
 }

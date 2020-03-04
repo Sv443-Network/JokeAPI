@@ -89,11 +89,11 @@ function gebid(id){return document.getElementById(id);}
 
 document.addEventListener("DOMContentLoaded", function() {return onLoad();});
 
+window.jokeapi = {};
+
 function onLoad()
 {
     console.log("%cJokeAPI%cDocumentation (v<!--%#INSERT:VERSION#%-->)", "color: #b05ffc; background-color: black; padding: 5px; padding-right: 0;", "color: white; background-color: black; padding: 5px;");
-
-    window.jokeapi = {};
 
     gebid("content").onclick = closeNav;
     document.getElementsByTagName("header")[0].onclick = closeNav;
