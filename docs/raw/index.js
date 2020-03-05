@@ -238,7 +238,7 @@ function onLoad()
         }
     }
 
-    document.getElementById("submit").addEventListener("click", function() {
+    document.getElementById("submitBtn").addEventListener("click", function() {
         submitJoke();
     });
 
@@ -652,7 +652,7 @@ function resetTryItForm()
 //#MARKER submit joke
 function submitJoke()
 {
-    var submitBtn = document.getElementById("submit");
+    var submitBtn = document.getElementById("submitBtn");
     if(submitBtn.disabled == true)
     {
         return;
@@ -675,18 +675,23 @@ function submitJoke()
                     alert(res.message);
                     
                     setTimeout(() => {
-                        console.log("Re-enabling submit btn");
-                        document.getElementById("submit").disabled = false;
+                        document.getElementById("submitBtn").disabled = false;
                     }, 2000);
                 }
                 else if(res.error == true)
                 {
+                    console.log(res);
                     alert("Error while sending your submission:\n" + res.message);
                 }
             }
             else if(xhr.status >= 300)
             {
-                alert("Error while sending your submission:\n" + res.message);
+                var addInfo = res.message;
+                if(res.additionalInfo)
+                {
+                    addInfo = res.additionalInfo;
+                }
+                alert("Error while sending your submission:\n" + addInfo);
             }
         }
     };

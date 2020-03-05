@@ -591,11 +591,11 @@ footer#copyrightNotice span {
     margin-left: 30px;
 }
 
-#submit {
+#submitBtn {
     font-size: 1.5em;
 }
 
-#submit:disabled {
+#submitBtn:disabled {
     cursor: not-allowed;
 }
 
