@@ -140,6 +140,14 @@ const settings = {
         daemonInterval: 2,                    // interval (in seconds) at which the daemon checks for changes in the documentation directory
         errorPagePath: "./docs/raw/errorPage.html", // path to the error page
         codeFontFileName: "static/CascadiaCode-Regular-VTT_1911.21.ttf", // the name of the font file that is going to be used in code blocks - has to be in the directory specified with the above property "dirPath"
+        submissionForm: {
+            dirPath: "./docs/raw/", // path to the submission form directory - needs trailing slash
+            fileNames: {
+                html: "submit.html", // name of the HTML file of the submission form - relative to the parameter "documentation.submissionForm.dirPath"
+                js: "../static/submit.js", // name of the JS file of the submission form - relative to the parameter "documentation.submissionForm.dirPath"
+                css: "../static/submit.css", // name of the CSS file of the submission form - relative to the parameter "documentation.submissionForm.dirPath"
+            },
+        },
     },
     endpoints: {
         dirPath: "./endpoints/", // path to the dir containing all the endpoint scripts

@@ -32,6 +32,7 @@
 - [Shadow-bot](https://github.com/QGIsK/Shadow-bot) by [QGIsK](https://github.com/QGIsK)
 - [Random Jokes](https://github.com/thombenjamin/randomjokes) by [Thom Benjamin](https://github.com/thombenjamin)
 - [Jokepy](https://github.com/aksty/Jokepy) by [aksty](https://github.com/aksty)
+- [Dark1](https://github.com/whiteadi/Dark1) by [whiteadi](https://github.com/whiteadi)
   
 ([Contact me](https://discord.gg/aBH4uRG) to get your project added here)
 

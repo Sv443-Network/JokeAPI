@@ -1,7 +1,7 @@
 ====================
 
  JokeAPI Changelog
- - Version 2.1.0 -
+ - Version 2.1.1 -
 
 ====================
 
@@ -11,8 +11,12 @@ Planned for the next version (2.2.0):
     - Allow definition of max requests per minute per each client (see GitHub issue #37)
 
 
+[CURRENT: 2.1.1] - Auth update hotfix
+    - Fixed incorrect error cause when using an out-of-range ID range parameter (see GitHub issue #54)
+    - Added submission form (https://sv443.net/jokeapi/v2#submit)
 
-[CURRENT: 2.1.0] - The auth update
+
+[OLD: 2.1.0] - The auth update
     - Added an authorization header to make whitelisting possible without needing to have a static IP
         - Added the script "npm run add-token [amount]" to add one or more tokens
     - Improved the documentation (see GitHub issue #52)
