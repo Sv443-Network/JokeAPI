@@ -157,27 +157,27 @@ const validateSingle = joke => {
             if(joke.formatVersion != settings.jokes.jokesFormatVersion || joke.formatVersion != this.jokeFormatVersion)
                 jokeErrors.push(`Joke format version "${joke.formatVersion}" doesn't match up with required version "${this.jokeFormatVersion}"`);
         }
-        else jokeErrors.push(`Joke doesn't have a "formatVersion" property`);
+        else jokeErrors.push(`Joke doesn't have a "formatVersion" property or it is empty or invalid`);
 
         //#MARKER type and actual joke
         if(joke.type == "single")
         {
             if(jsl.isEmpty(joke.joke))
-                jokeErrors.push(`Joke is of type "single" but doesn't have a "joke" property`);
+                jokeErrors.push(`Joke is of type "single" but doesn't have a "joke" property or it is empty`);
         }
         else if(joke.type == "twopart")
         {
             if(jsl.isEmpty(joke.setup))
-                jokeErrors.push(`Joke is of type "twopart" but doesn't have a "setup" property`);
+                jokeErrors.push(`Joke is of type "twopart" but doesn't have a "setup" property or it is empty`);
 
             if(jsl.isEmpty(joke.delivery))
-                jokeErrors.push(`Joke is of type "twopart" but doesn't have a "delivery" property`);
+                jokeErrors.push(`Joke is of type "twopart" but doesn't have a "delivery" property or it is empty`);
         }
         else jokeErrors.push(`Joke doesn't have a "type" property or it is invalid - it has to be either "single" or "twopart"`);
 
         //#MARKER joke category
         if(joke.category == null)
-            jokeErrors.push(`Joke doesn't have a "category" property`);
+            jokeErrors.push(`Joke doesn't have a "category" property or it is empty`);
         else
         {
             let categoryValid = false;

@@ -66,7 +66,7 @@
 
         <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=sunburst"></script> <!-- Google Code-Prettify -->
     </head>
-    <body>
+    <body onload="onLoad()">
         <!-- #MARKER Main -->
         <div id="bodyFlexContainer">
             <!-- #MARKER Header -->
@@ -338,11 +338,61 @@
 
 
                 <!-- #MARKER Submit Joke -->
-                <div class="docHeader targetBlink" id="submit-joke"><a class="headerAnchorContainer" href="#submit-joke" title="Click to link to this header">🔗</a><span class="docHeaderText">Submit a Joke:</span></div>
-                <!-- To submit a joke, please <a href="https://sv443.net/r/submitjoke_v2" target="_blank">click here.</a><br>
-                (I will soon add a form here) -->
-                This section is still being worked on.<br>
-                Please use the <a href="#submit-endpoint">"Submit" endpoint</a> instead.
+                <div class="docHeader targetBlink" id="submit"><a class="headerAnchorContainer" href="#submit" title="Click to link to this header">🔗</a><span class="docHeaderText">Submit a Joke:</span></div>
+
+                <div id="submitContainer">
+                    <div class="submitFlexItem">
+                        <table id="propertyTable">
+                            <tr>
+                                <td>Category:</td>
+                                <td>
+                                    <select id="f_category">
+                                        <option value="Miscellaneous" class="selectOnInit" selected>Miscellaneous</option>
+                                        <option value="Programming">Programming</option>
+                                        <option value="Dark">Dark</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Type:</td>
+                                <td>
+                                    <select id="f_type">
+                                        <option value="single" class="selectOnInit" selected>Single</option>
+                                        <option value="twopart">Two Part</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Flags:</td>
+                                <td>
+                                    <input type="checkbox" class="uncheckOnInit" id="f_flags_nsfw" value="nsfw"><label for="f_flags_nsfw">NSFW</label>
+                                    <input type="checkbox" class="uncheckOnInit" id="f_flags_religious" value="religious"><label for="f_flags_religious">Religious</label>
+                                    <input type="checkbox" class="uncheckOnInit" id="f_flags_political" value="political"><label for="f_flags_political">Political</label>
+                                    <input type="checkbox" class="uncheckOnInit" id="f_flags_racist" value="racist"><label for="f_flags_racist">Racist</label>
+                                    <input type="checkbox" class="uncheckOnInit" id="f_flags_sexist" value="sexist"><label for="f_flags_sexist">Sexist</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Joke:</td>
+                                <td>
+                                    <textarea class="clearOnInit" id="f_setup" placeholder="Joke"></textarea><br>
+                                    <textarea class="clearOnInit" id="f_delivery" placeholder="Delivery" style="display: none;"></textarea>
+                                </td>
+                            </tr>
+                        </table>
+        
+                        <br>
+        
+                        <div class="centered">
+                            <button id="submitBtn">Submit &gt;</button>
+                        </div>
+                    </div>
+                    <div class="submitFlexItem l">
+<code id="submissionCodeElement" class="prettyprint"><span class="nocode codeheader">Payload Preview:</span>
+<div class="actualCode" id="submissionDisplay"></div>
+</code>
+                    </div>
+                </div>
 
 
                 <!-- #MARKER URL parameters -->
@@ -359,7 +409,7 @@
                 Available formats are <mark class="insFormats">(Loading...)</mark><br><br>
                 <details><summary>Example (click to view)</summary>
                     URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?format=xml</mark><br><br>
-<code class="prettyprint"><div class="actualCode" id="tryItResult">
+<code class="prettyprint"><div class="actualCode">
 &lt;data&gt;
 	&lt;category&gt;Programming&lt;/category&gt;
 	&lt;type&gt;single&lt;/type&gt;
@@ -404,7 +454,7 @@
 
                 <details><summary>Example (click to view)</summary>
                     URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?type=twopart</mark><br><br>
-<code class="prettyprint"><div class="actualCode" id="tryItResult">
+<code class="prettyprint"><div class="actualCode">
 {
     "category": "Programming",
     "type": "twopart",
@@ -432,7 +482,7 @@
 
                 <details><summary>Example (click to view)</summary>
                     URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?contains=C%23</mark> (%23 = pound character / hashtag / # - so the thing searched for here is "C#")<br><br>
-<code class="prettyprint"><div class="actualCode" id="tryItResult">
+<code class="prettyprint"><div class="actualCode">
 {
     "category": "Programming",
     "type": "twopart",

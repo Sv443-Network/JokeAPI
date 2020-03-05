@@ -256,6 +256,19 @@ header #docTitle {
 }
 
 /*#MARKER main content*/
+label {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.centered {
+    text-align: center;
+}
+
 .miniimg {
     height: 1.1em;
 }
@@ -556,6 +569,48 @@ footer#copyrightNotice span {
     text-align: left;
     padding: 2px;
     padding-right: 20px;
+}
+
+/*#SECTION submit*/
+
+#submitContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    margin-left: 20px;
+}
+
+.submitFlexItem {
+    flex-grow: 1;
+    white-space: nowrap;
+}
+
+.submitFlexItem.l {
+    width: 100%;
+    margin-left: 30px;
+}
+
+#submitBtn {
+    font-size: 1.5em;
+}
+
+#submitBtn:disabled {
+    cursor: not-allowed;
+}
+
+textarea {
+    white-space: pre;
+    overflow: auto;
+    resize: vertical;
+
+    width: 100%;
+    max-height: 8em;
+}
+
+#propertyTable tr td {
+    vertical-align: top;
+    padding-right: 5px;
 }
 
 /*#MARKER sidenav*/

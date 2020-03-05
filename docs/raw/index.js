@@ -4,8 +4,11 @@ var settings = {
     baseURL: "<!--%#INSERT:DOCSURL#%-->",
     jokeEndpoint: "joke",
     anyCategoryName: "Any",
-    defaultFormat: "json"
+    defaultFormat: "json",
+    submitUrl: "http://127.0.0.1:8076/submit"
 };
+
+var submission = {};
 
 if(settings.baseURL.endsWith("/"))
 {
@@ -87,12 +90,10 @@ function gebid(id){return document.getElementById(id);}
 
 //#MARKER onload
 
-document.addEventListener("DOMContentLoaded", function() {return onLoad();});
-
-window.jokeapi = {};
-
 function onLoad()
 {
+    window.jokeapi = {};
+
     console.log("%cJokeAPI%cDocumentation (v<!--%#INSERT:VERSION#%-->)", "color: #b05ffc; background-color: black; padding: 5px; padding-right: 0;", "color: white; background-color: black; padding: 5px;");
 
     gebid("content").onclick = closeNav;
@@ -153,6 +154,25 @@ function onLoad()
         }
     });
 
+    var selectOnInitElems = document.getElementsByClassName("selectOnInit");
+
+    for(var i = 0; i < selectOnInitElems.length; i++)
+    {
+        selectOnInitElems[i].selected = true;
+    }
+
+    var uncheckOnInitElems = document.getElementsByClassName("uncheckOnInit");
+    for(var iii = 0; iii < uncheckOnInitElems.length; iii++)
+    {
+        uncheckOnInitElems[iii].checked = false;
+    }
+
+    var clearOnInitElems = document.getElementsByClassName("clearOnInit");
+    for(var j = 0; j < clearOnInitElems.length; j++)
+    {
+        clearOnInitElems[j].value = "";
+    }
+
     try
     {
         var fileFormats = JSON.parse('<!--%#INSERT:FILEFORMATARRAY#%-->');
@@ -183,6 +203,45 @@ function onLoad()
     {
         return alert("Documentation compilation was unsuccessful: Value insertion error:\n" + err);
     }
+    
+    //#SECTION submission form
+    var inputElems = [
+        "f_category",
+        "f_type",
+        "f_flags_nsfw",
+        "f_flags_religious",
+        "f_flags_political",
+        "f_flags_racist",
+        "f_flags_sexist",
+        "f_setup",
+        "f_delivery"
+    ];
+
+    for(var ii = 0; ii < inputElems.length; ii++)
+    {
+        var elm = document.getElementById(inputElems[ii]);
+
+        if(elm.tagName.toLowerCase() != "textarea")
+        {
+            elm.onchange = function()
+            {
+                return valChanged(this);
+            }
+        }
+        else
+        {
+            elm.oninput = function()
+            {
+                return valChanged(this);
+            }
+        }
+    }
+
+    document.getElementById("submitBtn").addEventListener("click", function() {
+        submitJoke();
+    });
+
+    buildSubmission();
 }
 
 function addCodeTabs()
@@ -466,7 +525,7 @@ function sendTryItRequest()
 {
     var prpr = gebid("urlBuilderPrettyprint");
     var tryItRequestError = function(err) {
-        if(!prpr.classList.contains("prettyprint"))
+        if(prpr.classList.contains("prettyprint"))
         {
             prpr.classList.remove("prettyprint");
         }
@@ -583,6 +642,131 @@ function resetTryItForm()
     gebid("idRangeInputTo").value = parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->");
 
     reRender();
+}
+
+//#MARKER submit joke
+function submitJoke()
+{
+    var submitBtn = document.getElementById("submitBtn");
+    if(submitBtn.disabled == true)
+    {
+        return;
+    }
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("PUT", settings.submitUrl);
+
+    xhr.onreadystatechange = function() {
+        if(xhr.readyState == 4)
+        {
+            var res = JSON.parse(xhr.responseText);
+
+            if(xhr.status < 300)
+            {
+                if(res.error == false)
+                {
+                    submitBtn.disabled = true;
+
+                    alert(res.message);
+                    
+                    setTimeout(() => {
+                        document.getElementById("submitBtn").disabled = false;
+                    }, 2000);
+                }
+                else if(res.error == true)
+                {
+                    alert("Error " + res.status + " while sending your submission:\n" + res.message + (res.additionalInfo ? "\n\nAdditional info:\n" + res.additionalInfo : ""));
+                }
+            }
+            else if(xhr.status >= 300)
+            {
+                var addInfo = res.message;
+                if(res.additionalInfo)
+                {
+                    addInfo = res.additionalInfo;
+                }
+                alert("Error while sending your submission:\n" + addInfo);
+            }
+        }
+    };
+
+    xhr.send(JSON.stringify(submission, null, 4));
+}
+
+function valChanged(element)
+{
+    if(element.id == "f_type")
+    {
+        if(element.value == "single")
+        {
+            document.getElementById("f_setup").placeholder = "Joke";
+
+            document.getElementById("f_delivery").style.display = "none";
+        }
+        else if(element.value == "twopart")
+        {
+            document.getElementById("f_setup").placeholder = "Setup";
+
+            document.getElementById("f_delivery").style.display = "initial";
+        }
+    }
+
+    buildSubmission();
+}
+
+function buildSubmission()
+{
+    var category = document.getElementById("f_category").value;
+    var type = document.getElementById("f_type").value;
+
+    submission = {
+        formatVersion: 2,
+        category: category,
+        type: type,
+        flags: {
+            nsfw: document.getElementById("f_flags_nsfw").checked,
+            religious: document.getElementById("f_flags_religious").checked,
+            political: document.getElementById("f_flags_political").checked,
+            racist: document.getElementById("f_flags_racist").checked,
+            sexist: document.getElementById("f_flags_sexist").checked,
+        }
+    }
+
+    if(type == "single")
+    {
+        submission.joke = document.getElementById("f_setup").value;
+    }
+    else if(type == "twopart")
+    {
+        submission.setup = document.getElementById("f_setup").value;
+        submission.delivery = document.getElementById("f_delivery").value;
+    }
+
+    var subDisp = document.getElementById("submissionDisplay");
+    subDisp.innerHTML = JSON.stringify(submission, null, 4);
+
+    var subCodeElem = document.getElementById("submissionCodeElement");
+
+    if(!subCodeElem.classList.contains("prettyprint"))
+    {
+        subCodeElem.classList.add("prettyprint");
+    }
+
+    if(subCodeElem.classList.contains("prettyprinted"))
+    {
+        subCodeElem.classList.remove("prettyprinted");
+    }
+
+    if(subCodeElem.classList.contains("lang-json"))
+    {
+        subCodeElem.classList.remove("lang-json");
+    }
+
+    subCodeElem.classList.add("lang-json");
+
+    setTimeout(function() {
+        PR.prettyPrint(); // eslint-disable-line no-undef
+    }, 5);
 }
 
 //#MARKER privacy policy

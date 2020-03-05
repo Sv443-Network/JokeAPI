@@ -46,6 +46,7 @@ const call = (req, res, url, params, format) => {
         case "cascadia-code.ttf":
             filePath = `${settings.documentation.dirPath}${settings.documentation.codeFontFileName}`;
             statusCode = 200;
+            allowEncoding = false;
             mimeType = "application/x-font-ttf";
         break;
         case "errorPage.css":
@@ -61,6 +62,7 @@ const call = (req, res, url, params, format) => {
         case "changelog":
             filePath = `./changelog.txt`;
             statusCode = 200;
+            allowEncoding = false;
             mimeType = "text/plain";
         break;
         case "submit.js":
@@ -79,6 +81,7 @@ const call = (req, res, url, params, format) => {
             requestedFile = "fallback_err_404";
             filePath = settings.documentation.error404path;
             statusCode = 404;
+            allowEncoding = false;
             mimeType = "text/html";
         break;
     }
