@@ -64,10 +64,41 @@ const resolveIP = req => {
     }
 };
 
+/**
+ * Checks if an IP is local or not (`localhost`, `127.0.0.1`, `::1`, etc.)
+ * @param {String} ip
+ * @param {Boolean} [inputIsHashed=true] If the input IP is not hashed, set this to false
+ * @returns {Boolean}
+ */
+const isLocal = (ip, inputIsHashed = false) => {
+    let localIPs = ["localhost", "127.0.0.1", "::1"];
+    let isLocal = false;
+
+    localIPs.forEach(lIP => {
+        if(inputIsHashed && ip.match(lIP))
+            isLocal = true;
+        else if(!inputIsHashed && ip.match(hashIP(lIP)))
+            isLocal = true;
+    });
+
+    return isLocal;
+};
+
 const ipv4regex = settings.httpServer.regexes.ipv4;
 const ipv6regex = settings.httpServer.regexes.ipv6;
 
+/**
+ * Checks whether or not an IP address is valid
+ * @param {String} ip
+ * @returns {Boolean}
+ */
 const isValidIP = ip => (ip.match(ipv4regex) || ip.match(ipv6regex));
+
+/**
+ * Hashes an IP address with the algorithm defined in `settings.httpServer.ipHashing.algorithm`
+ * @param {String} ip
+ * @returns {String}
+ */
 const hashIP = ip => {
     let hash = crypto.createHash(settings.httpServer.ipHashing.algorithm);
     hash.update(ip, "utf8");
@@ -77,3 +108,4 @@ const hashIP = ip => {
 module.exports = resolveIP;
 module.exports.isValidIP = isValidIP;
 module.exports.hashIP = hashIP;
+module.exports. isLocal = isLocal;

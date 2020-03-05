@@ -1732,7 +1732,7 @@
                 "nsfw": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
+                "racist": true,
                 "sexist": false
             },
             "id": 126
@@ -2093,6 +2093,200 @@
                 "sexist": false
             },
             "id": 152
-        } 
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "Why does Dr. Pepper come in a bottle?",
+            "delivery": "His wife is dead.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 153
+        },
+        {
+            "category": "Dark",
+            "type": "single",
+            "joke": "My ex had an accident. I told the paramedics the wrong blood type for her. She'll finally experience what rejection is really like.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 154
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "What part of a vegetable are you not supposed to eat?",
+            "delivery": "The wheelchair.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 155
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "What do Ted Bundy and the Space Shuttle Columbia have in common?",
+            "delivery": "They both left bodies in four states.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 156
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "What do you call a deaf gynecologist?",
+            "delivery": "A lip reader.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 157
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "What do you call a cheap circumcision?",
+            "delivery": "A rip off.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 158
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "What does a woman’s pussy and a chainsaw have in common?",
+            "delivery": "Miss by a few inches and you're in deep shit.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 159
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "What did the cannibal do after he dumped his girlfriend?",
+            "delivery": "He wiped his ass.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 160
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "What is the difference between acne and a catholic priest?",
+            "delivery": "Acne usually comes on a boys face after he turns 12.",
+            "flags": {
+                "nsfw": true,
+                "religious": true,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 161
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "My first high-school football game was a lot like my first time having sex...",
+            "delivery": "I was bloody and sore at the end, but at least my dad came.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 162
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "Say what you want about pedophiles...",
+            "delivery": "But at least they drive slow through the school zones.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 163
+        },
+        {
+            "category": "Dark",
+            "type": "single",
+            "joke": "Dark humor is like food, not everyone gets it.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": true,
+                "sexist": false
+            },
+            "id": 164
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "What's the difference between a gay guy and a refrigerator?",
+            "delivery": "A refrigerator doesn't fart when I pull my meat out of it.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 165
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "I'm sure good looking lesbians look at fat lesbians and give them no chance.",
+            "delivery": "Until they see their fingers.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 166
+        }
     ]
 }
