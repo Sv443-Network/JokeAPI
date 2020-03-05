@@ -4,7 +4,8 @@ var settings = {
     baseURL: "<!--%#INSERT:DOCSURL#%-->",
     jokeEndpoint: "joke",
     anyCategoryName: "Any",
-    defaultFormat: "json"
+    defaultFormat: "json",
+    submitUrl: "<!--%#INSERT:DOCSURL#%-->/submit"
 };
 
 if(settings.baseURL.endsWith("/"))
