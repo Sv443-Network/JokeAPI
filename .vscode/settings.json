@@ -12,6 +12,28 @@
                 "backgroundColor": "rgba(0, 0, 0, 0.2)",
                 "color": "#f88"
             }
+        ],
+        "(#MARKER)": [ // #MARKER test
+            {
+                "backgroundColor": "#f41",
+                "color": "#fff",
+                "isWholeLine": true,
+                "overviewRulerColor": "#f41"
+            }
+        ],
+        "(#SECTION [a-zA-Z0-9_-]+)": [ //#SECTION test
+            {
+                "backgroundColor": "#44f",
+                "color": "white",
+                "overviewRulerColor": "#44f"
+            }
+        ],
+        "(#DEBUG#)": [
+            {
+                "backgroundColor": "#ff0",
+                "color": "blue",
+                "overviewRulerColor": "#ff0"
+            }
         ]
     },
     "npm-scripts.showStartNotification": false
