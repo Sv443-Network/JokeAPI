@@ -13,6 +13,7 @@ Planned for the next version (2.2.0):
 
 [CURRENT: 2.1.2] - Plain Text update
     - Added file format "txt" to receive data as plain text
+    - Fixed the joke submission URL in the /info endpoint data
 
 
 [OLD: 2.1.1] - Auth update hotfix

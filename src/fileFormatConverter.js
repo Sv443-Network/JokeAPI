@@ -55,7 +55,7 @@ const toTXT = jsonInput => {
                 if(jsonInput.type == "single")
                     returnText = jsonInput.joke;
                 else if(jsonInput.type == "twopart")
-                    returnText = `${jsonInput.setup}\n${jsonInput.delivery}`;
+                    returnText = `${jsonInput.setup}\n\n${jsonInput.delivery}`;
             }
             
             else if(jsonInput.formats) // endpoint: /formats
@@ -82,7 +82,7 @@ const toTXT = jsonInput => {
             }
         }
     }
-    
+
     return returnText;
 };
 

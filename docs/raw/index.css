@@ -283,6 +283,10 @@ label {
     border-spacing: 0;
 }
 
+#statusCodeTable tr:nth-child(2n+1) td {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
 #statusCodeTable tr:nth-child(1) > th {
     border: 1px solid #fff;
     border-style: none none solid none;
@@ -291,6 +295,7 @@ label {
 
 #statusCodeTable tr > td:nth-child(1) {
     padding-top: 3px;
+    padding-left: 4px;
 }
 
 #statusCodeTable tr th:not(:first-child), #statusCodeTable tr td:not(:first-child) {

@@ -54,7 +54,7 @@
         <!-- #MARKER dependencies -->
         <!-- Have to do it like this because the page doesn't always have a trailing slash and that *somehow* makes it redirect to the page root: -->
         <link rel="stylesheet" href="<!--%#INSERT:DOCSURL#%-->/static/index.css">
-        <!-- <link rel="stylesheet" href="static/index.css"> -->
+        <link rel="stylesheet" href="static/index.css">
 
         <link rel="icon" type="image/png" href="<!--%#INSERT:DOCSURL#%-->/favicon.ico">
 
@@ -408,7 +408,7 @@
                 It is used to change the response format from the default (JSON) to <span class="insFormatsS">(Loading...)</span>, depending on what you need.<br>
                 If the format parameter is invalid or not specified at all, the default value of JSON will be used.<br>
                 Available formats are <mark class="insFormats">(Loading...)</mark><br><br>
-                <details><summary>Example (click to view)</summary>
+                <details><summary>Example 1 (click to view)</summary>
                     URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?format=xml</mark><br><br>
 <code class="prettyprint"><div class="actualCode">
 &lt;data&gt;
@@ -424,6 +424,15 @@
 	&lt;/flags&gt;
 	&lt;id&gt;12&lt;/id&gt;
 &lt;/data&gt;
+</div></code>
+                </details><br>
+
+                <details><summary>Example 2 (click to view)</summary>
+                    URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?format=txt</mark><br><br>
+<code><div class="actualCode">
+How many programmers does it take to screw in a light bulb?
+
+None. It's a hardware problem.
 </div></code>
                 </details>
 
