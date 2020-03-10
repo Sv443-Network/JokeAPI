@@ -54,10 +54,10 @@ const settings = {
         },
     },
     jokes: {
-        jokesFormatVersion: 2,                                  // current joke format version
-        jokesFilePath: "./data/jokes.json",                     // path to the jokes file
-        jokeSubmissionURL: "https://sv443.net/r/submitjoke_v2", // joke submission url
-        jokeSubmissionPath: "./data/submissions/",              // path to a directory where joke submissions should be saved to - needs trailing slash
+        jokesFormatVersion: 2,                               // current joke format version
+        jokesFilePath: "./data/jokes.json",                  // path to the jokes file
+        jokeSubmissionURL: `${packageJSON.homepage}#submit`, // joke submission url
+        jokeSubmissionPath: "./data/submissions/",           // path to a directory where joke submissions should be saved to - needs trailing slash
         possible: {
             anyCategoryName: "Any", // the name of the "Any" category
             categories: [           // all categories (excluding "Any") - case insensitive
