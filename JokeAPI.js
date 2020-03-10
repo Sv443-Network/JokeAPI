@@ -4,7 +4,6 @@
 // API Docs:  https://sv443.net/jokeapi/v2
 // ️
 // ⚠️ Please read the LICENSE.txt file before redistributing JokeAPI.
-// ⚠️ I don't want to take legal action on anyone so please do me that favor.
 // ⚠️ Thanks :)
 
 
