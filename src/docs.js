@@ -258,7 +258,9 @@ const inject = filePath => {
                     "<!--%#INSERT:PRIVACYPOLICYURL#%-->":      settings.info.privacyPolicyUrl,
                     "<!--%#INSERT:DOCSURL#%-->":               (!jsl.isEmpty(settings.info.docsURL) ? settings.info.docsURL : "(Error: Documentation URL not defined)"),
                     "<!--%#INSERT:RATELIMITCOUNT#%-->":        settings.httpServer.rateLimiting.toString(),
-                    "<!--%#INSERT:FORMATVERSION#%-->":         settings.jokes.jokesFormatVersion.toString()
+                    "<!--%#INSERT:FORMATVERSION#%-->":         settings.jokes.jokesFormatVersion.toString(),
+                    "<!--%#INSERT:MAXPAYLOADSIZE#%-->":        settings.httpServer.maxPayloadSize.toString(),
+                    "<!--%#INSERT:MAXURLLENGTH#%-->":          settings.httpServer.maxUrlLength.toString(),
                 };
 
                 let allMatches = 0;

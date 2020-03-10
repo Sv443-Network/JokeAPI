@@ -50,6 +50,20 @@ module.exports = {
         "causedBy": [
             "No jokes were found that match your provided filter(s)"
         ]
+    },
+    "107": {
+        "errorInternal": false,
+        "errorMessage": "Payload too large",
+        "causedBy": [
+            `The provided payload exceeds the limit of ${settings.httpServer.maxPayloadSize} bytes (${(settings.httpServer.maxPayloadSize / 1024).toFixed(1)} kB)`
+        ]
+    },
+    "108": {
+        "errorInternal": false,
+        "errorMessage": "URI Too Long",
+        "causedBy": [
+            `The URL exceeds the maximum length of ${settings.httpServer.maxUrlLength} characters`
+        ]
     }
     //#MARKER Class 2xx
 }

@@ -567,39 +567,53 @@ None. It's a hardware problem.
                     <tr>
                         <td class="g">200</td>
                         <td>Ok</td>
-                        <td>The request was accepted and processed successfully and the respose text contains the requested data or a status message.</td>
+                        <td>The request was accepted and processed successfully and the respose text contains the requested data or a status message</td>
                     </tr>
                     <tr>
                         <td class="g">201</td>
                         <td>Created</td>
-                        <td>The joke submission is formatted correctly and was accepted and successfully saved.</td>
+                        <td>The joke submission is formatted correctly and was accepted and successfully saved</td>
                     </tr>
                     <tr>
                         <td class="r">400</td>
                         <td>Bad Request</td>
-                        <td>The request you have sent to <!--%#INSERT:NAME#%--> is formatted incorrectly and cannot be processed.</td>
+                        <td>The request you have sent to <!--%#INSERT:NAME#%--> is formatted incorrectly and cannot be processed</td>
                     </tr>
                     <tr>
                         <td class="r">403</td>
                         <td>Forbidden</td>
-                        <td>You have been added to the blacklist due to malicious behavior and are not allowed to send requests to <!--%#INSERT:NAME#%--> anymore.</td>
+                        <td>You have been added to the blacklist due to malicious behavior and are not allowed to send requests to <!--%#INSERT:NAME#%--> anymore</td>
                     </tr>
                     <tr>
                         <td class="r">404</td>
                         <td>Not Found</td>
-                        <td>The URL you have requested couldn't be found.</td>
+                        <td>The URL you have requested couldn't be found</td>
+                    </tr>
+                    <tr>
+                        <td class="r">413</td>
+                        <td>Payload Too Large</td>
+                        <td>The payload data sent to the server exceeds the maximum size of <!--%#INSERT:MAXPAYLOADSIZE#%--> bytes</td>
+                    </tr>
+                    <tr>
+                        <td class="r">414</td>
+                        <td>URI Too Long</td>
+                        <td>The URL exceeds the maximum length of <!--%#INSERT:MAXURLLENGTH#%--> characters</td>
                     </tr>
                     <tr>
                         <td class="r">429</td>
                         <td>Too Many Requests</td>
-                        <td>You have exceeded the limit of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute and have to wait a bit until you are allowed to send requests again.</td>
+                        <td>You have exceeded the limit of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute and have to wait a bit until you are allowed to send requests again</td>
                     </tr>
                     <tr>
                         <td class="dr">500</td>
                         <td>Internal Server Error</td>
-                        <td>There was a general internal error within <!--%#INSERT:NAME#%-->. You can get more info from the properties in the response text.</td>
+                        <td>There was a general internal error within <!--%#INSERT:NAME#%-->. You can get more info from the properties in the response text</td>
                     </tr>
                 </table>
+                
+                <br>
+
+                <span class="col g">Success</span> &bull; <span class="col r">Client Error</span> &bull; <span class="col dr">Server Error</span>
 
 
 

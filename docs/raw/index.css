@@ -312,16 +312,16 @@ label {
     border-style: none none none solid;
 }
 
-#statusCodeTable tr td.g {
+#statusCodeTable tr td.g, span.col.g {
     color: #89ff89;
 }
 
-#statusCodeTable tr td.r {
-    color: #f36643;
+#statusCodeTable tr td.r, span.col.r {
+    color: #ffad41;
 }
 
-#statusCodeTable tr td.dr {
-    color: #da1313;
+#statusCodeTable tr td.dr, span.col.dr {
+    color: #df0909;
 }
 
 .colB {
