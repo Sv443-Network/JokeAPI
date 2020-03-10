@@ -14,6 +14,9 @@ Planned for the next version (2.2.0):
 [CURRENT: 2.1.2] - Plain Text update
     - Added file format "txt" to receive data as plain text
     - Fixed the joke submission URL in the /info endpoint data
+    - Added HTTP error codes:
+        - 413 Payload Too Large
+        - 414 URI Too Long
 
 
 [OLD: 2.1.1] - Auth update hotfix
