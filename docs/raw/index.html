@@ -62,7 +62,7 @@
 
         <!-- Have to do it like this because the page doesn't always have a trailing slash and that *somehow* makes it redirect to the page root: -->
         <script src="<!--%#INSERT:DOCSURL#%-->/static/index.js"></script>
-        <!-- <script src="static/index.js"></script> -->
+        <script src="static/index.js"></script>
 
         <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=sunburst"></script> <!-- Google Code-Prettify -->
     </head>
@@ -244,7 +244,8 @@
                                 <div class="multiselect noselect">
                                     <input type="radio" id="fmt-cb1" name="formatRadio" value="json" onchange="reRender()"><label for="fmt-cb1">default (json)</label>
                                     <input type="radio" id="fmt-cb2" name="formatRadio" value="xml" onchange="reRender()"><label for="fmt-cb2">xml</label>
-                                    <input type="radio" id="fmt-cb3" name="formatRadio" value="yaml" onchange="reRender()"><label for="fmt-cb3">yaml</label>
+                                    <input type="radio" id="fmt-cb3" name="formatRadio" value="yaml" onchange="reRender()"><label for="fmt-cb3">yaml</label> <!-- TODO: -->
+                                    <input type="radio" id="fmt-cb4" name="formatRadio" value="txt" onchange="reRender()"><label for="fmt-cb4">plaintext</label>
                                 </div>
                             </td>
                         </tr>

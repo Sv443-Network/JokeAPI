@@ -65,18 +65,6 @@ const call = (req, res, url, params, format) => {
             allowEncoding = false;
             mimeType = "text/plain";
         break;
-        case "submit.js":
-            filePath = `./docs/static/submit.js`;
-            statusCode = 200;
-            allowEncoding = false;
-            mimeType = "application/javascript";
-        break;
-        case "submit.css":
-            filePath = `./docs/static/submit.css`;
-            statusCode = 200;
-            allowEncoding = false;
-            mimeType = "text/css";
-        break;
         default:
             requestedFile = "fallback_err_404";
             filePath = settings.documentation.error404path;

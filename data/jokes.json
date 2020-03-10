@@ -966,7 +966,7 @@
             "category": "Miscellaneous",
             "type": "twopart",
             "setup": "What happens when you don't obey the KGB?",
-            "delivery": "You get Putin jail",
+            "delivery": "You get Putin jail.",
             "flags": {
                 "nsfw": false,
                 "religious": false,

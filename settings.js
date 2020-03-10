@@ -76,6 +76,7 @@ const settings = {
                 "json",
                 "xml",
                 "yaml",
+                "txt",
             ],
             types: [ // all joke types - HAS TO BE LOWER CASE!
                 "single",
@@ -119,7 +120,7 @@ const settings = {
             deflate: true, // Whether or not Deflate encoding should be enabled for the documentation page
             brotli: true,  // Whether or not Brotli encoding should be enabled for the documentation page
         },
-        encodingPriority: [ // The priority of the encodings. Items with a lower array index have a higher priority
+        encodingPriority: [ // The priority of the encodings. Items with a lower array index (further to the left) have a higher priority
             "brotli", "gzip", "deflate"
         ],
     },
