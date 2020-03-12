@@ -47,8 +47,9 @@ var dIHTML = `
 
 <b>Terminology:</b><br>
 &nbsp;&nbsp;&nbsp;&nbsp;Hash:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;A hash uses an algorithm to encode the input to something that cannot be reconstructed to the initial input again.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;In the case of JokeAPI, your IP address gets hashed and stored to a database. In this hashed state, your original IP address can not be reconstructed and you will stay completely anonymous.
+&nbsp;&nbsp;&nbsp;&nbsp;A hash uses an algorithm to encrypt the input to something that cannot be reconstructed to the initial input again.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;In the case of JokeAPI, your IP address gets hashed and stored to a database.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;In this hashed state, your original IP address can not be reconstructed and you will stay completely anonymous in case any data ever gets leaked, while JokeAPI can still uniquely identify you.
 
 <br><br><br>
 

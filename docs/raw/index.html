@@ -764,7 +764,7 @@ None. It's a hardware problem.
                 </span>
                 <br><br>
                 This endpoint is used to submit a joke to be reviewed and added to <!--%#INSERT:NAME#%-->'s official jokes.<br>
-                If you instead just want to manually submit a joke, please <a href="#submit-joke">click here.</a><br>
+                If you instead just want to manually submit a joke, please <a href="#submit">click here.</a><br>
                 The payload needs to be sent as JSON. Different <a href="#response-formats">formats</a> are not allowed here.<br>
                 The request payload has to follow the same object structure that the jokes are served in when using the "joke" endpoint.<br>
                 <br>
@@ -1050,9 +1050,9 @@ public class Flags
                 <span class="subHeader" id="id-range">ID Range:</span>
                 If this filter is used, you will only get jokes that are within the provided range of IDs.<br>
                 You don't necessarily need to provide an ID <i>range</i> though, a single ID will work just fine as well.<br>
-                Example: an ID range of 0-9 will mean you will only get one of the first 10 jokes.y<br>
+                Example: an ID range of 0-9 will mean you will only get one of the first 10 jokes, while an ID range of 5 will mean you will only get the 6th joke.<br>
                 You can set the ID range by using the <a href="#idrange-param">?idRange</a> URL parameter.<br>
-                As there are currently <!--%#INSERT:TOTALJOKES#%--> jokes, the ID range can be any range from <mark>0 - <!--%#INSERT:TOTALJOKESZEROINDEXED#%--></mark><br>
+                As there are currently <!--%#INSERT:TOTALJOKES#%--> jokes, the ID range can be anywhere in the range of <mark>0</mark> to <mark><!--%#INSERT:TOTALJOKESZEROINDEXED#%--></mark><br>
 
 
                 <!-- #MARKER Legal Stuff -->
@@ -1080,7 +1080,7 @@ public class Flags
                 <div class="indented">
                     I will hereby not claim any legal responsibility or liability for <!--%#INSERT:NAME#%--> and the jokes it serves (especially those from the "Dark" category).<br>
                     Whether it is used maliciously or breaks something in your project or someone gets offended by a joke, I can't be held accountable.<br>
-                    Additionally, I will only be able to provide security updates for a small selection of versions, a list of which you can find <a href="https://github.com/Sv443/JokeAPI/security/policy" target="_blank">here.</a><br>
+                    Additionally, I will only be able to provide security updates for a small selection of versions, a list of which you can find <a href="https://github.com/Sv443/JokeAPI/security/policy#supported-versions" target="_blank">here.</a><br>
                     I am doing my best to ensure security and stability but there's only so much a single developer can do.<br>
                     Please report any issue that may arise to <a href="<!--%#INSERT:PROJGITHUBURL#%-->/issues/new/choose" target="_blank">the GitHub issue tracker</a> and I will try my best to fix it as soon as possible.<br>
                     If you want to contact me, you can <a href="https://sv443.net/discord" target="_blank">join my Discord server</a> (fastest way to contact me) or send me an E-Mail at <a href="mailto:sven.fehler@web.de?subject=JokeAPI">sven.fehler@web.de</a>
@@ -1119,6 +1119,7 @@ public class Flags
                         <li><a href="https://npmjs.com/package/mysql" target="_blank">MySQL</a></li>
                         <li><a href="https://npmjs.com/package/node-wrap" target="_blank">Node-Wrap</a></li>
                         <li><a href="https://npmjs.com/package/svjsl" target="_blank">JSLib (npm)</a></li>
+                        <li><a href="https://www.npmjs.com/package/xss" target="_blank">xss</a></li>
                     </ul>
                 </div>
 

@@ -9,6 +9,7 @@ const packageJSON = require("../package.json");
 const parseJokes = require("./parseJokes");
 const logRequest = require("./logRequest");
 const zlib = require("zlib");
+const xss = require("xss");
 const semver = require("semver");
 const analytics = require("./analytics");
 
@@ -267,7 +268,7 @@ const inject = filePath => {
                 Object.keys(injections).forEach(key => {
                     let regex = new RegExp(key, "gm");
                     allMatches += ((file.toString().match(regex) || []).length || 0);
-                    let injection = injections[key];
+                    let injection = sanitize(injections[key]);
                     file = file.replace(regex, !jsl.isEmpty(injection) ? injection : "Error");
                 });
 
@@ -286,6 +287,15 @@ const inject = filePath => {
 };
 
 /**
+ * Sanitizes a string to prevent XSS
+ * @param {String} str 
+ * @returns {String}
+ */
+const sanitize = str => {
+    return xss(str);
+};
+
+/**
  * Removes all line breaks and tab stops from an input string and returns it
  * @param {String} input 
  * @returns {String}
@@ -293,4 +303,4 @@ const inject = filePath => {
 const minify = input => input.toString().replace(/(\n|\r\n|\t)/gm, "");
 
 
-module.exports = { init, recompileDocs, minify };
+module.exports = { init, recompileDocs, minify, sanitize };
