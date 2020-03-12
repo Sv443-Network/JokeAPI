@@ -13,6 +13,7 @@
     "validate-ids": "node tools/validate-ids",
     "add-joke": "node tools/add-joke",
     "add-token": "node tools/add-token",
+    "submissions": "node tools/submissions",
     "lint": "eslint ./ && exit $?",
     "all": "npm run validate-jokes && npm run validate-ids && npm run lint",
     "dependency-graph": "node dev/madge"
