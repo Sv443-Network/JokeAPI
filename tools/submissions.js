@@ -1,5 +1,6 @@
 const settings = require("../settings");
 const fs = require("fs");
+const path = require("path");
 const jsl = require("svjsl");
 
 let addedCount = 0;
@@ -27,7 +28,7 @@ const run = () => {
                 if(!submissions[idx])
                 {
                     finishAdding();
-                    console.log(`Successfully added ${addedCount} joke${addedCount != 1 ? "s" : ""}\nExiting.\n`);
+                    console.log(`${jsl.colors.fg.green}Successfully added ${jsl.colors.fg.yellow}${addedCount}${jsl.colors.fg.green} joke${addedCount != 1 ? "s" : ""}${jsl.colors.rst}.\nExiting.\n\n`);
                     return process.exit(0);
                 }
 
@@ -53,7 +54,11 @@ const run = () => {
 
                 pause("Do you want to add this joke? (y/N):").then(key => {
                     if(key.toLowerCase() === "y")
+                    {
                         addJoke(submissions[idx], jokesFile);
+                        process.stdout.write(`${jsl.colors.fg.green}Adding joke.${jsl.colors.rst}\n\n`);
+                    }
+                    else process.stdout.write(`${jsl.colors.fg.red}Not adding joke.${jsl.colors.rst}\n\n`);
 
                     goThroughSubmission(++idx);
                 });
@@ -71,9 +76,10 @@ const run = () => {
  * Reads the jokes file and returns it as an object
  * @returns {Object}
  */
-const getAllJokes = () => {
+function getAllJokes()
+{
     return JSON.parse(fs.readFileSync(settings.jokes.jokesFilePath).toString());
-};
+}
 
 /**
  * Adds a joke to the `jokesFile` object
@@ -93,6 +99,10 @@ const addJoke = joke => {
  */
 const finishAdding = () => {
     fs.writeFileSync(settings.jokes.jokesFilePath, JSON.stringify(jokesFile, null, 4));
+
+    fs.readdirSync(settings.jokes.jokeSubmissionPath).forEach(file => {
+        fs.unlinkSync(path.join(settings.jokes.jokeSubmissionPath, file));
+    });
 };
 
 /**
@@ -121,7 +131,7 @@ const getFlags = joke => {
 const getSubmissions = () => {
     let submissions = [];
     fs.readdirSync(settings.jokes.jokeSubmissionPath).forEach(file => {
-        submissions.push(JSON.parse(fs.readFileSync(`${settings.jokes.jokeSubmissionPath}/${file}`).toString()));
+        submissions.push(JSON.parse(fs.readFileSync(path.resolve(`${settings.jokes.jokeSubmissionPath}/${file}`)).toString()));
     });
     return submissions;
 };
@@ -142,6 +152,9 @@ function pause(text = "Press any key to continue...")
 
         let onData = function(chunk)
         {
+            if(/\u0003/gu.test(chunk)) // eslint-disable-line no-control-regex
+                process.exit(0);
+
             process.stdout.write("\n");
             process.stdin.pause();
 
