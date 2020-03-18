@@ -2328,61 +2328,6 @@
                 "sexist": false
             },
             "id": 169
-        },
-        {
-            "category": "Miscellaneous",
-            "type": "twopart",
-            "setup": "test",
-            "delivery": "baba",
-            "flags": {
-                "nsfw": false,
-                "religious": true,
-                "political": true,
-                "racist": false,
-                "sexist": false
-            },
-            "id": 170
-        },
-        {
-            "category": "Miscellaneous",
-            "type": "twopart",
-            "setup": "test",
-            "delivery": "faf",
-            "flags": {
-                "nsfw": true,
-                "religious": true,
-                "political": true,
-                "racist": true,
-                "sexist": false
-            },
-            "id": 171
-        },
-        {
-            "category": "Programming",
-            "type": "single",
-            "joke": "test",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": true
-            },
-            "id": 172
-        },
-        {
-            "category": "Programming",
-            "type": "twopart",
-            "setup": "test",
-            "delivery": "faf",
-            "flags": {
-                "nsfw": true,
-                "religious": true,
-                "political": true,
-                "racist": true,
-                "sexist": false
-            },
-            "id": 173
         }
     ]
 }
