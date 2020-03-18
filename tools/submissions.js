@@ -3,7 +3,7 @@ const fs = require("fs");
 const jsl = require("svjsl");
 
 const run = () => {
-    let jokesFile = getAllJokes();
+    let jokesFile = getAllJokes(); jsl.unused(jokesFile);
     let submissions = getSubmissions();
 
     console.log(`${jsl.colors.fg.cyan}There are ${jsl.colors.fg.yellow}${submissions.length}${jsl.colors.fg.cyan} submissions.`);
@@ -36,6 +36,7 @@ const run = () => {
                 else console.error(`${jsl.colors.fg.red}Error: Unsuppoted joke type "${submission.type}"${jsl.colors.rst}`);
 
                 pause().then(key => {
+                    jsl.unused(key);
                     goThroughSubmission(++idx);
                 });
             };
