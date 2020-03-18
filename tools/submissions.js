@@ -55,7 +55,7 @@ const run = () => {
                 pause("Do you want to add this joke? (y/N):").then(key => {
                     if(key.toLowerCase() === "y")
                     {
-                        addJoke(submissions[idx], jokesFile);
+                        addJoke(submissions[idx]);
                         process.stdout.write(`${jsl.colors.fg.green}Adding joke.${jsl.colors.rst}\n\n`);
                     }
                     else process.stdout.write(`${jsl.colors.fg.red}Not adding joke.${jsl.colors.rst}\n\n`);
