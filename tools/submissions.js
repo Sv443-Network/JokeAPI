@@ -2,8 +2,10 @@ const settings = require("../settings");
 const fs = require("fs");
 const jsl = require("svjsl");
 
+let addedCount = 0;
+let jokesFile = getAllJokes();
+
 const run = () => {
-    let jokesFile = getAllJokes(); jsl.unused(jokesFile);
     let submissions = getSubmissions();
 
     console.log(`${jsl.colors.fg.cyan}There ${submissions.length == 1 ? "is" : "are"} ${jsl.colors.fg.yellow}${submissions.length}${jsl.colors.fg.cyan} submission${submissions.length == 1 ? "" : "s"}.${jsl.colors.rst}`);
@@ -21,6 +23,14 @@ const run = () => {
             console.clear();
 
             let goThroughSubmission = (idx) => {
+
+                if(!submissions[idx])
+                {
+                    finishAdding();
+                    console.log(`Successfully added ${addedCount} joke${addedCount != 1 ? "s" : ""}\nExiting.\n`);
+                    return process.exit(0);
+                }
+
                 let submission = submissions[idx];
 
                 if(submission.formatVersion != settings.jokes.jokesFormatVersion)
@@ -41,8 +51,10 @@ const run = () => {
                 }
                 else console.error(`${jsl.colors.fg.red}Error: Unsuppoted joke type "${submission.type}"${jsl.colors.rst}`);
 
-                pause().then(key => {
-                    jsl.unused(key);
+                pause("Do you want to add this joke? (y/N):").then(key => {
+                    if(key.toLowerCase() === "y")
+                        addJoke(submissions[idx], jokesFile);
+
                     goThroughSubmission(++idx);
                 });
             };
@@ -61,6 +73,26 @@ const run = () => {
  */
 const getAllJokes = () => {
     return JSON.parse(fs.readFileSync(settings.jokes.jokesFilePath).toString());
+};
+
+/**
+ * Adds a joke to the `jokesFile` object
+ * @param {Object} joke 
+ */
+const addJoke = joke => {
+    let fJoke = new Object(joke);
+
+    delete fJoke.formatVersion;
+
+    jokesFile.jokes.push(fJoke);
+    addedCount++;
+};
+
+/**
+ * Writes the `jokesFile` object to the jokes file 
+ */
+const finishAdding = () => {
+    fs.writeFileSync(settings.jokes.jokesFilePath, JSON.stringify(jokesFile, null, 4));
 };
 
 /**
