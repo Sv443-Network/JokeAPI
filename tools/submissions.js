@@ -6,7 +6,13 @@ const run = () => {
     let jokesFile = getAllJokes(); jsl.unused(jokesFile);
     let submissions = getSubmissions();
 
-    console.log(`${jsl.colors.fg.cyan}There are ${jsl.colors.fg.yellow}${submissions.length}${jsl.colors.fg.cyan} submissions.`);
+    console.log(`${jsl.colors.fg.cyan}There ${submissions.length == 1 ? "is" : "are"} ${jsl.colors.fg.yellow}${submissions.length}${jsl.colors.fg.cyan} submission${submissions.length == 1 ? "" : "s"}.${jsl.colors.rst}`);
+    if(submissions.length === 0)
+    {
+        console.log("Exiting.");
+        return process.exit(0);
+    }
+
     pause(`Do you want to go through them all now? (Y/n):${jsl.colors.rst}`).then(key => {
         if(key.toLowerCase && key.toLowerCase() == "n")
             process.exit(0);
@@ -102,18 +108,21 @@ function pause(text = "Press any key to continue...")
         process.stdout.write(`${text} `);
         process.stdin.resume();
 
-        process.stdin.on("data", chunk => {
+        let onData = function(chunk)
+        {
             process.stdout.write("\n");
             process.stdin.pause();
 
+            process.stdin.removeListener("data", onData);
             return resolve(chunk.toString());
-        });
+        }
+
+        process.stdin.on("data", onData);
 
         process.stdin.on("error", err => {
             return reject(err);
         });
     });
 }
-module.exports = pause;
 
 run();

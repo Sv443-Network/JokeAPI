@@ -50,7 +50,7 @@ body {
     background-color: var(--bg-color);
     color: #fff;
     font-family: "Roboto", "Segoe UI", "Arial", sans-serif;
-    font-size: 15px;
+    font-size: 14px;
 
     overflow-y: hidden;
 
@@ -883,7 +883,6 @@ textarea {
 #usageTermsInnerLayout > .itm:last-of-type {
     text-align: right;
 }
-/*#SECTION information */
 
 /*#SECTION try it */
 #tryItContainer table tr td {
@@ -894,7 +893,7 @@ textarea {
     padding-bottom: 15px;
 }
 
-#tryItContainer {
+.highlightedContainer {
     display: block;
     background-color: var(--bg-accent-color);
     border: 2px solid #fff;
@@ -906,7 +905,7 @@ textarea {
     margin-top: 20px;
 }
 
-body[data-sidenav="opened"] #tryItContainer {
+body[data-sidenav="opened"] .highlightedContainer {
     background-color: var(--bg-accent-color-sidenav-opened);
 }
 
