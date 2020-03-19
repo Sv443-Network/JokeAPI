@@ -205,7 +205,7 @@ const logAnalytics = analyticsDataObject => {
         if(!settings.analytics.enabled)
             return true;
         
-        if(jsl.isEmpty(this.sqlConn) || (this.sqlConn.state != "connected" && this.sqlConn.state != "authenticated"))
+        if(jsl.isEmpty(this.sqlConn) || (this.sqlConn && this.sqlConn.state != "connected" && this.sqlConn.state != "authenticated"))
         {
             debug("Analytics", `Error while logging some analytics data - SQL connection state is invalid: ${this.sqlConn.state || "disconnected"}`);
             return `DB connection is not established yet. Current connection state is "${this.sqlConn.state || "disconnected"}"`;

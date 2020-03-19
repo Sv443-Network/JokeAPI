@@ -47,8 +47,9 @@ var dIHTML = `
 
 <b>Terminology:</b><br>
 &nbsp;&nbsp;&nbsp;&nbsp;Hash:<br>
-&nbsp;&nbsp;&nbsp;&nbsp;A hash uses an algorithm to encode the input to something that cannot be reconstructed to the initial input again.<br>
-&nbsp;&nbsp;&nbsp;&nbsp;In the case of JokeAPI, your IP address gets hashed and stored to a database. In this hashed state, your original IP address can not be reconstructed and you will stay completely anonymous.
+&nbsp;&nbsp;&nbsp;&nbsp;A hash uses an algorithm to encrypt the input to something that cannot be reconstructed to the initial input again.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;In the case of JokeAPI, your IP address gets hashed and stored to a database.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;In this hashed state, your original IP address can not be reconstructed and you will stay completely anonymous in case any data ever gets leaked, while JokeAPI can still uniquely identify you.
 
 <br><br><br>
 
@@ -444,7 +445,7 @@ function buildURL()
 
     //#SECTION flags
     var flagElems = [gebid("blf-cb1"), gebid("blf-cb2"), gebid("blf-cb3"), gebid("blf-cb4"), gebid("blf-cb5")];
-    var flagNames = ["nsfw", "religious", "political", "racist", "sexist"];
+    var flagNames = JSON.parse('<!--%#INSERT:FLAGSARRAY#%-->');
     var selectedFlags = [];
     flagElems.forEach(function(el, i) {
         if(el.checked)
@@ -460,7 +461,7 @@ function buildURL()
 
 
     //#SECTION format
-    var formatElems = [gebid("fmt-cb1"), gebid("fmt-cb2"), gebid("fmt-cb3")];
+    var formatElems = [gebid("fmt-cb1"), gebid("fmt-cb2"), gebid("fmt-cb3"), gebid("fmt-cb4")];
     formatElems.forEach(function(el) {
         if(el.checked && el.value != settings.defaultFormat)
         {

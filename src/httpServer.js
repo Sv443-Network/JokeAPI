@@ -36,7 +36,7 @@ const init = () => {
                 let analyticsObject = {
                     ipAddress: ip,
                     urlPath: parsedURL.pathArray,
-                    urlParameters: parsedURL.queryParams
+                    urlParameters: parsedURL.queryParams 
                 };
 
                 debug("HTTP", `Incoming ${req.method} request from "${ip.substring(0, 8)}${localhostIP ? `..." ${jsl.colors.fg.blue}(local)${jsl.colors.rst}` : "...\""}`);
@@ -44,6 +44,9 @@ const init = () => {
                 let fileFormat = settings.jokes.defaultFileFormat.fileFormat;
                 if(!jsl.isEmpty(parsedURL.queryParams) && !jsl.isEmpty(parsedURL.queryParams.format))
                     fileFormat = parseURL.getFileFormatFromQString(parsedURL.queryParams);
+
+                if(req.url.length > settings.httpServer.maxUrlLength)
+                    return respondWithError(res, 108, 414, fileFormat, `The length of the URL (${req.url.length} characters) exceeds the maximum accepted length of ${settings.httpServer.maxUrlLength} characters`);
 
                 try
                 {
@@ -219,6 +222,10 @@ const init = () => {
                         let dataGotten = false;
                         req.on("data", chunk => {
                             data += chunk;
+
+                            let payloadLength = byteLength(data);
+                            if(payloadLength > settings.httpServer.maxPayloadSize)
+                                return respondWithError(res, 107, 413, fileFormat, `The provided payload data is too large (${payloadLength} bytes of ${settings.httpServer.maxPayloadSize})`);
                             
                             if(!jsl.isEmpty(data))
                                 dataGotten = true;
@@ -433,12 +440,16 @@ const pipeString = (res, text, mimeType, statusCode = 200) => {
     s.push(text);
     s.push(null);
 
-    res.writeHead(statusCode, {
-        "Content-Type": `${mimeType}; charset=UTF-8`,
-        "Content-Length": text.length
-    });
+    if(!res.headersSent)
+    {
+        res.writeHead(statusCode, {
+            "Content-Type": `${mimeType}; charset=UTF-8`,
+            "Content-Length": text.length
+        });
+    }
 
-    s.pipe(res);
+    if(!res.writableEnded)
+        s.pipe(res);
 }
 
 /**
@@ -552,6 +563,27 @@ const getAcceptedEncoding = req => {
     });
 
     return selectedEncoding;
+}
+
+/**
+ * Returns the length of a string in bytes - [Source of code](https://gist.github.com/lovasoa/11357947)
+ * @param {String} str
+ * @returns {Number}
+ */
+const byteLength = str => {
+    let s = str.length;
+    for (let i = str.length - 1; i >= 0; i--)
+    {
+        let code = str.charCodeAt(i);
+
+        if (code > 0x7f && code <= 0x7ff)
+            s++;
+        else if (code > 0x7ff && code <= 0xffff)
+            s+=2;
+        if (code >= 0xDC00 && code <= 0xDFFF)
+            i--;
+    }
+    return s;
 }
 
 /**

@@ -19,7 +19,7 @@ const logRequest = require("./logRequest");
 const auth = require("./auth");
 
 const col = jsl.colors.fg;
-process.debuggerActive = (typeof v8debug === "object" || /--debug|--inspect/.test(process.execArgv.join(" ")));
+process.debuggerActive = jsl.inDebugger();
 const noDbg = process.debuggerActive || false;
 
 let pb;

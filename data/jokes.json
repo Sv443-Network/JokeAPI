@@ -966,7 +966,7 @@
             "category": "Miscellaneous",
             "type": "twopart",
             "setup": "What happens when you don't obey the KGB?",
-            "delivery": "You get Putin jail",
+            "delivery": "You get Putin jail.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2287,6 +2287,47 @@
                 "sexist": false
             },
             "id": 166
+        },
+        {
+            "category": "Dark",
+            "type": "single",
+            "joke": "My little daughter came to me all excited, saying \"Daddy! Daddy! Guess how old I'll be in June!\"\n\"Oh I don't know princess, why don't you tell me?\" I said. She gave me a huge smile and held up four fingers.\nIt's now three hours later, police have joined in and she still won't say where she got them.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 167
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "Dads are like boomerangs.",
+            "delivery": "I hope.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 168
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "I like my girls how I like my COVID.",
+            "delivery": "19 and easily spread.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 169
         }
     ]
 }

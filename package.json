@@ -1,6 +1,6 @@
 {
   "name": "@sv443/jokeapi",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "A RESTful API that serves jokes from many categories while also offering a lot of filtering methods",
   "main": "JokeAPI.js",
   "homepage": "https://sv443.net/jokeapi/v2",
@@ -13,6 +13,7 @@
     "validate-ids": "node tools/validate-ids",
     "add-joke": "node tools/add-joke",
     "add-token": "node tools/add-token",
+    "submissions": "node tools/submissions",
     "lint": "eslint ./ && exit $?",
     "all": "npm run validate-jokes && npm run validate-ids && npm run lint",
     "dependency-graph": "node dev/madge"
@@ -47,7 +48,8 @@
     "json-to-pretty-yaml": "^1.2.2",
     "mysql": "^2.18.1",
     "node-wrap": "^0.2.0",
-    "svjsl": "^1.8.4"
+    "svjsl": "^1.9.0",
+    "xss": "^1.0.6"
   },
   "devDependencies": {
     "eslint": "^6.8.0",

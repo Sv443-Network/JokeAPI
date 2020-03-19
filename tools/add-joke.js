@@ -1,42 +1,43 @@
-const readline = require("readline");
 const jsl = require("svjsl");
+const readline = require("readline");
 const settings = require("../settings");
 const fs = require("fs");
-
-let rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-rl.pause();
 
 
 
 const init = () => {
     let joke = {};
 
+    process.stdin.setRawMode(true);
+
     getJokeCategory().then(cat => {
         joke["category"] = cat;
         getJokeType().then(type => {
             joke["type"] = type;
 
+            let rl = readline.createInterface(process.stdin, process.stdout);
+            rl.pause();
+
             let contFlags = () => {
+                process.stdout.write("\n");
+
                 joke["flags"] = {};
                 let allFlags = settings.jokes.possible.flags;
 
-                let flagIteration = (idx) => {
+                let flagIteration = idx => {
                     if(idx >= allFlags.length)
                         return flagIterFinished();
                     else
                     {
-                        rl.resume();
-                        rl.question(`Is this joke ${allFlags[idx]}? (y/N): `, flgAns => {
-                            rl.pause();
-
-                            if(flgAns.toLowerCase() == "y")
+                        jsl.pause(`Is this joke ${allFlags[idx]}? (y/N):`).then(key => {
+                            if(key.toLowerCase() == "y")
                                 joke["flags"][allFlags[idx]] = true;
                             else joke["flags"][allFlags[idx]] = false;
 
-                            return flagIteration((idx + 1));
+                            return flagIteration(++idx);
+                        }).catch(err => {
+                            console.error(`Error: ${err}`);
+                            return process.exit(1);
                         });
                     }
                 };
@@ -61,8 +62,19 @@ const init = () => {
                                 else
                                 {
                                     console.clear();
-                                    console.log(`${jsl.colors.fg.green}\nJoke was successfully added.${jsl.colors.rst}\n\n`);
-                                    process.exit(0);
+                                    console.log(`${jsl.colors.fg.green}\nJoke was successfully added:${jsl.colors.rst}\n\n${JSON.stringify(joke, null, 4)}\n\n\n`);
+
+                                    jsl.pause("Add another joke? (y/N): ").then(key => {
+                                        if(key.toLowerCase() === "y")
+                                        {
+                                            console.clear();
+                                            return init();
+                                        }
+                                        else return process.exit(0);
+                                    }).catch(err => {
+                                        console.error(`Error: ${err}`);
+                                        return process.exit(1);
+                                    });
                                 }
                             });
                         }
@@ -77,6 +89,8 @@ const init = () => {
                 return flagIteration(0);
             };
 
+            console.log(`Use "\\n" for a line break. Special characters like double quotes do not need to be escaped.\n`);
+
             if(type != "twopart")
             {
                 rl.resume();
@@ -84,7 +98,7 @@ const init = () => {
                     rl.pause();
                     joke["joke"] = jokeText.replace(/\\n/gm, "\n");
 
-                    contFlags();
+                    return contFlags();
                 });
             }
             else
@@ -96,7 +110,7 @@ const init = () => {
                         joke["setup"] = jokeSetup.replace(/\\n/gm, "\n");
                         joke["delivery"] = jokeDelivery.replace(/\\n/gm, "\n");
 
-                        contFlags();
+                        return contFlags();
                     });
                 });
             }
@@ -110,7 +124,8 @@ const getJokeCategory = () => {
             retryOnInvalid: true,
             onFinished: res => {
                 resolve(settings.jokes.possible.categories[res[0].optionIndex]);
-            }
+            },
+            autoSubmit: true
         });
         let catOptions = [];
         settings.jokes.possible.categories.forEach((cat, i) => {
@@ -133,7 +148,8 @@ const getJokeType = () => {
             retryOnInvalid: true,
             onFinished: res => {
                 resolve(settings.jokes.possible.types[res[0].optionIndex]);
-            }
+            },
+            autoSubmit: true
         });
         let typeOptions = [];
         settings.jokes.possible.types.forEach((type, i) => {

@@ -1,7 +1,7 @@
 <div align="center" style="text-align:center">
 
-# JokeAPI
-### A RESTful API that serves uniformly and well formatted jokes and offers a great variety of filtering methods
+# ![icon](https://sv443.net/cdn/jokeapi/icon_150x150.png)<br>JokeAPI
+### A REST API that serves uniformly and well formatted jokes and offers a great variety of filtering methods and response customization
 [![GitHub](https://img.shields.io/github/license/Sv443/JokeAPI)](https://sv443.net/LICENSE)
 [![Uptime / 7 Days](https://img.shields.io/uptimerobot/ratio/7/m782998549-afcc0d10c27c87df47e73289)](https://status.sv443.net/)
 [![Open Issues](https://img.shields.io/github/issues/Sv443/JokeAPI)](https://github.com/Sv443/JokeAPI/issues)
@@ -15,10 +15,14 @@
 
 <br><br>
 
-# [Documentation](https://sv443.net/jokeapi/v2) &bull; [Try it out](https://sv443.net/jokeapi/v2#try-it)
+# [Documentation](https://sv443.net/jokeapi/v2) &bull; [Try it out](https://sv443.net/jokeapi/v2#try-it) &bull; [Changelog](./changelog.txt)
 
 
 </div>
+<br><br>
+
+## To contribute to JokeAPI, please read the [contributing guide](./.github/Contributing.md)
+
 <br><br>
 
 # Official API Wrappers:
@@ -34,7 +38,7 @@
 - [Jokepy](https://github.com/aksty/Jokepy) by [aksty](https://github.com/aksty)
 - [Dark1](https://github.com/whiteadi/Dark1) by [whiteadi](https://github.com/whiteadi)
   
-([Contact me](https://discord.gg/aBH4uRG) to get your project added here)
+([Contact me](https://sv443.net/discord) to get your project added here)
 
 
 <br><br>

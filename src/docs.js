@@ -9,6 +9,7 @@ const packageJSON = require("../package.json");
 const parseJokes = require("./parseJokes");
 const logRequest = require("./logRequest");
 const zlib = require("zlib");
+const xss = require("xss");
 const semver = require("semver");
 const analytics = require("./analytics");
 
@@ -258,14 +259,16 @@ const inject = filePath => {
                     "<!--%#INSERT:PRIVACYPOLICYURL#%-->":      settings.info.privacyPolicyUrl,
                     "<!--%#INSERT:DOCSURL#%-->":               (!jsl.isEmpty(settings.info.docsURL) ? settings.info.docsURL : "(Error: Documentation URL not defined)"),
                     "<!--%#INSERT:RATELIMITCOUNT#%-->":        settings.httpServer.rateLimiting.toString(),
-                    "<!--%#INSERT:FORMATVERSION#%-->":         settings.jokes.jokesFormatVersion.toString()
+                    "<!--%#INSERT:FORMATVERSION#%-->":         settings.jokes.jokesFormatVersion.toString(),
+                    "<!--%#INSERT:MAXPAYLOADSIZE#%-->":        settings.httpServer.maxPayloadSize.toString(),
+                    "<!--%#INSERT:MAXURLLENGTH#%-->":          settings.httpServer.maxUrlLength.toString(),
                 };
 
                 let allMatches = 0;
                 Object.keys(injections).forEach(key => {
                     let regex = new RegExp(key, "gm");
                     allMatches += ((file.toString().match(regex) || []).length || 0);
-                    let injection = injections[key];
+                    let injection = sanitize(injections[key]);
                     file = file.replace(regex, !jsl.isEmpty(injection) ? injection : "Error");
                 });
 
@@ -284,6 +287,15 @@ const inject = filePath => {
 };
 
 /**
+ * Sanitizes a string to prevent XSS
+ * @param {String} str 
+ * @returns {String}
+ */
+const sanitize = str => {
+    return xss(str);
+};
+
+/**
  * Removes all line breaks and tab stops from an input string and returns it
  * @param {String} input 
  * @returns {String}
@@ -291,4 +303,4 @@ const inject = filePath => {
 const minify = input => input.toString().replace(/(\n|\r\n|\t)/gm, "");
 
 
-module.exports = { init, recompileDocs, minify };
+module.exports = { init, recompileDocs, minify, sanitize };

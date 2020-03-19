@@ -54,7 +54,7 @@
         <!-- #MARKER dependencies -->
         <!-- Have to do it like this because the page doesn't always have a trailing slash and that *somehow* makes it redirect to the page root: -->
         <link rel="stylesheet" href="<!--%#INSERT:DOCSURL#%-->/static/index.css">
-        <!-- <link rel="stylesheet" href="static/index.css"> -->
+        <link rel="stylesheet" href="static/index.css">
 
         <link rel="icon" type="image/png" href="<!--%#INSERT:DOCSURL#%-->/favicon.ico">
 
@@ -62,7 +62,7 @@
 
         <!-- Have to do it like this because the page doesn't always have a trailing slash and that *somehow* makes it redirect to the page root: -->
         <script src="<!--%#INSERT:DOCSURL#%-->/static/index.js"></script>
-        <!-- <script src="static/index.js"></script> -->
+        <script src="static/index.js"></script>
 
         <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=sunburst"></script> <!-- Google Code-Prettify -->
     </head>
@@ -187,19 +187,25 @@
                 <!--%#INSERT:NAME#%--> is a RESTful API that serves uniformly and well formatted jokes.<br>
                 It can be used <u>without any API token, membership, registration or payment.</u><br>
                 It supports a variety of filters that can be applied to get just the right jokes you need.<br>
-                The usage is very simple and similar to other RESTful APIs and requires only basic knowledge of HTTP/HTTPS requests and JSON, XML or YAML.<br><br>
+                The usage is very simple and similar to other RESTful APIs and requires only basic knowledge of HTTP/HTTPS requests and JSON, XML or YAML.<br>
+                <br>
+                <br>
                 If you come across a term you don't understand, you can try <span class="mimica" onclick="openNav()">opening the menu</span> and clicking on the section "Terminology".<br>
-                If you want to report a bug or an illegal joke, please <a href="<!--%#INSERT:PROJGITHUBURL#%-->/issues/new/choose" target="_blank">use the GitHub issue tracker.</a>
-                To submit a joke, <a href="#submit-joke">click here.</a><br>
+                <!--%#INSERT:NAME#%--> currently serves <!--%#INSERT:TOTALJOKES#%--> jokes. To submit a new joke, <a href="#submit">please click here.</a><br>
+                <br>
+                If you want to report a bug or an illegal joke, please <a href="<!--%#INSERT:PROJGITHUBURL#%-->/issues/new/choose" target="_blank">use the GitHub issue tracker.</a><br>
+                If you want to contribute to <!--%#INSERT:NAME#%-->, please read the <a href="<!--%#INSERT:PROJGITHUBURL#%-->/blob/master/.github/Contributing.md" target="_blank">Contributing Guide.</a><br>
+                <br>
                 <br>
                 <span style="color: orangered;">If you are new to <!--%#INSERT:NAME#%-->, please start by reading the <a href="#getting-started">Getting Started Guide</a></span><br>
                 <br>
-                Note: <!--%#INSERT:NAME#%--> has been a target of <abbr title="Denial of Service attack - a large number of consecutive requests to make a server busy and completely overload it to the point of the entire network behind the server crashing">DoS attacks</abbr> in the past, which is why there is now a limit of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute.<br>
+                <br>
+                Note: <!--%#INSERT:NAME#%--> has been a target of DoS attacks in the past, which is why there is now a limit of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute and why joke submissions are manually curated.<br>
 
                 <!-- #MARKER Try It -->
                 <div class="docHeader targetBlink" id="try-it"><a class="headerAnchorContainer" href="#try-it" title="Click to link to this header">🔗</a><span class="docHeaderText">Try it out here:</span></div>
                 
-                <div id="tryItContainer">
+                <div id="tryItContainer" class="highlightedContainer">
                     <table>
                         <tr>
                             <td>
@@ -244,7 +250,8 @@
                                 <div class="multiselect noselect">
                                     <input type="radio" id="fmt-cb1" name="formatRadio" value="json" onchange="reRender()"><label for="fmt-cb1">default (json)</label>
                                     <input type="radio" id="fmt-cb2" name="formatRadio" value="xml" onchange="reRender()"><label for="fmt-cb2">xml</label>
-                                    <input type="radio" id="fmt-cb3" name="formatRadio" value="yaml" onchange="reRender()"><label for="fmt-cb3">yaml</label>
+                                    <input type="radio" id="fmt-cb3" name="formatRadio" value="yaml" onchange="reRender()"><label for="fmt-cb3">yaml</label> <!-- TODO: -->
+                                    <input type="radio" id="fmt-cb4" name="formatRadio" value="txt" onchange="reRender()"><label for="fmt-cb4">plaintext</label>
                                 </div>
                             </td>
                         </tr>
@@ -283,11 +290,11 @@
                         </tr>
                     </table>
                     <br><br><br><br>
-                    <div id="urlBuilderWrapper">
+                    <div id="urlBuilderWrapper" class="flexItem">
                         URL: <span id="urlBuilderUrl">(Loading...)</span><br>
                         <button onclick="resetTryItForm()">Reset Form</button> <button onclick="sendTryItRequest()">Send Request &gt;</button>
                     </div>
-<code id="urlBuilderPrettyprint" class="lang-json"><span class="nocode codeheader">Result:</span>
+<code id="urlBuilderPrettyprint" class="lang-json flexItem r"><span class="nocode codeheader">Result:</span>
 <div class="actualCode" id="tryItResult">(Set parameters and click "Send Request" above)</div>
 </code>
                 </div>
@@ -305,7 +312,7 @@
                         After you've finished reading that, you can start testing out the different endpoints with a client such as <a href="https://www.getpostman.com/" target="_blank">Postman</a> and look at some examples by <a href="#examples">going to the "Examples" section.</a>
                     </li>
                 </ul>
-                If you know any good jokes and want to add them to <!--%#INSERT:NAME#%-->, please <a href="#submit-joke">click here.</a><br>
+                If you know any good jokes and want to add them to <!--%#INSERT:NAME#%-->, please <a href="#submit">click here.</a><br>
                 If you need any help, feel free to <a href="https://sv443.net/discord" target="_blank">join my Discord server.</a><br>
 
 
@@ -340,7 +347,7 @@
                 <!-- #MARKER Submit Joke -->
                 <div class="docHeader targetBlink" id="submit"><a class="headerAnchorContainer" href="#submit" title="Click to link to this header">🔗</a><span class="docHeaderText">Submit a Joke:</span></div>
 
-                <div id="submitContainer">
+                <div id="submitContainer" class="highlightedContainer">
                     <div class="submitFlexItem">
                         <table id="propertyTable">
                             <tr>
@@ -407,7 +414,7 @@
                 It is used to change the response format from the default (JSON) to <span class="insFormatsS">(Loading...)</span>, depending on what you need.<br>
                 If the format parameter is invalid or not specified at all, the default value of JSON will be used.<br>
                 Available formats are <mark class="insFormats">(Loading...)</mark><br><br>
-                <details><summary>Example (click to view)</summary>
+                <details><summary>Example 1 (click to view)</summary>
                     URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?format=xml</mark><br><br>
 <code class="prettyprint"><div class="actualCode">
 &lt;data&gt;
@@ -423,6 +430,15 @@
 	&lt;/flags&gt;
 	&lt;id&gt;12&lt;/id&gt;
 &lt;/data&gt;
+</div></code>
+                </details><br>
+
+                <details><summary>Example 2 (click to view)</summary>
+                    URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?format=txt</mark><br><br>
+<code><div class="actualCode">
+How many programmers does it take to screw in a light bulb?
+
+None. It's a hardware problem.
 </div></code>
                 </details>
 
@@ -557,39 +573,53 @@
                     <tr>
                         <td class="g">200</td>
                         <td>Ok</td>
-                        <td>The request was accepted and processed successfully and the respose text contains the requested data or a status message.</td>
+                        <td>The request was accepted and processed successfully and the respose text contains the requested data or a status message</td>
                     </tr>
                     <tr>
                         <td class="g">201</td>
                         <td>Created</td>
-                        <td>The joke submission is formatted correctly and was accepted and successfully saved.</td>
+                        <td>The joke submission is formatted correctly and was accepted and successfully saved</td>
                     </tr>
                     <tr>
                         <td class="r">400</td>
                         <td>Bad Request</td>
-                        <td>The request you have sent to <!--%#INSERT:NAME#%--> is formatted incorrectly and cannot be processed.</td>
+                        <td>The request you have sent to <!--%#INSERT:NAME#%--> is formatted incorrectly and cannot be processed</td>
                     </tr>
                     <tr>
                         <td class="r">403</td>
                         <td>Forbidden</td>
-                        <td>You have been added to the blacklist due to malicious behavior and are not allowed to send requests to <!--%#INSERT:NAME#%--> anymore.</td>
+                        <td>You have been added to the blacklist due to malicious behavior and are not allowed to send requests to <!--%#INSERT:NAME#%--> anymore</td>
                     </tr>
                     <tr>
                         <td class="r">404</td>
                         <td>Not Found</td>
-                        <td>The URL you have requested couldn't be found.</td>
+                        <td>The URL you have requested couldn't be found</td>
+                    </tr>
+                    <tr>
+                        <td class="r">413</td>
+                        <td>Payload Too Large</td>
+                        <td>The payload data sent to the server exceeds the maximum size of <!--%#INSERT:MAXPAYLOADSIZE#%--> bytes</td>
+                    </tr>
+                    <tr>
+                        <td class="r">414</td>
+                        <td>URI Too Long</td>
+                        <td>The URL exceeds the maximum length of <!--%#INSERT:MAXURLLENGTH#%--> characters</td>
                     </tr>
                     <tr>
                         <td class="r">429</td>
                         <td>Too Many Requests</td>
-                        <td>You have exceeded the limit of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute and have to wait a bit until you are allowed to send requests again.</td>
+                        <td>You have exceeded the limit of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute and have to wait a bit until you are allowed to send requests again</td>
                     </tr>
                     <tr>
                         <td class="dr">500</td>
                         <td>Internal Server Error</td>
-                        <td>There was a general internal error within <!--%#INSERT:NAME#%-->. You can get more info from the properties in the response text.</td>
+                        <td>There was a general internal error within <!--%#INSERT:NAME#%-->. You can get more info from the properties in the response text</td>
                     </tr>
                 </table>
+                
+                <br>
+
+                <span class="col g">Success</span> &bull; <span class="col r">Client Error</span> &bull; <span class="col dr">Server Error</span>
 
 
 
@@ -740,7 +770,7 @@
                 </span>
                 <br><br>
                 This endpoint is used to submit a joke to be reviewed and added to <!--%#INSERT:NAME#%-->'s official jokes.<br>
-                If you instead just want to manually submit a joke, please <a href="#submit-joke">click here.</a><br>
+                If you instead just want to manually submit a joke, please <a href="#submit">click here.</a><br>
                 The payload needs to be sent as JSON. Different <a href="#response-formats">formats</a> are not allowed here.<br>
                 The request payload has to follow the same object structure that the jokes are served in when using the "joke" endpoint.<br>
                 <br>
@@ -1026,9 +1056,9 @@ public class Flags
                 <span class="subHeader" id="id-range">ID Range:</span>
                 If this filter is used, you will only get jokes that are within the provided range of IDs.<br>
                 You don't necessarily need to provide an ID <i>range</i> though, a single ID will work just fine as well.<br>
-                Example: an ID range of 0-9 will mean you will only get one of the first 10 jokes.y<br>
+                Example: an ID range of 0-9 will mean you will only get one of the first 10 jokes, while an ID range of 5 will mean you will only get the 6th joke.<br>
                 You can set the ID range by using the <a href="#idrange-param">?idRange</a> URL parameter.<br>
-                As there are currently <!--%#INSERT:TOTALJOKES#%--> jokes, the ID range can be any range from <mark>0 - <!--%#INSERT:TOTALJOKESZEROINDEXED#%--></mark><br>
+                As there are currently <!--%#INSERT:TOTALJOKES#%--> jokes, the ID range can be anywhere in the range of <mark>0</mark> to <mark><!--%#INSERT:TOTALJOKESZEROINDEXED#%--></mark><br>
 
 
                 <!-- #MARKER Legal Stuff -->
@@ -1056,7 +1086,7 @@ public class Flags
                 <div class="indented">
                     I will hereby not claim any legal responsibility or liability for <!--%#INSERT:NAME#%--> and the jokes it serves (especially those from the "Dark" category).<br>
                     Whether it is used maliciously or breaks something in your project or someone gets offended by a joke, I can't be held accountable.<br>
-                    Additionally, I will only be able to provide security updates for a small selection of versions, a list of which you can find <a href="https://github.com/Sv443/JokeAPI/security/policy" target="_blank">here.</a><br>
+                    Additionally, I will only be able to provide security updates for a small selection of versions, a list of which you can find <a href="https://github.com/Sv443/JokeAPI/security/policy#supported-versions" target="_blank">here.</a><br>
                     I am doing my best to ensure security and stability but there's only so much a single developer can do.<br>
                     Please report any issue that may arise to <a href="<!--%#INSERT:PROJGITHUBURL#%-->/issues/new/choose" target="_blank">the GitHub issue tracker</a> and I will try my best to fix it as soon as possible.<br>
                     If you want to contact me, you can <a href="https://sv443.net/discord" target="_blank">join my Discord server</a> (fastest way to contact me) or send me an E-Mail at <a href="mailto:sven.fehler@web.de?subject=JokeAPI">sven.fehler@web.de</a>
@@ -1091,10 +1121,11 @@ public class Flags
                         <li><a href="https://npmjs.com/package/farmhash" target="_blank">farmhash</a></li>
                         <li><a href="https://npmjs.com/package/http-ratelimit" target="_blank">HTTP-RateLimit</a></li>
                         <li><a href="https://npmjs.com/package/js2xmlparser" target="_blank">js2xmlparser</a></li>
+                        <li><a href="https://npmjs.com/package/svjsl" target="_blank">JSLib</a></li>
                         <li><a href="https://npmjs.com/package/json-to-pretty-yaml" target="_blank">json-to-pretty-yaml</a></li>
                         <li><a href="https://npmjs.com/package/mysql" target="_blank">MySQL</a></li>
                         <li><a href="https://npmjs.com/package/node-wrap" target="_blank">Node-Wrap</a></li>
-                        <li><a href="https://npmjs.com/package/svjsl" target="_blank">JSLib (npm)</a></li>
+                        <li><a href="https://www.npmjs.com/package/xss" target="_blank">xss</a></li>
                     </ul>
                 </div>
 
@@ -1134,7 +1165,7 @@ public class Flags
                 <a class="noul" onclick="closeNav()" href="#try-it">Try it out</a>
                 <a class="noul" onclick="closeNav()" href="#getting-started">Getting Started</a>
                 <a class="noul" onclick="closeNav()" href="#wrappers">API Wrappers</a>
-                <a class="noul" onclick="closeNav()" href="#submit-joke">Submit a Joke</a>
+                <a class="noul" onclick="closeNav()" href="#submit">Submit a Joke</a>
                 <a class="noul" onclick="closeNav()" href="#url-parameters">URL Parameters</a>
                 <a class="noul" onclick="closeNav()" href="#errors">Errors</a>
                 <details>

@@ -54,10 +54,10 @@ const settings = {
         },
     },
     jokes: {
-        jokesFormatVersion: 2,                                  // current joke format version
-        jokesFilePath: "./data/jokes.json",                     // path to the jokes file
-        jokeSubmissionURL: "https://sv443.net/r/submitjoke_v2", // joke submission url
-        jokeSubmissionPath: "./data/submissions/",              // path to a directory where joke submissions should be saved to - needs trailing slash
+        jokesFormatVersion: 2,                               // current joke format version
+        jokesFilePath: "./data/jokes.json",                  // path to the jokes file
+        jokeSubmissionURL: `${packageJSON.homepage}#submit`, // joke submission url
+        jokeSubmissionPath: "./data/submissions/",           // path to a directory where joke submissions should be saved to - needs trailing slash
         possible: {
             anyCategoryName: "Any", // the name of the "Any" category
             categories: [           // all categories (excluding "Any") - case insensitive
@@ -76,6 +76,7 @@ const settings = {
                 "json",
                 "xml",
                 "yaml",
+                "txt",
             ],
             types: [ // all joke types - HAS TO BE LOWER CASE!
                 "single",
@@ -93,15 +94,17 @@ const settings = {
         splitCharRegex: /[,+-]/gm,     // which characters should separate the values of parameters with support for multiple values
     },
     httpServer: {
-        port: 8076,         // http server port
-        allowCORS: true,    // whether or not to allow Cross Origin Resource Sharing
-        rateLimiting: 60,   // amount of allowed requests per below defined timeframe
-        timeFrame: 1,       // timeframe in min - also supports floating point numbers
-        urlPathOffset: 0,   // example: "/jokeapi/info" with an offset of 1 will only start parsing the path beginning at "info" - an Apache reverse proxy will do this automatically though
-        disableCache: true, // whether or not to disable the cache - default: true (setting to false may prevent the users from getting new jokes)
-        infoHeaders: true,  // whether or not to add an informational header about JokeAPI to each request
-        reverseProxy: true, // whether or not JokeAPI gets its requests from a reverse proxy
-        regexes: {          // regular expressions to validate IP addresses - thanks to https://nbviewer.jupyter.org/github/rasbt/python_reference/blob/master/tutorials/useful_regex.ipynb
+        port: 8076,           // http server port
+        allowCORS: true,      // whether or not to allow Cross Origin Resource Sharing
+        rateLimiting: 60,     // amount of allowed requests per below defined timeframe
+        timeFrame: 1,         // timeframe in min - also supports floating point numbers
+        urlPathOffset: 0,     // example: "/jokeapi/info" with an offset of 1 will only start parsing the path beginning at "info" - an Apache reverse proxy will do this automatically though
+        maxPayloadSize: 5120, // max size (in bytes) that will be accepted in a PUT request - if payload exceeds this size, it will abort with status 413
+        maxUrlLength: 250,    // max amount of characters of the URL - if the URL is longer than this, the request will abort with status 414
+        disableCache: true,   // whether or not to disable the cache - default: true (setting to false may prevent the users from getting new jokes)
+        infoHeaders: true,    // whether or not to add an informational header about JokeAPI to each request
+        reverseProxy: true,   // whether or not JokeAPI gets its requests from a reverse proxy
+        regexes: {            // regular expressions to validate IP addresses - thanks to https://nbviewer.jupyter.org/github/rasbt/python_reference/blob/master/tutorials/useful_regex.ipynb
             ipv4: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/gm,
             ipv6: /^\s*((([0-9A-Fa-f]{1,4}:){7}([0-9A-Fa-f]{1,4}|:))|(([0-9A-Fa-f]{1,4}:){6}(:[0-9A-Fa-f]{1,4}|((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){5}(((:[0-9A-Fa-f]{1,4}){1,2})|:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3})|:))|(([0-9A-Fa-f]{1,4}:){4}(((:[0-9A-Fa-f]{1,4}){1,3})|((:[0-9A-Fa-f]{1,4})?:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){3}(((:[0-9A-Fa-f]{1,4}){1,4})|((:[0-9A-Fa-f]{1,4}){0,2}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){2}(((:[0-9A-Fa-f]{1,4}){1,5})|((:[0-9A-Fa-f]{1,4}){0,3}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(([0-9A-Fa-f]{1,4}:){1}(((:[0-9A-Fa-f]{1,4}){1,6})|((:[0-9A-Fa-f]{1,4}){0,4}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:))|(:(((:[0-9A-Fa-f]{1,4}){1,7})|((:[0-9A-Fa-f]{1,4}){0,5}:((25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)){3}))|:)))(%.+)?\s*$/gm,
         },
@@ -119,7 +122,7 @@ const settings = {
             deflate: true, // Whether or not Deflate encoding should be enabled for the documentation page
             brotli: true,  // Whether or not Brotli encoding should be enabled for the documentation page
         },
-        encodingPriority: [ // The priority of the encodings. Items with a lower array index have a higher priority
+        encodingPriority: [ // The priority of the encodings. Items with a lower array index (further to the left) have a higher priority
             "brotli", "gzip", "deflate"
         ],
     },
