@@ -21,6 +21,10 @@
 </div>
 <br><br>
 
+## To contribute to JokeAPI, please read the [contributing guide](./Contributing.md)
+
+<br><br>
+
 # Official API Wrappers:
 - [Rust](https://github.com/canarado/sv443_jokeapi_wrapper)
 - [Python](https://github.com/thenamesweretakenalready/Sv443s-JokeAPI-Python-Wrapper)
