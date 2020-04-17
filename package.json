@@ -48,7 +48,7 @@
     "json-to-pretty-yaml": "^1.2.2",
     "mysql": "^2.18.1",
     "node-wrap": "^0.2.0",
-    "svjsl": "^1.9.0",
+    "svjsl": "^1.9.4",
     "xss": "^1.0.6"
   },
   "devDependencies": {
