@@ -6,7 +6,7 @@ const bgc = jsl.colors.bg;
 const settings = {
     debug: {
         verboseLogging: false,      // set to true to enable extra debug output
-        progressBarDisabled: false, // set to true to disable the progress bar - greatly improves readability of verbose debug output
+        progressBarDisabled: true,  // set to true to disable the progress bar - greatly improves readability of verbose debug output
     },
     info: {
         name: "JokeAPI",                                // the name of JokeAPI

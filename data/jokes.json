@@ -2328,6 +2328,214 @@
                 "sexist": false
             },
             "id": 169
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "Two guys walked into a bar.",
+            "delivery": "The third guy ducked.",
+            "id": 170
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "Two peanuts were walking.",
+            "delivery": "One was assaulted.",
+            "id": 171
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What kind of bees produce milk?",
+            "delivery": "Boo-Bees",
+            "id": 172
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "A grocery store cashier asked if I would like my milk in a bag.",
+            "delivery": "I told her \"No, thanks. The carton works fine\".",
+            "id": 173
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What does a perverted frog say?",
+            "delivery": "Rubbit",
+            "id": 174
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": true,
+                "sexist": false
+            },
+            "setup": "How many Jews can you fit into a car?",
+            "delivery": "Two in the front, three in the back, and a hundred in the ash tray.",
+            "id": 175
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": true,
+                "sexist": false
+            },
+            "setup": "What is the difference between a pizza and a black man?",
+            "delivery": "A pizza can feed a family of five.",
+            "id": 176
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What is the difference between an oral thermometer and a rectal thermometer?",
+            "delivery": "The taste.",
+            "id": 177
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What do you call a witch at the beach?",
+            "delivery": "A Sandwich",
+            "id": 178
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What do you call 4 Mexicans in quicksand?",
+            "delivery": "Quatro Sinko",
+            "id": 179
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "Two fish in a tank. One turns to the other and says, \"Do you know how to drive this thing?\"",
+            "id": 180
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "Why can't orphans play baseball?",
+            "delivery": "hey don't know where home is.",
+            "id": 181
+        },
+        {
+            "category": "Dark",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "My grandfather says I'm too reliant on technology.\nI called him a hypocrite and unplugged his life support.",
+            "id": 182
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": true,
+                "sexist": false
+            },
+            "setup": "Why do Jewish women prefer circumcised men?",
+            "delivery": "Cause they won't take anything until it's atleast 10% off.",
+            "id": 183
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": true
+            },
+            "setup": "Why are men like lawn mowers?",
+            "delivery": "They are very hard to get started, they make yucky smells and half the time they don’t even work.",
+            "id": 184
         }
     ]
 }
