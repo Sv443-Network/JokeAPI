@@ -16,7 +16,7 @@ const run = () => {
         return process.exit(0);
     }
 
-    pause(`Do you want to go through them all now? (Y/n):${jsl.colors.rst}`).then(key => {
+    jsl.pause(`Do you want to go through them all now? (Y/n):${jsl.colors.rst}`).then(key => {
         if(key.toLowerCase && key.toLowerCase() == "n")
             process.exit(0);
         else
@@ -52,13 +52,13 @@ const run = () => {
                 }
                 else console.error(`${jsl.colors.fg.red}Error: Unsuppoted joke type "${submission.type}"${jsl.colors.rst}`);
 
-                pause("Do you want to add this joke? (y/N):").then(key => {
+                jsl.pause("Do you want to add this joke? (y/N):").then(key => {
                     if(key.toLowerCase() === "y")
                     {
                         addJoke(submissions[idx]);
-                        process.stdout.write(`${jsl.colors.fg.green}Adding joke.${jsl.colors.rst}\n\n`);
+                        process.stdout.write(`${jsl.colors.fg.green}Adding joke.${jsl.colors.rst}\n\n\n\n`);
                     }
-                    else process.stdout.write(`${jsl.colors.fg.red}Not adding joke.${jsl.colors.rst}\n\n`);
+                    else process.stdout.write(`${jsl.colors.fg.red}Not adding joke.${jsl.colors.rst}\n\n\n\n`);
 
                     goThroughSubmission(++idx);
                 });
@@ -119,7 +119,7 @@ const getFlags = joke => {
     });
 
     if(flags.length == 0)
-        return "";
+        return "(none)";
 
     return jsl.readableArray(flags);
 };
@@ -135,39 +135,5 @@ const getSubmissions = () => {
     });
     return submissions;
 };
-
-/**
- * Waits for the user to press a key and then resolves a Promise
- * @param {String} text The text to display
- * @returns {Promise} Passes the pressed key in the resolution or the error message in the rejection
- */
-function pause(text = "Press any key to continue...")
-{
-    if(!process.stdin.isRaw)
-        process.stdin.setRawMode(true);
-
-    return new Promise((resolve, reject) => {
-        process.stdout.write(`${text} `);
-        process.stdin.resume();
-
-        let onData = function(chunk)
-        {
-            if(/\u0003/gu.test(chunk)) // eslint-disable-line no-control-regex
-                process.exit(0);
-
-            process.stdout.write("\n");
-            process.stdin.pause();
-
-            process.stdin.removeListener("data", onData);
-            return resolve(chunk.toString());
-        }
-
-        process.stdin.on("data", onData);
-
-        process.stdin.on("error", err => {
-            return reject(err);
-        });
-    });
-}
 
 run();
