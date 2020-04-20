@@ -7,6 +7,7 @@ const settings = {
     debug: {
         verboseLogging: false,      // set to true to enable extra debug output
         progressBarDisabled: true,  // set to true to disable the progress bar - greatly improves readability of verbose debug output
+        onlyLogErrors: true,        // set to true to disable sending any console logs but error messages
     },
     info: {
         name: "JokeAPI",                                // the name of JokeAPI
