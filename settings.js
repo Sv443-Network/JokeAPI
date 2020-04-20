@@ -44,7 +44,7 @@ const settings = {
     },
     wrapper: {
         mainFilePath: "./src/main.js",          // main script file
-        skipWrapping: false,                    // whether or not to skip the wrapping through node-wrap
+        skipWrapping: true,                    // whether or not to skip the wrapping through node-wrap
         wrapperSettings: {
             console: true,                      // whether Node-Wrap should log to the console
             crashTimeout: 2000,                 // timeout (in ms) until the process should be restarted after a crash

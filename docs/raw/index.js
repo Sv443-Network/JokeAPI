@@ -744,7 +744,18 @@ function buildSubmission()
     }
 
     var subDisp = document.getElementById("submissionDisplay");
-    subDisp.innerHTML = JSON.stringify(submission, null, 4);
+
+    var escapedSubmission = JSON.parse(JSON.stringify(submission)); // copy value without reference
+    if(type == "single")
+    {
+        escapedSubmission.joke = htmlEscape(submission.joke);
+    }
+    else if(type == "twopart")
+    {
+        escapedSubmission.setup = htmlEscape(submission.setup);
+        escapedSubmission.delivery = htmlEscape(submission.delivery);
+    }
+    subDisp.innerHTML = JSON.stringify(escapedSubmission, null, 4);
 
     var subCodeElem = document.getElementById("submissionCodeElement");
 
@@ -768,6 +779,19 @@ function buildSubmission()
     setTimeout(function() {
         PR.prettyPrint(); // eslint-disable-line no-undef
     }, 5);
+}
+
+/**
+ * Escapes unsafe HTML
+ * @param {String} unsafeHTML
+ * @returns {String}
+ */
+function htmlEscape(unsafeHTML)
+{
+    unsafeHTML = unsafeHTML.replace(/</g, "&lt;");
+    unsafeHTML = unsafeHTML.replace(/>/g, "&gt;");
+
+    return unsafeHTML;
 }
 
 //#MARKER privacy policy
