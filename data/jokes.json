@@ -640,7 +640,7 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": true
             },
             "id": 47
         },
