@@ -7,6 +7,7 @@ const settings = {
     debug: {
         verboseLogging: false,      // set to true to enable extra debug output
         progressBarDisabled: true,  // set to true to disable the progress bar - greatly improves readability of verbose debug output
+        onlyLogErrors: true,        // set to true to disable sending any console logs but error messages
     },
     info: {
         name: "JokeAPI",                                // the name of JokeAPI
@@ -24,6 +25,18 @@ const settings = {
         infoMsg: "If you want to be updated on the status and future updates of JokeAPI or need some help, please consider joining my Discord server: https://sv443.net/discord",
         privacyPolicyUrl: "https://sv443.net/privacypolicy/en"
     },
+    wrapper: {
+        mainFilePath: "./src/main.js",          // main script file
+        skipWrapping: true,                    // whether or not to skip the wrapping through node-wrap
+        wrapperSettings: {
+            console: true,                      // whether Node-Wrap should log to the console
+            crashTimeout: 2000,                 // timeout (in ms) until the process should be restarted after a crash
+            logFile: "./data/logs/wrapper.log", // Node-Wrap log file
+            logTimestamp: true,                 // whether to add a timestamp to the log
+            restartOnCrash: true,               // whether to restart the process after a crash
+            restartTimeout: 0,                  // timeout (in ms) until the process should be started again after a restart has been requested
+        },
+    },
     init: {
         initDirs: [ // directories that should be generated if they don't exist - paths relative to root of project - doesn't necessarily need trailing slash
             "./data/logs",
@@ -40,18 +53,6 @@ const settings = {
         spacerAfter: 10,               // after how many logged requests a spacer should be put - set to 0 to disable
         disableLogging: false,         // set to true to disable logging a character on each request
         blacklistLoggingEnabled: true, // whether or not to log the character when an IP is on the blacklist
-    },
-    wrapper: {
-        mainFilePath: "./src/main.js",          // main script file
-        skipWrapping: false,                    // whether or not to skip the wrapping through node-wrap
-        wrapperSettings: {
-            console: true,                      // whether Node-Wrap should log to the console
-            crashTimeout: 2000,                 // timeout (in ms) until the process should be restarted after a crash
-            logFile: "./data/logs/wrapper.log", // Node-Wrap log file
-            logTimestamp: true,                 // whether to add a timestamp to the log
-            restartOnCrash: true,               // whether to restart the process after a crash
-            restartTimeout: 0,                  // timeout (in ms) until the process should be started again after a restart has been requested
-        },
     },
     jokes: {
         jokesFormatVersion: 2,                               // current joke format version

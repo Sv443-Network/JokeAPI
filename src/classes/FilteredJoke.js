@@ -156,8 +156,16 @@ class FilteredJoke
             return false;
         }
         
-        this._searchString = decodeURIComponent(searchString);
-        return true;
+        try
+        {
+            this._searchString = decodeURIComponent(searchString);
+            return true;
+        }
+        catch(err)
+        {
+            this._errors.push("The URI is malformatted or the \"contains\" parameter isn't correctly percent-encoded");
+            return false;
+        }
     }
 
     /**

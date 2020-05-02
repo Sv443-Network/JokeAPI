@@ -1,17 +1,25 @@
 ====================
 
  JokeAPI Changelog
- - Version 2.1.2 -
+ - Version 2.1.3 -
 
 ====================
 
 
 
-Planned for the next version (2.2.0):
+[PLANNED: 2.2.0]
     - Allow definition of max requests per minute per each client (see GitHub issue #37)
 
 
-[CURRENT: 2.1.2] - Plain Text update
+[CURRENT: 2.1.3] - 2020 Q2 general patch #1
+    - Added option to disable all console output but error messages (GitHub isse #72)
+    - The content of jokes in the joke submission form is now correctly escaped and can no longer mess up the page (GitHub issue #68)
+    - Fixed crash when parsing a malformatted URI (GitHub issue #69 (nice))
+    - Re-flagged some jokes
+    - Updated dependencies
+
+
+[2.1.2] - Plain Text update
     - Added file format "txt" to receive data as plain text
     - Fixed the joke submission URL in the /info endpoint data
     - Added HTTP error codes:
@@ -19,26 +27,26 @@ Planned for the next version (2.2.0):
         - 414 URI Too Long
 
 
-[OLD: 2.1.1] - Auth update hotfix
+[2.1.1] - Auth update hotfix
     - Fixed incorrect error cause when using an out-of-range ID range parameter (see GitHub issue #54)
     - Added submission form (https://sv443.net/jokeapi/v2#submit)
 
 
-[OLD: 2.1.0] - The auth update
+[2.1.0] - The auth update
     - Added an authorization header to make whitelisting possible without needing to have a static IP
         - Added the script "npm run add-token [amount]" to add one or more tokens
     - Improved the documentation (see GitHub issue #52)
     - Fixed a few bugs in the documentation
 
 
-[OLD: 2.0.1] - A few hotfixes for the big 2.0.0 updates and some very very minor features I wanted to add
+[2.0.1] - A few hotfixes for the big 2.0.0 updates and some very very minor features I wanted to add
     - Hotfixed a few bugs from the big 2.0.0 update
     - Fixed joke ID caching (to not serve the same jokes multiple times)
     - Added three new commands that are run through CI and before contributing
     - Enabled automated code fixing with ESLint
 
 
-[OLD: 2.0.0] - The complete rewrite - JokeAPI was completely rewritten and should now run like 100x better and be more easy to develop and maintain
+[2.0.0] - The complete rewrite - JokeAPI was completely rewritten and should now run like 100x better and be more easy to develop and maintain
     - Massively improved the "Try it out" section in the docs
     - Reformatted the jokes to always contain all flags
     - Added support for selecting multiple categories at once (for example: "https://sv443.net/jokeapi/v2/joke/Dark,Miscellaneous/")
@@ -69,24 +77,24 @@ Planned for the next version (2.2.0):
     - Updated the contributor guide (contributing.md file)
 
 
-[OLD: 1.1.2]
+[1.1.2]
 	- joke categories are now case insensitive
 	- trailing slashes now don't produce an "invalid category" error anymore
 
 
-[OLD: 1.1.1]
+[1.1.1]
 	- better IP getter for the rate limiting
 	- updated dependencies
 	- very small improvements to the console window
 
 
-[OLD: 1.1.0]
+[1.1.0]
     - switched to ReadStreams instead of just loading the entire file to RAM to massively improve request performance (more details in GitHub issue #2)
         - this basically means it transmits the data over time, instead of loading it all to RAM and sending it at once
 	- added rate limiting to counter DoS attacks (yes I've been getting some of those *sigh*)
 
 
-[OLD: 1.0.0]
+[1.0.0]
     - turned the single endpoint into multiple endpoints
         - "categories" to get all available categories
         - "info" to get all information about JokeAPI
@@ -117,20 +125,20 @@ Planned for the next version (2.2.0):
     - added this changelog
 
 
-[OLD: 0.1.2]
+[0.1.2]
     - added "Dark" category
     - added joke submission form
     - improved interactive example
     - modified gitignore
 
 
-[OLD: 0.1.1]
+[0.1.1]
     - added interactive example on docs page
     - made icon on docs page smaller
     - added wrapper script
 
 
-[OLD: 0.1.0]
+[0.1.0]
     - basic functionality
         - 47 jokes
         - category filter

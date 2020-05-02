@@ -640,7 +640,7 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": true
             },
             "id": 47
         },
@@ -2536,6 +2536,19 @@
             "setup": "Why are men like lawn mowers?",
             "delivery": "They are very hard to get started, they make yucky smells and half the time they don’t even work.",
             "id": 184
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "Knock knock.\nWho's there?\nRecursion.\nRecursion who?\nKnock knock.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 185
         }
     ]
 }
