@@ -16,7 +16,9 @@
     "submissions": "node tools/submissions",
     "lint": "eslint ./ && exit $?",
     "all": "npm run validate-jokes && npm run validate-ids && npm run lint",
-    "dependency-graph": "node dev/madge"
+    "dependency-graph": "node dev/madge",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -49,10 +51,12 @@
     "mysql": "^2.18.1",
     "node-wrap": "^0.2.0",
     "svjsl": "^1.9.4",
-    "xss": "^1.0.6"
+    "xss": "^1.0.6",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
     "madge": "^3.8.0"
-  }
+  },
+  "snyk": true
 }
