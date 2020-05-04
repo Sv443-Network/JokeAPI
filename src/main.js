@@ -17,12 +17,11 @@ const docs = require("./docs");
 const analytics = require("./analytics");
 const logRequest = require("./logRequest");
 const auth = require("./auth");
+const languages = require("./languages");
 
 const col = jsl.colors.fg;
 process.debuggerActive = jsl.inDebugger();
 const noDbg = process.debuggerActive || false;
-
-let pb;
 
 settings.init.exitSignals.forEach(sig => {
     process.on(sig, () => softExit(0));
@@ -32,45 +31,52 @@ settings.init.exitSignals.forEach(sig => {
 const initAll = () => {
     let initTimestamp = new Date().getTime();
     debug("Init", "Initializing all modules - calling joke parser...");
-
+    
     process.jokeapi = {};
     initializeDirs();
 
-    //#SECTION parse jokes
+    let pb;
+    
     if(!noDbg && !settings.debug.progressBarDisabled)
-        pb = new jsl.ProgressBar(6, "Parsing Jokes...");
+        pb = new jsl.ProgressBar(7, "Initializing languages...");
+    
+    //#SECTION init langs
+    languages.init().then(() => {
 
-    parseJokes.init().then(() => {
-        
-        //#SECTION init lists
-        if(!jsl.isEmpty(pb)) pb.next("Initializing lists...");
-        lists.init().then(() => {
+        //#SECTION parse jokes
+        if(!jsl.isEmpty(pb)) pb.next("Parsing Jokes...");
+        parseJokes.init().then(() => {
+            
+            //#SECTION init lists
+            if(!jsl.isEmpty(pb)) pb.next("Initializing lists...");
+            lists.init().then(() => {
 
-            //#SECTION init documentation page
-            if(!jsl.isEmpty(pb)) pb.next("Initializing documentation...");
-            docs.init().then(() => {
+                //#SECTION init documentation page
+                if(!jsl.isEmpty(pb)) pb.next("Initializing documentation...");
+                docs.init().then(() => {
 
-                //#SECTION init auth
-                if(!jsl.isEmpty(pb)) pb.next("Initializing Authorization module...");
-                auth.init().then(() => {
+                    //#SECTION init auth
+                    if(!jsl.isEmpty(pb)) pb.next("Initializing Authorization module...");
+                    auth.init().then(() => {
 
-                    //#SECTION init HTTP server
-                    if(!jsl.isEmpty(pb)) pb.next("Initializing HTTP listener...");
-                    httpServer.init().then(() => {
+                        //#SECTION init HTTP server
+                        if(!jsl.isEmpty(pb)) pb.next("Initializing HTTP listener...");
+                        httpServer.init().then(() => {
 
-                        //#SECTION init analytics
-                        if(!jsl.isEmpty(pb)) pb.next("Initializing analytics module...");
-                        analytics.init().then(() => {
-                            if(!jsl.isEmpty(pb)) pb.next("Done.");
-                            logRequest.initMsg(initTimestamp);
+                            //#SECTION init analytics
+                            if(!jsl.isEmpty(pb)) pb.next("Initializing analytics module...");
+                            analytics.init().then(() => {
+                                if(!jsl.isEmpty(pb)) pb.next("Done.");
+                                logRequest.initMsg(initTimestamp);
 
-                            // done.
-                        }).catch(err => initError("initializing the analytics module", err));
-                    }).catch(err => initError("initializing the HTTP server", err));
-                }).catch(err => initError("initializing the Auth module", err));
-            }).catch(err => initError("initializing documentation", err));
-        }).catch(err => initError("initializing the lists", err));
-    }).catch(err => initError("parsing jokes", err));
+                                // done.
+                            }).catch(err => initError("initializing the analytics module", err));
+                        }).catch(err => initError("initializing the HTTP server", err));
+                    }).catch(err => initError("initializing the Auth module", err));
+                }).catch(err => initError("initializing documentation", err));
+            }).catch(err => initError("initializing the lists", err));
+        }).catch(err => initError("parsing jokes", err));
+    }).catch(err => initError("initializing languages", err));
 };
 
 

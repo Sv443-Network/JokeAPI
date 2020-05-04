@@ -13,6 +13,7 @@ const AllJokes = require("./classes/AllJokes");
  */
 const init = () => {
     return new Promise((resolve, reject) => {
+        let jokesFiles = fs.readdirSync(settings.jokes.jokesFolderPath);
         fs.readFile(settings.jokes.jokesFilePath, (err, jokesFile) => {
             if(err)
                 return reject(err);

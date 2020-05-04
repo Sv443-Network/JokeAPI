@@ -56,7 +56,7 @@ const settings = {
     },
     jokes: {
         jokesFormatVersion: 2,                               // current joke format version
-        jokesFilePath: "./data/jokes.json",                  // path to the jokes file
+        jokesFolderPath: "./data/jokes/",                    // path to the jokes folder - needs trailing slash
         jokeSubmissionURL: `${packageJSON.homepage}#submit`, // joke submission url
         jokeSubmissionPath: "./data/submissions/",           // path to a directory where joke submissions should be saved to - needs trailing slash
         possible: {
@@ -180,6 +180,10 @@ const settings = {
     auth: {
         tokenListFile: "./data/tokens.json", // path to the token list file
         tokenHeaderName: "x-auth-token",     // the name of the token header (lower case)
+    },
+    languages:
+    {
+        langFilePath: "./data/languages.json", // file containing all language codes and corresponding language information
     }
 }
 
