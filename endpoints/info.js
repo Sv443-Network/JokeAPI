@@ -32,7 +32,7 @@ const meta = {
 const call = (req, res, url, params, format) => {
     jsl.unused([req, url, params]);
 
-    let errFromRegistry = require("." + settings.errors.errorRegistryIncludePath)["100"];
+    let errFromRegistry = require("." + settings.errors.errorMessagesPath)["100"];
     let responseText = {};
     if(format != "xml")
     {

@@ -56,38 +56,78 @@ module.exports = {
     },
     "104": {
         "errorInternal": true,
-        "errorMessage": "Internal Error while calling Endpoint",
-        "causedBy": [
-            `An error in the code - please contact me through one of the options on my website (${settings.info.author.website}) with the additional info below.`
-        ]
+        "errorMessage": {
+            "en": "Internal Error while calling Endpoint",
+            "de": "Interner Error während des Aufrufs eines Endpunktes"
+        },
+        "causedBy": {
+            "en": [
+                `An error in the code - please contact me through one of the options on my website (${settings.info.author.website}) with the additional info.`
+            ],
+            "de": [
+                `Ein Error im Quellcode - bitte kontaktiere mich durch eine der Möglichkeiten auf meiner Website (${settings.info.author.website}) mit den zusätzlichen Informationen.`
+            ]
+        }
     },
     "105": {
         "errorInternal": false,
-        "errorMessage": "Malformed Joke",
-        "causedBy": [
-            "This joke was formatted incorrectly."
-        ]
+        "errorMessage": {
+            "en": "Malformed Joke",
+            "de": "Falsch formattierter Witz"
+        },
+        "causedBy": {
+            "en": [
+                "This joke was formatted incorrectly."
+            ],
+            "de": [
+                "Dieser Witz wurde nicht korrekt formattiert."
+            ]
+        }
     },
     "106": {
         "errorInternal": false,
-        "errorMessage": "No matching joke found",
-        "causedBy": [
-            "No jokes were found that match your provided filter(s)"
-        ]
+        "errorMessage": {
+            "en": "No matching joke found",
+            "de": "Kein übereinstimmender Witz gefunden"
+        },
+        "causedBy": {
+            "en": [
+                "No jokes were found that match your provided filter(s)."
+            ],
+            "de": [
+                "Keine Witze wurden gefunden, die den Filtern entsprechen."
+            ]
+        }
     },
     "107": {
         "errorInternal": false,
-        "errorMessage": "Payload too large",
-        "causedBy": [
-            `The provided payload exceeds the limit of ${settings.httpServer.maxPayloadSize} bytes (${(settings.httpServer.maxPayloadSize / 1024).toFixed(1)} kB)`
-        ]
+        "errorMessage": {
+            "en": "Payload too large",
+            "de": "Anfrageinhalt zu groß"
+        },
+        "causedBy": {
+            "en": [
+                `The provided payload exceeds the limit of ${settings.httpServer.maxPayloadSize} bytes (${(settings.httpServer.maxPayloadSize / 1024).toFixed(1)} kB).`
+            ],
+            "de": [
+                `Der Anfrageinhalt ist größer als das Maximum von ${settings.httpServer.maxPayloadSize} bytes (${(settings.httpServer.maxPayloadSize / 1024).toFixed(1)} kB).`
+            ]
+        }
     },
     "108": {
         "errorInternal": false,
-        "errorMessage": "URI Too Long",
-        "causedBy": [
-            `The URL exceeds the maximum length of ${settings.httpServer.maxUrlLength} characters`
-        ]
+        "errorMessage": {
+            "en": "URL Too Long",
+            "de": "URL zu lang"
+        },
+        "causedBy": {
+            "en": [
+                `The URL exceeds the maximum length of ${settings.httpServer.maxUrlLength} characters.`
+            ],
+            "de": [
+                `Die angefragte URL ist länger als die Maximallänge von ${settings.httpServer.maxUrlLength} Zeichen.`
+            ]
+        }
     }
     //#MARKER Class 2xx
 }

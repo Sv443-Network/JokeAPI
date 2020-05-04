@@ -128,8 +128,8 @@ const settings = {
         ],
     },
     errors: {
-        errorRegistryIncludePath: "./data/errorRegistry", // path to the error registry
-        errorLogDir: "./data/logs/",                      // path to the error log directory - needs trailing slash
+        errorMessagesPath: "./data/errorMessages", // path to the error registry
+        errorLogDir: "./data/logs/",               // path to the error log directory - needs trailing slash
     },
     lists: {
         blacklistPath: "./data/lists/ipBlacklist.json",             // path to the IP blacklist

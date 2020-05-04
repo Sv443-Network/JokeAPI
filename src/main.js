@@ -76,7 +76,7 @@ const initAll = () => {
                 }).catch(err => initError("initializing documentation", err));
             }).catch(err => initError("initializing the lists", err));
         }).catch(err => initError("parsing jokes", err));
-    }).catch(err => initError("initializing languages", err));
+    }).catch(err => initError("initializing languages module", err));
 };
 
 

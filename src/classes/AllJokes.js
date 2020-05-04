@@ -27,21 +27,31 @@
  * @prop {Number} id The ID of the joke
  */
 
-/**
- * @typedef {Object} JokeArray
- * @prop {Object} info
- * @prop {Number} info.formatVersion
- * @prop {Array<SingleJoke|TwopartJoke>} jokes
- */
-
 class AllJokes
 {
     /**
      * Constructs a new AllJokes object. This object contains all methods to get certain jokes
-     * @param {JokeArray} jokeArray 
+     * @param {Object} jokeArray 
      */
     constructor(jokeArray)
     {
+        // TODO: rework so this is the new accepted jokeArray:
+        /*
+        {
+            "en": [
+                {
+                    (joke)
+                },
+                ...
+            ],
+            "de": [
+                {
+                    (joke)
+                },
+                ...
+            ]
+        }
+        */
         if(typeof jokeArray != "object" || Array.isArray(jokeArray) || !Array.isArray(jokeArray.jokes))
             throw new Error(`Error while constructing a new AllJokes object: parameter "jokeArray" is invalid`);
 
@@ -52,20 +62,24 @@ class AllJokes
     }
 
     /**
-     * Returns an array of all jokes
+     * Returns an array of all jokes of the specified language
+     * @param {String} langCode Two character language code
      * @returns {Array<SingleJoke|TwopartJoke>}
      */
-    getJokeArray()
+    getJokeArray(langCode)
     {
+        // TODO: implement langCode
         return this.jokes;
     }
 
     /**
      * Returns the joke format version
+     * @param {String} langCode Two character language code
      * @returns {(Number|undefined)} Returns a number, if the format version was set, returns undefined, if not
      */
-    getFormatVersion()
+    getFormatVersion(langCode)
     {
+        // TODO: implement langCode
         if(this.info == undefined)
             return undefined;
         return this.info.formatVersion;
@@ -73,19 +87,23 @@ class AllJokes
 
     /**
      * Returns the (human readable / 1-indexed) count of jokes
+     * @param {String} langCode Two character language code
      * @returns {Number}
      */
-    getJokeCount()
+    getJokeCount(langCode)
     {
+        // TODO: implement langCode
         return this._jokeCount;
     }
 
     /**
      * Returns the joke format version
+     * @param {String} langCode Two character language code
      * @returns {Number}
      */
-    getJokeFormatVersion()
+    getJokeFormatVersion(langCode)
     {
+        // TODO: implement langCode
         return this._formatVersion;
     }
 }

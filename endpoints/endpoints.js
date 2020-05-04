@@ -102,7 +102,7 @@ const call = (req, res, url, params, format) => {
 };
 
 const epError = (res, format, err) => {
-    let errFromRegistry = require("." + settings.errors.errorRegistryIncludePath)["100"];
+    let errFromRegistry = require("." + settings.errors.errorMessagesPath)["100"];
 
     let errObj = {};
 

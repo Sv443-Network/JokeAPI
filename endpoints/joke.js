@@ -151,7 +151,7 @@ const call = (req, res, url, params, format) => {
  * @param {String} msg 
  */
 const isErrored = (res, format, msg) => {
-    let errFromRegistry = require("." + settings.errors.errorRegistryIncludePath)["106"];
+    let errFromRegistry = require("." + settings.errors.errorMessagesPath)["106"];
     let errorObj = {}
     if(format != "xml")
     {

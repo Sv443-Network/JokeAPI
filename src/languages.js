@@ -35,7 +35,7 @@ function isValidLang(langCode)
     if(typeof langCode !== "string" || langCode.length !== 2)
         return "Language code is not a string or not two characters in length";
 
-    let requested = process.languages[langCode];
+    let requested = process.languages[langCode.toLowerCase()];
 
     if(typeof requested === "string")
         return true;

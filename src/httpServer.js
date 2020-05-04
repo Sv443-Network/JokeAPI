@@ -350,7 +350,7 @@ const init = () => {
 const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage) => {
     try
     {
-        let errFromRegistry = require(`.${settings.errors.errorRegistryIncludePath}`)[errorCode.toString()];
+        let errFromRegistry = require(`.${settings.errors.errorMessagesPath}`)[errorCode.toString()];
         let errObj = {};
 
         if(fileFormat != "xml")
