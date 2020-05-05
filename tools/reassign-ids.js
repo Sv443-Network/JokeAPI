@@ -1,6 +1,8 @@
 // this reassigns all jokes' IDs. Always run this after something changes in the joke's order
 // run this with the command "npm run reassign-ids"
 
+// TODO: rework all of this
+
 try
 {
     const fs = require("fs");

@@ -1,6 +1,10 @@
 const jsl = require("svjsl");
 const settings = require("../settings");
 
+
+// TODO: rework this
+
+
 console.log(`\nValidating jokes in "${settings.jokes.jokesFilePath}"...\n`);
 
 require("../src/parseJokes").init().then(() => {

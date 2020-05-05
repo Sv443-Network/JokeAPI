@@ -3,7 +3,7 @@ const readline = require("readline");
 const settings = require("../settings");
 const fs = require("fs");
 
-
+// TODO: rework all of this
 
 const init = () => {
     let joke = {};

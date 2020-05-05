@@ -6,6 +6,10 @@ const jsl = require("svjsl");
 let addedCount = 0;
 let jokesFile = getAllJokes();
 
+
+// TODO: rework this
+
+
 const run = () => {
     let submissions = getSubmissions();
 

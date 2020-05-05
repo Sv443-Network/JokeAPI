@@ -1,3 +1,10 @@
+const jsl = require("svjsl");
+
+const languages = require("../languages");
+
+const settings = require("../../settings");
+
+
 /**
  * @typedef {Object} SingleJoke A joke of type single
  * @prop {String} category The category of the joke
@@ -27,6 +34,24 @@
  * @prop {Number} id The ID of the joke
  */
 
+// expected format:
+/*
+{
+    "en": {
+        info: {
+            formatVersion: 2
+        },
+        jokes: [
+            {
+                (joke)
+            },
+            ...
+        ]
+    },
+    ...
+}
+*/
+
 class AllJokes
 {
     /**
@@ -35,76 +60,76 @@ class AllJokes
      */
     constructor(jokeArray)
     {
-        // TODO: rework so this is the new accepted jokeArray:
-        /*
-        {
-            "en": [
-                {
-                    (joke)
-                },
-                ...
-            ],
-            "de": [
-                {
-                    (joke)
-                },
-                ...
-            ]
-        }
-        */
-        if(typeof jokeArray != "object" || Array.isArray(jokeArray) || !Array.isArray(jokeArray.jokes))
+        this.jokes = {};
+        let jokeCount = 0;
+        let formatVersions = [];
+
+        //#SECTION check validity, get joke count and get format versions
+        Object.keys(jokeArray).forEach(key => {
+            if(!languages.isValidLang(key))
+                throw new Error(`Error: invalid language code in construction of an AllJokes object. Expected valid two character language code - got "${key}"`);
+
+            jokeCount += jokeArray[key].jokes.length;
+
+            let fv = jokeArray[key].info.formatVersion;
+
+            if(fv != settings.jokes.jokesFormatVersion)
+                throw new Error(`Error: Jokes file with language ${key} has the wrong format version. Expected ${settings.jokes.jokesFormatVersion} but got ${fv}`);
+
+            formatVersions.push(fv);
+        });
+
+        formatVersions.push(settings.jokes.jokesFormatVersion);
+
+        if(!jsl.allEqual(formatVersions))
+            throw new Error(`Error: One or more of the jokes-xy.json files contain(s) a wrong formatVersion parameter`);
+
+        if(typeof jokeArray != "object" || Array.isArray(jokeArray))
             throw new Error(`Error while constructing a new AllJokes object: parameter "jokeArray" is invalid`);
 
-        this.info = jokeArray["info"];
-        this.jokes = jokeArray["jokes"];
-        this._jokeCount = jokeArray["jokes"].length;
-        this._formatVersion = this.info.formatVersion;
+        this.jokes = jokeArray;
+        this._jokeCount = jokeCount;
+        this._formatVersions = formatVersions;
+
+        return this;
     }
 
     /**
      * Returns an array of all jokes of the specified language
-     * @param {String} langCode Two character language code
+     * @param {String} [langCode="en"] Two character language code
      * @returns {Array<SingleJoke|TwopartJoke>}
      */
     getJokeArray(langCode)
     {
-        // TODO: implement langCode
-        return this.jokes;
+        if(!languages.isValidLang(langCode))
+            langCode = settings.languages.defaultLanguage;
+
+        return (typeof this.jokes[langCode] == "object" ? this.jokes[langCode].jokes : []);
     }
 
     /**
      * Returns the joke format version
-     * @param {String} langCode Two character language code
-     * @returns {(Number|undefined)} Returns a number, if the format version was set, returns undefined, if not
+     * @param {String} [langCode="en"] Two character language code
+     * @returns {Number|undefined} Returns a number if the format version was set, returns undefined, if not
      */
     getFormatVersion(langCode)
     {
-        // TODO: implement langCode
-        if(this.info == undefined)
+        if(!languages.isValidLang(langCode))
+            langCode = settings.languages.defaultLanguage;
+        
+        if(typeof this.jokes[langCode] != "object")
             return undefined;
-        return this.info.formatVersion;
+        
+        return this.jokes[langCode].info ? this.jokes[langCode].info.formatVersion : undefined;
     }
 
     /**
      * Returns the (human readable / 1-indexed) count of jokes
-     * @param {String} langCode Two character language code
      * @returns {Number}
      */
-    getJokeCount(langCode)
+    getJokeCount()
     {
-        // TODO: implement langCode
         return this._jokeCount;
-    }
-
-    /**
-     * Returns the joke format version
-     * @param {String} langCode Two character language code
-     * @returns {Number}
-     */
-    getJokeFormatVersion(langCode)
-    {
-        // TODO: implement langCode
-        return this._formatVersion;
     }
 }
 

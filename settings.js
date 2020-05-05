@@ -184,6 +184,7 @@ const settings = {
     languages:
     {
         langFilePath: "./data/languages.json", // file containing all language codes and corresponding language information
+        defaultLanguage: "en",                 // default language (two character code)
     }
 }
 

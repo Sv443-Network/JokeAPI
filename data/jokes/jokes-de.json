@@ -1,0 +1,20 @@
+{
+    "info": {
+        "formatVersion": 2
+    },
+    "jokes": [
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "joke": "TESTING_DE",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 0
+        }
+    ]
+}

@@ -17,125 +17,138 @@ const init = () => {
         let jokesFiles = fs.readdirSync(settings.jokes.jokesFolderPath);
         let result = [];
         let allJokesFilesObj = {};
+
+        let outerPromises = [];
+
         jokesFiles.forEach(jf => {
             if(jf == "template.json")
                 return;
 
-            let fileNameValid = (fileName) => {
-                if(!fileName.endsWith(".json"))
+            outerPromises.push(new Promise((resolveOuter, rejectOuter) => {
+                jsl.unused(rejectOuter);
+
+                let fileNameValid = (fileName) => {
+                    if(!fileName.endsWith(".json"))
+                        return false;
+                    let spl1 = fileName.split(".json")[0];
+                    if(spl1.includes("-") && languages.isValidLang(spl1.split("-")[1]) && spl1.split("-")[0] == "jokes")
+                        return true;
                     return false;
-                let spl1 = fileName.split(".json")[0];
-                if(spl1.includes("-") && languages.isValidLang(spl1.split("-")[1]) && spl1.split("-")[0] == "jokes")
-                    return true;
-                return false;
-            };
+                };
 
-            let getLangCode = (fileName) => {
-                if(!fileName.endsWith(".json"))
-                    return false;
-                let spl1 = fileName.split(".json")[0];
-                if(spl1.includes("-") && languages.isValidLang(spl1.split("-")[1]))
-                    return spl1.split("-")[1].toLowerCase();
-            };
+                let getLangCode = (fileName) => {
+                    if(!fileName.endsWith(".json"))
+                        return false;
+                    let spl1 = fileName.split(".json")[0];
+                    if(spl1.includes("-") && languages.isValidLang(spl1.split("-")[1]))
+                        return spl1.split("-")[1].toLowerCase();
+                };
 
-            let langCode = getLangCode(jf);
+                let langCode = getLangCode(jf);
 
-            if(!jf.endsWith(".json") || !fileNameValid(jf))
-                result.push(`${jsl.colors.fg.red}Error: Invalid file "${settings.jokes.jokesFolderPath}${jf}" found. It has to follow this pattern: "jokes-xy.json"`);
+                if(!jf.endsWith(".json") || !fileNameValid(jf))
+                    result.push(`${jsl.colors.fg.red}Error: Invalid file "${settings.jokes.jokesFolderPath}${jf}" found. It has to follow this pattern: "jokes-xy.json"`);
 
-            fs.readFile(`${settings.jokes.jokesFolderPath}${jf}`, (err, jokesFile) => {
-                if(err)
-                    return reject(err);
 
-                try
-                {
-                    jokesFile = JSON.parse(jokesFile.toString());
-                }
-                catch(err)
-                {
-                    return reject(`Error while parsing file "${settings.jokes.jokesFilePath}" as JSON: ${err}`);
-                }
+                fs.readFile(`${settings.jokes.jokesFolderPath}${jf}`, (err, jokesFile) => {
+                    if(err)
+                        return reject(err);
 
-                //#MARKER format version
-                if(jokesFile.info.formatVersion == settings.jokes.jokesFormatVersion)
-                    result.push(true);
-                else result.push(`Joke file format version is set to "${jokesFile.info.formatVersion}" - Expected: "${settings.jokes.jokesFormatVersion}"`);
+                    try
+                    {
+                        jokesFile = JSON.parse(jokesFile.toString());
+                    }
+                    catch(err)
+                    {
+                        return reject(`Error while parsing file "${settings.jokes.jokesFilePath}" as JSON: ${err}`);
+                    }
 
-                jokesFile.jokes.forEach((joke, i) => {
-                    //#MARKER joke ID
-                    if(!jsl.isEmpty(joke.id) && !isNaN(parseInt(joke.id)))
+                    //#MARKER format version
+                    if(jokesFile.info.formatVersion == settings.jokes.jokesFormatVersion)
                         result.push(true);
-                    else result.push(`Joke with index/ID ${i} doesn't have an "id" property or it is invalid`);
+                    else result.push(`Joke file format version is set to "${jokesFile.info.formatVersion}" - Expected: "${settings.jokes.jokesFormatVersion}"`);
 
-                    //#MARKER type and actual joke
-                    if(joke.type == "single")
-                    {
-                        if(!jsl.isEmpty(joke.joke))
+                    jokesFile.jokes.forEach((joke, i) => {
+                        //#MARKER joke ID
+                        if(!jsl.isEmpty(joke.id) && !isNaN(parseInt(joke.id)))
                             result.push(true);
-                        else result.push(`Joke with index/ID ${i} doesn't have a "joke" property`);
-                    }
-                    else if(joke.type == "twopart")
-                    {
-                        if(!jsl.isEmpty(joke.setup))
-                            result.push(true);
-                        else result.push(`Joke with index/ID ${i} doesn't have a "setup" property`);
+                        else result.push(`Joke with index/ID ${i} doesn't have an "id" property or it is invalid`);
 
-                        if(!jsl.isEmpty(joke.delivery))
-                            result.push(true);
-                        else result.push(`Joke with index/ID ${i} doesn't have a "delivery" property`);
-                    }
-                    else result.push(`Joke with index/ID ${i} doesn't have a "type" property or it is invalid`);
+                        //#MARKER type and actual joke
+                        if(joke.type == "single")
+                        {
+                            if(!jsl.isEmpty(joke.joke))
+                                result.push(true);
+                            else result.push(`Joke with index/ID ${i} doesn't have a "joke" property`);
+                        }
+                        else if(joke.type == "twopart")
+                        {
+                            if(!jsl.isEmpty(joke.setup))
+                                result.push(true);
+                            else result.push(`Joke with index/ID ${i} doesn't have a "setup" property`);
 
-                    //#MARKER flags
-                    if(!jsl.isEmpty(joke.flags))
-                    {
-                        if(!jsl.isEmpty(joke.flags.nsfw) || (joke.flags.nsfw !== false && joke.flags.nsfw !== true))
-                            result.push(true);
-                        else result.push(`Joke with index/ID ${i} has an invalid "NSFW" flag`);
+                            if(!jsl.isEmpty(joke.delivery))
+                                result.push(true);
+                            else result.push(`Joke with index/ID ${i} doesn't have a "delivery" property`);
+                        }
+                        else result.push(`Joke with index/ID ${i} doesn't have a "type" property or it is invalid`);
 
-                        if(!jsl.isEmpty(joke.flags.racist) || (joke.flags.racist !== false && joke.flags.racist !== true))
-                            result.push(true);
-                        else result.push(`Joke with index/ID ${i} has an invalid "racist" flag`);
+                        //#MARKER flags
+                        if(!jsl.isEmpty(joke.flags))
+                        {
+                            if(!jsl.isEmpty(joke.flags.nsfw) || (joke.flags.nsfw !== false && joke.flags.nsfw !== true))
+                                result.push(true);
+                            else result.push(`Joke with index/ID ${i} has an invalid "NSFW" flag`);
 
-                        if(!jsl.isEmpty(joke.flags.sexist) || (joke.flags.sexist !== false && joke.flags.sexist !== true))
-                            result.push(true);
-                        else result.push(`Joke with index/ID ${i} has an invalid "sexist" flag`);
+                            if(!jsl.isEmpty(joke.flags.racist) || (joke.flags.racist !== false && joke.flags.racist !== true))
+                                result.push(true);
+                            else result.push(`Joke with index/ID ${i} has an invalid "racist" flag`);
 
-                        if(!jsl.isEmpty(joke.flags.political) || (joke.flags.political !== false && joke.flags.political !== true))
-                            result.push(true);
-                        else result.push(`Joke with index/ID ${i} has an invalid "political" flag`);
+                            if(!jsl.isEmpty(joke.flags.sexist) || (joke.flags.sexist !== false && joke.flags.sexist !== true))
+                                result.push(true);
+                            else result.push(`Joke with index/ID ${i} has an invalid "sexist" flag`);
 
-                        if(!jsl.isEmpty(joke.flags.religious) || (joke.flags.religious !== false && joke.flags.religious !== true))
-                            result.push(true);
-                        else result.push(`Joke with index/ID ${i} has an invalid "religious" flag`);
-                    }
-                    else result.push(`Joke with index/ID ${i} doesn't have a "flags" object or it is invalid`);
+                            if(!jsl.isEmpty(joke.flags.political) || (joke.flags.political !== false && joke.flags.political !== true))
+                                result.push(true);
+                            else result.push(`Joke with index/ID ${i} has an invalid "political" flag`);
+
+                            if(!jsl.isEmpty(joke.flags.religious) || (joke.flags.religious !== false && joke.flags.religious !== true))
+                                result.push(true);
+                            else result.push(`Joke with index/ID ${i} has an invalid "religious" flag`);
+                        }
+                        else result.push(`Joke with index/ID ${i} doesn't have a "flags" object or it is invalid`);
+                    });
+
+                    allJokesFilesObj[langCode] = jokesFile;
+                    return resolveOuter();
                 });
+            }));
+        });
 
-                allJokesFilesObj[langCode] = jokesFile;
+        Promise.all(outerPromises).then(() => {
+            let errors = [];
+
+            result.forEach(res => {
+                if(typeof res === "string")
+                    errors.push(res);
             });
+
+            let allJokesObj = new AllJokes(allJokesFilesObj);
+            module.exports.allJokes = allJokesObj;
+            module.exports.jokeCount = allJokesObj.getJokeCount();
+            module.exports.jokeFormatVersion = allJokesObj.getFormatVersion();
+            this.jokeFormatVersion = allJokesObj.getFormatVersion();
+
+
+            debug("JokeParser", `Done parsing jokes. Errors: ${errors.length === 0 ? jsl.colors.fg.green : jsl.colors.fg.red}${errors.length}${jsl.colors.rst}`);
+
+            if(jsl.allEqual(result) && result[0] === true && errors.length === 0)
+                return resolve();
+            
+            return reject(`Errors:\n- ${errors.join("\n- ")}`);
+        }).catch(err => {
+            return reject(err);
         });
-
-        let errors = [];
-
-        result.forEach(res => {
-            if(typeof res === "string")
-                errors.push(res);
-        });
-
-        let allJokesObj = new AllJokes(allJokesFilesObj);
-        module.exports.allJokes = allJokesObj;
-        module.exports.jokeCount = allJokesObj.getJokeCount();
-        module.exports.jokeFormatVersion = allJokesObj.getFormatVersion();
-        this.jokeFormatVersion = allJokesObj.getFormatVersion();
-
-
-        debug("JokeParser", `Done parsing jokes. Errors: ${errors.length === 0 ? jsl.colors.fg.green : jsl.colors.fg.red}${errors.length}${jsl.colors.rst}`);
-
-        if(jsl.allEqual(result) && result[0] === true && errors.length === 0)
-            return resolve();
-        
-        return reject(`Errors:\n- ${errors.join("\n- ")}`);
     });
 }
 
