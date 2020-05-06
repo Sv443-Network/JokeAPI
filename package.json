@@ -36,7 +36,9 @@
     "email": "sven.fehler@web.de",
     "url": "https://sv443.net/"
   },
-  "contributors": [],
+  "contributors": [
+    "Liam Townsley <contact@liamtownsley.me> (https://liamtownsley.me)"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Sv443/JokeAPI/issues/new/choose",
