@@ -1,4 +1,5 @@
 const fs = require("fs");
+const Fuse = require("fuse.js");
 
 const settings = require("../settings");
 
@@ -43,4 +44,35 @@ function isValidLang(langCode)
         return "Language code doesn't exist";
 }
 
-module.exports = { init, isValidLang };
+/**
+ * Converts a language name (fuzzy) into an ISO 639-1 or ISO 639-2 compatible lang code
+ * @param {String} language
+ * @returns {Boolean|String} Returns `false` if no matching language code was found, else returns string with language code
+ */
+function languageToCode(language)
+{
+    if(process.languages == undefined)
+        throw new Error("INTERNAL_ERROR: Language module was not correctly initialized (yet)");
+
+    if(typeof language !== "string" || language.length <= 1)
+        throw new TypeError("Language is not a string or not two characters in length");
+
+    let searchObj = [];
+
+    Object.keys(process.languages).forEach(key => {
+        searchObj.push({
+            code: key,
+            lang: process.languages[key].toLowerCase()
+        });
+    });
+
+    let fuzzy = new Fuse(searchObj, {
+        includeScore: true,
+        keys: ["code", "lang"],
+        threshold: 0.5
+    });
+
+    return fuzzy.search(language)[0].item.code;
+}
+
+module.exports = { init, isValidLang, languageToCode };

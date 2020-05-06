@@ -370,6 +370,15 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>Language:</td>
+                                <td>
+                                    <select id="f_language"> <!-- TODO: -->
+                                        <option value="en" class="selectOnInit" selected>English</option>
+                                        <option value="de">German</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>Flags:</td>
                                 <td>
                                     <input type="checkbox" class="uncheckOnInit" id="f_flags_nsfw" value="nsfw"><label for="f_flags_nsfw">NSFW</label>
@@ -643,9 +652,9 @@ None. It's a hardware problem.
                 <details>
                     <summary>Example - click to view</summary>
                     <span class="requestURLwrapper">
-                        <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/joke/Programming,Miscellaneous?format=xml&blacklistFlags=nsfw,sexist&type=single</span>
+                        <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/joke/Programming,Miscellaneous?format=xml&blacklistFlags=nsfw,sexist&type=single&lang=ru</span>
                     </span><br><br>
-                    Will give a joke from either the Programming or the Miscellaneous category, with the payload <a href="#response-formats">format</a> XML,<br>
+                    Will give a Russian joke from either the Programming or the Miscellaneous category, with the payload <a href="#response-formats">format</a> XML,<br>
                     with the <a href="#joke-type">joke type</a> "single", while also preventing all jokes that are potentially not safe for work and sexist from being served.
                 </details>
                 <br><br>
@@ -653,6 +662,7 @@ None. It's a hardware problem.
                 <ul>
                     <li><a class="requestURL" href="#response-formats">?format</a></li>
                     <li><a class="requestURL" href="#flags-param">?blacklistFlags</a></li>
+                    <li><a class="requestURL" href="#lang">?lang</a></li> <!-- TODO: -->
                     <li><a class="requestURL" href="#id-range">?idRange</a></li>
                     <li><a class="requestURL" href="#search-string">?contains</a></li>
                     <li><a class="requestURL" href="#joke-type">?type</a></li>
@@ -693,6 +703,37 @@ None. It's a hardware problem.
                 Supported URL parameters:<br>
                 <ul>
                     <li><a class="requestURL" href="#response-formats">?format</a></li>
+                </ul>
+                <br><br>
+
+
+                <!--#SECTION LangCode-->
+                <span id="langcodes-endpoint" class="subHeader">Language Code:</span>
+                <span class="requestURLwrapper">
+                    <span class="requestMethodGET">GET</span>
+                    <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/langcode/<span class="placeholder">[Language]</span></span>
+                </span>
+                <br><br>
+                This endpoint returns the language code of a provided language.<br>
+                This code is to be used in <a href="#joke-endpoint">fetching</a> and <a href="#submit-endpoint">submitting</a> jokes in different languages.<br>
+                <details>
+                    <summary>Example - click to view</summary>
+                    <br>
+                    <span class="requestURLwrapper">
+                        <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/langcode/german</span>
+                    </span><br><br>
+<code class="prettyprint"><div class="actualCode">
+{
+    "error": false,
+    "code": "de"
+}
+</div></code>
+                </details>
+                <br><br>
+                Supported URL parameters:<br>
+                <ul>
+                    <li><a class="requestURL" href="#response-formats">?format</a></li>
+                    <li><a class="requestURL" href="#no-default">?noDefault</a></li> <!-- TODO: -->
                 </ul>
                 <br><br>
 
@@ -1119,6 +1160,7 @@ public class Flags
                     <ul>
                         <li><a href="https://npmjs.com/package/dotenv" target="_blank">dotenv</a></li>
                         <li><a href="https://npmjs.com/package/farmhash" target="_blank">farmhash</a></li>
+                        <li><a href="https://fusejs.io/" target="_blank">Fuse.js</a></li>
                         <li><a href="https://npmjs.com/package/http-ratelimit" target="_blank">HTTP-RateLimit</a></li>
                         <li><a href="https://npmjs.com/package/js2xmlparser" target="_blank">js2xmlparser</a></li>
                         <li><a href="https://npmjs.com/package/svjsl" target="_blank">JSLib</a></li>
@@ -1177,6 +1219,7 @@ public class Flags
                         <li><a class="noul" onclick="closeNav()" href="#joke-endpoint">Get Joke</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#info-endpoint">Info</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#categories-endpoint">Categories</a></li>
+                        <li><a class="noul" onclick="closeNav()" href="#langcodes-endpoint">Language Codes</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#flags-endpoint">Flags</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#formats-endpoint">Formats</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#ping-endpoint">Ping</a></li>
