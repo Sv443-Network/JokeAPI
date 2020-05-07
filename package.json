@@ -37,7 +37,11 @@
     "url": "https://sv443.net/"
   },
   "contributors": [
-    "Liam Townsley <contact@liamtownsley.me> (https://liamtownsley.me)"
+    {
+      "name": "Liam Townsley",
+      "email": "contact@liamtownsley.me",
+      "url": "https://liamtownsley.me"
+    }
   ],
   "license": "MIT",
   "bugs": {
