@@ -21,7 +21,7 @@
 </div>
 <br><br>
 
-## To contribute to JokeAPI, please read the [contributing guide](./.github/Contributing.md)
+## Before contributing to JokeAPI, please read the [contributing guide](./.github/Contributing.md)
 
 <br><br>
 
