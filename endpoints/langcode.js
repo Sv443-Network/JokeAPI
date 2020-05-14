@@ -46,7 +46,7 @@ const call = (req, res, url, params, format) => {
     let defaultValDisabled = (params && params.noDefault && params.noDefault == true);
 
     let responseText = "";
-    let langCode = defaultValDisabled ? null : settings.languages.defaultLanguage;
+    let langCode = defaultValDisabled ? null : settings.languages.defaultLanguage; //lgtm [js/useless-assignment-to-local]
     let language = url[1].toString().toLowerCase();
 
     let ltc = languages.languageToCode(language);

@@ -264,7 +264,7 @@ const validateSingle = joke => {
         if(typeof langV === "string")
             jokeErrors.push(`"lang" parameter: ${langV}`);
         else if(langV !== true)
-            jokeErrors(`Joke doesn't have a "lang" property or it is empty or of the wrong type`);
+            jokeErrors.push(`Joke doesn't have a "lang" property or it is empty or of the wrong type`);
     }
     catch(err)
     {
