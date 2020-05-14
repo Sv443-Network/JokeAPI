@@ -465,7 +465,7 @@ body code .nocode.codeheader::before {
 }
 
 kbd {
-    font-family: "Cascadia Code", "Inconsolata", "Roboto", "Courier New", monospace;
+    font-family: "Cascadia Code", "Inconsolata", "Roboto Mono", "Courier New", monospace;
     font-variant-ligatures: none;
     font-size: 13px;
     display: inline-block;
