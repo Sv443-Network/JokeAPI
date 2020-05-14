@@ -8,6 +8,8 @@ const logRequest = require("./logRequest");
 const convertFileFormat = require("./fileFormatConverter");
 const analytics = require("./analytics");
 const parseURL = require("./parseURL");
+const meter = require("./meter");
+
 const settings = require("../settings");
 
 jsl.unused([http, analytics]);
@@ -108,6 +110,8 @@ const writeJokeToFile = (res, filePath, submittedJoke, fileFormat, ip, analytics
                 "submission": submittedJoke,
                 "timestamp": new Date().getTime()
             };
+
+            meter.update("submission", 1);
 
             let submissionObject = analyticsObject;
             submissionObject.submission = submittedJoke;

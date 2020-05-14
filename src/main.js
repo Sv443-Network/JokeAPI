@@ -18,6 +18,7 @@ const analytics = require("./analytics");
 const logRequest = require("./logRequest");
 const auth = require("./auth");
 const languages = require("./languages");
+const meter = require("./meter");
 
 const col = jsl.colors.fg;
 process.debuggerActive = jsl.inDebugger();
@@ -66,6 +67,10 @@ const initAll = () => {
                             //#SECTION init analytics
                             if(!jsl.isEmpty(pb)) pb.next("Initializing analytics module...");
                             analytics.init().then(() => {
+                                
+                                //#SECTION init meter
+                                meter.init();
+
                                 if(!jsl.isEmpty(pb)) pb.next("Done.");
                                 logRequest.initMsg(initTimestamp);
 

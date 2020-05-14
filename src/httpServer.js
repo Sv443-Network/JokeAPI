@@ -17,6 +17,7 @@ const lists = require("./lists");
 const analytics = require("./analytics");
 const jokeSubmission = require("./jokeSubmission");
 const auth = require("./auth");
+const meter = require("./meter");
 
 
 const init = () => {
@@ -52,6 +53,7 @@ const init = () => {
                 {
                     if(lists.isBlacklisted(ip))
                     {
+                        meter.update("blacklisted", 1);
                         logRequest("blacklisted", null, analyticsObject);
                         return respondWithError(res, 103, 403, fileFormat);
                     }
@@ -98,6 +100,10 @@ const init = () => {
                     });
                     return respondWithError(res, 500, 100, fileFormat, err);
                 }
+
+                meter.update("reqtotal", 1);
+                meter.update("req1min", 1);
+                meter.update("req10min", 1);
 
                 //#SECTION GET
                 if(req.method === "GET")

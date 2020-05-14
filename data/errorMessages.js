@@ -73,14 +73,14 @@ module.exports = {
         "errorInternal": false,
         "errorMessage": {
             "en": "Malformed Joke",
-            "de": "Falsch formattierter Witz"
+            "de": "Falsch formatierter Witz"
         },
         "causedBy": {
             "en": [
                 "This joke was formatted incorrectly."
             ],
             "de": [
-                "Dieser Witz wurde nicht korrekt formattiert."
+                "Dieser Witz wurde nicht korrekt formatiert."
             ]
         }
     },

@@ -133,6 +133,7 @@ const init = () => {
                     errors.push(res);
             });
 
+            // TODO: this
             let allJokesObj = new AllJokes(allJokesFilesObj);
             module.exports.allJokes = allJokesObj;
             module.exports.jokeCount = allJokesObj.getJokeCount();
