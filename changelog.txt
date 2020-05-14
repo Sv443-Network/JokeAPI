@@ -12,6 +12,7 @@
     - Jokes and error messages now support different languages (see GitHub issue #75)
         - Submissions need to contain the "lang" parameter with a two character language code
         - Different languages can be requested with the "?lang=xy" URL parameter
+    - Added pm2 metrics that make it easier for me to monitor JokeAPI
 
 
 [2.1.3] - 2020 Q2 general patch #1
