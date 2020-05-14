@@ -60,10 +60,11 @@
     "node-wrap": "^0.2.0",
     "snyk": "^1.319.2",
     "svjsl": "^1.9.4",
-    "xss": "^1.0.6"
+    "xss": "^1.0.6",
+    "snyk": "^1.320.3"
   },
   "devDependencies": {
-    "eslint": "^6.8.0",
+    "eslint": "^7.0.0",
     "madge": "^3.9.0"
   },
   "snyk": true
