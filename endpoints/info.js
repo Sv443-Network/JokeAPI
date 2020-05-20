@@ -4,6 +4,7 @@ const httpServer = require("../src/httpServer");
 const parseURL = require("../src/parseURL");
 const jsl = require("svjsl");
 const parseJokes = require("../src/parseJokes");
+const languages = require("../src/languages");
 const settings = require("../settings");
 
 jsl.unused(http);
@@ -70,6 +71,7 @@ const call = (req, res, url, params, format) => {
                 "submissionURL": settings.jokes.jokeSubmissionURL
             },
             "info": settings.info.infoMsg,
+            "supportedLangs": languages.supportedLangs(),
             "timestamp": new Date().getTime()
         });
     }
@@ -86,6 +88,7 @@ const call = (req, res, url, params, format) => {
                 "submissionURL": settings.jokes.jokeSubmissionURL
             },
             "info": settings.info.infoMsg,
+            "supportedLangs": languages.supportedLangs(),
             "timestamp": new Date().getTime()
         });
     }

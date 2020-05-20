@@ -1,4 +1,5 @@
 const fs = require("fs");
+const jsl = require("svjsl");
 const Fuse = require("fuse.js");
 
 const settings = require("../settings");
@@ -75,4 +76,53 @@ function languageToCode(language)
     return fuzzy.search(language)[0].item.code;
 }
 
-module.exports = { init, isValidLang, languageToCode };
+/**
+ * Converts an ISO 639-1 or ISO 639-2 compatible lang code into a language name
+ * @param {String} code
+ * @returns {Boolean|String} Returns `false` if no matching language was found, else returns string with language name
+ */
+function codeToLanguage(code)
+{
+    try
+    {
+        let jsonObj = JSON.parse(fs.readFileSync(settings.languages.langFilePath).toString());
+
+        return jsonObj[code] || false;
+    }
+    catch(err)
+    {
+        jsl.unused(err);
+        return false;
+    }
+}
+
+/**
+ * @typedef {Object} SupLangObj
+ * @prop {String} code
+ * @prop {String} name
+ */
+
+/**
+ * Returns the currently supported languages
+ * @returns {Array<SupLangObj>}
+ */
+function supportedLangs()
+{
+    let langs = [];
+
+    fs.readdirSync(settings.jokes.jokesFolderPath).forEach(f => {
+        if(f == "template.json")
+            return;
+
+        let langCode = f.split("-")[1].substr(0, 2);
+
+        langs.push({
+            code: langCode,
+            name: codeToLanguage(langCode)
+        });
+    });
+
+    return langs;
+}
+
+module.exports = { init, isValidLang, languageToCode, codeToLanguage, supportedLangs };
