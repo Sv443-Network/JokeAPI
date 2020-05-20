@@ -33,6 +33,7 @@
 
 const AllJokes = require("./AllJokes");
 const parseJokes = require("../parseJokes");
+const languages = require("../languages");
 const jsl = require("svjsl");
 const settings = require("../../settings");
 
@@ -62,6 +63,7 @@ class FilteredJoke
         this._idRange = [0, (parseJokes.jokeCount - 1)];
         this._flags = [];
         this._errors = [];
+        this._lang = settings.languages.defaultLanguage;
 
         if(!global._lastIDs || !Array.isArray(global._lastIDs))
             global._lastIDs = [];
@@ -247,6 +249,32 @@ class FilteredJoke
         return this._flags;
     }
 
+    //#MARKER language
+    /**
+     * Sets the language
+     * @param {String} code 
+     * @returns {Boolean} Returns true if the language was set, false if it is invalid
+     */
+    setLanguage(code)
+    {
+        if(languages.isValidLang(code) === true)
+        {
+            this._lang = code;
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns the set language code
+     * @returns {String}
+     */
+    getLanguage()
+    {
+        return this._lang || settings.languages.defaultLanguage;
+    }
+
     //#MARKER apply filters
     /**
      * Applies the previously set filters and modifies the `this._filteredJokes` property with the applied filters
@@ -309,6 +337,8 @@ class FilteredJoke
 
                     if(!searchMatches) // if the provided search string doesn't match the joke, the joke is invalid
                         return;
+                    
+                    //TODO:#SECTION language
 
                     //#SECTION done
                     this._filteredJokes.push(joke); // joke is valid, push it to the array that gets passed in the resolve()
@@ -333,7 +363,7 @@ class FilteredJoke
             this._applyFilters().then(filteredJokes => {
                 if(filteredJokes.length == 0 || typeof filteredJokes != "object")
                 {
-                    if(this._errors)
+                    if(this._errors && this._errors.length > 0)
                         return reject(this._errors);
                     else
                         return reject("No jokes were found that match your provided filter(s)");

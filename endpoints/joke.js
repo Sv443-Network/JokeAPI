@@ -3,6 +3,7 @@ const convertFileFormat = require("../src/fileFormatConverter");
 const httpServer = require("../src/httpServer");
 const parseURL = require("../src/parseURL");
 const parseJokes = require("../src/parseJokes");
+const languages = require("../src/languages");
 const FilteredJoke = require("../src/classes/FilteredJoke");
 const jsl = require("svjsl");
 const settings = require("../settings");
@@ -21,7 +22,8 @@ const meta = {
             "blacklistFlags",
             "type",
             "contains",
-            "idRange"
+            "idRange",
+            "lang"
         ]
     }
 };
@@ -130,6 +132,24 @@ const call = (req, res, url, params, format) => {
             let fFlg = filterJoke.setBlacklistFlags(flags);
             if(!fFlg)
                 return isErrored(res, format, `The specified flags are invalid - Got: "${flags.join(", ")}" - Possible flags are: "${settings.jokes.possible.flags.join(", ")}"`);
+        }
+
+        //#SECTION language
+        if(!jsl.isEmpty(params["lang"]))
+        {
+            try
+            {
+                let langCode = params["lang"].toString();
+
+                if(languages.isValidLang(langCode))
+                    filterJoke.setLanguage(langCode);
+                else
+                    return isErrored(res, format, `The specified language code "${params["lang"].toString()}" is invalid. Please see http://localhost:8076/#langcodes-endpoint for more info`);
+            }
+            catch(err)
+            {
+                return isErrored(res, format, `The specified language code is invalid. Please see http://localhost:8076/#langcodes-endpoint for more info`);
+            }
         }
     }
     

@@ -21,64 +21,48 @@ var subms = 0;
  */
 function init()
 {
-    if(!req1mMeter)
-    {
         req1mMeter = io.metric({
             name: "Reqs / 1m",
             unit: "rpm"
         });
-
         req1mMeter.set(0);
         setInterval(() => {
             req1mMeter.set(m1);
             m1 = 0;
         }, 1000 * 60);
-    }
 
-    if(!req10mMeter)
-    {
+
         req10mMeter = io.metric({
             name: "Reqs / 10m",
             unit: "rpt"
         });
-
         req10mMeter.set(0);
         setInterval(() => {
             req10mMeter.set(m10);
             m10 = 0;
         }, 1000 * 60 * 10);
-    }
 
-    if(!reqtotalMeter)
-    {
+
         reqtotalMeter = io.metric({
             name: "Total Reqs",
             unit: "ttl"
         });
-
         reqtotalMeter.set(0);
-    }
 
-    if(!reqBlMeter)
-    {
+
         reqBlMeter = io.metric({
             name: "Blacklisted Reqs",
             unit: "blr"
         });
-
         reqBlMeter.set(0);
-    }
 
-    if(!submissionMeter)
-    {
+
         submissionMeter = io.metric({
             name: "Submissions",
             unit: "sbm"
         });
-
         subms = fs.readdirSync(settings.jokes.jokeSubmissionPath).length;
         submissionMeter.set(subms);
-    }
 }
 
 /**

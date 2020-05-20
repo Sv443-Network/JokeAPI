@@ -10,8 +10,8 @@
 [CURRENT: 2.2.0] - The Language Update
     - It is now possible to define rate limiting per each client (see GitHub issue #37)
     - Jokes and error messages now support different languages (see GitHub issue #75)
-        - Submissions need to contain the "lang" parameter with a two character language code
         - Different languages can be requested with the "?lang=xy" URL parameter
+        - Submissions need to contain the "lang" parameter with a two character language code
     - Added pm2 metrics that make it easier for me to monitor JokeAPI
 
 
