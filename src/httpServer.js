@@ -37,7 +37,7 @@ const init = () => {
                 let analyticsObject = {
                     ipAddress: ip,
                     urlPath: parsedURL.pathArray,
-                    urlParameters: parsedURL.queryParams 
+                    urlParameters: parsedURL.queryParams
                 };
 
                 debug("HTTP", `Incoming ${req.method} request from "${ip.substring(0, 8)}${localhostIP ? `..." ${jsl.colors.fg.blue}(local)${jsl.colors.rst}` : "...\""}`);
