@@ -1,0 +1,14 @@
+{
+    "defaultLang": "en",
+    "languages": [
+        "en",
+        "de"
+    ],
+    "tr": {
+        "test": {
+            "en": "Test. Hello, world!",
+            "de": "Test. Hallo, Welt!",
+            "ru": "Тест. Привет, мир!"
+        }
+    }
+}

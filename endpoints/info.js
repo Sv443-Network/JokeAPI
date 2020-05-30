@@ -33,6 +33,8 @@ const meta = {
 const call = (req, res, url, params, format) => {
     jsl.unused([req, url, params]);
 
+    let supportedLangsLength = languages.jokeLangs().length;
+
     let errFromRegistry = require("." + settings.errors.errorMessagesPath)["100"];
     let responseText = {};
     if(format != "xml")
@@ -71,7 +73,7 @@ const call = (req, res, url, params, format) => {
                 "submissionURL": settings.jokes.jokeSubmissionURL
             },
             "info": settings.info.infoMsg,
-            "supportedLangs": languages.supportedLangs(),
+            "languages": supportedLangsLength,
             "timestamp": new Date().getTime()
         });
     }
@@ -88,7 +90,7 @@ const call = (req, res, url, params, format) => {
                 "submissionURL": settings.jokes.jokeSubmissionURL
             },
             "info": settings.info.infoMsg,
-            "supportedLangs": languages.supportedLangs(),
+            "languages": supportedLangsLength,
             "timestamp": new Date().getTime()
         });
     }

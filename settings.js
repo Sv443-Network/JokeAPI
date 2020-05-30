@@ -5,7 +5,7 @@ const bgc = jsl.colors.bg;
 
 const settings = {
     debug: {
-        verboseLogging: false,      // set to true to enable extra debug output
+        verboseLogging: true,      // set to true to enable extra debug output
         progressBarDisabled: true,  // set to true to disable the progress bar - greatly improves readability of verbose debug output
         onlyLogErrors: true,        // set to true to disable sending any console logs but error messages
     },
@@ -163,8 +163,8 @@ const settings = {
         success: col.green,     // when request was successful
         error: col.red,         // when request was errored
         ratelimit: col.magenta, // when request was rate limited
-        docs: col.yellow,                             // when docs were requested
-        blacklisted: bgc.red + col.yellow,            // when a request IP is blacklisted
+        docs: col.yellow,                      // when docs were requested
+        blacklisted: bgc.red + col.yellow,     // when a request IP is blacklisted
         docsrecompiled: bgc.yellow + col.blue, // when the docs were recompiled
     },
     analytics: {
@@ -183,8 +183,9 @@ const settings = {
     },
     languages:
     {
-        langFilePath: "./data/languages.json", // file containing all language codes and corresponding language information
-        defaultLanguage: "en",                 // default language (two character code)
+        langFilePath: "./data/languages.json",        // file containing all language codes and corresponding language information
+        defaultLanguage: "en",                        // default language (two character code, lowercase)
+        translationsFile: "./data/translations.json", // translations file
     }
 }
 

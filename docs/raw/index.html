@@ -191,7 +191,7 @@
                 <br>
                 <br>
                 If you come across a term you don't understand, you can try <span class="mimica" onclick="openNav()">opening the menu</span> and clicking on the section "Terminology".<br>
-                <!--%#INSERT:NAME#%--> currently serves <!--%#INSERT:TOTALJOKES#%--> jokes from <!--%#INSERT:LANGCOUNT#%--> different languages. To submit a new joke, <a href="#submit">please click here.</a><br>
+                <!--%#INSERT:NAME#%--> currently serves <!--%#INSERT:TOTALJOKES#%--> jokes from <!--%#INSERT:JOKELANGCOUNT#%--> different languages. To submit a new joke, <a href="#submit">please click here.</a><br>
                 <br>
                 If you want to report a bug or an illegal joke, please <a href="<!--%#INSERT:PROJGITHUBURL#%-->/issues/new/choose" target="_blank">use the GitHub issue tracker.</a><br>
                 If you want to contribute to <!--%#INSERT:NAME#%-->, please read the <a href="<!--%#INSERT:PROJGITHUBURL#%-->/blob/master/.github/Contributing.md" target="_blank">Contributing Guide.</a><br>
@@ -468,6 +468,19 @@ None. It's a hardware problem.
                     URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?blacklistFlags=nsfw,racist,sexist</mark><br>
                     Using the above URL makes sure you don't get any jokes that are not safe for work, racist and sexist.
                 </details>
+
+
+                <br><br><!--#SECTION Language-->
+                <span class="subHeader" id="lang">Language:</span>
+                This parameter can be used on every endpoint, but it is possible that no translation exists yet for your language.<br>
+                If you are interested in providing translations, please contact me via <a href="https://sv443.net/discord">Discord</a> or <span class="antiBotE" data-enc="Y29udGFjdEBzdjQ0My5uZXQ=">Email (click to show)</span>.<br>
+                You can also submit jokes in different languages. Please understand that I will not be able to ensure their proper formatting or legitimacy.<br>
+                These are all the available languages: <mark class="insLangs">(Loading...)<!--TODO:--></mark><br><br>
+
+                <details><summary>Example 1 (click to view)</summary>
+                    URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?lang=ru</mark><br>
+                    Using the above URL will fetch only jokes that are Russian. If an error gets returned, it will also be in Russian, provided a translation was found.
+                </details><br>
 
 
                 <br><br><!--#SECTION Joke Type-->
@@ -887,6 +900,7 @@ None. It's a hardware problem.
                     <li><a href="#joke-type">Joke Type</a></li>
                     <li><a href="#search-string">Search String</a></li>
                     <li><a href="#id-range">ID Range</a></li>
+                    <li><a href="#lang">Language</a></li>
                 </ul>
 
 

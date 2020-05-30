@@ -2,6 +2,8 @@ const fs = require("fs");
 const jsl = require("svjsl");
 const Fuse = require("fuse.js");
 
+const tr = require("./translate");
+
 const settings = require("../settings");
 
 
@@ -103,10 +105,10 @@ function codeToLanguage(code)
  */
 
 /**
- * Returns the currently supported languages
+ * Returns a list of languages that jokes are available from
  * @returns {Array<SupLangObj>}
  */
-function supportedLangs()
+function jokeLangs()
 {
     let langs = [];
 
@@ -125,4 +127,13 @@ function supportedLangs()
     return langs;
 }
 
-module.exports = { init, isValidLang, languageToCode, codeToLanguage, supportedLangs };
+/**
+ * Returns a list of languages that error messages and maybe other stuff are available as
+ * @returns {Array<SupLangObj>}
+ */
+function systemLangs()
+{
+    return tr.systemLangs();
+}
+
+module.exports = { init, isValidLang, languageToCode, codeToLanguage, jokeLangs, systemLangs };

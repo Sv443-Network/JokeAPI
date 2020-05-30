@@ -497,6 +497,20 @@ ul.lispacer li {
     margin-bottom: 5px;
 }
 
+.antiBotE {
+    cursor: pointer;
+}
+
+.antiBotE:not(.noul) {
+    color: #8f9aff;
+    text-decoration: none;
+}
+
+.antiBotE:not(.noul):hover {
+    color: #bcc2ff;
+    text-decoration: underline;
+}
+
 /*#SECTION Endpoints*/
 .requestURLwrapper {
     border: 1px solid #777;

@@ -74,10 +74,10 @@ const toTXT = jsonInput => {
             else if(jsonInput.version) // endpoint: /info
             {
                 let suppLangs = [];
-                languages.supportedLangs().forEach(lang => {
+                languages.jokeLangs().forEach(lang => {
                     suppLangs.push(`${lang.name} [${lang.code}]`);
                 });
-                returnText = `Version: ${jsonInput.version}\nJoke Count: ${jsonInput.jokes.totalCount}\nCategories: "${jsonInput.jokes.categories.join('", "')}"\nFlags: "${jsonInput.jokes.flags.join('", "')}"\nSubmission URL: ${jsonInput.jokes.submissionURL}\nSupported Languages (${languages.supportedLangs().length}): ${suppLangs.sort().join(", ")}\n\n${jsonInput.info}`;
+                returnText = `Version: ${jsonInput.version}\nJoke Count: ${jsonInput.jokes.totalCount}\nCategories: "${jsonInput.jokes.categories.join('", "')}"\nFlags: "${jsonInput.jokes.flags.join('", "')}"\nSubmission URL: ${jsonInput.jokes.submissionURL}\nSupported Languages (${languages.jokeLangs().length}): ${suppLangs.sort().join(", ")}\n\n${jsonInput.info}`;
             }
 
             else if(Array.isArray(jsonInput) && jsonInput[0].usage && jsonInput[0].usage.method) // endpoint: /endpoints
