@@ -19,7 +19,6 @@ const jokeSubmission = require("./jokeSubmission");
 const auth = require("./auth");
 const meter = require("./meter");
 const languages = require("./languages");
-const tr = require("./translate");
 
 
 const init = () => {
@@ -130,7 +129,7 @@ const init = () => {
                             {
                                 analytics.rateLimited(ip);
                                 logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
-                                return respondWithError(res, 101, 429, fileFormat);
+                                return respondWithError(res, 101, 429, fileFormat, "", lang);
                             }
                             else return serveDocumentation(req, res);
                             //else return respondWithErrorPage(res, 500, "Example Error @ex@");
@@ -192,7 +191,7 @@ const init = () => {
                                     }
                                     catch(err)
                                     {
-                                        return respondWithError(res, 104, 500, fileFormat);
+                                        return respondWithError(res, 104, 500, fileFormat, "", lang);
                                     }
                                 }
                                 else
@@ -200,7 +199,7 @@ const init = () => {
                                     if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting) && !lists.isWhitelisted(ip) && !hasHeaderAuth)
                                     {
                                         logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
-                                        return respondWithError(res, 101, 429, fileFormat);
+                                        return respondWithError(res, 101, 429, fileFormat, "", lang);
                                     }
                                     else
                                     {
@@ -219,7 +218,7 @@ const init = () => {
                         if(!foundEndpoint)
                         {
                             if(!jsl.isEmpty(fileFormat) && req.url.toLowerCase().includes("format"))
-                                return respondWithError(res, 102, 404, fileFormat, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at ${settings.info.docsURL}#endpoints to see all available endpoints`);
+                                return respondWithError(res, 102, 404, fileFormat, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at ${settings.info.docsURL}#endpoints to see all available endpoints`, lang);
                             else return respondWithErrorPage(res, 404, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at ${settings.info.docsURL}#endpoints to see all available endpoints`);
                         }
                     }
@@ -237,7 +236,7 @@ const init = () => {
 
                             let payloadLength = byteLength(data);
                             if(payloadLength > settings.httpServer.maxPayloadSize)
-                                return respondWithError(res, 107, 413, fileFormat, `The provided payload data is too large (${payloadLength} bytes of ${settings.httpServer.maxPayloadSize})`);
+                                return respondWithError(res, 107, 413, fileFormat, `The provided payload data is too large (${payloadLength} bytes of ${settings.httpServer.maxPayloadSize})`, lang);
                             
                             if(!jsl.isEmpty(data))
                                 dataGotten = true;
@@ -249,7 +248,7 @@ const init = () => {
                             if(!dataGotten)
                             {
                                 debug("HTTP", "PUT request timed out");
-                                return respondWithError(res, 105, 400, fileFormat, "Request body is empty");
+                                return respondWithError(res, 105, 400, fileFormat, "Request body is empty", lang);
                             }
                         }, 3000);
                     }
