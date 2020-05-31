@@ -644,6 +644,21 @@ None. It's a hardware problem.
                 <span class="col g">Success</span> &bull; <span class="col r">Client Error</span> &bull; <span class="col dr">Server Error</span>
 
 
+                <!-- #MARKER Troubleshooting -->
+                <div class="docHeader targetBlink" id="troubleshooting"><a class="headerAnchorContainer" href="#troubleshooting" title="Click to link to this header">🔗</a><span class="docHeaderText">Troubleshooting:</span></div>
+                <span class="subHeader">HTTP Error 403:</span>
+                First, please check if you can access all endpoints with your web browser. If no, your IP address has most likely been acting malicious and was permanently blacklisted.<br>
+                If you keep getting HTTP 403 (Forbidden) response codes in your program but not in your browser and have never shown malicious behavior before, the issue is most likely that Cloudflare is blocking your request.<br>
+                This might be due to inconsistent request data or headers that are often used in malicious requests or cyber attacks (most of the time it's gonna be the fault of the library you are using).<br>
+                A fix to this issue would be to explicitly set a <mark>User-Agent</mark> header in each of your requests.<br>
+                This is the user agent of your browser which you should be able to use in the fix described above:<br>
+                <mark id="insUserAgent">(Something didn't work, please enter "navigator.userAgent" in your JavaScript console instead)</mark><br><br>
+
+                <span class="subHeader">HTTP Error 429:</span>
+                You will get 429 errors occasionally if you exceed the maximum of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute.<br>
+                In this case, you will need to wait up to one minute to be able to talk to the API again.<br>
+                If you are wanting to index the API, you might be better off going to the <a href="<!--%#INSERT:PROJGITHUBURL#%-->" target="_blank">GitHub repository</a>, where you will find everything you need and you don't need to spam <!--%#INSERT:NAME#%-->.
+
 
                 <!-- #MARKER Endpoints -->
                 <div class="docHeader targetBlink" id="endpoints"><a class="headerAnchorContainer" href="#endpoints" title="Click to link to this header">🔗</a><span class="docHeaderText">Endpoints:</span></div>
@@ -748,6 +763,44 @@ None. It's a hardware problem.
                 <ul>
                     <li><a class="requestURL" href="#response-formats">?format</a></li>
                     <!--<li><a class="requestURL" href="#no-default">?noDefault</a></li> TODO: (maybe) -->
+                </ul>
+                <br><br>
+
+
+                <!--#SECTION Languages-->
+                <span id="languages-endpoint" class="subHeader">Supported Languages:</span>
+                <span class="requestURLwrapper">
+                    <span class="requestMethodGET">GET</span>
+                    <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/languages</span>
+                </span>
+                <br><br>
+                This endpoint returns lists of supported languages in jokes and supported languages in system messages (error messages).<br>
+                <details>
+                    <summary>Example - click to view</summary>
+                    <br>
+                    <span class="requestURLwrapper">
+                        <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/languages</span>
+                    </span><br><br>
+<code class="prettyprint"><div class="actualCode">
+{
+    "defaultLanguage": "en",
+    "jokeLanguages": [
+        "de",
+        "en"
+    ],
+    "systemLanguages": [
+        "de",
+        "en",
+        "ru"
+    ],
+    "timestamp": 1590929517702
+}
+</div></code>
+                </details>
+                <br><br>
+                Supported URL parameters:<br>
+                <ul>
+                    <li><a class="requestURL" href="#response-formats">?format</a></li>
                 </ul>
                 <br><br>
 
@@ -1225,6 +1278,7 @@ public class Flags
                 <a class="noul" onclick="closeNav()" href="#submit">Submit a Joke</a>
                 <a class="noul" onclick="closeNav()" href="#url-parameters">URL Parameters</a>
                 <a class="noul" onclick="closeNav()" href="#errors">Errors</a>
+                <a class="noul" onclick="closeNav()" href="#troubleshooting">Troubleshooting</a>
                 <details>
                     <summary>
                         <span class="sidenav-mimica">Endpoints</span>
@@ -1235,6 +1289,7 @@ public class Flags
                         <li><a class="noul" onclick="closeNav()" href="#info-endpoint">Info</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#categories-endpoint">Categories</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#langcodes-endpoint">Language Codes</a></li>
+                        <li><a class="noul" onclick="closeNav()" href="#languages-endpoint">Supported Languages</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#flags-endpoint">Flags</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#formats-endpoint">Formats</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#ping-endpoint">Ping</a></li>

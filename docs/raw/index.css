@@ -50,7 +50,7 @@ body {
     background-color: var(--bg-color);
     color: #fff;
     font-family: "Roboto", "Segoe UI", "Arial", sans-serif;
-    font-size: 14px;
+    font-size: 15px;
 
     overflow-y: hidden;
 
@@ -348,7 +348,7 @@ mark {
     border-radius: 2px;
     background-color: var(--bg-accent-color);
     display: inline-block;
-    padding: 3px;
+    padding: 2px;
     font-family: "Cascadia Code", "Roboto Mono", "Courier New", monospace;
     font-variant-ligatures: none;
     color: #ccc;
