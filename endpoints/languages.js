@@ -3,7 +3,6 @@ const convertFileFormat = require("../src/fileFormatConverter");
 const httpServer = require("../src/httpServer");
 const parseURL = require("../src/parseURL");
 const jsl = require("svjsl");
-const parseJokes = require("../src/parseJokes");
 const languages = require("../src/languages");
 const settings = require("../settings");
 
@@ -33,7 +32,7 @@ const meta = {
 const call = (req, res, url, params, format) => {
     jsl.unused([req, url, params]);
 
-    let jokeLangs = languages.jokeLangs().map(jl => jl = jl.code).sort();
+    let jokeLangs = languages.jokeLangs().map(jl => jl.code).sort();
     let sysLangs = languages.systemLangs().sort();
 
     let responseText = "";
@@ -42,8 +41,8 @@ const call = (req, res, url, params, format) => {
     {
         responseText = convertFileFormat.auto(format, {
             "defaultLanguage": settings.languages.defaultLanguage,
-            "jokeLanguages": jokeLangs.map(l => l = { "code": l }),
-            "systemLanguages": sysLangs.map(l => l = { "code": l }),
+            "jokeLanguages": jokeLangs.map(l => ({ "code": l })),
+            "systemLanguages": sysLangs.map(l => ({ "code": l })),
             "timestamp": new Date().getTime()
         });
     }

@@ -47,8 +47,8 @@ const call = (req, res, url, params, format) => {
 
     let responseText = "";
     let langCode = null;
-    if(!defaultValDisabled)
-        langCode = settings.languages.defaultLanguage;
+    // if(!defaultValDisabled)
+    //     langCode = settings.languages.defaultLanguage;
     let language = url[1].toString().toLowerCase();
 
     let ltc = languages.languageToCode(language);
