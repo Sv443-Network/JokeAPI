@@ -4,6 +4,7 @@ const httpServer = require("../src/httpServer");
 const parseURL = require("../src/parseURL");
 const parseJokes = require("../src/parseJokes");
 const languages = require("../src/languages");
+const tr = require("../src/translate");
 const FilteredJoke = require("../src/classes/FilteredJoke");
 const jsl = require("svjsl");
 const settings = require("../settings");
@@ -86,11 +87,11 @@ const call = (req, res, url, params, format) => {
             if(languages.isValidLang(langCode))
                 filterJoke.setLanguage(langCode);
             else
-                return isErrored(res, format, `The specified language code "${params["lang"].toString()}" is invalid. Please see http://localhost:8076/#langcodes-endpoint for more info`, langCode);
+                return isErrored(res, format, tr(langCode, "invalidLangCode", langCode), langCode);
         }
         catch(err)
         {
-            return isErrored(res, format, `The specified language code is invalid. Please see http://localhost:8076/#langcodes-endpoint for more info`, langCode);
+            return isErrored(res, format, tr(langCode, "invalidLangCodeNoArg"), langCode);
         }
     }
 

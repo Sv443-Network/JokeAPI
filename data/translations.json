@@ -9,6 +9,16 @@
             "en": "Test. Hello, world!",
             "de": "Test. Hallo, Welt!",
             "ru": "Тест. Привет, мир!"
+        },
+        "invalidLangCode": {
+            "en": "The specified language code \"%1\" is invalid. Please see https://sv443.net/jokeapi/v2#langcodes-endpoint for more info",
+            "de": "Der angegebene Sprach-code \"%1\" ist nicht korrekt. Bitte besuche https://sv443.net/jokeapi/v2#langcodes-endpoint für mehr Info",
+            "ru": "Указанный код языка \"%1\" является недействительным. Дополнительную информацию можно получить на сайте https://sv443.net/jokeapi/v2#langcodes-endpoint"
+        },
+        "invalidLangCodeNoArg": {
+            "en": "The specified language code is invalid. Please see http://localhost:8076/#langcodes-endpoint for more info",
+            "de": "Der angegebene Sprach-code ist nicht korrekt. Bitte besuche https://sv443.net/jokeapi/v2#langcodes-endpoint für mehr Info",
+            "ru": "Указанный код языка является недействительным. Дополнительную информацию можно получить на сайте https://sv443.net/jokeapi/v2#langcodes-endpoint"
         }
     }
 }

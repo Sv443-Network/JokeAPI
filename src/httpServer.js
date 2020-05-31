@@ -121,7 +121,7 @@ const init = () => {
                         let lowerCaseEndpoints = [];
                         endpoints.forEach(ep => lowerCaseEndpoints.push(ep.name.toLowerCase()));
 
-                        if(!jsl.isEmpty(urlPath))
+                        if(!jsl.isArrayEmpty(urlPath))
                             requestedEndpoint = urlPath[0];
                         else
                         {
