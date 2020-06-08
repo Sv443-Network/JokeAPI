@@ -57,7 +57,7 @@
     "mysql": "^2.18.1",
     "node-wrap": "^0.2.0",
     "svjsl": "^1.9.4",
-    "xss": "^1.0.6",
+    "xss": "^1.0.7",
     "snyk": "^1.321.0"
   },
   "devDependencies": {
