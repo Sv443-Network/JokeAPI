@@ -61,10 +61,10 @@
     "snyk": "^1.321.0",
     "svjsl": "^1.9.4",
     "url-parse": "^1.4.7",
-    "xss": "^1.0.6"
+    "xss": "^1.0.7"
   },
   "devDependencies": {
-    "eslint": "^7.0.0",
+    "eslint": "^7.2.0",
     "madge": "^3.9.0"
   },
   "snyk": true

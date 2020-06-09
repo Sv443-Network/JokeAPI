@@ -62,7 +62,7 @@ const initAll = () => {
                     if(!jsl.isEmpty(pb)) pb.next("Initializing documentation...");
                     docs.init().then(() => {
 
-                        //#SECTION init auth
+                        //#SECTION init auth 
                         if(!jsl.isEmpty(pb)) pb.next("Initializing Authorization module...");
                         auth.init().then(() => {
 
