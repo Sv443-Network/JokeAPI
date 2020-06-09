@@ -62,7 +62,7 @@
   },
   "devDependencies": {
     "eslint": "^7.1.0",
-    "madge": "^3.9.0"
+    "madge": "^3.9.1"
   },
   "snyk": true
 }
