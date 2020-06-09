@@ -260,7 +260,7 @@ const getIndex = () => `\
         <div id="flexcontainer">
             <div class="flexitem">
                 <ul>
-                    ${fileList.join("\n\t\t\t")}
+                    ${fileList.join("\n\t\t\t\t\t")}
                 </ul>
                 <br><br>
                 Blue has dependencies.<br>
