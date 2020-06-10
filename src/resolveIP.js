@@ -21,11 +21,13 @@ const resolveIP = req => {
         2. HEAD  cf-connecting-ip
         3. HEAD  x-proxyuser-ip
         4. HEAD  cf-pseudo-ipv4
-        5. VAL   err_no_IP::HEAD_cf-ipcountry
-        6. VAL   err_no_IP
-        7. VAL   err_couldnt_hash
+        5. VAL   HTTP_REMOTE_ADDR
+        6. VAL   err_no_IP::HEAD_cf-ipcountry
+        7. VAL   err_no_IP
+        8. VAL   err_couldnt_hash
     */
 
+    let usedRevProxy = false;
     try
     {
         if(req.headers && settings.httpServer.reverseProxy && req.headers["x-forwarded-for"]) // format: <client>, <proxy1>, <proxy2>
@@ -33,10 +35,8 @@ const resolveIP = req => {
             ipaddr = req.headers["x-forwarded-for"]; // reverse proxy adds this header
 
             let ipSplit = ipaddr.split(/[,]\s*/gm);
-            if(ipaddr.includes(","))
-                ipaddr = ipSplit[0]; // try to get IP from <client>
-            else if(isValidIP(ipaddr))
-                ipaddr = ipSplit;    // if the format is just "<client>", try to use that without splitting
+            if(ipaddr.includes(",") || isValidIP(ipSplit[0]))
+                ipaddr = ipSplit[0] || null; // try to get IP from <client>
             else if(!isValidIP(ipaddr))
             {
                 // else if IP invalid:
@@ -45,6 +45,7 @@ const resolveIP = req => {
                 else
                     ipaddr = req.connection.remoteAddress || null; // else just default to the remote IP or if that doesn't exist, null
             }
+            usedRevProxy = true;
         }
         else
             ipaddr = req.connection.remoteAddress || null; // if reverse proxy is disabled, default to the remote IP or if that doesn't exist, null
@@ -54,10 +55,10 @@ const resolveIP = req => {
         ipaddr = null; // if any error is thrown, default to null
     }
 
-    ipaddr = ipaddr.trim(); // trim whitespaces
+    ipaddr = ipaddr.toString().trim(); // trim whitespaces
     ipaddr = (ipaddr != null && isValidIP(ipaddr)) ? ipaddr : null; // if the IP up to this point is valid, leave it as it is, else set it to null
 
-    if(jsl.isEmpty(ipaddr)) // if the reverse proxy didn't work, try getting the IP from the Gateway / Proxy headers
+    if(jsl.isEmpty(ipaddr) || (settings.httpServer.reverseProxy && !usedRevProxy)) // if the reverse proxy didn't work, try getting the IP from the Gateway / Proxy headers
     {
         if(!jsl.isEmpty(req.headers["cf-connecting-ip"]) && (isValidIP(req.headers["cf-connecting-ip"]))) // Cloudflare
             ipaddr = req.headers["cf-connecting-ip"];
@@ -65,14 +66,16 @@ const resolveIP = req => {
             ipaddr = req.headers["x-proxyuser-ip"];
         else if(!jsl.isEmpty(req.headers["cf-pseudo-ipv4"]) && isValidIP(req.headers["cf-pseudo-ipv4"])) // Cloudflare pseudo IPv4 replacement if IPv6 isn't recognized
             ipaddr = req.headers["cf-pseudo-ipv4"];
-        else
+        else if(ipaddr == null || !isValidIP(ipaddr))
             ipaddr = "err_no_IP";
     }
 
     if((ipaddr == "err_no_IP" || ipaddr == null) && typeof req.headers["cf-ipcountry"] == "string")
         ipaddr = `err_no_IP::${req.headers["cf-ipcountry"]}`;
+    else if(ipaddr == null)
+        ipaddr = "err_no_IP"
 
-    ipaddr = (ipaddr.length < 15 ? ipaddr : (ipaddr.substr(0,7) === "::ffff:" ? ipaddr.substr(7) : "err"));
+    ipaddr = (ipaddr.length < 15 ? ipaddr : (ipaddr.substr(0,7) === "::ffff:" ? ipaddr.substr(7) : ipaddr));
 
     try
     {
