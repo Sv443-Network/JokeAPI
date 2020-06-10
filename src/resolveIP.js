@@ -15,38 +15,62 @@ jsl.unused(http);
 const resolveIP = req => {
     let ipaddr = null;
 
+    /*
+        Procedure:
+        1. HEAD  x-forwarded-for
+        2. HEAD  cf-connecting-ip
+        3. HEAD  x-proxyuser-ip
+        4. HEAD  cf-pseudo-ipv4
+        5. VAL   err_no_IP::HEAD_cf-ipcountry
+        6. VAL   err_no_IP
+        7. VAL   err_couldnt_hash
+    */
+
     try
     {
-        if(!jsl.isEmpty(req.headers) && !jsl.isEmpty(req.headers["x-forwarded-for"]) && settings.httpServer.reverseProxy) // format: <client>, <proxy1>, <proxy2>
+        if(req.headers && settings.httpServer.reverseProxy && req.headers["x-forwarded-for"]) // format: <client>, <proxy1>, <proxy2>
         {
-            ipaddr = req.headers["x-forwarded-for"]; // I have to use the X-Forwarded-For header because I'm using a reverse proxy
+            ipaddr = req.headers["x-forwarded-for"]; // reverse proxy adds this header
+
             let ipSplit = ipaddr.split(/[,]\s*/gm);
             if(ipaddr.includes(","))
                 ipaddr = ipSplit[0]; // try to get IP from <client>
-            if(!isValidIP(ipaddr))
-                ipaddr = ipSplit[1]; // if <client> IP is invalid, try <proxy1> instead
-            if(!isValidIP(ipaddr))
-                ipaddr = req.connection.remoteAddress; // else just default to the remote IP
+            else if(isValidIP(ipaddr))
+                ipaddr = ipSplit;    // if the format is just "<client>", try to use that without splitting
+            else if(!isValidIP(ipaddr))
+            {
+                // else if IP invalid:
+                if((Array.isArray(ipSplit) && ipSplit.length >= 1) && ipaddr.includes(",") && isValidIP(ipSplit[1]))
+                    ipaddr = ipSplit[1]; // if <client> IP is invalid, try <proxy1> instead
+                else
+                    ipaddr = req.connection.remoteAddress || null; // else just default to the remote IP or if that doesn't exist, null
+            }
         }
-        else ipaddr = req.connection.remoteAddress;
+        else
+            ipaddr = req.connection.remoteAddress || null; // if reverse proxy is disabled, default to the remote IP or if that doesn't exist, null
     }
     catch(err)
     {
-        ipaddr = null;
+        ipaddr = null; // if any error is thrown, default to null
     }
 
-    ipaddr = ipaddr.trim();
+    ipaddr = ipaddr.trim(); // trim whitespaces
+    ipaddr = (ipaddr != null && isValidIP(ipaddr)) ? ipaddr : null; // if the IP up to this point is valid, leave it as it is, else set it to null
 
-    if(jsl.isEmpty(ipaddr)) // if the reverse proxy didn't work, try getting the IP from the Cloudflare headers
+    if(jsl.isEmpty(ipaddr)) // if the reverse proxy didn't work, try getting the IP from the Gateway / Proxy headers
     {
-        if(!jsl.isEmpty(req.headers["cf_connecting_ip"]) && (isValidIP(req.headers["cf_connecting_ip"]))) // Cloudflare
-            ipaddr = req.headers["cf_connecting_ip"];
-        else if(!jsl.isEmpty(req.headers["x_real_ip"]) && (isValidIP(req.headers["x_real_ip"]))) // Cloudflare
-            ipaddr = req.headers["x_real_ip"];
+        if(!jsl.isEmpty(req.headers["cf-connecting-ip"]) && (isValidIP(req.headers["cf-connecting-ip"]))) // Cloudflare
+            ipaddr = req.headers["cf-connecting-ip"];
         else if(!jsl.isEmpty(req.headers["x-proxyuser-ip"]) && (isValidIP(req.headers["x-proxyuser-ip"]))) // Google services
             ipaddr = req.headers["x-proxyuser-ip"];
-        else ipaddr = "err_no_IP";
+        else if(!jsl.isEmpty(req.headers["cf-pseudo-ipv4"]) && isValidIP(req.headers["cf-pseudo-ipv4"])) // Cloudflare pseudo IPv4 replacement if IPv6 isn't recognized
+            ipaddr = req.headers["cf-pseudo-ipv4"];
+        else
+            ipaddr = "err_no_IP";
     }
+
+    if((ipaddr == "err_no_IP" || ipaddr == null) && typeof req.headers["cf-ipcountry"] == "string")
+        ipaddr = `err_no_IP::${req.headers["cf-ipcountry"]}`;
 
     ipaddr = (ipaddr.length < 15 ? ipaddr : (ipaddr.substr(0,7) === "::ffff:" ? ipaddr.substr(7) : "err"));
 
@@ -54,13 +78,15 @@ const resolveIP = req => {
     {
         if(settings.httpServer.ipHashing.enabled && isValidIP(ipaddr))
             ipaddr = hashIP(ipaddr);
-        else if(settings.httpServer.ipHashing.enabled)
-            ipaddr = "err_invalid_IP_format";
+
         return typeof ipaddr == "string" ? ipaddr : ipaddr.toString();
     }
     catch(err)
     {
-        return "err_couldnt_hash";
+        if(typeof req.headers["cf-ipcountry"] == "string")
+            return `err_couldnt_hash::${req.headers["cf-ipcountry"]}`;
+        else
+            return "err_couldnt_hash";
     }
 };
 
