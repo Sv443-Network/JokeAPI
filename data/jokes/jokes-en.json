@@ -2452,7 +2452,7 @@
                 "sexist": false
             },
             "setup": "What do you call a witch at the beach?",
-            "delivery": "A Sandwich",
+            "delivery": "A Sandwich.",
             "id": 178
         },
         {
@@ -2466,35 +2466,8 @@
                 "sexist": false
             },
             "setup": "What do you call 4 Mexicans in quicksand?",
-            "delivery": "Quatro Sinko",
+            "delivery": "Quatro Sinko.",
             "id": 179
-        },
-        {
-            "category": "Miscellaneous",
-            "type": "single",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false
-            },
-            "joke": "Two fish in a tank. One turns to the other and says, \"Do you know how to drive this thing?\"",
-            "id": 180
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false
-            },
-            "setup": "Why can't orphans play baseball?",
-            "delivery": "They don't know where home is.",
-            "id": 181
         },
         {
             "category": "Dark",
@@ -2507,7 +2480,7 @@
                 "sexist": false
             },
             "joke": "My grandfather says I'm too reliant on technology.\nI called him a hypocrite and unplugged his life support.",
-            "id": 182
+            "id": 180
         },
         {
             "category": "Miscellaneous",
@@ -2521,7 +2494,130 @@
             },
             "setup": "Why do Jewish women prefer circumcised men?",
             "delivery": "Cause they won't take anything until it's atleast 10% off.",
+            "id": 181
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "Knock knock.\nWho's there?\nRecursion.\nRecursion who?\nKnock knock.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 182
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": true,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What is the difference between the Constitutions of the USA and the USSR? Both of them guarantee freedom of speech.",
+            "delivery": "Yes, but the Constitution of the USA also guarantees freedom after the speech.",
             "id": 183
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "Why was the river rich?",
+            "delivery": "Because it had two banks.",
+            "id": 184
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "Why didn't the skeleton go for prom?",
+            "delivery": "Because it had nobody.",
+            "id": 185
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "Being a self thought developer is almost the same as being a cut neck chicken because you have no sense of direction in the beginning",
+            "id": 186
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "Two fish in a tank. One turns to the other and says, \"Do you know how to drive this thing?\"",
+            "id": 187
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "Why can't orphans play baseball?",
+            "delivery": "They don't know where home is.",
+            "id": 188
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "I told my wife to shave her pussy.",
+            "delivery": "I woke up bald.",
+            "id": 189
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What's the difference between a school bus and a cactus?",
+            "delivery": "A cactus keeps the little pricks on the outside.",
+            "id": 190
         },
         {
             "category": "Miscellaneous",
@@ -2535,20 +2631,7 @@
             },
             "setup": "Why are men like lawn mowers?",
             "delivery": "They are very hard to get started, they make yucky smells and half the time they don’t even work.",
-            "id": 184
-        },
-        {
-            "category": "Programming",
-            "type": "single",
-            "joke": "Knock knock.\nWho's there?\nRecursion.\nRecursion who?\nKnock knock.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false
-            },
-            "id": 185
+            "id": 191
         }
     ]
 }
