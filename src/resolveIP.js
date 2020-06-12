@@ -1,6 +1,8 @@
 const http = require("http");
 const jsl = require("svjsl");
 const crypto = require("crypto");
+const reqIP = require("request-ip");
+const net = require("net");
 const settings = require("../settings");
 
 jsl.unused(http);
@@ -15,6 +17,16 @@ jsl.unused(http);
 const resolveIP = req => {
     let ipaddr = null;
 
+    ipaddr = reqIP.getClientIp(req);
+
+    if(ipaddr == null)
+    {
+        if(req.headers && typeof req.headers["cf-pseudo-ipv4"] == "string" && isValidIP(req.headers["cf-pseudo-ipv4"]))
+            ipaddr = req.headers["cf-pseudo-ipv4"];
+    }
+
+    return ipaddr;
+
     /*
         Procedure:
         1. HEAD  x-forwarded-for
@@ -27,6 +39,8 @@ const resolveIP = req => {
         8. VAL   err_couldnt_hash
     */
 
+    /*
+
     let usedRevProxy = false;
     try
     {
@@ -34,7 +48,7 @@ const resolveIP = req => {
         {
             ipaddr = req.headers["x-forwarded-for"]; // reverse proxy adds this header
 
-            let ipSplit = ipaddr.split(/[,]\s*/gm);
+            let ipSplit = ipaddr.split(/[,]\s{0,}/gm);
             if(ipaddr.includes(",") || isValidIP(ipSplit[0]))
                 ipaddr = ipSplit[0] || null; // try to get IP from <client>
             else if(!isValidIP(ipaddr))
@@ -91,12 +105,13 @@ const resolveIP = req => {
         else
             return "err_couldnt_hash";
     }
+    */
 };
 
 /**
  * Checks if an IP is local or not (`localhost`, `127.0.0.1`, `::1`, etc.)
  * @param {String} ip
- * @param {Boolean} [inputIsHashed=true] If the input IP is not hashed, set this to false
+ * @param {Boolean} [inputIsHashed=false] If the input IP is hashed, set this to true
  * @returns {Boolean}
  */
 const isLocal = (ip, inputIsHashed = false) => {
@@ -113,15 +128,12 @@ const isLocal = (ip, inputIsHashed = false) => {
     return isLocal;
 };
 
-const ipv4regex = settings.httpServer.regexes.ipv4;
-const ipv6regex = settings.httpServer.regexes.ipv6;
-
 /**
  * Checks whether or not an IP address is valid
  * @param {String} ip
  * @returns {Boolean}
  */
-const isValidIP = ip => (ip.match(ipv4regex) || ip.match(ipv6regex));
+const isValidIP = ip => net.isIP(ip) > 0;
 
 /**
  * Hashes an IP address with the algorithm defined in `settings.httpServer.ipHashing.algorithm`

@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}\\JokeAPI.js"
+            "program": "${workspaceFolder}/JokeAPI.js"
         }
     ],
     "debug.javascript.usePreview": true
