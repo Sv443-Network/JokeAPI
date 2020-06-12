@@ -1,0 +1,21 @@
+{
+    "host": "sv443.net",
+    "connection": "close",
+    "accept-encoding": "gzip",
+    "cf-ipcountry": "MY",
+    "x-forwarded-for": "2001:e68:5427:51d6:19ca:12ef:c7d9:6f72",
+    "cf-ray": "5a14132ec4ba2ce5-KUL",
+    "x-forwarded-proto": "https",
+    "cf-visitor": "{\"scheme\":\"https\"}",
+    "cf-ew-via": "15",
+    "cdn-loop": "cloudflare; subreqs=1",
+    "accept": "*/*",
+    "cookie": "SameSite=Lax; __cfduid=d406bf87b23fdbe105979cc2cfd2be6d51591788492",
+    "referer": "https://discordapp.com",
+    "user-agent": "discord/0.0.306 AppleWebKit/537.36 (KHTML, like Gecko) Discord/1.6.15",
+    "cf-connecting-ip": "2001:e68:5427:51d6:19ca:12ef:c7d9:6f72",
+    "cf-pseudo-ipv4": "245.92.38.16",
+    "cf-request-id": "03406a513a00002ce595be0000000001",
+    "origin": "https://discordapp.com",
+    "cf-worker": "sv443.net"
+}

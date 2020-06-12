@@ -15,6 +15,33 @@ jsl.unused(http);
 const resolveIP = req => {
     let ipaddr = null;
 
+    /*
+    try
+    {
+        let fs = require("fs");
+
+        fs.writeFileSync(`./dbg_ipg/h_${new Date().getTime()}.json`, JSON.stringify(JSON.parse(req.headers), null, 4));
+    }
+    catch(err) {
+        let fs = require("fs");
+        try
+        {
+	let cache = [];
+            fs.writeFileSync(`./dbg_ipg/h_${new Date().getTime()}.txt`, JSON.stringify(JSON.parse(JSON.stringify(req.headers, (key, value) => {
+  if (typeof value === 'object' && value !== null) {
+    // Duplicate reference found, discard key
+    if (cache.includes(value)) return;
+
+    // Store value in our collection
+    cache.push(value);
+  }
+  return value;
+})), null, 4));
+	cache = null;
+        }
+        catch(err) { console.log(`DBG_IPG Err: ${err}`); }
+    }*/
+
     try
     {
         if(!jsl.isEmpty(req.headers) && !jsl.isEmpty(req.headers["x-forwarded-for"]) && settings.httpServer.reverseProxy) // format: <client>, <proxy1>, <proxy2>
