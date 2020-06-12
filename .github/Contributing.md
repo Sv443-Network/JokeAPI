@@ -14,7 +14,7 @@
 8. Request a review from me (Sv443).
 9. Check if the CI script and other checks for your pull request were successful (they can be found below the comments).
     - **If they were unsuccessful:** view the log, fix the errors, commit the code and push to the same branch. This will automatically update your pull request and re-run the checks.
-10. Once the pull request is approved and merged, delete the source branch.  
+10. Once the pull request is approved and merged, you can delete the source branch and your forked repo if you want to.  
     - **If it isn't**, please read the comments from the reviewer(s) and make the necessary changes.
   
 <br><br>
