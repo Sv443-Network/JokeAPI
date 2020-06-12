@@ -4,6 +4,7 @@ const jsl = require("svjsl");
 const jsonToYaml = require("json-to-pretty-yaml");
 const jsonToXml = require("js2xmlparser");
 
+const languages = require("./languages");
 
 /**
  * Converts a JSON object to a string representation of a XML, YAML, plain text or JSON (as fallback) object - based on a passed format string
@@ -71,7 +72,13 @@ const toTXT = jsonInput => {
                 returnText = `${jsonInput.ping}\nTimestamp: ${jsonInput.timestamp}`;
 
             else if(jsonInput.version) // endpoint: /info
-                returnText = `Version: ${jsonInput.version}\nJoke Count: ${jsonInput.jokes.totalCount}\nCategories: "${jsonInput.jokes.categories.join('", "')}"\nFlags: "${jsonInput.jokes.flags.join('", "')}"\nSubmission URL: ${jsonInput.jokes.submissionURL}\n\n${jsonInput.info}`;
+            {
+                let suppLangs = [];
+                languages.jokeLangs().forEach(lang => {
+                    suppLangs.push(`${lang.name} [${lang.code}]`);
+                });
+                returnText = `Version: ${jsonInput.version}\nJoke Count: ${jsonInput.jokes.totalCount}\nCategories: "${jsonInput.jokes.categories.join('", "')}"\nFlags: "${jsonInput.jokes.flags.join('", "')}"\nSubmission URL: ${jsonInput.jokes.submissionURL}\nSupported Languages (${languages.jokeLangs().length}): ${suppLangs.sort().join(", ")}\n\n${jsonInput.info}`;
+            }
 
             else if(Array.isArray(jsonInput) && jsonInput[0].usage && jsonInput[0].usage.method) // endpoint: /endpoints
             {

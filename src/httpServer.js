@@ -18,6 +18,7 @@ const analytics = require("./analytics");
 const jokeSubmission = require("./jokeSubmission");
 const auth = require("./auth");
 const meter = require("./meter");
+const languages = require("./languages");
 
 
 const init = () => {
@@ -37,17 +38,21 @@ const init = () => {
                 let analyticsObject = {
                     ipAddress: ip,
                     urlPath: parsedURL.pathArray,
-                    urlParameters: parsedURL.queryParams 
+                    urlParameters: parsedURL.queryParams
                 };
+                let lang = parsedURL.queryParams ? parsedURL.queryParams.lang : "invalid-lang-code";
 
-                debug("HTTP", `Incoming ${req.method} request from "${ip.substring(0, 8)}${localhostIP ? `..." ${jsl.colors.fg.blue}(local)${jsl.colors.rst}` : "...\""}`);
+                if(languages.isValidLang(lang) !== true)
+                    lang = settings.languages.defaultLanguage;
+
+                debug("HTTP", `Incoming ${req.method} request from "${lang}-${ip.substring(0, 8)}${localhostIP ? `..." ${jsl.colors.fg.blue}(local)${jsl.colors.rst}` : "...\""} to ${req.url}`);
                 
                 let fileFormat = settings.jokes.defaultFileFormat.fileFormat;
                 if(!jsl.isEmpty(parsedURL.queryParams) && !jsl.isEmpty(parsedURL.queryParams.format))
                     fileFormat = parseURL.getFileFormatFromQString(parsedURL.queryParams);
 
                 if(req.url.length > settings.httpServer.maxUrlLength)
-                    return respondWithError(res, 108, 414, fileFormat, `The length of the URL (${req.url.length} characters) exceeds the maximum accepted length of ${settings.httpServer.maxUrlLength} characters`);
+                    return respondWithError(res, 108, 414, fileFormat, "", lang, req.url.length);
 
                 try
                 {
@@ -55,7 +60,7 @@ const init = () => {
                     {
                         meter.update("blacklisted", 1);
                         logRequest("blacklisted", null, analyticsObject);
-                        return respondWithError(res, 103, 403, fileFormat);
+                        return respondWithError(res, 103, 403, fileFormat, "", lang);
                     }
 
                     debug("HTTP", `URL obj is:\n${JSON.stringify(parsedURL, null, 4)}`);
@@ -98,7 +103,7 @@ const init = () => {
                             urlPath: parsedURL.pathArray
                         }
                     });
-                    return respondWithError(res, 500, 100, fileFormat, err);
+                    return respondWithError(res, 500, 100, fileFormat, err, lang);
                 }
 
                 meter.update("reqtotal", 1);
@@ -116,7 +121,7 @@ const init = () => {
                         let lowerCaseEndpoints = [];
                         endpoints.forEach(ep => lowerCaseEndpoints.push(ep.name.toLowerCase()));
 
-                        if(!jsl.isEmpty(urlPath))
+                        if(!jsl.isArrayEmpty(urlPath))
                             requestedEndpoint = urlPath[0];
                         else
                         {
@@ -124,7 +129,7 @@ const init = () => {
                             {
                                 analytics.rateLimited(ip);
                                 logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
-                                return respondWithError(res, 101, 429, fileFormat);
+                                return respondWithError(res, 101, 429, fileFormat, "", lang);
                             }
                             else return serveDocumentation(req, res);
                             //else return respondWithErrorPage(res, 500, "Example Error @ex@");
@@ -186,7 +191,7 @@ const init = () => {
                                     }
                                     catch(err)
                                     {
-                                        return respondWithError(res, 104, 500, fileFormat);
+                                        return respondWithError(res, 104, 500, fileFormat, "", lang);
                                     }
                                 }
                                 else
@@ -194,7 +199,7 @@ const init = () => {
                                     if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting) && !lists.isWhitelisted(ip) && !hasHeaderAuth)
                                     {
                                         logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
-                                        return respondWithError(res, 101, 429, fileFormat);
+                                        return respondWithError(res, 101, 429, fileFormat, "", lang);
                                     }
                                     else
                                     {
@@ -213,7 +218,7 @@ const init = () => {
                         if(!foundEndpoint)
                         {
                             if(!jsl.isEmpty(fileFormat) && req.url.toLowerCase().includes("format"))
-                                return respondWithError(res, 102, 404, fileFormat, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at ${settings.info.docsURL}#endpoints to see all available endpoints`);
+                                return respondWithError(res, 102, 404, fileFormat, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at ${settings.info.docsURL}#endpoints to see all available endpoints`, lang);
                             else return respondWithErrorPage(res, 404, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at ${settings.info.docsURL}#endpoints to see all available endpoints`);
                         }
                     }
@@ -231,7 +236,7 @@ const init = () => {
 
                             let payloadLength = byteLength(data);
                             if(payloadLength > settings.httpServer.maxPayloadSize)
-                                return respondWithError(res, 107, 413, fileFormat, `The provided payload data is too large (${payloadLength} bytes of ${settings.httpServer.maxPayloadSize})`);
+                                return respondWithError(res, 107, 413, fileFormat, `The provided payload data is too large (${payloadLength} bytes of ${settings.httpServer.maxPayloadSize})`, lang);
                             
                             if(!jsl.isEmpty(data))
                                 dataGotten = true;
@@ -243,7 +248,7 @@ const init = () => {
                             if(!dataGotten)
                             {
                                 debug("HTTP", "PUT request timed out");
-                                return respondWithError(res, 105, 400, fileFormat, "Request body is empty");
+                                return respondWithError(res, 105, 400, fileFormat, "Request body is empty", lang);
                             }
                         }, 3000);
                     }
@@ -352,12 +357,32 @@ const init = () => {
  * @param {Number} responseCode The HTTP response code to end the request with
  * @param {String} fileFormat The file format to respond with - automatically gets converted to MIME type
  * @param {String} errorMessage Additional error info
+ * @param {String} lang Language code of the request
+ * @param {...any} args Arguments to replace numbered %-placeholders with. Only use objects that are strings or convertable to them with `.toString()`!
  */
-const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage) => {
+const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage, lang, ...args) => {
     try
     {
         let errFromRegistry = require(`.${settings.errors.errorMessagesPath}`)[errorCode.toString()];
         let errObj = {};
+
+        if(!lang || !languages.isValidLang(lang))
+            lang = settings.languages.defaultLanguage;
+
+        let insArgs = (texts, insertions) => {
+            if(!Array.isArray(insertions) || insertions.length <= 0)
+                return texts;
+
+            insertions.forEach((ins, i) => {
+
+                if(Array.isArray(texts))
+                    texts = texts.map(tx => tx.replace(`%${i + 1}`, ins));
+                else if(typeof texts == "string")
+                    texts = texts.replace(`%${i + 1}`, ins);
+            });
+
+            return texts;
+        };
 
         if(fileFormat != "xml")
         {
@@ -365,8 +390,8 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
                 "error": true,
                 "internalError": errFromRegistry.errorInternal,
                 "code": errorCode,
-                "message": errFromRegistry.errorMessage,
-                "causedBy": errFromRegistry.causedBy,
+                "message": insArgs(errFromRegistry.errorMessage[lang], args) || insArgs(errFromRegistry.errorMessage[settings.languages.defaultLanguage], args),
+                "causedBy": insArgs(errFromRegistry.causedBy[lang], args) || insArgs(errFromRegistry.causedBy[settings.languages.defaultLanguage], args),
                 "timestamp": new Date().getTime()
             }
         }
@@ -376,8 +401,8 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
                 "error": true,
                 "internalError": errFromRegistry.errorInternal,
                 "code": errorCode,
-                "message": errFromRegistry.errorMessage,
-                "causedBy": {"cause": errFromRegistry.causedBy},
+                "message": insArgs(errFromRegistry.errorMessage[lang], args) || insArgs(errFromRegistry.errorMessage[settings.languages.defaultLanguage], args),
+                "causedBy": {"cause": insArgs(errFromRegistry.causedBy[lang], args) || insArgs(errFromRegistry.causedBy[settings.languages.defaultLanguage], args)},
                 "timestamp": new Date().getTime()
             }
         }
@@ -385,7 +410,9 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
         if(!jsl.isEmpty(errorMessage))
             errObj.additionalInfo = errorMessage;
 
-        return pipeString(res, convertFileFormat.auto(fileFormat, errObj), parseURL.getMimeTypeFromFileFormatString(fileFormat), responseCode);
+        let converted = convertFileFormat.auto(fileFormat, errObj).toString();
+
+        return pipeString(res, converted, parseURL.getMimeTypeFromFileFormatString(fileFormat), responseCode);
     }
     catch(err)
     {
@@ -446,16 +473,18 @@ const pipeString = (res, text, mimeType, statusCode = 200) => {
     s.push(text);
     s.push(null);
 
-    if(!res.headersSent)
-    {
-        res.writeHead(statusCode, {
-            "Content-Type": `${mimeType}; charset=UTF-8`,
-            "Content-Length": text.length
-        });
-    }
-
     if(!res.writableEnded)
+    {
         s.pipe(res);
+
+        if(!res.headersSent)
+        {
+            res.writeHead(statusCode, {
+                "Content-Type": `${mimeType}; charset=UTF-8`,
+                "Content-Length": text.length
+            });
+        }
+    }
 }
 
 /**

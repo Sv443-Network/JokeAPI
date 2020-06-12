@@ -4,6 +4,7 @@ const httpServer = require("../src/httpServer");
 const parseURL = require("../src/parseURL");
 const jsl = require("svjsl");
 const parseJokes = require("../src/parseJokes");
+const languages = require("../src/languages");
 const settings = require("../settings");
 
 jsl.unused(http);
@@ -31,6 +32,8 @@ const meta = {
  */
 const call = (req, res, url, params, format) => {
     jsl.unused([req, url, params]);
+
+    let supportedLangsLength = languages.jokeLangs().length;
 
     let errFromRegistry = require("." + settings.errors.errorMessagesPath)["100"];
     let responseText = {};
@@ -70,6 +73,7 @@ const call = (req, res, url, params, format) => {
                 "submissionURL": settings.jokes.jokeSubmissionURL
             },
             "info": settings.info.infoMsg,
+            "languages": supportedLangsLength,
             "timestamp": new Date().getTime()
         });
     }
@@ -86,6 +90,7 @@ const call = (req, res, url, params, format) => {
                 "submissionURL": settings.jokes.jokeSubmissionURL
             },
             "info": settings.info.infoMsg,
+            "languages": supportedLangsLength,
             "timestamp": new Date().getTime()
         });
     }

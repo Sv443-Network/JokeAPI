@@ -243,6 +243,8 @@ function onLoad()
     });
 
     buildSubmission();
+
+    gebid("insUserAgent").innerText = navigator.userAgent;
 }
 
 function addCodeTabs()

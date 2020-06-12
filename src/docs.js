@@ -12,6 +12,7 @@ const zlib = require("zlib");
 const xss = require("xss");
 const semver = require("semver");
 const analytics = require("./analytics");
+const languages = require("./languages");
 
 
 /**
@@ -262,6 +263,8 @@ const inject = filePath => {
                     "<!--%#INSERT:FORMATVERSION#%-->":         settings.jokes.jokesFormatVersion.toString(),
                     "<!--%#INSERT:MAXPAYLOADSIZE#%-->":        settings.httpServer.maxPayloadSize.toString(),
                     "<!--%#INSERT:MAXURLLENGTH#%-->":          settings.httpServer.maxUrlLength.toString(),
+                    "<!--%#INSERT:JOKELANGCOUNT#%-->":         languages.jokeLangs().length.toString(),
+                    "<!--%#INSERT:SYSLANGCOUNT#%-->":          languages.systemLangs().length.toString(),
                 };
 
                 let allMatches = 0;

@@ -19,6 +19,7 @@ const logRequest = require("./logRequest");
 const auth = require("./auth");
 const languages = require("./languages");
 const meter = require("./meter");
+const tr = require("./translate");
 
 const col = jsl.colors.fg;
 process.debuggerActive = jsl.inDebugger();
@@ -40,48 +41,54 @@ const initAll = () => {
     
     if(!noDbg && !settings.debug.progressBarDisabled)
         pb = new jsl.ProgressBar(7, "Initializing languages...");
+
+    // I should probably redo this section with Promise.all() or something like that some time
     
-    //#SECTION init langs
-    languages.init().then(() => {
+    //#SECTION init translations
+    tr.init().then(() => {
 
-        //#SECTION parse jokes
-        if(!jsl.isEmpty(pb)) pb.next("Parsing Jokes...");
-        parseJokes.init().then(() => {
-            
-            //#SECTION init lists
-            if(!jsl.isEmpty(pb)) pb.next("Initializing lists...");
-            lists.init().then(() => {
+        //#SECTION init langs
+        languages.init().then(() => {
 
-                //#SECTION init documentation page
-                if(!jsl.isEmpty(pb)) pb.next("Initializing documentation...");
-                docs.init().then(() => {
+            //#SECTION parse jokes
+            if(!jsl.isEmpty(pb)) pb.next("Parsing Jokes...");
+            parseJokes.init().then(() => {
+                
+                //#SECTION init lists
+                if(!jsl.isEmpty(pb)) pb.next("Initializing lists...");
+                lists.init().then(() => {
 
-                    //#SECTION init auth
-                    if(!jsl.isEmpty(pb)) pb.next("Initializing Authorization module...");
-                    auth.init().then(() => {
+                    //#SECTION init documentation page
+                    if(!jsl.isEmpty(pb)) pb.next("Initializing documentation...");
+                    docs.init().then(() => {
 
-                        //#SECTION init HTTP server
-                        if(!jsl.isEmpty(pb)) pb.next("Initializing HTTP listener...");
-                        httpServer.init().then(() => {
+                        //#SECTION init auth 
+                        if(!jsl.isEmpty(pb)) pb.next("Initializing Authorization module...");
+                        auth.init().then(() => {
 
-                            //#SECTION init analytics
-                            if(!jsl.isEmpty(pb)) pb.next("Initializing analytics module...");
-                            analytics.init().then(() => {
-                                
-                                //#SECTION init meter
-                                meter.init();
+                            //#SECTION init HTTP server
+                            if(!jsl.isEmpty(pb)) pb.next("Initializing HTTP listener...");
+                            httpServer.init().then(() => {
 
-                                if(!jsl.isEmpty(pb)) pb.next("Done.");
-                                logRequest.initMsg(initTimestamp);
+                                //#SECTION init analytics
+                                if(!jsl.isEmpty(pb)) pb.next("Initializing analytics module...");
+                                analytics.init().then(() => {
+                                    
+                                    //#SECTION init meter
+                                    meter.init();
 
-                                // done.
-                            }).catch(err => initError("initializing the analytics module", err));
-                        }).catch(err => initError("initializing the HTTP server", err));
-                    }).catch(err => initError("initializing the Auth module", err));
-                }).catch(err => initError("initializing documentation", err));
-            }).catch(err => initError("initializing the lists", err));
-        }).catch(err => initError("parsing jokes", err));
-    }).catch(err => initError("initializing languages module", err));
+                                    if(!jsl.isEmpty(pb)) pb.next("Done.");
+                                    logRequest.initMsg(initTimestamp);
+
+                                    // done.
+                                }).catch(err => initError("initializing the analytics module", err));
+                            }).catch(err => initError("initializing the HTTP server", err));
+                        }).catch(err => initError("initializing the Auth module", err));
+                    }).catch(err => initError("initializing documentation", err));
+                }).catch(err => initError("initializing the lists", err));
+            }).catch(err => initError("parsing jokes", err));
+        }).catch(err => initError("initializing languages module", err));
+    }).catch(err => initError("initializing translations module", err));
 };
 
 
