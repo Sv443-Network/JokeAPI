@@ -123,6 +123,16 @@ const logRequest = (type, additionalInfo, analyticsData) => {
             logChar = "*";
             if(!settings.logging.blacklistLoggingEnabled)
                 logDisabled = true;
+
+            // analytics({
+            //     type: "Error",
+            //     data: {
+            //         ipAddress: analyticsData.ipAddress,
+            //         urlPath: analyticsData.urlPath,
+            //         urlParameters: analyticsData.urlParameters,
+            //         errorMessage: `Blacklisted - ${additionalInfo}`
+            //     }
+            // });
         break;
     }
 

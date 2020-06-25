@@ -94,6 +94,10 @@ const isBlacklisted = ip => {
         if(!returnVal && (ip == blIP || ip == resolveIP.hashIP(blIP)))
             returnVal = true;
     });
+
+    if(returnVal === true)
+        debug("Lists", "Is blacklisted.");
+
     return returnVal;
 }
 
