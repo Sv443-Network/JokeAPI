@@ -2632,6 +2632,222 @@
             "setup": "Why are men like lawn mowers?",
             "delivery": "They are very hard to get started, they make yucky smells and half the time they don’t even work.",
             "id": 191
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What did the customer say to the waiter?",
+            "delivery": "I'm all fed up with your service.",
+            "id": 192
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "To whoever stole my copy of Microsoft Office, I will find you. You have my Word!",
+            "id": 193
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "Why did the koala get rejected?",
+            "delivery": "Because he did not have any koalafication.",
+            "id": 194
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What is the most used language in programming?",
+            "delivery": "Profanity.",
+            "id": 195
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "What's the best thing about Switzerland?",
+            "delivery": "I don't know but the flag is a big plus.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "racist": false,
+                "sexist": false,
+                "political": false
+            },
+            "id": 196
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "joke": "Relationship Status: just tried to reach for my dog's paw and he pulled it away so I pretended I was reaching for the remote.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "racist": false,
+                "sexist": false,
+                "political": false
+            },
+            "id": 197
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What do you call a cow with no legs?",
+            "delivery": "Ground beef.",
+            "id": 198
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "Schrödinger's cat walks into a bar and doesn't.",
+            "id": 199
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "The past, the present and the future walk into a bar.",
+            "delivery": "It was tense.",
+            "id": 200
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What did the cell say when his sister cell stepped on his foot?",
+            "delivery": "Mitosis.",
+            "id": 201
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "Today, my son asked \"Can I have a book mark?\" and I burst into tears.\n11 years old and he still doesn't know my name is Brian.",
+            "id": 202
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "My wife is really mad at the fact that I have no sense of direction.\nSo I packed up my stuff and right.",
+            "id": 203
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": true,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "How do you make holy water? You boil the hell out of it.",
+            "id": 204
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": true,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "How do you make holy water? You freeze it and drill holes in it.",
+            "id": 205
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "I bought some shoes from a drug dealer. I don't know what he laced them with, but I was tripping all day!",
+            "id": 206
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What did the fish say when it swam in to the wall?",
+            "delivery": "Dam.",
+            "id": 207
         }
     ]
 }

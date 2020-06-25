@@ -56,7 +56,7 @@ const init = () => {
                         return respondWithError(res, 103, 403, fileFormat);
                     }
 
-                    debug("HTTP", `URL obj is:\n${JSON.stringify(parsedURL, null, 4)}`);
+                    debug("HTTP", `Requested URL: ${parsedURL.initialURL}`);
 
                     if(settings.httpServer.allowCORS)
                     {
