@@ -31,6 +31,4 @@ data/submissions/submission_*.json
 data/tokens.json
 
 # Other potentially sensitive information:
-lists/consoleBlacklist.json
-lists/ipBlacklist.json
-lists/ipWhitelist.json
+lists/*.json
