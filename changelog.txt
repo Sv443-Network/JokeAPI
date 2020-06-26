@@ -1,7 +1,7 @@
 ====================
 
  JokeAPI Changelog
- - Version 2.1.4 -
+ - Version 2.1.5 -
 
 ====================
 
@@ -20,7 +20,11 @@
     - Daemonize the auth token refreshing
 
 
-[CURRENT: 2.1.4] - 2020 Q3 general patch #1
+[CURRENT: 2.1.5] - 2020 Q3 general patch #2
+    - Ditched the botched rate limiting package for a "commercial" one
+
+
+[2.1.4] - 2020 Q3 general patch #1
     - Fixed the IP getter module for like the 500th time now
 
 
