@@ -2,7 +2,7 @@
 
 const jsl = require("svjsl");
 const http = require("http");
-const rateLimit = require("http-ratelimit");
+const { RateLimiterMemory, RateLimiterRes } = require("rate-limiter-flexible");
 const Readable = require("stream").Readable;
 const fs = require("fs");
 
@@ -18,6 +18,8 @@ const analytics = require("./analytics");
 const jokeSubmission = require("./jokeSubmission");
 const auth = require("./auth");
 
+jsl.unused(RateLimiterRes); // typedef only
+
 
 const init = () => {
     debug("HTTP", "Starting HTTP server...");
@@ -28,7 +30,14 @@ const init = () => {
          * Initializes the HTTP server - should only be called once
          */
         let initHttpServer = () => {
-            let httpServer = http.createServer((req, res) => {
+            //#SECTION set up rate limiter
+            let rl = new RateLimiterMemory({
+                points: settings.httpServer.rateLimiting,
+                duration: settings.httpServer.timeFrame
+            });
+
+            //#SECTION create HTTP server
+            let httpServer = http.createServer(async (req, res) => {
                 let parsedURL = parseURL(req.url);
                 let ip = resolveIP(req);
                 let localhostIP = resolveIP.isLocal(ip);
@@ -48,6 +57,7 @@ const init = () => {
                 if(req.url.length > settings.httpServer.maxUrlLength)
                     return respondWithError(res, 108, 414, fileFormat, `The length of the URL (${req.url.length} characters) exceeds the maximum accepted length of ${settings.httpServer.maxUrlLength} characters`);
 
+                //#SECTION check lists
                 try
                 {
                     if(lists.isBlacklisted(ip))
@@ -114,14 +124,27 @@ const init = () => {
                             requestedEndpoint = urlPath[0];
                         else
                         {
-                            if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting) && !lists.isWhitelisted(ip) && !hasHeaderAuth)
+                            try
                             {
+                                let rlRes = await rl.get(ip);
+
+                                if((rlRes && rlRes._remainingPoints < 0) && !lists.isWhitelisted(ip) && !hasHeaderAuth)
+                                {
+                                    setRateLimitedHeaders(res, rlRes);
+                                    analytics.rateLimited(ip);
+                                    logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
+                                    return respondWithError(res, 101, 429, fileFormat);
+                                }
+                                else
+                                    return serveDocumentation(req, res);
+                            }
+                            catch(err)
+                            {
+                                // setRateLimitedHeaders(res, rlRes);
                                 analytics.rateLimited(ip);
                                 logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
                                 return respondWithError(res, 101, 429, fileFormat);
                             }
-                            else return serveDocumentation(req, res);
-                            //else return respondWithErrorPage(res, 500, "Example Error @ex@");
                         }
 
                         // Disable caching now that the request is not a docs request
@@ -137,7 +160,7 @@ const init = () => {
                             return pipeFile(res, settings.documentation.faviconPath, "image/x-icon", 200);
 
                         let foundEndpoint = false;
-                        endpoints.forEach(ep => {
+                        endpoints.forEach(async (ep) => {
                             if(ep.name == requestedEndpoint)
                             {
                                 let authHeaderObj = auth.authByHeader(req);
@@ -146,7 +169,16 @@ const init = () => {
 
                                 // now that the request is not a docs / favicon request, the blacklist is checked and the request is made eligible for rate limiting
                                 if(!settings.endpoints.ratelimitBlacklist.includes(ep.name) && !hasHeaderAuth)
-                                    rateLimit.inboundRequest(req);
+                                {
+                                    try
+                                    {
+                                        await rl.consume(ip, 1);
+                                    }
+                                    catch(err)
+                                    {
+                                        jsl.unused(err); // gets handled elsewhere
+                                    }
+                                }
                                 
                                 if(hasHeaderAuth)
                                 {
@@ -185,31 +217,48 @@ const init = () => {
                                 }
                                 else
                                 {
-                                    if(rateLimit.isRateLimited(req, settings.httpServer.rateLimiting) && !lists.isWhitelisted(ip) && !hasHeaderAuth)
+                                    try
                                     {
-                                        logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
-                                        return respondWithError(res, 101, 429, fileFormat);
-                                    }
-                                    else
-                                    {
-                                        if(jsl.isEmpty(meta) || (!jsl.isEmpty(meta) && meta.noLog !== true))
+                                        let rlRes = await rl.get(ip);
+
+                                        if((rlRes &&rlRes._remainingPoints < 0) && !lists.isWhitelisted(ip) && !hasHeaderAuth)
                                         {
-                                            if(!lists.isConsoleBlacklisted(ip))
-                                                logRequest("success", null, analyticsObject);
+                                            setRateLimitedHeaders(res, rlRes);
+                                            logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
+                                            analytics.rateLimited(ip);
+                                            return respondWithError(res, 101, 429, fileFormat);
                                         }
-                                            
-                                        return callEndpoint.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
+                                        else
+                                        {
+                                            if(jsl.isEmpty(meta) || (!jsl.isEmpty(meta) && meta.noLog !== true))
+                                            {
+                                                if(!lists.isConsoleBlacklisted(ip))
+                                                    logRequest("success", null, analyticsObject);
+                                            }
+                                                
+                                            return callEndpoint.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
+                                        }
+                                    }
+                                    catch(err)
+                                    {
+                                        // setRateLimitedHeaders(res, rlRes);
+                                        logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
+                                        analytics.rateLimited(ip);
+                                        return respondWithError(res, 101, 429, fileFormat);
                                     }
                                 }
                             }
                         });
 
-                        if(!foundEndpoint)
-                        {
-                            if(!jsl.isEmpty(fileFormat) && req.url.toLowerCase().includes("format"))
-                                return respondWithError(res, 102, 404, fileFormat, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at ${settings.info.docsURL}#endpoints to see all available endpoints`);
-                            else return respondWithErrorPage(res, 404, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at ${settings.info.docsURL}#endpoints to see all available endpoints`);
-                        }
+                        setTimeout(() => {
+                            if(!foundEndpoint)
+                            {
+                                if(!jsl.isEmpty(fileFormat) && req.url.toLowerCase().includes("format"))
+                                    return respondWithError(res, 102, 404, fileFormat, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at ${settings.info.docsURL}#endpoints to see all available endpoints`);
+                                else
+                                    return respondWithErrorPage(res, 404, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at ${settings.info.docsURL}#endpoints to see all available endpoints`);
+                            }
+                        }, 5000);
                     }
                 }
                 //#SECTION PUT
@@ -299,7 +348,6 @@ const init = () => {
             httpServer.listen(settings.httpServer.port, settings.httpServer.hostname, err => {
                 if(!err)
                 {
-                    rateLimit.init(settings.httpServer.timeFrame, true);
                     debug("HTTP", `${jsl.colors.fg.green}HTTP Server successfully listens on port ${settings.httpServer.port}${jsl.colors.rst}`);
                     return resolve();
                 }
@@ -339,6 +387,25 @@ const init = () => {
 
 
 //#MARKER error stuff
+/**
+ * Sets necessary headers on a `res` object so the client knows their rate limiting numbers
+ * @param {http.ServerResponse} res 
+ * @param {RateLimiterRes} rlRes 
+ */
+function setRateLimitedHeaders(res, rlRes)
+{
+    let rlHeaders = {
+        "Retry-After": rlRes.msBeforeNext / 1000,
+        "X-RateLimit-Limit": settings.httpServer.rateLimiting,
+        "X-RateLimit-Remaining": rlRes.remainingPoints,
+        "X-RateLimit-Reset": new Date(Date.now() + rlRes.msBeforeNext)
+    }
+
+    Object.keys(rlHeaders).forEach(key => {
+        res.setHeader(key, rlHeaders[key]);
+    });
+}
+
 /**
  * Ends the request with an error. This error gets pulled from the error registry
  * @param {http.ServerResponse} res 

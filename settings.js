@@ -97,8 +97,8 @@ const settings = {
     httpServer: {
         port: 8076,           // http server port
         allowCORS: true,      // whether or not to allow Cross Origin Resource Sharing
-        rateLimiting: 60,     // amount of allowed requests per below defined timeframe
-        timeFrame: 1,         // timeframe in min - also supports floating point numbers
+        rateLimiting: 2,     // amount of allowed requests per below defined timeframe
+        timeFrame: 60,        // timeframe in seconds - also supports floating point numbers
         urlPathOffset: 0,     // example: "/jokeapi/info" with an offset of 1 will only start parsing the path beginning at "info" - an Apache reverse proxy will do this automatically though
         maxPayloadSize: 5120, // max size (in bytes) that will be accepted in a PUT request - if payload exceeds this size, it will abort with status 413
         maxUrlLength: 250,    // max amount of characters of the URL - if the URL is longer than this, the request will abort with status 414

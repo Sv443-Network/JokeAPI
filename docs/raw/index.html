@@ -538,12 +538,12 @@ None. It's a hardware problem.
 
                 <!-- #MARKER Errors -->
                 <div class="docHeader targetBlink" id="errors"><a class="headerAnchorContainer" href="#errors" title="Click to link to this header">🔗</a><span class="docHeaderText">Errors:</span></div>
-                In <!--%#INSERT:NAME#%--> all response data, no matter from which endpoint will have an "error" parameter.<br>
+                In <!--%#INSERT:NAME#%--> all response data, no matter from which endpoint will have a boolean "error" parameter.<br>
                 Usually, it is set to false, which means there was no error in your request or on the server.<br>
                 If the "error" parameter is set to true though, there was an error and <!--%#INSERT:NAME#%--> will add an "internalError", "message", "causedBy", "additionalInfo" and "timestamp" parameter.<br>
                 <br>
                 The "internalError" parameter will be set to false, if the error was due to a malformed or failed request and it will be true, if the error is <!--%#INSERT:NAME#%-->'s fault.<br>
-                The "message" parameter will contain a short version of the error message and the "timestamp" parameter will contain a 13-character UNIX timestamp in Central European time (GMT+1).<br>
+                The "message" parameter will contain a short version of the error message and the "timestamp" parameter will contain a 13-character Unix timestamp.<br>
                 The "causedBy" parameter is an array of possible causes of this error and the "addidionalInfo" parameter contains a more descriptive error message.<br>
                 <br>
                 You can view an example of an error, where an invalid category was used, just below this paragraph.<br>
@@ -846,6 +846,15 @@ None. It's a hardware problem.
                     <li><a href="#search-string">Search String</a></li>
                     <li><a href="#id-range">ID Range</a></li>
                 </ul>
+
+
+
+                <!-- #MARKER API Tokens -->
+                <div class="docHeader targetBlink" id="api-tokens"><a class="headerAnchorContainer" href="#api-tokens" title="Click to link to this header">🔗</a><span class="docHeaderText">API Tokens:</span></div>
+                <!--%#INSERT:NAME#%--> has a way of whitelisting certain clients. This is achieved through an API token.<br>
+                At the moment, you will only receive one of these tokens temporarily if something breaks or if you are a business and need more than <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute.<br>
+                If you do end up receiving a token, using it is as easy as adding an <mark>X-API-Token</mark> header with the actual token as its value.
+
 
 
                 <!-- #MARKER Examples -->
@@ -1185,6 +1194,7 @@ public class Flags
                     </ul>
                 </details>
                 <a class="noul" onclick="closeNav()" href="#filtering">Filtering Jokes</a>
+                <a class="noul" onclick="closeNav()" href="#api-tokens">API Tokens</a>
                 <a class="noul" onclick="closeNav()" href="#examples">Examples</a>
                 <!-- <details>
                     <summary>
