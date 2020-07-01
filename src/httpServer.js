@@ -41,7 +41,7 @@ const init = () => {
                 let parsedURL = parseURL(req.url);
                 let ip = resolveIP(req);
                 let localhostIP = resolveIP.isLocal(ip);
-                let hasHeaderAuth = auth.authByHeader(req);
+                let headerAuth = auth.authByHeader(req, res);
                 let analyticsObject = {
                     ipAddress: ip,
                     urlPath: parsedURL.pathArray,
@@ -128,7 +128,7 @@ const init = () => {
                             {
                                 let rlRes = await rl.get(ip);
 
-                                if((rlRes && rlRes._remainingPoints < 0) && !lists.isWhitelisted(ip) && !hasHeaderAuth)
+                                if((rlRes && rlRes._remainingPoints < 0) && !lists.isWhitelisted(ip) && !headerAuth.isAuthorized)
                                 {
                                     setRateLimitedHeaders(res, rlRes);
                                     analytics.rateLimited(ip);
@@ -163,12 +163,11 @@ const init = () => {
                         endpoints.forEach(async (ep) => {
                             if(ep.name == requestedEndpoint)
                             {
-                                let authHeaderObj = auth.authByHeader(req);
-                                let hasHeaderAuth = authHeaderObj.isAuthorized;
-                                let headerToken = authHeaderObj.token;
+                                let isAuthorized = headerAuth.isAuthorized;
+                                let headerToken = headerAuth.token;
 
                                 // now that the request is not a docs / favicon request, the blacklist is checked and the request is made eligible for rate limiting
-                                if(!settings.endpoints.ratelimitBlacklist.includes(ep.name) && !hasHeaderAuth)
+                                if(!settings.endpoints.ratelimitBlacklist.includes(ep.name) && !isAuthorized)
                                 {
                                     try
                                     {
@@ -180,7 +179,7 @@ const init = () => {
                                     }
                                 }
                                 
-                                if(hasHeaderAuth)
+                                if(isAuthorized)
                                 {
                                     debug("HTTP", `Requester has valid token ${jsl.colors.fg.green}${req.headers[settings.auth.tokenHeaderName] || null}${jsl.colors.rst}`);
                                     analytics({
@@ -221,7 +220,7 @@ const init = () => {
                                     {
                                         let rlRes = await rl.get(ip);
 
-                                        if((rlRes &&rlRes._remainingPoints < 0) && !lists.isWhitelisted(ip) && !hasHeaderAuth)
+                                        if((rlRes &&rlRes._remainingPoints < 0) && !lists.isWhitelisted(ip) && !isAuthorized)
                                         {
                                             setRateLimitedHeaders(res, rlRes);
                                             logRequest("ratelimited", `IP: ${ip}`, analyticsObject);

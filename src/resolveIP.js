@@ -31,7 +31,7 @@ const resolveIP = req => {
             ipaddr = `unknown_${req.headers["cf_ipcountry"]}`;
     }
 
-    return hashIP(ipaddr);
+    return settings.httpServer.ipHashing.enabled ? hashIP(ipaddr) : ipaddr;
 };
 
 /**

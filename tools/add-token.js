@@ -20,7 +20,7 @@ try
 
     for(let i = 0; i < amount; i++)
     {
-        let tok = jsl.generateUUID.custom("xxxxyyyy_xxxxyyyyxxxxyyyy_xxxxyyyyxxxxyyyy", "0123456789abcdefghijklmnopqrstuvwxyz!?$§%");
+        let tok = jsl.generateUUID.custom("xxxxyyyyxxxxyyyy_xxxxyyyyxxxxyyyy_xxxxyyyyxxxxyyyy_xxxxyyyyxxxxyyyy", "0123456789abcdefghijklmnopqrstuvwxyz!?$§%*.~");
 
         let oldFile = [];
         if(fs.existsSync(settings.auth.tokenListFile))

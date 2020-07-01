@@ -31,11 +31,18 @@ const init = () => {
 };
 
 /**
+ * @typedef {Object} Authorization
+ * @prop {Boolean} isAuthorized
+ * @prop {String} token
+ */
+
+/**
  * Checks if the requester has provided an auth header and if the auth header is valid
  * @param {http.IncomingMessage} req 
- * @returns {Object}
+ * @param {http.ServerResponse} [res] If not provided, users will not get the `Token-Valid` response header
+ * @returns {Authorization}
  */
-const authByHeader = (req) => {
+const authByHeader = (req, res) => {
     let isAuthorized = false;
     let requestersToken = "";
 
@@ -51,6 +58,9 @@ const authByHeader = (req) => {
                 }
             });
         }
+
+        if(res && typeof res.setHeader == "function")
+            res.setHeader(settings.auth.tokenValidHeader, (isAuthorized ? "1" : "0"));
     }
 
     return {
