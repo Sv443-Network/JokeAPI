@@ -25,18 +25,11 @@
 
 <br><br>
 
-<table>
-<tr style="vertical-align: top" vertical-align="top" align="top"><td>
-
 # Official API Wrappers:
 - [Rust](https://github.com/canarado/sv443_jokeapi_wrapper)
 - [Python](https://github.com/thenamesweretakenalready/Sv443s-JokeAPI-Python-Wrapper)
 
-</td><td>
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-
-</td><td>
+<br>
 
 # Projects (I'm aware of) that use JokeAPI:
 - [dozens Advices](https://github.com/ZephyrVentum/dozens-Advices) by [ZephyrVentum](https://github.com/ZephyrVentum)
@@ -46,9 +39,6 @@
 - [Prejudice Networks](https://github.com/LiamTownsley/Prejudice-Networks) by [Liam Townsley](https://github.com/LiamTownsley)
   
 ([Contact me](https://sv443.net/discord) to get your project added here)
-
-</tr>
-</table>
 
 
 <br><br>
