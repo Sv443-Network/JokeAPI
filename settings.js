@@ -175,7 +175,7 @@ const settings = {
     },
     auth: {
         tokenListFile: "./data/tokens.json", // path to the token list file
-        tokenHeaderName: "x-auth-token",     // the name of the token header (lower case)
+        tokenHeaderName: "authorization",    // the name of the token header (in lower case)
     }
 }
 
