@@ -1,6 +1,6 @@
 <div align="center" style="text-align:center">
 
-# [![icon](https://sv443.net/cdn/jokeapi/icon_150x150.png)](#readme)<br>JokeAPI
+# [![icon](https://sv443.net/cdn/jokeapi/icon_readme.png)](#readme)<br>JokeAPI
 ### A REST API that serves uniformly and well formatted jokes and offers a great variety of filtering methods and response customization
 [![GitHub](https://img.shields.io/github/license/Sv443/JokeAPI)](https://sv443.net/LICENSE)
 [![Uptime / 7 Days](https://img.shields.io/uptimerobot/ratio/7/m782998549-afcc0d10c27c87df47e73289)](https://status.sv443.net/)
