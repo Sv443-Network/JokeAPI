@@ -857,7 +857,8 @@ None. It's a hardware problem.
                 <!--%#INSERT:NAME#%--> has a way of whitelisting certain clients. This is achieved through an API token.<br>
                 At the moment, you will only receive one of these tokens temporarily if something breaks or if you are a business and need more than <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute.<br>
                 If you do end up receiving a token, using it is as easy as adding an <mark>Authorization</mark> header with the actual token as its value.<br>
-                You will receive a response header called <mark>Token-Valid</mark> which will contain the number 1 or 0, depending on the validity of the token.
+                You will receive a response header called <mark>Token-Valid</mark> which will contain the number 1 if the token is valid.<br>
+                If the token is invalid, the Token-Valid header will be set to 0 and <!--%#INSERT:NAME#%--> will treat your request as if you didn't supply a token in the first place.
 
 
 
