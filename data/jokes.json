@@ -2873,7 +2873,8 @@
                 "racist": false,
                 "sexist": false
             },
-            "joke": "I was going to tell a dead baby joke. But I decided to abort."
+            "joke": "I was going to tell a dead baby joke. But I decided to abort.",
+            "id": 209
         },
         {
             "category": "Dark",
@@ -2885,7 +2886,8 @@
                 "racist": false,
                 "sexist": false
             },
-            "joke": "I'll never forget my Granddad's last words to me just before he died. \"Are you still holding the ladder?\""
+            "joke": "I'll never forget my Granddad's last words to me just before he died. \"Are you still holding the ladder?\"",
+            "id": 210
         },
         {
             "category": "Miscellaneous",
@@ -2898,7 +2900,8 @@
                 "sexist": false
             },
             "setup": "Why did the chicken cross the road, roll in the mud and cross the road again?",
-            "delivery": "He was a dirty double crosser!"
+            "delivery": "He was a dirty double crosser!",
+            "id": 211
         },
         {
             "category": "Miscellaneous",
@@ -2911,7 +2914,8 @@
                 "sexist": false
             },
             "setup": "What do you call a deer with no eyes?",
-            "delivery": "No eye deer."
+            "delivery": "No eye deer.",
+            "id": 212
         },
         {
             "category": "Programming",
@@ -2924,7 +2928,8 @@
                 "sexist": false
             },
             "setup": "What are bits?",
-            "delivery": "Tiny things left when you drop your computer down the stairs"
+            "delivery": "Tiny things left when you drop your computer down the stairs",
+            "id": 213
         },
         {
             "category": "Miscellaneous",
@@ -2937,7 +2942,8 @@
                 "political": true,
                 "racist": false,
                 "sexist": false
-            }
+            },
+            "id": 214
         },
         {
             "category": "Miscellaneous",
@@ -2950,7 +2956,8 @@
                 "political": true,
                 "racist": false,
                 "sexist": false
-            }
+            },
+            "id": 215
         },
         {
             "category": "Programming",
@@ -2962,8 +2969,9 @@
                 "racist": false,
                 "sexist": false
             },
-            "joke": "Why did the programmer jump on the table?",
-            "delivery": "Because debug was on his screen."
+            "setup": "Why did the programmer jump on the table?",
+            "delivery": "Because debug was on his screen.",
+            "id": 216
         },
         {
             "category": "Miscellaneous",
@@ -2975,7 +2983,8 @@
                 "racist": false,
                 "sexist": false
             },
-            "joke": "I walked into a bar once.\nIt really hurt my head."
+            "joke": "I walked into a bar once.\nIt really hurt my head.",
+            "id": 217
         },
         {
             "category": "Miscellaneous",
@@ -2988,7 +2997,22 @@
                 "sexist": false
             },
             "setup": "What's grey and comes in pints?",
-            "delivery": "An elephant."
+            "delivery": "An elephant.",
+            "id": 218
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "What's yellow and can't swim?",
+            "delivery": "A bus full of children.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 219
         }
     ]
 }
