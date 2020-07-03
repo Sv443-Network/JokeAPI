@@ -394,7 +394,7 @@ const init = () => {
 function setRateLimitedHeaders(res, rlRes)
 {
     let rlHeaders = {
-        "Retry-After": rlRes.msBeforeNext / 1000,
+        "Retry-After": Math.round(rlRes.msBeforeNext / 1000),
         "X-RateLimit-Limit": settings.httpServer.rateLimiting,
         "X-RateLimit-Remaining": rlRes.remainingPoints,
         "X-RateLimit-Reset": new Date(Date.now() + rlRes.msBeforeNext)
