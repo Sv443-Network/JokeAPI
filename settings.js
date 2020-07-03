@@ -98,16 +98,16 @@ const settings = {
         port: 8076,           // http server port
         allowCORS: true,      // whether or not to allow Cross Origin Resource Sharing
         rateLimiting: 60,     // amount of allowed requests per below defined timeframe
-        timeFrame: 1,         // timeframe in min - also supports floating point numbers
+        timeFrame: 60,        // timeframe in seconds - also supports floating point numbers
         urlPathOffset: 0,     // example: "/jokeapi/info" with an offset of 1 will only start parsing the path beginning at "info" - an Apache reverse proxy will do this automatically though
         maxPayloadSize: 5120, // max size (in bytes) that will be accepted in a PUT request - if payload exceeds this size, it will abort with status 413
         maxUrlLength: 250,    // max amount of characters of the URL - if the URL is longer than this, the request will abort with status 414
         disableCache: true,   // whether or not to disable the cache - default: true (setting to false may prevent the users from getting new jokes)
         infoHeaders: true,    // whether or not to add an informational header about JokeAPI to each request
         reverseProxy: true,   // whether or not JokeAPI gets its requests from a reverse proxy
-        ipSanitization: { // used to sanitize IP addresses so they can be used in file paths
+        ipSanitization: {     // used to sanitize IP addresses so they can be used in file paths
             regex: /[^A-Za-z0-9\-_./]|^COM[0-9]([/.]|$)|^LPT[0-9]([/.]|$)|^PRN([/.]|$)|^CLOCK\$([/.]|$)|^AUX([/.]|$)|^NUL([/.]|$)|^CON([/.]|$)/gm,
-            replaceChar: "#",  // what character to use instead of illegal characters
+            replaceChar: "#", // what character to use instead of illegal characters
         },
         ipHashing: {
             enabled: true,       // hashes all IP addresses. If set to false, JokeAPI is not GDPR compliant anymore!
@@ -175,8 +175,9 @@ const settings = {
     },
     auth: {
         tokenListFile: "./data/tokens.json", // path to the token list file
-        tokenHeaderName: "x-auth-token",     // the name of the token header (lower case)
+        tokenHeaderName: "authorization",    // the name of the token header (in lower case)
+        tokenValidHeader: "Token-Valid",     // the name of the token validity response header (normal case, not lower case)
     }
 }
 
-module.exports = settings;
+module.exports = Object.freeze(settings); // use Object.freeze() to prevent modifications at runtime

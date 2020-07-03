@@ -21,6 +21,7 @@ const auto = (format, jsonInput) => {
             return toXML(jsonInput);
         case "txt":
             return toTXT(jsonInput);
+        case "json":
         default:
             return JSON.stringify(jsonInput, null, 4);
     }
