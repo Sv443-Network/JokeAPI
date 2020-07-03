@@ -27,5 +27,8 @@ data/submissions/submission_*.json
 # Re-inclusions:
 !change.log*
 
-# Auth Tokens
+# Auth Tokens:
 data/tokens.json
+
+# Other potentially sensitive information:
+lists/*.json

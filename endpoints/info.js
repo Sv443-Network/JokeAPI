@@ -60,6 +60,8 @@ const call = (req, res, url, params, format) => {
         };
     }
 
+    let totalJokesCount = (!jsl.isEmpty(parseJokes.jokeCount) ? parseJokes.jokeCount : 0);
+
     if(format != "xml")
     {
         responseText = convertFileFormat.auto(format, {
@@ -67,11 +69,14 @@ const call = (req, res, url, params, format) => {
             "version": settings.info.version,
             "jokes":
             {
-                "totalCount": (!jsl.isEmpty(parseJokes.jokeCount) ? parseJokes.jokeCount : 0),
+                "totalCount": totalJokesCount,
                 "categories": [settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories],
                 "flags": settings.jokes.possible.flags,
-                "submissionURL": settings.jokes.jokeSubmissionURL
+                "types": settings.jokes.possible.types,
+                "submissionURL": settings.jokes.jokeSubmissionURL,
+                "idRange": [ 0, --totalJokesCount ]
             },
+            "formats": settings.jokes.possible.formats,
             "info": settings.info.infoMsg,
             "languages": supportedLangsLength,
             "timestamp": new Date().getTime()
@@ -84,11 +89,14 @@ const call = (req, res, url, params, format) => {
             "version": settings.info.version,
             "jokes":
             {
-                "totalCount": (!jsl.isEmpty(parseJokes.jokeCount) ? parseJokes.jokeCount : 0),
+                "totalCount": totalJokesCount,
                 "categories": {"category": [settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories]},
                 "flags": {"flag": settings.jokes.possible.flags},
-                "submissionURL": settings.jokes.jokeSubmissionURL
+                "types": {"type": settings.jokes.possible.types},
+                "submissionURL": settings.jokes.jokeSubmissionURL,
+                "idRange": [ 0, --totalJokesCount ]
             },
+            "formats": {"format": settings.jokes.possible.formats},
             "info": settings.info.infoMsg,
             "languages": supportedLangsLength,
             "timestamp": new Date().getTime()

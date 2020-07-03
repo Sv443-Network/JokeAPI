@@ -2452,7 +2452,7 @@
                 "sexist": false
             },
             "setup": "What do you call a witch at the beach?",
-            "delivery": "A Sandwich",
+            "delivery": "A Sandwich.",
             "id": 178
         },
         {
@@ -2466,35 +2466,8 @@
                 "sexist": false
             },
             "setup": "What do you call 4 Mexicans in quicksand?",
-            "delivery": "Quatro Sinko",
+            "delivery": "Quatro Sinko.",
             "id": 179
-        },
-        {
-            "category": "Miscellaneous",
-            "type": "single",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false
-            },
-            "joke": "Two fish in a tank. One turns to the other and says, \"Do you know how to drive this thing?\"",
-            "id": 180
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false
-            },
-            "setup": "Why can't orphans play baseball?",
-            "delivery": "They don't know where home is.",
-            "id": 181
         },
         {
             "category": "Dark",
@@ -2507,7 +2480,7 @@
                 "sexist": false
             },
             "joke": "My grandfather says I'm too reliant on technology.\nI called him a hypocrite and unplugged his life support.",
-            "id": 182
+            "id": 180
         },
         {
             "category": "Miscellaneous",
@@ -2521,7 +2494,130 @@
             },
             "setup": "Why do Jewish women prefer circumcised men?",
             "delivery": "Cause they won't take anything until it's atleast 10% off.",
+            "id": 181
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "Knock knock.\nWho's there?\nRecursion.\nRecursion who?\nKnock knock.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 182
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": true,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What is the difference between the Constitutions of the USA and the USSR? Both of them guarantee freedom of speech.",
+            "delivery": "Yes, but the Constitution of the USA also guarantees freedom after the speech.",
             "id": 183
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "Why was the river rich?",
+            "delivery": "Because it had two banks.",
+            "id": 184
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "Why didn't the skeleton go for prom?",
+            "delivery": "Because it had nobody.",
+            "id": 185
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "Being a self thought developer is almost the same as being a cut neck chicken because you have no sense of direction in the beginning",
+            "id": 186
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "Two fish in a tank. One turns to the other and says, \"Do you know how to drive this thing?\"",
+            "id": 187
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "Why can't orphans play baseball?",
+            "delivery": "They don't know where home is.",
+            "id": 188
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "I told my wife to shave her pussy.",
+            "delivery": "I woke up bald.",
+            "id": 189
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What's the difference between a school bus and a cactus?",
+            "delivery": "A cactus keeps the little pricks on the outside.",
+            "id": 190
         },
         {
             "category": "Miscellaneous",
@@ -2535,12 +2631,11 @@
             },
             "setup": "Why are men like lawn mowers?",
             "delivery": "They are very hard to get started, they make yucky smells and half the time they don’t even work.",
-            "id": 184
+            "id": 191
         },
         {
-            "category": "Programming",
-            "type": "single",
-            "joke": "Knock knock.\nWho's there?\nRecursion.\nRecursion who?\nKnock knock.",
+            "category": "Miscellaneous",
+            "type": "twopart",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2548,7 +2643,376 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 185
+            "setup": "What did the customer say to the waiter?",
+            "delivery": "I'm all fed up with your service.",
+            "id": 192
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "To whoever stole my copy of Microsoft Office, I will find you. You have my Word!",
+            "id": 193
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "Why did the koala get rejected?",
+            "delivery": "Because he did not have any koalafication.",
+            "id": 194
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What is the most used language in programming?",
+            "delivery": "Profanity.",
+            "id": 195
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "What's the best thing about Switzerland?",
+            "delivery": "I don't know but the flag is a big plus.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "racist": false,
+                "sexist": false,
+                "political": false
+            },
+            "id": 196
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "joke": "Relationship Status: just tried to reach for my dog's paw and he pulled it away so I pretended I was reaching for the remote.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "racist": false,
+                "sexist": false,
+                "political": false
+            },
+            "id": 197
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What do you call a cow with no legs?",
+            "delivery": "Ground beef.",
+            "id": 198
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "Schrödinger's cat walks into a bar and doesn't.",
+            "id": 199
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "The past, the present and the future walk into a bar.",
+            "delivery": "It was tense.",
+            "id": 200
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What did the cell say when his sister cell stepped on his foot?",
+            "delivery": "Mitosis.",
+            "id": 201
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "Today, my son asked \"Can I have a book mark?\" and I burst into tears.\n11 years old and he still doesn't know my name is Brian.",
+            "id": 202
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "My wife is really mad at the fact that I have no sense of direction.\nSo I packed up my stuff and right.",
+            "id": 203
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": true,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "How do you make holy water? You boil the hell out of it.",
+            "id": 204
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": true,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "How do you make holy water? You freeze it and drill holes in it.",
+            "id": 205
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "I bought some shoes from a drug dealer. I don't know what he laced them with, but I was tripping all day!",
+            "id": 206
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What did the fish say when it swam in to the wall?",
+            "delivery": "Dam.",
+            "id": 207
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "How did Harry Potter get down the hill?",
+            "delivery": "Walking...\nJK, Rolling.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 208
+        },
+        {
+            "category": "Dark",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "I was going to tell a dead baby joke. But I decided to abort.",
+            "id": 209
+        },
+        {
+            "category": "Dark",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "I'll never forget my Granddad's last words to me just before he died. \"Are you still holding the ladder?\"",
+            "id": 210
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "Why did the chicken cross the road, roll in the mud and cross the road again?",
+            "delivery": "He was a dirty double crosser!",
+            "id": 211
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What do you call a deer with no eyes?",
+            "delivery": "No eye deer.",
+            "id": 212
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What are bits?",
+            "delivery": "Tiny things left when you drop your computer down the stairs",
+            "id": 213
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "Where do sick cruise ships go to get healthy?",
+            "delivery": "The dock!",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": true,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 214
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "Has COVID-19 forced you to wear glasses and a mask at the same time?",
+            "delivery": "If so, you may be entitled to condensation.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": true,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 215
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "Why did the programmer jump on the table?",
+            "delivery": "Because debug was on his screen.",
+            "id": 216
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "I walked into a bar once.\nIt really hurt my head.",
+            "id": 217
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What's grey and comes in pints?",
+            "delivery": "An elephant.",
+            "id": 218
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "What's yellow and can't swim?",
+            "delivery": "A bus full of children.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 219
         }
     ]
 }

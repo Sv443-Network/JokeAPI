@@ -20,6 +20,7 @@ const auth = require("./auth");
 const languages = require("./languages");
 const meter = require("./meter");
 const tr = require("./translate");
+const promiseAllSequential = require("promise-all-sequential");
 
 const col = jsl.colors.fg;
 process.debuggerActive = jsl.inDebugger();
@@ -37,58 +38,52 @@ const initAll = () => {
     process.jokeapi = {};
     initializeDirs();
 
+    let initPromises = [];
+    let initStages = [
+        {
+            name: "Initializing joke parser",
+            fn: parseJokes.init
+        },
+        {
+            name: "Initializing lists",
+            fn: lists.init
+        },
+        {
+            name: "Initializing documentation",
+            fn: docs.init
+        },
+        {
+            name: "Initializing Authorization module",
+            fn: auth.init
+        },
+        {
+            name: "Initializing HTTP listener",
+            fn: httpServer.init
+        },
+        {
+            name: "Initializing analytics module",
+            fn: analytics.init
+        }
+    ];
+
     let pb;
-    
     if(!noDbg && !settings.debug.progressBarDisabled)
-        pb = new jsl.ProgressBar(7, "Initializing languages...");
+        pb = new jsl.ProgressBar(initStages.length, initStages[0].name);
 
-    // I should probably redo this section with Promise.all() or something like that some time
-    
-    //#SECTION init translations
-    tr.init().then(() => {
+    initStages.forEach(stage => {
+        initPromises.push(stage.fn);
+    });
 
-        //#SECTION init langs
-        languages.init().then(() => {
+    promiseAllSequential(initPromises).then((res) => {
+        jsl.unused(res);
 
-            //#SECTION parse jokes
-            if(!jsl.isEmpty(pb)) pb.next("Parsing Jokes...");
-            parseJokes.init().then(() => {
-                
-                //#SECTION init lists
-                if(!jsl.isEmpty(pb)) pb.next("Initializing lists...");
-                lists.init().then(() => {
+        if(!jsl.isEmpty(pb))
+            pb.next("Done.");
 
-                    //#SECTION init documentation page
-                    if(!jsl.isEmpty(pb)) pb.next("Initializing documentation...");
-                    docs.init().then(() => {
-
-                        //#SECTION init auth 
-                        if(!jsl.isEmpty(pb)) pb.next("Initializing Authorization module...");
-                        auth.init().then(() => {
-
-                            //#SECTION init HTTP server
-                            if(!jsl.isEmpty(pb)) pb.next("Initializing HTTP listener...");
-                            httpServer.init().then(() => {
-
-                                //#SECTION init analytics
-                                if(!jsl.isEmpty(pb)) pb.next("Initializing analytics module...");
-                                analytics.init().then(() => {
-                                    
-                                    //#SECTION init meter
-                                    meter.init();
-
-                                    if(!jsl.isEmpty(pb)) pb.next("Done.");
-                                    logRequest.initMsg(initTimestamp);
-
-                                    // done.
-                                }).catch(err => initError("initializing the analytics module", err));
-                            }).catch(err => initError("initializing the HTTP server", err));
-                        }).catch(err => initError("initializing the Auth module", err));
-                    }).catch(err => initError("initializing documentation", err));
-                }).catch(err => initError("initializing the lists", err));
-            }).catch(err => initError("parsing jokes", err));
-        }).catch(err => initError("initializing languages module", err));
-    }).catch(err => initError("initializing translations module", err));
+        logRequest.initMsg(initTimestamp);
+    }).catch(err => {
+        initError("initializing", err);
+    });
 };
 
 

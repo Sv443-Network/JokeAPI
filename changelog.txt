@@ -1,23 +1,40 @@
-====================
-
- JokeAPI Changelog
- - Version 2.2.0 -
-
-====================
+=====================
+  JokeAPI Changelog
+  - Version 2.2.0 -
+=====================
 
 
 
-[CURRENT: 2.2.0] - The Language Update
-    - It is now possible to define rate limiting per each client (see GitHub issue #37)
-    - Jokes and error messages now support different languages (see GitHub issue #75) - Documentation: 
-        - Different languages can be requested with the "?lang=xy" URL parameter
-        - Submissions need to contain the "lang" parameter with a two character language code
-    - Added pm2 metrics that make it easier for me to monitor JokeAPI (see GitHub issue #91)
-    - Scrapped the DIY URL parser and now using a dedicated package (see GitHub issue #97)
+[CURRENT: 2.2.0]
+    - Add joke category "Pun" (issue #105)
+    - Allow definition of max requests per minute per each client (issue #37)
+    - Add support for jokes and error messages of different languages (issue #75)
+        - /langcode/{LANGUAGE} endpoint
+        - /languages endpoint
+        - "?lang=code" URL parameter
+    - Fix ID caching (again, sigh) (issue #80)
+    - Add pm2 custom metrics (issue #91)
+    - Fix HTTP 403 errors (issue #96)
+    - Remake the URL parser using a "commercial" package (issue #97)
+    - Daemonize the API token refreshing (issue #102)
+    - Rate limit joke submissions more harshly (issue #104)
+    - Fix resources not being served with Brotli even though it is supported by the client (issue #106)
+
+
+[2.1.5] - 2020 Q3 general patch #2
+    - Ditched my botched rate limiting package for a "commercial" one (issue #113)
+    - Added API token section to documentation (issue #114)
+    - Client now receives a "Token-Valid" header with the value 0 or 1 depending on token validity (issue #115)
+    - Renamed "X-Auth-Token" header to "Authorization" so requests don't get blocked by Cloudflare (issue #117)
+    - Cleaned up a lot of code
+
+
+[2.1.4] - 2020 Q3 general patch #1
+    - Fixed the IP getter module for like the 500th time now
 
 
 [2.1.3] - 2020 Q2 general patch #1
-    - Added option to disable all console output but error messages (GitHub isse #72)
+    - Added option to disable all console output but error messages (GitHub issue #72)
     - The content of jokes in the joke submission form is now correctly escaped and can no longer mess up the page (GitHub issue #68)
     - Fixed crash when parsing a malformatted URI (GitHub issue #69 (nice))
     - Re-flagged some jokes

@@ -22,7 +22,8 @@
     --doc-header-font-size: 27px;
     --doc-sub-header-font-size: 19px;
 
-    --sidenav-animation-speed: 0.3s;
+    --sidenav-animation-speed: 0.15s;
+    --sidenav-colorblur-speed: 0.5s;
     --targetblink-animation-delay: 0.5s;
 
     --scrollbar-track-color: #222;
@@ -54,7 +55,7 @@ body {
 
     overflow-y: hidden;
 
-    transition: background-color var(--sidenav-animation-speed);
+    transition: background-color ease-out var(--sidenav-colorblur-speed);
 
     /* I had to do this for some unknown reason - don't ask me why: */
     -webkit-touch-callout: inherit;
@@ -172,7 +173,7 @@ header {
     background-color: var(--header-bg-color);
     z-index: 1000;
 
-    transition: filter linear var(--sidenav-animation-speed), width linear var(--sidenav-animation-speed);
+    transition: filter ease-out var(--sidenav-colorblur-speed), width linear var(--sidenav-animation-speed);
 
     display: flex;
     flex-direction: row;
@@ -321,7 +322,7 @@ label {
 }
 
 #statusCodeTable tr td.dr, span.col.dr {
-    color: #df0909;
+    color: #f52727;
 }
 
 .colB {
@@ -352,7 +353,7 @@ mark {
     font-family: "Cascadia Code", "Roboto Mono", "Courier New", monospace;
     font-variant-ligatures: none;
     color: #ccc;
-    transition: background-color linear var(--sidenav-animation-speed);
+    transition: background-color ease-out var(--sidenav-colorblur-speed);
 }
 
 body[data-sidenav="opened"] mark {
@@ -423,7 +424,7 @@ body[data-sidenav="closed"] code, body code {
 
     filter: grayscale(0%);
 
-    transition: filter linear var(--sidenav-animation-speed);
+    transition: filter ease-out var(--sidenav-colorblur-speed);
 }
 
 body code > .actualCode {
@@ -442,7 +443,7 @@ body[data-sidenav="opened"] code {
 
     filter: grayscale(50%);
 
-    transition: filter linear var(--sidenav-animation-speed);
+    transition: filter ease-out var(--sidenav-colorblur-speed);
 }
 
 body code .nocode.codeheader {
@@ -521,12 +522,12 @@ ul.lispacer li {
     padding: 3px;
     padding-left: 10px;
     padding-right: 40px;
-    transition: background-color linear var(--sidenav-animation-speed);
+    transition: background-color ease-out var(--sidenav-colorblur-speed);
 }
 
 body[data-sidenav="opened"] .requestURLwrapper {
     background-color: var(--bg-accent-color-darker-sidenav-opened);
-    transition: background-color linear var(--sidenav-animation-speed);
+    transition: background-color ease-out var(--sidenav-colorblur-speed);
 }
 
 .requestMethodGET, .requestMethodPUT {

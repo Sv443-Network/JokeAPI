@@ -1,6 +1,8 @@
 const http = require("http");
 const jsl = require("svjsl");
 const crypto = require("crypto");
+const reqIP = require("request-ip");
+const net = require("net");
 const settings = require("../settings");
 
 jsl.unused(http);
@@ -15,59 +17,27 @@ jsl.unused(http);
 const resolveIP = req => {
     let ipaddr = null;
 
-    try
+    ipaddr = reqIP.getClientIp(req);
+
+    if(ipaddr == null)
     {
-        if(!jsl.isEmpty(req.headers) && !jsl.isEmpty(req.headers["x-forwarded-for"]) && settings.httpServer.reverseProxy) // format: <client>, <proxy1>, <proxy2>
-        {
-            ipaddr = req.headers["x-forwarded-for"]; // I have to use the X-Forwarded-For header because I'm using a reverse proxy
-            let ipSplit = ipaddr.split(/[,]\s*/gm);
-            if(ipaddr.includes(","))
-                ipaddr = ipSplit[0]; // try to get IP from <client>
-            if(!isValidIP(ipaddr))
-                ipaddr = ipSplit[1]; // if <client> IP is invalid, try <proxy1> instead
-            if(!isValidIP(ipaddr))
-                ipaddr = req.connection.remoteAddress; // else just default to the remote IP
-        }
-        else ipaddr = req.connection.remoteAddress;
-    }
-    catch(err)
-    {
-        ipaddr = null;
+        if(req.headers && typeof req.headers["cf-pseudo-ipv4"] == "string" && isValidIP(req.headers["cf-pseudo-ipv4"]))
+            ipaddr = req.headers["cf-pseudo-ipv4"];
     }
 
-    ipaddr = ipaddr.trim();
-
-    if(jsl.isEmpty(ipaddr)) // if the reverse proxy didn't work, try getting the IP from the Cloudflare headers
+    if(ipaddr == null)
     {
-        if(!jsl.isEmpty(req.headers["cf_connecting_ip"]) && (isValidIP(req.headers["cf_connecting_ip"]))) // Cloudflare
-            ipaddr = req.headers["cf_connecting_ip"];
-        else if(!jsl.isEmpty(req.headers["x_real_ip"]) && (isValidIP(req.headers["x_real_ip"]))) // Cloudflare
-            ipaddr = req.headers["x_real_ip"];
-        else if(!jsl.isEmpty(req.headers["x-proxyuser-ip"]) && (isValidIP(req.headers["x-proxyuser-ip"]))) // Google services
-            ipaddr = req.headers["x-proxyuser-ip"];
-        else ipaddr = "err_no_IP";
+        if(req.headers && typeof req.headers["cf_ipcountry"] == "string")
+            ipaddr = `unknown_${req.headers["cf_ipcountry"]}`;
     }
 
-    ipaddr = (ipaddr.length < 15 ? ipaddr : (ipaddr.substr(0,7) === "::ffff:" ? ipaddr.substr(7) : "err"));
-
-    try
-    {
-        if(settings.httpServer.ipHashing.enabled && isValidIP(ipaddr))
-            ipaddr = hashIP(ipaddr);
-        else if(settings.httpServer.ipHashing.enabled)
-            ipaddr = "err_invalid_IP_format";
-        return typeof ipaddr == "string" ? ipaddr : ipaddr.toString();
-    }
-    catch(err)
-    {
-        return "err_couldnt_hash";
-    }
+    return settings.httpServer.ipHashing.enabled ? hashIP(ipaddr) : ipaddr;
 };
 
 /**
  * Checks if an IP is local or not (`localhost`, `127.0.0.1`, `::1`, etc.)
  * @param {String} ip
- * @param {Boolean} [inputIsHashed=true] If the input IP is not hashed, set this to false
+ * @param {Boolean} [inputIsHashed=false] If the input IP is hashed, set this to true
  * @returns {Boolean}
  */
 const isLocal = (ip, inputIsHashed = false) => {
@@ -84,15 +54,12 @@ const isLocal = (ip, inputIsHashed = false) => {
     return isLocal;
 };
 
-const ipv4regex = settings.httpServer.regexes.ipv4;
-const ipv6regex = settings.httpServer.regexes.ipv6;
-
 /**
  * Checks whether or not an IP address is valid
  * @param {String} ip
  * @returns {Boolean}
  */
-const isValidIP = ip => (ip.match(ipv4regex) || ip.match(ipv6regex));
+const isValidIP = ip => net.isIP(ip) > 0;
 
 /**
  * Hashes an IP address with the algorithm defined in `settings.httpServer.ipHashing.algorithm`

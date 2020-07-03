@@ -1,6 +1,6 @@
 <div align="center" style="text-align:center">
 
-# [![icon](https://sv443.net/cdn/jokeapi/icon_150x150.png)](#readme)<br>JokeAPI
+# [![icon](https://sv443.net/cdn/jokeapi/icon_readme.png)](#readme)<br>JokeAPI
 ### A REST API that serves uniformly and well formatted jokes and offers a great variety of filtering methods and response customization
 [![GitHub](https://img.shields.io/github/license/Sv443/JokeAPI)](https://sv443.net/LICENSE)
 [![Uptime / 7 Days](https://img.shields.io/uptimerobot/ratio/7/m782998549-afcc0d10c27c87df47e73289)](https://status.sv443.net/)
@@ -34,9 +34,9 @@
 # Projects (I'm aware of) that use JokeAPI:
 - [dozens Advices](https://github.com/ZephyrVentum/dozens-Advices) by [ZephyrVentum](https://github.com/ZephyrVentum)
 - [Shadow-bot](https://github.com/QGIsK/Shadow-bot) by [QGIsK](https://github.com/QGIsK)
-- [Random Jokes](https://github.com/thombenjamin/randomjokes) by [Thom Benjamin](https://github.com/thombenjamin)
 - [Jokepy](https://github.com/aksty/Jokepy) by [aksty](https://github.com/aksty)
 - [Dark1](https://github.com/whiteadi/Dark1) by [whiteadi](https://github.com/whiteadi)
+- [Prejudice Networks](https://github.com/LiamTownsley/Prejudice-Networks) by [Liam Townsley](https://github.com/LiamTownsley)
   
 ([Contact me](https://sv443.net/discord) to get your project added here)
 

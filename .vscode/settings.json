@@ -7,7 +7,7 @@
                 "outline": "1px solid orange"
             }
         ],
-        "(jsl\\.unused\\([a-zA-Z_,\\[\\]\\s]+\\);*)": [ // jsl.unused([some_var, some_other_var]);
+        "(jsl\\.unused\\([a-zA-Z_\\\",\\[\\]\\s]+\\);*)": [ // jsl.unused([some_var, some_other_var]);
             {
                 "backgroundColor": "rgba(0, 0, 0, 0.2)",
                 "color": "#f88"
