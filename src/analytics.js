@@ -245,7 +245,16 @@ const logAnalytics = analyticsDataObject => {
     }
 };
 
+/**
+ * idk why this function exists, maybe I'll remember later on
+ */
+function rateLimited()
+{
+    return;
+}
+
 module.exports = logAnalytics;
 module.exports.init = init;
 module.exports.sendQuery = sendQuery;
 module.exports.endSqlConnection = endSqlConnection;
+module.exports.rateLimited = rateLimited;

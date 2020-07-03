@@ -250,8 +250,8 @@
                                 <div class="multiselect noselect">
                                     <input type="radio" id="fmt-cb1" name="formatRadio" value="json" onchange="reRender()"><label for="fmt-cb1">default (json)</label>
                                     <input type="radio" id="fmt-cb2" name="formatRadio" value="xml" onchange="reRender()"><label for="fmt-cb2">xml</label>
-                                    <input type="radio" id="fmt-cb3" name="formatRadio" value="yaml" onchange="reRender()"><label for="fmt-cb3">yaml</label> <!-- TODO: -->
-                                    <input type="radio" id="fmt-cb4" name="formatRadio" value="txt" onchange="reRender()"><label for="fmt-cb4">plaintext</label>
+                                    <input type="radio" id="fmt-cb3" name="formatRadio" value="yaml" onchange="reRender()"><label for="fmt-cb3">yaml</label>
+                                    <input type="radio" id="fmt-cb4" name="formatRadio" value="txt" onchange="reRender()"><label for="fmt-cb4">plain text</label>
                                 </div>
                             </td>
                         </tr>
@@ -538,12 +538,12 @@ None. It's a hardware problem.
 
                 <!-- #MARKER Errors -->
                 <div class="docHeader targetBlink" id="errors"><a class="headerAnchorContainer" href="#errors" title="Click to link to this header">🔗</a><span class="docHeaderText">Errors:</span></div>
-                In <!--%#INSERT:NAME#%--> all response data, no matter from which endpoint will have an "error" parameter.<br>
+                In <!--%#INSERT:NAME#%--> all response data, no matter from which endpoint will have a boolean "error" parameter.<br>
                 Usually, it is set to false, which means there was no error in your request or on the server.<br>
                 If the "error" parameter is set to true though, there was an error and <!--%#INSERT:NAME#%--> will add an "internalError", "message", "causedBy", "additionalInfo" and "timestamp" parameter.<br>
                 <br>
                 The "internalError" parameter will be set to false, if the error was due to a malformed or failed request and it will be true, if the error is <!--%#INSERT:NAME#%-->'s fault.<br>
-                The "message" parameter will contain a short version of the error message and the "timestamp" parameter will contain a 13-character UNIX timestamp in Central European time (GMT+1).<br>
+                The "message" parameter will contain a short version of the error message and the "timestamp" parameter will contain a 13-character Unix timestamp.<br>
                 The "causedBy" parameter is an array of possible causes of this error and the "addidionalInfo" parameter contains a more descriptive error message.<br>
                 <br>
                 You can view an example of an error, where an invalid category was used, just below this paragraph.<br>
@@ -615,11 +615,18 @@ None. It's a hardware problem.
                         <td>Internal Server Error</td>
                         <td>There was a general internal error within <!--%#INSERT:NAME#%-->. You can get more info from the properties in the response text</td>
                     </tr>
+                    <tr>
+                        <td class="dr">523</td>
+                        <td>Origin Unreachable</td>
+                        <td>My server is temporarily offline due to maintenance or a dynamic IP update. Please be patient in this case.</td>
+                    </tr>
                 </table>
                 
                 <br>
 
-                <span class="col g">Success</span> &bull; <span class="col r">Client Error</span> &bull; <span class="col dr">Server Error</span>
+                <mark>
+                    <span class="col g">Success</span> &bull; <span class="col r">Client Error</span> &bull; <span class="col dr">Server Error</span>
+                </mark>
 
 
 
@@ -671,8 +678,11 @@ None. It's a hardware problem.
                 This endpoint provides some information on <!--%#INSERT:NAME#%-->:<br>
                 - The version number<br>
                 - The amount of jokes<br>
+                - All the available categories, flags, types and formats<br>
                 - A 13-character UNIX timestamp<br>
-                - The URL to a joke submission form
+                - The URL to a joke submission form<br>
+                - The minimum and maximum values of an ID range<br>
+                - A string with some information, like a message of the day
                 <br><br>
                 Supported URL parameters:<br>
                 <ul>
@@ -846,6 +856,17 @@ None. It's a hardware problem.
                     <li><a href="#search-string">Search String</a></li>
                     <li><a href="#id-range">ID Range</a></li>
                 </ul>
+
+
+
+                <!-- #MARKER API Tokens -->
+                <div class="docHeader targetBlink" id="api-tokens"><a class="headerAnchorContainer" href="#api-tokens" title="Click to link to this header">🔗</a><span class="docHeaderText">API Tokens:</span></div>
+                <!--%#INSERT:NAME#%--> has a way of whitelisting certain clients. This is achieved through an API token.<br>
+                At the moment, you will only receive one of these tokens temporarily if something breaks or if you are a business and need more than <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute.<br>
+                If you do end up receiving a token, using it is as easy as adding an <mark>Authorization</mark> header with the actual token as its value.<br>
+                You will receive a response header called <mark>Token-Valid</mark> which will contain the number 1 if the token is valid.<br>
+                If the token is invalid, the Token-Valid header will be set to 0 and <!--%#INSERT:NAME#%--> will treat your request as if you didn't supply a token in the first place.
+
 
 
                 <!-- #MARKER Examples -->
@@ -1115,17 +1136,22 @@ public class Flags
                 <!-- #SECTION Dependencies -->
                 <br><br><span class="subHeader">Dependencies:</span>
                 <div class="indented">
-                    These are the packages <!--%#INSERT:NAME#%--> depends on (excluding dependencies of dependencies):
+                    These are the packages <!--%#INSERT:NAME#%--> depends on (excluding dependencies of dependencies and devDependencies):
                     <ul>
                         <li><a href="https://npmjs.com/package/dotenv" target="_blank">dotenv</a></li>
                         <li><a href="https://npmjs.com/package/farmhash" target="_blank">farmhash</a></li>
-                        <li><a href="https://npmjs.com/package/http-ratelimit" target="_blank">HTTP-RateLimit</a></li>
                         <li><a href="https://npmjs.com/package/js2xmlparser" target="_blank">js2xmlparser</a></li>
-                        <li><a href="https://npmjs.com/package/svjsl" target="_blank">JSLib</a></li>
                         <li><a href="https://npmjs.com/package/json-to-pretty-yaml" target="_blank">json-to-pretty-yaml</a></li>
                         <li><a href="https://npmjs.com/package/mysql" target="_blank">MySQL</a></li>
-                        <li><a href="https://npmjs.com/package/node-wrap" target="_blank">Node-Wrap</a></li>
-                        <li><a href="https://www.npmjs.com/package/xss" target="_blank">xss</a></li>
+                        <li><a href="https://npmjs.com/package/node-wrap" target="_blank">node-wrap</a></li>
+                        <li><a href="https://npmjs.com/package/promise-all-sequential" target="_blank">promise-all-sequential</a></li>
+                        <li><a href="https://npmjs.com/package/rate-limiter-flexible" target="_blank">rate-limiter-flexible</a></li>
+                        <li><a href="https://npmjs.com/package/request-ip" target="_blank">request-ip</a></li>
+                        <li><a href="https://npmjs.com/package/svjsl" target="_blank">JSLib</a></li>
+                        <li><a href="https://npmjs.com/package/xss" target="_blank">xss</a></li>
+                        <!--
+                            <li><a href="https://npmjs.com/package/XXXX" target="_blank">XXXX</a></li>
+                        -->
                     </ul>
                 </div>
 
@@ -1185,6 +1211,7 @@ public class Flags
                     </ul>
                 </details>
                 <a class="noul" onclick="closeNav()" href="#filtering">Filtering Jokes</a>
+                <a class="noul" onclick="closeNav()" href="#api-tokens">API Tokens</a>
                 <a class="noul" onclick="closeNav()" href="#examples">Examples</a>
                 <!-- <details>
                     <summary>
