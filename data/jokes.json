@@ -2848,6 +2848,147 @@
             "setup": "What did the fish say when it swam in to the wall?",
             "delivery": "Dam.",
             "id": 207
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "How did Harry Potter get down the hill?",
+            "delivery": "Walking...\nJK, Rolling.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 208
+        },
+        {
+            "category": "Dark",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "I was going to tell a dead baby joke. But I decided to abort."
+        },
+        {
+            "category": "Dark",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "I'll never forget my Granddad's last words to me just before he died. \"Are you still holding the ladder?\""
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "Why did the chicken cross the road, roll in the mud and cross the road again?",
+            "delivery": "He was a dirty double crosser!"
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What do you call a deer with no eyes?",
+            "delivery": "No eye deer."
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What are bits?",
+            "delivery": "Tiny things left when you drop your computer down the stairs"
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "Where do sick cruise ships go to get healthy?",
+            "delivery": "The dock!",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": true,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "Has COVID-19 forced you to wear glasses and a mask at the same time?",
+            "delivery": "If so, you may be entitled to condensation.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": true,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "Why did the programmer jump on the table?",
+            "delivery": "Because debug was on his screen."
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "joke": "I walked into a bar once.\nIt really hurt my head."
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "setup": "What's grey and comes in pints?",
+            "delivery": "An elephant."
         }
     ]
 }
