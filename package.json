@@ -6,7 +6,7 @@
   "homepage": "https://sv443.net/jokeapi/v2",
   "scripts": {
     "start": "node . && exit $?",
-    "test": "echo \"No test script specified\" && exit 0",
+    "test": "snyk test && echo \"No test script specified\" && exit 0",
     "reformat": "node tools/reformat",
     "reassign-ids": "node tools/reassign-ids",
     "validate-jokes": "node tools/validate-jokes",
@@ -58,11 +58,11 @@
     "json-to-pretty-yaml": "^1.2.2",
     "mysql": "^2.18.1",
     "node-wrap": "^0.2.0",
-    "snyk": "^1.321.0",
-    "svjsl": "^1.9.4",
     "promise-all-sequential": "^1.0.0",
     "rate-limiter-flexible": "^2.1.7",
     "request-ip": "^2.1.3",
+    "snyk": "^1.360.0",
+    "svjsl": "^1.9.4",
     "url-parse": "^1.4.7",
     "xss": "^1.0.7"
   },
