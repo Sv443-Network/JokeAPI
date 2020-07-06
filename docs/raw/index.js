@@ -1,11 +1,13 @@
 "use strict";
 
 var settings = {
-    baseURL: "<!--%#INSERT:DOCSURL#%-->",
+    // baseURL: "<!--%#INSERT:DOCSURL#%-->",
+    baseURL: "http://127.0.0.1:8076/", // DEBUG
     jokeEndpoint: "joke",
     anyCategoryName: "Any",
     defaultFormat: "json",
-    submitUrl: "<!--%#INSERT:DOCSURL#%-->/submit"
+    submitUrl: "<!--%#INSERT:DOCSURL#%-->/submit",
+    defaultLang: "en"
 };
 
 var submission = {};
@@ -238,6 +240,35 @@ function onLoad()
         }
     }
 
+    var langXhr = new XMLHttpRequest();
+    let langUrl = settings.baseURL + "/languages";
+    langXhr.open("GET", langUrl);
+    langXhr.onreadystatechange = () => {
+        var xErrElem;
+        if(langXhr.readyState == 4 && langXhr.status < 300)
+        {
+            var languagesArray = JSON.parse(langXhr.responseText.toString()).jokeLanguages;
+            for(var i = 0; i < languagesArray.length; i++)
+            {
+                xErrElem = document.createElement("option");
+                xErrElem.value = languagesArray[i];
+                xErrElem.innerText = languagesArray[i];
+                if(languagesArray[i] == settings.defaultLang)
+                    xErrElem.selected = true;
+                gebid("lcodeSelect").appendChild(xErrElem);
+            }
+        }
+        else if(langXhr.readyState == 4 && langXhr.status >= 300)
+        {
+            xErrElem = document.createElement("option");
+            xErrElem.value = "en";
+            xErrElem.innerText = "en";
+            xErrElem.selected = true;
+            gebid("lcodeSelect").appendChild(xErrElem);
+        }
+    };
+    langXhr.send();
+
     document.getElementById("submitBtn").addEventListener("click", function() {
         submitJoke();
     });
@@ -341,14 +372,14 @@ function reRender()
         if(el.value == "any")
         {
             isValid = true;
-            ["cat-cb1", "cat-cb2", "cat-cb3"].forEach(function(cat) {
+            ["cat-cb1", "cat-cb2", "cat-cb3", "cat-cb4"].forEach(function(cat) {
                 gebid(cat).disabled = true;
             });
         }
         else
         {
             var isChecked = false;
-            ["cat-cb1", "cat-cb2", "cat-cb3"].forEach(function(cat) {
+            ["cat-cb1", "cat-cb2", "cat-cb3", "cat-cb4"].forEach(function(cat) {
                 var cel = gebid(cat);
                 cel.disabled = false;
 
@@ -437,12 +468,22 @@ function buildURL()
         {
             selectedCategories.push("Dark");
         }
+        if(gebid("cat-cb4").checked)
+        {
+            selectedCategories.push("Pun");
+        }
 
         if(selectedCategories.length == 0)
         {
             selectedCategories.push(settings.anyCategoryName);
         }
     }
+
+
+    //#SECTION language
+    var langCode = gebid("lcodeSelect").value || settings.defaultLang;
+    if(langCode != settings.defaultLang)
+        queryParams.push("lang=" + langCode);
 
 
     //#SECTION flags
@@ -526,6 +567,7 @@ function buildURL()
 //#MARKER send request
 function sendTryItRequest()
 {
+    var sendStartTimestamp = new Date().getTime();
     var prpr = gebid("urlBuilderPrettyprint");
     var tryItRequestError = function(err) {
         if(prpr.classList.contains("prettyprint"))
@@ -603,7 +645,8 @@ function sendTryItRequest()
                     result = result.replace(/[>]/gm, "&gt;");
                 }
 
-                gebid("tryItResult").innerHTML = result;
+                gebid("tryItResult").innerText = result;
+                gebid("tryItFormLatency").innerText = "Latency: " + (new Date().getTime() - sendStartTimestamp) + " ms";
 
                 PR.prettyPrint(); // eslint-disable-line no-undef
             }
@@ -623,7 +666,7 @@ function sendTryItRequest()
 //#MARKER interactive elements
 function resetTryItForm()
 {
-    ["cat-cb1", "cat-cb2", "cat-cb3"].forEach(function(cat) {
+    ["cat-cb1", "cat-cb2", "cat-cb3", "cat-cb4"].forEach(function(cat) {
         gebid(cat).checked = false;
     });
 

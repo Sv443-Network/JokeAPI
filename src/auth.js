@@ -1,34 +1,64 @@
 const http = require("http");
 const jsl = require("svjsl");
 const fs = require("fs-extra");
+const crypto = require("crypto");
 const settings = require("../settings");
 
 jsl.unused([http]);
 
 
+var previousDaemonHash;
+var tokenList;
 
-
+/**
+ * Initializes the auth module
+ */
 const init = () => {
     return new Promise(resolve => {
         fs.exists(settings.auth.tokenListFile, exists => {
             if(!exists)
                 fs.writeFileSync(settings.auth.tokenListFile, JSON.stringify([], null, 4));
             
-            try
-            {
-                let tokens = JSON.parse(fs.readFileSync(settings.auth.tokenListFile).toString());
-                process._tokenList = tokens;
-                return resolve();
-            }
-            catch(err)
-            {
-                process._tokenList = [];
-                fs.writeFileSync(settings.auth.tokenListFile, JSON.stringify([], null, 4));
-                return resolve();
-            }
+            refreshTokens();
+            setInterval(() => daemonInterval(), settings.auth.daemonInterval);
+            return resolve();
         });
     });
 };
+
+/**
+ * To be called on interval to check if the tokens should be refreshed
+ */
+function daemonInterval()
+{
+    let tokenFileRaw = fs.readFileSync(settings.auth.tokenListFile).toString();
+    let tokenHash = crypto.createHash("md5").update(tokenFileRaw).digest("hex");
+
+    if(previousDaemonHash == undefined)
+        return;
+    else if(previousDaemonHash != tokenHash)
+    {
+        previousDaemonHash = tokenHash;
+        refreshTokens();
+    }
+}
+
+/**
+ * Refreshes the auth tokens in memory
+ */
+function refreshTokens()
+{
+    try
+    {
+        let tokens = JSON.parse(fs.readFileSync(settings.auth.tokenListFile).toString());
+        tokenList = tokens;
+    }
+    catch(err)
+    {
+        tokenList = [];
+        fs.writeFileSync(settings.auth.tokenListFile, JSON.stringify([], null, 4));
+    }
+}
 
 /**
  * @typedef {Object} Authorization
@@ -48,9 +78,9 @@ const authByHeader = (req, res) => {
 
     if(req.headers && req.headers[settings.auth.tokenHeaderName])
     {
-        if(Array.isArray(process._tokenList) && process._tokenList.length > 0)
+        if(Array.isArray(tokenList) && tokenList.length > 0)
         {
-            process._tokenList.forEach(tokenObj => {
+            tokenList.forEach(tokenObj => {
                 if(tokenObj.token == req.headers[settings.auth.tokenHeaderName].toString())
                 {
                     requestersToken = req.headers[settings.auth.tokenHeaderName].toString();

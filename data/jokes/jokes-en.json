@@ -795,7 +795,7 @@
             "id": 58
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "I asked my wife if I was the only one she's been with.",
             "delivery": "She said, \"Yes, the others were at least sevens or eights.\"",
@@ -809,7 +809,7 @@
             "id": 59
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "Thank you student loans for getting me through college.",
             "delivery": "I don't think I'll ever be able to repay you.",
@@ -823,7 +823,7 @@
             "id": 60
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "Why is crucified Jesus always depicted with six pack abs?",
             "delivery": "He did CrossFit.",
@@ -851,7 +851,7 @@
             "id": 62
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "One time I masturbated on a plane.",
             "delivery": "I called it \"highjacking\".",
@@ -879,7 +879,7 @@
             "id": 64
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "What do you call a cop's penis after he's done masturbating?",
             "delivery": "Pulled pork.",
@@ -893,7 +893,7 @@
             "id": 65
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "Did you hear about the cheese factory that exploded in france?",
             "delivery": "There was nothing but de brie.",
@@ -921,10 +921,10 @@
             "id": 67
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "What kind of car did Whitney Houston drive?",
-            "delivery": "A Hyundaiiiiiiiiiiiiiiiiiiiiiiii",
+            "delivery": "A Hyundaiiiiiiiiiiii",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -935,9 +935,9 @@
             "id": 68
         },
         {
-            "category": "Miscellaneous",
+            "category": "Dark",
             "type": "twopart",
-            "setup": "I had a granny that we couldnt decide whether to bury or cremate",
+            "setup": "I had a granny that we couldnt decide whether to bury or cremate.",
             "delivery": "In the end we decided to just let her live.",
             "flags": {
                 "nsfw": false,
@@ -949,10 +949,10 @@
             "id": 69
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "What do you call crystal clear urine?",
-            "delivery": "1080pee.",
+            "delivery": "1080p.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -963,7 +963,7 @@
             "id": 70
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "What happens when you don't obey the KGB?",
             "delivery": "You get Putin jail.",
@@ -1017,7 +1017,7 @@
             "id": 74
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "single",
             "joke": "A horse walks into a bar.\n\"Hey\", the Bartender says.\n\"Sure\", the horse replies.",
             "flags": {
@@ -1030,7 +1030,7 @@
             "id": 75
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "My girlfriend left me because I have a fetish for touching pasta.",
             "delivery": "I'm feeling cannelloni now. :'(",
@@ -1086,7 +1086,7 @@
             "id": 79
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "What do Japanese cannibals eat?",
             "delivery": "Raw men.",
@@ -1100,9 +1100,9 @@
             "id": 80
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
-            "setup": "So I made a graph of all my past relationships...",
+            "setup": "So I made a graph of all my past relationships.",
             "delivery": "It has an ex axis and a why axis.",
             "flags": {
                 "nsfw": false,
@@ -1128,7 +1128,7 @@
             "id": 82
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "single",
             "joke": "I have these weird muscle spasms in my gluteus maximus.\nI figured out from my doctor that everything was alright:\nHe said \"Weird flex, butt okay.\"",
             "flags": {
@@ -1183,7 +1183,7 @@
             "id": 86
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "Why did the Romanian stop reading?",
             "delivery": "They wanted to give the Bucharest.",
@@ -1197,7 +1197,7 @@
             "id": 87
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "I hate Russian matryoshka dolls.",
             "delivery": "They're so full of themselves.",
@@ -1228,7 +1228,7 @@
             "category": "Miscellaneous",
             "type": "twopart",
             "setup": "What's Green and smells like pork?",
-            "delivery": "Kermit's Fingers",
+            "delivery": "Kermit's Fingers.",
             "flags": {
                 "nsfw": true,
                 "religious": false,
@@ -1239,7 +1239,7 @@
             "id": 90
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "single",
             "joke": "Oysters hate to give away their pearls because they are shellfish.",
             "flags": {
@@ -1254,7 +1254,7 @@
         {
             "category": "Miscellaneous",
             "type": "twopart",
-            "setup": "How many friend-zoned guys does it take to change a lightbulb?",
+            "setup": "How many nice guys does it take to change a lightbulb?",
             "delivery": "None, they'll just compliment it and get pissed off when it won't screw.",
             "flags": {
                 "nsfw": true,
@@ -1322,7 +1322,7 @@
             "id": 96
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "What do Asian people call fingers?",
             "delivery": "Limb Limbs.",
@@ -1349,7 +1349,7 @@
             "id": 98
         },
         {
-            "category": "Dark",
+            "category": "Pun",
             "type": "twopart",
             "setup": "I'm thinking of setting up a comedy group to help people going through cancer treatment.",
             "delivery": "I'll call it \"A Sense of Tumor\".",
@@ -1738,7 +1738,7 @@
             "id": 126
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "What time did the man go to the dentist?",
             "delivery": "Tooth hurt-y.",
@@ -1752,7 +1752,7 @@
             "id": 127
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "single",
             "joke": "I'm reading a book about anti-gravity. It's impossible to put down!",
             "flags": {
@@ -1807,7 +1807,7 @@
             "id": 131
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "What do you call a pile of kittens?",
             "delivery": "A meowntain.",
@@ -1821,7 +1821,7 @@
             "id": 132
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "How does a Jewish person make tea?",
             "delivery": "Hebrews it.",
@@ -1889,7 +1889,7 @@
             "id": 137
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "Why do Hong Kong cops like to go to work early?",
             "delivery": "To beat the crowd.",
@@ -1943,7 +1943,7 @@
             "id": 141
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "What kind of doctor is Dr. Pepper?",
             "delivery": "He's a fizzician.",
@@ -1988,7 +1988,7 @@
             "category": "Dark",
             "type": "twopart",
             "setup": "When I was a kid, I made a really big sandcastle with my grandma.",
-            "delivery": "Unfortunately that didn't impress anyone at the cremation...",
+            "delivery": "Unfortunately that didn't impress anyone at the cremation.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2055,7 +2055,7 @@
             "id": 149
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "single",
             "joke": "The gas Argon walks into a bar.\nThe barkeeper says \"What would you like to drink?\", but Argon doesn't react.",
             "flags": {
@@ -2076,7 +2076,7 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": true
             },
             "id": 151
         },
@@ -2150,7 +2150,7 @@
             "id": 156
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "What do you call a deaf gynecologist?",
             "delivery": "A lip reader.",
@@ -2164,7 +2164,7 @@
             "id": 157
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "What do you call a cheap circumcision?",
             "delivery": "A rip off.",
@@ -2330,8 +2330,10 @@
             "id": 169
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
+            "setup": "Two guys walked into a bar.",
+            "delivery": "The third guy ducked.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2339,13 +2341,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "Two guys walked into a bar.",
-            "delivery": "The third guy ducked.",
             "id": 170
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
+            "setup": "Two peanuts were walking.",
+            "delivery": "One was assaulted.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2353,13 +2355,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "Two peanuts were walking.",
-            "delivery": "One was assaulted.",
             "id": 171
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
+            "setup": "What kind of bees produce milk?",
+            "delivery": "Boo-Bees.",
             "flags": {
                 "nsfw": true,
                 "religious": false,
@@ -2367,13 +2369,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "What kind of bees produce milk?",
-            "delivery": "Boo-Bees",
             "id": 172
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
+            "setup": "A grocery store cashier asked if I would like my milk in a bag.",
+            "delivery": "I told her \"No, thanks. The carton works fine\".",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2381,13 +2383,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "A grocery store cashier asked if I would like my milk in a bag.",
-            "delivery": "I told her \"No, thanks. The carton works fine\".",
             "id": 173
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
+            "setup": "What does a perverted frog say?",
+            "delivery": "Rubbit.",
             "flags": {
                 "nsfw": true,
                 "religious": false,
@@ -2395,13 +2397,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "What does a perverted frog say?",
-            "delivery": "Rubbit",
             "id": 174
         },
         {
             "category": "Dark",
             "type": "twopart",
+            "setup": "How many Jews can you fit into a car?",
+            "delivery": "Two in the front, three in the back, and a hundred in the ash tray.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2409,13 +2411,13 @@
                 "racist": true,
                 "sexist": false
             },
-            "setup": "How many Jews can you fit into a car?",
-            "delivery": "Two in the front, three in the back, and a hundred in the ash tray.",
             "id": 175
         },
         {
             "category": "Dark",
             "type": "twopart",
+            "setup": "What is the difference between a pizza and a black man?",
+            "delivery": "A pizza can feed a family of five.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2423,13 +2425,13 @@
                 "racist": true,
                 "sexist": false
             },
-            "setup": "What is the difference between a pizza and a black man?",
-            "delivery": "A pizza can feed a family of five.",
             "id": 176
         },
         {
             "category": "Miscellaneous",
             "type": "twopart",
+            "setup": "What is the difference between an oral thermometer and a rectal thermometer?",
+            "delivery": "The taste.",
             "flags": {
                 "nsfw": true,
                 "religious": false,
@@ -2437,13 +2439,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "What is the difference between an oral thermometer and a rectal thermometer?",
-            "delivery": "The taste.",
             "id": 177
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
+            "setup": "What do you call a witch at the beach?",
+            "delivery": "A Sandwich.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2451,13 +2453,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "What do you call a witch at the beach?",
-            "delivery": "A Sandwich.",
             "id": 178
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
+            "setup": "What do you call 4 Mexicans in quicksand?",
+            "delivery": "Quatro Sinko.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2465,13 +2467,12 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "What do you call 4 Mexicans in quicksand?",
-            "delivery": "Quatro Sinko.",
             "id": 179
         },
         {
             "category": "Dark",
             "type": "single",
+            "joke": "My grandfather says I'm too reliant on technology.\nI called him a hypocrite and unplugged his life support.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2479,12 +2480,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "joke": "My grandfather says I'm too reliant on technology.\nI called him a hypocrite and unplugged his life support.",
             "id": 180
         },
         {
             "category": "Miscellaneous",
             "type": "twopart",
+            "setup": "Why do Jewish women prefer circumcised men?",
+            "delivery": "Cause they won't take anything until it's atleast 10% off.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2492,8 +2494,6 @@
                 "racist": true,
                 "sexist": false
             },
-            "setup": "Why do Jewish women prefer circumcised men?",
-            "delivery": "Cause they won't take anything until it's atleast 10% off.",
             "id": 181
         },
         {
@@ -2512,6 +2512,8 @@
         {
             "category": "Miscellaneous",
             "type": "twopart",
+            "setup": "What is the difference between the Constitutions of the USA and the USSR? Don't both of them guarantee freedom of speech?",
+            "delivery": "Yes, but the Constitution of the USA also guarantees freedom after the speech.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2519,13 +2521,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "What is the difference between the Constitutions of the USA and the USSR? Both of them guarantee freedom of speech.",
-            "delivery": "Yes, but the Constitution of the USA also guarantees freedom after the speech.",
             "id": 183
         },
         {
             "category": "Miscellaneous",
             "type": "twopart",
+            "setup": "Why was the river rich?",
+            "delivery": "Because it had two banks.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2533,13 +2535,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "Why was the river rich?",
-            "delivery": "Because it had two banks.",
             "id": 184
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
+            "setup": "Why didn't the skeleton go for prom?",
+            "delivery": "Because it had nobody.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2547,13 +2549,12 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "Why didn't the skeleton go for prom?",
-            "delivery": "Because it had nobody.",
             "id": 185
         },
         {
             "category": "Programming",
             "type": "single",
+            "joke": "Being a self taught developer is almost the same as being a cut neck chicken because you have no sense of direction in the beginning.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2561,12 +2562,12 @@
                 "racist": false,
                 "sexist": false
             },
-            "joke": "Being a self thought developer is almost the same as being a cut neck chicken because you have no sense of direction in the beginning",
             "id": 186
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "single",
+            "joke": "Two fish in a tank. One turns to the other and says, \"Do you know how to drive this thing?\"",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2574,12 +2575,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "joke": "Two fish in a tank. One turns to the other and says, \"Do you know how to drive this thing?\"",
             "id": 187
         },
         {
             "category": "Dark",
             "type": "twopart",
+            "setup": "Why can't orphans play baseball?",
+            "delivery": "They don't know where home is.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2587,13 +2589,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "Why can't orphans play baseball?",
-            "delivery": "They don't know where home is.",
             "id": 188
         },
         {
             "category": "Miscellaneous",
             "type": "twopart",
+            "setup": "I told my wife to shave her pussy.",
+            "delivery": "I woke up bald.",
             "flags": {
                 "nsfw": true,
                 "religious": false,
@@ -2601,13 +2603,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "I told my wife to shave her pussy.",
-            "delivery": "I woke up bald.",
             "id": 189
         },
         {
             "category": "Miscellaneous",
             "type": "twopart",
+            "setup": "What's the difference between a school bus and a cactus?",
+            "delivery": "A cactus keeps the little pricks on the outside.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2615,13 +2617,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "What's the difference between a school bus and a cactus?",
-            "delivery": "A cactus keeps the little pricks on the outside.",
             "id": 190
         },
         {
             "category": "Miscellaneous",
             "type": "twopart",
+            "setup": "Why are men like lawn mowers?",
+            "delivery": "They are very hard to get started, they make yucky smells and half the time they don’t even work.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2629,13 +2631,13 @@
                 "racist": false,
                 "sexist": true
             },
-            "setup": "Why are men like lawn mowers?",
-            "delivery": "They are very hard to get started, they make yucky smells and half the time they don’t even work.",
             "id": 191
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
+            "setup": "What did the customer say to the waiter?",
+            "delivery": "I'm all fed up with your service.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2643,13 +2645,12 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "What did the customer say to the waiter?",
-            "delivery": "I'm all fed up with your service.",
             "id": 192
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "single",
+            "joke": "To whoever stole my copy of Microsoft Office, I will find you. You have my Word!",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2657,12 +2658,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "joke": "To whoever stole my copy of Microsoft Office, I will find you. You have my Word!",
             "id": 193
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
+            "setup": "Why did the koala get rejected?",
+            "delivery": "Because he did not have any koalafication.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2670,13 +2672,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "Why did the koala get rejected?",
-            "delivery": "Because he did not have any koalafication.",
             "id": 194
         },
         {
             "category": "Programming",
             "type": "twopart",
+            "setup": "What is the most used language in programming?",
+            "delivery": "Profanity.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2684,15 +2686,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "What is the most used language in programming?",
-            "delivery": "Profanity.",
             "id": 195
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "What's the best thing about Switzerland?",
-            "delivery": "I don't know but the flag is a big plus.",
+            "delivery": "I don't know, but the flag is a big plus.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2716,8 +2716,10 @@
             "id": 197
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
+            "setup": "What do you call a cow with no legs?",
+            "delivery": "Ground beef.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2725,13 +2727,12 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "What do you call a cow with no legs?",
-            "delivery": "Ground beef.",
             "id": 198
         },
         {
             "category": "Miscellaneous",
             "type": "single",
+            "joke": "Schrödinger's cat walks into a bar and doesn't.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2739,12 +2740,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "joke": "Schrödinger's cat walks into a bar and doesn't.",
             "id": 199
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
+            "setup": "The past, the present and the future walk into a bar.",
+            "delivery": "It was tense.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2752,13 +2754,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "The past, the present and the future walk into a bar.",
-            "delivery": "It was tense.",
             "id": 200
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
+            "setup": "What did the cell say when his sister cell stepped on his foot?",
+            "delivery": "Mitosis.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2766,13 +2768,12 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "What did the cell say when his sister cell stepped on his foot?",
-            "delivery": "Mitosis.",
             "id": 201
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "single",
+            "joke": "Today, my son asked \"Can I have a book mark?\" and I burst into tears.\n11 years old and he still doesn't know my name is Brian.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2780,12 +2781,12 @@
                 "racist": false,
                 "sexist": false
             },
-            "joke": "Today, my son asked \"Can I have a book mark?\" and I burst into tears.\n11 years old and he still doesn't know my name is Brian.",
             "id": 202
         },
         {
             "category": "Miscellaneous",
             "type": "single",
+            "joke": "My wife is really mad at the fact that I have no sense of direction.\nSo I packed up my stuff and right.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2793,12 +2794,12 @@
                 "racist": false,
                 "sexist": false
             },
-            "joke": "My wife is really mad at the fact that I have no sense of direction.\nSo I packed up my stuff and right.",
             "id": 203
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "single",
+            "joke": "How do you make holy water? You boil the hell out of it.",
             "flags": {
                 "nsfw": false,
                 "religious": true,
@@ -2806,12 +2807,12 @@
                 "racist": false,
                 "sexist": false
             },
-            "joke": "How do you make holy water? You boil the hell out of it.",
             "id": 204
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "single",
+            "joke": "How do you make holy water? You freeze it and drill holes in it.",
             "flags": {
                 "nsfw": false,
                 "religious": true,
@@ -2819,12 +2820,12 @@
                 "racist": false,
                 "sexist": false
             },
-            "joke": "How do you make holy water? You freeze it and drill holes in it.",
             "id": 205
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "single",
+            "joke": "I bought some shoes from a drug dealer. I don't know what he laced them with, but I was tripping all day!",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2832,12 +2833,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "joke": "I bought some shoes from a drug dealer. I don't know what he laced them with, but I was tripping all day!",
             "id": 206
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
+            "setup": "What did the fish say when it swam in to the wall?",
+            "delivery": "Dam.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2845,12 +2847,10 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "What did the fish say when it swam in to the wall?",
-            "delivery": "Dam.",
             "id": 207
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "How did Harry Potter get down the hill?",
             "delivery": "Walking...\nJK, Rolling.",
@@ -2866,6 +2866,7 @@
         {
             "category": "Dark",
             "type": "single",
+            "joke": "I was going to tell a dead baby joke. But I decided to abort.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2873,12 +2874,12 @@
                 "racist": false,
                 "sexist": false
             },
-            "joke": "I was going to tell a dead baby joke. But I decided to abort.",
             "id": 209
         },
         {
             "category": "Dark",
             "type": "single",
+            "joke": "I'll never forget my Granddad's last words to me just before he died. \"Are you still holding the ladder?\"",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2886,12 +2887,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "joke": "I'll never forget my Granddad's last words to me just before he died. \"Are you still holding the ladder?\"",
             "id": 210
         },
         {
             "category": "Miscellaneous",
             "type": "twopart",
+            "setup": "Why did the chicken cross the road, roll in the mud and cross the road again?",
+            "delivery": "He was a dirty double crosser!",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2899,13 +2901,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "Why did the chicken cross the road, roll in the mud and cross the road again?",
-            "delivery": "He was a dirty double crosser!",
             "id": 211
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
+            "setup": "What do you call a deer with no eyes?",
+            "delivery": "No eye deer.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2913,13 +2915,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "What do you call a deer with no eyes?",
-            "delivery": "No eye deer.",
             "id": 212
         },
         {
             "category": "Programming",
             "type": "twopart",
+            "setup": "What are bits?",
+            "delivery": "Tiny things left when you drop your computer down the stairs",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2927,12 +2929,10 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "What are bits?",
-            "delivery": "Tiny things left when you drop your computer down the stairs",
             "id": 213
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "Where do sick cruise ships go to get healthy?",
             "delivery": "The dock!",
@@ -2946,7 +2946,7 @@
             "id": 214
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "Has COVID-19 forced you to wear glasses and a mask at the same time?",
             "delivery": "If so, you may be entitled to condensation.",
@@ -2962,6 +2962,8 @@
         {
             "category": "Programming",
             "type": "twopart",
+            "setup": "Why did the programmer jump on the table?",
+            "delivery": "Because debug was on his screen.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2969,13 +2971,12 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "Why did the programmer jump on the table?",
-            "delivery": "Because debug was on his screen.",
             "id": 216
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "single",
+            "joke": "I walked into a bar once.\nIt really hurt my head.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2983,12 +2984,13 @@
                 "racist": false,
                 "sexist": false
             },
-            "joke": "I walked into a bar once.\nIt really hurt my head.",
             "id": 217
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
+            "setup": "What's grey and comes in pints?",
+            "delivery": "An elephant.",
             "flags": {
                 "nsfw": true,
                 "religious": false,
@@ -2996,8 +2998,6 @@
                 "racist": false,
                 "sexist": false
             },
-            "setup": "What's grey and comes in pints?",
-            "delivery": "An elephant.",
             "id": 218
         },
         {

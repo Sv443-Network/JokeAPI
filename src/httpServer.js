@@ -282,7 +282,7 @@ const init = () => {
                     //#MARKER Joke submission
                     let submissionsRateLimited = await rlSubm.get(ip);
 
-                    if(!jsl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "submit" && !(submissionsRateLimited && submissionsRateLimited._remainingPoints < 0))
+                    if(!jsl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "submit" && !(submissionsRateLimited && submissionsRateLimited._remainingPoints < 0 && !headerAuth.isAuthorized))
                     {
                         rlSubm.consume(ip, 1);
 
@@ -586,10 +586,13 @@ const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
 
     try
     {
-        res.writeHead(statusCode, {
-            "Content-Type": `${mimeType}; charset=UTF-8`,
-            "Content-Length": fs.statSync(filePath).size
-        });
+        if(!res.headersSent)
+        {
+            res.writeHead(statusCode, {
+                "Content-Type": `${mimeType}; charset=UTF-8`,
+                "Content-Length": fs.statSync(filePath).size
+            });
+        }
 
         let readStream = fs.createReadStream(filePath);
         readStream.pipe(res);

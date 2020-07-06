@@ -61,7 +61,7 @@ const call = (req, res, url, params, format) => {
             if(category.toLowerCase() == cat.toLowerCase())
                 categoryValid = true;
         }
-        else if(typeof category == "object")
+        else if(Array.isArray(category))
         {
             if(category.map(c => c.toLowerCase()).includes(cat.toLowerCase()))
                 categoryValid = true;
@@ -78,7 +78,7 @@ const call = (req, res, url, params, format) => {
     //TODO: translate all error messages with tr()
 
     //#SECTION language
-    if(!jsl.isEmpty(params["lang"]))
+    if(params && !jsl.isEmpty(params["lang"]))
     {
         try
         {

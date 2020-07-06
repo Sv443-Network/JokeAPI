@@ -279,16 +279,20 @@ class FilteredJoke
     /**
      * Applies the previously set filters and modifies the `this._filteredJokes` property with the applied filters
      * @private
+     * @param {String} lang
      * @returns {Promise}
      */
-    _applyFilters()
+    _applyFilters(lang)
     {
         return new Promise((resolve, reject) => {
             try
             {
                 this._filteredJokes = [];
 
-                this._allJokes.getJokeArray().forEach(joke => { // iterate over each joke, reading all set filters and thereby checking if it suits the request
+                if(!lang)
+                    lang = settings.languages.defaultLanguage;
+
+                this._allJokes.getJokeArray(lang).forEach(joke => { // iterate over each joke, reading all set filters and thereby checking if it suits the request
 
                     //#SECTION id range
                     let idRange = this.getIdRange();
@@ -360,7 +364,7 @@ class FilteredJoke
     getJoke()
     {
         return new Promise((resolve, reject) => {
-            this._applyFilters().then(filteredJokes => {
+            this._applyFilters(this._lang || settings.languages.defaultLanguage).then(filteredJokes => {
                 if(filteredJokes.length == 0 || typeof filteredJokes != "object")
                 {
                     if(this._errors && this._errors.length > 0)
@@ -424,7 +428,7 @@ class FilteredJoke
     getAllJokes()
     {
         return new Promise((resolve, reject) => {
-            this._applyFilters().then(filteredJokes => {
+            this._applyFilters(this._lang || settings.languages.defaultLanguage).then(filteredJokes => {
                 resolve(filteredJokes);
             }).catch(err => {
                 reject(err);

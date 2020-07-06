@@ -911,6 +911,11 @@ textarea {
     padding-bottom: 15px;
 }
 
+#tryItFormLatency {
+    margin-top: 5px;
+    font-size: 90%;
+}
+
 .highlightedContainer {
     display: block;
     background-color: var(--bg-accent-color);

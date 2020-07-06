@@ -36,11 +36,38 @@ function parseURL(url)
         };
 
         let parsed = urlParse(url);
+
+        let qstrObj = {};
+        let qstrArr = [];
+        let rawQstr = (parsed.query == "" ? null : parsed.query);
+
+        if(rawQstr && rawQstr.startsWith("?"))
+            rawQstr = rawQstr.substr(1);
+
+        if(!jsl.isEmpty(rawQstr) && rawQstr.includes("&"))
+            qstrArr = rawQstr.split("&");
+        else if(!jsl.isEmpty(rawQstr))
+            qstrArr = [rawQstr];
+
+
+        if(qstrArr.length > 0)
+        {
+            qstrArr.forEach(qstrEntry => {
+                if(qstrEntry.includes("="))
+                {
+                    let splitEntry = qstrEntry.split("=");
+                    qstrObj[decodeURIComponent(splitEntry[0])] = decodeURIComponent(splitEntry[1].toLowerCase());
+                }
+            });
+        }
+        else
+            qstrObj = null;
+
         let retObj = {
             error: null,
             initialURL: url,
             pathArray: trimFirstSlash(parsed.pathname.split("/")),
-            queryParams: parsed.query == "" ? null : parsed.query
+            queryParams: qstrObj
         };
 
         return retObj;

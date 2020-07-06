@@ -182,6 +182,7 @@ const settings = {
         tokenListFile: "./data/tokens.json", // path to the token list file
         tokenHeaderName: "authorization",     // the name of the token header (lower case)
         tokenValidHeader: "Token-Valid",     // the name of the token validity response header (normal case, not lower case)
+        daemonInterval: 20, // after how many seconds the auth tokens should be refreshed
     },
     languages:
     {

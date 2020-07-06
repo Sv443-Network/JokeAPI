@@ -61,7 +61,7 @@
         <script src="https://sv443.net/cdn/jsl/1.5.0.js"></script>
 
         <!-- Have to do it like this because the page doesn't always have a trailing slash and that *somehow* makes it redirect to the page root: -->
-        <script src="<!--%#INSERT:DOCSURL#%-->/static/index.js"></script>
+        <!-- <script src="<!--%#INSERT:DOCSURL#%--><!--/static/index.js"></script-->
         <script src="static/index.js"></script>
 
         <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=sunburst"></script> <!-- Google Code-Prettify -->
@@ -222,8 +222,19 @@
                                             <input type="checkbox" id="cat-cb1" onchange="reRender()" disabled><label for="cat-cb1">Programming</label>
                                             <input type="checkbox" id="cat-cb2" onchange="reRender()" disabled><label for="cat-cb2">Miscellaneous</label>
                                             <input type="checkbox" id="cat-cb3" onchange="reRender()" disabled><label for="cat-cb3">Dark</label>
+                                            <input type="checkbox" id="cat-cb4" onchange="reRender()" disabled><label for="cat-cb4">Pun</label>
                                         </span>
                                     </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Select <a href="#languages-endpoint">language</a>:
+                            </td>
+                            <td>
+                                <div class="multiselect noselect">
+                                    <select id="lcodeSelect" onchange="reRender()"></select>
                                 </div>
                             </td>
                         </tr>
@@ -297,6 +308,7 @@
 <code id="urlBuilderPrettyprint" class="lang-json flexItem r"><span class="nocode codeheader">Result:</span>
 <div class="actualCode" id="tryItResult">(Set parameters and click "Send Request" above)</div>
 </code>
+                <span id="tryItFormLatency"></span>
                 </div>
 
 
@@ -580,7 +592,7 @@ None. It's a hardware problem.
     "causedBy": [
         "No jokes were found that match your provided filter(s)"
     ],
-    "additionalInfo": "The specified category is invalid - Got: \"foo\" - Possible categories are: \"Any, Miscellaneous, Programming, Dark\" (case insensitive)",
+    "additionalInfo": "The specified category is invalid - Got: \"foo\" - Possible categories are: \"Any, Miscellaneous, Programming, Dark, Pun\" (case insensitive)",
     "timestamp": 1579170794412
 }
 </div></code><br>
