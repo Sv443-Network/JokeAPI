@@ -1,7 +1,7 @@
 // this module initializes the blacklist, whitelist and console blacklist
 
 const jsl = require("svjsl");
-const fs = require("fs");
+const fs = require("fs-extra");
 const settings = require("../settings");
 const debug = require("./verboseLogging");
 const logger = require("./logger");

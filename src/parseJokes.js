@@ -1,11 +1,12 @@
 // this module parses all the jokes to verify that they are valid and that their structure is not messed up
 
-const fs = require("fs");
+const fs = require("fs-extra");
 const jsl = require("svjsl");
 
 const settings = require("../settings");
 const debug = require("./verboseLogging");
 const languages = require("./languages");
+const translate = require("./translate");
 const AllJokes = require("./classes/AllJokes");
 
 /**
@@ -135,10 +136,20 @@ const init = () => {
 
             // TODO: this
             let allJokesObj = new AllJokes(allJokesFilesObj);
+
+            let formatVersions = [];
+            translate.systemLangs().forEach(lang => {
+                formatVersions.push(allJokesObj.getFormatVersion(lang));
+            });
+
+            if(!jsl.allEqual(formatVersions))
+                errors.push(`One or more of the jokes files has an invalid format version`);
+
             module.exports.allJokes = allJokesObj;
             module.exports.jokeCount = allJokesObj.getJokeCount();
-            module.exports.jokeFormatVersion = allJokesObj.getFormatVersion();
-            this.jokeFormatVersion = allJokesObj.getFormatVersion();
+            let fmtVer = allJokesObj.getFormatVersion("en");
+            module.exports.jokeFormatVersion = fmtVer;
+            this.jokeFormatVersion = fmtVer;
 
 
             debug("JokeParser", `Done parsing jokes. Errors: ${errors.length === 0 ? jsl.colors.fg.green : jsl.colors.fg.red}${errors.length}${jsl.colors.rst}`);

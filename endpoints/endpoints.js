@@ -3,7 +3,7 @@ const convertFileFormat = require("../src/fileFormatConverter");
 const httpServer = require("../src/httpServer");
 const parseURL = require("../src/parseURL");
 const jsl = require("svjsl");
-const fs = require("fs");
+const fs = require("fs-extra");
 const settings = require("../settings");
 
 jsl.unused(http);

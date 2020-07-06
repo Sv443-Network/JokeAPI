@@ -3,7 +3,7 @@
 
 try
 {
-    const fs = require("fs");
+    const fs = require("fs-extra");
     const isEmpty = require("svjsl").isEmpty;
 
 

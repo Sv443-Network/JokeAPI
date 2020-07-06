@@ -77,8 +77,8 @@ const call = (req, res, url, params, format) => {
                 "idRange": [ 0, --totalJokesCount ]
             },
             "formats": settings.jokes.possible.formats,
-            "info": settings.info.infoMsg,
             "languages": supportedLangsLength,
+            "info": settings.info.infoMsg,
             "timestamp": new Date().getTime()
         });
     }
@@ -97,8 +97,8 @@ const call = (req, res, url, params, format) => {
                 "idRange": [ 0, --totalJokesCount ]
             },
             "formats": {"format": settings.jokes.possible.formats},
-            "info": settings.info.infoMsg,
             "languages": supportedLangsLength,
+            "info": settings.info.infoMsg,
             "timestamp": new Date().getTime()
         });
     }

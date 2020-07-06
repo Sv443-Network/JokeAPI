@@ -23,7 +23,7 @@ const otherFiles = [
 
 
 const madge = require("madge");
-const fs = require("fs");
+const fs = require("fs-extra");
 const settings = require("../settings");
 
 var fileList = [];

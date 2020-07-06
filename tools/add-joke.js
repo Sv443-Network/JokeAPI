@@ -1,7 +1,7 @@
 const jsl = require("svjsl");
 const readline = require("readline");
 const settings = require("../settings");
-const fs = require("fs");
+const fs = require("fs-extra");
 
 // TODO: rework all of this
 

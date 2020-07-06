@@ -12,7 +12,7 @@ const exitWithError = (msg, err) => {
 
 try
 {
-    const fs = require("fs");
+    const fs = require("fs-extra");
     const settings = require("../settings");
 
     console.log(`\nValidating joke IDs in file "${settings.jokes.jokesFilePath}"...`);

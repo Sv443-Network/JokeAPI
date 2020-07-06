@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require("fs-extra");
 const jsl = require("svjsl");
 
 const settings = require("../settings");

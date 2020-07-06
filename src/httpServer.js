@@ -4,7 +4,7 @@ const jsl = require("svjsl");
 const http = require("http");
 const { RateLimiterMemory, RateLimiterRes } = require("rate-limiter-flexible");
 const Readable = require("stream").Readable;
-const fs = require("fs");
+const fs = require("fs-extra");
 
 const settings = require("../settings");
 const debug = require("./verboseLogging");
@@ -32,10 +32,15 @@ const init = () => {
          * Initializes the HTTP server - should only be called once
          */
         let initHttpServer = () => {
-            //#SECTION set up rate limiter
+            //#SECTION set up rate limiters
             let rl = new RateLimiterMemory({
                 points: settings.httpServer.rateLimiting,
                 duration: settings.httpServer.timeFrame
+            });
+
+            let rlSubm = new RateLimiterMemory({
+                points: settings.jokes.submissions.rateLimiting,
+                duration: settings.jokes.submissions.timeFrame
             });
 
             //#SECTION create HTTP server
@@ -231,7 +236,7 @@ const init = () => {
                                     {
                                         let rlRes = await rl.get(ip);
 
-                                        if((rlRes &&rlRes._remainingPoints < 0) && !lists.isWhitelisted(ip) && !isAuthorized)
+                                        if((rlRes && rlRes._remainingPoints < 0) && !lists.isWhitelisted(ip) && !isAuthorized)
                                         {
                                             setRateLimitedHeaders(res, rlRes);
                                             logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
@@ -275,8 +280,12 @@ const init = () => {
                 else if(req.method === "PUT")
                 {
                     //#MARKER Joke submission
-                    if(!jsl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "submit")
+                    let submissionsRateLimited = await rlSubm.get(ip);
+
+                    if(!jsl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "submit" && !(submissionsRateLimited && submissionsRateLimited._remainingPoints < 0))
                     {
+                        rlSubm.consume(ip, 1);
+
                         let data = "";
                         let dataGotten = false;
                         req.on("data", chunk => {
@@ -296,7 +305,7 @@ const init = () => {
                             if(!dataGotten)
                             {
                                 debug("HTTP", "PUT request timed out");
-                                return respondWithError(res, 105, 400, fileFormat, "Request body is empty", lang);
+                                return respondWithError(res, 105, 400, fileFormat, "Request body is empty or request timed out", lang);
                             }
                         }, 3000);
                     }

@@ -1,5 +1,5 @@
 const settings = require("../settings");
-const fs = require("fs");
+const fs = require("fs-extra");
 const path = require("path");
 const jsl = require("svjsl");
 

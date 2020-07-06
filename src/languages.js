@@ -1,4 +1,4 @@
-const fs = require("fs");
+const fs = require("fs-extra");
 const jsl = require("svjsl");
 const Fuse = require("fuse.js");
 
@@ -6,6 +6,7 @@ const tr = require("./translate");
 
 const settings = require("../settings");
 
+var langs;
 
 /**
  * Initializes the language module
@@ -19,7 +20,7 @@ function init()
             else
             {
                 let languages = JSON.parse(data.toString());
-                process.languages = languages;
+                langs = languages;
                 return resolve(languages);
             }
         });
@@ -33,13 +34,13 @@ function init()
  */
 function isValidLang(langCode)
 {
-    if(process.languages == undefined)
+    if(langs == undefined)
         return "INTERNAL_ERROR: Language module was not correctly initialized (yet)";
 
     if(typeof langCode !== "string" || langCode.length !== 2)
         return "Language code is not a string or not two characters in length";
 
-    let requested = process.languages[langCode.toLowerCase()];
+    let requested = langs[langCode.toLowerCase()];
 
     if(typeof requested === "string")
         return true;
@@ -54,7 +55,7 @@ function isValidLang(langCode)
  */
 function languageToCode(language)
 {
-    if(process.languages == undefined)
+    if(langs == undefined)
         throw new Error("INTERNAL_ERROR: Language module was not correctly initialized (yet)");
 
     if(typeof language !== "string" || language.length <= 1)
@@ -62,10 +63,10 @@ function languageToCode(language)
 
     let searchObj = [];
 
-    Object.keys(process.languages).forEach(key => {
+    Object.keys(langs).forEach(key => {
         searchObj.push({
             code: key,
-            lang: process.languages[key].toLowerCase()
+            lang: langs[key].toLowerCase()
         });
     });
 

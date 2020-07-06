@@ -2,7 +2,7 @@ const http = require("http");
 const httpServer = require("../src/httpServer");
 const jsl = require("svjsl");
 const settings = require("../settings");
-const fs = require("fs");
+const fs = require("fs-extra");
 const debug = require("../src/verboseLogging");
 
 jsl.unused(http);

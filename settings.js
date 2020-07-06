@@ -55,16 +55,21 @@ const settings = {
         blacklistLoggingEnabled: true, // whether or not to log the character when an IP is on the blacklist
     },
     jokes: {
-        jokesFormatVersion: 2,                               // current joke format version
+        jokesFormatVersion: 3,                               // current joke format version
         jokesFolderPath: "./data/jokes/",                    // path to the jokes folder - needs trailing slash
         jokeSubmissionURL: `${packageJSON.homepage}#submit`, // joke submission url
         jokeSubmissionPath: "./data/submissions/",           // path to a directory where joke submissions should be saved to - needs trailing slash
+        submissions: {
+            timeFrame: 60,
+            rateLimiting: 3,
+        },
         possible: {
             anyCategoryName: "Any", // the name of the "Any" category
             categories: [           // all categories (excluding "Any") - case insensitive
                 "Miscellaneous",
                 "Programming",
-                "Dark"
+                "Dark",
+                "Pun"
             ],
             flags: [ // all flags - HAS TO BE LOWER CASE!
                 "nsfw",
@@ -98,7 +103,7 @@ const settings = {
         port: 8076,           // http server port
         allowCORS: true,      // whether or not to allow Cross Origin Resource Sharing
         rateLimiting: 60,     // amount of allowed requests per below defined timeframe
-        timeFrame: 60,        // timeframe in seconds - also supports floating point numbers
+        timeFrame: 60,        // timeframe in seconds
         urlPathOffset: 0,     // example: "/jokeapi/info" with an offset of 1 will only start parsing the path beginning at "info" - an Apache reverse proxy will do this automatically though
         maxPayloadSize: 5120, // max size (in bytes) that will be accepted in a PUT request - if payload exceeds this size, it will abort with status 413
         maxUrlLength: 250,    // max amount of characters of the URL - if the URL is longer than this, the request will abort with status 414

@@ -5,7 +5,7 @@
 
 try
 {
-    const fs = require("fs");
+    const fs = require("fs-extra");
     const settings = require("../settings");
 
     console.log(`\nReassigning joke IDs in file "${settings.jokes.jokesFilePath}"...`);

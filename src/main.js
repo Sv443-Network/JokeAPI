@@ -5,7 +5,7 @@
 
 
 const jsl = require("svjsl");
-const fs = require("fs");
+const fs = require("fs-extra");
 require("dotenv").config();
 
 const settings = require("../settings");
@@ -18,8 +18,8 @@ const analytics = require("./analytics");
 const logRequest = require("./logRequest");
 const auth = require("./auth");
 const languages = require("./languages");
+const translate = require("./translate");
 const meter = require("./meter");
-const tr = require("./translate");
 const promiseAllSequential = require("promise-all-sequential");
 
 const col = jsl.colors.fg;
@@ -40,6 +40,14 @@ const initAll = () => {
 
     let initPromises = [];
     let initStages = [
+        {
+            name: "Initializing languages",
+            fn: languages.init
+        },
+        {
+            name: "Initializing translations",
+            fn: translate.init
+        },
         {
             name: "Initializing joke parser",
             fn: parseJokes.init
@@ -73,6 +81,8 @@ const initAll = () => {
     initStages.forEach(stage => {
         initPromises.push(stage.fn);
     });
+
+    meter.init();
 
     promiseAllSequential(initPromises).then((res) => {
         jsl.unused(res);

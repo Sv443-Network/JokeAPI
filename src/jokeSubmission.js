@@ -1,5 +1,5 @@
 const jsl = require("svjsl");
-const fs = require("fs");
+const fs = require("fs-extra");
 const http = require("http");
 
 var httpServer = require("./httpServer"); // module loading order is a bit fucked, so this module has to be loaded multiple times

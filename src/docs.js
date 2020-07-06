@@ -2,7 +2,7 @@
 
 const jsl = require("svjsl");
 const farmhash = require("farmhash");
-const fs = require("fs");
+const fs = require("fs-extra");
 const settings = require("../settings");
 const debug = require("./verboseLogging");
 const packageJSON = require("../package.json");
