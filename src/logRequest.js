@@ -157,8 +157,7 @@ const logRequest = (type, additionalInfo, analyticsData) => {
  * @param {Number} initTimestamp The timestamp of when JokeAPI was initialized
  */
 const initMsg = (initTimestamp) => {
-    console.log("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-    console.log(`${jsl.colors.fg.blue}[${logger.getTimestamp(" | ")}] ${jsl.colors.fg.green}Started ${settings.info.name} v${settings.info.version}${jsl.colors.rst}`);
+    console.log(` \n \n${jsl.colors.fg.blue}[${logger.getTimestamp(" | ")}] ${jsl.colors.fg.green}Started ${settings.info.name} v${settings.info.version}${jsl.colors.rst}`);
     console.log(` ├─ Registered and validated ${jsl.colors.fg.green}${parseJokes.jokeCount}${jsl.colors.rst} jokes`);
     if(analytics.connectionInfo && analytics.connectionInfo.connected)
         console.log(` ├─ Connected to analytics database at ${jsl.colors.fg.green}${analytics.connectionInfo.info}${jsl.colors.rst}`);

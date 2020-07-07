@@ -10,11 +10,12 @@ const col = jsl.colors;
  * @param {String} section
  * @param {String} message
  */
-const verboseLogging = (section, message) => {
-    if(jsl.isEmpty(settings.debug.verboseLogging) || settings.debug.verboseLogging === false)
+function verboseLogging(section, message)
+{
+    if(settings.debug.verboseLogging !== true)
         return;
     
-    console.log(`${col.fg.yellow}[DBG/${col.rst}${col.fg.blue}${section}${col.rst}${col.fg.yellow}]${col.rst} - ${message}`);
+    console.log(`${col.fg.yellow}[DBG:${col.rst}${col.fg.blue}${section}${col.rst}${col.fg.yellow}]${col.rst} - ${message}`);
 }
 
 module.exports = verboseLogging;

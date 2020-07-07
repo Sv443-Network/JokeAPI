@@ -71,6 +71,10 @@ const initAll = () => {
         {
             name: "Initializing analytics module",
             fn: analytics.init
+        },
+        {
+            name: "Initializing pm2 meter",
+            fn: meter.init
         }
     ];
 
@@ -81,8 +85,6 @@ const initAll = () => {
     initStages.forEach(stage => {
         initPromises.push(stage.fn);
     });
-
-    meter.init();
 
     promiseAllSequential(initPromises).then((res) => {
         jsl.unused(res);

@@ -73,7 +73,6 @@ const init = () => {
                 {
                     if(lists.isBlacklisted(ip))
                     {
-                        meter.update("blacklisted", 1);
                         logRequest("blacklisted", null, analyticsObject);
                         return respondWithError(res, 103, 403, fileFormat, "", lang);
                     }
