@@ -28,14 +28,15 @@ const jokeSubmission = (res, data, fileFormat, ip, analyticsObject) => {
     {
         if(typeof httpServer == "object" && Object.keys(httpServer).length <= 0)
             httpServer = require("./httpServer");
-
+            
         let submittedJoke = JSON.parse(data);
         if(jsl.isEmpty(submittedJoke))
             return httpServer.respondWithError(res, 105, 400, fileFormat, "Request body is empty");
-
+            
         let invalidChars = data.match(settings.jokes.submissions.invalidCharRegex);
-        if(invalidChars.length > 0)
-            return httpServer.respondWithError(res, 105, 400, fileFormat, `Invalid characters found: ${invalidChars.map(ch => "0x" + ch.charCodeAt(0).toString(16)).join(", ")}`);
+        let invalidCharsStr = invalidChars ? invalidChars.map(ch => `0x${ch.charCodeAt(0).toString(16)}`).join(", ") : null;
+        if(invalidCharsStr && invalidChars.length > 0)
+            return httpServer.respondWithError(res, 109, 400, fileFormat, invalidCharsStr, submittedJoke.lang);
         
         if(submittedJoke.formatVersion == parseJokes.jokeFormatVersion && submittedJoke.formatVersion == settings.jokes.jokesFormatVersion)
         {
@@ -104,21 +105,23 @@ const writeJokeToFile = (res, filePath, submittedJoke, fileFormat, ip, analytics
     if(typeof httpServer == "object" && Object.keys(httpServer).length <= 0)
         httpServer = require("./httpServer");
 
-    fs.writeFile(filePath, JSON.stringify(submittedJoke, null, 4), err => {
+    let reformattedJoke = reformatJoke(submittedJoke);
+
+    fs.writeFile(filePath, JSON.stringify(reformattedJoke, null, 4), err => {
         if(!err)
         {
             // successfully wrote to file
             let responseObj = {
                 "error": false,
                 "message": "Joke submission was successfully saved. It will soon be checked out by the author.",
-                "submission": submittedJoke,
+                "submission": reformattedJoke,
                 "timestamp": new Date().getTime()
             };
 
             meter.update("submission", 1);
 
             let submissionObject = analyticsObject;
-            submissionObject.submission = submittedJoke;
+            submissionObject.submission = reformattedJoke;
             logRequest("submission", ip, submissionObject);
 
             return httpServer.pipeString(res, convertFileFormat.auto(fileFormat, responseObj), parseURL.getMimeTypeFromFileFormatString(fileFormat), 201);
@@ -128,4 +131,42 @@ const writeJokeToFile = (res, filePath, submittedJoke, fileFormat, ip, analytics
     });
 }
 
+/**
+ * Ensures that a joke is formatted as expected
+ * @param {parseJokes.SingleJoke|parseJokes.TwopartJoke} joke
+ * @returns {parseJokes.SingleJoke|parseJokes.TwopartJoke}
+ */
+function reformatJoke(joke)
+{
+    if(joke.formatVersion)
+        retJoke.formatVersion = joke.formatVersion;
+
+    let retJoke = {
+        ...retJoke,
+        category: joke.category,
+        type: joke.type
+    }
+
+    if(joke.type == "single")
+    {
+        retJoke.joke = joke.joke;
+    }
+    else if(joke.type == "twopart")
+    {
+        retJoke.setup = joke.setup;
+        retJoke.delivery = joke.delivery;
+    }
+
+    retJoke.flags = joke.flags;
+
+    if(joke.lang)
+        retJoke.lang = joke.lang;
+    
+    if(joke.id)
+        retJoke.id = joke.id;
+    
+    return retJoke;
+}
+
 module.exports = jokeSubmission;
+module.exports.reformatJoke = reformatJoke;

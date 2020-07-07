@@ -4,7 +4,7 @@ const jsl = require("svjsl");
 const http = require("http");
 const Readable = require("stream").Readable;
 const fs = require("fs-extra");
-const { resolve } = require("path");
+// const { resolve } = require("path");
 
 const settings = require("../settings");
 const debug = require("./verboseLogging");
@@ -427,11 +427,6 @@ function setRateLimitedHeaders(res, rlRes)
     });
 }
 
-function requireUncached(module) {
-    delete require.cache[require.resolve(module)];
-    return require(module);
-}
-
 /**
  * Ends the request with an error. This error gets pulled from the error registry
  * @param {http.ServerResponse} res 
@@ -446,11 +441,11 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
     try
     {
         errorCode = errorCode.toString();
-        let regPath = resolve(settings.errors.errorMessagesPath);
-        let errRegReq = requireUncached(regPath);
-        let errReg = errRegReq.get();
-        let errFromRegistry = errReg[errorCode];
+        let errFromRegistry = require("../data/errorMessages")[errorCode];
         let errObj = {};
+
+        if(errFromRegistry == undefined)
+            throw new Error(`Couldn't find errorMessages module or Node is using an outdated, cached version`);
 
         if(!lang || !languages.isValidLang(lang))
             lang = settings.languages.defaultLanguage;

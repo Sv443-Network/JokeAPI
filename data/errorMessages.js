@@ -7,7 +7,7 @@ module.exports = {
         "errorMessage": {
             "en": "Internal Error in HTTP Server",
             "de": "Interner Error im HTTP Server",
-            "ru": "Внутренняя ошибка в сервере HTTP"
+            "ru": "Внутренняя ошибка в HTTP-сервере"
         },
         "causedBy": {
             "en": [
@@ -170,6 +170,25 @@ module.exports = {
             ],
             "ru": [
                 `Длина URL-адрес (%1 символов) превышает максимально допустимую длину в ${settings.httpServer.maxUrlLength} символа.`
+            ],
+        }
+    },
+    "109": {
+        "errorInternal": false,
+        "errorMessage": {
+            "en": "Contains invalid characters",
+            "de": "Enthält unerlaubte Zeichen",
+            "ru": "Содержит недопустимые символы"
+        },
+        "causedBy": {
+            "en": [
+                `The joke submission contains invalid characters outside the Unicode range of 0x0000 to 0x0fff`
+            ],
+            "de": [
+                `Der eingereichte Witz enthält unerlaubte Zeichen außerhalb des Unicode-Bereichs 0x0000 bis 0x0fff`
+            ],
+            "ru": [
+                `Представленный анекдот содержит недопустимые символы вне диапазона Юникода от 0x0000 до 0x0fff`
             ],
         }
     }

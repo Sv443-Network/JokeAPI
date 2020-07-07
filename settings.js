@@ -130,7 +130,6 @@ const settings = {
         ],
     },
     errors: {
-        errorMessagesPath: "./data/errorMessages.js", // path to the error registry
         errorLogDir: "./data/logs/",                  // path to the error log directory - needs trailing slash
     },
     lists: {
