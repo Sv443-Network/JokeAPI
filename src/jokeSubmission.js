@@ -32,6 +32,10 @@ const jokeSubmission = (res, data, fileFormat, ip, analyticsObject) => {
         let submittedJoke = JSON.parse(data);
         if(jsl.isEmpty(submittedJoke))
             return httpServer.respondWithError(res, 105, 400, fileFormat, "Request body is empty");
+
+        let invalidChars = data.match(settings.jokes.submissions.invalidCharRegex);
+        if(invalidChars.length > 0)
+            return httpServer.respondWithError(res, 105, 400, fileFormat, `Invalid characters found: ${invalidChars.map(ch => "0x" + ch.charCodeAt(0).toString(16)).join(", ")}`);
         
         if(submittedJoke.formatVersion == parseJokes.jokeFormatVersion && submittedJoke.formatVersion == settings.jokes.jokesFormatVersion)
         {

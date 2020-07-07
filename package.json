@@ -65,6 +65,7 @@
     "snyk": "^1.360.0",
     "svjsl": "^1.9.4",
     "url-parse": "^1.4.7",
+    "utf8": "^3.0.0",
     "xss": "^1.0.7"
   },
   "devDependencies": {

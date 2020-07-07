@@ -2,9 +2,9 @@
 
 const jsl = require("svjsl");
 const http = require("http");
-const { RateLimiterMemory, RateLimiterRes } = require("rate-limiter-flexible");
 const Readable = require("stream").Readable;
 const fs = require("fs-extra");
+const { resolve } = require("path");
 
 const settings = require("../settings");
 const debug = require("./verboseLogging");
@@ -19,6 +19,8 @@ const jokeSubmission = require("./jokeSubmission");
 const auth = require("./auth");
 const meter = require("./meter");
 const languages = require("./languages");
+const utf8 = require("utf8");
+const { RateLimiterMemory, RateLimiterRes } = require("rate-limiter-flexible");
 
 jsl.unused(RateLimiterRes); // typedef only
 
@@ -311,6 +313,7 @@ const init = () => {
                     else
                     {
                         //#MARKER Restart / invalid PUT
+                        // TODO: respond 429 on rate limited
                         let data = "";
                         let dataGotten = false;
                         req.on("data", chunk => {
@@ -424,6 +427,11 @@ function setRateLimitedHeaders(res, rlRes)
     });
 }
 
+function requireUncached(module) {
+    delete require.cache[require.resolve(module)];
+    return require(module);
+}
+
 /**
  * Ends the request with an error. This error gets pulled from the error registry
  * @param {http.ServerResponse} res 
@@ -437,7 +445,11 @@ function setRateLimitedHeaders(res, rlRes)
 const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage, lang, ...args) => {
     try
     {
-        let errFromRegistry = require(`.${settings.errors.errorMessagesPath}`)[errorCode.toString()];
+        errorCode = errorCode.toString();
+        let regPath = resolve(settings.errors.errorMessagesPath);
+        let errRegReq = requireUncached(regPath);
+        let errReg = errRegReq.get();
+        let errFromRegistry = errReg[errorCode];
         let errObj = {};
 
         if(!lang || !languages.isValidLang(lang))
@@ -533,13 +545,24 @@ const pipeString = (res, text, mimeType, statusCode = 200) => {
     try
     {
         statusCode = parseInt(statusCode);
-        if(isNaN(statusCode)) throw new Error("");
+        if(isNaN(statusCode))
+            throw new Error("Invalid status code");
     }
     catch(err)
     {
         res.writeHead(500, {"Content-Type": `text/plain; charset=UTF-8`});
         res.end("INTERNAL_ERR:STATUS_CODE_NOT_INT");
         return;
+    }
+
+    try
+    {
+        // ensures response is valid UTF-8
+        text = utf8.decode(text);
+    }
+    catch(err)
+    {
+        jsl.unused(err);
     }
 
     let s = new Readable();

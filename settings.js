@@ -60,8 +60,9 @@ const settings = {
         jokeSubmissionURL: `${packageJSON.homepage}#submit`, // joke submission url
         jokeSubmissionPath: "./data/submissions/",           // path to a directory where joke submissions should be saved to - needs trailing slash
         submissions: {
-            timeFrame: 60,
-            rateLimiting: 3,
+            timeFrame: 60,                              // time frame of submission rate limiter (in seconds)
+            rateLimiting: 3,                            // how many requests per timeframe should be allowed
+            invalidCharRegex: /(?![\u0000-\u0fff])./gm, // eslint-disable-line no-control-regex
         },
         possible: {
             anyCategoryName: "Any", // the name of the "Any" category
@@ -129,8 +130,8 @@ const settings = {
         ],
     },
     errors: {
-        errorMessagesPath: "./data/errorMessages", // path to the error registry
-        errorLogDir: "./data/logs/",               // path to the error log directory - needs trailing slash
+        errorMessagesPath: "./data/errorMessages.js", // path to the error registry
+        errorLogDir: "./data/logs/",                  // path to the error log directory - needs trailing slash
     },
     lists: {
         blacklistPath: "./data/lists/ipBlacklist.json",             // path to the IP blacklist

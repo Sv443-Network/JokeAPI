@@ -1,6 +1,6 @@
 const settings = require("../settings");
 
-module.exports = {
+const errors = {
     //#MARKER Class 1xx (HTTP)
     "100": {
         "errorInternal": true,
@@ -64,6 +64,17 @@ module.exports = {
         "causedBy": [
             `The URL exceeds the maximum length of ${settings.httpServer.maxUrlLength} characters`
         ]
+    },
+    "109": {
+        "errorInternal": false,
+        "errorMessage": "Invalid encoding",
+        "causedBy": [
+            `Data contains invalid characters. Valid character range is U+0000 to U+0FFF`
+        ]
     }
     //#MARKER Class 2xx
 }
+
+module.exports.get = () => {
+    return errors;
+};
