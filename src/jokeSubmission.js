@@ -30,13 +30,16 @@ const jokeSubmission = (res, data, fileFormat, ip, analyticsObject) => {
             httpServer = require("./httpServer");
             
         let submittedJoke = JSON.parse(data);
+
+        let langCode = submittedJoke.lang || settings.languages.defaultLanguage;
+
         if(jsl.isEmpty(submittedJoke))
-            return httpServer.respondWithError(res, 105, 400, fileFormat, "Request body is empty");
+            return httpServer.respondWithError(res, 105, 400, fileFormat, "Request body is empty", langCode);
             
         let invalidChars = data.match(settings.jokes.submissions.invalidCharRegex);
         let invalidCharsStr = invalidChars ? invalidChars.map(ch => `0x${ch.charCodeAt(0).toString(16)}`).join(", ") : null;
         if(invalidCharsStr && invalidChars.length > 0)
-            return httpServer.respondWithError(res, 109, 400, fileFormat, invalidCharsStr, submittedJoke.lang);
+            return httpServer.respondWithError(res, 109, 400, fileFormat, invalidCharsStr, langCode);
         
         if(submittedJoke.formatVersion == parseJokes.jokeFormatVersion && submittedJoke.formatVersion == settings.jokes.jokesFormatVersion)
         {
@@ -44,14 +47,14 @@ const jokeSubmission = (res, data, fileFormat, ip, analyticsObject) => {
             let validationResult = parseJokes.validateSingle(submittedJoke);
 
             if(typeof validationResult === "object")
-                return httpServer.respondWithError(res, 105, 400, fileFormat, `Submitted joke format is incorrect - encountered error${validationResult.length == 1 ? ": " : "s:\n"}${validationResult.join("\n")}`);
+                return httpServer.respondWithError(res, 105, 400, fileFormat, `Submitted joke format is incorrect - encountered error${validationResult.length == 1 ? ": " : "s:\n"}${validationResult.join("\n")}`, langCode);
             else if(validationResult === true)
             {
                 // joke is valid, find file name and then write to file
 
                 let sanitizedIP = ip.replace(settings.httpServer.ipSanitization.regex, settings.httpServer.ipSanitization.replaceChar).substring(0, 8);
                 let curUnix = new Date().getTime();
-                let fileName = `${settings.jokes.jokeSubmissionPath}submission_${sanitizedIP}_0_${curUnix}.json`;
+                let fileName = `${settings.jokes.jokeSubmissionPath}${langCode}/submission_${sanitizedIP}_0_${curUnix}.json`;
 
                 let iter = 0;
                 let findNextNum = currentNum => {
@@ -67,8 +70,10 @@ const jokeSubmission = (res, data, fileFormat, ip, analyticsObject) => {
                     else return currentNum;
                 };
 
+                fs.ensureDirSync(`${settings.jokes.jokeSubmissionPath}${langCode}`);
+
                 if(fs.existsSync(`${settings.jokes.jokeSubmissionPath}${fileName}`))
-                    fileName = `${settings.jokes.jokeSubmissionPath}submission_${sanitizedIP}_${findNextNum()}_${curUnix}.json`;
+                    fileName = `${settings.jokes.jokeSubmissionPath}${langCode}/submission_${sanitizedIP}_${findNextNum()}_${curUnix}.json`;
 
                 try
                 {
@@ -77,13 +82,13 @@ const jokeSubmission = (res, data, fileFormat, ip, analyticsObject) => {
                 }
                 catch(err)
                 {
-                    return httpServer.respondWithError(res, 100, 500, fileFormat, `Internal error while saving joke: ${err}`);
+                    return httpServer.respondWithError(res, 100, 500, fileFormat, `Internal error while saving joke: ${err}`, langCode);
                 }
             }
         }
         else
         {
-            return httpServer.respondWithError(res, 105, 400, fileFormat, `Joke format version is incorrect - expected "${parseJokes.jokeFormatVersion}" - got "${submittedJoke.formatVersion}"`);
+            return httpServer.respondWithError(res, 105, 400, fileFormat, `Joke format version is incorrect - expected "${parseJokes.jokeFormatVersion}" - got "${submittedJoke.formatVersion}"`, langCode);
         }
     }
     catch(err)
@@ -138,10 +143,12 @@ const writeJokeToFile = (res, filePath, submittedJoke, fileFormat, ip, analytics
  */
 function reformatJoke(joke)
 {
+    let retJoke = {};
+
     if(joke.formatVersion)
         retJoke.formatVersion = joke.formatVersion;
 
-    let retJoke = {
+    retJoke = {
         ...retJoke,
         category: joke.category,
         type: joke.type
@@ -157,7 +164,13 @@ function reformatJoke(joke)
         retJoke.delivery = joke.delivery;
     }
 
-    retJoke.flags = joke.flags;
+    retJoke.flags = {
+        nsfw: joke.flags.nsfw,
+        religious: joke.flags.religious,
+        political: joke.flags.political,
+        racist: joke.flags.racist,
+        sexist: joke.flags.sexist,
+    };
 
     if(joke.lang)
         retJoke.lang = joke.lang;

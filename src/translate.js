@@ -1,6 +1,7 @@
 const fs = require("fs-extra");
 const jsl = require("svjsl");
 
+const debug = require("./verboseLogging")
 const settings = require("../settings");
 
 
@@ -12,6 +13,7 @@ var trFile = {};
  */
 function init()
 {
+    debug("Translate", `Initializing - loading translations from "${settings.languages.translationsFile}"`);
     return new Promise((resolve, reject) => {
         fs.readFile(settings.languages.translationsFile, (err, res) => {
             if(err)
@@ -19,6 +21,7 @@ function init()
             else
             {
                 trFile = JSON.parse(res.toString());
+                debug("Translate", `Found ${Object.keys(trFile.tr).length} translations`);
                 return resolve();
             }
         });
@@ -59,6 +62,8 @@ function translate(lang, id, ...args)
             }
         });
     }
+
+    debug("Translate", `Translating ${id} into ${lang} - result: ${translation}`);
 
     return translation;
 }

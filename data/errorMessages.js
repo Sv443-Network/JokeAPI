@@ -191,6 +191,25 @@ module.exports = {
                 `Представленный анекдот содержит недопустимые символы вне диапазона Юникода от 0x0000 до 0x0fff`
             ],
         }
+    },
+    "110": {
+        "errorInternal": false,
+        "errorMessage": {
+            "en": "Submission blocked by Rate Limiting",
+            "de": "Einreichung blockiert durch Ratenbegrenzung",
+            "ru": "Представление заблокировано ограничением по тарифу"
+        },
+        "causedBy": {
+            "en": [
+                `You have sent too many requests too quickly. The limit is ${settings.jokes.submissions.rateLimiting} submissions within ${settings.jokes.submissions.timeFrame} ${settings.jokes.submissions.timeFrame == 1 ? "second" : "seconds"}.\nIf you need to send more requests, please either wait for a bit or contact me and we can try to figure things out: ${settings.info.author.website}`
+            ],
+            "de": [
+                `Du hast zu viele Anfragen zu schnell gesendet. Das Limit ist ${settings.jokes.submissions.rateLimiting} Einreichungen innerhalb von ${settings.jokes.submissions.timeFrame} ${settings.jokes.submissions.timeFrame == 1 ? "Minute" : "Minuten"}.\nWenn du mehr Anfragen pro Minute brauchst, kontaktiere mich bitte, damit wir es klären können: ${settings.info.author.website}`
+            ],
+            "ru": [
+                `Вы отправили слишком много запросов слишком быстро. Лимит - ${settings.jokes.submissions.rateLimiting} представления в пределах ${settings.jokes.submissions.timeFrame} ${settings.jokes.submissions.timeFrame == 1 ? "секунда" : "секунды" }.\nЕсли Вам нужно отправить больше запросов, пожалуйста, либо подождите немного, либо свяжитесь со мной, и мы попробуем разобраться в этом: ${settings.info.author.website}`
+            ]
+        }
     }
     //#MARKER Class 2xx
 }

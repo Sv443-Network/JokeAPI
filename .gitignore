@@ -22,7 +22,7 @@ docs/documentation.html
 docs/compiled
 
 # Joke submissions:
-data/submissions/submission_*.json
+data/submissions/*/*.json
 
 # Re-inclusions:
 !change.log*

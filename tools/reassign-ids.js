@@ -1,38 +1,51 @@
 // this reassigns all jokes' IDs. Always run this after something changes in the joke's order
 // run this with the command "npm run reassign-ids"
 
-// TODO: rework all of this
+const { resolve, join } = require("path");
 
 try
 {
     const fs = require("fs-extra");
     const settings = require("../settings");
 
-    console.log(`\nReassigning joke IDs in file "${settings.jokes.jokesFilePath}"...`);
+    console.log(`\nReassigning joke IDs in files in path "${settings.jokes.jokesFolderPath}"...`);
 
-    let initialJokes = JSON.parse(fs.readFileSync(settings.jokes.jokesFilePath).toString()).jokes;
-    let initialInfo = JSON.parse(fs.readFileSync(settings.jokes.jokesFilePath).toString()).info;
+    let totalReassignedFiles = 0;
+    let totalReassignedIDs = 0;
 
-    let reassignedJokes = [];
+    fs.readdirSync(settings.jokes.jokesFolderPath).forEach(fName => {
+        if(fName.startsWith("template"))
+            return;
 
-    if(initialInfo.formatVersion != 2)
-        initialInfo.formatVersion = 2;
+        totalReassignedFiles++;
 
-    initialJokes.forEach((joke, i) => {
-        let rJoke = joke;
-        rJoke.id = i;
-        reassignedJokes.push(rJoke);
+        let fPath = resolve(join(settings.jokes.jokesFolderPath, fName));
+        let jokeFileObj = JSON.parse(fs.readFileSync(fPath).toString());
+
+        let initialJokes = jokeFileObj.jokes;
+        let initialInfo = jokeFileObj.info;
+
+        let reassignedJokes = [];
+
+        if(initialInfo.formatVersion != settings.jokes.jokesFormatVersion)
+            initialInfo.formatVersion = settings.jokes.jokesFormatVersion;
+
+        initialJokes.forEach((joke, i) => {
+            let rJoke = joke;
+            rJoke.id = i;
+            reassignedJokes.push(rJoke);
+            totalReassignedIDs++;
+        });
+
+        let doneFile = {
+            info: initialInfo,
+            jokes: reassignedJokes
+        };
+
+        fs.writeFileSync(fPath, JSON.stringify(doneFile, null, 4));
     });
 
-    let doneFile = {
-        info: initialInfo,
-        jokes: reassignedJokes
-    };
-
-    fs.writeFileSync(settings.jokes.jokesFilePath, JSON.stringify(doneFile, null, 4));
-
-
-    console.log(`\x1b[32m\x1b[1mDone reassigning IDs of all ${reassignedJokes.length} jokes.\n\x1b[0m`);
+    console.log(`\x1b[32m\x1b[1mDone reassigning IDs of all ${totalReassignedFiles} files (${totalReassignedIDs} reassigned joke IDs).\n\x1b[0m`);
     process.exit(0);
 }
 catch(err)

@@ -110,17 +110,21 @@ const recompileDocs = () => {
                     process.brCompErrOnce = false;
 
                     if(settings.httpServer.encodings.gzip)
-                        saveEncoded("gzip", injectedFileNames[i], injected).catch(err => void(err));
+                        saveEncoded("gzip", injectedFileNames[i], injected).catch(err => jsl.unused(err));
                     if(settings.httpServer.encodings.deflate)
-                        saveEncoded("deflate", injectedFileNames[i], injected).catch(err => void(err));
+                        saveEncoded("deflate", injectedFileNames[i], injected).catch(err => jsl.unused(err));
                     if(settings.httpServer.encodings.brotli)
-                        saveEncoded("brotli", injectedFileNames[i], injected).catch(() => {
+                    {
+                        saveEncoded("brotli", injectedFileNames[i], injected).catch(err => {
+                            jsl.unused(err);
+
                             if(!process.brCompErrOnce)
                             {
                                 process.brCompErrOnce = true;
                                 injectError(`Brotli compression is only supported since Node.js version 11.7.0 - current Node.js version is ${semver.clean(process.version)}`, false);
                             }
                         });
+                    }
 
                     fs.writeFile(injectedFileNames[i], injected, err => {
                         if(err)
@@ -128,7 +132,7 @@ const recompileDocs = () => {
 
                         return resolve();
                     });
-                })
+                });
             }));
         });
 

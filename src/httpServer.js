@@ -314,6 +314,10 @@ const init = () => {
                     {
                         //#MARKER Restart / invalid PUT
                         // TODO: respond 429 on rate limited
+
+                        if(submissionsRateLimited && submissionsRateLimited._remainingPoints < 0 && !headerAuth.isAuthorized)
+                            return respondWithError(res, 110, 400, fileFormat, `Blocked by rate limiting`, lang);
+
                         let data = "";
                         let dataGotten = false;
                         req.on("data", chunk => {

@@ -2,6 +2,7 @@ const fs = require("fs-extra");
 const jsl = require("svjsl");
 const Fuse = require("fuse.js");
 
+const debug = require("./verboseLogging");
 const tr = require("./translate");
 
 const settings = require("../settings");
@@ -13,6 +14,7 @@ var langs;
  */
 function init()
 {
+    debug("Languages", `Initializing - loading languages from "${settings.languages.langFilePath}"`);
     return new Promise((resolve, reject) => {
         fs.readFile(settings.languages.langFilePath, (err, data) => {
             if(err)
@@ -20,6 +22,7 @@ function init()
             else
             {
                 let languages = JSON.parse(data.toString());
+                debug("Languages", `Found ${languages.length} languages`);
                 langs = languages;
                 return resolve(languages);
             }
