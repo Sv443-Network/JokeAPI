@@ -24,9 +24,6 @@ docs/compiled
 # Joke submissions:
 data/submissions/*/*.json
 
-# Re-inclusions:
-!change.log*
-
 # Auth Tokens:
 data/tokens.json
 
