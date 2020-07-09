@@ -13,7 +13,7 @@
                 "color": "#f88"
             }
         ],
-        "(#MARKER)": [ // #MARKER test
+        "(#MARKER)": [ //#MARKER test
             {
                 "backgroundColor": "#f41",
                 "color": "#fff",
@@ -21,14 +21,14 @@
                 "overviewRulerColor": "#f41"
             }
         ],
-        "(#SECTION [a-zA-Z0-9_-]+)": [ //#SECTION test
+        "(#SECTION [a-zA-Z0-9_-,]+)": [ //#SECTION test, foo bar
             {
                 "backgroundColor": "#44f",
                 "color": "white",
                 "overviewRulerColor": "#44f"
             }
         ],
-        "(#DEBUG#)": [
+        "(#DEBUG)": [ //#DEBUG
             {
                 "backgroundColor": "#ff0",
                 "color": "blue",

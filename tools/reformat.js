@@ -1,12 +1,11 @@
 // this reformats jokes from the old <1.1.3 format to the new 2.0.0 format
 // run this with the command "npm run reformat"
 
+const fs = require("fs-extra");
+const isEmpty = require("svjsl").isEmpty;
+
 try
 {
-    const fs = require("fs-extra");
-    const isEmpty = require("svjsl").isEmpty;
-
-
     console.log(`\nReformatting jokes from file "./data/jokes.json" to new format and putting it in file "./data/jokes_new.json"...`);
 
     let initialJokes = JSON.parse(fs.readFileSync("./data/jokes.json").toString());

@@ -33,7 +33,7 @@
   ],
   "author": {
     "name": "Sv443",
-    "email": "sven.fehler@web.de",
+    "email": "contact@sv443.net",
     "url": "https://sv443.net/"
   },
   "contributors": [
@@ -46,7 +46,7 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Sv443/JokeAPI/issues/new/choose",
-    "email": "sven.fehler@web.de"
+    "email": "contact@sv443.net"
   },
   "dependencies": {
     "@pm2/io": "^4.3.5",

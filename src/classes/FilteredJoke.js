@@ -2,6 +2,12 @@
 // filters can be applied with setter methods
 // final getter method returns one or multiple jokes that match all filters
 
+const AllJokes = require("./AllJokes");
+const parseJokes = require("../parseJokes");
+const languages = require("../languages");
+const jsl = require("svjsl");
+const settings = require("../../settings");
+
 /**
  * @typedef {Object} SingleJoke A joke of type single
  * @prop {String} category The category of the joke
@@ -14,7 +20,7 @@
  * @prop {Boolean} flags.religious Whether the joke is religiously offensive or not
  * @prop {Boolean} flags.political Whether the joke is politically offensive or not
  * @prop {Number} id The ID of the joke
- */
+ */ 
 
 /**
  * @typedef {Object} TwopartJoke A joke of type twopart
@@ -29,13 +35,7 @@
  * @prop {Boolean} flags.religious Whether the joke is religiously offensive or not
  * @prop {Boolean} flags.political Whether the joke is politically offensive or not
  * @prop {Number} id The ID of the joke
- */
-
-const AllJokes = require("./AllJokes");
-const parseJokes = require("../parseJokes");
-const languages = require("../languages");
-const jsl = require("svjsl");
-const settings = require("../../settings");
+ */ 
 
 jsl.unused([AllJokes]);
 
@@ -421,6 +421,7 @@ class FilteredJoke
         });
     }
 
+    //#MARKER get all jokes
     /**
      * Applies all filters and returns an array of all jokes that are viable
      * @returns {Promise<Array<SingleJoke|TwopartJoke>>} Returns a promise containing a single, randomly selected joke that matches the previously set filters. If the filters didn't match, rejects promise.

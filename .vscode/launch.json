@@ -5,8 +5,8 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "program": "${workspaceFolder}/tools/submissions.js",
-            "name": "Tools/xy",
+            "program": "${config:debug-current.file}",
+            "name": "Current",
             "request": "launch",
             "type": "node",
             "skipFiles": [

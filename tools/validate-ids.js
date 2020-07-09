@@ -2,6 +2,8 @@
 // run this with the command "npm run reassign-ids"
 
 const { resolve, join } = require("path");
+const fs = require("fs-extra");
+const settings = require("../settings");
 
 const exitWithError = (msg, err) => {
     console.log(`\n\n\x1b[31m\x1b[1m>> ${msg}:\n${err}\n\n\x1b[0m`);
@@ -10,9 +12,6 @@ const exitWithError = (msg, err) => {
 
 try
 {
-    const fs = require("fs-extra");
-    const settings = require("../settings");
-
     console.log(`\nValidating joke IDs in files in "${settings.jokes.jokesFolderPath}"...`);
 
     let validatedFiles = 0;

@@ -2,12 +2,11 @@
 // run this with the command "npm run reassign-ids"
 
 const { resolve, join } = require("path");
+const fs = require("fs-extra");
+const settings = require("../settings");
 
 try
 {
-    const fs = require("fs-extra");
-    const settings = require("../settings");
-
     console.log(`\nReassigning joke IDs in files in path "${settings.jokes.jokesFolderPath}"...`);
 
     let totalReassignedFiles = 0;
