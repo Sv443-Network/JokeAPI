@@ -64,6 +64,7 @@ const settings = {
             rateLimiting: 3,                            // how many requests per timeframe should be allowed
             invalidCharRegex: /(?![\u0000-\u0fff])./gm, // eslint-disable-line no-control-regex
         },
+        jokesTemplateFile: "template.json",  // relative to "jokes.jokesFolderPath"
         possible: {
             anyCategoryName: "Any", // the name of the "Any" category
             categories: [           // all categories (excluding "Any") - case insensitive

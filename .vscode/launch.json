@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "program": "${workspaceFolder}/tools/reassign-ids.js",
+            "program": "${workspaceFolder}/tools/submissions.js",
             "name": "Tools/xy",
             "request": "launch",
             "type": "node",
@@ -14,7 +14,8 @@
             ],
             "args": [
                 "--trace-deprecation"
-            ]
+            ],
+            "console": "integratedTerminal"
         },
         {
             "type": "node",
