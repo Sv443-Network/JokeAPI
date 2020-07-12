@@ -28,4 +28,4 @@ data/submissions/*/*.json
 data/tokens.json
 
 # Other potentially sensitive information:
-lists/*.json
+data/lists/*.json

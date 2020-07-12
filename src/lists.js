@@ -21,7 +21,8 @@ const init = () => {
                 return reject(err1);
             else if(!jsl.isEmpty(err1) && err1.toString().includes("ENOENT"))
             {
-                debug("Lists", `${jsl.colors.fg.red}No blacklist file found! Defaulting to empty list.${jsl.colors.rst}`);
+                fs.writeFileSync(settings.lists.blacklistPath, "[\n\t\n]");
+                debug("Lists", `${jsl.colors.fg.red}No blacklist file found! Created empty list.${jsl.colors.rst}`);
                 blacklist = "[\n\t\n]";
             }
 
