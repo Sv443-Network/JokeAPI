@@ -100,6 +100,8 @@ const settings = {
         jokeRandomizationAttempts: 15, // after how many attempts of selecting a random joke to stop trying
         splitChars: [",", "+", "-"],   // which characters should separate the values of parameters with support for multiple values
         splitCharRegex: /[,+-]/gm,     // which characters should separate the values of parameters with support for multiple values
+        maxAmount: 10,                 // the maximum amount of jokes that can be fetched with a single call to the get jokes endpoint
+        encodeAmount: 5,               // if more than this number of jokes is requested, encode them
     },
     httpServer: {
         port: 8076,           // http server port

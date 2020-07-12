@@ -187,20 +187,32 @@
                 <!--%#INSERT:NAME#%--> is a RESTful API that serves uniformly and well formatted jokes.<br>
                 It can be used <u>without any API token, membership, registration or payment.</u><br>
                 It supports a variety of filters that can be applied to get just the right jokes you need.<br>
-                The usage is very simple and similar to other RESTful APIs and requires only basic knowledge of HTTP/HTTPS requests and JSON, XML or YAML.<br>
-                <br>
+                The usage is very simple and similar to other RESTful APIs and requires only basic knowledge of HTTP requests and JSON, XML, YAML or plain text.<br>
                 <br>
                 If you come across a term you don't understand, you can try <span class="mimica" onclick="openNav()">opening the menu</span> and clicking on the section "Terminology".<br>
                 <!--%#INSERT:NAME#%--> currently serves <!--%#INSERT:TOTALJOKES#%--> jokes from <!--%#INSERT:JOKELANGCOUNT#%--> different languages. To submit a new joke, <a href="#submit">please click here.</a><br>
                 <br>
-                If you want to report a bug or an illegal joke, please <a href="<!--%#INSERT:PROJGITHUBURL#%-->/issues/new/choose" target="_blank">use the GitHub issue tracker.</a><br>
+                To report a bug or a grammar mistake or to suggest a feature, please <a href="<!--%#INSERT:PROJGITHUBURL#%-->/issues/new/choose" target="_blank">use the GitHub issue tracker.</a><br>
                 If you want to contribute to <!--%#INSERT:NAME#%-->, please read the <a href="<!--%#INSERT:PROJGITHUBURL#%-->/blob/master/.github/Contributing.md" target="_blank">Contributing Guide.</a><br>
-                <br>
                 <br>
                 <span style="color: orangered;">If you are new to <!--%#INSERT:NAME#%-->, please start by reading the <a href="#getting-started">Getting Started Guide</a></span><br>
                 <br>
+                <span class="subHeader" id="note">Note:</span>
+                <!--%#INSERT:NAME#%--> has been a target of DoS attacks in the past, which is why there is now a limit of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute and why joke submissions are manually curated.<br>
+                All dependencies are tested for vulnerabilities by <a href="https://snyk.io/" target="_blank">Snyk</a>, you can find a summary of the known vulnerabilities <a href="https://snyk.io/test/github/Sv443/JokeAPI" target="_blank">here.</a><br>
+                If you enjoy using <!--%#INSERT:NAME#%--> and want me to keep making free APIs and scripts, please consider donating <a href="https://github.com/sponsors/Sv443" target="_blank">here ♥</a><br>
                 <br>
-                Note: <!--%#INSERT:NAME#%--> has been a target of DoS attacks in the past, which is why there is now a limit of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute and why joke submissions are manually curated.<br>
+                <span class="subHeader" id="uptime">Uptime:</span>
+                <table>
+                    <tr>
+                        <td>Last 7 days:</td>
+                        <td><img src="https://img.shields.io/uptimerobot/ratio/7/m784261094-bff76b959ebb8fc39f7eb2d0"></td>
+                    </tr>
+                    <tr>
+                        <td>Last 30 days:</td>
+                        <td><img src="https://img.shields.io/uptimerobot/ratio/30/m784261094-bff76b959ebb8fc39f7eb2d0"></td>
+                    </tr>
+                </table>
 
                 <!-- #MARKER Try It -->
                 <div class="docHeader targetBlink" id="try-it"><a class="headerAnchorContainer" href="#try-it" title="Click to link to this header">🔗</a><span class="docHeaderText">Try it out here:</span></div>
@@ -234,7 +246,7 @@
                             </td>
                             <td>
                                 <div class="multiselect noselect">
-                                    <select id="lcodeSelect" onchange="reRender()"></select>
+                                    <select id="lcodeSelect" onchange="reRender()"></select> [WIP]
                                 </div>
                             </td>
                         </tr>
@@ -296,6 +308,16 @@
                                     (optional)&nbsp;&nbsp;&nbsp;
                                     From: <input type="number" id="idRangeInputFrom" value="0" min="0" step="1" oninput="reRender()" max="<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->">
                                     To: <input type="number" id="idRangeInputTo" value="<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->" min="0" step="1" oninput="reRender()" max="<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a href="#amount">Amount</a> of jokes:
+                            </td>
+                            <td>
+                                <div class="multiselect noselect" id="jokeAmountWrapper">
+                                    <input type="number" id="jokesAmountInput" value="1" min="1" step="1" oninput="reRender()" max="<!--%#INSERT:MAXJOKEAMOUNT#%-->"> [WIP]
                                 </div>
                             </td>
                         </tr>
@@ -431,6 +453,7 @@
                 
                 <!--#SECTION Format-->
                 <span class="subHeader" id="format-param">Format:</span>
+                <mark>?format=format</mark><br><br>
                 This parameter is global - it can be used on every single endpoint of <!--%#INSERT:NAME#%--> (excluding the documentation and static content).<br>
                 It is used to change the response format from the default (JSON) to <span class="insFormatsS">(Loading...)</span>, depending on what you need.<br>
                 If the format parameter is invalid or not specified at all, the default value of JSON will be used.<br>
@@ -466,6 +489,7 @@ None. It's a hardware problem.
 
                 <br><br><!--#SECTION Blacklist Flags-->
                 <span class="subHeader" id="flags-param">Blacklist Flags:</span>
+                <mark>?blacklistFlags=flag1[,flag2,...]</mark><br><br>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If it is used, jokes that match the specified flag(s) will not be served (<a href="#blacklist-flags">what is a flag?</a>).<br>
                 If you want to use multiple flags, separate them with a comma (,) or a plus sign (+).<br>
@@ -484,6 +508,7 @@ None. It's a hardware problem.
 
                 <br><br><!--#SECTION Language-->
                 <span class="subHeader" id="lang">Language:</span>
+                <mark>?lang=langcode</mark><br><br>
                 This parameter can be used on every endpoint, but it is possible that no translation exists yet for your language.<br>
                 If you are interested in providing translations, please contact me via <a href="https://sv443.net/discord">Discord</a> or <span class="antiBotE" data-enc="Y29udGFjdEBzdjQ0My5uZXQ=">Email (click to show)</span>.<br>
                 You can also submit jokes in different languages. Please understand that I will not be able to ensure their proper formatting or legitimacy.<br>
@@ -497,6 +522,7 @@ None. It's a hardware problem.
 
                 <br><br><!--#SECTION Joke Type-->
                 <span class="subHeader" id="type-param">Joke Type:</span>
+                <mark>?type=type</mark><br><br>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If it is set, you will only receive jokes with the specified joke type (<a href="#joke-type">what is a joke type?</a>).<br>
                 If it is not set or set to an invalid value, you will receive jokes of both types.<br>
@@ -526,6 +552,7 @@ None. It's a hardware problem.
 
                 <br><br><!--#SECTION Contains-->
                 <span class="subHeader" id="contains-param">Contains:</span>
+                <mark>?contains=string</mark><br><br>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If this parameter is specified, only jokes that contain the value of this parameter will be served (case insensitive).<br>
                 <span class="colY">IMPORTANT:</span> If the value of this parameter contains special characters, it needs to be <a href="https://tools.ietf.org/html/rfc3986#section-2.1" target="_blank">percent-encoded</a> according to the URI standard (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent" target="_blank">MDN Reference</a>), otherwise you might get an error or a wrong response.<br><br>
@@ -553,6 +580,7 @@ None. It's a hardware problem.
 
                 <br><br><!--#SECTION ID Range-->
                 <span class="subHeader" id="idrange-param">ID Range:</span>
+                <mark>?idRange=number[-number]</mark><br><br>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If it is used, you will only get jokes that are inside the specified range of IDs.<br>
                 The lower and upper boundary of the ID range needs to be delimited with a minus (-), comma (,) or a plus sign (+).<br>
@@ -568,6 +596,21 @@ None. It's a hardware problem.
                     URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?idRange=33</mark><br>
                     Using the above URL will make <!--%#INSERT:NAME#%--> only serve you the joke with the ID 33 (provided there are no other filters that are blacklisting that joke).
                 </details>
+
+
+
+                <br><br><!--#SECTION Joke Amount-->
+                <span class="subHeader" id="amount-param">Joke Amount:</span>
+                <mark>?amount=number</mark><br><br>
+                This parameter can only be used on the "joke" endpoint.<br>
+                If it is used, you will get a certain number of jokes in a single request.<br>
+                Maximum possible number is <!--%#INSERT:MAXJOKEAMOUNT#%--> and using an invalid value will make <!--%#INSERT:NAME#%--> default to 1.<br><br>
+
+                <details><summary>Example (click to view)</summary>
+                    URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?amount=5</mark><br>
+                    Using the above URL will make <!--%#INSERT:NAME#%--> serve you five jokes at once.
+                </details><br>
+
 
 
                 <!-- #MARKER Errors -->
@@ -1203,6 +1246,15 @@ public class Flags
                 As there are currently <!--%#INSERT:TOTALJOKES#%--> jokes, the ID range can be anywhere in the range of <mark>0</mark> to <mark><!--%#INSERT:TOTALJOKESZEROINDEXED#%--></mark><br>
 
 
+                <!--#SECTION Amount-->
+                <span class="subHeader" id="amount">Joke Amount:</span>
+                This filter allows you to set a certain amount of jokes to receive in a single call to the <a href="#joke-endpoint">"Get Joke" endpoint.</a><br>
+                You can set it using the <a href="#amount-param">?amount</a> URL parameter.<br>
+                Setting the filter to an invalid number will result in the API defaulting to serving a single joke.<br>
+                Setting it to a number larger than <!--%#INSERT:MAXJOKEAMOUNT#%--> will make <!--%#INSERT:NAME#%--> default to the maximum (<!--%#INSERT:MAXJOKEAMOUNT#%-->).<br>
+                If you request more than <!--%#INSERT:JOKEENCODEAMOUNT#%--> jokes, the API will try to serve them encoded with Brotli, Gzip or Deflate, depending on whether or not you set a <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding" target="_blank">Accept-Encoding</a> header.<br>
+
+
                 <!-- #MARKER Legal Stuff -->
                 <div class="docHeader targetBlink" id="legal"><a class="headerAnchorContainer" href="#legal" title="Click to link to this header">🔗</a><span class="docHeaderText">Legal Stuff:</span></div>
 
@@ -1366,6 +1418,7 @@ public class Flags
                         <li><a class="noul" onclick="closeNav()" href="#joke-type">Joke Type</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#search-string">Search String</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#id-range">ID Range</a></li>
+                        <li><a class="noul" onclick="closeNav()" href="#amount">Joke Amount</a></li>
                     </ul>
                 </details>
                 <a class="noul" onclick="closeNav()" href="#legal">Legal Stuff</a>

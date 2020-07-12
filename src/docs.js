@@ -269,6 +269,8 @@ const inject = filePath => {
                     "<!--%#INSERT:MAXURLLENGTH#%-->":          settings.httpServer.maxUrlLength.toString(),
                     "<!--%#INSERT:JOKELANGCOUNT#%-->":         languages.jokeLangs().length.toString(),
                     "<!--%#INSERT:SYSLANGCOUNT#%-->":          languages.systemLangs().length.toString(),
+                    "<!--%#INSERT:MAXJOKEAMOUNT#%-->":         settings.jokes.maxAmount.toString(),
+                    "<!--%#INSERT:JOKEENCODEAMOUNT#%-->":      settings.jokes.encodeAmount.toString()
                 };
 
                 let allMatches = 0;
