@@ -152,7 +152,7 @@
         {
             "category": "Programming",
             "type": "twopart",
-            "setup": "Why do programmers confuse halloween and christmas?",
+            "setup": "Why do programmers confuse Halloween and Christmas?",
             "delivery": "Because Oct 31 = Dec 25",
             "flags": {
                 "nsfw": false,
@@ -222,7 +222,7 @@
             "category": "Programming",
             "type": "twopart",
             "setup": "Why did the programmer quit his job?",
-            "delivery": "Because He didn't get arrays.",
+            "delivery": "Because he didn't get arrays.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -369,7 +369,7 @@
         {
             "category": "Programming",
             "type": "single",
-            "joke": "Java is like Alzheimer, it starts off slow, but eventually, your memory is gone.",
+            "joke": "Java is like Alzheimer's, it starts off slow, but eventually, your memory is gone.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -382,7 +382,7 @@
         {
             "category": "Programming",
             "type": "single",
-            "joke": "Two C strings walk into a bar.\nThe bartender asks \"What can I get ya?\"\nThe first string says \"I'll have a gin and tonic.\"\nThe second string thinks for a minute, then says \"I'll take a tequila sunriseJF()#$JF(#)$(@J#()$@#())!*FNIN!OBN134ufh1ui34hf9813f8h8384h981h3984h5F!##@\"\nThe first string apoligizes, \"You'll have to excuse my friend, he's not null terminated.\"",
+            "joke": "Two C strings walk into a bar.\nThe bartender asks \"What can I get ya?\"\nThe first string says \"I'll have a gin and tonic.\"\nThe second string thinks for a minute, then says \"I'll take a tequila sunriseJF()#$JF(#)$(@J#()$@#())!*FNIN!OBN134ufh1ui34hf9813f8h8384h981h3984h5F!##@\"\nThe first string apologizes, \"You'll have to excuse my friend, he's not null terminated.\"",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -1615,7 +1615,7 @@
         {
             "category": "Dark",
             "type": "twopart",
-            "setup": "White people don't shoot each other in the streets like black people do.",
+            "setup": "White people don't shoot each other in the streets as black people do.",
             "delivery": "We do it in schools because we have class.",
             "flags": {
                 "nsfw": false,
@@ -1850,7 +1850,7 @@
         {
             "category": "Dark",
             "type": "single",
-            "joke": "Nowadays people are so sensitive, you can't even say \"black paint\" anymore.\nInstead you have to say \"Jamal, please paint the fence\".",
+            "joke": "Nowadays people are so sensitive, you can't even say \"black paint\" anymore.\nInstead, you have to say \"Jamal, please paint the fence\".",
             "flags": {
                 "nsfw": false,
                 "religious": false,
