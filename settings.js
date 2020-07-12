@@ -96,8 +96,8 @@ const settings = {
             fileFormat: "json",           // the default file format string
             mimeType: "application/json", // the default file format mime type
         },
-        lastIDsMaxLength: 10,          // the maximum amount of joke IDs that get saved to the blacklist-array
-        jokeRandomizationAttempts: 20, // after how many attempts of selecting a random joke to stop trying
+        lastIDsMaxLength: 15,          // the maximum amount of joke IDs that get saved to the blacklist-array
+        jokeRandomizationAttempts: 15, // after how many attempts of selecting a random joke to stop trying
         splitChars: [",", "+", "-"],   // which characters should separate the values of parameters with support for multiple values
         splitCharRegex: /[,+-]/gm,     // which characters should separate the values of parameters with support for multiple values
     },

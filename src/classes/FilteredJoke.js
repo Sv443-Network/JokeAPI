@@ -39,6 +39,9 @@ const settings = require("../../settings");
 
 jsl.unused([AllJokes]);
 
+var _lastIDs = [];
+var _selectionAttempts = 0;
+
 class FilteredJoke
 {
     //#MARKER constructor
@@ -65,8 +68,8 @@ class FilteredJoke
         this._errors = [];
         this._lang = settings.languages.defaultLanguage;
 
-        if(!global._lastIDs || !Array.isArray(global._lastIDs))
-            global._lastIDs = [];
+        if(!_lastIDs || !Array.isArray(_lastIDs))
+            _lastIDs = [];
     }
 
     //#MARKER categories
@@ -356,7 +359,7 @@ class FilteredJoke
         });
     }
 
-    //#MARKER get joke(s)
+    //#MARKER get joke
     /**
      * Applies all filters and returns the final joke
      * @returns {Promise<SingleJoke|TwopartJoke>} Returns a promise containing a single, randomly selected joke that matches the previously set filters. If the filters didn't match, rejects promise.
@@ -373,11 +376,11 @@ class FilteredJoke
                         return reject("No jokes were found that match your provided filter(s)");
                 }
                 
-                if(!global._lastIDs || !Array.isArray(global._lastIDs))
-                    global._lastIDs = [];
+                if(!_lastIDs || !Array.isArray(_lastIDs))
+                    _lastIDs = [];
                 
-                if(typeof global._selectionAttempts != "number")
-                    global._selectionAttempts = 0;
+                if(typeof _selectionAttempts != "number")
+                    _selectionAttempts = 0;
 
                 /**
                  * @param {Array<SingleJoke|TwopartJoke>} jokes 
@@ -385,16 +388,16 @@ class FilteredJoke
                 let selectRandomJoke = jokes => {
                     let selectedJoke = filteredJokes[jsl.randRange(0, (filteredJokes.length - 1))];
 
-                    if(jokes.length > settings.jokes.lastIDsMaxLength && global._lastIDs.includes(selectedJoke.id))
+                    if(jokes.length > settings.jokes.lastIDsMaxLength && _lastIDs.includes(selectedJoke.id))
                     {
-                        if(global._selectionAttempts > settings.jokes.jokeRandomizationAttempts)
+                        if(_selectionAttempts > settings.jokes.jokeRandomizationAttempts)
                             return reject();
 
-                        global._selectionAttempts++;
+                        _selectionAttempts++;
                         let reducedJokeArray = [];
 
                         jokes.forEach(j => {
-                            if(!global._lastIDs.includes(j.id))
+                            if(!_lastIDs.includes(j.id))
                                 reducedJokeArray.push(j);
                         });
                         
@@ -402,12 +405,12 @@ class FilteredJoke
                     }
                     else
                     {
-                        global._lastIDs.push(selectedJoke.id);
+                        _lastIDs.push(selectedJoke.id);
 
-                        if(global._lastIDs.length > settings.jokes.lastIDsMaxLength)
-                            global._lastIDs.shift();
+                        if(_lastIDs.length > settings.jokes.lastIDsMaxLength)
+                            _lastIDs.shift();
 
-                        global._selectionAttempts = 0;
+                        _selectionAttempts = 0;
 
                         return selectedJoke;
                     }
