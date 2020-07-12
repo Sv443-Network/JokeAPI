@@ -554,16 +554,6 @@ const pipeString = (res, text, mimeType, statusCode = 200) => {
         return;
     }
 
-    try
-    {
-        // ensures response is valid UTF-8
-        text = utf8.decode(text);
-    }
-    catch(err)
-    {
-        jsl.unused(err);
-    }
-
     let s = new Readable();
     s._read = () => {};
     s.push(text);
@@ -577,7 +567,7 @@ const pipeString = (res, text, mimeType, statusCode = 200) => {
         {
             res.writeHead(statusCode, {
                 "Content-Type": `${mimeType}; charset=UTF-8`,
-                "Content-Length": text.length
+                "Content-Length": Buffer.byteLength(text, "utf8") // Content-Length needs the byte length, not the char length
             });
         }
     }

@@ -15,6 +15,8 @@ const settings = require("./settings");
 
 function initJokeAPI()
 {
+    if(settings.debug.verboseLogging)
+        console.log("\n\n");
     debug("PreInit", "Called InitJokeAPI");
     // the debugger and child processes don't get along together so only wrap JokeAPI if the debugger is not active:
     if(!jsl.inDebugger() && !settings.wrapper.skipWrapping)

@@ -131,7 +131,8 @@ const settings = {
         ],
     },
     errors: {
-        errorLogDir: "./data/logs/",                  // path to the error log directory - needs trailing slash
+        errorLogDir: "./data/logs/",               // path to the error log directory - needs trailing slash
+        errorMessagesPath: "./data/errorMessages", // path to error messages file
     },
     lists: {
         blacklistPath: "./data/lists/ipBlacklist.json",             // path to the IP blacklist

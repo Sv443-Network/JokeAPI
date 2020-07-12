@@ -73,6 +73,12 @@ class AllJokes
 
             let fv = jokeArray[key].info.formatVersion;
 
+            jokeArray[key].jokes.forEach((j, i) => {
+                jsl.unused(j);
+
+                jokeArray[key].jokes[i].lang = key;
+            });
+
             if(fv != settings.jokes.jokesFormatVersion)
                 throw new Error(`Error: Jokes file with language ${key} has the wrong format version. Expected ${settings.jokes.jokesFormatVersion} but got ${fv}`);
 
