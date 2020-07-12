@@ -289,8 +289,8 @@
         {
             "category": "Programming",
             "type": "twopart",
-            "setup": "Why are modern programing languages so materialistic?",
-            "delivery": "Because they are object oriented.",
+            "setup": "Why are modern programming  languages so materialistic?",
+            "delivery": "Because they are object-oriented.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -382,7 +382,7 @@
         {
             "category": "Programming",
             "type": "single",
-            "joke": "Two C strings walk into a bar.\nThe bartender asks \"What can I get ya?\"\nThe first string says \"I'll have a gin and tonic.\"\nThe second string thinks for a minute, then says \"I'll take a tequila sunriseJF()#$JF(#)$(@J#()$@#())!*FNIN!OBN134ufh1ui34hf9813f8h8384h981h3984h5F!##@\"\nThe first string apologizes, \"You'll have to excuse my friend, he's not null terminated.\"",
+            "joke": "Two C strings walk into a bar.\nThe bartender asks \"What can I get ya?\"\nThe first string says \"I'll have a gin and tonic.\"\nThe second string thinks for a minute, then says \"I'll take a tequila sunriseJF()#$JF(#)$(@J#()$@#())!*FNIN!OBN134ufh1ui34hf9813f8h8384h981h3984h5F!##@\"\nThe first string apologizes, \"You'll have to excuse my friend, he's not null-terminated.\"",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -825,7 +825,7 @@
         {
             "category": "Pun",
             "type": "twopart",
-            "setup": "Why is crucified Jesus always depicted with six pack abs?",
+            "setup": "Why is crucified Jesus always depicted with six-pack abs?",
             "delivery": "He did CrossFit.",
             "flags": {
                 "nsfw": false,
@@ -895,7 +895,7 @@
         {
             "category": "Pun",
             "type": "twopart",
-            "setup": "Did you hear about the cheese factory that exploded in france?",
+            "setup": "Did you hear about the cheese factory that exploded in France?",
             "delivery": "There was nothing but de brie.",
             "flags": {
                 "nsfw": false,
@@ -937,7 +937,7 @@
         {
             "category": "Dark",
             "type": "twopart",
-            "setup": "I had a granny that we couldnt decide whether to bury or cremate.",
+            "setup": "I had a granny that we couldn't decide whether to bury or cremate",
             "delivery": "In the end we decided to just let her live.",
             "flags": {
                 "nsfw": false,
@@ -1171,7 +1171,7 @@
         {
             "category": "Miscellaneous",
             "type": "twopart",
-            "setup": "My wife divorced me so i stole her wheelchair.",
+            "setup": "My wife divorced me so I stole her wheelchair.",
             "delivery": "Guess who came crawling back.",
             "flags": {
                 "nsfw": false,
@@ -1227,7 +1227,7 @@
         {
             "category": "Miscellaneous",
             "type": "twopart",
-            "setup": "What's Green and smells like pork?",
+            "setup": "What's green and smells like pork?",
             "delivery": "Kermit's Fingers.",
             "flags": {
                 "nsfw": true,
@@ -1408,7 +1408,7 @@
             "category": "Dark",
             "type": "twopart",
             "setup": "What do an orgasm and a pulse have in common?",
-            "delivery": "I dont care if she has one.",
+            "delivery": "I don't care if she has one.",
             "flags": {
                 "nsfw": true,
                 "religious": false,
@@ -1435,7 +1435,7 @@
         {
             "category": "Dark",
             "type": "single",
-            "joke": "Me and my jewish friend were eating lunch and i farted. He got mad so i said \"cmon man a little gas never killed anyone\".",
+            "joke": "Me and my Jewish friend were eating lunch and I farted. He got mad so I said \"cmon man a little gas never killed anyone\".",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -1988,7 +1988,7 @@
             "category": "Dark",
             "type": "twopart",
             "setup": "When I was a kid, I made a really big sandcastle with my grandma.",
-            "delivery": "Unfortunately that didn't impress anyone at the cremation.",
+            "delivery": "Unfortunately, that didn't impress anyone at the cremation...",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2237,7 +2237,7 @@
             "category": "Dark",
             "type": "twopart",
             "setup": "Say what you want about pedophiles...",
-            "delivery": "But at least they drive slow through the school zones.",
+            "delivery": "But at least they drive slowly through the school zones.",
             "flags": {
                 "nsfw": true,
                 "religious": false,
@@ -2403,7 +2403,7 @@
             "category": "Dark",
             "type": "twopart",
             "setup": "How many Jews can you fit into a car?",
-            "delivery": "Two in the front, three in the back, and a hundred in the ash tray.",
+            "delivery": "Two in the front, three in the back, and a hundred in the ashtray.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2554,7 +2554,7 @@
         {
             "category": "Programming",
             "type": "single",
-            "joke": "Being a self taught developer is almost the same as being a cut neck chicken because you have no sense of direction in the beginning.",
+            "joke": "Being a self-taught developer is almost the same as being a cut neck chicken because you have no sense of direction in the beginning.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2622,7 +2622,7 @@
         {
             "category": "Miscellaneous",
             "type": "twopart",
-            "setup": "Why are men like lawn mowers?",
+            "setup": "Why are men like lawnmowers?",
             "delivery": "They are very hard to get started, they make yucky smells and half the time they don't even work.",
             "flags": {
                 "nsfw": false,
@@ -2838,7 +2838,7 @@
         {
             "category": "Pun",
             "type": "twopart",
-            "setup": "What did the fish say when it swam in to the wall?",
+            "setup": "What did the fish say when it swam into the wall?",
             "delivery": "Dam.",
             "flags": {
                 "nsfw": false,
@@ -2893,7 +2893,7 @@
             "category": "Miscellaneous",
             "type": "twopart",
             "setup": "Why did the chicken cross the road, roll in the mud and cross the road again?",
-            "delivery": "He was a dirty double crosser!",
+            "delivery": "He was a dirty double-crosser!",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2921,7 +2921,7 @@
             "category": "Programming",
             "type": "twopart",
             "setup": "What are bits?",
-            "delivery": "Tiny things left when you drop your computer down the stairs",
+            "delivery": "Tiny things left when you drop your computer down the stairs.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
