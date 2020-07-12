@@ -5,8 +5,8 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "program": "${config:debug-current.file}",
-            "name": "Current",
+            "program": "${workspaceFolder}/tools/add-joke.js",
+            "name": "Tools/xy",
             "request": "launch",
             "type": "node",
             "skipFiles": [
@@ -20,7 +20,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
+            "name": "Debug JokeAPI",
             "skipFiles": [
                 "<node_internals>/**"
             ],

@@ -177,4 +177,9 @@ const getSubmissions = () => {
     return submissions;
 };
 
-run();
+if(!process.stdin.isTTY)
+{
+    console.log(`${jsl.colors.fg.red}Error: process doesn't have a stdin to read from${jsl.colors.rst}`);
+    process.exit(1);
+}
+else run();

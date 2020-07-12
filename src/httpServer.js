@@ -19,7 +19,6 @@ const jokeSubmission = require("./jokeSubmission");
 const auth = require("./auth");
 const meter = require("./meter");
 const languages = require("./languages");
-const utf8 = require("utf8");
 const { RateLimiterMemory, RateLimiterRes } = require("rate-limiter-flexible");
 
 jsl.unused(RateLimiterRes); // typedef only
@@ -242,7 +241,7 @@ const init = () => {
                                             setRateLimitedHeaders(res, rlRes);
                                             logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
                                             analytics.rateLimited(ip);
-                                            return respondWithError(res, 101, 429, fileFormat);
+                                            return respondWithError(res, 101, 429, fileFormat, `Remaining Points: ${parseInt(rlRes._remainingPoints)}`, lang);
                                         }
                                         else
                                         {
@@ -260,7 +259,7 @@ const init = () => {
                                         // setRateLimitedHeaders(res, rlRes);
                                         logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
                                         analytics.rateLimited(ip);
-                                        return respondWithError(res, 101, 429, fileFormat);
+                                        return respondWithError(res, 101, 429, fileFormat, `Internal error message: ${err}`, lang);
                                     }
                                 }
                             }

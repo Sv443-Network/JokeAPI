@@ -62,16 +62,15 @@
     "promise-all-sequential": "^1.0.0",
     "rate-limiter-flexible": "^2.1.7",
     "request-ip": "^2.1.3",
-    "snyk": "^1.360.0",
     "svjsl": "^1.9.4",
     "url-parse": "^1.4.7",
-    "utf8": "^3.0.0",
     "xss": "^1.0.7"
   },
   "devDependencies": {
     "eslint": "^7.4.0",
     "lodash": "^4.17.15",
     "madge": "^3.9.0",
+    "snyk": "^1.361.3",
     "table": "^5.4.6"
   },
   "snyk": true

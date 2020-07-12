@@ -37,12 +37,23 @@ const call = (req, res, url, params, format) => {
 
     let responseText = "";
 
+    let langArray = [];
+    let pl = languages.getPossibleLanguages();
+
+    Object.keys(pl).forEach(lc => {
+        langArray.push({
+            "code": lc,
+            "name": pl[lc]
+        });
+    });
+
     if(format == "xml")
     {
         responseText = convertFileFormat.auto(format, {
             "defaultLanguage": settings.languages.defaultLanguage,
             "jokeLanguages": jokeLangs.map(l => ({ "code": l })),
             "systemLanguages": sysLangs.map(l => ({ "code": l })),
+            "possibleLanguages": { "language": langArray },
             "timestamp": new Date().getTime()
         });
     }
@@ -52,6 +63,7 @@ const call = (req, res, url, params, format) => {
             "defaultLanguage": settings.languages.defaultLanguage,
             "jokeLanguages": jokeLangs,
             "systemLanguages": sysLangs,
+            "possibleLanguages": langArray,
             "timestamp": new Date().getTime()
         });
     }

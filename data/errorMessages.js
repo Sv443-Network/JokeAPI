@@ -30,13 +30,13 @@ module.exports = {
         },
         "causedBy": {
             "en": [
-                `You have sent too many requests too quickly. The limit is ${settings.httpServer.rateLimiting} requests within ${settings.httpServer.timeFrame} ${settings.httpServer.timeFrame == 1 ? "minute" : "minutes"}.\nIf you need more requests per minute, please contact me and we can try to figure things out: ${settings.info.author.website}`
+                `You have sent too many requests too quickly. The limit is ${settings.httpServer.rateLimiting} requests within ${settings.httpServer.timeFrame} ${settings.httpServer.timeFrame == 1 ? "second" : "seconds"}.\nIf you need more requests per minute, please contact me and we can try to figure things out: ${settings.info.author.website}`
             ],
             "de": [
-                `Du hast zu viele Anfragen zu schnell gesendet. Das Limit ist ${settings.httpServer.rateLimiting} Anfragen innerhalb von ${settings.httpServer.timeFrame} ${settings.httpServer.timeFrame == 1 ? "Minute" : "Minuten"}.\nWenn du mehr Anfragen pro Minute brauchst, kontaktiere mich bitte, damit wir es klären können: ${settings.info.author.website}`
+                `Du hast zu viele Anfragen zu schnell gesendet. Das Limit ist ${settings.httpServer.rateLimiting} Anfragen innerhalb von ${settings.httpServer.timeFrame} ${settings.httpServer.timeFrame == 1 ? "Sekunde" : "Sekunden"}.\nWenn du mehr Anfragen pro Minute brauchst, kontaktiere mich bitte, damit wir es klären können: ${settings.info.author.website}`
             ],
             "ru": [
-                `Вы отправили слишком много запросов слишком быстро. Лимит составляет ${settings.httpServer.rateLimiting} запросов в пределах ${settings.httpServer.timeFrame} ${settings.httpServer.timeFrame == 1 ? "минута" : "минуты"}.\nЕсли Вам нужно больше запросов в минуту, пожалуйста, свяжитесь со мной, и мы попробуем разобраться в этом: ${settings.info.author.website}`
+                `Вы отправили слишком много запросов слишком быстро. Лимит составляет ${settings.httpServer.rateLimiting} запросов в пределах ${settings.httpServer.timeFrame} ${settings.httpServer.timeFrame == 1 ? "секунда" : "секунды"}.\nЕсли Вам нужно больше запросов в минуту, пожалуйста, свяжитесь со мной, и мы попробуем разобраться в этом: ${settings.info.author.website}`
             ]
         }
     },
@@ -204,7 +204,7 @@ module.exports = {
                 `You have sent too many requests too quickly. The limit is ${settings.jokes.submissions.rateLimiting} submissions within ${settings.jokes.submissions.timeFrame} ${settings.jokes.submissions.timeFrame == 1 ? "second" : "seconds"}.\nIf you need to send more requests, please either wait for a bit or contact me and we can try to figure things out: ${settings.info.author.website}`
             ],
             "de": [
-                `Du hast zu viele Anfragen zu schnell gesendet. Das Limit ist ${settings.jokes.submissions.rateLimiting} Einreichungen innerhalb von ${settings.jokes.submissions.timeFrame} ${settings.jokes.submissions.timeFrame == 1 ? "Minute" : "Minuten"}.\nWenn du mehr Anfragen pro Minute brauchst, kontaktiere mich bitte, damit wir es klären können: ${settings.info.author.website}`
+                `Du hast zu viele Anfragen zu schnell gesendet. Das Limit ist ${settings.jokes.submissions.rateLimiting} Einreichungen innerhalb von ${settings.jokes.submissions.timeFrame} ${settings.jokes.submissions.timeFrame == 1 ? "Sekunde" : "Sekunden"}.\nWenn du mehr Anfragen pro Minute brauchst, kontaktiere mich bitte, damit wir es klären können: ${settings.info.author.website}`
             ],
             "ru": [
                 `Вы отправили слишком много запросов слишком быстро. Лимит - ${settings.jokes.submissions.rateLimiting} представления в пределах ${settings.jokes.submissions.timeFrame} ${settings.jokes.submissions.timeFrame == 1 ? "секунда" : "секунды" }.\nЕсли Вам нужно отправить больше запросов, пожалуйста, либо подождите немного, либо свяжитесь со мной, и мы попробуем разобраться в этом: ${settings.info.author.website}`

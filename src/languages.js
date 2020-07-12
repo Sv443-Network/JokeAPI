@@ -114,7 +114,7 @@ function codeToLanguage(code)
  */
 function jokeLangs()
 {
-    let langs = [];
+    let retLangs = [];
 
     fs.readdirSync(settings.jokes.jokesFolderPath).forEach(f => {
         if(f == "template.json")
@@ -122,13 +122,13 @@ function jokeLangs()
 
         let langCode = f.split("-")[1].substr(0, 2);
 
-        langs.push({
+        retLangs.push({
             code: langCode,
             name: codeToLanguage(langCode)
         });
     });
 
-    return langs;
+    return retLangs;
 }
 
 /**
@@ -140,4 +140,31 @@ function systemLangs()
     return tr.systemLangs();
 }
 
-module.exports = { init, isValidLang, languageToCode, codeToLanguage, jokeLangs, systemLangs };
+/**
+ * Returns all possible language codes
+ * @returns {Array<String>}
+ */
+function getPossibleCodes()
+{
+    return Object.keys(langs);
+}
+
+/**
+ * Returns all possible languages, mapped as an object where keys are codes and values are language names
+ * @returns {Object}
+ */
+function getPossibleLanguages()
+{
+    return langs;
+}
+
+module.exports = {
+    init,
+    isValidLang,
+    languageToCode,
+    codeToLanguage,
+    jokeLangs,
+    systemLangs,
+    getPossibleCodes,
+    getPossibleLanguages
+};
