@@ -5,6 +5,9 @@ const languages = require("../languages");
 
 const settings = require("../../settings");
 
+
+jsl.unused(parseJokes); // only used for typedefs
+
 // expected format:
 /*
 {
