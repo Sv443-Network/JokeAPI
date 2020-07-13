@@ -248,7 +248,7 @@
                             </td>
                             <td>
                                 <div class="multiselect noselect">
-                                    <select id="lcodeSelect" onchange="reRender()"></select> [WIP]
+                                    <select id="lcodeSelect" onchange="reRender()" class="appendLangOpts"></select>
                                 </div>
                             </td>
                         </tr>
@@ -319,7 +319,7 @@
                             </td>
                             <td>
                                 <div class="multiselect noselect" id="jokeAmountWrapper">
-                                    <input type="number" id="jokesAmountInput" value="1" min="1" step="1" oninput="reRender()" max="<!--%#INSERT:MAXJOKEAMOUNT#%-->"> [WIP]
+                                    <input type="number" id="jokesAmountInput" value="1" min="1" step="1" oninput="reRender()" max="<!--%#INSERT:MAXJOKEAMOUNT#%-->">
                                 </div>
                             </td>
                         </tr>
@@ -408,10 +408,7 @@
                             <tr>
                                 <td>Language:</td>
                                 <td>
-                                    <select id="f_language"> <!-- TODO: -->
-                                        <option value="en" class="selectOnInit" selected>English</option>
-                                        <option value="de">German</option>
-                                    </select>
+                                    <select id="f_language" class="appendLangOpts"></select>
                                 </td>
                             </tr>
                             <tr>
@@ -606,7 +603,27 @@ None. It's a hardware problem.
                 <mark>?amount=number</mark><br><br>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If it is used, you will get a certain number of jokes in a single request.<br>
-                Maximum possible number is <!--%#INSERT:MAXJOKEAMOUNT#%--> and using an invalid value will make <!--%#INSERT:NAME#%--> default to 1.<br><br>
+                Maximum possible number is <!--%#INSERT:MAXJOKEAMOUNT#%--> and using an invalid value will make <!--%#INSERT:NAME#%--> default to 1.<br>
+                The joke format will change from the default when you set the amount parameter to 2 or more.<br>
+                <br>
+
+                <details><summary>Click to view the format when fetching multiple jokes</summary>
+<code class="prettyprint lang-json">
+<div class="actualCode">{
+    "error": false,
+    "jokes": [
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            ...
+        },
+        ...
+    ]
+}
+</div></code><br>
+                </details>
+
+                <br>
 
                 <details><summary>Example (click to view)</summary>
                     URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?amount=5</mark><br>

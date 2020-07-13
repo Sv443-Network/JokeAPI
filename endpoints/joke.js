@@ -99,6 +99,8 @@ const call = (req, res, url, params, format) => {
     if(!fCat || !categoryValid)
         return isErrored(res, format, `The specified categor${category.length == undefined || typeof category != "object" || category.length == 1 ? "y is" : "ies are"} invalid - Got: "${category.length == undefined || typeof category != "object" ? category : category.join(", ")}" - Possible categories are: "${[settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories].join(", ")}" (case insensitive)`, langCode);
     
+    let jokeAmount = 1;
+
     if(!jsl.isEmpty(params))
     {
         //#SECTION type
@@ -161,15 +163,15 @@ const call = (req, res, url, params, format) => {
         //#SECTION amount
         if(!jsl.isEmpty(params["amount"]))
         {
-            let amount = parseInt(params["amount"]);
+            jokeAmount = parseInt(params["amount"]);
 
-            if(isNaN(amount) || amount < 1)
-                amount = 1;
+            if(isNaN(jokeAmount) || jokeAmount < 1)
+                jokeAmount = 1;
 
-            if(amount > settings.jokes.maxAmount)
-                amount = settings.jokes.maxAmount;
+            if(jokeAmount > settings.jokes.maxAmount)
+                jokeAmount = settings.jokes.maxAmount;
 
-            let fAmt = filterJoke.setAmount(amount);
+            let fAmt = filterJoke.setAmount(jokeAmount);
             if(!fAmt)
                 return isErrored(res, format, `Internal error while setting joke amount: ${fAmt}`, langCode);
         }
@@ -179,7 +181,7 @@ const call = (req, res, url, params, format) => {
     filterJoke.getJokes(filterJoke.getAmount()).then(jokesArray => {
         let responseText = "";
 
-        if(jokesArray.length == 1)
+        if(jokeAmount == 1)
         {
             let singleObj = {
                 error: false,

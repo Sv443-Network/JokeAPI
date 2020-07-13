@@ -217,7 +217,8 @@ function onLoad()
         "f_flags_racist",
         "f_flags_sexist",
         "f_setup",
-        "f_delivery"
+        "f_delivery",
+        "f_language"
     ];
 
     for(var ii = 0; ii < inputElems.length; ii++)
@@ -241,30 +242,51 @@ function onLoad()
     }
 
     var langXhr = new XMLHttpRequest();
-    let langUrl = settings.baseURL + "/languages";
+    var langUrl = settings.baseURL + "/languages";
+    var langSelectElems = document.getElementsByClassName("appendLangOpts");
     langXhr.open("GET", langUrl);
     langXhr.onreadystatechange = () => {
         var xErrElem;
         if(langXhr.readyState == 4 && langXhr.status < 300)
         {
-            var languagesArray = JSON.parse(langXhr.responseText.toString()).jokeLanguages;
+            var respJSON = JSON.parse(langXhr.responseText.toString());
+            var languagesArray = respJSON.jokeLanguages;
             for(var i = 0; i < languagesArray.length; i++)
             {
-                xErrElem = document.createElement("option");
-                xErrElem.value = languagesArray[i];
-                xErrElem.innerText = languagesArray[i];
-                if(languagesArray[i] == settings.defaultLang)
-                    xErrElem.selected = true;
-                gebid("lcodeSelect").appendChild(xErrElem);
+                for(var j = 0; j < langSelectElems.length; j++)
+                {
+                    var langName = "";
+
+                    for(var k = 0; k < respJSON.possibleLanguages.length; k++)
+                    {
+                        if(respJSON.possibleLanguages[k].code == languagesArray[i])
+                        {
+                            langName = respJSON.possibleLanguages[k].name;
+                        }
+                    }
+
+                    xErrElem = document.createElement("option");
+                    xErrElem.value = languagesArray[i];
+                    xErrElem.innerText = languagesArray[i] + " - " + langName;
+
+                    if(languagesArray[i] == settings.defaultLang)
+                        xErrElem.selected = true;
+
+                    langSelectElems[j].appendChild(xErrElem);
+                }
             }
         }
         else if(langXhr.readyState == 4 && langXhr.status >= 300)
         {
-            xErrElem = document.createElement("option");
-            xErrElem.value = "en";
-            xErrElem.innerText = "en";
-            xErrElem.selected = true;
-            gebid("lcodeSelect").appendChild(xErrElem);
+            for(var ii = 0; ii < langSelectElems.length; ii++)
+            {
+                xErrElem = document.createElement("option");
+                xErrElem.value = "en";
+                xErrElem.innerText = "en - English";
+                xErrElem.selected = true;
+
+                langSelectElems[ii].appendChild(xErrElem);
+            }
         }
     };
     langXhr.send();
@@ -434,6 +456,18 @@ function reRender()
         gebid("idRangeWrapper").style.borderColor = "initial";
     }
 
+    var jokesAmount = parseInt(gebid("jokesAmountInput").value);
+
+    if(jokesAmount > parseInt("<!--%#INSERT:MAXJOKEAMOUNT#%-->") || jokesAmount < 1 || isNaN(jokesAmount))
+    {
+        allOk = false;
+        gebid("jokeAmountWrapper").style.borderColor = "red";
+    }
+    else
+    {
+        gebid("jokeAmountWrapper").style.borderColor = "initial";
+    }
+
     if(allOk)
     {
         tryItOk = true;
@@ -551,6 +585,14 @@ function buildURL()
             // Use "x-y" format
             queryParams.push("idRange=" + range[0] + "-" + range[1]);
         }
+    }
+
+
+    //#SECTION amount
+    var jokeAmount = parseInt(gebid("jokesAmountInput").value);
+    if(jokeAmount != 1 && !isNaN(jokeAmount) && jokeAmount > 0 && jokeAmount <= parseInt("<!--%#INSERT:MAXJOKEAMOUNT#%-->"))
+    {
+        queryParams.push("amount=" + jokeAmount);
     }
 
 
@@ -687,6 +729,8 @@ function resetTryItForm()
     gebid("idRangeInputFrom").value = 0;
     gebid("idRangeInputTo").value = parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->");
 
+    gebid("jokesAmountInput").value = 1;
+
     reRender();
 }
 
@@ -768,14 +812,7 @@ function buildSubmission()
     submission = {
         formatVersion: 2,
         category: category,
-        type: type,
-        flags: {
-            nsfw: document.getElementById("f_flags_nsfw").checked,
-            religious: document.getElementById("f_flags_religious").checked,
-            political: document.getElementById("f_flags_political").checked,
-            racist: document.getElementById("f_flags_racist").checked,
-            sexist: document.getElementById("f_flags_sexist").checked,
-        }
+        type: type
     }
 
     if(type == "single")
@@ -787,6 +824,18 @@ function buildSubmission()
         submission.setup = document.getElementById("f_setup").value;
         submission.delivery = document.getElementById("f_delivery").value;
     }
+
+    submission = {
+        ...submission,
+        flags: {
+            nsfw: document.getElementById("f_flags_nsfw").checked,
+            religious: document.getElementById("f_flags_religious").checked,
+            political: document.getElementById("f_flags_political").checked,
+            racist: document.getElementById("f_flags_racist").checked,
+            sexist: document.getElementById("f_flags_sexist").checked,
+        },
+        lang: gebid("f_language").value || settings.defaultLang
+    };
 
     var subDisp = document.getElementById("submissionDisplay");
 
