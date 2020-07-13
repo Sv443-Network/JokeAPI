@@ -212,7 +212,10 @@ const call = (req, res, url, params, format) => {
             responseText = convertFileFormat.auto(format, multiObj);
         }
 
-        httpServer.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format));
+        if(jokeAmount > settings.jokes.encodeAmount)
+            httpServer.tryServeEncoded(req, res, responseText, parseURL.getMimeTypeFromFileFormatString(format));
+        else
+            httpServer.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format));
     }).catch(err => {
         return isErrored(res, format, `Error while finalizing joke filtering: ${Array.isArray(err) ? err.join("; ") : err}`, langCode);
     });

@@ -42,6 +42,7 @@ const settings = {
             "./data/logs",
             "./data/submissions",
             "./docs/compiled",
+            "./data/lists"
         ],
         exitSignals: [ // all signals that should cause a soft exit
             "SIGINT",

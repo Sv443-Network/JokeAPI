@@ -20,6 +20,8 @@ const auth = require("./auth");
 const meter = require("./meter");
 const languages = require("./languages");
 const { RateLimiterMemory, RateLimiterRes } = require("rate-limiter-flexible");
+const zlib = require("zlib");
+const semver = require("semver");
 
 jsl.unused(RateLimiterRes); // typedef only
 
@@ -566,7 +568,7 @@ const pipeString = (res, text, mimeType, statusCode = 200) => {
         {
             res.writeHead(statusCode, {
                 "Content-Type": `${mimeType}; charset=UTF-8`,
-                "Content-Length": Buffer.byteLength(text, "utf8") // Content-Length needs the byte length, not the char length
+                "Content-Length": byteLength(text) // Content-Length needs the byte length, not the char length
             });
         }
     }
@@ -662,7 +664,7 @@ const serveDocumentation = (req, res) => {
 /**
  * Returns the name of the client's accepted encoding with the highest priority
  * @param {http.IncomingMessage} req The HTTP req object
- * @returns {null|"gzip"|"deflate"|"brotli"} Returns null if no encodings are supported, else returns the encoding name
+ * @returns {null|"gzip"|"deflate"|"br"} Returns null if no encodings are supported, else returns the encoding name
  */
 const getAcceptedEncoding = req => {
     let selectedEncoding = null;
@@ -689,24 +691,13 @@ const getAcceptedEncoding = req => {
 }
 
 /**
- * Returns the length of a string in bytes - [Source of code](https://gist.github.com/lovasoa/11357947)
+ * Returns the length of a string in bytes
  * @param {String} str
  * @returns {Number}
  */
-const byteLength = str => {
-    let s = str.length;
-    for (let i = str.length - 1; i >= 0; i--)
-    {
-        let code = str.charCodeAt(i);
-
-        if (code > 0x7f && code <= 0x7ff)
-            s++;
-        else if (code > 0x7ff && code <= 0xffff)
-            s+=2;
-        if (code >= 0xDC00 && code <= 0xDFFF)
-            i--;
-    }
-    return s;
+function byteLength(str)
+{
+    return Buffer.byteLength(str, "utf8");
 }
 
 /**
@@ -722,10 +713,71 @@ const getFileExtensionFromEncoding = encoding => {
         case "deflate":
             return "zz";
         case "br":
+        case "brotli":
             return "br";
         default:
             return "";
     }
 }
 
-module.exports = { init, respondWithError, respondWithErrorPage, pipeString, pipeFile, serveDocumentation, getAcceptedEncoding, getFileExtensionFromEncoding };
+/**
+ * Tries to serve data with an encoding supported by the client, else just serves the raw data
+ * @param {http.IncomingMessage} req The HTTP req object
+ * @param {http.ServerResponse} res The HTTP res object
+ * @param {String} data The data to send to the client
+ * @param {String} mimeType The MIME type to respond with
+ */
+function tryServeEncoded(req, res, data, mimeType)
+{
+    let selectedEncoding = getAcceptedEncoding(req);
+
+    debug("HTTP", `Trying to serve with encoding ${selectedEncoding}`);
+
+    if(selectedEncoding)
+        res.setHeader("Content-Encoding", selectedEncoding);
+    else
+        res.setHeader("Content-Encoding", "identity");
+
+    switch(selectedEncoding)
+    {
+        case "br":
+            if(!semver.lt(process.version, "v11.7.0")) // Brotli was added in Node v11.7.0
+            {
+                zlib.brotliCompress(data, (err, encRes) => {
+                    if(!err)
+                        return pipeString(res, encRes, mimeType);
+                    else
+                        return pipeString(res, `Internal error while encoding text into ${selectedEncoding}: ${err}`, mimeType);
+                });
+            }
+            else
+            {
+                res.setHeader("Content-Encoding", "identity");
+
+                return pipeString(res, data, mimeType);
+            }
+        break;
+        case "gzip":
+            zlib.gzip(data, (err, encRes) => {
+                if(!err)
+                    return pipeString(res, encRes, mimeType);
+                else
+                    return pipeString(res, `Internal error while encoding text into ${selectedEncoding}: ${err}`, mimeType);
+            });
+        break;
+        case "deflate":
+            zlib.deflate(data, (err, encRes) => {
+                if(!err)
+                    return pipeString(res, encRes, mimeType);
+                else
+                    return pipeString(res, `Internal error while encoding text into ${selectedEncoding}: ${err}`, mimeType);
+            });
+        break;
+        default:
+            res.setHeader("Content-Encoding", "identity");
+
+            return pipeString(res, data, mimeType);
+    }
+}
+
+module.exports = { init, respondWithError, respondWithErrorPage, pipeString, pipeFile, serveDocumentation, getAcceptedEncoding, getFileExtensionFromEncoding, tryServeEncoded };
