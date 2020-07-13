@@ -8,7 +8,6 @@ const tr = require("../src/translate");
 const FilteredJoke = require("../src/classes/FilteredJoke");
 const jsl = require("svjsl");
 const settings = require("../settings");
-const { jokes } = require("../settings");
 
 jsl.unused(http);
 
@@ -25,7 +24,8 @@ const meta = {
             "type",
             "contains",
             "idRange",
-            "lang"
+            "lang",
+            "amount"
         ]
     }
 };
@@ -177,7 +177,6 @@ const call = (req, res, url, params, format) => {
     
 
     filterJoke.getJokes(filterJoke.getAmount()).then(jokesArray => {
-        // TODO: handle multiple
         let responseText = "";
 
         if(jokesArray.length == 1)
@@ -191,10 +190,22 @@ const call = (req, res, url, params, format) => {
         }
         else
         {
-            let multiObj = {
-                error: false,
-                jokes: jokesArray
-            };
+            let multiObj = {};
+
+            if(format != "xml")
+            {
+                multiObj = {
+                    error: false,
+                    jokes: jokesArray
+                };
+            }
+            else
+            {
+                multiObj = {
+                    error: false,
+                    jokes: { "joke": jokesArray }
+                };
+            }
 
             responseText = convertFileFormat.auto(format, multiObj);
         }
