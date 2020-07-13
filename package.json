@@ -57,7 +57,7 @@
     "mysql": "^2.18.1",
     "node-wrap": "^0.2.0",
     "promise-all-sequential": "^1.0.0",
-    "rate-limiter-flexible": "^2.1.7",
+    "rate-limiter-flexible": "^2.1.9",
     "request-ip": "^2.1.3",
     "snyk": "^1.321.0",
     "svjsl": "^1.9.4",
