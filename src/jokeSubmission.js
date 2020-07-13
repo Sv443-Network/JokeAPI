@@ -9,11 +9,14 @@ const convertFileFormat = require("./fileFormatConverter");
 const analytics = require("./analytics");
 const parseURL = require("./parseURL");
 const meter = require("./meter");
+const tr = require("./translate");
 
 const settings = require("../settings");
 
-jsl.unused([http, analytics]);
+jsl.unused(http, analytics, tr);
 
+
+// TODO: httpServer.respondWithError() with tr()
 
 /**
  * To be called when a joke is submitted

@@ -4,7 +4,8 @@ const jsl = require("svjsl");
 const http = require("http");
 const Readable = require("stream").Readable;
 const fs = require("fs-extra");
-// const { resolve } = require("path");
+const zlib = require("zlib");
+const semver = require("semver");
 
 const settings = require("../settings");
 const debug = require("./verboseLogging");
@@ -20,8 +21,7 @@ const auth = require("./auth");
 const meter = require("./meter");
 const languages = require("./languages");
 const { RateLimiterMemory, RateLimiterRes } = require("rate-limiter-flexible");
-const zlib = require("zlib");
-const semver = require("semver");
+const tr = require("./translate");
 
 jsl.unused(RateLimiterRes); // typedef only
 
@@ -69,7 +69,7 @@ const init = () => {
                     fileFormat = parseURL.getFileFormatFromQString(parsedURL.queryParams);
 
                 if(req.url.length > settings.httpServer.maxUrlLength)
-                    return respondWithError(res, 108, 414, fileFormat, "", lang, req.url.length);
+                    return respondWithError(res, 108, 414, fileFormat, tr(lang, "uriTooLong", req.url.length, settings.httpServer.maxUrlLength), lang, req.url.length);
 
                 //#SECTION check lists
                 try
@@ -77,7 +77,7 @@ const init = () => {
                     if(lists.isBlacklisted(ip))
                     {
                         logRequest("blacklisted", null, analyticsObject);
-                        return respondWithError(res, 103, 403, fileFormat, "", lang);
+                        return respondWithError(res, 103, 403, fileFormat, tr(lang, "ipBlacklisted", settings.info.author.website), lang);
                     }
 
                     debug("HTTP", `Requested URL: ${parsedURL.initialURL}`);
@@ -120,7 +120,7 @@ const init = () => {
                             urlPath: parsedURL.pathArray
                         }
                     });
-                    return respondWithError(res, 500, 100, fileFormat, err, lang);
+                    return respondWithError(res, 500, 100, fileFormat, tr(lang, "errSetupHttpResponse", err), lang);
                 }
 
                 meter.update("reqtotal", 1);
@@ -151,7 +151,7 @@ const init = () => {
                                     setRateLimitedHeaders(res, rlRes);
                                     analytics.rateLimited(ip);
                                     logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
-                                    return respondWithError(res, 101, 429, fileFormat);
+                                    return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
                                 }
                                 else
                                     return serveDocumentation(req, res);
@@ -161,7 +161,7 @@ const init = () => {
                                 // setRateLimitedHeaders(res, rlRes);
                                 analytics.rateLimited(ip);
                                 logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
-                                return respondWithError(res, 101, 429, fileFormat, "", lang);
+                                return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
                             }
                         }
 
@@ -229,7 +229,7 @@ const init = () => {
                                     }
                                     catch(err)
                                     {
-                                        return respondWithError(res, 104, 500, fileFormat, "", lang);
+                                        return respondWithError(res, 104, 500, fileFormat, tr(lang, "endpointInternalError", err), lang);
                                     }
                                 }
                                 else
@@ -243,7 +243,7 @@ const init = () => {
                                             setRateLimitedHeaders(res, rlRes);
                                             logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
                                             analytics.rateLimited(ip);
-                                            return respondWithError(res, 101, 429, fileFormat, `Remaining Points: ${parseInt(rlRes._remainingPoints)}`, lang);
+                                            return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
                                         }
                                         else
                                         {
@@ -261,7 +261,7 @@ const init = () => {
                                         // setRateLimitedHeaders(res, rlRes);
                                         logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
                                         analytics.rateLimited(ip);
-                                        return respondWithError(res, 101, 429, fileFormat, `Internal error message: ${err}`, lang);
+                                        return respondWithError(res, 100, 500, fileFormat, tr(lang, "generalInternalError", err), lang);
                                     }
                                 }
                             }
@@ -271,9 +271,9 @@ const init = () => {
                             if(!foundEndpoint)
                             {
                                 if(!jsl.isEmpty(fileFormat) && req.url.toLowerCase().includes("format"))
-                                    return respondWithError(res, 102, 404, fileFormat, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at ${settings.info.docsURL}#endpoints to see all available endpoints`);
+                                    return respondWithError(res, 102, 404, fileFormat, tr(lang, "endpointNotFound", (!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/")), lang);
                                 else
-                                    return respondWithErrorPage(res, 404, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at ${settings.info.docsURL}#endpoints to see all available endpoints`);
+                                    return respondWithErrorPage(res, 404, tr(lang, "endpointNotFound", (!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/")));
                             }
                         }, 5000);
                     }
@@ -295,8 +295,8 @@ const init = () => {
 
                             let payloadLength = byteLength(data);
                             if(payloadLength > settings.httpServer.maxPayloadSize)
-                                return respondWithError(res, 107, 413, fileFormat, `The provided payload data is too large (${payloadLength} bytes of ${settings.httpServer.maxPayloadSize})`, lang);
-                            
+                                return respondWithError(res, 107, 413, fileFormat, tr(lang, "payloadTooLarge", payloadLength, settings.httpServer.maxPayloadSize), lang);
+
                             if(!jsl.isEmpty(data))
                                 dataGotten = true;
 
@@ -307,7 +307,7 @@ const init = () => {
                             if(!dataGotten)
                             {
                                 debug("HTTP", "PUT request timed out");
-                                return respondWithError(res, 105, 400, fileFormat, "Request body is empty or request timed out", lang);
+                                return respondWithError(res, 105, 400, fileFormat, tr(lang, "requestEmptyOrTimedOut"), lang);
                             }
                         }, 3000);
                     }
@@ -338,14 +338,14 @@ const init = () => {
                                 console.log(`\n\n[${logger.getTimestamp(" | ")}]  ${jsl.colors.fg.red}IP ${jsl.colors.fg.yellow}${ip.substr(0, 8)}[...]${jsl.colors.fg.red} sent a restart command\n\n\n${jsl.colors.rst}`);
                                 process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
                             }
-                            else return respondWithErrorPage(res, 400, `Request body is invalid or was sent to the wrong endpoint "${parsedURL.pathArray != null ? parsedURL.pathArray[0] : "/"}", please refer to the documentation at ${settings.info.docsURL}#submit-joke to see how to correctly structure a joke submission.`);
+                            else return respondWithErrorPage(res, 400, tr(lang, "invalidSubmissionOrWrongEndpoint", (parsedURL.pathArray != null ? parsedURL.pathArray[0] : "/")));
                         });
 
                         setTimeout(() => {
                             if(!dataGotten)
                             {
                                 debug("HTTP", "PUT request timed out");
-                                return respondWithErrorPage(res, 400, "Request body is empty");
+                                return respondWithErrorPage(res, 400, tr(lang, "requestBodyIsInvalid"));
                             }
                         }, 3000);
                     }
@@ -594,7 +594,7 @@ const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
     }
 
     if(!fs.existsSync(filePath))
-        return respondWithErrorPage(res, 404, `File at "${filePath}" not found.`);
+        return respondWithErrorPage(res, 404, `Internal error: file at "${filePath}" not found.`);
 
     try
     {

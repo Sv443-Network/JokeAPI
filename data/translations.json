@@ -2,7 +2,8 @@
     "defaultLang": "en",
     "languages": [
         "en",
-        "de"
+        "de",
+        "ru"
     ],
     "tr": {
         "test": {
@@ -10,15 +11,70 @@
             "de": "Test. Hallo, Welt!",
             "ru": "Тест. Привет, мир!"
         },
+        "generalInternalError": {
+            "en": "There was an internal error: %1",
+            "de": "Es gab einen internen Fehler: %1",
+            "ru": "Произошла внутренняя ошибка: %1"
+        },
         "invalidLangCode": {
-            "en": "The specified language code \"%1\" is invalid. Please see https://sv443.net/jokeapi/v2#langcodes-endpoint for more info",
-            "de": "Der angegebene Sprach-code \"%1\" ist nicht korrekt. Bitte besuche https://sv443.net/jokeapi/v2#langcodes-endpoint für mehr Info",
+            "en": "The specified language code \"%1\" is invalid. Please see https://sv443.net/jokeapi/v2#langcodes-endpoint for more info.",
+            "de": "Der angegebene Sprach-code \"%1\" ist nicht korrekt. Bitte besuche https://sv443.net/jokeapi/v2#langcodes-endpoint für mehr Info.",
             "ru": "Указанный код языка \"%1\" является недействительным. Дополнительную информацию можно получить на сайте https://sv443.net/jokeapi/v2#langcodes-endpoint"
         },
         "invalidLangCodeNoArg": {
-            "en": "The specified language code is invalid. Please see http://localhost:8076/#langcodes-endpoint for more info",
-            "de": "Der angegebene Sprach-code ist nicht korrekt. Bitte besuche https://sv443.net/jokeapi/v2#langcodes-endpoint für mehr Info",
+            "en": "The specified language code is invalid. Please see http://localhost:8076/#langcodes-endpoint for more info.",
+            "de": "Der angegebene Sprach-code ist nicht korrekt. Bitte besuche https://sv443.net/jokeapi/v2#langcodes-endpoint für mehr Info.",
             "ru": "Указанный код языка является недействительным. Дополнительную информацию можно получить на сайте https://sv443.net/jokeapi/v2#langcodes-endpoint"
+        },
+        "uriTooLong": {
+            "en": "The provided URI (%1 characters) exceeds the maximum allowed length of %2 characters.",
+            "de": "Der angegebene URI (%1 Zeichen) überschreitet die Maximallänge von %2 Zeichen.",
+            "ru": "Поставляемый URI (%1 символ) превышает максимально допустимую длину %2 символов."
+        },
+        "ipBlacklisted": {
+            "en": "You were blacklisted by the API and cannot send any requests anymore. If you believe this was done in error, please contact me: %1",
+            "de": "Du wurdest von der API auf eine Blockierliste gesetzt und kannst keine Anfragen mehr senden. Wenn du glaubst, dass dies irrtümlicherweise geschehen ist, kontaktiere mich bitte: %1",
+            "ru": "Вы были помещены в список блоков API и больше не можете отправлять запросы. Если вы думаете, что это произошло по ошибке, пожалуйста, свяжитесь со мной: %1"
+        },
+        "errSetupHttpResponse": {
+            "en": "There was an internal error while setting up the HTTP response: %1",
+            "de": "Es gab einen internen Fehler während die HTTP-Antwort aufgebaut wurde: %1",
+            "ru": "При настройке ответа HTTP произошла внутренняя ошибка: %1"
+        },
+        "rateLimited": {
+            "en": "You are being rate limited because you have sent too many requests. The maximum is %1 requests every %2 seconds.",
+            "de": "Deine Anfrage wurde blockiert, weil du zu viele Anfragen gesendet hast. Das Maximum sind %1 Anfragen innerhalb von %2 Sekunden.",
+            "ru": "Вы ограничены в тарифах, потому что отправили слишком много запросов. Максимальное значение составляет %1 запрос каждые %2 секунды."
+        },
+        "endpointInternalError": {
+            "en": "Internal Error while calling Endpoint: %1",
+            "de": "Interner Error während des Aufrufs eines Endpunktes: %1",
+            "ru": "Внутренняя ошибка при вызове конечной точки: %1"
+        },
+        "endpointNotFound": {
+            "en": "Endpoint \"%1\" not found - Please read the documentation at https://sv443.net/jokeapi/v2#endpoints to see all available endpoints.",
+            "de": "Endpunkt \"%1\" nicht gefunden - Bitte lies die Dokumentation (https://sv443.net/jokeapi/v2#endpoints) um alle verfügbaren Endpunkte zu sehen.",
+            "ru": "Конечная точка \"%1\" не найдена - с документацией на https://sv443.net/jokeapi/v2#endpoints можно ознакомиться во всех доступных конечные точки."
+        },
+        "payloadTooLarge": {
+            "en": "Payload too large (%1 Bytes - maximum is %2 Bytes).",
+            "de": "Anfrageinhalt zu groß (%1 Bytes - maximal erlaubt sind %2 Bytes).",
+            "ru": "Слишком большая грузоподъемность (%1 байт - максимум %2 байта)."
+        },
+        "requestEmptyOrTimedOut": {
+            "en": "Request body is empty or request timed out.",
+            "de": "Anfrageinhalt ist leer oder es gab eine Zeitüberschreitung.",
+            "ru": "Тело запроса пустое или запрос таймаут."
+        },
+        "invalidSubmissionOrWrongEndpoint": {
+            "en": "Request body is invalid or was sent to the wrong endpoint \"%1\", please refer to the documentation at https://sv443.net/jokeapi/v2#submit-joke to see how to correctly structure a joke submission.",
+            "de": "Anfrageinhalt ist ungültig oder wurde an den falschen Endpunkt \"%1\" gesendet, lies bitte in der Dokumentation unter https://sv443.net/jokeapi/v2#submit-joke nach, wie eine Witzeinreichung korrekt strukturiert wird.",
+            "ru": "Тело запроса является недействительным или было отправлено не на ту конечную точку \"%1\", смотрите документацию на https://sv443.net/jokeapi/v2#submit-joke, чтобы узнать, как правильно структурировать шутку."
+        },
+        "requestBodyIsInvalid": {
+            "en": "Request body is empty.",
+            "de": "Anfrageinhalt ist leer.",
+            "ru": "Тело запроса пусто."
         }
     }
 }
