@@ -37,6 +37,7 @@
 - [Jokepy](https://github.com/aksty/Jokepy) by [aksty](https://github.com/aksty)
 - [Dark1](https://github.com/whiteadi/Dark1) by [whiteadi](https://github.com/whiteadi)
 - [Prejudice Networks](https://github.com/LiamTownsley/Prejudice-Networks) by [Liam Townsley](https://github.com/LiamTownsley)
+- [https://irshad.ml/humour.html](https://irshad.ml/humour.html) by [draco-malfoy](https://github.com/draco-malfoy)
   
 ([Contact me](https://sv443.net/discord) to get your project added here)
 
