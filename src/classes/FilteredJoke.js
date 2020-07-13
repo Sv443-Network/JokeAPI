@@ -8,34 +8,6 @@ const languages = require("../languages");
 const jsl = require("svjsl");
 const settings = require("../../settings");
 
-/**
- * @typedef {Object} SingleJoke A joke of type single
- * @prop {String} category The category of the joke
- * @prop {("single")} type The type of the joke
- * @prop {String} joke The joke itself
- * @prop {Object} flags
- * @prop {Boolean} flags.nsfw Whether the joke is NSFW or not
- * @prop {Boolean} flags.racist Whether the joke is racist or not
- * @prop {Boolean} flags.sexist Whether the joke is sexist or not
- * @prop {Boolean} flags.religious Whether the joke is religiously offensive or not
- * @prop {Boolean} flags.political Whether the joke is politically offensive or not
- * @prop {Number} id The ID of the joke
- */ 
-
-/**
- * @typedef {Object} TwopartJoke A joke of type twopart
- * @prop {String} category The category of the joke
- * @prop {("twopart")} type The type of the joke
- * @prop {String} setup The setup of the joke
- * @prop {String} delivery The delivery of the joke
- * @prop {Object} flags
- * @prop {Boolean} flags.nsfw Whether the joke is NSFW or not
- * @prop {Boolean} flags.racist Whether the joke is racist or not
- * @prop {Boolean} flags.sexist Whether the joke is sexist or not
- * @prop {Boolean} flags.religious Whether the joke is religiously offensive or not
- * @prop {Boolean} flags.political Whether the joke is politically offensive or not
- * @prop {Number} id The ID of the joke
- */ 
 
 jsl.unused([AllJokes]);
 
@@ -67,6 +39,7 @@ class FilteredJoke
         this._flags = [];
         this._errors = [];
         this._lang = settings.languages.defaultLanguage;
+        this._amount = 1;
 
         if(!_lastIDs || !Array.isArray(_lastIDs))
             _lastIDs = [];
@@ -278,6 +251,32 @@ class FilteredJoke
         return this._lang || settings.languages.defaultLanguage;
     }
 
+    //#MARKER amount
+    /**
+     * Sets the amount of jokes
+     * @param {Number} num 
+     * @returns {Boolean|String} Returns true if the amount was set, string containing error if it is invalid
+     */
+    setAmount(num)
+    {
+        num = parseInt(num);
+
+        if(isNaN(num) || num < 1 || num > settings.jokes.maxAmount)
+            return `"num" parameter in FilteredJoke.setAmount() couldn't be resolved to an integer or it is less than 0 or greater than ${settings.jokes.maxAmount}`;
+
+        this._amount = num;
+        return true;
+    }
+
+    /**
+     * Returns the set joke amount or `1` if not yet set
+     * @returns {Number}
+     */
+    getAmount()
+    {
+        return this._amount || 1;
+    }
+
     //#MARKER apply filters
     /**
      * Applies the previously set filters and modifies the `this._filteredJokes` property with the applied filters
@@ -295,7 +294,9 @@ class FilteredJoke
                 if(!lang)
                     lang = settings.languages.defaultLanguage;
 
-                this._allJokes.getJokeArray(lang).forEach(joke => { // iterate over each joke, reading all set filters and thereby checking if it suits the request
+                this._allJokes.getJokeArray(lang).forEach(joke => {
+                    // iterate over each joke, reading all set filters and thereby checking if it suits the request
+                    // to deny a joke from being served, just return from this callback function
 
                     //#SECTION id range
                     let idRange = this.getIdRange();
@@ -333,11 +334,9 @@ class FilteredJoke
                     let searchMatches = false;
                     if(!jsl.isEmpty(this.getSearchString()))
                     {
-                        if(joke.type == "single"
-                        && joke.joke.toLowerCase().includes(this.getSearchString()))
+                        if(joke.type == "single" && joke.joke.toLowerCase().includes(this.getSearchString()))
                             searchMatches = true;
-                        else if (joke.type == "twopart"
-                        && (joke.setup + joke.delivery).toLowerCase().includes(this.getSearchString()))
+                        else if (joke.type == "twopart" && (joke.setup + joke.delivery).toLowerCase().includes(this.getSearchString()))
                             searchMatches = true;
                     }
                     else searchMatches = true;
@@ -345,16 +344,24 @@ class FilteredJoke
                     if(!searchMatches) // if the provided search string doesn't match the joke, the joke is invalid
                         return;
                     
-                    //TODO:#SECTION language
+                    //#SECTION language
+                    let langCode = this.getLanguage();
+                    if(!languages.isValidLang(langCode))
+                        return; // invalid lang code
+                    if(joke.lang.toLowerCase() != langCode.toLowerCase())
+                        return; // lang code doesn't match
+                    
+                    // amount param is used in getJokes()
 
                     //#SECTION done
                     this._filteredJokes.push(joke); // joke is valid, push it to the array that gets passed in the resolve()
                 });
-                resolve(this._filteredJokes);
+
+                return resolve(this._filteredJokes);
             }
             catch(err)
             {
-                reject(err);
+                return reject(err);
             }
         });
     }
@@ -362,11 +369,19 @@ class FilteredJoke
     //#MARKER get joke
     /**
      * Applies all filters and returns the final joke
-     * @returns {Promise<SingleJoke|TwopartJoke>} Returns a promise containing a single, randomly selected joke that matches the previously set filters. If the filters didn't match, rejects promise.
+     * @param {Number} [amount=1] The amount of jokes to return
+     * @returns {Promise<Array<parseJokes.SingleJoke|parseJokes.TwopartJoke>>} Returns a promise containing an array, which in turn contains a single or multiple randomly selected joke/s that match/es the previously set filters. If the filters didn't match, rejects promise.
      */
-    getJoke()
+    getJokes(amount = 1)
     {
+        amount = parseInt(amount);
+        if(isNaN(amount) || jsl.isEmpty(amount))
+            amount = 1;
+        
         return new Promise((resolve, reject) => {
+            let retJokes = [];
+            let multiSelectLastIDs = [];
+
             this._applyFilters(this._lang || settings.languages.defaultLanguage).then(filteredJokes => {
                 if(filteredJokes.length == 0 || typeof filteredJokes != "object")
                 {
@@ -383,10 +398,11 @@ class FilteredJoke
                     _selectionAttempts = 0;
 
                 /**
-                 * @param {Array<SingleJoke|TwopartJoke>} jokes 
+                 * @param {Array<parseJokes.SingleJoke|parseJokes.TwopartJoke>} jokes 
                  */
                 let selectRandomJoke = jokes => {
-                    let selectedJoke = filteredJokes[jsl.randRange(0, (filteredJokes.length - 1))];
+                    let idx = jsl.randRange(0, (jokes.length - 1));
+                    let selectedJoke = jokes[idx];
 
                     if(jokes.length > settings.jokes.lastIDsMaxLength && _lastIDs.includes(selectedJoke.id))
                     {
@@ -394,14 +410,10 @@ class FilteredJoke
                             return reject();
 
                         _selectionAttempts++;
-                        let reducedJokeArray = [];
 
-                        jokes.forEach(j => {
-                            if(!_lastIDs.includes(j.id))
-                                reducedJokeArray.push(j);
-                        });
-                        
-                        return selectRandomJoke(reducedJokeArray);
+                        jokes.splice(idx, 1); // remove joke that is already contained in _lastIDs
+
+                        return selectRandomJoke(jokes);
                     }
                     else
                     {
@@ -412,12 +424,45 @@ class FilteredJoke
 
                         _selectionAttempts = 0;
 
-                        return selectedJoke;
+                        if(!multiSelectLastIDs.includes(selectedJoke.id))
+                        {
+                            multiSelectLastIDs.push(selectedJoke.id);
+                            return selectedJoke;
+                        }
+                        else
+                        {
+                            if(_selectionAttempts > settings.jokes.jokeRandomizationAttempts)
+                                return reject();
+
+                            _selectionAttempts++;
+
+                            jokes.splice(idx, 1); // remove joke that is already contained in _lastIDs
+
+                            return selectRandomJoke(jokes);
+                        }
                     }
                 };
 
-                let randJoke = selectRandomJoke(filteredJokes);
-                return resolve(randJoke);
+                if(amount < filteredJokes.length)
+                {
+                    for(let i = 0; i < amount; i++)
+                    {
+                        let rJoke = selectRandomJoke(filteredJokes);
+                        if(rJoke != null)
+                            retJokes.push(rJoke);
+                    }
+                }
+                else retJokes = filteredJokes;
+                
+                // Sort jokes by ID
+                // retJokes.sort((a, b) => {
+                //     if(b.id > a.id)
+                //         return -1;
+                //     else
+                //         return 1;
+                // });
+
+                return resolve(retJokes);
             }).catch(err => {
                 return reject(err);
             });
@@ -427,15 +472,15 @@ class FilteredJoke
     //#MARKER get all jokes
     /**
      * Applies all filters and returns an array of all jokes that are viable
-     * @returns {Promise<Array<SingleJoke|TwopartJoke>>} Returns a promise containing a single, randomly selected joke that matches the previously set filters. If the filters didn't match, rejects promise.
+     * @returns {Promise<Array<parseJokes.SingleJoke|parseJokes.TwopartJoke>>} Returns a promise containing a single, randomly selected joke that matches the previously set filters. If the filters didn't match, rejects promise.
      */
     getAllJokes()
     {
         return new Promise((resolve, reject) => {
             this._applyFilters(this._lang || settings.languages.defaultLanguage).then(filteredJokes => {
-                resolve(filteredJokes);
+                return resolve(filteredJokes);
             }).catch(err => {
-                reject(err);
+                return reject(err);
             });
         });
     }

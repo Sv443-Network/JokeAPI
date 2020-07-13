@@ -88,6 +88,8 @@ const toTXT = jsonInput => {
                     returnText += `${ep.name} - ${ep.description}\n    Usage: ${ep.usage.method} ${ep.usage.url}\n    Supported parameters: ${ep.usage.supportedParams.length > 0 ? `"${ep.usage.supportedParams.join('", "')}"` : "none"}\n\n\n`
                 });
             }
+
+            // TODO: ensure all are correct + add missing
         }
     }
 

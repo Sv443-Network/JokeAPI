@@ -1,38 +1,9 @@
 const jsl = require("svjsl");
 
+const parseJokes = require("../parseJokes");
 const languages = require("../languages");
 
 const settings = require("../../settings");
-
-
-/**
- * @typedef {Object} SingleJoke A joke of type single
- * @prop {String} category The category of the joke
- * @prop {("single")} type The type of the joke
- * @prop {String} joke The joke itself
- * @prop {Object} flags
- * @prop {Boolean} flags.nsfw Whether the joke is NSFW or not
- * @prop {Boolean} flags.racist Whether the joke is racist or not
- * @prop {Boolean} flags.sexist Whether the joke is sexist or not
- * @prop {Boolean} flags.religious Whether the joke is religiously offensive or not
- * @prop {Boolean} flags.political Whether the joke is politically offensive or not
- * @prop {Number} id The ID of the joke
- */
-
-/**
- * @typedef {Object} TwopartJoke A joke of type twopart
- * @prop {String} category The category of the joke
- * @prop {("twopart")} type The type of the joke
- * @prop {String} setup The setup of the joke
- * @prop {String} delivery The delivery of the joke
- * @prop {Object} flags
- * @prop {Boolean} flags.nsfw Whether the joke is NSFW or not
- * @prop {Boolean} flags.racist Whether the joke is racist or not
- * @prop {Boolean} flags.sexist Whether the joke is sexist or not
- * @prop {Boolean} flags.religious Whether the joke is religiously offensive or not
- * @prop {Boolean} flags.political Whether the joke is politically offensive or not
- * @prop {Number} id The ID of the joke
- */
 
 // expected format:
 /*
@@ -103,7 +74,7 @@ class AllJokes
     /**
      * Returns an array of all jokes of the specified language
      * @param {String} [langCode="en"] Two character language code
-     * @returns {Array<SingleJoke|TwopartJoke>}
+     * @returns {Array<parseJokes.SingleJoke|parseJokes.TwopartJoke>}
      */
     getJokeArray(langCode)
     {

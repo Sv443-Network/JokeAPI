@@ -8,6 +8,7 @@ const tr = require("../src/translate");
 const FilteredJoke = require("../src/classes/FilteredJoke");
 const jsl = require("svjsl");
 const settings = require("../settings");
+const { jokes } = require("../settings");
 
 jsl.unused(http);
 
@@ -156,13 +157,48 @@ const call = (req, res, url, params, format) => {
             if(!fFlg)
                 return isErrored(res, format, `The specified flags are invalid - Got: "${flags.join(", ")}" - Possible flags are: "${settings.jokes.possible.flags.join(", ")}"`, langCode);
         }
+
+        //#SECTION amount
+        if(!jsl.isEmpty(params["amount"]))
+        {
+            let amount = parseInt(params["amount"]);
+
+            if(isNaN(amount) || amount < 1)
+                amount = 1;
+
+            if(amount > settings.jokes.maxAmount)
+                amount = settings.jokes.maxAmount;
+
+            let fAmt = filterJoke.setAmount(amount);
+            if(!fAmt)
+                return isErrored(res, format, `Internal error while setting joke amount: ${fAmt}`, langCode);
+        }
     }
     
 
-    filterJoke.getJoke().then(joke => {
-        if(!joke["error"])
-            joke["error"] = false;
-        let responseText = convertFileFormat.auto(format, joke);
+    filterJoke.getJokes(filterJoke.getAmount()).then(jokesArray => {
+        // TODO: handle multiple
+        let responseText = "";
+
+        if(jokesArray.length == 1)
+        {
+            let singleObj = {
+                error: false,
+                ...jokesArray[0]
+            };
+
+            responseText = convertFileFormat.auto(format, singleObj);
+        }
+        else
+        {
+            let multiObj = {
+                error: false,
+                jokes: jokesArray
+            };
+
+            responseText = convertFileFormat.auto(format, multiObj);
+        }
+
         httpServer.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format));
     }).catch(err => {
         return isErrored(res, format, `Error while finalizing joke filtering: ${Array.isArray(err) ? err.join("; ") : err}`, langCode);
