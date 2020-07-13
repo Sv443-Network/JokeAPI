@@ -22,7 +22,7 @@ const init = () => {
         let outerPromises = [];
 
         jokesFiles.forEach(jf => {
-            if(jf == "template.json")
+            if(jf == settings.jokes.jokesTemplateFile)
                 return;
 
             outerPromises.push(new Promise((resolveOuter, rejectOuter) => {

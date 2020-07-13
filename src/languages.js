@@ -117,7 +117,7 @@ function jokeLangs()
     let retLangs = [];
 
     fs.readdirSync(settings.jokes.jokesFolderPath).forEach(f => {
-        if(f == "template.json")
+        if(f == settings.jokes.jokesTemplateFile)
             return;
 
         let langCode = f.split("-")[1].substr(0, 2);

@@ -278,6 +278,16 @@ label {
     filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.5));
 }
 
+img.badge {
+    height: 1.15em;
+    position: relative;
+    bottom: -3px;
+}
+
+#uptimeTable tr td:last-child {
+    padding-left: 5px;
+}
+
 #statusCodeTable {
     margin: 0;
     padding: 0;

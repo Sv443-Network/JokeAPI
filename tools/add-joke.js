@@ -2,6 +2,7 @@ const jsl = require("svjsl");
 const readline = require("readline");
 const settings = require("../settings");
 const fs = require("fs-extra");
+const { join } = require("path");
 
 const jokeSubmission = require("../src/jokeSubmission");
 const languages = require("../src/languages");
@@ -22,7 +23,7 @@ const init = async () => {
 
     joke["category"] = await getJokeCategory();
     joke["type"] = await getJokeType();
-    joke["lang"] = await getJokeLang();
+    let jokeLang = await getJokeLang();
 
     let rl = readline.createInterface(process.stdin, process.stdout);
     rl.pause();
@@ -50,19 +51,27 @@ const init = async () => {
                 });
             }
         };
+        
+        let jokesFileName = `jokes-${jokeLang}.json`;
 
         let flagIterFinished = () => {
+            let fPath = join(settings.jokes.jokesFolderPath, jokesFileName);
 
-            fs.readFile(settings.jokes.jokesFilePath, (err, res) => {
+            if(!fs.existsSync(fPath))
+                fs.copySync(join(settings.jokes.jokesFolderPath, settings.jokes.jokesTemplateFile), fPath);
+
+            fs.readFile(fPath, (err, res) => {
                 if(!err)
                 {
                     let jokeFile = JSON.parse(res.toString());
 
-                    joke["id"] = jokeFile.jokes.length;
+                    joke = jokeSubmission.reformatJoke(joke);
+
+                    joke["id"] = jokeFile.jokes.length || 0;
 
                     jokeFile.jokes.push(joke);
 
-                    fs.writeFile(settings.jokes.jokesFilePath, JSON.stringify(jokeSubmission.reformatJoke(jokeFile), null, 4), (err) => {
+                    fs.writeFile(fPath, JSON.stringify(jokeFile, null, 4), (err) => {
                         if(err)
                         {
                             console.log(`${jsl.colors.fg.red}\n${err}${jsl.colors.rst}\n\n`);
@@ -71,7 +80,7 @@ const init = async () => {
                         else
                         {
                             console.clear();
-                            console.log(`${jsl.colors.fg.green}\nJoke was successfully added:${jsl.colors.rst}\n\n${JSON.stringify(joke, null, 4)}\n\n\n`);
+                            console.log(`${jsl.colors.fg.green}\nJoke was successfully added to file "${jokesFileName}":${jsl.colors.rst}\n\n${JSON.stringify(joke, null, 4)}\n\n\n`);
 
                             jsl.pause("Add another joke? (y/N): ").then(key => {
                                 if(key.toLowerCase() === "y")
