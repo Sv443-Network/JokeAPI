@@ -126,14 +126,20 @@ const call = (req, res, url, params, format) => {
                 {
                     let splitParams = params["idRange"].split(settings.jokes.splitCharRegex);
 
+                    if(!splitParams[0] && splitParams[1])
+                        splitParams[0] = splitParams[1];
+                    
+                    if(!splitParams[1] && splitParams[0])
+                        splitParams[1] = splitParams[0];
+
                     if(!filterJoke.setIdRange(parseInt(splitParams[0]), parseInt(splitParams[1])))
-                        return isErrored(res, format, `The specified ID range is invalid - Got: "${splitParams[0]} to ${splitParams[1]}" - max possible ID range is: "0-${(parseJokes.jokeCount - 1)}"`, langCode);
+                        return isErrored(res, format, `The specified ID range is invalid - Got: "${splitParams[0]} to ${splitParams[1]}" - max possible ID range is: "0-${(parseJokes.jokeCountPerLang[langCode] - 1)}"`, langCode);
                 }
                 else
                 {
                     let id = parseInt(params["idRange"]);
-                    if(!filterJoke.setIdRange(id, id))
-                        return isErrored(res, format, `The specified ID range is invalid - Got: "${params["idRange"]}" - max possible ID range is: "0-${(parseJokes.jokeCount - 1)}"`, langCode);
+                    if(!filterJoke.setIdRange(id, id, langCode))
+                        return isErrored(res, format, `The specified ID range is invalid - Got: "${params["idRange"]}" - max possible ID range for language "${langCode}" is "0-${(parseJokes.jokeCountPerLang[langCode] - 1)}"`, langCode);
                 }
             }
             catch(err)

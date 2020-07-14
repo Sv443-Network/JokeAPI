@@ -26,6 +26,12 @@ jsl.unused(parseJokes); // only used for typedefs
 }
 */
 
+/**
+ * @typedef {Object} CountPerLangObj
+ * @prop {Number} [en]
+ * @prop {Number} [de]
+ */
+
 class AllJokes
 {
     /**
@@ -37,13 +43,18 @@ class AllJokes
         this.jokes = {};
         let jokeCount = 0;
         let formatVersions = [];
+        let jokeCountPerLang = {};
 
         //#SECTION check validity, get joke count and get format versions
         Object.keys(jokeArray).forEach(key => {
             if(!languages.isValidLang(key))
                 throw new Error(`Error: invalid language code in construction of an AllJokes object. Expected valid two character language code - got "${key}"`);
+            
+            if(!jokeCountPerLang[key])
+                jokeCountPerLang[key] = 0;
 
             jokeCount += jokeArray[key].jokes.length;
+            jokeCountPerLang[key] += jokeArray[key].jokes.length;
 
             let fv = jokeArray[key].info.formatVersion;
 
@@ -69,6 +80,7 @@ class AllJokes
 
         this.jokes = jokeArray;
         this._jokeCount = jokeCount;
+        this._jokeCountPerLang = jokeCountPerLang;
         this._formatVersions = formatVersions;
 
         return this;
@@ -110,6 +122,15 @@ class AllJokes
     getJokeCount()
     {
         return this._jokeCount;
+    }
+
+    /**
+     * Returns an object containing joke counts for every lang code
+     * @returns {CountPerLangObj}
+     */
+    getJokeCountPerLang()
+    {
+        return this._jokeCountPerLang;
     }
 }
 

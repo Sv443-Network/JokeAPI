@@ -22,7 +22,7 @@ const settings = {
             website: packageJSON.author.url, // author website
             github: `https://github.com/${packageJSON.author.name}`, // author github page
         },
-        infoMsg: "If you want to be updated on the status and future updates of JokeAPI or need some help, please consider joining my Discord server: https://sv443.net/discord",
+        infoMsg: "If you want to stay up to date on the status and future updates of JokeAPI or need some help, consider joining my Discord server: https://sv443.net/discord",
         privacyPolicyUrl: "https://sv443.net/privacypolicy/en"
     },
     wrapper: {

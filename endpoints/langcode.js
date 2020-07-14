@@ -54,13 +54,13 @@ const call = (req, res, url, params, format) => {
     let ltc = languages.languageToCode(language);
     langCode = (ltc === false ? (defaultValDisabled ? null : settings.languages.defaultLanguage) : ltc);
 
-    if(langCode == null)
+    if(langCode == null || ltc === false)
     {
         // error
         statusCode = 400;
         responseText = convertFileFormat.auto(format, {
             "error": true,
-            "message": `The provided language "${language}" could not be resolved.`
+            "message": `The provided language "${decodeURIComponent(language)}" could not be resolved.`
         });
     }
     else

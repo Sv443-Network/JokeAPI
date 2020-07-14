@@ -6,7 +6,7 @@
         {
             "category": "Miscellaneous",
             "type": "single",
-            "joke": "TESTING_DE",
+            "joke": "TESTING_DE 1",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -15,6 +15,19 @@
                 "sexist": false
             },
             "id": 0
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "joke": "TESTING_DE 2",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 1
         }
     ]
 }

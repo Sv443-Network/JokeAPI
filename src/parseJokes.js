@@ -6,7 +6,6 @@ const jsl = require("svjsl");
 const settings = require("../settings");
 const debug = require("./verboseLogging");
 const languages = require("./languages");
-const translate = require("./translate");
 const AllJokes = require("./classes/AllJokes");
 
 /**
@@ -134,11 +133,10 @@ const init = () => {
                     errors.push(res);
             });
 
-            // TODO: this
             let allJokesObj = new AllJokes(allJokesFilesObj);
 
-            let formatVersions = [];
-            translate.systemLangs().forEach(lang => {
+            let formatVersions = [settings.jokes.jokesFormatVersion];
+            languages.jokeLangs().map(jl => jl.code).sort().forEach(lang => {
                 formatVersions.push(allJokesObj.getFormatVersion(lang));
             });
 
@@ -147,6 +145,7 @@ const init = () => {
 
             module.exports.allJokes = allJokesObj;
             module.exports.jokeCount = allJokesObj.getJokeCount();
+            module.exports.jokeCountPerLang = allJokesObj.getJokeCountPerLang();
             let fmtVer = allJokesObj.getFormatVersion("en");
             module.exports.jokeFormatVersion = fmtVer;
             this.jokeFormatVersion = fmtVer;

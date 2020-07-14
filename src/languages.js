@@ -61,7 +61,7 @@ function languageToCode(language)
     if(langs == undefined)
         throw new Error("INTERNAL_ERROR: Language module was not correctly initialized (yet)");
 
-    if(typeof language !== "string" || language.length <= 1)
+    if(typeof language !== "string" || language.length < 1)
         throw new TypeError("Language is not a string or not two characters in length");
 
     let searchObj = [];
@@ -76,10 +76,15 @@ function languageToCode(language)
     let fuzzy = new Fuse(searchObj, {
         includeScore: true,
         keys: ["code", "lang"],
-        threshold: 0.5
+        threshold: 0.3
     });
 
-    return fuzzy.search(language)[0].item.code;
+    let result = fuzzy.search(language)[0];
+
+    if(result)
+        return result.item.code;
+    else
+        return false;
 }
 
 /**

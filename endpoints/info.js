@@ -6,6 +6,7 @@ const jsl = require("svjsl");
 const parseJokes = require("../src/parseJokes");
 const languages = require("../src/languages");
 const settings = require("../settings");
+const translate = require("../src/translate");
 
 jsl.unused(http);
 
@@ -61,6 +62,20 @@ const call = (req, res, url, params, format) => {
     }
 
     let totalJokesCount = (!jsl.isEmpty(parseJokes.jokeCount) ? parseJokes.jokeCount : 0);
+    
+    let idRangePerLang = {};
+    let idRangePerLangXml = [];
+    Object.keys(parseJokes.jokeCountPerLang).forEach(lc => {
+        let to = (parseJokes.jokeCountPerLang[lc] - 1);
+        idRangePerLang[lc] = [ 0, to ];
+        idRangePerLangXml.push({
+            code: lc,
+            from: 0,
+            to: to
+        });
+    });
+
+    let systemLanguagesLength = translate.systemLangs().length;
 
     if(format != "xml")
     {
@@ -74,10 +89,11 @@ const call = (req, res, url, params, format) => {
                 "flags": settings.jokes.possible.flags,
                 "types": settings.jokes.possible.types,
                 "submissionURL": settings.jokes.jokeSubmissionURL,
-                "idRange": [ 0, --totalJokesCount ]
+                "idRange": idRangePerLang
             },
             "formats": settings.jokes.possible.formats,
-            "languages": supportedLangsLength,
+            "jokeLanguages": supportedLangsLength,
+            "systemLanguages": systemLanguagesLength,
             "info": settings.info.infoMsg,
             "timestamp": new Date().getTime()
         });
@@ -94,10 +110,11 @@ const call = (req, res, url, params, format) => {
                 "flags": {"flag": settings.jokes.possible.flags},
                 "types": {"type": settings.jokes.possible.types},
                 "submissionURL": settings.jokes.jokeSubmissionURL,
-                "idRange": [ 0, --totalJokesCount ]
+                "idRange": { "lang": idRangePerLangXml }
             },
             "formats": {"format": settings.jokes.possible.formats},
-            "languages": supportedLangsLength,
+            "jokeLanguages": supportedLangsLength,
+            "systemLanguages": systemLanguagesLength,
             "info": settings.info.infoMsg,
             "timestamp": new Date().getTime()
         });

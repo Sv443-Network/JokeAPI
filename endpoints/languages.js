@@ -51,8 +51,8 @@ const call = (req, res, url, params, format) => {
     {
         responseText = convertFileFormat.auto(format, {
             "defaultLanguage": settings.languages.defaultLanguage,
-            "jokeLanguages": jokeLangs.map(l => ({ "code": l })),
-            "systemLanguages": sysLangs.map(l => ({ "code": l })),
+            "jokeLanguages": { "code": jokeLangs },
+            "systemLanguages": { "code": sysLangs },
             "possibleLanguages": { "language": langArray },
             "timestamp": new Date().getTime()
         });

@@ -9,7 +9,7 @@ const jsl = require("svjsl");
 const settings = require("../../settings");
 
 
-jsl.unused([AllJokes]);
+jsl.unused(AllJokes);
 
 var _lastIDs = [];
 var _selectionAttempts = 0;
@@ -29,13 +29,20 @@ class FilteredJoke
         this._allJokes = allJokes;
         this._filteredJokes = null;
 
+        let idRangePerLang = {};
+
+        Object.keys(parseJokes.jokeCountPerLang).forEach(lc => {
+            idRangePerLang[lc] = [ 0, (parseJokes.jokeCountPerLang[lc] - 1) ];
+        });
+
         this._allowedCategories = [
             settings.jokes.possible.anyCategoryName.toLowerCase(),
             ...settings.jokes.possible.categories.map(c => c.toLowerCase())
         ];
         this._allowedTypes = [...settings.jokes.possible.types];
         this._searchString = null;
-        this._idRange = [0, (parseJokes.jokeCount - 1)];
+        this._idRange = [0, (parseJokes.jokeCountPerLang[settings.languages.defaultLanguage] - 1)];
+        this._idRangePerLang = idRangePerLang;
         this._flags = [];
         this._errors = [];
         this._lang = settings.languages.defaultLanguage;
@@ -43,6 +50,8 @@ class FilteredJoke
 
         if(!_lastIDs || !Array.isArray(_lastIDs))
             _lastIDs = [];
+
+        return this;
     }
 
     //#MARKER categories
@@ -160,12 +169,16 @@ class FilteredJoke
      * The IDs a joke can be of
      * @param {Number} start
      * @param {Number} [end] If this is not set, it will default to the same value the param `start` has
+     * @param {String} [lang] Lang code
      * @returns {Boolean} Returns false if the parameter(s) is/are not of type `number`, else returns true
      */
-    setIdRange(start, end = null)
+    setIdRange(start, end = null, lang = null)
     {
         if(jsl.isEmpty(end))
             end = start;
+        
+        if(jsl.isEmpty(lang))
+            lang = this.getLanguage() || settings.languages.defaultLanguage;
 
         if(isNaN(parseInt(start)) || isNaN(parseInt(end)) || typeof start != "number" || typeof end != "number" || jsl.isEmpty(start) || jsl.isEmpty(end))
         {
@@ -173,7 +186,7 @@ class FilteredJoke
             return false;
         }
 
-        if(start < 0 || end > (parseJokes.jokeCount - 1))
+        if(start < 0 || end > this._idRangePerLang[lang][1])
         {
             this._errors.push("The \"idRange\" parameter values are out of range");
             return false;
@@ -299,7 +312,7 @@ class FilteredJoke
                     // to deny a joke from being served, just return from this callback function
 
                     //#SECTION id range
-                    let idRange = this.getIdRange();
+                    let idRange = this.getIdRange(lang);
                     if(joke.id < idRange[0] || joke.id > idRange[1]) // if the joke is 
                         return;
 
