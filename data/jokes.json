@@ -45,8 +45,9 @@
         },
         {
             "category": "Programming",
-            "type": "single",
-            "joke": "A programmer puts two glasses on his bedside table before going to sleep.\nA full one, in case he gets thirsty, and an empty one, in case he doesn't.",
+            "type": "twopart",
+            "setup": "A programmer puts two glasses on his bedside table before going to sleep.",
+            "delivery": "A full one, in case he gets thirsty, and an empty one, in case he doesn't.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -84,8 +85,9 @@
         },
         {
             "category": "Programming",
-            "type": "single",
-            "joke": "A web developer walks into a restaurant.\nHe immediately leaves in disgust as the restaurant was laid out in tables.",
+            "type": "twopart",
+            "setup": "A web developer walks into a restaurant.",
+            "delivery": "He immediately leaves in disgust as the restaurant was laid out in tables.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -111,8 +113,9 @@
         },
         {
             "category": "Programming",
-            "type": "single",
-            "joke": "Programming is like sex.\nMake one mistake and you end up supporting it for the rest of your life.",
+            "type": "twopart",
+            "setup": "Programming is like sex.",
+            "delivery": "Make one mistake and you end up supporting it for the rest of your life.",
             "flags": {
                 "nsfw": true,
                 "religious": false,
@@ -422,7 +425,7 @@
         {
             "category": "Programming",
             "type": "twopart",
-            "setup": "Why did the javascript heap close shop?",
+            "setup": "Why did the JavaScript heap close shop?",
             "delivery": "It ran out of memory.",
             "flags": {
                 "nsfw": false,
@@ -592,8 +595,9 @@
         },
         {
             "category": "Programming",
-            "type": "single",
-            "joke": "Have a great weekend!\nI hope your code behaves the same on Monday as it did on Friday.",
+            "type": "twopart",
+            "joke": "Have a great weekend!",
+            "delivery": "I hope your code behaves the same on Monday as it did on Friday.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -689,7 +693,7 @@
         {
             "category": "Programming",
             "type": "single",
-            "joke": "Algorithm:\nA word used by programmers when they don't want to explain how their code works.",
+            "joke": "Algorithm: A word used by programmers when they don't want to explain how their code works.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -1005,8 +1009,9 @@
         },
         {
             "category": "Miscellaneous",
-            "type": "single",
-            "joke": "A neutron walks into a bar and asks for a price on a drink.\nThe barkeeper says: \"For you... no charge!\"",
+            "type": "twopart",
+            "setup": "A neutron walks into a bar and asks for a price on a drink.",
+            "delivery": "The barkeeper says: \"For you... no charge!\"",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -1630,7 +1635,7 @@
             "category": "Dark",
             "type": "twopart",
             "setup": "Dark humor is like cancer.",
-            "delivery": "It's even funnier when children get it.",
+            "delivery": "It's more funnier when children get it.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2056,8 +2061,9 @@
         },
         {
             "category": "Miscellaneous",
-            "type": "single",
-            "joke": "The gas Argon walks into a bar.\nThe barkeeper says \"What would you like to drink?\", but Argon doesn't react.",
+            "type": "twopart",
+            "setup": "The gas Argon walks into a bar.",
+            "delivery": "The barkeeper says \"What would you like to drink?\", but Argon doesn't react.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2291,7 +2297,7 @@
         {
             "category": "Dark",
             "type": "single",
-            "joke": "My little daughter came to me all excited, saying \"Daddy! Daddy! Guess how old I'll be in June!\"\n\"Oh I don't know princess, why don't you tell me?\" I said. She gave me a huge smile and held up four fingers.\nIt's now three hours later, police have joined in and she still won't say where she got them.",
+            "joke": "My little daughter came to me all excited, saying \"Daddy! Daddy! Guess how old I'll be in June!\"\n\"Oh I don't know princess, why don't you tell me?\" I said. She gave me a huge smi    le and held up four fingers.\nIt's now three hours later, police have joined in and she still won't say where she got them.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2785,7 +2791,7 @@
         },
         {
             "category": "Miscellaneous",
-            "type": "single",
+            "type": "twopart",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2793,7 +2799,8 @@
                 "racist": false,
                 "sexist": false
             },
-            "joke": "My wife is really mad at the fact that I have no sense of direction.\nSo I packed up my stuff and right.",
+            "setup": "My wife is really mad at the fact that I have no sense of direction.",
+            "delivery": "So I packed up my stuff and right.",
             "id": 203
         },
         {
@@ -2975,7 +2982,7 @@
         },
         {
             "category": "Miscellaneous",
-            "type": "single",
+            "type": "twopart",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2983,7 +2990,8 @@
                 "racist": false,
                 "sexist": false
             },
-            "joke": "I walked into a bar once.\nIt really hurt my head.",
+            "joke": "I walked into a bar once.",
+            "delivery": "It really hurt my head.",
             "id": 217
         },
         {
