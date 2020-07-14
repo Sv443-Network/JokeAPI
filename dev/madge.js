@@ -281,26 +281,36 @@ const getIndex = () => `\
 
 
 
-
-try
+async function exec()
 {
-    if(!fs.existsSync("./dev/madge"))
-        fs.mkdirSync("./dev/madge");
+    try
+    {
+        if(!fs.existsSync("./dev/madge"))
+            fs.mkdirSync("./dev/madge");
 
-    generateForOther().then(() => {
-        generateForSrc().then(() => {
-            generateForEndpoints().then(() => {
-                generateForTools().then(() => {
-                    generateForClasses().then(() => {
-                        writeIndex();
-                    });
-                });
-            });
-        });
-    });
+        await generateForOther();
+        process.stdout.write(".");
+
+        await generateForSrc();
+        process.stdout.write(".");
+
+        await generateForEndpoints();
+        process.stdout.write(".");
+
+        await generateForTools();
+        process.stdout.write(".");
+
+        await generateForClasses();
+        process.stdout.write(".");
+
+        writeIndex();
+        process.stdout.write(".\n");
+    }
+    catch(err)
+    {
+        console.log(`\n\n\x1b[31m\x1b[1mError while generating dependency graphs:\n\x1b[0m${err}\n`);
+        process.exit(1);
+    }
 }
-catch(err)
-{
-    console.log(`\n\n\x1b[31m\x1b[1mError while generating dependency graphs:\n\x1b[0m${err}\n`);
-    process.exit(1);
-}
+
+exec();
