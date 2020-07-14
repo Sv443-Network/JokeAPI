@@ -596,7 +596,7 @@
         {
             "category": "Programming",
             "type": "twopart",
-            "joke": "Have a great weekend!",
+            "setup": "Have a great weekend!",
             "delivery": "I hope your code behaves the same on Monday as it did on Friday.",
             "flags": {
                 "nsfw": false,
@@ -2990,7 +2990,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "joke": "I walked into a bar once.",
+            "setup": "I walked into a bar once.",
             "delivery": "It really hurt my head.",
             "id": 217
         },
