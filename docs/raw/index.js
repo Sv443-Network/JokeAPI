@@ -7,7 +7,8 @@ var settings = {
     anyCategoryName: "Any",
     defaultFormat: "json",
     submitUrl: "<!--%#INSERT:DOCSURL#%-->/submit",
-    defaultLang: "en"
+    defaultLang: "en",
+    formatVersion: 3
 };
 
 var submission = {};
@@ -244,6 +245,10 @@ function onLoad()
     var langXhr = new XMLHttpRequest();
     var langUrl = settings.baseURL + "/languages";
     var langSelectElems = document.getElementsByClassName("appendLangOpts");
+
+    var sysLangsText = "";
+    var jokeLangsText = "";
+
     langXhr.open("GET", langUrl);
     langXhr.onreadystatechange = () => {
         var xErrElem;
@@ -251,6 +256,10 @@ function onLoad()
         {
             var respJSON = JSON.parse(langXhr.responseText.toString());
             var languagesArray = respJSON.jokeLanguages;
+
+            sysLangsText = respJSON.systemLanguages.join(", ");
+            jokeLangsText = respJSON.jokeLanguages.join(", ");
+
             for(var i = 0; i < languagesArray.length; i++)
             {
                 for(var j = 0; j < langSelectElems.length; j++)
@@ -275,6 +284,19 @@ function onLoad()
                     langSelectElems[j].appendChild(xErrElem);
                 }
             }
+
+            var sysLangsElems = document.getElementsByClassName("insSysLangs");
+            var jokeLangsElems = document.getElementsByClassName("insJokeLangs");
+
+            for(var sI = 0; sI < sysLangsElems.length; sI++)
+            {
+                sysLangsElems[sI].innerText = sysLangsText;
+            }
+
+            for(var jI = 0; jI < sysLangsElems.length; jI++)
+            {
+                jokeLangsElems[jI].innerText = jokeLangsText;
+            }
         }
         else if(langXhr.readyState == 4 && langXhr.status >= 300)
         {
@@ -298,6 +320,19 @@ function onLoad()
     buildSubmission();
 
     gebid("insUserAgent").innerText = navigator.userAgent;
+
+    var abElems = document.getElementsByClassName("antiBotE");
+    for(var l = 0; l < abElems.length; l++)
+    {
+        abElems[l].onclick = function()
+        {
+            if(!this.classList.contains("shown"))
+            {
+                this.innerText = atob(this.dataset.enc);
+                this.classList.add("shown");
+            }
+        }
+    }
 }
 
 function addCodeTabs()
@@ -810,7 +845,7 @@ function buildSubmission()
     var type = document.getElementById("f_type").value;
 
     submission = {
-        formatVersion: 2,
+        formatVersion: settings.formatVersion,
         category: category,
         type: type
     }

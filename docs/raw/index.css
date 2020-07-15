@@ -508,18 +508,19 @@ ul.lispacer li {
     margin-bottom: 5px;
 }
 
-.antiBotE {
+.antiBotE:not(.noul):not(.shown) {
     cursor: pointer;
-}
-
-.antiBotE:not(.noul) {
     color: #8f9aff;
     text-decoration: none;
 }
 
-.antiBotE:not(.noul):hover {
+.antiBotE:not(.noul):not(.shown):hover {
     color: #bcc2ff;
     text-decoration: underline;
+}
+
+.antiBotE.shown {
+    font-family: "Roboto Mono", "Cascadia Code", "Courier New", monospace;
 }
 
 /*#SECTION Endpoints*/

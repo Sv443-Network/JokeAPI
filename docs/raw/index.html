@@ -23,7 +23,7 @@
         <meta name="twitter:card" content="A RESTful API that serves jokes from many categories while also offering a lot of filtering methods">
         <meta name="subject" content="API">
         <meta name="copyright" content="Sv443 - Licensed under MIT license (https://sv443.net/LICENSE)">
-        <meta name="author" content="Sv443, sven.fehler@web.de">
+        <meta name="author" content="Sv443">
         <meta property="og:title" content="<!--%#INSERT:NAME#%-->">
         <meta property="og:url" content="<!--%#INSERT:DOCSURL#%-->">
         <meta property="og:description" content="A RESTful API that serves jokes from many categories while also offering a lot of filtering methods">
@@ -53,7 +53,7 @@
 
         <!-- #MARKER dependencies -->
         <!-- Have to do it like this because the page doesn't always have a trailing slash and that *somehow* makes it redirect to the page root: -->
-        <link rel="stylesheet" href="<!--%#INSERT:DOCSURL#%-->/static/index.css">
+        <!-- <link rel="stylesheet" href="<!--%#INSERT:DOCSURL#%--><!--/static/index.css"-->
         <link rel="stylesheet" href="static/index.css">
 
         <link rel="icon" type="image/png" href="<!--%#INSERT:DOCSURL#%-->/favicon.ico">
@@ -509,10 +509,18 @@ None. It's a hardware problem.
                 <br><br><!--#SECTION Language-->
                 <span class="subHeader" id="lang">Language:</span>
                 <mark>?lang=langcode</mark><br><br>
-                This parameter can be used on every endpoint, but it is possible that no translation exists yet for your language.<br>
-                If you are interested in providing translations, please contact me via <a href="https://sv443.net/discord">Discord</a> or <span class="antiBotE" data-enc="Y29udGFjdEBzdjQ0My5uZXQ=">Email (click to show)</span>.<br>
+                This parameter can be used on every endpoint, but it is possible that no translations or jokes exist yet for your language.<br>
+                <br>
+                There are two types of languages; system languages and joke languages. Both are separate from each other.<br>
+                All system messages like errors can have a certain system language, while jokes can only have a joke language.<br>
+                It is possible, that system languages don't yet exist for your language while jokes already do.<br>
+                If no suitable system language is found, <!--%#INSERT:NAME#%--> will default to English.<br>
+                <br>
+                If you are interested in providing translations, please contact me via <a href="https://sv443.net/discord">Discord</a> or Email: <span class="antiBotE" data-enc="Y29udGFjdEBzdjQ0My5uZXQ=">(click to show)</span><br>
                 You can also submit jokes in different languages. Please understand that I will not be able to ensure their proper formatting or legitimacy.<br>
-                These are all the available languages: <mark class="insLangs">(Loading...)<!--TODO:--></mark><br><br>
+                <br>
+                Available system languages: <mark class="insSysLangs">(Loading...)</mark><br>
+                Available joke languages: <mark class="insJokeLangs">(Loading...)</mark><br><br>
 
                 <details><summary>Example 1 (click to view)</summary>
                     URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?lang=ru</mark><br>
@@ -760,11 +768,11 @@ None. It's a hardware problem.
                 These are all the available categories: <mark class="insCategories">(Loading...)</mark><br>
                 To see how this URL is built with certain parameters set, <a href="#try-it">visit the "Try It" section.</a><br>
                 <details>
-                    <summary>Example - click to view</summary>
+                    <summary>Full example - click to view</summary>
                     <span class="requestURLwrapper">
-                        <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/joke/Programming,Miscellaneous?format=xml&blacklistFlags=nsfw,sexist&type=single&lang=ru</span>
+                        <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/joke/Programming,Miscellaneous?format=xml&blacklistFlags=nsfw,sexist&type=single&lang=ru&amount=2</span>
                     </span><br><br>
-                    Will give a Russian joke from either the Programming or the Miscellaneous category, with the payload <a href="#response-formats">format</a> XML,<br>
+                    Will give two Russian joke from either the Programming or the Miscellaneous category, with the payload <a href="#response-formats">format</a> XML,<br>
                     with the <a href="#joke-type">joke type</a> "single", while also preventing all jokes that are potentially not safe for work and sexist from being served.
                 </details>
                 <br><br>
@@ -772,10 +780,11 @@ None. It's a hardware problem.
                 <ul>
                     <li><a class="requestURL" href="#response-formats">?format</a></li>
                     <li><a class="requestURL" href="#flags-param">?blacklistFlags</a></li>
-                    <li><a class="requestURL" href="#lang">?lang</a></li> <!-- TODO: -->
+                    <li><a class="requestURL" href="#lang">?lang</a></li>
                     <li><a class="requestURL" href="#id-range">?idRange</a></li>
                     <li><a class="requestURL" href="#search-string">?contains</a></li>
                     <li><a class="requestURL" href="#joke-type">?type</a></li>
+                    <li><a class="requestURL" href="#amount">?amount</a></li>
                 </ul>
                 <a href="#url-parameters">(More info on filtering parameters)</a>
                 <br><br>
@@ -1303,7 +1312,7 @@ public class Flags
                     Additionally, I will only be able to provide security updates for a small selection of versions, a list of which you can find <a href="<!--%#INSERT:PROJGITHUBURL#%-->/security/policy#supported-versions" target="_blank">here.</a><br>
                     I am doing my best to ensure security and stability but there's only so much a single developer can do.<br>
                     Please report any issue that may arise to <a href="<!--%#INSERT:PROJGITHUBURL#%-->/issues/new/choose" target="_blank">the GitHub issue tracker</a> and I will try my best to fix it as soon as possible.<br>
-                    If you want to contact me, you can <a href="https://sv443.net/discord" target="_blank">join my Discord server</a> (fastest way to contact me) or send me an E-Mail at <a href="mailto:sven.fehler@web.de?subject=JokeAPI">sven.fehler@web.de</a>
+                    If you want to contact me, you can <a href="https://sv443.net/discord" target="_blank">join my Discord server</a> (fastest way to contact me) or send me an E-Mail: <span class="antiBotE" data-enc="Y29udGFjdEBzdjQ0My5uZXQ=">(click to show)</span>
                 </div>
 
                 <!-- #SECTION Fonts -->
