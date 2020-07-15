@@ -41,6 +41,10 @@
       "name": "Liam Townsley",
       "email": "contact@liamtownsley.me",
       "url": "https://liamtownsley.me"
+    },
+    {
+      "name": "ThatCopy",
+      "url": "https://github.com/ThatCopy"
     }
   ],
   "license": "MIT",
