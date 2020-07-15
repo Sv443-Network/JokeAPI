@@ -15,19 +15,6 @@
                 "sexist": false
             },
             "id": 0
-        },
-        {
-            "category": "Miscellaneous",
-            "type": "single",
-            "joke": "TESTING_DE 2",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false
-            },
-            "id": 1
         }
     ]
 }

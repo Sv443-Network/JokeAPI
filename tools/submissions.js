@@ -37,6 +37,8 @@ const run = () => {
                 if(submission.formatVersion != settings.jokes.jokesFormatVersion)
                     console.error(`${jsl.colors.fg.red}Error: Format version is incorrect${jsl.colors.rst}`);
                 
+                console.log(`${jsl.colors.fg.yellow}Language:${jsl.colors.rst}  ${submission.lang}`);
+
                 if(submission.type == "single")
                 {
                     console.log(`${jsl.colors.fg.yellow}Joke:${jsl.colors.rst}      ${submission.joke}`);

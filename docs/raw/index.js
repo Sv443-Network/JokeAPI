@@ -6,7 +6,8 @@ var settings = {
     jokeEndpoint: "joke",
     anyCategoryName: "Any",
     defaultFormat: "json",
-    submitUrl: "<!--%#INSERT:DOCSURL#%-->/submit",
+    // submitUrl: "<!--%#INSERT:DOCSURL#%-->/submit",
+    submitUrl: "http://127.0.0.1:8076/submit",
     defaultLang: "en",
     formatVersion: 3
 };
@@ -246,6 +247,11 @@ function onLoad()
     var langUrl = settings.baseURL + "/languages";
     var langSelectElems = document.getElementsByClassName("appendLangOpts");
 
+    var otherOpt = document.createElement("option");
+    otherOpt.innerText = "Other / Custom";
+    otherOpt.value = "other";
+    gebid("f_language").appendChild(otherOpt);
+
     var sysLangsText = "";
     var jokeLangsText = "";
 
@@ -276,12 +282,17 @@ function onLoad()
 
                     xErrElem = document.createElement("option");
                     xErrElem.value = languagesArray[i];
+                    if(languagesArray[i] == settings.defaultLang)
+                    {
+                        xErrElem.selected = true;
+                    }
                     xErrElem.innerText = languagesArray[i] + " - " + langName;
 
                     if(languagesArray[i] == settings.defaultLang)
                         xErrElem.selected = true;
 
                     langSelectElems[j].appendChild(xErrElem);
+                    langSelectElems[j].value = settings.defaultLang;
                 }
             }
 
@@ -318,6 +329,7 @@ function onLoad()
     });
 
     buildSubmission();
+    setTimeout(function() { buildSubmission() }, 2000);
 
     gebid("insUserAgent").innerText = navigator.userAgent;
 
@@ -836,6 +848,18 @@ function valChanged(element)
         }
     }
 
+    if(element.id == "f_language")
+    {
+        if(element.value == "other")
+        {
+            gebid("f_customLang").classList.remove("hidden");
+        }
+        else
+        {
+            gebid("f_customLang").classList.add("hidden");
+        }
+    }
+
     buildSubmission();
 }
 
@@ -860,6 +884,21 @@ function buildSubmission()
         submission.delivery = document.getElementById("f_delivery").value;
     }
 
+    var sLang = gebid("f_language").value || settings.defaultLang;
+
+    if(sLang == "other")
+    {
+        var elVal = gebid("f_customLang").value;
+        if(elVal && elVal.length == 2)
+        {
+            sLang = elVal;
+        }
+        else
+        {
+            sLang = "Please enter 2 char language code";
+        }
+    }
+
     submission = {
         ...submission,
         flags: {
@@ -869,7 +908,7 @@ function buildSubmission()
             racist: document.getElementById("f_flags_racist").checked,
             sexist: document.getElementById("f_flags_sexist").checked,
         },
-        lang: gebid("f_language").value || settings.defaultLang
+        lang: sLang
     };
 
     var subDisp = document.getElementById("submissionDisplay");

@@ -35,6 +35,8 @@
         <meta name="application-name" content="<!--%#INSERT:NAME#%-->">
         <meta name="theme-color" content="#101747">
 
+        <link rel="icon" type="image/png" href="<!--%#INSERT:DOCSURL#%-->/favicon.ico">
+
         <!-- IE detection -->
         <script>
         var isIExp = isIE();
@@ -56,9 +58,7 @@
         <!-- <link rel="stylesheet" href="<!--%#INSERT:DOCSURL#%--><!--/static/index.css"-->
         <link rel="stylesheet" href="static/index.css">
 
-        <link rel="icon" type="image/png" href="<!--%#INSERT:DOCSURL#%-->/favicon.ico">
-
-        <script src="https://sv443.net/cdn/jsl/1.5.0.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/Sv443/jslib@1.5.0/jslib.js" integrity="sha512-jTdPVbIEUKKGdPFXb9+713FOD/Twcf9h9MeeKF/psBbpSzseYH8KmJuCsQ3qQHWQcA93UVQGG51651pB/h44ew==" crossorigin="anonymous"></script>
 
         <!-- Have to do it like this because the page doesn't always have a trailing slash and that *somehow* makes it redirect to the page root: -->
         <!-- <script src="<!--%#INSERT:DOCSURL#%--><!--/static/index.js"></script-->
@@ -205,6 +205,10 @@
                 <br>
                 <span class="subHeader" id="uptime">Uptime:</span>
                 <table id="uptimeTable">
+                    <tr>
+                        <td>Last day:</td>
+                        <td><img src="https://img.shields.io/uptimerobot/ratio/1/m784261094-bff76b959ebb8fc39f7eb2d0" class="badge"></td>
+                    </tr>
                     <tr>
                         <td>Last week:</td>
                         <td><img src="https://img.shields.io/uptimerobot/ratio/7/m784261094-bff76b959ebb8fc39f7eb2d0" class="badge"></td>
@@ -360,6 +364,7 @@
 
                 <br>
 
+                <!-- TODO: in near future, switch to self-hosted logos so CSP can be set very harshly -->
                 <table id="wrapperTable">
                     <tr>
                         <th>Language</th>
@@ -410,6 +415,7 @@
                                 <td>Language:</td>
                                 <td>
                                     <select id="f_language" class="appendLangOpts"></select>
+                                    <input type="text" id="f_customLang" class="hidden" placeholder="Language Code" minlength="2" maxlength="2" onchange="valChanged(this)" value="en">
                                 </td>
                             </tr>
                             <tr>
@@ -460,6 +466,7 @@
                 Available formats are <mark class="insFormats">(Loading...)</mark><br><br>
                 <details><summary>Example 1 (click to view)</summary>
                     URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?format=xml</mark><br><br>
+                    <!-- Code blocks need to be at indentation level 0: -->
 <code class="prettyprint"><div class="actualCode">
 &lt;data&gt;
 	&lt;category&gt;Programming&lt;/category&gt;
@@ -670,6 +677,7 @@ None. It's a hardware problem.
                 
                 <span class="subHeader" id="status-codes">Status Codes:</span>
                 <table id="statusCodeTable">
+                    <!-- Use CSS classes g (green), r (red) and dr (dark red) on the td's to color status codes -->
                     <tr>
                         <th>Code</th>
                         <th>Name</th>

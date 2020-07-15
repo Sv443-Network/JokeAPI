@@ -279,9 +279,18 @@ label {
 }
 
 img.badge {
+    /* badges slide up a few pixels for some reason */
     height: 1.15em;
     position: relative;
-    bottom: -3px;
+    bottom: -2.5px;
+}
+
+input.hidden {
+    visibility: hidden;
+}
+
+input#f_customLang {
+    width: 3em;
 }
 
 #uptimeTable tr td:last-child {
