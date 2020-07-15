@@ -852,11 +852,11 @@ function valChanged(element)
     {
         if(element.value == "other")
         {
-            gebid("f_customLang").classList.remove("hidden");
+            gebid("f_langHideContainer").classList.remove("hidden");
         }
         else
         {
-            gebid("f_customLang").classList.add("hidden");
+            gebid("f_langHideContainer").classList.add("hidden");
         }
     }
 

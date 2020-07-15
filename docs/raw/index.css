@@ -285,7 +285,7 @@ img.badge {
     bottom: -2.5px;
 }
 
-input.hidden {
+#f_langHideContainer.hidden {
     visibility: hidden;
 }
 
