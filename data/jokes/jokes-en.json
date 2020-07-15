@@ -84,8 +84,9 @@
         },
         {
             "category": "Programming",
-            "type": "single",
-            "joke": "A web developer walks into a restaurant.\nHe immediately leaves in disgust as the restaurant was laid out in tables.",
+            "type": "twopart",
+            "setup": "A web developer walks into a restaurant.",
+            "delivery": "He immediately leaves in disgust as the restaurant was laid out in tables.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -111,8 +112,9 @@
         },
         {
             "category": "Programming",
-            "type": "single",
-            "joke": "Programming is like sex.\nMake one mistake and you end up supporting it for the rest of your life.",
+            "type": "twopart",
+            "setup": "Programming is like sex.",
+            "delivery": "Make one mistake and you end up supporting it for the rest of your life.",
             "flags": {
                 "nsfw": true,
                 "religious": false,
@@ -422,7 +424,7 @@
         {
             "category": "Programming",
             "type": "twopart",
-            "setup": "Why did the javascript heap close shop?",
+            "setup": "Why did the JavaScript heap close shop?",
             "delivery": "It ran out of memory.",
             "flags": {
                 "nsfw": false,
@@ -689,7 +691,7 @@
         {
             "category": "Programming",
             "type": "single",
-            "joke": "Algorithm:\nA word used by programmers when they don't want to explain how their code works.",
+            "joke": "Algorithm: A word used by programmers when they don't want to explain how their code works.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -1630,7 +1632,7 @@
             "category": "Dark",
             "type": "twopart",
             "setup": "Dark humor is like cancer.",
-            "delivery": "It's even funnier when children get it.",
+            "delivery": "It's more funny when children get it.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2056,8 +2058,9 @@
         },
         {
             "category": "Pun",
-            "type": "single",
-            "joke": "The gas Argon walks into a bar.\nThe barkeeper says \"What would you like to drink?\", but Argon doesn't react.",
+            "type": "twopart",
+            "setup": "The gas Argon walks into a bar.\nThe barkeeper says \"What would you like to drink?\"",
+            "delivery": "But Argon doesn't react.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2975,8 +2978,9 @@
         },
         {
             "category": "Pun",
-            "type": "single",
-            "joke": "I walked into a bar once.\nIt really hurt my head.",
+            "type": "twopart",
+            "setup": "I walked into a bar once.",
+            "delivery": "It really hurt my head.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
