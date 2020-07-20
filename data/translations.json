@@ -212,9 +212,9 @@
             "ru": "Конечные точки"
         },
         "endpointDetails": {
-            "en": "%1 - %2\n    Usage: %3 %4\n    Supported parameters: %5\n\n",
-            "de": "%1 - %2\n    Benutzung: %3 %4\n    Unterstützte URL-Parameter: %5\n\n",
-            "ru": "%1 - %2\n    Использование: %3 %4\n    Поддерживаемые параметры URL: %5\n\n"
+            "en": "%1 - %2\n    Usage: %3 %4\n    Supported parameters: %5",
+            "de": "%1 - %2\n    Benutzung: %3 %4\n    Unterstützte URL-Parameter: %5",
+            "ru": "%1 - %2\n    Использование: %3 %4\n    Поддерживаемые параметры URL: %5"
         }
     }
 }
