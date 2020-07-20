@@ -68,7 +68,7 @@
     "xss": "^1.0.7"
   },
   "devDependencies": {
-    "eslint": "^7.4.0",
+    "eslint": "^7.5.0",
     "madge": "^3.9.0"
   },
   "snyk": true
