@@ -154,7 +154,7 @@ function reformatJoke(joke)
         ...retJoke,
         category: joke.category,
         type: joke.type
-    },
+    };
 
     if(joke.type == "single")
     {
