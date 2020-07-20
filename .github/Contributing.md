@@ -1,4 +1,26 @@
-# Before submitting your contribution, please read the following:
+# Contributing Guide
+This guide will tell you how you can and should contribute to JokeAPI.  
+Not following it might cause me to reject your changes but at the very least we will both lose time.  
+So please read this guide before contributing. Thanks :)
+
+## Menu:
+- [Submitting or editing jokes](#submitting-or-editing-jokes)
+- [Contributing to JokeAPI's code](#submitting-code)
+- [Submitting a translation](#submitting-translations)
+- [Tips and Tricks for contributing](#other-nice-to-know-stuff)
+
+<br><br><br><br>
+
+## Submitting or editing jokes:
+To submit a joke manually, you can use the form on [this page.](https://sv443.net/jokeapi/v2/#submit)  
+To submit it through code, you can make use of the ["submit" endpoint.](https://sv443.net/jokeapi/v2/#submit-endpoint)  
+  
+If you instead want to *edit* a joke, you can find them in the `jokes-xy.json` files in [`data/jokes/`](../data/jokes/)  
+Please then follow the [code contribution section](#submitting-code) as well.
+
+<br><br>
+
+## Submitting code:
 1. [Read the Code_of_Conduct.md file](./Code_of_Conduct.md) (TLDR: just behave in a friendly manner).
 2. [Click here](https://github.com/Sv443/JokeAPI/fork) to fork the repository. Afterwards, clone or download it and locate the folder where it is contained.
 3. Make the changes you want to make to the code.
@@ -28,9 +50,11 @@ If you want to submit a translation, please follow these steps:
 
 <br><br>
 
-### Other nice-to-know stuff:
+## Other nice-to-know stuff:
 - I really recommend using [Visual Studio Code](https://code.visualstudio.com/) with the extension [`fabiospampinato.vscode-highlight`](https://marketplace.visualstudio.com/items?itemName=fabiospampinato.vscode-highlight) - it will add custom styling to the syntax highlighting in the editor and make the code easier to read and work with.  
 - If you want to generate a dependency graph, you need to install [Graphviz](https://graphviz.gitlab.io/download/) and add the path to the `bin` folder to your `%PATH%` / `$PATH` environment vaiable. Then, run the command `npm run dependency-graph` and open the file [`dev/dependency-graph.html`](../dev/dependency-graph.html) in a browser.  
 - If you need to add an authorization token, you can generate one or multiple tokens with the command `npm run add-token [amount]`. If you omit the "amount" parameter, the script will generate a single token. After you run the command, the tokens will be listed in the console and you can now (after restarting JokeAPI) use it in the `Authorization` header to gain unlimited access to JokeAPI.  
 
-## If you need any help, please feel free to contact me through [Discord](https://sv443.net/discord) or [E-Mail](mailto:contact@sv443.net?subject=Questions%20about%20contributing%20to%20JokeAPI)
+<br><br>
+
+## If you need any help, feel free to contact me through [Discord](https://sv443.net/discord) (fastest way to contact me) or [E-Mail](mailto:contact@sv443.net?subject=Questions%20about%20contributing%20to%20JokeAPI)

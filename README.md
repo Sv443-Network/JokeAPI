@@ -10,18 +10,18 @@
 [![Known Vulnerabilities](https://snyk.io/test/github/Sv443/JokeAPI/badge.svg)](https://snyk.io/test/github/Sv443/JokeAPI)
   
 [![Discord](https://img.shields.io/discord/565933531214118942)](https://discord.gg/aBH4uRG)
-[![GitHub watchers](https://img.shields.io/github/watchers/Sv443/JokeAPI?style=social)](https://github.com/Sv443/JokeAPI/watchers)
 [![GitHub stars](https://img.shields.io/github/stars/Sv443/JokeAPI?style=social)](https://github.com/Sv443/JokeAPI/stargazers)
 
 <br><br>
 
-# [Documentation](https://sv443.net/jokeapi/v2) &bull; [Try it out](https://sv443.net/jokeapi/v2#try-it) &bull; [Changelog](./changelog.txt)
+# [Documentation](https://sv443.net/jokeapi/v2)
+# [Try it out](https://sv443.net/jokeapi/v2#try-it) &bull; [Changelog](./changelog.txt)
 
 
 </div>
 <br><br>
 
-## Before contributing to JokeAPI, please read the [contributing guide](./.github/Contributing.md)
+## If you want to contribute to JokeAPI (code, jokes or translations), please read the [contributing guide.](./.github/Contributing.md)
 
 <br><br>
 
