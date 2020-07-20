@@ -77,6 +77,8 @@ const call = (req, res, url, params, format) => {
 
     let systemLanguagesLength = translate.systemLangs().length;
 
+    let lang = params["lang"] || settings.languages.defaultLanguage;
+
     if(format != "xml")
     {
         responseText = convertFileFormat.auto(format, {
@@ -94,7 +96,7 @@ const call = (req, res, url, params, format) => {
             "formats": settings.jokes.possible.formats,
             "jokeLanguages": supportedLangsLength,
             "systemLanguages": systemLanguagesLength,
-            "info": settings.info.infoMsg,
+            "info": translate(lang, "messageOfTheDay", settings.info.name),
             "timestamp": new Date().getTime()
         });
     }
@@ -115,7 +117,7 @@ const call = (req, res, url, params, format) => {
             "formats": {"format": settings.jokes.possible.formats},
             "jokeLanguages": supportedLangsLength,
             "systemLanguages": systemLanguagesLength,
-            "info": settings.info.infoMsg,
+            "info": translate(lang, "messageOfTheDay", settings.info.name),
             "timestamp": new Date().getTime()
         });
     }

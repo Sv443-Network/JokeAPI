@@ -11,6 +11,11 @@
             "de": "Test. Hallo, Welt!",
             "ru": "Тест. Привет, мир!"
         },
+        "messageOfTheDay": {
+            "en": "If you want to stay up to date on the status and future updates of %1 or need some help, consider joining my Discord server: https://sv443.net/discord",
+            "de": "Wenn du über den Status und die zukünftigen Updates von %1 auf dem Laufenden bleiben willst oder Hilfe benötigst, kannst du auf meinen Discord-Server kommen: https://sv443.net/discord",
+            "ru": "Если вы хотите быть в курсе состояния и будущих обновлений %1 или вам нужна помощь, вы можете прийти на мой Discord-сервер: https://sv443.net/discord"
+        },
         "generalInternalError": {
             "en": "There was an internal error: %1",
             "de": "Es gab einen internen Fehler: %1",
@@ -104,7 +109,7 @@
         "invalidFlags": {
             "en": "The specified flags are invalid. Got: \"%1\" - Possible flags are: \"%2\".",
             "de": "Die angegebene/n Markierung/en ist/sind inkorrekt. Angefragt wurde: \"%1\" - Possible flags are: \"%2\".",
-            "ru": "The specified flags are invalid. Got: \"%1\" - Possible flags are: \"%2\"."
+            "ru": "Указанные флаги недействительны. Понял: \"%1\" - Возможные флаги: \"%2\"."
         },
         "amountInternalError": {
             "en": "Internal error while setting joke amount: %1",
@@ -134,12 +139,82 @@
         "wrongFormatVersion": {
             "en": "Joke format version is incorrect. expected \"%1\" but got \"%2\".",
             "de": "Die Format-Version des Witzes ist falsch. Erwartet wurde \"%1\", bekam stattdessen \"%2\".",
-            "ru": "Joke format version is incorrect - expected \"%1\" - got \"%2\"."
+            "ru": "Версия формата шуток некорректна. Ожидаемый \"%1\", получил \"%2\"."
         },
         "invalidJSON": {
             "en": "Request body contains invalid JSON: %1",
             "de": "Anfrage enthält ungültiges JSON: %1",
             "ru": "Тело запроса содержит недействительный JSON: %1"
+        },
+        "noConversionMapping": {
+            "en": "Internal Error - no conversion mapping for data with keys \"%1\" - %2",
+            "de": "Interner Fehler - keine Konvertierungszuordnung für Daten mit Schlüsseln \"%1\" - %2",
+            "ru": "Внутренняя ошибка - нет отображения преобразования данных с помощью ключей \"%1\". - %2"
+        },
+        "cantConvertToPlainText": {
+            "en": "Internal Error - could not convert data to plain text - %1",
+            "de": "Interner Fehler - konnte Daten nicht zu Text konvertieren - %1",
+            "ru": "Внутренняя ошибка - не удалось преобразовать данные в обычный текст - %1"
+        },
+        "conversionGeneralError": {
+            "en": "Error %1 - %2\nThis error is caused by:\n- %3\n\nAdditional info: %4",
+            "de": "Fehler %1 - %2\nDieser Fehler kann verursacht werden durch:\n- %3\n\nZusätzliche Informationen: %4",
+            "ru": "Ошибка %1 - %2\nЭта ошибка может быть вызвана:\n- %3\n\nДополнительная информация: %4"
+        },
+        "conversionInternalError": {
+            "en": "Internal Error %1 - %2\nThis error is caused by:\n- %3\n\nAdditional info: %4",
+            "de": "Interner Fehler %1 - %2\nDieser Fehler kann verursacht werden durch:\n- %3\n\nZusätzliche Informationen: %4",
+            "ru": "Внутренняя ошибка %1 - %2\nЭта ошибка может быть вызвана:\n- %3\n\nДополнительная информация: %4"
+        },
+        "availableCategories": {
+            "en": "Available categories are: \"%1\".",
+            "de": "Verfügbare Kategorien sind: \"%1\".",
+            "ru": "Доступны следующие категории: \"%1\"."
+        },
+        "availableFlags": {
+            "en": "Available flags are: \"%1\".",
+            "de": "Verfügbare Markierungen sind: \"%1\".",
+            "ru": "Доступны флаги: \"%1\"."
+        },
+        "timestamp": {
+            "en": "Timestamp: %1",
+            "de": "Zeitstempel: %1",
+            "ru": "Таймштамп: %1"
+        },
+        "genericError": {
+            "en": "Error: %1",
+            "de": "Fehler: %1",
+            "ru": "Ошибка: %1"
+        },
+        "languageCode": {
+            "en": "Language Code: %1",
+            "de": "Sprach-Code: %1",
+            "ru": "Код языка: %1"
+        },
+        "languagesEndpoint": {
+            "en": "Default Language: %1 [%2]\nJoke Languages (%3): %4\nSystem Languages (%5): %6\n\nPossible Language Values:\n%7",
+            "de": "Standardsprache: %1 [%2]\nWitz-Sprachen (%3): %4\nSystemsprachen (%5): %6\n\nMögliche Sprachwerte:\n%7",
+            "ru": "Язык по умолчанию: %1 [%2]\nЯзыки шуток (%3): %4\nСистемные языки (%5): %6\n\nВозможные значения языка:\n%7"
+        },
+        "infoEndpoint": {
+            "en": "%1 v%2 - Info:\n\nJoke Count: %3\nCategories: \"%4\"\nFlags: \"%5\"\nResponse Formats: \"%6\"\nJoke Types: \"%7\"\nSubmission URL: \"%8\"\n\nID Ranges:\n%9\n\nJoke Languages (%10): %11\nSystem Languages (%12): %13\n\nMessage of the Day: %14",
+            "de": "%1 v%2 - Info:\n\nWitz-Anzahl: %3\nKategorien: \"%4\"\nMerkmale: \"%5\"\nAntwort-Dateiformate: \"%6\"\nWitz-Typen: \"%7\"\nEinreichungs-URL: \"%8\"\n\nID-Begrenzung:\n%9\n\nWitz-Sprachen (%10): %11\nSystemsprachen (%12): %13\n\nNachricht des Tages: %14",
+            "ru": "%1 v%2 - Информация:\n\n Количество шуток: %3\nКатегории: \"%4\"\nФлаги: \"%5\"\nФорматы ответов: \"%6\"\nТипы шуток: \"%7\"\nАдрес отправки: \"%8\"\n\nID Диапазоны: \n%9\n\nЯзыки шуток (%10): %11\nСистемные языки (%12): %13\n\nПослание дня: %14"
+        },
+        "availableFormats": {
+            "en": "Available formats are: %1",
+            "de": "Verfügbare Dateiformate sind: %1",
+            "ru": "Доступные форматы: %1"
+        },
+        "endpointsWord": {
+            "en": "Endpoints",
+            "de": "Endpunkte",
+            "ru": "Конечные точки"
+        },
+        "endpointDetails": {
+            "en": "%1 - %2\n    Usage: %3 %4\n    Supported parameters: %5\n\n",
+            "de": "%1 - %2\n    Benutzung: %3 %4\n    Unterstützte URL-Parameter: %5\n\n",
+            "ru": "%1 - %2\n    Использование: %3 %4\n    Поддерживаемые параметры URL: %5\n\n"
         }
     }
 }
