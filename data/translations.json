@@ -75,6 +75,71 @@
             "en": "Request body is empty.",
             "de": "Anfrageinhalt ist leer.",
             "ru": "Тело запроса пусто."
+        },
+        "invalidCategory": {
+            "en": "The specified category/ies is/are invalid. Got: \"%1\" but possible categories are: \"%2\" (case insensitive).",
+            "de": "Die angegebene Kategorie/n ist/sind inkorrekt. Angefragt wurde \"%1\", möglich sind jedoch nur \"%2\" (Groß- und Kleinschreibung wird ignoriert).",
+            "ru": "Указанная категория/единицы являются/являются недействительными. Запрос был \"%1\", но возможен только \"%2\". (Верхний и нижний регистр игнорируются)."
+        },
+        "invalidType": {
+            "en": "The specified type is invalid. Got: \"%1\" but possible types are: \"%2\".",
+            "de": "Der angegebene Dateityp ist inkorrekt. Angefragt wurde \"%1\", möglich sind jedoch nur \"%2\".",
+            "ru": "Указанный тип файла неверен. Запрос был \"%1\", но возможен только \"%2\"."
+        },
+        "idRangeInvalid": {
+            "en": "The specified ID range is invalid. Got: \"%1 to %2\" but max possible ID range is: \"0-%3\".",
+            "de": "Die angegebene ID-Bereich ist inkorrekt. Angefragt wurde: \"%1 bis %2\" aber der maximal mögliche Bereich ist: \"0-%3\".",
+            "ru": "Указанный диапазон ID неверен. Запрос был сделан: \"%1 - %2\", но это максимально возможный диапазон: \"0-%3\"."
+        },
+        "idRangeInvalidSingle": {
+            "en": "The specified ID range is invalid. Got: \"%1\" but max possible ID range is: \"0-%2\".",
+            "de": "Die angegebene ID-Bereich ist inkorrekt. Angefragt wurde: \"%1\" aber der maximal mögliche Bereich ist: \"0-%2\".",
+            "ru": "Указанный диапазон ID неверен. Запрос был сделан: \"%1\", но это максимально возможный диапазон: \"0-%2\"."
+        },
+        "idRangeInvalidGeneric": {
+            "en": "The values in the \"idRange\" parameter are invalid or are not numbers. Error: %1",
+            "de": "Der angegebene ID-Bereich im URL-parameter \"idRange\" ist inkorrekt oder enthält keine Zahl/en. Error: %1",
+            "ru": "Значения в параметре \"idRange\" недействительны или не являются номерами. Ошибка: %1"
+        },
+        "invalidFlags": {
+            "en": "The specified flags are invalid. Got: \"%1\" - Possible flags are: \"%2\".",
+            "de": "Die angegebene/n Markierung/en ist/sind inkorrekt. Angefragt wurde: \"%1\" - Possible flags are: \"%2\".",
+            "ru": "The specified flags are invalid. Got: \"%1\" - Possible flags are: \"%2\"."
+        },
+        "amountInternalError": {
+            "en": "Internal error while setting joke amount: %1",
+            "de": "Interner Fehler bei der Einstellung der Witzanzahl: %1",
+            "ru": "Внутренняя ошибка при установке суммы шуток: %1"
+        },
+        "errorWhileFinalizing": {
+            "en": "Error while finalizing joke filtering: %1",
+            "de": "Fehler beim Abschließen der Witz-Filterung: %1",
+            "ru": "Ошибка при завершении фильтрации шуток: %1"
+        },
+        "invalidChars": {
+            "en": "These are the invalid characters: %1",
+            "de": "Dies sind die ungültigen Zeichen: %1",
+            "ru": "Это недопустимые символы: %1"
+        },
+        "submittedJokeFormatInvalid": {
+            "en": "Submitted joke format is incorrect. Encountered error/s: %1",
+            "de": "Eingesandtes Witzformat ist falsch. Aufgetretene/r Fehler: %1",
+            "ru": "Отправленный формат шутки неверен. Ошибка/Ошибки при встрече: %1"
+        },
+        "errWhileSavingSubmission": {
+            "en": "Internal error while saving joke: %1",
+            "de": "Interner Fehler beim Speichern des Witzes: %1",
+            "ru": "Внутренняя ошибка при сохранении шутки: %1"
+        },
+        "wrongFormatVersion": {
+            "en": "Joke format version is incorrect. expected \"%1\" but got \"%2\".",
+            "de": "Die Format-Version des Witzes ist falsch. Erwartet wurde \"%1\", bekam stattdessen \"%2\".",
+            "ru": "Joke format version is incorrect - expected \"%1\" - got \"%2\"."
+        },
+        "invalidJSON": {
+            "en": "Request body contains invalid JSON: %1",
+            "de": "Anfrage enthält ungültiges JSON: %1",
+            "ru": "Тело запроса содержит недействительный JSON: %1"
         }
     }
 }

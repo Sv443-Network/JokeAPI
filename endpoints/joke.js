@@ -76,8 +76,6 @@ const call = (req, res, url, params, format) => {
 
     let langCode = settings.languages.defaultLanguage;
 
-    //TODO: translate all error messages with tr()
-
     //#SECTION language
     if(params && !jsl.isEmpty(params["lang"]))
     {
@@ -97,7 +95,12 @@ const call = (req, res, url, params, format) => {
     }
 
     if(!fCat || !categoryValid)
-        return isErrored(res, format, `The specified categor${category.length == undefined || typeof category != "object" || category.length == 1 ? "y is" : "ies are"} invalid - Got: "${category.length == undefined || typeof category != "object" ? category : category.join(", ")}" - Possible categories are: "${[settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories].join(", ")}" (case insensitive)`, langCode);
+    {
+        let avlCats = [settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories].join(", ");
+        let catName = category.length == undefined || typeof category != "object" ? category : category.join(", ");
+
+        return isErrored(res, format, tr(langCode, "invalidCategory", catName, avlCats), langCode);
+    }
     
     let jokeAmount = 1;
 
@@ -107,14 +110,14 @@ const call = (req, res, url, params, format) => {
         if(!jsl.isEmpty(params["type"]) && settings.jokes.possible.types.map(t => t.toLowerCase()).includes(params["type"].toLowerCase()))
         {
             if(!filterJoke.setAllowedType(params["type"].toLowerCase()))
-                return isErrored(res, format, `The specified type is invalid - Got: "${params["type"]}" - Possible types are: "${settings.jokes.possible.types}"`, langCode);
+                return isErrored(res, format, tr(langCode, "invalidType", params["type"], settings.jokes.possible.types.join(", ")), langCode);
         }
         
         //#SECTION contains
         if(!jsl.isEmpty(params["contains"]))
         {
             if(!filterJoke.setSearchString(params["contains"].toLowerCase()))
-                return isErrored(res, format, `The specified type is invalid - Got: "${params["type"]}" - Possible types are: "${settings.jokes.possible.types.join(", ")}"`, langCode);
+                return isErrored(res, format, tr(langCode, "invalidType", params["type"], settings.jokes.possible.types.join(", ")), langCode);
         }
 
         //#SECTION idRange
@@ -133,18 +136,18 @@ const call = (req, res, url, params, format) => {
                         splitParams[1] = splitParams[0];
 
                     if(!filterJoke.setIdRange(parseInt(splitParams[0]), parseInt(splitParams[1])))
-                        return isErrored(res, format, `The specified ID range is invalid - Got: "${splitParams[0]} to ${splitParams[1]}" - max possible ID range is: "0-${(parseJokes.jokeCountPerLang[langCode] - 1)}"`, langCode);
+                        return isErrored(res, format, tr(langCode, "idRangeInvalid", splitParams[0], splitParams[1], (parseJokes.jokeCountPerLang[langCode] - 1)), langCode);
                 }
                 else
                 {
                     let id = parseInt(params["idRange"]);
                     if(!filterJoke.setIdRange(id, id, langCode))
-                        return isErrored(res, format, `The specified ID range is invalid - Got: "${params["idRange"]}" - max possible ID range for language "${langCode}" is "0-${(parseJokes.jokeCountPerLang[langCode] - 1)}"`, langCode);
+                        return isErrored(res, format, tr(langCode, "idRangeInvalidSingle", params["idRange"], (parseJokes.jokeCountPerLang[langCode] - 1)), langCode);
                 }
             }
             catch(err)
             {
-                return isErrored(res, format, `The values in the "idRange" parameter are invalid or are not numbers - ${err}`, langCode);
+                return isErrored(res, format, tr(langCode, "idRangeInvalidGeneric", err), langCode);
             }
         }
 
@@ -159,11 +162,12 @@ const call = (req, res, url, params, format) => {
             });
 
             if(erroredFlags.length > 0)
-                return isErrored(res, format, `The specified flags are invalid - Got: "${flags.join(", ")}" - Possible flags are: "${settings.jokes.possible.flags.join(", ")}"`, langCode);
+                return isErrored(res, format, tr(langCode, "invalidFlags", flags.join(", "), settings.jokes.possible.flags.join(", ")), langCode);
+                tr(langCode, "invalidFlags", flags.join(", "), settings.jokes.possible.flags.join(", "))
             
             let fFlg = filterJoke.setBlacklistFlags(flags);
             if(!fFlg)
-                return isErrored(res, format, `The specified flags are invalid - Got: "${flags.join(", ")}" - Possible flags are: "${settings.jokes.possible.flags.join(", ")}"`, langCode);
+                return isErrored(res, format, tr(langCode, "invalidFlags", flags.join(", "), settings.jokes.possible.flags.join(", ")), langCode);
         }
 
         //#SECTION amount
@@ -179,7 +183,7 @@ const call = (req, res, url, params, format) => {
 
             let fAmt = filterJoke.setAmount(jokeAmount);
             if(!fAmt)
-                return isErrored(res, format, `Internal error while setting joke amount: ${fAmt}`, langCode);
+                return isErrored(res, format, tr(langCode, "amountInternalError", fAmt), langCode);
         }
     }
     
@@ -223,7 +227,7 @@ const call = (req, res, url, params, format) => {
         else
             httpServer.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format));
     }).catch(err => {
-        return isErrored(res, format, `Error while finalizing joke filtering: ${Array.isArray(err) ? err.join("; ") : err}`, langCode);
+        return isErrored(res, format, tr(langCode, "", Array.isArray(err) ? err.join("; ") : err), langCode);
     });
 };
 

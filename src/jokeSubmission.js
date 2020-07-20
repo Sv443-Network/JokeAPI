@@ -16,8 +16,6 @@ const settings = require("../settings");
 jsl.unused(http, analytics, tr);
 
 
-// TODO: httpServer.respondWithError() with tr()
-
 /**
  * To be called when a joke is submitted
  * @param {http.ServerResponse} res
@@ -37,12 +35,12 @@ const jokeSubmission = (res, data, fileFormat, ip, analyticsObject) => {
         let langCode = submittedJoke.lang || settings.languages.defaultLanguage;
 
         if(jsl.isEmpty(submittedJoke))
-            return httpServer.respondWithError(res, 105, 400, fileFormat, "Request body is empty", langCode);
+            return httpServer.respondWithError(res, 105, 400, fileFormat, tr(langCode, "requestBodyIsInvalid"), langCode);
             
         let invalidChars = data.match(settings.jokes.submissions.invalidCharRegex);
         let invalidCharsStr = invalidChars ? invalidChars.map(ch => `0x${ch.charCodeAt(0).toString(16)}`).join(", ") : null;
         if(invalidCharsStr && invalidChars.length > 0)
-            return httpServer.respondWithError(res, 109, 400, fileFormat, invalidCharsStr, langCode);
+            return httpServer.respondWithError(res, 109, 400, fileFormat, tr(langCode, "invalidChars", invalidCharsStr), langCode);
         
         if(submittedJoke.formatVersion == parseJokes.jokeFormatVersion && submittedJoke.formatVersion == settings.jokes.jokesFormatVersion)
         {
@@ -50,7 +48,7 @@ const jokeSubmission = (res, data, fileFormat, ip, analyticsObject) => {
             let validationResult = parseJokes.validateSingle(submittedJoke);
 
             if(typeof validationResult === "object")
-                return httpServer.respondWithError(res, 105, 400, fileFormat, `Submitted joke format is incorrect - encountered error${validationResult.length == 1 ? ": " : "s:\n"}${validationResult.join("\n")}`, langCode);
+                return httpServer.respondWithError(res, 105, 400, fileFormat, tr(langCode, "submittedJokeFormatInvalid", validationResult.join("\n")), langCode);
             else if(validationResult === true)
             {
                 // joke is valid, find file name and then write to file
@@ -65,7 +63,7 @@ const jokeSubmission = (res, data, fileFormat, ip, analyticsObject) => {
                     if(iter >= settings.httpServer.rateLimiting)
                     {
                         logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
-                        return httpServer.respondWithError(res, 101, 429, fileFormat);
+                        return httpServer.respondWithError(res, 101, 429, fileFormat, tr(langCode, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame));
                     }
 
                     if(fs.existsSync(`${settings.jokes.jokeSubmissionPath}submission_${sanitizedIP}_${currentNum}_${curUnix}.json`))
@@ -81,22 +79,22 @@ const jokeSubmission = (res, data, fileFormat, ip, analyticsObject) => {
                 try
                 {
                     // file name was found, write to file now:
-                    return writeJokeToFile(res, fileName, submittedJoke, fileFormat, ip, analyticsObject);
+                    return writeJokeToFile(res, fileName, submittedJoke, fileFormat, ip, analyticsObject, langCode);
                 }
                 catch(err)
                 {
-                    return httpServer.respondWithError(res, 100, 500, fileFormat, `Internal error while saving joke: ${err}`, langCode);
+                    return httpServer.respondWithError(res, 100, 500, fileFormat, tr(langCode, "errWhileSavingSubmission", err), langCode);
                 }
             }
         }
         else
         {
-            return httpServer.respondWithError(res, 105, 400, fileFormat, `Joke format version is incorrect - expected "${parseJokes.jokeFormatVersion}" - got "${submittedJoke.formatVersion}"`, langCode);
+            return httpServer.respondWithError(res, 105, 400, fileFormat, tr(langCode, "wrongFormatVersion", parseJokes.jokeFormatVersion, submittedJoke.formatVersion), langCode);
         }
     }
     catch(err)
     {
-        return httpServer.respondWithError(res, 105, 400, fileFormat, `Request body contains invalid JSON: ${err}`);
+        return httpServer.respondWithError(res, 105, 400, fileFormat, tr(settings.languages.defaultLanguage, "invalidJSON", err), settings.languages.defaultLanguage);
     }
 }
 
@@ -108,8 +106,9 @@ const jokeSubmission = (res, data, fileFormat, ip, analyticsObject) => {
  * @param {String} fileFormat
  * @param {String} ip
  * @param {(analytics.AnalyticsDocsRequest|analytics.AnalyticsSuccessfulRequest|analytics.AnalyticsRateLimited|analytics.AnalyticsError|analytics.AnalyticsSubmission)} analyticsObject
+ * @param {String} [langCode]
  */
-const writeJokeToFile = (res, filePath, submittedJoke, fileFormat, ip, analyticsObject) => {
+const writeJokeToFile = (res, filePath, submittedJoke, fileFormat, ip, analyticsObject, langCode) => {
     if(typeof httpServer == "object" && Object.keys(httpServer).length <= 0)
         httpServer = require("./httpServer");
 
@@ -135,7 +134,7 @@ const writeJokeToFile = (res, filePath, submittedJoke, fileFormat, ip, analytics
             return httpServer.pipeString(res, convertFileFormat.auto(fileFormat, responseObj), parseURL.getMimeTypeFromFileFormatString(fileFormat), 201);
         }
         // error while writing to file
-        else return httpServer.respondWithError(res, 100, 500, fileFormat, `Internal error while saving joke: ${err}`);
+        else return httpServer.respondWithError(res, 100, 500, fileFormat, tr(langCode, "errWhileSavingSubmission", err), langCode);
     });
 }
 
@@ -155,7 +154,7 @@ function reformatJoke(joke)
         ...retJoke,
         category: joke.category,
         type: joke.type
-    }
+    },
 
     if(joke.type == "single")
     {

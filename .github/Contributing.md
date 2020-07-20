@@ -7,7 +7,7 @@
     - `npm run validate-ids` to verify that all jokes have the correct ID.
     - `npm run lint` to check the code for any warnings or errors.
 5. Run JokeAPI locally by running the command `node JokeAPI`, request some jokes and test the areas you modified / added to make sure everything still works.
-6. Add yourself to the `contributors` object in the `package.json` file :)
+6. Add yourself to the `contributors` object in the [`package.json`](../package.json) file :)
     <!-- - **If it doesn't exist or is empty** please add it using the second format on [this website](https://flaviocopes.com/package-json/#contributors) -->
 7. Submit a pull request on your forked repository, selecting `Sv443/JokeAPI` as the base repo and `master` as the base branch and selecting `YourUsername/JokeAPI` as the head repo and `YourBranch` as the compare branch
     - If your pull request is not ready to be merged yet, you can add `[WIP]` to the beginning of the title which will tell the repo maintainer(s) and automated scripts not to merge it yet.
@@ -19,9 +19,18 @@
   
 <br><br>
 
+## Submitting Translations:
+If you want to submit a translation, please follow these steps:  
+1. Find your language's two-character code in the file [`data/languages.json`](../data/languages.json). You'll need to specify it for every translation.
+2. Translate coded error messages in the file [`data/errorMessages.js`](../data/errorMessages.js) by following the style of the other translations.
+3. Translate the generic strings inside of the file [`data/translations.json`](../data/translations.json) by also following the style of the other translations.
+4. Add yourself to the `contributors` object in the [`package.json`](../package.json) file :)
+
+<br><br>
+
 ### Other nice-to-know stuff:
 - I really recommend using [Visual Studio Code](https://code.visualstudio.com/) with the extension [`fabiospampinato.vscode-highlight`](https://marketplace.visualstudio.com/items?itemName=fabiospampinato.vscode-highlight) - it will add custom styling to the syntax highlighting in the editor and make the code easier to read and work with.  
-- If you want to generate a dependency graph, you need to install [Graphviz](https://graphviz.gitlab.io/download/) and add the path to the `bin` folder to your `%PATH%` environment vaiable. Then, run the command `npm run dependency-graph` and open the file `./dev/dependency-graph.html` in a browser.  
-- If you need to add an authorization token, you can generate one or multiple tokens with the command `npm run add-token [amount]`. If you omit the "amount" parameter, the script will generate a single token. After you run the command, the tokens will be listed in the console and you can now (after restarting JokeAPI) use it in the `x-api-token` header to gain unlimited access to JokeAPI.  
+- If you want to generate a dependency graph, you need to install [Graphviz](https://graphviz.gitlab.io/download/) and add the path to the `bin` folder to your `%PATH%` / `$PATH` environment vaiable. Then, run the command `npm run dependency-graph` and open the file [`dev/dependency-graph.html`](../dev/dependency-graph.html) in a browser.  
+- If you need to add an authorization token, you can generate one or multiple tokens with the command `npm run add-token [amount]`. If you omit the "amount" parameter, the script will generate a single token. After you run the command, the tokens will be listed in the console and you can now (after restarting JokeAPI) use it in the `Authorization` header to gain unlimited access to JokeAPI.  
 
-## If you need any help, please feel free to contact me through [Discord](https://sv443.net/discord) or [E-Mail](mailto:sven.fehler@web.de?subject=Questions%20about%20contributing%20to%20JokeAPI)
+## If you need any help, please feel free to contact me through [Discord](https://sv443.net/discord) or [E-Mail](mailto:contact@sv443.net?subject=Questions%20about%20contributing%20to%20JokeAPI)
