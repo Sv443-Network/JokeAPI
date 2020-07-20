@@ -224,7 +224,7 @@
             "category": "Programming",
             "type": "twopart",
             "setup": "Why did the programmer quit his job?",
-            "delivery": "Because he didn't get arrays.",
+            "delivery": "Because He didn't get arrays.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
