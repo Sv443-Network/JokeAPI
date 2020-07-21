@@ -635,20 +635,6 @@
         {
             "category": "Programming",
             "type": "twopart",
-            "setup": "Genders are a lot like booleans.",
-            "delivery": "There's only two of them.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": true
-            },
-            "id": 47
-        },
-        {
-            "category": "Programming",
-            "type": "twopart",
             "setup": "Why did the functional programming developer get thrown out of school?",
             "delivery": "Because he refused to take classes.",
             "flags": {
