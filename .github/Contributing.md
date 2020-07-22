@@ -16,7 +16,10 @@ To submit a joke manually, you can use the form on [this page.](https://sv443.ne
 To submit it through code, you can make use of the ["submit" endpoint.](https://sv443.net/jokeapi/v2/#submit-endpoint)  
   
 If you instead want to *edit* a joke, you can find them in the `jokes-xy.json` files in [`data/jokes/`](../data/jokes/)  
-Please then follow the [code contribution section](#submitting-code) as well.
+Please then follow the [code contribution section](#submitting-code) as well.  
+  
+If you want a joke to be deleted, please submit a new issue [here.](https://github.com/Sv443/JokeAPI/issues/new?assignees=Sv443&labels=%E2%9D%97+reported+joke&template=report-a-joke.md&title=)  
+Keep in mind, though, that I will not remove jokes based on opinions as that would defeat the API's main purpose, to provide jokes for everyone's taste.  
 
 <br><br>
 
