@@ -850,10 +850,11 @@ None. It's a hardware problem.
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/langcode/<span class="placeholder">[Language]</span></span>
                 </span>
                 <br><br>
-                This endpoint returns the language code of a provided language.<br>
+                This endpoint returns the language code of a provided language. It is searched with a fuzzy search, so you just have to provide the approximate language name.<br>
                 This language code is to be used in <a href="#joke-endpoint">fetching</a> and <a href="#submit-endpoint">submitting</a> jokes in different languages.<br>
+                <br>
                 <details>
-                    <summary>Example - click to view</summary>
+                    <summary>Example 1 - click to view</summary>
                     <br>
                     <span class="requestURLwrapper">
                         <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/langcode/german</span>
@@ -862,6 +863,20 @@ None. It's a hardware problem.
 {
     "error": false,
     "code": "de"
+}
+</div></code>
+                </details>
+                <br>
+                <details>
+                    <summary>Example 2 - click to view</summary>
+                    <br>
+                    <span class="requestURLwrapper">
+                        <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/langcode/sw3d1sh</span>
+                    </span><br><br>
+<code class="prettyprint"><div class="actualCode">
+{
+    "error": false,
+    "code": "sv"
 }
 </div></code>
                 </details>
@@ -966,9 +981,12 @@ None. It's a hardware problem.
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/endpoints</span>
                 </span>
-                <br><br>
-                This endpoint returns a list / an array of all available endpoints, their usage (method, url and supported parameters) and a short description each.
-                <br><br>
+                <br>
+                <br>
+                This endpoint returns a list / an array of all available endpoints, their usage (method, url and supported parameters) and a short description each.<br>
+                Note: the <mark>lang</mark> parameter will not work here due to JokeAPI's fundamental architecture not allowing it.
+                <br>
+                <br>
                 Supported URL parameters:<br>
                 <ul>
                     <li><a class="requestURL" href="#response-formats">?format</a></li>

@@ -198,7 +198,7 @@ const call = (req, res, url, params, format) => {
                 ...jokesArray[0]
             };
 
-            responseText = convertFileFormat.auto(format, singleObj);
+            responseText = convertFileFormat.auto(format, singleObj, langCode);
         }
         else
         {
@@ -219,7 +219,7 @@ const call = (req, res, url, params, format) => {
                 };
             }
 
-            responseText = convertFileFormat.auto(format, multiObj);
+            responseText = convertFileFormat.auto(format, multiObj, langCode);
         }
 
         if(jokeAmount > settings.jokes.encodeAmount)
@@ -227,7 +227,7 @@ const call = (req, res, url, params, format) => {
         else
             httpServer.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format));
     }).catch(err => {
-        return isErrored(res, format, tr(langCode, "", Array.isArray(err) ? err.join("; ") : err), langCode);
+        return isErrored(res, format, tr(langCode, "errorWhileFinalizing", Array.isArray(err) ? err.join("; ") : err), langCode);
     });
 };
 
@@ -283,7 +283,7 @@ const isErrored = (res, format, msg, lang, ...args) => {
         };
     }
 
-    let responseText = convertFileFormat.auto(format, errorObj);
+    let responseText = convertFileFormat.auto(format, errorObj, lang);
     httpServer.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format));
 };
 

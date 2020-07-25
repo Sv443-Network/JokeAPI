@@ -69,7 +69,7 @@ const call = (req, res, url, params, format) => {
         let to = (parseJokes.jokeCountPerLang[lc] - 1);
         idRangePerLang[lc] = [ 0, to ];
         idRangePerLangXml.push({
-            code: lc,
+            langCode: lc,
             from: 0,
             to: to
         });
@@ -77,7 +77,7 @@ const call = (req, res, url, params, format) => {
 
     let systemLanguagesLength = translate.systemLangs().length;
 
-    let lang = params["lang"] || settings.languages.defaultLanguage;
+    let lang = (params && params["lang"]) ? params["lang"] : settings.languages.defaultLanguage;
 
     if(format != "xml")
     {
@@ -98,7 +98,7 @@ const call = (req, res, url, params, format) => {
             "systemLanguages": systemLanguagesLength,
             "info": translate(lang, "messageOfTheDay", settings.info.name),
             "timestamp": new Date().getTime()
-        });
+        }, lang);
     }
     else if(format == "xml")
     {
@@ -112,14 +112,14 @@ const call = (req, res, url, params, format) => {
                 "flags": {"flag": settings.jokes.possible.flags},
                 "types": {"type": settings.jokes.possible.types},
                 "submissionURL": settings.jokes.jokeSubmissionURL,
-                "idRange": { "lang": idRangePerLangXml }
+                "idRanges": { "idRange": idRangePerLangXml }
             },
             "formats": {"format": settings.jokes.possible.formats},
             "jokeLanguages": supportedLangsLength,
             "systemLanguages": systemLanguagesLength,
             "info": translate(lang, "messageOfTheDay", settings.info.name),
             "timestamp": new Date().getTime()
-        });
+        }, lang);
     }
 
     httpServer.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format));

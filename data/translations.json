@@ -1,4 +1,5 @@
 {
+    "info": "This file contains all kinds of different translations scattered throughout the API and is one of two files that contain translations - the other one being data/errorMessages.js",
     "defaultLang": "en",
     "languages": [
         "en",
@@ -50,6 +51,11 @@
             "en": "You are being rate limited because you have sent too many requests. The maximum is %1 requests every %2 seconds.",
             "de": "Deine Anfrage wurde blockiert, weil du zu viele Anfragen gesendet hast. Das Maximum sind %1 Anfragen innerhalb von %2 Sekunden.",
             "ru": "Вы ограничены в тарифах, потому что отправили слишком много запросов. Максимальное значение составляет %1 запрос каждые %2 секунды."
+        },
+        "rateLimitedShort": {
+            "en": "Blocked by rate limiting.",
+            "de": "Blockiert durch Ratenbegrenzung.",
+            "ru": "Блокировано ограничением скорости."
         },
         "endpointInternalError": {
             "en": "Internal Error while calling Endpoint: %1",
@@ -167,14 +173,14 @@
             "ru": "Внутренняя ошибка %1 - %2\nЭта ошибка может быть вызвана:\n- %3\n\nДополнительная информация: %4"
         },
         "availableCategories": {
-            "en": "Available categories are: \"%1\".",
-            "de": "Verfügbare Kategorien sind: \"%1\".",
-            "ru": "Доступны следующие категории: \"%1\"."
+            "en": "Available categories are: \"%1\"",
+            "de": "Verfügbare Kategorien sind: \"%1\"",
+            "ru": "Доступны следующие категории: \"%1\""
         },
         "availableFlags": {
-            "en": "Available flags are: \"%1\".",
-            "de": "Verfügbare Markierungen sind: \"%1\".",
-            "ru": "Доступны флаги: \"%1\"."
+            "en": "Available flags are: \"%1\"",
+            "de": "Verfügbare Markierungen sind: \"%1\"",
+            "ru": "Доступны флаги: \"%1\""
         },
         "timestamp": {
             "en": "Timestamp: %1",
@@ -197,9 +203,9 @@
             "ru": "Язык по умолчанию: %1 [%2]\nЯзыки шуток (%3): %4\nСистемные языки (%5): %6\n\nВозможные значения языка:\n%7"
         },
         "infoEndpoint": {
-            "en": "%1 v%2 - Info:\n\nJoke Count: %3\nCategories: \"%4\"\nFlags: \"%5\"\nResponse Formats: \"%6\"\nJoke Types: \"%7\"\nSubmission URL: \"%8\"\n\nID Ranges:\n%9\n\nJoke Languages (%10): %11\nSystem Languages (%12): %13\n\nMessage of the Day: %14",
-            "de": "%1 v%2 - Info:\n\nWitz-Anzahl: %3\nKategorien: \"%4\"\nMerkmale: \"%5\"\nAntwort-Dateiformate: \"%6\"\nWitz-Typen: \"%7\"\nEinreichungs-URL: \"%8\"\n\nID-Begrenzung:\n%9\n\nWitz-Sprachen (%10): %11\nSystemsprachen (%12): %13\n\nNachricht des Tages: %14",
-            "ru": "%1 v%2 - Информация:\n\n Количество шуток: %3\nКатегории: \"%4\"\nФлаги: \"%5\"\nФорматы ответов: \"%6\"\nТипы шуток: \"%7\"\nАдрес отправки: \"%8\"\n\nID Диапазоны: \n%9\n\nЯзыки шуток (%10): %11\nСистемные языки (%12): %13\n\nПослание дня: %14"
+            "en": "%1 v%2 - Info:\n\nJoke Count: %3\nCategories: \"%4\"\nFlags: \"%5\"\nResponse Formats: \"%6\"\nJoke Types: \"%7\"\nSubmission URL: %8\n\nID Ranges:\n%9\n\nJoke Languages (%10): %11\nSystem Languages (%12): %13\n\nMessage of the Day: %14",
+            "de": "%1 v%2 - Info:\n\nWitz-Anzahl: %3\nKategorien: \"%4\"\nMerkmale: \"%5\"\nAntwort-Dateiformate: \"%6\"\nWitz-Typen: \"%7\"\nEinreichungs-URL: %8\n\nID-Begrenzung:\n%9\n\nWitz-Sprachen (%10): %11\nSystemsprachen (%12): %13\n\nNachricht des Tages: %14",
+            "ru": "%1 v%2 - Информация:\n\nКоличество шуток: %3\nКатегории: \"%4\"\nФлаги: \"%5\"\nФорматы ответов: \"%6\"\nТипы шуток: \"%7\"\nАдрес отправки: %8\n\nID Диапазоны: \n%9\n\nЯзыки шуток (%10): %11\nСистемные языки (%12): %13\n\nПослание дня: %14"
         },
         "availableFormats": {
             "en": "Available formats are: %1",
@@ -215,6 +221,26 @@
             "en": "%1 - %2\n    Usage: %3 %4\n    Supported parameters: %5",
             "de": "%1 - %2\n    Benutzung: %3 %4\n    Unterstützte URL-Parameter: %5",
             "ru": "%1 - %2\n    Использование: %3 %4\n    Поддерживаемые параметры URL: %5"
+        },
+        "foundNoMatchingJokes": {
+            "en": "No jokes were found that match your provided filter(s).",
+            "de": "Es wurden keine Witze gefunden, die mit dem/den bereitgestellten Filter(n) übereinstimmen.",
+            "ru": "Не было найдено ни одной шутки, которая бы соответствовала вашему фильтру(ам)."
+        },
+        "noLangCodeSpecified": {
+            "en": "You need to specify a language in the URL. Example: /langcode/english",
+            "de": "Du musst eine Sprache in der URL angeben. Beispiel: /langcode/german",
+            "ru": "Вам необходимо указать язык в URL-адресе. Пример: /langcode/russian"
+        },
+        "pingPong": {
+            "en": "Pong!",
+            "de": "Pong!",
+            "ru": "Понг!"
+        },
+        "submissionSaved": {
+            "en": "Joke submission was successfully saved. It will soon be checked out by the author.",
+            "de": "Die Witz-Einreichung wurde erfolgreich gespeichert. Sie wird demnächst vom Autor überprüft.",
+            "ru": "Представление шутки было успешно сохранено. Вскоре он будет проверен автором."
         }
     }
 }

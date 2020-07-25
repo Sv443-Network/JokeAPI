@@ -2,6 +2,7 @@ const http = require("http");
 const convertFileFormat = require("../src/fileFormatConverter");
 const httpServer = require("../src/httpServer");
 const parseURL = require("../src/parseURL");
+const languages = require("../src/languages");
 const jsl = require("svjsl");
 const fs = require("fs-extra");
 const settings = require("../settings");
@@ -33,6 +34,8 @@ const call = (req, res, url, params, format) => {
     jsl.unused([req, url, params]);
 
     let endpointList = [];
+
+    let lang = (params && params["lang"]) ? params["lang"] : settings.languages.defaultLanguage;
 
     try 
     {
@@ -97,14 +100,19 @@ const call = (req, res, url, params, format) => {
     }
     catch(err)
     {
-        return epError(res, format, err);
+        return epError(res, format, err, lang);
     }
 };
 
-const epError = (res, format, err) => {
-    let errFromRegistry = require("." + settings.errors.errorMessagesPath)["100"];
-
+const epError = (res, format, err, lang) => {
     let errObj = {};
+    let errFromRegistry = require("../data/errorMessages")["100"];
+
+    if(errFromRegistry == undefined)
+        throw new Error(`Couldn't find errorMessages module or Node is using an outdated, cached version`);
+
+    if(!lang || !languages.isValidLang(lang))
+        lang = settings.languages.defaultLanguage;
 
     if(format != "xml")
     {
@@ -112,8 +120,8 @@ const epError = (res, format, err) => {
             "error": true,
             "internalError": true,
             "code": 100,
-            "message": errFromRegistry.errorMessage,
-            "causedBy": errFromRegistry.causedBy,
+            "message": errFromRegistry.errorMessage[lang] || errFromRegistry.errorMessage[settings.languages.defaultLanguage],
+            "causedBy": errFromRegistry.causedBy[lang] || errFromRegistry.causedBy[settings.languages.defaultLanguage],
             "additionalInfo": err,
             "timestamp": new Date().getTime()
         }
@@ -124,14 +132,14 @@ const epError = (res, format, err) => {
             "error": true,
             "internalError": true,
             "code": 100,
-            "message": errFromRegistry.errorMessage,
-            "causedBy": {"cause": errFromRegistry.causedBy},
+            "message": errFromRegistry.errorMessage[lang] || errFromRegistry.errorMessage[settings.languages.defaultLanguage],
+            "causedBy": { "cause": (errFromRegistry.causedBy[lang] || errFromRegistry.causedBy[settings.languages.defaultLanguage]) },
             "additionalInfo": err,
             "timestamp": new Date().getTime()
         }
     }
 
-    httpServer.pipeString(res, convertFileFormat.auto(format, errObj), parseURL.getMimeTypeFromFileFormatString(format));
+    httpServer.pipeString(res, convertFileFormat.auto(format, errObj), parseURL.getMimeTypeFromFileFormatString(format), lang);
 };
 
 module.exports = { meta, call };
