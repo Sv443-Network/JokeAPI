@@ -345,10 +345,14 @@
                 <!--%#INSERT:NAME#%--> doesn't require any API token, authorization or payment to work, although there is a hard limit of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute due to some DoS attacks I have been getting.<br>
                 To start using <!--%#INSERT:NAME#%-->, you can do one of these two things:<br>
                 <ul class="lispacer">
-                    <li>You can see if your language has a wrapper for <!--%#INSERT:NAME#%--> (to see a list of officially supported wrappers, <a href="#wrappers">click here</a>)</li>
                     <li>
-                        You can directly communicate with <!--%#INSERT:NAME#%--> with HTTP requests (XHR) from within your code (<a href="https://medium.com/better-programming/crash-course-in-http-requests-using-python-59246373a187" target="_blank">Python XHR Crash Course</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest" target="_blank">JavaScript XHR Documentation</a>)<br>
-                        When/If you know how to send HTTP requests, please take a look at <a href="#endpoints">all the endpoints <!--%#INSERT:NAME#%--> has.</a><br>
+                        You can see if your language has a wrapper for <!--%#INSERT:NAME#%--> (to see a list of officially supported wrappers, <a href="#wrappers">click here</a>)<br>
+                        Then, follow its documentation to communicate with the API (Disclaimer: I don't take any responsibility for their code).
+                    </li>
+                    <li>
+                        You can directly communicate with <!--%#INSERT:NAME#%--> with HTTP requests (XHR) from within your code.<br>
+                        Here's a few resources to get you started: (<a href="https://medium.com/better-programming/crash-course-in-http-requests-using-python-59246373a187" target="_blank">Python XHR Crash Course</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest" target="_blank">JavaScript XHR Documentation</a>, <a href="https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=netcore-3.1" target="_blank">.NET HttpClient Class Documentation</a>)<br>
+                        Once you know how to send HTTP requests, please take a look at <a href="#endpoints">all the endpoints <!--%#INSERT:NAME#%--> has.</a><br>
                         After you've finished reading that, you can start testing out the different endpoints with a client such as <a href="https://www.getpostman.com/" target="_blank">Postman</a> and look at some examples by <a href="#examples">going to the "Examples" section.</a>
                     </li>
                 </ul>
@@ -358,8 +362,9 @@
 
                 <!-- #MARKER Wrappers -->
                 <div class="docHeader targetBlink" id="wrappers"><a class="headerAnchorContainer" href="#wrappers" title="Click to link to this header">🔗</a><span class="docHeaderText">Official API Wrappers:</span></div>
-                A wrapper is generally a library that wraps around a certain function to make your life easier.<br>
+                A wrapper is generally a library that wraps around a certain function or API to make your life easier.<br>
                 In the case of RESTful APIs like <!--%#INSERT:NAME#%-->, a wrapper library makes it so you can use functions and objects to communicate with the API and the wrapper will do all the HTTP requests for you in the background.<br>
+                Disclaimer: I will not take any responsibility for the wrappers, they are community-made and I can't ensure security and validity.<br>
                 The following is a list of officially supported <!--%#INSERT:NAME#%--> wrappers:<br>
 
                 <br>
@@ -484,7 +489,8 @@
 		&lt;racist&gt;false&lt;/racist&gt;
 		&lt;sexist&gt;false&lt;/sexist&gt;
 	&lt;/flags&gt;
-	&lt;id&gt;12&lt;/id&gt;
+    &lt;id&gt;12&lt;/id&gt;
+    &lt;lang&gt;en&lt;/lang&gt;
 &lt;/data&gt;
 </div></code>
                 </details><br>
@@ -528,11 +534,11 @@ None. It's a hardware problem.
                 It is possible, that system languages don't yet exist for your language while jokes already do.<br>
                 If no suitable system language is found, <!--%#INSERT:NAME#%--> will default to English.<br>
                 <br>
-                If you are interested in providing translations, please contact me via <a href="https://sv443.net/discord">Discord</a> or Email: <span class="antiBotE" data-enc="Y29udGFjdEBzdjQ0My5uZXQ=">(click to show)</span><br>
+                If you are interested in providing translations, please read the <a href="https://github.com/Sv443/JokeAPI/blob/master/.github/Contributing.md#submitting-translations" target="_blank">Contributing Guide</a>; it will explain it.<br>
                 You can also submit jokes in different languages. Please understand that I will not be able to ensure their proper formatting or legitimacy.<br>
                 <br>
-                Available system languages: <mark class="insSysLangs">(Loading...)</mark><br>
-                Available joke languages: <mark class="insJokeLangs">(Loading...)</mark><br><br>
+                Currently available system languages: <mark class="insSysLangs">(Loading...)</mark><br>
+                Currently available joke languages: <mark class="insJokeLangs">(Loading...)</mark><br><br>
 
                 <details><summary>Example 1 (click to view)</summary>
                     URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?lang=ru</mark><br>
@@ -563,7 +569,8 @@ None. It's a hardware problem.
         "racist": false,
         "sexist": false
     },
-    "id": 58
+    "id": 58,
+    "lang": "en"
 }
 </div></code><br>
                     (no jokes with type "single" will be served)
@@ -575,7 +582,7 @@ None. It's a hardware problem.
                 <mark>?contains=string</mark><br><br>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If this parameter is specified, only jokes that contain the value of this parameter will be served (case insensitive).<br>
-                <span class="colY">IMPORTANT:</span> If the value of this parameter contains special characters, it needs to be <a href="https://tools.ietf.org/html/rfc3986#section-2.1" target="_blank">percent-encoded</a> according to the URI standard (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent" target="_blank">MDN Reference</a>), otherwise you might get an error or a wrong response.<br><br>
+                <span class="colY">IMPORTANT:</span> If the value of this parameter contains special characters, it needs to be <a href="https://en.wikipedia.org/wiki/Percent-encoding" target="_blank">percent-encoded</a> according to the <a href="https://tools.ietf.org/html/rfc3986#section-2.1" target="_blank">URI syntax standard</a>, otherwise you might get an error or a wrong response.<br><br>
 
                 <details><summary>Example (click to view)</summary>
                     URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?contains=C%23</mark> (%23 = pound character / hashtag / # - so the thing searched for here is "C#")<br><br>
@@ -592,7 +599,8 @@ None. It's a hardware problem.
         "racist": false,
         "sexist": false
     },
-    "id": 51
+    "id": 51,
+    "lang": "en"
 }
 </div></code><br>
                 </details>
@@ -663,6 +671,7 @@ None. It's a hardware problem.
                 The "message" parameter will contain a short version of the error message and the "timestamp" parameter will contain a 13-character Unix timestamp.<br>
                 The "causedBy" parameter is an array of possible causes of this error and the "addidionalInfo" parameter contains a more descriptive error message.<br>
                 <br>
+                If possible, <!--%#INSERT:NAME#%--> will try to translate the error messages but keep in mind there might not exist a translation for your language yet or it is not 100% perfect.<br>
                 You can view an example of an error, where an invalid category was used, just below this paragraph.<br>
                 Together with the <a href="#status-codes">HTTP status code</a>, which will also be set according to the type of error, these parameters can be used to improve error handling massively from what was the error system in previous versions of <!--%#INSERT:NAME#%-->.<br><br><br>
 
@@ -750,17 +759,17 @@ None. It's a hardware problem.
                 <!-- #MARKER Troubleshooting -->
                 <div class="docHeader targetBlink" id="troubleshooting"><a class="headerAnchorContainer" href="#troubleshooting" title="Click to link to this header">🔗</a><span class="docHeaderText">Troubleshooting:</span></div>
                 <span class="subHeader">HTTP Error 403:</span>
-                First, please check if you can access all endpoints with your web browser. If no, your IP address has most likely been acting malicious and was permanently blacklisted.<br>
+                First, please check if you can access all endpoints with your web browser. If not, your IP address has most likely been acting malicious and was permanently blacklisted.<br>
                 If you keep getting HTTP 403 (Forbidden) response codes in your program but not in your browser and have never shown malicious behavior before, the issue is most likely that Cloudflare is blocking your request.<br>
                 This might be due to inconsistent request data or headers that are often used in malicious requests or cyber attacks (most of the time it's gonna be the fault of the library you are using).<br>
                 A fix to this issue would be to explicitly set a <mark>User-Agent</mark> header in each of your requests.<br>
                 This is the user agent of your browser which you should be able to use in the fix described above:<br>
-                <mark id="insUserAgent">(Something didn't work, please enter "navigator.userAgent" in your JavaScript console instead)</mark><br><br>
+                <mark id="insUserAgent">(Something didn't work, please enter "navigator.userAgent" without quotes in your JavaScript console instead)</mark><br><br>
 
                 <span class="subHeader">HTTP Error 429:</span>
                 You will get 429 errors occasionally if you exceed the maximum of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute.<br>
                 In this case, you will need to wait up to one minute to be able to talk to the API again.<br>
-                If you are wanting to index the API, you might be better off going to the <a href="<!--%#INSERT:PROJGITHUBURL#%-->" target="_blank">GitHub repository</a>, where you will find everything you need and you don't need to spam <!--%#INSERT:NAME#%-->.
+                If you want to index the API or fetch all jokes, are better off going to the <a href="<!--%#INSERT:PROJGITHUBURL#%-->" target="_blank">GitHub repository</a>, where you will find everything you need and you don't need to spam <!--%#INSERT:NAME#%-->.
 
 
                 <!-- #MARKER Endpoints -->
@@ -823,6 +832,7 @@ None. It's a hardware problem.
                 Supported URL parameters:<br>
                 <ul>
                     <li><a class="requestURL" href="#response-formats">?format</a></li>
+                    <li><a class="requestURL" href="#lang">?lang</a></li>
                 </ul>
                 <br><br>
 
@@ -839,6 +849,7 @@ None. It's a hardware problem.
                 Supported URL parameters:<br>
                 <ul>
                     <li><a class="requestURL" href="#response-formats">?format</a></li>
+                    <li><a class="requestURL" href="#lang">?lang</a></li>
                 </ul>
                 <br><br>
 
@@ -884,6 +895,7 @@ None. It's a hardware problem.
                 Supported URL parameters:<br>
                 <ul>
                     <li><a class="requestURL" href="#response-formats">?format</a></li>
+                    <li><a class="requestURL" href="#lang">?lang</a></li>
                 </ul>
                 <br><br>
 
@@ -896,6 +908,7 @@ None. It's a hardware problem.
                 </span>
                 <br><br>
                 This endpoint returns lists of supported languages in jokes and supported languages in system messages (error messages).<br>
+                Also, it returns a list of possible language values you can use to submit a joke or add a translation.<br>
                 <details>
                     <summary>Example - click to view</summary>
                     <br>
@@ -914,6 +927,16 @@ None. It's a hardware problem.
         "en",
         "ru"
     ],
+    "possibleLanguages": [
+        {
+            "code": "aa",
+            "name": "Afar"
+        },
+        {
+            ...
+        },
+        ...
+    ],
     "timestamp": 1590929517702
 }
 </div></code>
@@ -922,6 +945,7 @@ None. It's a hardware problem.
                 Supported URL parameters:<br>
                 <ul>
                     <li><a class="requestURL" href="#response-formats">?format</a></li>
+                    <li><a class="requestURL" href="#lang">?lang</a></li>
                 </ul>
                 <br><br>
 
@@ -938,6 +962,7 @@ None. It's a hardware problem.
                 Supported URL parameters:<br>
                 <ul>
                     <li><a class="requestURL" href="#response-formats">?format</a></li>
+                    <li><a class="requestURL" href="#lang">?lang</a></li>
                 </ul>
                 <br><br>
 
@@ -954,6 +979,7 @@ None. It's a hardware problem.
                 Supported URL parameters:<br>
                 <ul>
                     <li><a class="requestURL" href="#response-formats">?format</a></li>
+                    <li><a class="requestURL" href="#lang">?lang</a></li>
                 </ul>
                 <br><br>
 
@@ -971,6 +997,7 @@ None. It's a hardware problem.
                 Supported URL parameters:<br>
                 <ul>
                     <li><a class="requestURL" href="#response-formats">?format</a></li>
+                    <li><a class="requestURL" href="#lang">?lang</a></li>
                 </ul>
                 <br><br>
 
@@ -1006,8 +1033,8 @@ None. It's a hardware problem.
                 The payload needs to be sent as JSON. Different <a href="#response-formats">formats</a> are not allowed here.<br>
                 The request payload has to follow the same object structure that the jokes are served in when using the "joke" endpoint.<br>
                 <br>
-                Make sure to add a "formatVersion" property, which just contains the current joke format version (<!--%#INSERT:FORMATVERSION#%-->).<br>
-                This is needed since there were a few changes to the object format since the previous versions and this ensures consistency.<br>
+                Make sure to add a "formatVersion" property, though, which just contains the current joke format version (<!--%#INSERT:FORMATVERSION#%-->).<br>
+                This is needed since there were a few changes to the object format since the previous versions and this serves as a kind of acknowledgement.<br>
                 <br>
                 The joke category has to be any valid <a href="#categories">category</a>, excluding "Any".<br>
                 If the <a href="#joke-type">joke type</a> is set to "single", the properties "setup" and "delivery" will need to be omitted and the joke is to be put in the "joke" property.<br>
@@ -1030,7 +1057,8 @@ None. It's a hardware problem.
         "political": true,
         "racist": false,
         "sexist": false
-    }
+    },
+    "lang": "en"
 }
 </div></code>
 
@@ -1055,7 +1083,8 @@ None. It's a hardware problem.
             "political": true,
             "racist": false,
             "sexist": false
-        }
+        },
+        "lang": "en"
     },
     "timestamp": 1579685839560
 }
@@ -1102,7 +1131,7 @@ None. It's a hardware problem.
 <div class="actualCode">const https = require("https"); // Native module, no need to explicitly install
 
 const baseURL = "<!--%#INSERT:DOCSURL#%-->";
-const categories = ["Programming", "Miscellaneous"];
+const categories = ["Programming", "Miscellaneous", "Pun"];
 const params = [
     "blacklistFlags=nsfw,religious,racist",
     "idRange=0-100"
@@ -1143,7 +1172,7 @@ https.get(`${baseURL}/joke/${categories.join(",")}?${params.join("&")}`, res => 
                 <details><summary id="example-js" class="big">Web-JavaScript (click to show)</summary>
 <code class="prettyprint"><span class="nocode codeheader">Web-JS:</span>
 <div class="actualCode">var baseURL = "<!--%#INSERT:DOCSURL#%-->";
-var categories = ["Programming", "Miscellaneous"];
+var categories = ["Programming", "Miscellaneous", "Pun"];
 var params = [
     "blacklistFlags=nsfw,religious,racist",
     "idRange=0-100"
@@ -1191,7 +1220,7 @@ using System.Web.Script.Serialization; // Requires you to include the assembly "
 private void getJoke()
 {
     string baseURL = "<!--%#INSERT:DOCSURL#%-->";
-    string[] categories = { "Programming", "Miscellaneous" };
+    string[] categories = { "Programming", "Miscellaneous", "Pun" };
     string[] parameters = {
         "blacklistFlags=nsfw,religious,racist",
         "idRange=0-100"
@@ -1209,7 +1238,7 @@ private void getJoke()
 
         // Deserialize the string into an object of the Joke class
         JavaScriptSerializer ser = new JavaScriptSerializer();
-        Joke randomJoke = ser.Deserialize<Joke>(responseFromServer);
+        Joke randomJoke = ser.Deserialize&lt;Joke&gt;(responseFromServer);
 
         if (randomJoke.type == "single")
         {
