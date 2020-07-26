@@ -62,20 +62,6 @@
         {
             "category": "Pun",
             "type": "twopart",
-            "setup": "Was lebt im Wald und schreit \"Kugel\"?",
-            "delivery": "Der Kugelschreibär.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false
-            },
-            "id": 4
-        },
-        {
-            "category": "Pun",
-            "type": "twopart",
             "setup": "Wie nennt sich ein Vogel mit Daddy-Fetisch?",
             "delivery": "Ein Papageil.",
             "flags": {
@@ -85,7 +71,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 5
+            "id": 4
         },
         {
             "category": "Pun",
@@ -99,7 +85,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 6
+            "id": 5
         },
         {
             "category": "Pun",
@@ -113,7 +99,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 7
+            "id": 6
         },
         {
             "category": "Pun",
@@ -127,7 +113,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 8
+            "id": 7
         },
         {
             "category": "Programming",
@@ -141,7 +127,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 9
+            "id": 8
         },
         {
             "category": "Pun",
@@ -155,7 +141,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 10
+            "id": 9
         },
         {
             "category": "Pun",
@@ -169,7 +155,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 11
+            "id": 10
         },
         {
             "category": "Pun",
@@ -183,7 +169,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 12
+            "id": 11
         },
         {
             "category": "Pun",
@@ -197,7 +183,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 13
+            "id": 12
         },
         {
             "category": "Pun",
@@ -211,7 +197,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 14
+            "id": 13
         },
         {
             "category": "Programming",
@@ -224,7 +210,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 15
+            "id": 14
         },
         {
             "category": "Programming",
@@ -237,7 +223,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 16
+            "id": 15
         },
         {
             "category": "Programming",
@@ -250,7 +236,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 17
+            "id": 16
         },
         {
             "category": "Programming",
@@ -263,7 +249,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 18
+            "id": 17
         },
         {
             "category": "Programming",
@@ -276,7 +262,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 19
+            "id": 18
         },
         {
             "category": "Programming",
@@ -290,7 +276,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 20
+            "id": 19
         },
         {
             "category": "Programming",
@@ -304,7 +290,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 21
+            "id": 20
         },
         {
             "category": "Programming",
@@ -317,7 +303,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 22
+            "id": 21
         },
         {
             "category": "Programming",
@@ -331,7 +317,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 23
+            "id": 22
         },
         {
             "category": "Miscellaneous",
@@ -344,7 +330,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 24
+            "id": 23
         },
         {
             "category": "Miscellaneous",
@@ -357,7 +343,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 25
+            "id": 24
         },
         {
             "category": "Programming",
@@ -370,7 +356,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 26
+            "id": 25
         },
         {
             "category": "Programming",
@@ -384,7 +370,7 @@
                 "racist": false,
                 "sexist": false
             },
-            "id": 27
+            "id": 26
         }
     ]
 }
