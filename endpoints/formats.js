@@ -15,7 +15,8 @@ const meta = {
         "method": "GET",
         "url": `${settings.info.docsURL}/formats`,
         "supportedParams": [
-            "format"
+            "format",
+            "lang"
         ]
     }
 };

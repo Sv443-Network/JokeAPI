@@ -16,7 +16,8 @@ const meta = {
         "method": "GET",
         "url": `${settings.info.docsURL}/languages`,
         "supportedParams": [
-            "format"
+            "format",
+            "lang"
         ]
     }
 };

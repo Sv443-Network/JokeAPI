@@ -16,7 +16,8 @@ const meta = {
         "method": "GET",
         "url": `${settings.info.docsURL}/ping`,
         "supportedParams": [
-            "format"
+            "format",
+            "lang"
         ]
     }
 };
