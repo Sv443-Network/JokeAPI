@@ -1,5 +1,4 @@
 {
-    "highlight.regexFlags": "gi",
     "highlight.regexes": { // REQUIRES EXTENSION: fabiospampinato.vscode-highlight
         "(<!--%#INSERT:[a-zA-Z0-9\\-]+#%-->|<!--%#INJECT:[a-zA-Z0-9\\-]+#%-->)": [ // <!--%#INSERT:TEST#%--> / <!--%#INJECT:TEST#%-->
             {
