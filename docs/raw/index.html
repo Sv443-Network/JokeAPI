@@ -619,6 +619,7 @@ None. It's a hardware problem.
                 <mark>?amount=number</mark><br><br>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If it is used, you will get a certain number of jokes in a single request.<br>
+                If <!--%#INSERT:NAME#%--> has less jokes than demanded, it will not error out but instead send the maximum amount of jokes it can serve.<br>
                 Maximum possible number is <!--%#INSERT:MAXJOKEAMOUNT#%--> and using an invalid value will make <!--%#INSERT:NAME#%--> default to 1.<br>
                 The joke format will change from the default when you set the amount parameter to 2 or more.<br>
                 <br>
@@ -634,7 +635,8 @@ None. It's a hardware problem.
             ...
         },
         ...
-    ]
+    ],
+    "amount": 10
 }
 </div></code><br>
                 </details>

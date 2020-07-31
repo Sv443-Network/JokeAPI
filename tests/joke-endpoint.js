@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const settings = require("../settings");
 
 const meta = {

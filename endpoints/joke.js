@@ -208,14 +208,16 @@ const call = (req, res, url, params, format) => {
             {
                 multiObj = {
                     error: false,
-                    jokes: jokesArray
+                    jokes: jokesArray,
+                    amount: jokesArray.length || 1
                 };
             }
             else
             {
                 multiObj = {
                     error: false,
-                    jokes: { "joke": jokesArray }
+                    jokes: { "joke": jokesArray },
+                    amount: jokesArray.length || 1
                 };
             }
 

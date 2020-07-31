@@ -1,5 +1,6 @@
-const settings = require("../settings");
+/* eslint-disable */
 
+const settings = require("../settings");
 
 
 function getAllTests()
