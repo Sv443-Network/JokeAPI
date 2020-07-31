@@ -35,23 +35,10 @@
         <meta name="application-name" content="<!--%#INSERT:NAME#%-->">
         <meta name="theme-color" content="#101747">
 
-        <link rel="icon" type="image/png" href="<!--%#INSERT:DOCSURL#%-->/favicon.ico">
+        <link rel="icon" type="image/png" href="./favicon.ico">
 
         <!-- IE detection -->
-        <script>
-        var isIExp = isIE();
-        function isIE() {
-            var ua = window.navigator.userAgent;
-            var msie = ua.indexOf("MSIE ");
-            if(msie > 0 || !!navigator.userAgent.match(/Trident.*rv:11\./)) {return true;} // is IE
-            return false; // other browser
-        }
-
-        if(isIExp === true)
-        {
-            alert("Your browser is outdated.\nYou might still be able to view the content but everything interactive will not work.\n\nPlease update to a newer browser like Mozilla Firefox or Google Chrome to view this page correctly.");
-        }
-        </script>
+        <script src="https://sv443.net/cdn/jokeapi/isIE.js" integrity="sha512-SibQCccl2OYEcFF7u++aXdsyBuL0syy24w+arsjj9sPdtvRUKVJHVUq5gGT/AjvDXrNlWZ2tZq9GbVelt2c7eQ==" crossorigin="anonymous"></script>
 
         <!-- #MARKER dependencies -->
         <!-- Have to do it like this because the page doesn't always have a trailing slash and that *somehow* makes it redirect to the page root: -->

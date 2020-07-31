@@ -173,7 +173,7 @@ const settings = {
         docsrecompiled: bgc.yellow + col.blue, // when the docs were recompiled
     },
     analytics: {
-        enabled: true, // whether or not the analytics module should be enabled
+        enabled: false, // whether or not the analytics module should be enabled
         dirPath: "./data/analytics/", // path to the analytics directory - needs trailing slash
         sqlTableName: "analytics",    // name of the SQL table
     },
