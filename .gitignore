@@ -16,6 +16,7 @@ node_modules/
 dev/madge/
 dependency-graph.html
 test.js
+!tools/test.js
 
 # Docs:
 docs/documentation.html

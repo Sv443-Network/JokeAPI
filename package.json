@@ -6,7 +6,7 @@
   "homepage": "https://sv443.net/jokeapi/v2",
   "scripts": {
     "start": "node . && exit $?",
-    "test": "snyk test && echo \"No test script specified\" && exit 0",
+    "test": "snyk test && node tools/test",
     "reformat": "node tools/reformat",
     "reassign-ids": "node tools/reassign-ids",
     "validate-jokes": "node tools/validate-jokes",

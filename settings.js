@@ -188,11 +188,13 @@ const settings = {
         tokenValidHeader: "Token-Valid",     // the name of the token validity response header (normal case, not lower case)
         daemonInterval: 20, // after how many seconds the auth tokens should be refreshed
     },
-    languages:
-    {
+    languages: {
         langFilePath: "./data/languages.json",        // file containing all language codes and corresponding language information
         defaultLanguage: "en",                        // default language (two character code, lowercase)
         translationsFile: "./data/translations.json", // translations file
+    },
+    tests: { // unit tests
+        location: "./tests/",  // folder where unit tests are located - requires trailing slash
     }
 }
 
