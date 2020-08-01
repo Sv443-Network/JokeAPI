@@ -67,7 +67,7 @@ const toTXT = (jsonInput, lang) => {
         }
         else
         {
-            if(jsonInput.joke || (jsonInput.setup && jsonInput.delivery)) // endpoint: /joke
+            if((jsonInput.joke || jsonInput.jokes) || (jsonInput.setup && jsonInput.delivery)) // endpoint: /joke
             {
                 if(jsonInput.type == "single")
                     returnText = jsonInput.joke;

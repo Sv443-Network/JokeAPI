@@ -6,8 +6,8 @@ var settings = {
     jokeEndpoint: "joke",
     anyCategoryName: "Any",
     defaultFormat: "json",
-    // submitUrl: "<!--%#INSERT:DOCSURL#%-->/submit",
-    submitUrl: "http://127.0.0.1:8076/submit",
+    submitUrl: "<!--%#INSERT:DOCSURL#%-->/submit",
+    // submitUrl: "http://127.0.0.1:8076/submit",
     defaultLang: "en",
     formatVersion: 3
 };
@@ -796,7 +796,16 @@ function submitJoke()
     xhr.onreadystatechange = function() {
         if(xhr.readyState == 4)
         {
-            var res = JSON.parse(xhr.responseText);
+            var res;
+            try
+            {
+                res = JSON.parse(xhr.responseText);
+            }
+            catch(err)
+            {
+                alert("Error " + res.status + " while sending your submission:\n" + res.message + (res.additionalInfo ? "\n\nAdditional info:\n" + res.additionalInfo : ""));
+                return;
+            }
 
             if(xhr.status < 300)
             {

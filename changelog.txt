@@ -13,7 +13,7 @@
 
 [CURRENT: 2.2.1] - Version 2.2 Hotfix
     - Added a missing conversion mapping when using format `txt` and the `amount` parameter on endpoint `/joke` (issue #138)
-    - Fixed wrong URL in the documentation's JavaScript
+    - Fixed wrong URLs in the documentation's JavaScript
 
 
 [2.2.0]
