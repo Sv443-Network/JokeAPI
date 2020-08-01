@@ -46,7 +46,7 @@ function translate(lang, id, ...args)
 
     let translation = langTr[lang.toString().toLowerCase()];
     if(!translation)
-        return null;
+        translation = langTr[settings.languages.defaultLanguage];
     
     translation = translation.toString();
 
