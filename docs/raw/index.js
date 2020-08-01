@@ -1,13 +1,13 @@
 "use strict";
 
 var settings = {
-    // baseURL: "<!--%#INSERT:DOCSURL#%-->",
-    baseURL: "http://127.0.0.1:8076/", // DEBUG
+    baseURL: "<!--%#INSERT:DOCSURL#%-->",
+    // baseURL: "http://127.0.0.1:8076/", // DEBUG
     jokeEndpoint: "joke",
     anyCategoryName: "Any",
     defaultFormat: "json",
-    // submitUrl: "<!--%#INSERT:DOCSURL#%-->/submit",
-    submitUrl: "http://127.0.0.1:8076/submit",
+    submitUrl: "<!--%#INSERT:DOCSURL#%-->/submit",
+    // submitUrl: "http://127.0.0.1:8076/submit",
     defaultLang: "en",
     formatVersion: 3
 };
