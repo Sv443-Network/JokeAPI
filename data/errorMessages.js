@@ -7,7 +7,8 @@ module.exports = {
         "errorMessage": {
             "en": "Internal Error in HTTP Server",
             "de": "Interner Error im HTTP Server",
-            "ru": "Внутренняя ошибка в HTTP-сервере"
+            "ru": "Внутренняя ошибка в HTTP-сервере",
+            "cs": "Interní chyba v HTTP serveru"
         },
         "causedBy": {
             "en": [
@@ -18,6 +19,9 @@ module.exports = {
             ],
             "ru": [
                 `Ошибка в коде - пожалуйста, свяжитесь со мной через одну из опций на моем сайте (${settings.info.author.website}) с дополнительной информацией.`
+            ],
+            "cs": [
+                `Chyba v kódu - kontaktujte mě přes jedné z možností na mé webové stránce (${settings.info.author.website}) s dalšími informacemi.`
             ]
         }
     },
@@ -26,7 +30,8 @@ module.exports = {
         "errorMessage": {
             "en": "Request blocked by Rate Limiting",
             "de": "Anfrage blockiert durch Ratenbegrenzung",
-            "ru": "Запрос заблокирован ограничением скорости"
+            "ru": "Запрос заблокирован ограничением скорости",
+            "cs": "Požadavek byl blokován omezením míry"
         },
         "causedBy": {
             "en": [
@@ -37,6 +42,9 @@ module.exports = {
             ],
             "ru": [
                 `Вы отправили слишком много запросов слишком быстро. Лимит составляет ${settings.httpServer.rateLimiting} запросов в пределах ${settings.httpServer.timeFrame} ${settings.httpServer.timeFrame == 1 ? "секунда" : "секунды"}.\nЕсли Вам нужно больше запросов в минуту, пожалуйста, свяжитесь со мной, и мы попробуем разобраться в этом: ${settings.info.author.website}`
+            ],
+            "cs": [
+                `Příliš rychle jste odeslali příliš mnoho žádostí. Limit je ${settings.httpServer.rateLimiting} požadavků v rámci ${settings.httpServer.timeFrame} ${settings.httpServer.timeFrame == 1 ? "second" : "seconds"}.\n Pokud potřebujete více požadavků za minutu, kontaktujte mě a můžeme se domluvit: ${settings.info.author.website}`
             ]
         }
     },
@@ -45,7 +53,8 @@ module.exports = {
         "errorMessage": {
             "en": "Requested Endpoint not found",
             "de": "Angefragten Endpunkt nicht gefunden",
-            "ru": "Запрашиваемая конечная точка не найдена"
+            "ru": "Запрашиваемая конечная точка не найдена",
+            "cs": "Koncový bod nebyl nalezen"
         },
         "causedBy": {
             "en": [
@@ -56,6 +65,9 @@ module.exports = {
             ],
             "ru": [
                 "Вы отправили запрос на неправильный URL-адрес."
+            ],
+            "cs": [
+                "Odeslali jste požadavek na špatnou URL adresu."
             ]
         }
     },
@@ -64,7 +76,8 @@ module.exports = {
         "errorMessage": {
             "en": "Disreputable IP Address",
             "de": "In schlechtem Ruf stehende IP Addresse",
-            "ru": "Дискредитирующий IP-адрес"
+            "ru": "Дискредитирующий IP-адрес",
+            "cs": "Pochybná IP adresa"
         },
         "causedBy": {
             "en": [
@@ -75,6 +88,9 @@ module.exports = {
             ],
             "ru": [
                 `${settings.info.name} нашел ваш IP-адрес неблаговидным и добавил его в черный список.\nВероятно, это потому, что вы показали вредоносное поведение, например, попытку прерывания сервиса ${settings.info.name}.\n\nЕсли вы считаете, что это было сделано по ошибке, пожалуйста, свяжитесь со мной (${settings.info.author.website}), чтобы мы могли разобраться в этом.`
+            ],
+            "cs": [
+                `${settings.info.name} zjistil, že vaše IP adresa má špatnou pověst a přidal ji na černou listinu.\nJe to pravděpodobně proto, že jste projevili škodlivé chování jako pokus o přerušení služby ${settings.info.name}.\n\nPokud si myslíte, že se to stalo omylem, kontaktujte mě (${settings.info.author.website}) abychom mohli věci vyřešit.`
             ]
         }
     },
@@ -83,7 +99,8 @@ module.exports = {
         "errorMessage": {
             "en": "Internal Error while calling Endpoint",
             "de": "Interner Error während des Aufrufs eines Endpunktes",
-            "ru": "Внутренняя ошибка при вызове конечной точки"
+            "ru": "Внутренняя ошибка при вызове конечной точки",
+            "cs": "Interní chyba při volání koncového bodu"
         },
         "causedBy": {
             "en": [
@@ -94,6 +111,9 @@ module.exports = {
             ],
             "ru": [
                 `Ошибка в коде - пожалуйста, свяжитесь со мной через одну из опций на моем сайте (${settings.info.author.website}) с дополнительной информацией.`
+            ],
+            "cs": [
+                `Chyba v kódu - kontaktujte mě přes jedné z možností na mé webové stránce (${settings.info.author.website}) s dalšími informacemi.`
             ]
         }
     },
@@ -102,7 +122,8 @@ module.exports = {
         "errorMessage": {
             "en": "Malformed Joke",
             "de": "Falsch formatierter Witz",
-            "ru": "Малоформальная шутка"
+            "ru": "Малоформальная шутка",
+            "cs": "Malformovaný vtip"
         },
         "causedBy": {
             "en": [
@@ -113,6 +134,9 @@ module.exports = {
             ],
             "ru": [
                 "Эта шутка была отформатирована неправильно."
+            ],
+            "cs": [
+                "Tento vtip byl špatně formátován."
             ]
         }
     },
@@ -121,7 +145,8 @@ module.exports = {
         "errorMessage": {
             "en": "No matching joke found",
             "de": "Kein übereinstimmender Witz gefunden",
-            "ru": "Шутка не найдена"
+            "ru": "Шутка не найдена",
+            "cs": "Nebyl nalezen žádný odpovídající vtip"
         },
         "causedBy": {
             "en": [
@@ -132,6 +157,9 @@ module.exports = {
             ],
             "ru": [
                 "Не было найдено ни одной шутки, которая бы соответствовала вашему фильтру(ам)."
+            ],
+            "cs": [
+                "Nebyly nalezeny žádné vtipy, které by odpovídaly zadaným filtrům."
             ]
         }
     },
@@ -140,7 +168,8 @@ module.exports = {
         "errorMessage": {
             "en": "Payload too large",
             "de": "Anfrageinhalt zu groß",
-            "ru": "Слишком большое содержание запроса"
+            "ru": "Слишком большое содержание запроса",
+            "cs": "Datový obsah je příliš velký."
         },
         "causedBy": {
             "en": [
@@ -151,6 +180,9 @@ module.exports = {
             ],
             "ru": [
                 `Содержимое запроса больше максимального значения ${settings.httpServer.maxPayloadSize} байт (${(settings.httpServer.maxPayloadSize / 1024).toFixed(1)} kB).`
+            ],
+            "cs": [
+                `Poskytovaný datový obsah překračuje limit ${settings.httpServer.maxPayloadSize} bytes (${(settings.httpServer.maxPayloadSize / 1024).toFixed(1)} kB).`
             ]
         }
     },
@@ -159,7 +191,8 @@ module.exports = {
         "errorMessage": {
             "en": "URL too long",
             "de": "URL zu lang",
-            "ru": "URL-адрес слишком длинный"
+            "ru": "URL-адрес слишком длинный",
+            "cs": "URL je moc dlouhá"
         },
         "causedBy": {
             "en": [
@@ -171,6 +204,9 @@ module.exports = {
             "ru": [
                 `Длина URL-адрес (%1 символов) превышает максимально допустимую длину в ${settings.httpServer.maxUrlLength} символа.`
             ],
+            "cs": [
+                `URL (% 1 znaků) překračuje maximální délku znaků ${settings.httpServer.maxUrlLength}.`
+            ]
         }
     },
     "109": {
@@ -178,7 +214,8 @@ module.exports = {
         "errorMessage": {
             "en": "Contains invalid characters",
             "de": "Enthält unerlaubte Zeichen",
-            "ru": "Содержит недопустимые символы"
+            "ru": "Содержит недопустимые символы",
+            "cs": "Obsahuje neplatné znaky"
         },
         "causedBy": {
             "en": [
@@ -189,7 +226,10 @@ module.exports = {
             ],
             "ru": [
                 `Представленный анекдот содержит недопустимые символы вне диапазона Юникода от 0x0000 до 0x0fff`
-            ],
+            ],            
+            "cs": [
+                `Podání vtipu obsahuje neplatné znaky mimo rozsah Unicode od 0x0000 do 0x0fff.`
+            ]
         }
     },
     "110": {
@@ -197,7 +237,8 @@ module.exports = {
         "errorMessage": {
             "en": "Submission blocked by Rate Limiting",
             "de": "Einreichung blockiert durch Ratenbegrenzung",
-            "ru": "Представление заблокировано ограничением по тарифу"
+            "ru": "Представление заблокировано ограничением по тарифу",
+            "cs": "Podání bylo blokováno omezením míry"
         },
         "causedBy": {
             "en": [
@@ -208,6 +249,9 @@ module.exports = {
             ],
             "ru": [
                 `Вы отправили слишком много запросов слишком быстро. Лимит - ${settings.jokes.submissions.rateLimiting} представления в пределах ${settings.jokes.submissions.timeFrame} ${settings.jokes.submissions.timeFrame == 1 ? "секунда" : "секунды" }.\nЕсли Вам нужно отправить больше запросов, пожалуйста, либо подождите немного, либо свяжитесь со мной, и мы попробуем разобраться в этом: ${settings.info.author.website}`
+            ],
+            "cs": [
+                `Příliš rychle jste odeslali příliš mnoho žádostí. Limit je ${settings.jokes.submissions.rateLimiting} podání v rámci ${settings.jokes.submissions.timeFrame} ${settings.jokes.submissions.timeFrame == 1 ? "second" : "seconds"}.\nPokud potřebujete poslat více požadavků, počkejte prosím chvilku nebo kontaktujte mě a můžeme se domluvit: ${settings.info.author.website}`
             ]
         }
     }
