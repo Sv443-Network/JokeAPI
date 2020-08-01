@@ -1,8 +1,8 @@
 "use strict";
 
 var settings = {
-    // baseURL: "<!--%#INSERT:DOCSURL#%-->",
-    baseURL: "http://127.0.0.1:8076/", // DEBUG
+    baseURL: "<!--%#INSERT:DOCSURL#%-->",
+    // baseURL: "http://127.0.0.1:8076/", // DEBUG
     jokeEndpoint: "joke",
     anyCategoryName: "Any",
     defaultFormat: "json",

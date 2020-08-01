@@ -11,7 +11,12 @@
     - Serve docs with nginx to speed up page load times (issue #118)
 
 
-[CURRENT: 2.2.0]
+[CURRENT: 2.2.1] - Version 2.2 Hotfix
+    - Added a missing conversion mapping when using format `txt` and the `amount` parameter on endpoint `/joke` (issue #138)
+    - Fixed wrong URL in the documentation's JavaScript
+
+
+[2.2.0]
     - Added joke category "Pun" (issue #105)
     - Added "?amount" parameter to joke endpoint so multiple jokes can be fetched at once (issue #126)
     - Added support for jokes and error messages of different languages (issue #75)
