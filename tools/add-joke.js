@@ -1,121 +1,137 @@
 const jsl = require("svjsl");
 const readline = require("readline");
 const settings = require("../settings");
-const fs = require("fs");
+const fs = require("fs-extra");
+const { join } = require("path");
+
+const jokeSubmission = require("../src/jokeSubmission");
+const languages = require("../src/languages");
 
 
-
-const init = () => {
+const init = async () => {
     let joke = {};
+
+    if(!process.stdin.isTTY)
+    {
+        console.log(`${jsl.colors.fg.red}Error: process doesn't have a stdin to read from${jsl.colors.rst}`);
+        process.exit(1);
+    }
 
     process.stdin.setRawMode(true);
 
-    getJokeCategory().then(cat => {
-        joke["category"] = cat;
-        getJokeType().then(type => {
-            joke["type"] = type;
+    await languages.init();
 
-            let rl = readline.createInterface(process.stdin, process.stdout);
-            rl.pause();
+    joke["category"] = await getJokeCategory();
+    joke["type"] = await getJokeType();
+    let jokeLang = await getJokeLang();
 
-            let contFlags = () => {
-                process.stdout.write("\n");
+    let rl = readline.createInterface(process.stdin, process.stdout);
+    rl.pause();
 
-                joke["flags"] = {};
-                let allFlags = settings.jokes.possible.flags;
+    let contFlags = () => {
+        process.stdout.write("\n");
 
-                let flagIteration = idx => {
-                    if(idx >= allFlags.length)
-                        return flagIterFinished();
-                    else
-                    {
-                        jsl.pause(`Is this joke ${allFlags[idx]}? (y/N):`).then(key => {
-                            if(key.toLowerCase() == "y")
-                                joke["flags"][allFlags[idx]] = true;
-                            else joke["flags"][allFlags[idx]] = false;
+        joke["flags"] = {};
+        let allFlags = settings.jokes.possible.flags;
 
-                            return flagIteration(++idx);
-                        }).catch(err => {
-                            console.error(`Error: ${err}`);
-                            return process.exit(1);
-                        });
-                    }
-                };
+        let flagIteration = idx => {
+            if(idx >= allFlags.length)
+                return flagIterFinished();
+            else
+            {
+                jsl.pause(`Is this joke ${allFlags[idx]}? (y/N):`).then(key => {
+                    if(key.toLowerCase() == "y")
+                        joke["flags"][allFlags[idx]] = true;
+                    else joke["flags"][allFlags[idx]] = false;
 
-                let flagIterFinished = () => {
+                    return flagIteration(++idx);
+                }).catch(err => {
+                    console.error(`Error: ${err}`);
+                    return process.exit(1);
+                });
+            }
+        };
+        
+        let jokesFileName = `jokes-${jokeLang}.json`;
 
-                    fs.readFile(settings.jokes.jokesFilePath, (err, res) => {
-                        if(!err)
-                        {
-                            let jokeFile = JSON.parse(res.toString());
+        let flagIterFinished = () => {
+            let fPath = join(settings.jokes.jokesFolderPath, jokesFileName);
 
-                            joke["id"] = jokeFile.jokes.length;
+            if(!fs.existsSync(fPath))
+                fs.copySync(join(settings.jokes.jokesFolderPath, settings.jokes.jokesTemplateFile), fPath);
 
-                            jokeFile.jokes.push(joke);
+            fs.readFile(fPath, (err, res) => {
+                if(!err)
+                {
+                    let jokeFile = JSON.parse(res.toString());
 
-                            fs.writeFile(settings.jokes.jokesFilePath, JSON.stringify(jokeFile, null, 4), (err) => {
-                                if(err)
-                                {
-                                    console.log(`${jsl.colors.fg.red}\n${err}${jsl.colors.rst}\n\n`);
-                                    process.exit(1);
-                                }
-                                else
-                                {
-                                    console.clear();
-                                    console.log(`${jsl.colors.fg.green}\nJoke was successfully added:${jsl.colors.rst}\n\n${JSON.stringify(joke, null, 4)}\n\n\n`);
+                    joke = jokeSubmission.reformatJoke(joke);
 
-                                    jsl.pause("Add another joke? (y/N): ").then(key => {
-                                        if(key.toLowerCase() === "y")
-                                        {
-                                            console.clear();
-                                            return init();
-                                        }
-                                        else return process.exit(0);
-                                    }).catch(err => {
-                                        console.error(`Error: ${err}`);
-                                        return process.exit(1);
-                                    });
-                                }
-                            });
-                        }
-                        else
+                    joke["id"] = jokeFile.jokes.length || 0;
+
+                    jokeFile.jokes.push(joke);
+
+                    fs.writeFile(fPath, JSON.stringify(jokeFile, null, 4), (err) => {
+                        if(err)
                         {
                             console.log(`${jsl.colors.fg.red}\n${err}${jsl.colors.rst}\n\n`);
                             process.exit(1);
                         }
+                        else
+                        {
+                            console.clear();
+                            console.log(`${jsl.colors.fg.green}\nJoke was successfully added to file "${jokesFileName}":${jsl.colors.rst}\n\n${JSON.stringify(joke, null, 4)}\n\n\n`);
+
+                            jsl.pause("Add another joke? (y/N): ").then(key => {
+                                if(key.toLowerCase() === "y")
+                                {
+                                    console.clear();
+                                    return init();
+                                }
+                                else return process.exit(0);
+                            }).catch(err => {
+                                console.error(`Error: ${err}`);
+                                return process.exit(1);
+                            });
+                        }
                     });
                 }
+                else
+                {
+                    console.log(`${jsl.colors.fg.red}\n${err}${jsl.colors.rst}\n\n`);
+                    process.exit(1);
+                }
+            });
+        }
 
-                return flagIteration(0);
-            };
+        return flagIteration(0);
+    };
 
-            console.log(`Use "\\n" for a line break. Special characters like double quotes do not need to be escaped.\n`);
+    console.log(`Use "\\n" for a line break. Special characters like double quotes do not need to be escaped.\n`);
 
-            if(type != "twopart")
-            {
-                rl.resume();
-                rl.question("Enter Joke: ", jokeText => {
-                    rl.pause();
-                    joke["joke"] = jokeText.replace(/\\n/gm, "\n");
+    if(joke["type"] != "twopart")
+    {
+        rl.resume();
+        rl.question("Enter Joke: ", jokeText => {
+            rl.pause();
+            joke["joke"] = jokeText.replace(/\\n/gm, "\n");
 
-                    return contFlags();
-                });
-            }
-            else
-            {
-                rl.resume();
-                rl.question("Enter Joke Setup: ", jokeSetup => {
-                    rl.question("Enter Joke Delivery: ", jokeDelivery => {
-                        rl.pause();
-                        joke["setup"] = jokeSetup.replace(/\\n/gm, "\n");
-                        joke["delivery"] = jokeDelivery.replace(/\\n/gm, "\n");
-
-                        return contFlags();
-                    });
-                });
-            }
+            return contFlags();
         });
-    });
+    }
+    else
+    {
+        rl.resume();
+        rl.question("Enter Joke Setup: ", jokeSetup => {
+            rl.question("Enter Joke Delivery: ", jokeDelivery => {
+                rl.pause();
+                joke["setup"] = jokeSetup.replace(/\\n/gm, "\n");
+                joke["delivery"] = jokeDelivery.replace(/\\n/gm, "\n");
+
+                return contFlags();
+            });
+        });
+    }
 };
 
 const getJokeCategory = () => {
@@ -165,5 +181,35 @@ const getJokeType = () => {
         typeMP.open();
     });
 };
+
+function getJokeLang()
+{
+    return new Promise(resolve => {
+        let langRL = readline.createInterface(process.stdin, process.stdout);
+
+        let tryGetLang = () => {
+            langRL.resume();
+            langRL.question("Enter two-character language code (en): ", ans => {
+                langRL.pause();
+
+                if(!ans)
+                    ans = settings.languages.defaultLanguage;
+
+                ans = ans.toString().toLowerCase();
+
+                if(languages.isValidLang(ans) === true)
+                    return resolve(ans);
+                else
+                {
+                    console.clear();
+                    console.log(`\n${jsl.colors.fg.red}Invalid lang code!${jsl.colors.rst}\n\n`);
+                    return tryGetLang();
+                }
+            });
+        }
+
+        return tryGetLang();
+    });
+}
 
 init();

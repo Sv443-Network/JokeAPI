@@ -5,13 +5,29 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "node",
+            "program": "${workspaceFolder}/tools/add-joke.js",
+            "name": "Tools/xy",
             "request": "launch",
-            "name": "Launch Program",
+            "type": "node",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/JokeAPI.js"
+            "args": [
+                "--trace-deprecation"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug JokeAPI",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/JokeAPI.js",
+            "args": [
+                "--trace-deprecation"
+            ]
         }
     ],
     "debug.javascript.usePreview": true

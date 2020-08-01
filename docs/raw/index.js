@@ -1,11 +1,15 @@
 "use strict";
 
 var settings = {
-    baseURL: "<!--%#INSERT:DOCSURL#%-->",
+    // baseURL: "<!--%#INSERT:DOCSURL#%-->",
+    baseURL: "http://127.0.0.1:8076/", // DEBUG
     jokeEndpoint: "joke",
     anyCategoryName: "Any",
     defaultFormat: "json",
-    submitUrl: "<!--%#INSERT:DOCSURL#%-->/submit"
+    // submitUrl: "<!--%#INSERT:DOCSURL#%-->/submit",
+    submitUrl: "http://127.0.0.1:8076/submit",
+    defaultLang: "en",
+    formatVersion: 3
 };
 
 var submission = {};
@@ -182,22 +186,22 @@ function onLoad()
             fileFormats.splice(fileFormats.indexOf("JSON"), 1);
         }
         Array.from(document.getElementsByClassName("insFormatsS")).forEach(function(el) {
-            el.innerHTML = fileFormats.join(" and ");
+            el.innerText = fileFormats.join(" and ");
         });
 
         var flags = JSON.parse('<!--%#INSERT:FLAGSARRAY#%-->');
         Array.from(document.getElementsByClassName("insFlags")).forEach(function(el) {
-            el.innerHTML = flags.join(", ");
+            el.innerText = flags.join(", ");
         });
 
         var formats = JSON.parse('<!--%#INSERT:FILEFORMATARRAY#%-->');
         Array.from(document.getElementsByClassName("insFormats")).forEach(function(el) {
-            el.innerHTML = formats.join(", ").toLowerCase();
+            el.innerText = formats.join(", ").toLowerCase();
         });
 
         var categories = JSON.parse('<!--%#INSERT:CATEGORYARRAY#%-->');
         Array.from(document.getElementsByClassName("insCategories")).forEach(function(el) {
-            el.innerHTML = categories.join(", ");
+            el.innerText = categories.join(", ");
         });
     }
     catch(err)
@@ -215,12 +219,13 @@ function onLoad()
         "f_flags_racist",
         "f_flags_sexist",
         "f_setup",
-        "f_delivery"
+        "f_delivery",
+        "f_language"
     ];
 
     for(var ii = 0; ii < inputElems.length; ii++)
     {
-        var elm = document.getElementById(inputElems[ii]);
+        var elm = gebid(inputElems[ii]);
 
         if(elm.tagName.toLowerCase() != "textarea")
         {
@@ -238,11 +243,108 @@ function onLoad()
         }
     }
 
-    document.getElementById("submitBtn").addEventListener("click", function() {
+    var langXhr = new XMLHttpRequest();
+    var langUrl = settings.baseURL + "/languages";
+    var langSelectElems = document.getElementsByClassName("appendLangOpts");
+
+    var otherOpt = document.createElement("option");
+    otherOpt.innerText = "Other / Custom";
+    otherOpt.value = "other";
+    gebid("f_language").appendChild(otherOpt);
+
+    var sysLangsText = "";
+    var jokeLangsText = "";
+
+    langXhr.open("GET", langUrl);
+    langXhr.onreadystatechange = function() {
+        var xErrElem;
+        if(langXhr.readyState == 4 && langXhr.status < 300)
+        {
+            var respJSON = JSON.parse(langXhr.responseText.toString());
+            var languagesArray = respJSON.jokeLanguages;
+
+            sysLangsText = respJSON.systemLanguages.join(", ");
+            jokeLangsText = respJSON.jokeLanguages.join(", ");
+
+            for(var i = 0; i < languagesArray.length; i++)
+            {
+                for(var j = 0; j < langSelectElems.length; j++)
+                {
+                    var langName = "";
+
+                    for(var k = 0; k < respJSON.possibleLanguages.length; k++)
+                    {
+                        if(respJSON.possibleLanguages[k].code == languagesArray[i])
+                        {
+                            langName = respJSON.possibleLanguages[k].name;
+                        }
+                    }
+
+                    xErrElem = document.createElement("option");
+                    xErrElem.value = languagesArray[i];
+                    if(languagesArray[i] == settings.defaultLang)
+                    {
+                        xErrElem.selected = true;
+                    }
+                    xErrElem.innerText = languagesArray[i] + " - " + langName;
+
+                    if(languagesArray[i] == settings.defaultLang)
+                        xErrElem.selected = true;
+
+                    langSelectElems[j].appendChild(xErrElem);
+                    langSelectElems[j].value = settings.defaultLang;
+                }
+            }
+
+            var sysLangsElems = document.getElementsByClassName("insSysLangs");
+            var jokeLangsElems = document.getElementsByClassName("insJokeLangs");
+
+            for(var sI = 0; sI < sysLangsElems.length; sI++)
+            {
+                sysLangsElems[sI].innerText = sysLangsText;
+            }
+
+            for(var jI = 0; jI < sysLangsElems.length; jI++)
+            {
+                jokeLangsElems[jI].innerText = jokeLangsText;
+            }
+        }
+        else if(langXhr.readyState == 4 && langXhr.status >= 300)
+        {
+            for(var ii = 0; ii < langSelectElems.length; ii++)
+            {
+                xErrElem = document.createElement("option");
+                xErrElem.value = "en";
+                xErrElem.innerText = "en - English";
+                xErrElem.selected = true;
+
+                langSelectElems[ii].appendChild(xErrElem);
+            }
+        }
+    };
+    langXhr.send();
+
+    gebid("submitBtn").addEventListener("click", function() {
         submitJoke();
     });
 
     buildSubmission();
+    setTimeout(function() { buildSubmission() }, 2000);
+
+    gebid("insUserAgent").innerText = navigator.userAgent;
+
+    var abElems = document.getElementsByClassName("antiBotE");
+    for(var l = 0; l < abElems.length; l++)
+    {
+        abElems[l].onclick = function()
+        {
+            if(!this.classList.contains("shown"))
+            {
+                this.innerText = atob(this.dataset.enc);
+                this.classList.add("shown");
+            }
+        }
+    }
 }
 
 function addCodeTabs()
@@ -339,14 +441,14 @@ function reRender()
         if(el.value == "any")
         {
             isValid = true;
-            ["cat-cb1", "cat-cb2", "cat-cb3"].forEach(function(cat) {
+            ["cat-cb1", "cat-cb2", "cat-cb3", "cat-cb4"].forEach(function(cat) {
                 gebid(cat).disabled = true;
             });
         }
         else
         {
             var isChecked = false;
-            ["cat-cb1", "cat-cb2", "cat-cb3"].forEach(function(cat) {
+            ["cat-cb1", "cat-cb2", "cat-cb3", "cat-cb4"].forEach(function(cat) {
                 var cel = gebid(cat);
                 cel.disabled = false;
 
@@ -401,6 +503,18 @@ function reRender()
         gebid("idRangeWrapper").style.borderColor = "initial";
     }
 
+    var jokesAmount = parseInt(gebid("jokesAmountInput").value);
+
+    if(jokesAmount > parseInt("<!--%#INSERT:MAXJOKEAMOUNT#%-->") || jokesAmount < 1 || isNaN(jokesAmount))
+    {
+        allOk = false;
+        gebid("jokeAmountWrapper").style.borderColor = "red";
+    }
+    else
+    {
+        gebid("jokeAmountWrapper").style.borderColor = "initial";
+    }
+
     if(allOk)
     {
         tryItOk = true;
@@ -435,12 +549,22 @@ function buildURL()
         {
             selectedCategories.push("Dark");
         }
+        if(gebid("cat-cb4").checked)
+        {
+            selectedCategories.push("Pun");
+        }
 
         if(selectedCategories.length == 0)
         {
             selectedCategories.push(settings.anyCategoryName);
         }
     }
+
+
+    //#SECTION language
+    var langCode = gebid("lcodeSelect").value || settings.defaultLang;
+    if(langCode != settings.defaultLang)
+        queryParams.push("lang=" + langCode);
 
 
     //#SECTION flags
@@ -511,6 +635,14 @@ function buildURL()
     }
 
 
+    //#SECTION amount
+    var jokeAmount = parseInt(gebid("jokesAmountInput").value);
+    if(jokeAmount != 1 && !isNaN(jokeAmount) && jokeAmount > 0 && jokeAmount <= parseInt("<!--%#INSERT:MAXJOKEAMOUNT#%-->"))
+    {
+        queryParams.push("amount=" + jokeAmount);
+    }
+
+
     tryItURL = settings.baseURL + "/" + settings.jokeEndpoint + "/" + selectedCategories.join(",");
 
     if(queryParams.length > 0)
@@ -518,12 +650,13 @@ function buildURL()
         tryItURL += "?" + queryParams.join("&");
     }
 
-    gebid("urlBuilderUrl").innerHTML = tryItURL;
+    gebid("urlBuilderUrl").innerText = tryItURL;
 }
 
 //#MARKER send request
 function sendTryItRequest()
 {
+    var sendStartTimestamp = new Date().getTime();
     var prpr = gebid("urlBuilderPrettyprint");
     var tryItRequestError = function(err) {
         if(prpr.classList.contains("prettyprint"))
@@ -601,7 +734,8 @@ function sendTryItRequest()
                     result = result.replace(/[>]/gm, "&gt;");
                 }
 
-                gebid("tryItResult").innerHTML = result;
+                gebid("tryItResult").innerText = result;
+                gebid("tryItFormLatency").innerText = "Latency: " + (new Date().getTime() - sendStartTimestamp) + " ms";
 
                 PR.prettyPrint(); // eslint-disable-line no-undef
             }
@@ -621,7 +755,7 @@ function sendTryItRequest()
 //#MARKER interactive elements
 function resetTryItForm()
 {
-    ["cat-cb1", "cat-cb2", "cat-cb3"].forEach(function(cat) {
+    ["cat-cb1", "cat-cb2", "cat-cb3", "cat-cb4"].forEach(function(cat) {
         gebid(cat).checked = false;
     });
 
@@ -642,13 +776,15 @@ function resetTryItForm()
     gebid("idRangeInputFrom").value = 0;
     gebid("idRangeInputTo").value = parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->");
 
+    gebid("jokesAmountInput").value = 1;
+
     reRender();
 }
 
 //#MARKER submit joke
 function submitJoke()
 {
-    var submitBtn = document.getElementById("submitBtn");
+    var submitBtn = gebid("submitBtn");
     if(submitBtn.disabled == true)
     {
         return;
@@ -670,8 +806,8 @@ function submitJoke()
 
                     alert(res.message);
                     
-                    setTimeout(() => {
-                        document.getElementById("submitBtn").disabled = false;
+                    setTimeout(function() {
+                        gebid("submitBtn").disabled = false;
                     }, 2000);
                 }
                 else if(res.error == true)
@@ -700,15 +836,27 @@ function valChanged(element)
     {
         if(element.value == "single")
         {
-            document.getElementById("f_setup").placeholder = "Joke";
+            gebid("f_setup").placeholder = "Joke";
 
-            document.getElementById("f_delivery").style.display = "none";
+            gebid("f_delivery").style.display = "none";
         }
         else if(element.value == "twopart")
         {
-            document.getElementById("f_setup").placeholder = "Setup";
+            gebid("f_setup").placeholder = "Setup";
 
-            document.getElementById("f_delivery").style.display = "initial";
+            gebid("f_delivery").style.display = "initial";
+        }
+    }
+
+    if(element.id == "f_language")
+    {
+        if(element.value == "other")
+        {
+            gebid("f_langHideContainer").classList.remove("hidden");
+        }
+        else
+        {
+            gebid("f_langHideContainer").classList.add("hidden");
         }
     }
 
@@ -717,33 +865,53 @@ function valChanged(element)
 
 function buildSubmission()
 {
-    var category = document.getElementById("f_category").value;
-    var type = document.getElementById("f_type").value;
+    var category = gebid("f_category").value;
+    var type = gebid("f_type").value;
 
     submission = {
-        formatVersion: 2,
+        formatVersion: settings.formatVersion,
         category: category,
-        type: type,
-        flags: {
-            nsfw: document.getElementById("f_flags_nsfw").checked,
-            religious: document.getElementById("f_flags_religious").checked,
-            political: document.getElementById("f_flags_political").checked,
-            racist: document.getElementById("f_flags_racist").checked,
-            sexist: document.getElementById("f_flags_sexist").checked,
-        }
+        type: type
     }
 
     if(type == "single")
     {
-        submission.joke = document.getElementById("f_setup").value;
+        submission.joke = gebid("f_setup").value;
     }
     else if(type == "twopart")
     {
-        submission.setup = document.getElementById("f_setup").value;
-        submission.delivery = document.getElementById("f_delivery").value;
+        submission.setup = gebid("f_setup").value;
+        submission.delivery = gebid("f_delivery").value;
     }
 
-    var subDisp = document.getElementById("submissionDisplay");
+    var sLang = gebid("f_language").value || settings.defaultLang;
+
+    if(sLang == "other")
+    {
+        var elVal = gebid("f_customLang").value;
+        if(elVal && elVal.length == 2)
+        {
+            sLang = elVal;
+        }
+        else
+        {
+            sLang = "Please enter 2 char language code";
+        }
+    }
+
+    submission = {
+        ...submission,
+        flags: {
+            nsfw: gebid("f_flags_nsfw").checked,
+            religious: gebid("f_flags_religious").checked,
+            political: gebid("f_flags_political").checked,
+            racist: gebid("f_flags_racist").checked,
+            sexist: gebid("f_flags_sexist").checked,
+        },
+        lang: sLang
+    };
+
+    var subDisp = gebid("submissionDisplay");
 
     var escapedSubmission = JSON.parse(JSON.stringify(submission)); // copy value without reference
     if(type == "single")
@@ -755,9 +923,9 @@ function buildSubmission()
         escapedSubmission.setup = htmlEscape(submission.setup);
         escapedSubmission.delivery = htmlEscape(submission.delivery);
     }
-    subDisp.innerHTML = JSON.stringify(escapedSubmission, null, 4);
+    subDisp.innerText = JSON.stringify(escapedSubmission, null, 4);
 
-    var subCodeElem = document.getElementById("submissionCodeElement");
+    var subCodeElem = gebid("submissionCodeElement");
 
     if(!subCodeElem.classList.contains("prettyprint"))
     {

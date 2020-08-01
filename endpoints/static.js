@@ -2,7 +2,7 @@ const http = require("http");
 const httpServer = require("../src/httpServer");
 const jsl = require("svjsl");
 const settings = require("../settings");
-const fs = require("fs");
+const fs = require("fs-extra");
 const debug = require("../src/verboseLogging");
 
 jsl.unused(http);
@@ -95,6 +95,7 @@ const call = (req, res, url, params, format) => {
             debug("Static", `Serving static content "${requestedFile}" with encoding "${selectedEncoding}"`);
 
             res.setHeader("Content-Encoding", selectedEncoding);
+            res.setHeader("Cache-Control", "max-age=86400");
 
             return httpServer.pipeFile(res, filePath, mimeType, statusCode);
         }

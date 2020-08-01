@@ -3,17 +3,18 @@ const convertFileFormat = require("../src/fileFormatConverter");
 const httpServer = require("../src/httpServer");
 const parseURL = require("../src/parseURL");
 const jsl = require("svjsl");
+const languages = require("../src/languages");
 const settings = require("../settings");
 
 jsl.unused(http);
 
 
 const meta = {
-    "name": "Flags",
-    "desc": "Returns a list of all available blacklist flags",
+    "name": "Languages",
+    "desc": `Returns a list of supported and partially supported languages`,
     "usage": {
         "method": "GET",
-        "url": `${settings.info.docsURL}/flags`,
+        "url": `${settings.info.docsURL}/languages`,
         "supportedParams": [
             "format",
             "lang"
@@ -32,28 +33,45 @@ const meta = {
 const call = (req, res, url, params, format) => {
     jsl.unused([req, url, params]);
 
+    let jokeLangs = languages.jokeLangs().map(jl => jl.code).sort();
+    let sysLangs = languages.systemLangs().sort();
+
     let responseText = "";
+
+    let langArray = [];
+    let pl = languages.getPossibleLanguages();
 
     let lang = (params && params["lang"]) ? params["lang"] : settings.languages.defaultLanguage;
 
-    if(format != "xml")
+    Object.keys(pl).forEach(lc => {
+        langArray.push({
+            "code": lc,
+            "name": pl[lc]
+        });
+    });
+
+    if(format == "xml")
     {
         responseText = convertFileFormat.auto(format, {
-            "error": false,
-            "flags": settings.jokes.possible.flags,
+            "defaultLanguage": settings.languages.defaultLanguage,
+            "jokeLanguages": { "code": jokeLangs },
+            "systemLanguages": { "code": sysLangs },
+            "possibleLanguages": { "language": langArray },
             "timestamp": new Date().getTime()
         }, lang);
     }
-    else if(format == "xml")
+    else
     {
         responseText = convertFileFormat.auto(format, {
-            "error": false,
-            "flags": {"flag": settings.jokes.possible.flags},
+            "defaultLanguage": settings.languages.defaultLanguage,
+            "jokeLanguages": jokeLangs,
+            "systemLanguages": sysLangs,
+            "possibleLanguages": langArray,
             "timestamp": new Date().getTime()
         }, lang);
     }
 
-    httpServer.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format));
+    return httpServer.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format));
 };
 
 module.exports = { meta, call };

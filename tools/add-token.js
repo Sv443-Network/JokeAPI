@@ -1,5 +1,5 @@
 const jsl = require("svjsl");
-const fs = require("fs");
+const fs = require("fs-extra");
 const settings = require("../settings");
 
 try

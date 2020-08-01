@@ -5,7 +5,7 @@ const bgc = jsl.colors.bg;
 
 const settings = {
     debug: {
-        verboseLogging: false,      // set to true to enable extra debug output
+        verboseLogging: true,      // set to true to enable extra debug output
         progressBarDisabled: true,  // set to true to disable the progress bar - greatly improves readability of verbose debug output
         onlyLogErrors: true,        // set to true to disable sending any console logs but error messages
     },
@@ -22,7 +22,6 @@ const settings = {
             website: packageJSON.author.url, // author website
             github: `https://github.com/${packageJSON.author.name}`, // author github page
         },
-        infoMsg: "If you want to be updated on the status and future updates of JokeAPI or need some help, please consider joining my Discord server: https://sv443.net/discord",
         privacyPolicyUrl: "https://sv443.net/privacypolicy/en"
     },
     wrapper: {
@@ -42,6 +41,7 @@ const settings = {
             "./data/logs",
             "./data/submissions",
             "./docs/compiled",
+            "./data/lists"
         ],
         exitSignals: [ // all signals that should cause a soft exit
             "SIGINT",
@@ -55,16 +55,23 @@ const settings = {
         blacklistLoggingEnabled: true, // whether or not to log the character when an IP is on the blacklist
     },
     jokes: {
-        jokesFormatVersion: 2,                               // current joke format version
-        jokesFilePath: "./data/jokes.json",                  // path to the jokes file
+        jokesFormatVersion: 3,                               // current joke format version
+        jokesFolderPath: "./data/jokes/",                    // path to the jokes folder - needs trailing slash
         jokeSubmissionURL: `${packageJSON.homepage}#submit`, // joke submission url
         jokeSubmissionPath: "./data/submissions/",           // path to a directory where joke submissions should be saved to - needs trailing slash
+        submissions: {
+            timeFrame: 60,                              // time frame of submission rate limiter (in seconds)
+            rateLimiting: 3,                            // how many requests per timeframe should be allowed
+            invalidCharRegex: /(?![\u0000-\u0fff])./gm, // eslint-disable-line no-control-regex
+        },
+        jokesTemplateFile: "template.json",  // relative to "jokes.jokesFolderPath"
         possible: {
             anyCategoryName: "Any", // the name of the "Any" category
             categories: [           // all categories (excluding "Any") - case insensitive
                 "Miscellaneous",
                 "Programming",
-                "Dark"
+                "Dark",
+                "Pun"
             ],
             flags: [ // all flags - HAS TO BE LOWER CASE!
                 "nsfw",
@@ -89,16 +96,18 @@ const settings = {
             fileFormat: "json",           // the default file format string
             mimeType: "application/json", // the default file format mime type
         },
-        lastIDsMaxLength: 10,          // the maximum amount of joke IDs that get saved to the blacklist-array
-        jokeRandomizationAttempts: 20, // after how many attempts of selecting a random joke to stop trying
+        lastIDsMaxLength: 15,          // the maximum amount of joke IDs that get saved to the blacklist-array
+        jokeRandomizationAttempts: 25, // after how many attempts of selecting a random joke to stop trying
         splitChars: [",", "+", "-"],   // which characters should separate the values of parameters with support for multiple values
         splitCharRegex: /[,+-]/gm,     // which characters should separate the values of parameters with support for multiple values
+        maxAmount: 10,                 // the maximum amount of jokes that can be fetched with a single call to the get jokes endpoint
+        encodeAmount: 5,               // if more than this number of jokes is requested, encode them
     },
     httpServer: {
         port: 8076,           // http server port
         allowCORS: true,      // whether or not to allow Cross Origin Resource Sharing
         rateLimiting: 60,     // amount of allowed requests per below defined timeframe
-        timeFrame: 60,        // timeframe in seconds - also supports floating point numbers
+        timeFrame: 60,        // timeframe in seconds
         urlPathOffset: 0,     // example: "/jokeapi/info" with an offset of 1 will only start parsing the path beginning at "info" - an Apache reverse proxy will do this automatically though
         maxPayloadSize: 5120, // max size (in bytes) that will be accepted in a PUT request - if payload exceeds this size, it will abort with status 413
         maxUrlLength: 250,    // max amount of characters of the URL - if the URL is longer than this, the request will abort with status 414
@@ -124,8 +133,8 @@ const settings = {
         ],
     },
     errors: {
-        errorRegistryIncludePath: "./data/errorRegistry", // path to the error registry
-        errorLogDir: "./data/logs/",                      // path to the error log directory - needs trailing slash
+        errorLogDir: "./data/logs/",               // path to the error log directory - needs trailing slash
+        errorMessagesPath: "./data/errorMessages", // path to error messages file
     },
     lists: {
         blacklistPath: "./data/lists/ipBlacklist.json",             // path to the IP blacklist
@@ -159,12 +168,12 @@ const settings = {
         success: col.green,     // when request was successful
         error: col.red,         // when request was errored
         ratelimit: col.magenta, // when request was rate limited
-        docs: col.yellow,                             // when docs were requested
-        blacklisted: bgc.red + col.yellow,            // when a request IP is blacklisted
+        docs: col.yellow,                      // when docs were requested
+        blacklisted: bgc.red + col.yellow,     // when a request IP is blacklisted
         docsrecompiled: bgc.yellow + col.blue, // when the docs were recompiled
     },
     analytics: {
-        enabled: true, // whether or not the analytics module should be enabled
+        enabled: false, // whether or not the analytics module should be enabled
         dirPath: "./data/analytics/", // path to the analytics directory - needs trailing slash
         sqlTableName: "analytics",    // name of the SQL table
     },
@@ -175,8 +184,17 @@ const settings = {
     },
     auth: {
         tokenListFile: "./data/tokens.json", // path to the token list file
-        tokenHeaderName: "authorization",    // the name of the token header (in lower case)
+        tokenHeaderName: "authorization",     // the name of the token header (lower case)
         tokenValidHeader: "Token-Valid",     // the name of the token validity response header (normal case, not lower case)
+        daemonInterval: 20, // after how many seconds the auth tokens should be refreshed
+    },
+    languages: {
+        langFilePath: "./data/languages.json",        // file containing all language codes and corresponding language information
+        defaultLanguage: "en",                        // default language (two character code, lowercase)
+        translationsFile: "./data/translations.json", // translations file
+    },
+    tests: { // unit tests
+        location: "./tests/",  // folder where unit tests are located - requires trailing slash
     }
 }
 

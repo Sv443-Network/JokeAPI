@@ -1,29 +1,35 @@
-====================
-
- JokeAPI Changelog
- - Version 2.1.5 -
-
-====================
+=====================
+  JokeAPI Changelog
+  - Version 2.2.0 -
+=====================
 
 
-
-[PLANNED: 2.2.0]
-    - Add joke category "Pun" (issue #105)
+[Planned for future releases]
     - Allow definition of max requests per minute per each client (issue #37)
-    - Add support for jokes and error messages of different languages (issue #75)
+    - Add positive flags and a "?whitelistFlags" param (issue #127)
+    - Add Unit Tests (issue #121)
+    - Serve docs with nginx to speed up page load times (issue #118)
+
+
+[CURRENT: 2.2.0]
+    - Added joke category "Pun" (issue #105)
+    - Added "?amount" parameter to joke endpoint so multiple jokes can be fetched at once (issue #126)
+    - Added support for jokes and error messages of different languages (issue #75)
         - /langcode/{LANGUAGE} endpoint
         - /languages endpoint
         - "?lang=code" URL parameter
-    - Fix ID caching (again, sigh) (issue #80)
-    - Add pm2 custom metrics (issue #91)
-    - Fix HTTP 403 errors (issue #96)
-    - Remake the URL parser using a "commercial" package (issue #97)
-    - Daemonize the API token refreshing (issue #102)
-    - Rate limit joke submissions more harshly (issue #104)
-    - Fix resources not being served with Brotli even though it is supported by the client (issue #106)
+    - Fixed ID caching (again, sigh) (issue #80)
+    - Added pm2 custom metrics (issue #91)
+    - Fixed HTTP 403 errors (issue #96)
+    - Remade the URL parser using a package (issue #97)
+    - Daemonized the API token refreshing (issue #102)
+    - Rate limiting joke submissions more harshly now (issue #104)
+    - Fixed error where the end of the payload were cut off, thus invalidating JSON (issue #119)
+    - Joke submission property order is now enforced, improving uniformity (issue #120)
+    - Joke submissions are now validated to make sure they don't contain fancy Unicode chars (issue #123)
 
 
-[CURRENT: 2.1.5] - 2020 Q3 general patch #2
+[2.1.5] - 2020 Q3 general patch #2
     - Ditched my botched rate limiting package for a "commercial" one (issue #113)
     - Added API token section to documentation (issue #114)
     - Client now receives a "Token-Valid" header with the value 0 or 1 depending on token validity (issue #115)

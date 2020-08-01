@@ -3,25 +3,25 @@
 # [![icon](https://sv443.net/cdn/jokeapi/icon_readme.png)](#readme)<br>JokeAPI
 ### A REST API that serves uniformly and well formatted jokes and offers a great variety of filtering methods and response customization
 [![GitHub](https://img.shields.io/github/license/Sv443/JokeAPI)](https://sv443.net/LICENSE)
-[![Uptime / 7 Days](https://img.shields.io/uptimerobot/ratio/7/m782998549-afcc0d10c27c87df47e73289)](https://status.sv443.net/)
+[![Uptime / 7 Days](https://img.shields.io/uptimerobot/ratio/7/m784261094-bff76b959ebb8fc39f7eb2d0)](https://status.sv443.net/)
 [![Open Issues](https://img.shields.io/github/issues/Sv443/JokeAPI)](https://github.com/Sv443/JokeAPI/issues)
   
 [![Actions Status](https://github.com/Sv443/JokeAPI/workflows/build/badge.svg)](https://github.com/Sv443/JokeAPI/actions)
 [![Known Vulnerabilities](https://snyk.io/test/github/Sv443/JokeAPI/badge.svg)](https://snyk.io/test/github/Sv443/JokeAPI)
   
 [![Discord](https://img.shields.io/discord/565933531214118942)](https://discord.gg/aBH4uRG)
-[![GitHub watchers](https://img.shields.io/github/watchers/Sv443/JokeAPI?style=social)](https://github.com/Sv443/JokeAPI/watchers)
 [![GitHub stars](https://img.shields.io/github/stars/Sv443/JokeAPI?style=social)](https://github.com/Sv443/JokeAPI/stargazers)
 
 <br><br>
 
-# [Documentation](https://sv443.net/jokeapi/v2) &bull; [Try it out](https://sv443.net/jokeapi/v2#try-it) &bull; [Changelog](./changelog.txt)
+# [Documentation](https://sv443.net/jokeapi/v2)
+# [Try it out](https://sv443.net/jokeapi/v2#try-it) &bull; [Changelog](./changelog.txt)
 
 
 </div>
 <br><br>
 
-## Before contributing to JokeAPI, please read the [contributing guide](./.github/Contributing.md)
+## If you want to contribute to JokeAPI (code, jokes or translations), please read the [contributing guide.](./.github/Contributing.md)
 
 <br><br>
 
@@ -37,6 +37,7 @@
 - [Jokepy](https://github.com/aksty/Jokepy) by [aksty](https://github.com/aksty)
 - [Dark1](https://github.com/whiteadi/Dark1) by [whiteadi](https://github.com/whiteadi)
 - [Prejudice Networks](https://github.com/LiamTownsley/Prejudice-Networks) by [Liam Townsley](https://github.com/LiamTownsley)
+- [https://irshad.ml/humour.html](https://irshad.ml/humour.html) by [draco-malfoy](https://github.com/draco-malfoy)
   
 ([Contact me](https://sv443.net/discord) to get your project added here)
 

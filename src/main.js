@@ -5,7 +5,7 @@
 
 
 const jsl = require("svjsl");
-const fs = require("fs");
+const fs = require("fs-extra");
 require("dotenv").config();
 
 const settings = require("../settings");
@@ -17,6 +17,9 @@ const docs = require("./docs");
 const analytics = require("./analytics");
 const logRequest = require("./logRequest");
 const auth = require("./auth");
+const languages = require("./languages");
+const translate = require("./translate");
+const meter = require("./meter");
 const promiseAllSequential = require("promise-all-sequential");
 
 const col = jsl.colors.fg;
@@ -31,12 +34,20 @@ settings.init.exitSignals.forEach(sig => {
 const initAll = () => {
     let initTimestamp = new Date().getTime();
     debug("Init", "Initializing all modules - calling joke parser...");
-
+    
     process.jokeapi = {};
     initializeDirs();
 
     let initPromises = [];
     let initStages = [
+        {
+            name: "Initializing languages",
+            fn: languages.init
+        },
+        {
+            name: "Initializing translations",
+            fn: translate.init
+        },
         {
             name: "Initializing joke parser",
             fn: parseJokes.init
@@ -60,6 +71,10 @@ const initAll = () => {
         {
             name: "Initializing analytics module",
             fn: analytics.init
+        },
+        {
+            name: "Initializing pm2 meter",
+            fn: meter.init
         }
     ];
 

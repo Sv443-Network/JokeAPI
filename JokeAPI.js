@@ -1,9 +1,9 @@
-// 🔹 JokeAPI v2 by Sv443 🔹
+// 🔹 JokeAPI by Sv443 🔹
 //
 // GitHub:    https://github.com/Sv443/JokeAPI
 // API Docs:  https://sv443.net/jokeapi/v2
 // ️
-// ⚠️ Please read the LICENSE.txt file before redistributing JokeAPI.
+// ⚠️ Please read the LICENSE.txt file before modifying, redistributing or even selling JokeAPI.
 // ⚠️ Thanks :)
 
 
@@ -15,6 +15,8 @@ const settings = require("./settings");
 
 function initJokeAPI()
 {
+    if(settings.debug.verboseLogging)
+        console.log("\n\n");
     debug("PreInit", "Called InitJokeAPI");
     // the debugger and child processes don't get along together so only wrap JokeAPI if the debugger is not active:
     if(!jsl.inDebugger() && !settings.wrapper.skipWrapping)

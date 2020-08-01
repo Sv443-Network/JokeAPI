@@ -19,14 +19,14 @@
         <meta name="pagename" content="<!--%#INSERT:NAME#%-->">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="HandheldFriendly" content="true">
-        <meta name="description" content="A RESTful API that serves jokes from many categories while also offering a lot of filtering methods">
-        <meta name="twitter:card" content="A RESTful API that serves jokes from many categories while also offering a lot of filtering methods">
+        <meta name="description" content="<!--%#INSERT:NAME#%--> is a RESTful API that serves jokes from many categories while also offering a lot of filtering methods">
+        <meta name="twitter:card" content="<!--%#INSERT:NAME#%--> is a RESTful API that serves jokes from many categories while also offering a lot of filtering methods">
         <meta name="subject" content="API">
         <meta name="copyright" content="Sv443 - Licensed under MIT license (https://sv443.net/LICENSE)">
-        <meta name="author" content="Sv443, sven.fehler@web.de">
+        <meta name="author" content="Sv443">
         <meta property="og:title" content="<!--%#INSERT:NAME#%-->">
         <meta property="og:url" content="<!--%#INSERT:DOCSURL#%-->">
-        <meta property="og:description" content="A RESTful API that serves jokes from many categories while also offering a lot of filtering methods">
+        <meta property="og:description" content="<!--%#INSERT:NAME#%--> is a RESTful API that serves jokes from many categories while also offering a lot of filtering methods">
         <meta property="og:image" content="./favicon.ico">
         <meta property="og:type" content="profile">
         <meta property="og:locale" content="en_US">
@@ -35,33 +35,20 @@
         <meta name="application-name" content="<!--%#INSERT:NAME#%-->">
         <meta name="theme-color" content="#101747">
 
-        <!-- IE detection -->
-        <script>
-        var isIExp = isIE();
-        function isIE() {
-            var ua = window.navigator.userAgent;
-            var msie = ua.indexOf("MSIE ");
-            if(msie > 0 || !!navigator.userAgent.match(/Trident.*rv:11\./)) {return true;} // is IE
-            return false; // other browser
-        }
+        <link rel="icon" type="image/png" href="./favicon.ico">
 
-        if(isIExp === true)
-        {
-            alert("Your browser is outdated.\nYou might still be able to view the content but everything interactive will not work.\n\nPlease update to a newer browser like Mozilla Firefox or Google Chrome to view this page correctly.");
-        }
-        </script>
+        <!-- IE detection -->
+        <script src="https://sv443.net/cdn/jokeapi/isIE.js" integrity="sha512-SibQCccl2OYEcFF7u++aXdsyBuL0syy24w+arsjj9sPdtvRUKVJHVUq5gGT/AjvDXrNlWZ2tZq9GbVelt2c7eQ==" crossorigin="anonymous"></script>
 
         <!-- #MARKER dependencies -->
         <!-- Have to do it like this because the page doesn't always have a trailing slash and that *somehow* makes it redirect to the page root: -->
-        <link rel="stylesheet" href="<!--%#INSERT:DOCSURL#%-->/static/index.css">
+        <!-- <link rel="stylesheet" href="<!--%#INSERT:DOCSURL#%--><!--/static/index.css"-->
         <link rel="stylesheet" href="static/index.css">
 
-        <link rel="icon" type="image/png" href="<!--%#INSERT:DOCSURL#%-->/favicon.ico">
-
-        <script src="https://sv443.net/cdn/jsl/1.5.0.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/Sv443/jslib@1.5.0/jslib.js" integrity="sha512-jTdPVbIEUKKGdPFXb9+713FOD/Twcf9h9MeeKF/psBbpSzseYH8KmJuCsQ3qQHWQcA93UVQGG51651pB/h44ew==" crossorigin="anonymous"></script>
 
         <!-- Have to do it like this because the page doesn't always have a trailing slash and that *somehow* makes it redirect to the page root: -->
-        <script src="<!--%#INSERT:DOCSURL#%-->/static/index.js"></script>
+        <!-- <script src="<!--%#INSERT:DOCSURL#%--><!--/static/index.js"></script-->
         <script src="static/index.js"></script>
 
         <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=sunburst"></script> <!-- Google Code-Prettify -->
@@ -187,20 +174,38 @@
                 <!--%#INSERT:NAME#%--> is a RESTful API that serves uniformly and well formatted jokes.<br>
                 It can be used <u>without any API token, membership, registration or payment.</u><br>
                 It supports a variety of filters that can be applied to get just the right jokes you need.<br>
-                The usage is very simple and similar to other RESTful APIs and requires only basic knowledge of HTTP/HTTPS requests and JSON, XML or YAML.<br>
-                <br>
+                The usage is very simple and similar to other RESTful APIs and requires only basic knowledge of HTTP requests and JSON, XML, YAML or plain text.<br>
                 <br>
                 If you come across a term you don't understand, you can try <span class="mimica" onclick="openNav()">opening the menu</span> and clicking on the section "Terminology".<br>
-                <!--%#INSERT:NAME#%--> currently serves <!--%#INSERT:TOTALJOKES#%--> jokes. To submit a new joke, <a href="#submit">please click here.</a><br>
+                <!--%#INSERT:NAME#%--> currently serves <!--%#INSERT:TOTALJOKES#%--> jokes from <!--%#INSERT:JOKELANGCOUNT#%--> different languages. To submit a new joke, <a href="#submit">please click here.</a><br>
                 <br>
-                If you want to report a bug or an illegal joke, please <a href="<!--%#INSERT:PROJGITHUBURL#%-->/issues/new/choose" target="_blank">use the GitHub issue tracker.</a><br>
+                To report a bug or a grammar mistake or to suggest a feature, please <a href="<!--%#INSERT:PROJGITHUBURL#%-->/issues/new/choose" target="_blank">use the GitHub issue tracker.</a><br>
                 If you want to contribute to <!--%#INSERT:NAME#%-->, please read the <a href="<!--%#INSERT:PROJGITHUBURL#%-->/blob/master/.github/Contributing.md" target="_blank">Contributing Guide.</a><br>
-                <br>
                 <br>
                 <span style="color: orangered;">If you are new to <!--%#INSERT:NAME#%-->, please start by reading the <a href="#getting-started">Getting Started Guide</a></span><br>
                 <br>
+                <span class="subHeader" id="note">Note:</span>
+                <!--%#INSERT:NAME#%--> has been a target of DoS attacks in the past, which is why there is now a limit of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute and why joke submissions are manually curated.<br>
+                All dependencies are tested for vulnerabilities by <a href="https://snyk.io/" target="_blank">Snyk</a>, you can find a summary of the known vulnerabilities <a href="https://snyk.io/test/github/Sv443/JokeAPI" target="_blank">here.</a><br>
+                If you enjoy using <!--%#INSERT:NAME#%--> and want me to keep making free APIs and scripts, please consider donating <a href="https://github.com/sponsors/Sv443" target="_blank">here ♥</a><br>
+                Page security score (powered by Mozilla Observatory): <a href="https://observatory.mozilla.org/analyze/sv443.net" target="_blank"><img src="https://img.shields.io/mozilla-observatory/grade-score/sv443.net?publish" class="badge"></a><br>
                 <br>
-                Note: <!--%#INSERT:NAME#%--> has been a target of DoS attacks in the past, which is why there is now a limit of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute and why joke submissions are manually curated.<br>
+                <span class="subHeader" id="uptime">Uptime:</span>
+                <table id="uptimeTable">
+                    <tr>
+                        <td>Last day:</td>
+                        <td><img src="https://img.shields.io/uptimerobot/ratio/1/m784261094-bff76b959ebb8fc39f7eb2d0" class="badge"></td>
+                    </tr>
+                    <tr>
+                        <td>Last week:</td>
+                        <td><img src="https://img.shields.io/uptimerobot/ratio/7/m784261094-bff76b959ebb8fc39f7eb2d0" class="badge"></td>
+                    </tr>
+                    <tr>
+                        <td>Last month:</td>
+                        <td><img src="https://img.shields.io/uptimerobot/ratio/30/m784261094-bff76b959ebb8fc39f7eb2d0" class="badge"></td>
+                    </tr>
+                </table>
+                <a href="https://status.sv443.net/" target="_blank">(more info)</a>
 
                 <!-- #MARKER Try It -->
                 <div class="docHeader targetBlink" id="try-it"><a class="headerAnchorContainer" href="#try-it" title="Click to link to this header">🔗</a><span class="docHeaderText">Try it out here:</span></div>
@@ -222,8 +227,19 @@
                                             <input type="checkbox" id="cat-cb1" onchange="reRender()" disabled><label for="cat-cb1">Programming</label>
                                             <input type="checkbox" id="cat-cb2" onchange="reRender()" disabled><label for="cat-cb2">Miscellaneous</label>
                                             <input type="checkbox" id="cat-cb3" onchange="reRender()" disabled><label for="cat-cb3">Dark</label>
+                                            <input type="checkbox" id="cat-cb4" onchange="reRender()" disabled><label for="cat-cb4">Pun</label>
                                         </span>
                                     </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Select <a href="#languages-endpoint">language</a>:
+                            </td>
+                            <td>
+                                <div class="multiselect noselect">
+                                    <select id="lcodeSelect" onchange="reRender()" class="appendLangOpts"></select>
                                 </div>
                             </td>
                         </tr>
@@ -288,6 +304,16 @@
                                 </div>
                             </td>
                         </tr>
+                        <tr>
+                            <td>
+                                <a href="#amount">Amount</a> of jokes:
+                            </td>
+                            <td>
+                                <div class="multiselect noselect" id="jokeAmountWrapper">
+                                    <input type="number" id="jokesAmountInput" value="1" min="1" step="1" oninput="reRender()" max="<!--%#INSERT:MAXJOKEAMOUNT#%-->">
+                                </div>
+                            </td>
+                        </tr>
                     </table>
                     <br><br><br><br>
                     <div id="urlBuilderWrapper" class="flexItem">
@@ -297,6 +323,7 @@
 <code id="urlBuilderPrettyprint" class="lang-json flexItem r"><span class="nocode codeheader">Result:</span>
 <div class="actualCode" id="tryItResult">(Set parameters and click "Send Request" above)</div>
 </code>
+                <span id="tryItFormLatency"></span>
                 </div>
 
 
@@ -305,10 +332,14 @@
                 <!--%#INSERT:NAME#%--> doesn't require any API token, authorization or payment to work, although there is a hard limit of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute due to some DoS attacks I have been getting.<br>
                 To start using <!--%#INSERT:NAME#%-->, you can do one of these two things:<br>
                 <ul class="lispacer">
-                    <li>You can see if your language has a wrapper for <!--%#INSERT:NAME#%--> (to see a list of officially supported wrappers, <a href="#wrappers">click here</a>)</li>
                     <li>
-                        You can directly communicate with <!--%#INSERT:NAME#%--> with HTTP requests (XHR) from within your code (<a href="https://medium.com/better-programming/crash-course-in-http-requests-using-python-59246373a187" target="_blank">Python XHR Crash Course</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest" target="_blank">JavaScript XHR Documentation</a>)<br>
-                        When/If you know how to send HTTP requests, please take a look at <a href="#endpoints">all the endpoints <!--%#INSERT:NAME#%--> has.</a><br>
+                        You can see if your language has a wrapper for <!--%#INSERT:NAME#%--> (to see a list of officially supported wrappers, <a href="#wrappers">click here</a>)<br>
+                        Then, follow its documentation to communicate with the API (Disclaimer: I don't take any responsibility for their code).
+                    </li>
+                    <li>
+                        You can directly communicate with <!--%#INSERT:NAME#%--> with HTTP requests (XHR) from within your code.<br>
+                        Here's a few resources to get you started: (<a href="https://medium.com/better-programming/crash-course-in-http-requests-using-python-59246373a187" target="_blank">Python XHR Crash Course</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest" target="_blank">JavaScript XHR Documentation</a>, <a href="https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=netcore-3.1" target="_blank">.NET HttpClient Class Documentation</a>)<br>
+                        Once you know how to send HTTP requests, please take a look at <a href="#endpoints">all the endpoints <!--%#INSERT:NAME#%--> has.</a><br>
                         After you've finished reading that, you can start testing out the different endpoints with a client such as <a href="https://www.getpostman.com/" target="_blank">Postman</a> and look at some examples by <a href="#examples">going to the "Examples" section.</a>
                     </li>
                 </ul>
@@ -318,12 +349,14 @@
 
                 <!-- #MARKER Wrappers -->
                 <div class="docHeader targetBlink" id="wrappers"><a class="headerAnchorContainer" href="#wrappers" title="Click to link to this header">🔗</a><span class="docHeaderText">Official API Wrappers:</span></div>
-                A wrapper is generally a library that wraps around a certain function to make your life easier.<br>
+                A wrapper is generally a library that wraps around a certain function or API to make your life easier.<br>
                 In the case of RESTful APIs like <!--%#INSERT:NAME#%-->, a wrapper library makes it so you can use functions and objects to communicate with the API and the wrapper will do all the HTTP requests for you in the background.<br>
+                Disclaimer: I will not take any responsibility for the wrappers, they are community-made and I can't ensure security and validity.<br>
                 The following is a list of officially supported <!--%#INSERT:NAME#%--> wrappers:<br>
 
                 <br>
 
+                <!-- TODO: in near future, switch to self-hosted logos so CSP can be set very harshly -->
                 <table id="wrapperTable">
                     <tr>
                         <th>Language</th>
@@ -357,6 +390,7 @@
                                         <option value="Miscellaneous" class="selectOnInit" selected>Miscellaneous</option>
                                         <option value="Programming">Programming</option>
                                         <option value="Dark">Dark</option>
+                                        <option value="Pun">Pun</option>
                                     </select>
                                 </td>
                             </tr>
@@ -367,6 +401,16 @@
                                         <option value="single" class="selectOnInit" selected>Single</option>
                                         <option value="twopart">Two Part</option>
                                     </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Language:</td>
+                                <td>
+                                    <select id="f_language" class="appendLangOpts"></select>
+                                    <span id="f_langHideContainer" class="hidden">
+                                        <input type="text" id="f_customLang" placeholder="Language Code" minlength="2" maxlength="2" onchange="valChanged(this)" value="en">
+                                        <a href="<!--%#INSERT:DOCSURL#%-->/languages?format=txt" target="_blank">(?)</a>
+                                    </span>
                                 </td>
                             </tr>
                             <tr>
@@ -401,6 +445,8 @@
                     </div>
                 </div>
 
+                Note: Only Unicode characters in the range U+0000 to U+0FFF are allowed <a href="https://unicode-table.com/en" target="_blank">(more info)</a>
+
 
                 <!-- #MARKER URL parameters -->
                 <div class="docHeader targetBlink" id="url-parameters"><a class="headerAnchorContainer" href="#url-parameters" title="Click to link to this header">🔗</a><span class="docHeaderText">URL Parameters:</span></div>
@@ -410,12 +456,14 @@
                 
                 <!--#SECTION Format-->
                 <span class="subHeader" id="format-param">Format:</span>
+                <mark>?format=format</mark><br><br>
                 This parameter is global - it can be used on every single endpoint of <!--%#INSERT:NAME#%--> (excluding the documentation and static content).<br>
                 It is used to change the response format from the default (JSON) to <span class="insFormatsS">(Loading...)</span>, depending on what you need.<br>
                 If the format parameter is invalid or not specified at all, the default value of JSON will be used.<br>
                 Available formats are <mark class="insFormats">(Loading...)</mark><br><br>
                 <details><summary>Example 1 (click to view)</summary>
                     URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?format=xml</mark><br><br>
+                    <!-- Code blocks need to be at indentation level 0: -->
 <code class="prettyprint"><div class="actualCode">
 &lt;data&gt;
 	&lt;category&gt;Programming&lt;/category&gt;
@@ -428,7 +476,8 @@
 		&lt;racist&gt;false&lt;/racist&gt;
 		&lt;sexist&gt;false&lt;/sexist&gt;
 	&lt;/flags&gt;
-	&lt;id&gt;12&lt;/id&gt;
+    &lt;id&gt;12&lt;/id&gt;
+    &lt;lang&gt;en&lt;/lang&gt;
 &lt;/data&gt;
 </div></code>
                 </details><br>
@@ -445,6 +494,7 @@ None. It's a hardware problem.
 
                 <br><br><!--#SECTION Blacklist Flags-->
                 <span class="subHeader" id="flags-param">Blacklist Flags:</span>
+                <mark>?blacklistFlags=flag1[,flag2,...]</mark><br><br>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If it is used, jokes that match the specified flag(s) will not be served (<a href="#blacklist-flags">what is a flag?</a>).<br>
                 If you want to use multiple flags, separate them with a comma (,) or a plus sign (+).<br>
@@ -461,8 +511,31 @@ None. It's a hardware problem.
                 </details>
 
 
+                <br><br><!--#SECTION Language-->
+                <span class="subHeader" id="lang">Language:</span>
+                <mark>?lang=langcode</mark><br><br>
+                This parameter can be used on every endpoint, but it is possible that no translations or jokes exist yet for your language.<br>
+                <br>
+                There are two types of languages; system languages and joke languages. Both are separate from each other.<br>
+                All system messages like errors can have a certain system language, while jokes can only have a joke language.<br>
+                It is possible, that system languages don't yet exist for your language while jokes already do.<br>
+                If no suitable system language is found, <!--%#INSERT:NAME#%--> will default to English.<br>
+                <br>
+                If you are interested in providing translations, please read the <a href="https://github.com/Sv443/JokeAPI/blob/master/.github/Contributing.md#submitting-translations" target="_blank">Contributing Guide</a>; it will explain it.<br>
+                You can also submit jokes in different languages. Please understand that I will not be able to ensure their proper formatting or legitimacy.<br>
+                <br>
+                Currently available system languages: <mark class="insSysLangs">(Loading...)</mark><br>
+                Currently available joke languages: <mark class="insJokeLangs">(Loading...)</mark><br><br>
+
+                <details><summary>Example 1 (click to view)</summary>
+                    URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?lang=ru</mark><br>
+                    Using the above URL will fetch only jokes that are Russian. If an error gets returned, it will also be in Russian, provided a translation was found.
+                </details><br>
+
+
                 <br><br><!--#SECTION Joke Type-->
                 <span class="subHeader" id="type-param">Joke Type:</span>
+                <mark>?type=type</mark><br><br>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If it is set, you will only receive jokes with the specified joke type (<a href="#joke-type">what is a joke type?</a>).<br>
                 If it is not set or set to an invalid value, you will receive jokes of both types.<br>
@@ -483,7 +556,8 @@ None. It's a hardware problem.
         "racist": false,
         "sexist": false
     },
-    "id": 58
+    "id": 58,
+    "lang": "en"
 }
 </div></code><br>
                     (no jokes with type "single" will be served)
@@ -492,9 +566,10 @@ None. It's a hardware problem.
 
                 <br><br><!--#SECTION Contains-->
                 <span class="subHeader" id="contains-param">Contains:</span>
+                <mark>?contains=string</mark><br><br>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If this parameter is specified, only jokes that contain the value of this parameter will be served (case insensitive).<br>
-                <span class="colY">IMPORTANT:</span> If the value of this parameter contains special characters, it needs to be <a href="https://tools.ietf.org/html/rfc3986#section-2.1" target="_blank">percent-encoded</a> according to the URI standard (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent" target="_blank">MDN Reference</a>), otherwise you might get an error or a wrong response.<br><br>
+                <span class="colY">IMPORTANT:</span> If the value of this parameter contains special characters, it needs to be <a href="https://en.wikipedia.org/wiki/Percent-encoding" target="_blank">percent-encoded</a> according to the <a href="https://tools.ietf.org/html/rfc3986#section-2.1" target="_blank">URI syntax standard</a>, otherwise you might get an error or a wrong response.<br><br>
 
                 <details><summary>Example (click to view)</summary>
                     URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?contains=C%23</mark> (%23 = pound character / hashtag / # - so the thing searched for here is "C#")<br><br>
@@ -511,7 +586,8 @@ None. It's a hardware problem.
         "racist": false,
         "sexist": false
     },
-    "id": 51
+    "id": 51,
+    "lang": "en"
 }
 </div></code><br>
                 </details>
@@ -519,6 +595,7 @@ None. It's a hardware problem.
 
                 <br><br><!--#SECTION ID Range-->
                 <span class="subHeader" id="idrange-param">ID Range:</span>
+                <mark>?idRange=number[-number]</mark><br><br>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If it is used, you will only get jokes that are inside the specified range of IDs.<br>
                 The lower and upper boundary of the ID range needs to be delimited with a minus (-), comma (,) or a plus sign (+).<br>
@@ -536,6 +613,43 @@ None. It's a hardware problem.
                 </details>
 
 
+
+                <br><br><!--#SECTION Joke Amount-->
+                <span class="subHeader" id="amount-param">Joke Amount:</span>
+                <mark>?amount=number</mark><br><br>
+                This parameter can only be used on the "joke" endpoint.<br>
+                If it is used, you will get a certain number of jokes in a single request.<br>
+                If <!--%#INSERT:NAME#%--> has less jokes than demanded, it will not error out but instead send the maximum amount of jokes it can serve.<br>
+                Maximum possible number is <!--%#INSERT:MAXJOKEAMOUNT#%--> and using an invalid value will make <!--%#INSERT:NAME#%--> default to 1.<br>
+                The joke format will change from the default when you set the amount parameter to 2 or more.<br>
+                <br>
+
+                <details><summary>Click to view the format when fetching multiple jokes</summary>
+<code class="prettyprint lang-json">
+<div class="actualCode">{
+    "error": false,
+    "jokes": [
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            ...
+        },
+        ...
+    ],
+    "amount": 10
+}
+</div></code><br>
+                </details>
+
+                <br>
+
+                <details><summary>Example (click to view)</summary>
+                    URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?amount=5</mark><br>
+                    Using the above URL will make <!--%#INSERT:NAME#%--> serve you five jokes at once.
+                </details><br>
+
+
+
                 <!-- #MARKER Errors -->
                 <div class="docHeader targetBlink" id="errors"><a class="headerAnchorContainer" href="#errors" title="Click to link to this header">🔗</a><span class="docHeaderText">Errors:</span></div>
                 In <!--%#INSERT:NAME#%--> all response data, no matter from which endpoint will have a boolean "error" parameter.<br>
@@ -546,6 +660,7 @@ None. It's a hardware problem.
                 The "message" parameter will contain a short version of the error message and the "timestamp" parameter will contain a 13-character Unix timestamp.<br>
                 The "causedBy" parameter is an array of possible causes of this error and the "addidionalInfo" parameter contains a more descriptive error message.<br>
                 <br>
+                If possible, <!--%#INSERT:NAME#%--> will try to translate the error messages but keep in mind there might not exist a translation for your language yet or it is not 100% perfect.<br>
                 You can view an example of an error, where an invalid category was used, just below this paragraph.<br>
                 Together with the <a href="#status-codes">HTTP status code</a>, which will also be set according to the type of error, these parameters can be used to improve error handling massively from what was the error system in previous versions of <!--%#INSERT:NAME#%-->.<br><br><br>
 
@@ -558,13 +673,14 @@ None. It's a hardware problem.
     "causedBy": [
         "No jokes were found that match your provided filter(s)"
     ],
-    "additionalInfo": "The specified category is invalid - Got: \"foo\" - Possible categories are: \"Any, Miscellaneous, Programming, Dark\" (case insensitive)",
+    "additionalInfo": "The specified category is invalid - Got: \"foo\" - Possible categories are: \"Any, Miscellaneous, Programming, Dark, Pun\" (case insensitive)",
     "timestamp": 1579170794412
 }
 </div></code><br>
                 
                 <span class="subHeader" id="status-codes">Status Codes:</span>
                 <table id="statusCodeTable">
+                    <!-- Use CSS classes g (green), r (red) and dr (dark red) on the td's to color status codes -->
                     <tr>
                         <th>Code</th>
                         <th>Name</th>
@@ -629,6 +745,21 @@ None. It's a hardware problem.
                 </mark>
 
 
+                <!-- #MARKER Troubleshooting -->
+                <div class="docHeader targetBlink" id="troubleshooting"><a class="headerAnchorContainer" href="#troubleshooting" title="Click to link to this header">🔗</a><span class="docHeaderText">Troubleshooting:</span></div>
+                <span class="subHeader">HTTP Error 403:</span>
+                First, please check if you can access all endpoints with your web browser. If not, your IP address has most likely been acting malicious and was permanently blacklisted.<br>
+                If you keep getting HTTP 403 (Forbidden) response codes in your program but not in your browser and have never shown malicious behavior before, the issue is most likely that Cloudflare is blocking your request.<br>
+                This might be due to inconsistent request data or headers that are often used in malicious requests or cyber attacks (most of the time it's gonna be the fault of the library you are using).<br>
+                A fix to this issue would be to explicitly set a <mark>User-Agent</mark> header in each of your requests.<br>
+                This is the user agent of your browser which you should be able to use in the fix described above:<br>
+                <mark id="insUserAgent">(Something didn't work, please enter "navigator.userAgent" without quotes in your JavaScript console instead)</mark><br><br>
+
+                <span class="subHeader">HTTP Error 429:</span>
+                You will get 429 errors occasionally if you exceed the maximum of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute.<br>
+                In this case, you will need to wait up to one minute to be able to talk to the API again.<br>
+                If you want to index the API or fetch all jokes, are better off going to the <a href="<!--%#INSERT:PROJGITHUBURL#%-->" target="_blank">GitHub repository</a>, where you will find everything you need and you don't need to spam <!--%#INSERT:NAME#%-->.
+
 
                 <!-- #MARKER Endpoints -->
                 <div class="docHeader targetBlink" id="endpoints"><a class="headerAnchorContainer" href="#endpoints" title="Click to link to this header">🔗</a><span class="docHeaderText">Endpoints:</span></div>
@@ -648,11 +779,11 @@ None. It's a hardware problem.
                 These are all the available categories: <mark class="insCategories">(Loading...)</mark><br>
                 To see how this URL is built with certain parameters set, <a href="#try-it">visit the "Try It" section.</a><br>
                 <details>
-                    <summary>Example - click to view</summary>
+                    <summary>Full example - click to view</summary>
                     <span class="requestURLwrapper">
-                        <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/joke/Programming,Miscellaneous?format=xml&blacklistFlags=nsfw,sexist&type=single</span>
+                        <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/joke/Programming,Miscellaneous?format=xml&blacklistFlags=nsfw,sexist&type=single&lang=ru&amount=2</span>
                     </span><br><br>
-                    Will give a joke from either the Programming or the Miscellaneous category, with the payload <a href="#response-formats">format</a> XML,<br>
+                    Will give two Russian joke from either the Programming or the Miscellaneous category, with the payload <a href="#response-formats">format</a> XML,<br>
                     with the <a href="#joke-type">joke type</a> "single", while also preventing all jokes that are potentially not safe for work and sexist from being served.
                 </details>
                 <br><br>
@@ -660,9 +791,11 @@ None. It's a hardware problem.
                 <ul>
                     <li><a class="requestURL" href="#response-formats">?format</a></li>
                     <li><a class="requestURL" href="#flags-param">?blacklistFlags</a></li>
+                    <li><a class="requestURL" href="#lang">?lang</a></li>
                     <li><a class="requestURL" href="#id-range">?idRange</a></li>
                     <li><a class="requestURL" href="#search-string">?contains</a></li>
                     <li><a class="requestURL" href="#joke-type">?type</a></li>
+                    <li><a class="requestURL" href="#amount">?amount</a></li>
                 </ul>
                 <a href="#url-parameters">(More info on filtering parameters)</a>
                 <br><br>
@@ -681,12 +814,14 @@ None. It's a hardware problem.
                 - All the available categories, flags, types and formats<br>
                 - A 13-character UNIX timestamp<br>
                 - The URL to a joke submission form<br>
+                - A list of languages (code and name) JokeAPI currently supports<br>
                 - The minimum and maximum values of an ID range<br>
                 - A string with some information, like a message of the day
                 <br><br>
                 Supported URL parameters:<br>
                 <ul>
                     <li><a class="requestURL" href="#response-formats">?format</a></li>
+                    <li><a class="requestURL" href="#lang">?lang</a></li>
                 </ul>
                 <br><br>
 
@@ -703,6 +838,103 @@ None. It's a hardware problem.
                 Supported URL parameters:<br>
                 <ul>
                     <li><a class="requestURL" href="#response-formats">?format</a></li>
+                    <li><a class="requestURL" href="#lang">?lang</a></li>
+                </ul>
+                <br><br>
+
+
+                <!--#SECTION LangCode-->
+                <span id="langcodes-endpoint" class="subHeader">Language Code:</span>
+                <span class="requestURLwrapper">
+                    <span class="requestMethodGET">GET</span>
+                    <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/langcode/<span class="placeholder">[Language]</span></span>
+                </span>
+                <br><br>
+                This endpoint returns the language code of a provided language. It is searched with a fuzzy search, so you just have to provide the approximate language name.<br>
+                This language code is to be used in <a href="#joke-endpoint">fetching</a> and <a href="#submit-endpoint">submitting</a> jokes in different languages.<br>
+                <br>
+                <details>
+                    <summary>Example 1 - click to view</summary>
+                    <br>
+                    <span class="requestURLwrapper">
+                        <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/langcode/german</span>
+                    </span><br><br>
+<code class="prettyprint"><div class="actualCode">
+{
+    "error": false,
+    "code": "de"
+}
+</div></code>
+                </details>
+                <br>
+                <details>
+                    <summary>Example 2 - click to view</summary>
+                    <br>
+                    <span class="requestURLwrapper">
+                        <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/langcode/sw3d1sh</span>
+                    </span><br><br>
+<code class="prettyprint"><div class="actualCode">
+{
+    "error": false,
+    "code": "sv"
+}
+</div></code>
+                </details>
+                <br><br>
+                Supported URL parameters:<br>
+                <ul>
+                    <li><a class="requestURL" href="#response-formats">?format</a></li>
+                    <li><a class="requestURL" href="#lang">?lang</a></li>
+                </ul>
+                <br><br>
+
+
+                <!--#SECTION Languages-->
+                <span id="languages-endpoint" class="subHeader">Supported Languages:</span>
+                <span class="requestURLwrapper">
+                    <span class="requestMethodGET">GET</span>
+                    <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/languages</span>
+                </span>
+                <br><br>
+                This endpoint returns lists of supported languages in jokes and supported languages in system messages (error messages).<br>
+                Also, it returns a list of possible language values you can use to submit a joke or add a translation.<br>
+                <details>
+                    <summary>Example - click to view</summary>
+                    <br>
+                    <span class="requestURLwrapper">
+                        <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/languages</span>
+                    </span><br><br>
+<code class="prettyprint"><div class="actualCode">
+{
+    "defaultLanguage": "en",
+    "jokeLanguages": [
+        "de",
+        "en"
+    ],
+    "systemLanguages": [
+        "de",
+        "en",
+        "ru"
+    ],
+    "possibleLanguages": [
+        {
+            "code": "aa",
+            "name": "Afar"
+        },
+        {
+            ...
+        },
+        ...
+    ],
+    "timestamp": 1590929517702
+}
+</div></code>
+                </details>
+                <br><br>
+                Supported URL parameters:<br>
+                <ul>
+                    <li><a class="requestURL" href="#response-formats">?format</a></li>
+                    <li><a class="requestURL" href="#lang">?lang</a></li>
                 </ul>
                 <br><br>
 
@@ -719,6 +951,7 @@ None. It's a hardware problem.
                 Supported URL parameters:<br>
                 <ul>
                     <li><a class="requestURL" href="#response-formats">?format</a></li>
+                    <li><a class="requestURL" href="#lang">?lang</a></li>
                 </ul>
                 <br><br>
 
@@ -735,6 +968,7 @@ None. It's a hardware problem.
                 Supported URL parameters:<br>
                 <ul>
                     <li><a class="requestURL" href="#response-formats">?format</a></li>
+                    <li><a class="requestURL" href="#lang">?lang</a></li>
                 </ul>
                 <br><br>
 
@@ -752,6 +986,7 @@ None. It's a hardware problem.
                 Supported URL parameters:<br>
                 <ul>
                     <li><a class="requestURL" href="#response-formats">?format</a></li>
+                    <li><a class="requestURL" href="#lang">?lang</a></li>
                 </ul>
                 <br><br>
 
@@ -762,9 +997,12 @@ None. It's a hardware problem.
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/endpoints</span>
                 </span>
-                <br><br>
-                This endpoint returns a list / an array of all available endpoints, their usage (method, url and supported parameters) and a short description each.
-                <br><br>
+                <br>
+                <br>
+                This endpoint returns a list / an array of all available endpoints, their usage (method, url and supported parameters) and a short description each.<br>
+                Note: the <mark>lang</mark> parameter will not work here due to JokeAPI's fundamental architecture not allowing it.
+                <br>
+                <br>
                 Supported URL parameters:<br>
                 <ul>
                     <li><a class="requestURL" href="#response-formats">?format</a></li>
@@ -784,8 +1022,8 @@ None. It's a hardware problem.
                 The payload needs to be sent as JSON. Different <a href="#response-formats">formats</a> are not allowed here.<br>
                 The request payload has to follow the same object structure that the jokes are served in when using the "joke" endpoint.<br>
                 <br>
-                Make sure to add a "formatVersion" property, which just contains the current joke format version (<!--%#INSERT:FORMATVERSION#%-->).<br>
-                This is needed since there were a few changes to the object format since the previous versions and this ensures consistency.<br>
+                Make sure to add a "formatVersion" property, though, which just contains the current joke format version (<!--%#INSERT:FORMATVERSION#%-->).<br>
+                This is needed since there were a few changes to the object format since the previous versions and this serves as a kind of acknowledgement.<br>
                 <br>
                 The joke category has to be any valid <a href="#categories">category</a>, excluding "Any".<br>
                 If the <a href="#joke-type">joke type</a> is set to "single", the properties "setup" and "delivery" will need to be omitted and the joke is to be put in the "joke" property.<br>
@@ -808,7 +1046,8 @@ None. It's a hardware problem.
         "political": true,
         "racist": false,
         "sexist": false
-    }
+    },
+    "lang": "en"
 }
 </div></code>
 
@@ -833,7 +1072,8 @@ None. It's a hardware problem.
             "political": true,
             "racist": false,
             "sexist": false
-        }
+        },
+        "lang": "en"
     },
     "timestamp": 1579685839560
 }
@@ -855,6 +1095,7 @@ None. It's a hardware problem.
                     <li><a href="#joke-type">Joke Type</a></li>
                     <li><a href="#search-string">Search String</a></li>
                     <li><a href="#id-range">ID Range</a></li>
+                    <li><a href="#lang">Language</a></li>
                 </ul>
 
 
@@ -879,7 +1120,7 @@ None. It's a hardware problem.
 <div class="actualCode">const https = require("https"); // Native module, no need to explicitly install
 
 const baseURL = "<!--%#INSERT:DOCSURL#%-->";
-const categories = ["Programming", "Miscellaneous"];
+const categories = ["Programming", "Miscellaneous", "Pun"];
 const params = [
     "blacklistFlags=nsfw,religious,racist",
     "idRange=0-100"
@@ -920,7 +1161,7 @@ https.get(`${baseURL}/joke/${categories.join(",")}?${params.join("&")}`, res => 
                 <details><summary id="example-js" class="big">Web-JavaScript (click to show)</summary>
 <code class="prettyprint"><span class="nocode codeheader">Web-JS:</span>
 <div class="actualCode">var baseURL = "<!--%#INSERT:DOCSURL#%-->";
-var categories = ["Programming", "Miscellaneous"];
+var categories = ["Programming", "Miscellaneous", "Pun"];
 var params = [
     "blacklistFlags=nsfw,religious,racist",
     "idRange=0-100"
@@ -968,7 +1209,7 @@ using System.Web.Script.Serialization; // Requires you to include the assembly "
 private void getJoke()
 {
     string baseURL = "<!--%#INSERT:DOCSURL#%-->";
-    string[] categories = { "Programming", "Miscellaneous" };
+    string[] categories = { "Programming", "Miscellaneous", "Pun" };
     string[] parameters = {
         "blacklistFlags=nsfw,religious,racist",
         "idRange=0-100"
@@ -986,7 +1227,7 @@ private void getJoke()
 
         // Deserialize the string into an object of the Joke class
         JavaScriptSerializer ser = new JavaScriptSerializer();
-        Joke randomJoke = ser.Deserialize<Joke>(responseFromServer);
+        Joke randomJoke = ser.Deserialize&lt;Joke&gt;(responseFromServer);
 
         if (randomJoke.type == "single")
         {
@@ -1082,6 +1323,15 @@ public class Flags
                 As there are currently <!--%#INSERT:TOTALJOKES#%--> jokes, the ID range can be anywhere in the range of <mark>0</mark> to <mark><!--%#INSERT:TOTALJOKESZEROINDEXED#%--></mark><br>
 
 
+                <!--#SECTION Amount-->
+                <span class="subHeader" id="amount">Joke Amount:</span>
+                This filter allows you to set a certain amount of jokes to receive in a single call to the <a href="#joke-endpoint">"Get Joke" endpoint.</a><br>
+                You can set it using the <a href="#amount-param">?amount</a> URL parameter.<br>
+                Setting the filter to an invalid number will result in the API defaulting to serving a single joke.<br>
+                Setting it to a number larger than <!--%#INSERT:MAXJOKEAMOUNT#%--> will make <!--%#INSERT:NAME#%--> default to the maximum (<!--%#INSERT:MAXJOKEAMOUNT#%-->).<br>
+                If you request more than <!--%#INSERT:JOKEENCODEAMOUNT#%--> jokes, the API will try to serve them encoded with Brotli, Gzip or Deflate, depending on whether or not you set a <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding" target="_blank">Accept-Encoding</a> header.<br>
+
+
                 <!-- #MARKER Legal Stuff -->
                 <div class="docHeader targetBlink" id="legal"><a class="headerAnchorContainer" href="#legal" title="Click to link to this header">🔗</a><span class="docHeaderText">Legal Stuff:</span></div>
 
@@ -1110,7 +1360,7 @@ public class Flags
                     Additionally, I will only be able to provide security updates for a small selection of versions, a list of which you can find <a href="<!--%#INSERT:PROJGITHUBURL#%-->/security/policy#supported-versions" target="_blank">here.</a><br>
                     I am doing my best to ensure security and stability but there's only so much a single developer can do.<br>
                     Please report any issue that may arise to <a href="<!--%#INSERT:PROJGITHUBURL#%-->/issues/new/choose" target="_blank">the GitHub issue tracker</a> and I will try my best to fix it as soon as possible.<br>
-                    If you want to contact me, you can <a href="https://sv443.net/discord" target="_blank">join my Discord server</a> (fastest way to contact me) or send me an E-Mail at <a href="mailto:sven.fehler@web.de?subject=JokeAPI">sven.fehler@web.de</a>
+                    If you want to contact me, you can <a href="https://sv443.net/discord" target="_blank">join my Discord server</a> (fastest way to contact me) or send me an E-Mail: <span class="antiBotE" data-enc="Y29udGFjdEBzdjQ0My5uZXQ=">(click to show)</span>
                 </div>
 
                 <!-- #SECTION Fonts -->
@@ -1138,16 +1388,22 @@ public class Flags
                 <div class="indented">
                     These are the packages <!--%#INSERT:NAME#%--> depends on (excluding dependencies of dependencies and devDependencies):
                     <ul>
+                        <li><a href="https://npmjs.com/package/@pm2/io" target="_blank">@pm2/io</a></li>
                         <li><a href="https://npmjs.com/package/dotenv" target="_blank">dotenv</a></li>
                         <li><a href="https://npmjs.com/package/farmhash" target="_blank">farmhash</a></li>
+                        <li><a href="https://npmjs.com/package/fs-extra" target="_blank">fs-extra</a></li>
+                        <li><a href="https://npmjs.com/package/fuse.js" target="_blank">fuse.js</a></li>
+                        <li><a href="https://npmjs.com/package/http-ratelimit" target="_blank">http-ratelimit</a></li>
                         <li><a href="https://npmjs.com/package/js2xmlparser" target="_blank">js2xmlparser</a></li>
                         <li><a href="https://npmjs.com/package/json-to-pretty-yaml" target="_blank">json-to-pretty-yaml</a></li>
-                        <li><a href="https://npmjs.com/package/mysql" target="_blank">MySQL</a></li>
+                        <li><a href="https://npmjs.com/package/mysql" target="_blank">mysql</a></li>
                         <li><a href="https://npmjs.com/package/node-wrap" target="_blank">node-wrap</a></li>
                         <li><a href="https://npmjs.com/package/promise-all-sequential" target="_blank">promise-all-sequential</a></li>
                         <li><a href="https://npmjs.com/package/rate-limiter-flexible" target="_blank">rate-limiter-flexible</a></li>
                         <li><a href="https://npmjs.com/package/request-ip" target="_blank">request-ip</a></li>
-                        <li><a href="https://npmjs.com/package/svjsl" target="_blank">JSLib</a></li>
+                        <li><a href="https://npmjs.com/package/snyk" target="_blank">snyk</a></li>
+                        <li><a href="https://npmjs.com/package/svjsl" target="_blank">svjsl</a></li>
+                        <li><a href="https://npmjs.com/package/url-parse" target="_blank">url-parse</a></li>
                         <li><a href="https://npmjs.com/package/xss" target="_blank">xss</a></li>
                         <!--
                             <li><a href="https://npmjs.com/package/XXXX" target="_blank">XXXX</a></li>
@@ -1165,6 +1421,7 @@ public class Flags
                     <li><a href="https://github.com/aksty/Jokepy" target="_blank">Jokepy</a> by <a href="https://github.com/aksty/Jokepy" target="_blank">aksty</a></li>
                     <li><a href="https://github.com/whiteadi/Dark1" target="_blank">Dark1</a> by <a href="https://github.com/whiteadi" target="_blank">whiteadi</a></li>
                     <li><a href="https://github.com/LiamTownsley/Prejudice-Networks" target="_blank">Prejudice-Networks</a> by <a href="https://github.com/LiamTownsley" target="_blank">LiamTownsley</a></li>
+                    <li><a href="https://irshad.ml/humour.html" target="_blank">https://irshad.ml/humour.html</a> by <a href="https://github.com/draco-malfoy" target="_blank">draco-malfoy</a></li>
                 </ul>
                 (<a href="https://sv443.net/discord" target="_blank">Contact me</a> to get your project added here)
 
@@ -1194,6 +1451,7 @@ public class Flags
                 <a class="noul" onclick="closeNav()" href="#submit">Submit a Joke</a>
                 <a class="noul" onclick="closeNav()" href="#url-parameters">URL Parameters</a>
                 <a class="noul" onclick="closeNav()" href="#errors">Errors</a>
+                <a class="noul" onclick="closeNav()" href="#troubleshooting">Troubleshooting</a>
                 <details>
                     <summary>
                         <span class="sidenav-mimica">Endpoints</span>
@@ -1203,6 +1461,8 @@ public class Flags
                         <li><a class="noul" onclick="closeNav()" href="#joke-endpoint">Get Joke</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#info-endpoint">Info</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#categories-endpoint">Categories</a></li>
+                        <li><a class="noul" onclick="closeNav()" href="#langcodes-endpoint">Language Codes</a></li>
+                        <li><a class="noul" onclick="closeNav()" href="#languages-endpoint">Supported Languages</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#flags-endpoint">Flags</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#formats-endpoint">Formats</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#ping-endpoint">Ping</a></li>
@@ -1236,6 +1496,7 @@ public class Flags
                         <li><a class="noul" onclick="closeNav()" href="#joke-type">Joke Type</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#search-string">Search String</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#id-range">ID Range</a></li>
+                        <li><a class="noul" onclick="closeNav()" href="#amount">Joke Amount</a></li>
                     </ul>
                 </details>
                 <a class="noul" onclick="closeNav()" href="#legal">Legal Stuff</a>

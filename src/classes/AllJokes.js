@@ -1,74 +1,118 @@
-/**
- * @typedef {Object} SingleJoke A joke of type single
- * @prop {String} category The category of the joke
- * @prop {("single")} type The type of the joke
- * @prop {String} joke The joke itself
- * @prop {Object} flags
- * @prop {Boolean} flags.nsfw Whether the joke is NSFW or not
- * @prop {Boolean} flags.racist Whether the joke is racist or not
- * @prop {Boolean} flags.sexist Whether the joke is sexist or not
- * @prop {Boolean} flags.religious Whether the joke is religiously offensive or not
- * @prop {Boolean} flags.political Whether the joke is politically offensive or not
- * @prop {Number} id The ID of the joke
- */
+const jsl = require("svjsl");
+
+const parseJokes = require("../parseJokes");
+const languages = require("../languages");
+
+const settings = require("../../settings");
+
+
+jsl.unused(parseJokes); // only used for typedefs
+
+// expected format:
+/*
+{
+    "en": {
+        info: {
+            formatVersion: 2
+        },
+        jokes: [
+            {
+                (joke)
+            },
+            ...
+        ]
+    },
+    ...
+}
+*/
 
 /**
- * @typedef {Object} TwopartJoke A joke of type twopart
- * @prop {String} category The category of the joke
- * @prop {("twopart")} type The type of the joke
- * @prop {String} setup The setup of the joke
- * @prop {String} delivery The delivery of the joke
- * @prop {Object} flags
- * @prop {Boolean} flags.nsfw Whether the joke is NSFW or not
- * @prop {Boolean} flags.racist Whether the joke is racist or not
- * @prop {Boolean} flags.sexist Whether the joke is sexist or not
- * @prop {Boolean} flags.religious Whether the joke is religiously offensive or not
- * @prop {Boolean} flags.political Whether the joke is politically offensive or not
- * @prop {Number} id The ID of the joke
- */
-
-/**
- * @typedef {Object} JokeArray
- * @prop {Object} info
- * @prop {Number} info.formatVersion
- * @prop {Array<SingleJoke|TwopartJoke>} jokes
+ * @typedef {Object} CountPerLangObj
+ * @prop {Number} [en]
+ * @prop {Number} [de]
  */
 
 class AllJokes
 {
     /**
      * Constructs a new AllJokes object. This object contains all methods to get certain jokes
-     * @param {JokeArray} jokeArray 
+     * @param {Object} jokeArray 
      */
     constructor(jokeArray)
     {
-        if(typeof jokeArray != "object" || Array.isArray(jokeArray) || !Array.isArray(jokeArray.jokes))
+        this.jokes = {};
+        let jokeCount = 0;
+        let formatVersions = [];
+        let jokeCountPerLang = {};
+
+        //#SECTION check validity, get joke count and get format versions
+        Object.keys(jokeArray).forEach(key => {
+            if(!languages.isValidLang(key))
+                throw new Error(`Error: invalid language code in construction of an AllJokes object. Expected valid two character language code - got "${key}"`);
+            
+            if(!jokeCountPerLang[key])
+                jokeCountPerLang[key] = 0;
+
+            jokeCount += jokeArray[key].jokes.length;
+            jokeCountPerLang[key] += jokeArray[key].jokes.length;
+
+            let fv = jokeArray[key].info.formatVersion;
+
+            jokeArray[key].jokes.forEach((j, i) => {
+                jsl.unused(j);
+
+                jokeArray[key].jokes[i].lang = key;
+            });
+
+            if(fv != settings.jokes.jokesFormatVersion)
+                throw new Error(`Error: Jokes file with language ${key} has the wrong format version. Expected ${settings.jokes.jokesFormatVersion} but got ${fv}`);
+
+            formatVersions.push(fv);
+        });
+
+        formatVersions.push(settings.jokes.jokesFormatVersion);
+
+        if(!jsl.allEqual(formatVersions))
+            throw new Error(`Error: One or more of the jokes-xy.json files contain(s) a wrong formatVersion parameter`);
+
+        if(typeof jokeArray != "object" || Array.isArray(jokeArray))
             throw new Error(`Error while constructing a new AllJokes object: parameter "jokeArray" is invalid`);
 
-        this.info = jokeArray["info"];
-        this.jokes = jokeArray["jokes"];
-        this._jokeCount = jokeArray["jokes"].length;
-        this._formatVersion = this.info.formatVersion;
+        this.jokes = jokeArray;
+        this._jokeCount = jokeCount;
+        this._jokeCountPerLang = jokeCountPerLang;
+        this._formatVersions = formatVersions;
+
+        return this;
     }
 
     /**
-     * Returns an array of all jokes
-     * @returns {Array<SingleJoke|TwopartJoke>}
+     * Returns an array of all jokes of the specified language
+     * @param {String} [langCode="en"] Two character language code
+     * @returns {Array<parseJokes.SingleJoke|parseJokes.TwopartJoke>}
      */
-    getJokeArray()
+    getJokeArray(langCode)
     {
-        return this.jokes;
+        if(!languages.isValidLang(langCode))
+            langCode = settings.languages.defaultLanguage;
+
+        return (typeof this.jokes[langCode] == "object" ? this.jokes[langCode].jokes : []);
     }
 
     /**
      * Returns the joke format version
-     * @returns {(Number|undefined)} Returns a number, if the format version was set, returns undefined, if not
+     * @param {String} [langCode="en"] Two character language code
+     * @returns {Number|undefined} Returns a number if the format version was set, returns undefined, if not
      */
-    getFormatVersion()
+    getFormatVersion(langCode)
     {
-        if(this.info == undefined)
+        if(!languages.isValidLang(langCode))
+            langCode = settings.languages.defaultLanguage;
+        
+        if(typeof this.jokes[langCode] != "object")
             return undefined;
-        return this.info.formatVersion;
+        
+        return this.jokes[langCode].info ? this.jokes[langCode].info.formatVersion : undefined;
     }
 
     /**
@@ -81,12 +125,12 @@ class AllJokes
     }
 
     /**
-     * Returns the joke format version
-     * @returns {Number}
+     * Returns an object containing joke counts for every lang code
+     * @returns {CountPerLangObj}
      */
-    getJokeFormatVersion()
+    getJokeCountPerLang()
     {
-        return this._formatVersion;
+        return this._jokeCountPerLang;
     }
 }
 

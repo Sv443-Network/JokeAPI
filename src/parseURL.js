@@ -1,7 +1,8 @@
 // this module parses the passed URL, returning an object that is uniform and easy to use
 
+const urlParse = require("url-parse");
 const jsl = require("svjsl");
-const fs = require("fs");
+const fs = require("fs-extra");
 
 const settings = require("../settings");
 
@@ -24,47 +25,25 @@ const settings = require("../settings");
  * @param {String} url
  * @returns {(ParsedUrl|ErroredParsedUrl)}
  */
-const parseURL = url => {
-    let error = null;
-
-    let pathArr = [];
-    let qstrObj = {};
-
+function parseURL(url)
+{
     try
     {
-        let rawPath = url.split("?")[0];
-        let rawQstr = url.split("?")[1];
+        let trimFirstSlash = u2 => {
+            if(u2[0] == "")
+                u2.shift();
+            return u2;
+        };
 
+        let parsed = urlParse(url);
 
-        if(rawPath.includes("/"))
-            pathArr = rawPath.split("/");
-        else pathArr = [rawQstr];
-
-        if(pathArr.includes("v2"))
-        {
-            pathArr.forEach((itm, i) => {
-                if(itm == "v2")
-                    pathArr.splice(i, 1);
-            });
-        }
-
-        pathArr.forEach((pathSection, i) => {
-            if(jsl.isEmpty(pathSection))
-                pathArr.splice(i, 1);
-        });
-
-        // if a URL path offset was set in the settings, remove the first n elements from the path array
-        if(settings.httpServer.urlPathOffset > 0)
-        {
-            for(let i = 0; i < settings.httpServer.urlPathOffset; i++)
-            {
-                if(pathArr.length > 0)
-                    pathArr.shift();
-            }
-        }
-
-
+        let qstrObj = {};
         let qstrArr = [];
+        let rawQstr = (parsed.query == "" ? null : parsed.query);
+
+        if(rawQstr && rawQstr.startsWith("?"))
+            rawQstr = rawQstr.substr(1);
+
         if(!jsl.isEmpty(rawQstr) && rawQstr.includes("&"))
             qstrArr = rawQstr.split("&");
         else if(!jsl.isEmpty(rawQstr))
@@ -72,6 +51,7 @@ const parseURL = url => {
 
 
         if(qstrArr.length > 0)
+        {
             qstrArr.forEach(qstrEntry => {
                 if(qstrEntry.includes("="))
                 {
@@ -79,29 +59,108 @@ const parseURL = url => {
                     qstrObj[decodeURIComponent(splitEntry[0])] = decodeURIComponent(splitEntry[1].toLowerCase());
                 }
             });
-        else qstrObj = null;
+        }
+        else
+            qstrObj = null;
+
+        let retObj = {
+            error: null,
+            initialURL: url,
+            pathArray: trimFirstSlash(parsed.pathname.split("/")),
+            queryParams: qstrObj
+        };
+
+        return retObj;
     }
     catch(err)
     {
-        error = err;
-    }
-
-    if(jsl.isArrayEmpty(pathArr))
-        pathArr = null;
-
-    if(!error)
         return {
-            error: null,
-            initialURL: url,
-            pathArray: pathArr,
-            queryParams: qstrObj
-        }
-    else
-        return {
-            error: error,
+            error: err.toString(),
             initialURL: url
-        }
+        };
+    }
 }
+
+// *** *** *** Still leaving legacy code in, in case something goes wrong and I need to quickly switch back *** *** ***
+
+// const parseURL = url => {
+//     let error = null;
+
+//     let pathArr = [];
+//     let qstrObj = {};
+
+//     try
+//     {
+//         let rawPath = url.split("?")[0];
+//         let rawQstr = url.split("?")[1];
+
+
+//         if(rawPath.includes("/"))
+//             pathArr = rawPath.split("/");
+//         else pathArr = [rawQstr];
+
+//         if(pathArr.includes("v2"))
+//         {
+//             pathArr.forEach((itm, i) => {
+//                 if(itm == "v2")
+//                     pathArr.splice(i, 1);
+//             });
+//         }
+
+//         pathArr.forEach((pathSection, i) => {
+//             if(jsl.isEmpty(pathSection))
+//                 pathArr.splice(i, 1);
+//         });
+
+//         // if a URL path offset was set in the settings, remove the first n elements from the path array
+//         if(settings.httpServer.urlPathOffset > 0)
+//         {
+//             for(let i = 0; i < settings.httpServer.urlPathOffset; i++)
+//             {
+//                 if(pathArr.length > 0)
+//                     pathArr.shift();
+//             }
+//         }
+
+
+//         let qstrArr = [];
+//         if(!jsl.isEmpty(rawQstr) && rawQstr.includes("&"))
+//             qstrArr = rawQstr.split("&");
+//         else if(!jsl.isEmpty(rawQstr))
+//             qstrArr = [rawQstr];
+
+
+//         if(qstrArr.length > 0)
+//             qstrArr.forEach(qstrEntry => {
+//                 if(qstrEntry.includes("="))
+//                 {
+//                     let splitEntry = qstrEntry.split("=");
+//                     qstrObj[decodeURIComponent(splitEntry[0])] = decodeURIComponent(splitEntry[1].toLowerCase());
+//                 }
+//             });
+//         else qstrObj = null;
+//     }
+//     catch(err)
+//     {
+//         error = err;
+//     }
+
+//     if(jsl.isArrayEmpty(pathArr))
+//         pathArr = null;
+
+//     if(!error)
+//         return {
+//             error: null,
+//             initialURL: url,
+//             pathArray: pathArr,
+//             queryParams: qstrObj
+//         }
+//     else
+//         return {
+//             error: error,
+//             initialURL: url
+//         }
+// }
 
 const getFileFormatFromQString = qstrObj => {
     if(!jsl.isEmpty(qstrObj.format))

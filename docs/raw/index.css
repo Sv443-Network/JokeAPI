@@ -51,7 +51,7 @@ body {
     background-color: var(--bg-color);
     color: #fff;
     font-family: "Roboto", "Segoe UI", "Arial", sans-serif;
-    font-size: 14px;
+    font-size: 15px;
 
     overflow-y: hidden;
 
@@ -278,6 +278,25 @@ label {
     filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.5));
 }
 
+img.badge {
+    /* badges slide up a few pixels for some reason */
+    height: 1.15em;
+    position: relative;
+    bottom: -2.5px;
+}
+
+#f_langHideContainer.hidden {
+    visibility: hidden;
+}
+
+input#f_customLang {
+    width: 3em;
+}
+
+#uptimeTable tr td:last-child {
+    padding-left: 5px;
+}
+
 #statusCodeTable {
     margin: 0;
     padding: 0;
@@ -349,8 +368,9 @@ mark {
     border-radius: 2px;
     background-color: var(--bg-accent-color);
     display: inline-block;
-    padding: 3px;
-    font-family: "Cascadia Code", "Roboto", "Courier New", monospace;
+    padding: 2px;
+    font-family: "Cascadia Code", "Roboto Mono", "Courier New", monospace;
+    font-variant-ligatures: none;
     color: #ccc;
     transition: background-color ease-out var(--sidenav-colorblur-speed);
 }
@@ -407,6 +427,7 @@ body[data-sidenav="opened"] mark {
 
 body[data-sidenav="closed"] code, body code {
     font-family: "Cascadia Code", "Inconsolata", "Courier New", "Consolas", monospace;
+    font-variant-ligatures: none;
     font-size: 14px;
 
     white-space: pre;
@@ -464,7 +485,8 @@ body code .nocode.codeheader::before {
 }
 
 kbd {
-    font-family: "Cascadia Code", monospace;
+    font-family: "Cascadia Code", "Inconsolata", "Roboto Mono", "Courier New", monospace;
+    font-variant-ligatures: none;
     font-size: 13px;
     display: inline-block;
     padding: 3.5px 4px;
@@ -493,6 +515,21 @@ abbr {
 
 ul.lispacer li {
     margin-bottom: 5px;
+}
+
+.antiBotE:not(.noul):not(.shown) {
+    cursor: pointer;
+    color: #8f9aff;
+    text-decoration: none;
+}
+
+.antiBotE:not(.noul):not(.shown):hover {
+    color: #bcc2ff;
+    text-decoration: underline;
+}
+
+.antiBotE.shown {
+    font-family: "Roboto Mono", "Cascadia Code", "Courier New", monospace;
 }
 
 /*#SECTION Endpoints*/
@@ -892,6 +929,11 @@ textarea {
 
 #tryItContainer table tr:not(:last-of-type) > td {
     padding-bottom: 15px;
+}
+
+#tryItFormLatency {
+    margin-top: 5px;
+    font-size: 90%;
 }
 
 .highlightedContainer {

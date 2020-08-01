@@ -16,19 +16,17 @@ node_modules/
 dev/madge/
 dependency-graph.html
 test.js
+!tools/test.js
 
 # Docs:
 docs/documentation.html
 docs/compiled
 
 # Joke submissions:
-data/submissions/submission_*.json
-
-# Re-inclusions:
-!change.log*
+data/submissions/*/*.json
 
 # Auth Tokens:
 data/tokens.json
 
 # Other potentially sensitive information:
-lists/*.json
+data/lists/*.json

@@ -4,7 +4,9 @@ const httpServer = require("../src/httpServer");
 const parseURL = require("../src/parseURL");
 const jsl = require("svjsl");
 const parseJokes = require("../src/parseJokes");
+const languages = require("../src/languages");
 const settings = require("../settings");
+const translate = require("../src/translate");
 
 jsl.unused(http);
 
@@ -16,7 +18,8 @@ const meta = {
         "method": "GET",
         "url": `${settings.info.docsURL}/info`,
         "supportedParams": [
-            "format"
+            "format",
+            "lang"
         ]
     }
 };
@@ -32,7 +35,9 @@ const meta = {
 const call = (req, res, url, params, format) => {
     jsl.unused([req, url, params]);
 
-    let errFromRegistry = require("." + settings.errors.errorRegistryIncludePath)["100"];
+    let supportedLangsLength = languages.jokeLangs().length;
+
+    let errFromRegistry = require("." + settings.errors.errorMessagesPath)["100"];
     let responseText = {};
     if(format != "xml")
     {
@@ -58,6 +63,22 @@ const call = (req, res, url, params, format) => {
     }
 
     let totalJokesCount = (!jsl.isEmpty(parseJokes.jokeCount) ? parseJokes.jokeCount : 0);
+    
+    let idRangePerLang = {};
+    let idRangePerLangXml = [];
+    Object.keys(parseJokes.jokeCountPerLang).forEach(lc => {
+        let to = (parseJokes.jokeCountPerLang[lc] - 1);
+        idRangePerLang[lc] = [ 0, to ];
+        idRangePerLangXml.push({
+            langCode: lc,
+            from: 0,
+            to: to
+        });
+    });
+
+    let systemLanguagesLength = translate.systemLangs().length;
+
+    let lang = (params && params["lang"]) ? params["lang"] : settings.languages.defaultLanguage;
 
     if(format != "xml")
     {
@@ -71,12 +92,14 @@ const call = (req, res, url, params, format) => {
                 "flags": settings.jokes.possible.flags,
                 "types": settings.jokes.possible.types,
                 "submissionURL": settings.jokes.jokeSubmissionURL,
-                "idRange": [ 0, --totalJokesCount ]
+                "idRange": idRangePerLang
             },
             "formats": settings.jokes.possible.formats,
-            "info": settings.info.infoMsg,
+            "jokeLanguages": supportedLangsLength,
+            "systemLanguages": systemLanguagesLength,
+            "info": translate(lang, "messageOfTheDay", settings.info.name),
             "timestamp": new Date().getTime()
-        });
+        }, lang);
     }
     else if(format == "xml")
     {
@@ -90,12 +113,14 @@ const call = (req, res, url, params, format) => {
                 "flags": {"flag": settings.jokes.possible.flags},
                 "types": {"type": settings.jokes.possible.types},
                 "submissionURL": settings.jokes.jokeSubmissionURL,
-                "idRange": [ 0, --totalJokesCount ]
+                "idRanges": { "idRange": idRangePerLangXml }
             },
             "formats": {"format": settings.jokes.possible.formats},
-            "info": settings.info.infoMsg,
+            "jokeLanguages": supportedLangsLength,
+            "systemLanguages": systemLanguagesLength,
+            "info": translate(lang, "messageOfTheDay", settings.info.name),
             "timestamp": new Date().getTime()
-        });
+        }, lang);
     }
 
     httpServer.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format));

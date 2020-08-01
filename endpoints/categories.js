@@ -15,7 +15,8 @@ const meta = {
         "method": "GET",
         "url": `${settings.info.docsURL}/categories`,
         "supportedParams": [
-            "format"
+            "format",
+            "lang"
         ]
     }
 };
@@ -34,13 +35,15 @@ const call = (req, res, url, params, format) => {
     let responseText = "";
     let categories = [settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories];
 
+    let lang = (params && params["lang"]) ? params["lang"] : settings.languages.defaultLanguage;    
+
     if(format != "xml")
     {
         responseText = convertFileFormat.auto(format, {
             "error": false,
             "categories": categories,
             "timestamp": new Date().getTime()
-        });
+        }, lang);
     }
     else if(format == "xml")
     {
@@ -48,7 +51,7 @@ const call = (req, res, url, params, format) => {
             "error": false,
             "categories": {"category": categories},
             "timestamp": new Date().getTime()
-        });
+        }, lang);
     }
 
     httpServer.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format));

@@ -2,7 +2,7 @@
 
 const jsl = require("svjsl");
 const farmhash = require("farmhash");
-const fs = require("fs");
+const fs = require("fs-extra");
 const settings = require("../settings");
 const debug = require("./verboseLogging");
 const packageJSON = require("../package.json");
@@ -12,6 +12,7 @@ const zlib = require("zlib");
 const xss = require("xss");
 const semver = require("semver");
 const analytics = require("./analytics");
+const languages = require("./languages");
 
 
 /**
@@ -109,17 +110,21 @@ const recompileDocs = () => {
                     process.brCompErrOnce = false;
 
                     if(settings.httpServer.encodings.gzip)
-                        saveEncoded("gzip", injectedFileNames[i], injected).catch(err => void(err));
+                        saveEncoded("gzip", injectedFileNames[i], injected).catch(err => jsl.unused(err));
                     if(settings.httpServer.encodings.deflate)
-                        saveEncoded("deflate", injectedFileNames[i], injected).catch(err => void(err));
+                        saveEncoded("deflate", injectedFileNames[i], injected).catch(err => jsl.unused(err));
                     if(settings.httpServer.encodings.brotli)
-                        saveEncoded("brotli", injectedFileNames[i], injected).catch(() => {
+                    {
+                        saveEncoded("brotli", injectedFileNames[i], injected).catch(err => {
+                            jsl.unused(err);
+
                             if(!process.brCompErrOnce)
                             {
                                 process.brCompErrOnce = true;
                                 injectError(`Brotli compression is only supported since Node.js version 11.7.0 - current Node.js version is ${semver.clean(process.version)}`, false);
                             }
                         });
+                    }
 
                     fs.writeFile(injectedFileNames[i], injected, err => {
                         if(err)
@@ -127,7 +132,7 @@ const recompileDocs = () => {
 
                         return resolve();
                     });
-                })
+                });
             }));
         });
 
@@ -262,6 +267,10 @@ const inject = filePath => {
                     "<!--%#INSERT:FORMATVERSION#%-->":         settings.jokes.jokesFormatVersion.toString(),
                     "<!--%#INSERT:MAXPAYLOADSIZE#%-->":        settings.httpServer.maxPayloadSize.toString(),
                     "<!--%#INSERT:MAXURLLENGTH#%-->":          settings.httpServer.maxUrlLength.toString(),
+                    "<!--%#INSERT:JOKELANGCOUNT#%-->":         languages.jokeLangs().length.toString(),
+                    "<!--%#INSERT:SYSLANGCOUNT#%-->":          languages.systemLangs().length.toString(),
+                    "<!--%#INSERT:MAXJOKEAMOUNT#%-->":         settings.jokes.maxAmount.toString(),
+                    "<!--%#INSERT:JOKEENCODEAMOUNT#%-->":      settings.jokes.encodeAmount.toString()
                 };
 
                 let allMatches = 0;

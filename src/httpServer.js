@@ -2,9 +2,10 @@
 
 const jsl = require("svjsl");
 const http = require("http");
-const { RateLimiterMemory, RateLimiterRes } = require("rate-limiter-flexible");
 const Readable = require("stream").Readable;
-const fs = require("fs");
+const fs = require("fs-extra");
+const zlib = require("zlib");
+const semver = require("semver");
 
 const settings = require("../settings");
 const debug = require("./verboseLogging");
@@ -17,6 +18,10 @@ const lists = require("./lists");
 const analytics = require("./analytics");
 const jokeSubmission = require("./jokeSubmission");
 const auth = require("./auth");
+const meter = require("./meter");
+const languages = require("./languages");
+const { RateLimiterMemory, RateLimiterRes } = require("rate-limiter-flexible");
+const tr = require("./translate");
 
 jsl.unused(RateLimiterRes); // typedef only
 
@@ -30,10 +35,15 @@ const init = () => {
          * Initializes the HTTP server - should only be called once
          */
         let initHttpServer = () => {
-            //#SECTION set up rate limiter
+            //#SECTION set up rate limiters
             let rl = new RateLimiterMemory({
                 points: settings.httpServer.rateLimiting,
                 duration: settings.httpServer.timeFrame
+            });
+
+            let rlSubm = new RateLimiterMemory({
+                points: settings.jokes.submissions.rateLimiting,
+                duration: settings.jokes.submissions.timeFrame
             });
 
             //#SECTION create HTTP server
@@ -45,17 +55,21 @@ const init = () => {
                 let analyticsObject = {
                     ipAddress: ip,
                     urlPath: parsedURL.pathArray,
-                    urlParameters: parsedURL.queryParams 
+                    urlParameters: parsedURL.queryParams
                 };
+                let lang = parsedURL.queryParams ? parsedURL.queryParams.lang : "invalid-lang-code";
 
-                debug("HTTP", `Incoming ${req.method} request from "${ip.substring(0, 8)}${localhostIP ? `..." ${jsl.colors.fg.blue}(local)${jsl.colors.rst}` : "...\""}`);
+                if(languages.isValidLang(lang) !== true)
+                    lang = settings.languages.defaultLanguage;
+
+                debug("HTTP", `Incoming ${req.method} request from "${lang}-${ip.substring(0, 8)}${localhostIP ? `..." ${jsl.colors.fg.blue}(local)${jsl.colors.rst}` : "...\""} to ${req.url}`);
                 
                 let fileFormat = settings.jokes.defaultFileFormat.fileFormat;
                 if(!jsl.isEmpty(parsedURL.queryParams) && !jsl.isEmpty(parsedURL.queryParams.format))
                     fileFormat = parseURL.getFileFormatFromQString(parsedURL.queryParams);
 
                 if(req.url.length > settings.httpServer.maxUrlLength)
-                    return respondWithError(res, 108, 414, fileFormat, `The length of the URL (${req.url.length} characters) exceeds the maximum accepted length of ${settings.httpServer.maxUrlLength} characters`);
+                    return respondWithError(res, 108, 414, fileFormat, tr(lang, "uriTooLong", req.url.length, settings.httpServer.maxUrlLength), lang, req.url.length);
 
                 //#SECTION check lists
                 try
@@ -63,7 +77,7 @@ const init = () => {
                     if(lists.isBlacklisted(ip))
                     {
                         logRequest("blacklisted", null, analyticsObject);
-                        return respondWithError(res, 103, 403, fileFormat);
+                        return respondWithError(res, 103, 403, fileFormat, tr(lang, "ipBlacklisted", settings.info.author.website), lang);
                     }
 
                     debug("HTTP", `Requested URL: ${parsedURL.initialURL}`);
@@ -106,8 +120,12 @@ const init = () => {
                             urlPath: parsedURL.pathArray
                         }
                     });
-                    return respondWithError(res, 500, 100, fileFormat, err);
+                    return respondWithError(res, 500, 100, fileFormat, tr(lang, "errSetupHttpResponse", err), lang);
                 }
+
+                meter.update("reqtotal", 1);
+                meter.update("req1min", 1);
+                meter.update("req10min", 1);
 
                 //#SECTION GET
                 if(req.method === "GET")
@@ -120,7 +138,7 @@ const init = () => {
                         let lowerCaseEndpoints = [];
                         endpoints.forEach(ep => lowerCaseEndpoints.push(ep.name.toLowerCase()));
 
-                        if(!jsl.isEmpty(urlPath))
+                        if(!jsl.isArrayEmpty(urlPath))
                             requestedEndpoint = urlPath[0];
                         else
                         {
@@ -133,7 +151,7 @@ const init = () => {
                                     setRateLimitedHeaders(res, rlRes);
                                     analytics.rateLimited(ip);
                                     logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
-                                    return respondWithError(res, 101, 429, fileFormat);
+                                    return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
                                 }
                                 else
                                     return serveDocumentation(req, res);
@@ -143,7 +161,7 @@ const init = () => {
                                 // setRateLimitedHeaders(res, rlRes);
                                 analytics.rateLimited(ip);
                                 logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
-                                return respondWithError(res, 101, 429, fileFormat);
+                                return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
                             }
                         }
 
@@ -211,7 +229,7 @@ const init = () => {
                                     }
                                     catch(err)
                                     {
-                                        return respondWithError(res, 104, 500, fileFormat);
+                                        return respondWithError(res, 104, 500, fileFormat, tr(lang, "endpointInternalError", err), lang);
                                     }
                                 }
                                 else
@@ -220,12 +238,12 @@ const init = () => {
                                     {
                                         let rlRes = await rl.get(ip);
 
-                                        if((rlRes &&rlRes._remainingPoints < 0) && !lists.isWhitelisted(ip) && !isAuthorized)
+                                        if((rlRes && rlRes._remainingPoints < 0) && !lists.isWhitelisted(ip) && !isAuthorized)
                                         {
                                             setRateLimitedHeaders(res, rlRes);
                                             logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
                                             analytics.rateLimited(ip);
-                                            return respondWithError(res, 101, 429, fileFormat);
+                                            return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
                                         }
                                         else
                                         {
@@ -243,7 +261,7 @@ const init = () => {
                                         // setRateLimitedHeaders(res, rlRes);
                                         logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
                                         analytics.rateLimited(ip);
-                                        return respondWithError(res, 101, 429, fileFormat);
+                                        return respondWithError(res, 100, 500, fileFormat, tr(lang, "generalInternalError", err), lang);
                                     }
                                 }
                             }
@@ -253,9 +271,9 @@ const init = () => {
                             if(!foundEndpoint)
                             {
                                 if(!jsl.isEmpty(fileFormat) && req.url.toLowerCase().includes("format"))
-                                    return respondWithError(res, 102, 404, fileFormat, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at ${settings.info.docsURL}#endpoints to see all available endpoints`);
+                                    return respondWithError(res, 102, 404, fileFormat, tr(lang, "endpointNotFound", (!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/")), lang);
                                 else
-                                    return respondWithErrorPage(res, 404, `Endpoint "${!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/"}" not found - Please read the documentation at ${settings.info.docsURL}#endpoints to see all available endpoints`);
+                                    return respondWithErrorPage(res, 404, tr(lang, "endpointNotFound", (!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/")));
                             }
                         }, 5000);
                     }
@@ -264,8 +282,12 @@ const init = () => {
                 else if(req.method === "PUT")
                 {
                     //#MARKER Joke submission
-                    if(!jsl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "submit")
+                    let submissionsRateLimited = await rlSubm.get(ip);
+
+                    if(!jsl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "submit" && !(submissionsRateLimited && submissionsRateLimited._remainingPoints <= 0 && !headerAuth.isAuthorized))
                     {
+                        rlSubm.consume(ip, 1);
+
                         let data = "";
                         let dataGotten = false;
                         req.on("data", chunk => {
@@ -273,8 +295,8 @@ const init = () => {
 
                             let payloadLength = byteLength(data);
                             if(payloadLength > settings.httpServer.maxPayloadSize)
-                                return respondWithError(res, 107, 413, fileFormat, `The provided payload data is too large (${payloadLength} bytes of ${settings.httpServer.maxPayloadSize})`);
-                            
+                                return respondWithError(res, 107, 413, fileFormat, tr(lang, "payloadTooLarge", payloadLength, settings.httpServer.maxPayloadSize), lang);
+
                             if(!jsl.isEmpty(data))
                                 dataGotten = true;
 
@@ -285,13 +307,17 @@ const init = () => {
                             if(!dataGotten)
                             {
                                 debug("HTTP", "PUT request timed out");
-                                return respondWithError(res, 105, 400, fileFormat, "Request body is empty");
+                                return respondWithError(res, 105, 400, fileFormat, tr(lang, "requestEmptyOrTimedOut"), lang);
                             }
                         }, 3000);
                     }
                     else
                     {
                         //#MARKER Restart / invalid PUT
+
+                        if(submissionsRateLimited && submissionsRateLimited._remainingPoints <= 0 && !headerAuth.isAuthorized)
+                            return respondWithError(res, 110, 429, fileFormat, tr(lang, "rateLimitedShort"), lang);
+
                         let data = "";
                         let dataGotten = false;
                         req.on("data", chunk => {
@@ -307,18 +333,18 @@ const init = () => {
                                     "error": false,
                                     "message": `Restarting ${settings.info.name}`,
                                     "timestamp": new Date().getTime()
-                                }));
+                                }, lang));
                                 console.log(`\n\n[${logger.getTimestamp(" | ")}]  ${jsl.colors.fg.red}IP ${jsl.colors.fg.yellow}${ip.substr(0, 8)}[...]${jsl.colors.fg.red} sent a restart command\n\n\n${jsl.colors.rst}`);
                                 process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
                             }
-                            else return respondWithErrorPage(res, 400, `Request body is invalid or was sent to the wrong endpoint "${parsedURL.pathArray != null ? parsedURL.pathArray[0] : "/"}", please refer to the documentation at ${settings.info.docsURL}#submit-joke to see how to correctly structure a joke submission.`);
+                            else return respondWithErrorPage(res, 400, tr(lang, "invalidSubmissionOrWrongEndpoint", (parsedURL.pathArray != null ? parsedURL.pathArray[0] : "/")));
                         });
 
                         setTimeout(() => {
                             if(!dataGotten)
                             {
                                 debug("HTTP", "PUT request timed out");
-                                return respondWithErrorPage(res, 400, "Request body is empty");
+                                return respondWithErrorPage(res, 400, tr(lang, "requestBodyIsInvalid"));
                             }
                         }, 3000);
                     }
@@ -335,7 +361,7 @@ const init = () => {
                         "internalError": false,
                         "message": `Wrong method "${req.method}" used. Expected "GET", "OPTIONS" or "HEAD"`,
                         "timestamp": new Date().getTime()
-                    }));
+                    }, lang));
                 }
             });
 
@@ -412,12 +438,36 @@ function setRateLimitedHeaders(res, rlRes)
  * @param {Number} responseCode The HTTP response code to end the request with
  * @param {String} fileFormat The file format to respond with - automatically gets converted to MIME type
  * @param {String} errorMessage Additional error info
+ * @param {String} lang Language code of the request
+ * @param {...any} args Arguments to replace numbered %-placeholders with. Only use objects that are strings or convertable to them with `.toString()`!
  */
-const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage) => {
+const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage, lang, ...args) => {
     try
     {
-        let errFromRegistry = require(`.${settings.errors.errorRegistryIncludePath}`)[errorCode.toString()];
+        errorCode = errorCode.toString();
+        let errFromRegistry = require("../data/errorMessages")[errorCode];
         let errObj = {};
+
+        if(errFromRegistry == undefined)
+            throw new Error(`Couldn't find errorMessages module or Node is using an outdated, cached version`);
+
+        if(!lang || !languages.isValidLang(lang))
+            lang = settings.languages.defaultLanguage;
+
+        let insArgs = (texts, insertions) => {
+            if(!Array.isArray(insertions) || insertions.length <= 0)
+                return texts;
+
+            insertions.forEach((ins, i) => {
+
+                if(Array.isArray(texts))
+                    texts = texts.map(tx => tx.replace(`%${i + 1}`, ins));
+                else if(typeof texts == "string")
+                    texts = texts.replace(`%${i + 1}`, ins);
+            });
+
+            return texts;
+        };
 
         if(fileFormat != "xml")
         {
@@ -425,8 +475,8 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
                 "error": true,
                 "internalError": errFromRegistry.errorInternal,
                 "code": errorCode,
-                "message": errFromRegistry.errorMessage,
-                "causedBy": errFromRegistry.causedBy,
+                "message": insArgs(errFromRegistry.errorMessage[lang], args) || insArgs(errFromRegistry.errorMessage[settings.languages.defaultLanguage], args),
+                "causedBy": insArgs(errFromRegistry.causedBy[lang], args) || insArgs(errFromRegistry.causedBy[settings.languages.defaultLanguage], args),
                 "timestamp": new Date().getTime()
             }
         }
@@ -436,8 +486,8 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
                 "error": true,
                 "internalError": errFromRegistry.errorInternal,
                 "code": errorCode,
-                "message": errFromRegistry.errorMessage,
-                "causedBy": {"cause": errFromRegistry.causedBy},
+                "message": insArgs(errFromRegistry.errorMessage[lang], args) || insArgs(errFromRegistry.errorMessage[settings.languages.defaultLanguage], args),
+                "causedBy": {"cause": insArgs(errFromRegistry.causedBy[lang], args) || insArgs(errFromRegistry.causedBy[settings.languages.defaultLanguage], args)},
                 "timestamp": new Date().getTime()
             }
         }
@@ -445,7 +495,9 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
         if(!jsl.isEmpty(errorMessage))
             errObj.additionalInfo = errorMessage;
 
-        return pipeString(res, convertFileFormat.auto(fileFormat, errObj), parseURL.getMimeTypeFromFileFormatString(fileFormat), responseCode);
+        let converted = convertFileFormat.auto(fileFormat, errObj, lang).toString();
+
+        return pipeString(res, converted, parseURL.getMimeTypeFromFileFormatString(fileFormat), responseCode);
     }
     catch(err)
     {
@@ -492,7 +544,8 @@ const pipeString = (res, text, mimeType, statusCode = 200) => {
     try
     {
         statusCode = parseInt(statusCode);
-        if(isNaN(statusCode)) throw new Error("");
+        if(isNaN(statusCode))
+            throw new Error("Invalid status code");
     }
     catch(err)
     {
@@ -506,16 +559,18 @@ const pipeString = (res, text, mimeType, statusCode = 200) => {
     s.push(text);
     s.push(null);
 
-    if(!res.headersSent)
-    {
-        res.writeHead(statusCode, {
-            "Content-Type": `${mimeType}; charset=UTF-8`,
-            "Content-Length": text.length
-        });
-    }
-
     if(!res.writableEnded)
+    {
         s.pipe(res);
+
+        if(!res.headersSent)
+        {
+            res.writeHead(statusCode, {
+                "Content-Type": `${mimeType}; charset=UTF-8`,
+                "Content-Length": byteLength(text) // Content-Length needs the byte length, not the char length
+            });
+        }
+    }
 }
 
 /**
@@ -538,14 +593,17 @@ const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
     }
 
     if(!fs.existsSync(filePath))
-        return respondWithErrorPage(res, 404, `File at "${filePath}" not found.`);
+        return respondWithErrorPage(res, 404, `Internal error: file at "${filePath}" not found.`);
 
     try
     {
-        res.writeHead(statusCode, {
-            "Content-Type": `${mimeType}; charset=UTF-8`,
-            "Content-Length": fs.statSync(filePath).size
-        });
+        if(!res.headersSent)
+        {
+            res.writeHead(statusCode, {
+                "Content-Type": `${mimeType}; charset=UTF-8`,
+                "Content-Length": fs.statSync(filePath).size
+            });
+        }
 
         let readStream = fs.createReadStream(filePath);
         readStream.pipe(res);
@@ -605,7 +663,7 @@ const serveDocumentation = (req, res) => {
 /**
  * Returns the name of the client's accepted encoding with the highest priority
  * @param {http.IncomingMessage} req The HTTP req object
- * @returns {null|"gzip"|"deflate"|"brotli"} Returns null if no encodings are supported, else returns the encoding name
+ * @returns {null|"gzip"|"deflate"|"br"} Returns null if no encodings are supported, else returns the encoding name
  */
 const getAcceptedEncoding = req => {
     let selectedEncoding = null;
@@ -632,24 +690,15 @@ const getAcceptedEncoding = req => {
 }
 
 /**
- * Returns the length of a string in bytes - [Source of code](https://gist.github.com/lovasoa/11357947)
+ * Returns the length of a string in bytes
  * @param {String} str
  * @returns {Number}
  */
-const byteLength = str => {
-    let s = str.length;
-    for (let i = str.length - 1; i >= 0; i--)
-    {
-        let code = str.charCodeAt(i);
-
-        if (code > 0x7f && code <= 0x7ff)
-            s++;
-        else if (code > 0x7ff && code <= 0xffff)
-            s+=2;
-        if (code >= 0xDC00 && code <= 0xDFFF)
-            i--;
-    }
-    return s;
+function byteLength(str)
+{
+    if(!str)
+        return 0;
+    return Buffer.byteLength(str, "utf8");
 }
 
 /**
@@ -665,10 +714,71 @@ const getFileExtensionFromEncoding = encoding => {
         case "deflate":
             return "zz";
         case "br":
+        case "brotli":
             return "br";
         default:
             return "";
     }
 }
 
-module.exports = { init, respondWithError, respondWithErrorPage, pipeString, pipeFile, serveDocumentation, getAcceptedEncoding, getFileExtensionFromEncoding };
+/**
+ * Tries to serve data with an encoding supported by the client, else just serves the raw data
+ * @param {http.IncomingMessage} req The HTTP req object
+ * @param {http.ServerResponse} res The HTTP res object
+ * @param {String} data The data to send to the client
+ * @param {String} mimeType The MIME type to respond with
+ */
+function tryServeEncoded(req, res, data, mimeType)
+{
+    let selectedEncoding = getAcceptedEncoding(req);
+
+    debug("HTTP", `Trying to serve with encoding ${selectedEncoding}`);
+
+    if(selectedEncoding)
+        res.setHeader("Content-Encoding", selectedEncoding);
+    else
+        res.setHeader("Content-Encoding", "identity");
+
+    switch(selectedEncoding)
+    {
+        case "br":
+            if(!semver.lt(process.version, "v11.7.0")) // Brotli was added in Node v11.7.0
+            {
+                zlib.brotliCompress(data, (err, encRes) => {
+                    if(!err)
+                        return pipeString(res, encRes, mimeType);
+                    else
+                        return pipeString(res, `Internal error while encoding text into ${selectedEncoding}: ${err}`, mimeType);
+                });
+            }
+            else
+            {
+                res.setHeader("Content-Encoding", "identity");
+
+                return pipeString(res, data, mimeType);
+            }
+        break;
+        case "gzip":
+            zlib.gzip(data, (err, encRes) => {
+                if(!err)
+                    return pipeString(res, encRes, mimeType);
+                else
+                    return pipeString(res, `Internal error while encoding text into ${selectedEncoding}: ${err}`, mimeType);
+            });
+        break;
+        case "deflate":
+            zlib.deflate(data, (err, encRes) => {
+                if(!err)
+                    return pipeString(res, encRes, mimeType);
+                else
+                    return pipeString(res, `Internal error while encoding text into ${selectedEncoding}: ${err}`, mimeType);
+            });
+        break;
+        default:
+            res.setHeader("Content-Encoding", "identity");
+
+            return pipeString(res, data, mimeType);
+    }
+}
+
+module.exports = { init, respondWithError, respondWithErrorPage, pipeString, pipeFile, serveDocumentation, getAcceptedEncoding, getFileExtensionFromEncoding, tryServeEncoded };

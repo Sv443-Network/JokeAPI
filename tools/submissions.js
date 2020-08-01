@@ -1,10 +1,14 @@
 const settings = require("../settings");
-const fs = require("fs");
-const path = require("path");
+const fs = require("fs-extra");
+const { resolve, join } = require("path");
 const jsl = require("svjsl");
+const parseJokes = require("../src/parseJokes");
+const jokeSubmission = require("../src/jokeSubmission");
+jsl.unused(parseJokes);
 
 let addedCount = 0;
-let jokesFile = getAllJokes();
+let jokesFiles = getAllJokes();
+
 
 const run = () => {
     let submissions = getSubmissions();
@@ -26,17 +30,15 @@ const run = () => {
             let goThroughSubmission = (idx) => {
 
                 if(!submissions[idx])
-                {
-                    finishAdding();
-                    console.log(`${jsl.colors.fg.green}Successfully added ${jsl.colors.fg.yellow}${addedCount}${jsl.colors.fg.green} joke${addedCount != 1 ? "s" : ""}${jsl.colors.rst}.\nExiting.\n\n`);
-                    return process.exit(0);
-                }
+                    return finishAdding();
 
                 let submission = submissions[idx];
 
                 if(submission.formatVersion != settings.jokes.jokesFormatVersion)
                     console.error(`${jsl.colors.fg.red}Error: Format version is incorrect${jsl.colors.rst}`);
                 
+                console.log(`${jsl.colors.fg.yellow}Language:${jsl.colors.rst}  ${submission.lang}`);
+
                 if(submission.type == "single")
                 {
                     console.log(`${jsl.colors.fg.yellow}Joke:${jsl.colors.rst}      ${submission.joke}`);
@@ -73,12 +75,31 @@ const run = () => {
 };
 
 /**
- * Reads the jokes file and returns it as an object
- * @returns {Object}
+ * @typedef {Object} AllJokesObj
+ * @prop {Object} [en]
+ * @prop {Object} en.info
+ * @prop {String} en.info.formatVersion
+ * @prop {Array<parseJokes.SingleJoke>|Array<parseJokes.TwopartJoke>} en.jokes
+ */
+
+/**
+ * Reads the jokes files and returns it as an object
+ * @returns {AllJokesObj}
  */
 function getAllJokes()
 {
-    return JSON.parse(fs.readFileSync(settings.jokes.jokesFilePath).toString());
+    let retObj = {};
+    fs.readdirSync(settings.jokes.jokesFolderPath).forEach(jokesFile => {
+        if(jokesFile.startsWith("template"))
+            return;
+
+        let langCode = jokesFile.split("-")[1].substr(0, 2);
+        let filePath = resolve(join(settings.jokes.jokesFolderPath, jokesFile));
+
+        retObj[langCode] = JSON.parse(fs.readFileSync(filePath).toString());
+    });
+
+    return retObj;
 }
 
 /**
@@ -86,22 +107,42 @@ function getAllJokes()
  * @param {Object} joke 
  */
 const addJoke = joke => {
-    let fJoke = new Object(joke);
+    let fJoke = JSON.parse(JSON.stringify(joke)); // reserialize because call by reference :(
 
     delete fJoke.formatVersion;
+    delete fJoke.lang;
 
-    jokesFile.jokes.push(fJoke);
-    addedCount++;
+    // jokesFile.jokes.push(fJoke);
+    if(!jokesFiles[joke.lang])
+        jokesFiles[joke.lang] = JSON.parse(fs.readFileSync(resolve(join(settings.jokes.jokesFolderPath, settings.jokes.jokesTemplateFile))).toString());
+
+    Object.keys(jokesFiles).forEach(langCode => {
+        if(joke.lang == langCode)
+        {
+            jokesFiles[langCode].jokes.push(jokeSubmission.reformatJoke(fJoke));
+            addedCount++;
+        }
+    });
 };
 
 /**
- * Writes the `jokesFile` object to the jokes file 
+ * Writes the `jokesFiles` object to the jokes file
  */
 const finishAdding = () => {
-    fs.writeFileSync(settings.jokes.jokesFilePath, JSON.stringify(jokesFile, null, 4));
+    Object.keys(jokesFiles).forEach(langCode => {
+        fs.writeFileSync(resolve(join(settings.jokes.jokesFolderPath, `jokes-${langCode}.json`)), JSON.stringify(jokesFiles[langCode], null, 4));
+    });
 
-    fs.readdirSync(settings.jokes.jokeSubmissionPath).forEach(file => {
-        fs.unlinkSync(path.join(settings.jokes.jokeSubmissionPath, file));
+    jsl.pause(`Delete all submissions? (Y/n):`).then(val => {
+        if(val.toLowerCase() != "n")
+        {
+            fs.readdirSync(settings.jokes.jokeSubmissionPath).forEach(folder => {
+                fs.removeSync(join(settings.jokes.jokeSubmissionPath, folder));
+            });
+        }
+
+        console.log(`${jsl.colors.fg.green}Successfully added ${jsl.colors.fg.yellow}${addedCount}${jsl.colors.fg.green} joke${addedCount != 1 ? "s" : ""}${jsl.colors.rst}.\nExiting.\n\n`);
+        return process.exit(0);
     });
 };
 
@@ -130,10 +171,17 @@ const getFlags = joke => {
  */
 const getSubmissions = () => {
     let submissions = [];
-    fs.readdirSync(settings.jokes.jokeSubmissionPath).forEach(file => {
-        submissions.push(JSON.parse(fs.readFileSync(path.resolve(`${settings.jokes.jokeSubmissionPath}/${file}`)).toString()));
+    fs.readdirSync(settings.jokes.jokeSubmissionPath).forEach(lang => {
+        fs.readdirSync(resolve(join(settings.jokes.jokeSubmissionPath, lang))).forEach(file => {
+            submissions.push(JSON.parse(fs.readFileSync(resolve(`${settings.jokes.jokeSubmissionPath}/${lang}/${file}`)).toString()));
+        });
     });
     return submissions;
 };
 
-run();
+if(!process.stdin.isTTY)
+{
+    console.log(`${jsl.colors.fg.red}Error: process doesn't have a stdin to read from${jsl.colors.rst}`);
+    process.exit(1);
+}
+else run();
