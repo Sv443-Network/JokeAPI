@@ -67,12 +67,25 @@ const toTXT = (jsonInput, lang) => {
         }
         else
         {
-            if((jsonInput.joke || jsonInput.jokes) || (jsonInput.setup && jsonInput.delivery)) // endpoint: /joke
+            if((jsonInput.joke || (jsonInput.jokes && Array.isArray(jsonInput.jokes))) || (jsonInput.setup && jsonInput.delivery)) // endpoint: /joke
             {
                 if(jsonInput.type == "single")
                     returnText = jsonInput.joke;
                 else if(jsonInput.type == "twopart")
                     returnText = `${jsonInput.setup}\n\n${jsonInput.delivery}`;
+                else if(jsonInput.type === undefined) // amount >= 2
+                {
+                    returnText = "";
+                    jsonInput.jokes.forEach((joke, i) => {
+                        if(i != 0)
+                            returnText += "\n\n----------------------------------------------\n\n";
+
+                        if(joke.type == "single")
+                            returnText += joke.joke;
+                        else if(joke.type == "twopart")
+                            returnText += `${joke.setup}\n\n${joke.delivery}`;
+                    });
+                }
             }
 
             else if(jsonInput.categories) // endpoint: /categories
