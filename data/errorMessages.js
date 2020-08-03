@@ -44,7 +44,7 @@ module.exports = {
                 `Вы отправили слишком много запросов слишком быстро. Лимит составляет ${settings.httpServer.rateLimiting} запросов в пределах ${settings.httpServer.timeFrame} ${settings.httpServer.timeFrame == 1 ? "секунда" : "секунды"}.\nЕсли Вам нужно больше запросов в минуту, пожалуйста, свяжитесь со мной, и мы попробуем разобраться в этом: ${settings.info.author.website}`
             ],
             "cs": [
-                `Příliš rychle jste odeslali příliš mnoho žádostí. Limit je ${settings.httpServer.rateLimiting} požadavků v rámci ${settings.httpServer.timeFrame} ${settings.httpServer.timeFrame == 1 ? "second" : "seconds"}.\n Pokud potřebujete více požadavků za minutu, kontaktujte mě a můžeme se domluvit: ${settings.info.author.website}`
+                `Příliš rychle jste odeslali příliš mnoho žádostí. Limit je ${settings.httpServer.rateLimiting} požadavků v rámci ${settings.httpServer.timeFrame} ${settings.httpServer.timeFrame == 1 ? "sekunda" : "sekund"}.\n Pokud potřebujete více požadavků za minutu, kontaktujte mě a můžeme se domluvit: ${settings.info.author.website}`
             ]
         }
     },
@@ -251,7 +251,7 @@ module.exports = {
                 `Вы отправили слишком много запросов слишком быстро. Лимит - ${settings.jokes.submissions.rateLimiting} представления в пределах ${settings.jokes.submissions.timeFrame} ${settings.jokes.submissions.timeFrame == 1 ? "секунда" : "секунды" }.\nЕсли Вам нужно отправить больше запросов, пожалуйста, либо подождите немного, либо свяжитесь со мной, и мы попробуем разобраться в этом: ${settings.info.author.website}`
             ],
             "cs": [
-                `Příliš rychle jste odeslali příliš mnoho žádostí. Limit je ${settings.jokes.submissions.rateLimiting} podání v rámci ${settings.jokes.submissions.timeFrame} ${settings.jokes.submissions.timeFrame == 1 ? "second" : "seconds"}.\nPokud potřebujete poslat více požadavků, počkejte prosím chvilku nebo kontaktujte mě a můžeme se domluvit: ${settings.info.author.website}`
+                `Příliš rychle jste odeslali příliš mnoho žádostí. Limit je ${settings.jokes.submissions.rateLimiting} podání v rámci ${settings.jokes.submissions.timeFrame} ${settings.jokes.submissions.timeFrame == 1 ? "sekunda" : "sekund"}.\nPokud potřebujete poslat více požadavků, počkejte prosím chvilku nebo kontaktujte mě a můžeme se domluvit: ${settings.info.author.website}`
             ]
         }
     }
