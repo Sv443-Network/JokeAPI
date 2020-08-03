@@ -37,11 +37,14 @@ function init()
  */
 function translate(lang, id, ...args)
 {
-    let langTr = trFile.tr[lang.toString().toLowerCase()];
+    if(!lang)
+        lang = settings.languages.defaultLanguage;
+
+    let langTr = trFile.tr[id];
     if(!langTr)
         return null;
 
-    let translation = langTr[id].toString();
+    let translation = langTr[lang.toString().toLowerCase()].toString();
     if(!translation)
         return null;
 

@@ -4,9 +4,10 @@
     },
     "jokes": [
         {
-            "category": "Miscellaneous",
-            "type": "single",
-            "joke": "TESTING_DE 1",
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Was bist du, wenn du nicht weißt, was du tun sollst, nachdem dein Fahrrad geklaut wurde?",
+            "delivery": "Radlos.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -15,6 +16,361 @@
                 "sexist": false
             },
             "id": 0
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Wie nennt man einen schwulen, exotischen Vogel, der Kinder hat?",
+            "delivery": "Einen Papagay.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 1
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Wie heißt ein dünner Mensch mit Bulimie?",
+            "delivery": "Brechstange.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 2
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Was lebt im Wald und schreit \"Kugel\"?",
+            "delivery": "Der Kugelschreibär.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 3
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Wie nennt sich ein Vogel mit Daddy-Fetisch?",
+            "delivery": "Ein Papageil.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 4
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Im Bundestag gibt es neue Auflagen.",
+            "delivery": "Die Stühle waren zu unbequem.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 5
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Warum hat niemand das Getränk des Soldaten gefunden?",
+            "delivery": "Es war in einer Camouflasche.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 6
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Eine notgeile, inkontinente Henne flattert zum Arzt. Die Diagnose?",
+            "delivery": "Hahndrang.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 7
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "setup": "Kurzarbeit?",
+            "delivery": "Sind das dann 7 Bit?",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 8
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Wie schreibt ein Oktopus?",
+            "delivery": "Krakelig.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 9
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Warum ist der ägyptische Totengott kein erfolgreicher Pro-Gamer?",
+            "delivery": "Weil er Anubis.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 10
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Wie nennt man ein ungerubbeltes Rubbellos?",
+            "delivery": "Rubbellos.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 11
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Ziemlich unfreundlich diese Älpler.",
+            "delivery": "Überall haben sie Schilder, auf denen steht \"Wander weg\"!",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 12
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Was verwendet eine ägyptische Pharaonin um ihren Hintern zu wischen?",
+            "delivery": "Kleopapier.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 13
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "Die Selbsthilfegruppe \"HTML-Sonderzeichen-Probleme\" trifft sich heute im gro&szlig;en Saal.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 14
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "Wenn man diese CD rückwärts spielt, sind satanische Verse zu hören.\nViel schlimmer, wenn man sie vorwärts spielt, installiert sie Windows.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 15
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "Die Mutter schickt ihren Sohn mit folgender Einkaufsliste in den Supermarkt: \"Eine Packung Milch, und wenn die Eier haben, bring drei Packungen mit.\"\nIm Supermarkt stellt der Sohn fest, es gibt dort Eier, also bringt er drei Packungen Milch mit.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 16
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "Täglich verschwinden hunderte Senioren im Netz, weil sie \"Alt\" und \"Entf\" drücken.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 17
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "Facebook ist wie ein Gefängnis. Man sitzt rum, verschwendet Zeit, schreibt an Wände und wird angestupst von Leuten die man nicht kennt.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 18
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "setup": "Es gibt 10 Arten von Menschen.",
+            "delivery": "Die einen verstehen das Binäre System, die anderen nicht.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 19
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "setup": "Was macht ein Informatiker wenn sein Wagen nicht mehr anspringt?",
+            "delivery": "Aussteigen, einsteigen und nochmal starten.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 20
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "Treffen sich ein Informatiker und ein Wirtschaftsinformatiker.\nInformatiker: \"Hast Du schon das neue Ubuntu?\"\nDer Wirtschaftsinformatiker: \"Nein, ich steh nicht auf Pokemon.\"",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 21
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "setup": "Was stellt sich ein Informatiker zu Weihnachten in die Wohnung?",
+            "delivery": "Einen B-Baum.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 22
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "joke": "Wer zuletzt lacht ... hat den höchsten Ping.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 23
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "joke": "Das echte Leben nervt ... aber die Grafik ist gut.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 24
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "Deine Mutter ist wie ein L3-Cache. Sie wird zwischen allen 4 Kernen durchgereicht und jeder hat Zugriff.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 25
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "setup": "Was ist die Lieblingsbeschäftigung von Bits?",
+            "delivery": "Busfahren.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 26
         }
     ]
 }

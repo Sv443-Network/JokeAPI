@@ -186,22 +186,22 @@ function onLoad()
             fileFormats.splice(fileFormats.indexOf("JSON"), 1);
         }
         Array.from(document.getElementsByClassName("insFormatsS")).forEach(function(el) {
-            el.innerHTML = fileFormats.join(" and ");
+            el.innerText = fileFormats.join(" and ");
         });
 
         var flags = JSON.parse('<!--%#INSERT:FLAGSARRAY#%-->');
         Array.from(document.getElementsByClassName("insFlags")).forEach(function(el) {
-            el.innerHTML = flags.join(", ");
+            el.innerText = flags.join(", ");
         });
 
         var formats = JSON.parse('<!--%#INSERT:FILEFORMATARRAY#%-->');
         Array.from(document.getElementsByClassName("insFormats")).forEach(function(el) {
-            el.innerHTML = formats.join(", ").toLowerCase();
+            el.innerText = formats.join(", ").toLowerCase();
         });
 
         var categories = JSON.parse('<!--%#INSERT:CATEGORYARRAY#%-->');
         Array.from(document.getElementsByClassName("insCategories")).forEach(function(el) {
-            el.innerHTML = categories.join(", ");
+            el.innerText = categories.join(", ");
         });
     }
     catch(err)
@@ -225,7 +225,7 @@ function onLoad()
 
     for(var ii = 0; ii < inputElems.length; ii++)
     {
-        var elm = document.getElementById(inputElems[ii]);
+        var elm = gebid(inputElems[ii]);
 
         if(elm.tagName.toLowerCase() != "textarea")
         {
@@ -256,7 +256,7 @@ function onLoad()
     var jokeLangsText = "";
 
     langXhr.open("GET", langUrl);
-    langXhr.onreadystatechange = () => {
+    langXhr.onreadystatechange = function() {
         var xErrElem;
         if(langXhr.readyState == 4 && langXhr.status < 300)
         {
@@ -324,7 +324,7 @@ function onLoad()
     };
     langXhr.send();
 
-    document.getElementById("submitBtn").addEventListener("click", function() {
+    gebid("submitBtn").addEventListener("click", function() {
         submitJoke();
     });
 
@@ -650,7 +650,7 @@ function buildURL()
         tryItURL += "?" + queryParams.join("&");
     }
 
-    gebid("urlBuilderUrl").innerHTML = tryItURL;
+    gebid("urlBuilderUrl").innerText = tryItURL;
 }
 
 //#MARKER send request
@@ -784,7 +784,7 @@ function resetTryItForm()
 //#MARKER submit joke
 function submitJoke()
 {
-    var submitBtn = document.getElementById("submitBtn");
+    var submitBtn = gebid("submitBtn");
     if(submitBtn.disabled == true)
     {
         return;
@@ -806,8 +806,8 @@ function submitJoke()
 
                     alert(res.message);
                     
-                    setTimeout(() => {
-                        document.getElementById("submitBtn").disabled = false;
+                    setTimeout(function() {
+                        gebid("submitBtn").disabled = false;
                     }, 2000);
                 }
                 else if(res.error == true)
@@ -836,15 +836,15 @@ function valChanged(element)
     {
         if(element.value == "single")
         {
-            document.getElementById("f_setup").placeholder = "Joke";
+            gebid("f_setup").placeholder = "Joke";
 
-            document.getElementById("f_delivery").style.display = "none";
+            gebid("f_delivery").style.display = "none";
         }
         else if(element.value == "twopart")
         {
-            document.getElementById("f_setup").placeholder = "Setup";
+            gebid("f_setup").placeholder = "Setup";
 
-            document.getElementById("f_delivery").style.display = "initial";
+            gebid("f_delivery").style.display = "initial";
         }
     }
 
@@ -865,8 +865,8 @@ function valChanged(element)
 
 function buildSubmission()
 {
-    var category = document.getElementById("f_category").value;
-    var type = document.getElementById("f_type").value;
+    var category = gebid("f_category").value;
+    var type = gebid("f_type").value;
 
     submission = {
         formatVersion: settings.formatVersion,
@@ -876,12 +876,12 @@ function buildSubmission()
 
     if(type == "single")
     {
-        submission.joke = document.getElementById("f_setup").value;
+        submission.joke = gebid("f_setup").value;
     }
     else if(type == "twopart")
     {
-        submission.setup = document.getElementById("f_setup").value;
-        submission.delivery = document.getElementById("f_delivery").value;
+        submission.setup = gebid("f_setup").value;
+        submission.delivery = gebid("f_delivery").value;
     }
 
     var sLang = gebid("f_language").value || settings.defaultLang;
@@ -902,16 +902,16 @@ function buildSubmission()
     submission = {
         ...submission,
         flags: {
-            nsfw: document.getElementById("f_flags_nsfw").checked,
-            religious: document.getElementById("f_flags_religious").checked,
-            political: document.getElementById("f_flags_political").checked,
-            racist: document.getElementById("f_flags_racist").checked,
-            sexist: document.getElementById("f_flags_sexist").checked,
+            nsfw: gebid("f_flags_nsfw").checked,
+            religious: gebid("f_flags_religious").checked,
+            political: gebid("f_flags_political").checked,
+            racist: gebid("f_flags_racist").checked,
+            sexist: gebid("f_flags_sexist").checked,
         },
         lang: sLang
     };
 
-    var subDisp = document.getElementById("submissionDisplay");
+    var subDisp = gebid("submissionDisplay");
 
     var escapedSubmission = JSON.parse(JSON.stringify(submission)); // copy value without reference
     if(type == "single")
@@ -923,9 +923,9 @@ function buildSubmission()
         escapedSubmission.setup = htmlEscape(submission.setup);
         escapedSubmission.delivery = htmlEscape(submission.delivery);
     }
-    subDisp.innerHTML = JSON.stringify(escapedSubmission, null, 4);
+    subDisp.innerText = JSON.stringify(escapedSubmission, null, 4);
 
-    var subCodeElem = document.getElementById("submissionCodeElement");
+    var subCodeElem = gebid("submissionCodeElement");
 
     if(!subCodeElem.classList.contains("prettyprint"))
     {

@@ -5,6 +5,7 @@ const parseURL = require("../src/parseURL");
 const languages = require("../src/languages");
 const jsl = require("svjsl");
 const settings = require("../settings");
+const translate = require("../src/translate");
 
 jsl.unused(http);
 
@@ -16,7 +17,8 @@ const meta = {
         "method": "GET",
         "url": `${settings.info.docsURL}/langcode/{LANGUAGE}`,
         "supportedParams": [
-            "format"
+            "format",
+            "lang"
         ]
     }
 };
@@ -34,13 +36,15 @@ const call = (req, res, url, params, format) => {
 
     let statusCode = 200;
 
+    let lang = (params && params["lang"]) ? params["lang"] : settings.languages.defaultLanguage;
+
     if(url[1] == undefined)
     {
         statusCode = 400;
         return httpServer.pipeString(res, convertFileFormat.auto(format, {
             "error": true,
-            "message": `You need to specify a language in the URL. Example: /langcode/english`
-        }), parseURL.getMimeTypeFromFileFormatString(format), statusCode);   
+            "message": translate(lang, "noLangCodeSpecified")
+        }, lang), parseURL.getMimeTypeFromFileFormatString(format), statusCode);   
     }
 
     let defaultValDisabled = (params && params.noDefault && params.noDefault == true);
@@ -61,14 +65,14 @@ const call = (req, res, url, params, format) => {
         responseText = convertFileFormat.auto(format, {
             "error": true,
             "message": `The provided language "${decodeURIComponent(language)}" could not be resolved.`
-        });
+        }, lang);
     }
     else
     {
         responseText = convertFileFormat.auto(format, {
             "error": false,
             "code": langCode
-        });
+        }, lang);
     }
 
     httpServer.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format), statusCode);

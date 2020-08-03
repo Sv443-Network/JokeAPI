@@ -284,7 +284,7 @@ const init = () => {
                     //#MARKER Joke submission
                     let submissionsRateLimited = await rlSubm.get(ip);
 
-                    if(!jsl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "submit" && !(submissionsRateLimited && submissionsRateLimited._remainingPoints < 0 && !headerAuth.isAuthorized))
+                    if(!jsl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "submit" && !(submissionsRateLimited && submissionsRateLimited._remainingPoints <= 0 && !headerAuth.isAuthorized))
                     {
                         rlSubm.consume(ip, 1);
 
@@ -315,8 +315,8 @@ const init = () => {
                     {
                         //#MARKER Restart / invalid PUT
 
-                        if(submissionsRateLimited && submissionsRateLimited._remainingPoints < 0 && !headerAuth.isAuthorized)
-                            return respondWithError(res, 110, 429, fileFormat, `Blocked by rate limiting`, lang);
+                        if(submissionsRateLimited && submissionsRateLimited._remainingPoints <= 0 && !headerAuth.isAuthorized)
+                            return respondWithError(res, 110, 429, fileFormat, tr(lang, "rateLimitedShort"), lang);
 
                         let data = "";
                         let dataGotten = false;
@@ -333,7 +333,7 @@ const init = () => {
                                     "error": false,
                                     "message": `Restarting ${settings.info.name}`,
                                     "timestamp": new Date().getTime()
-                                }));
+                                }, lang));
                                 console.log(`\n\n[${logger.getTimestamp(" | ")}]  ${jsl.colors.fg.red}IP ${jsl.colors.fg.yellow}${ip.substr(0, 8)}[...]${jsl.colors.fg.red} sent a restart command\n\n\n${jsl.colors.rst}`);
                                 process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
                             }
@@ -361,7 +361,7 @@ const init = () => {
                         "internalError": false,
                         "message": `Wrong method "${req.method}" used. Expected "GET", "OPTIONS" or "HEAD"`,
                         "timestamp": new Date().getTime()
-                    }));
+                    }, lang));
                 }
             });
 
@@ -495,7 +495,7 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
         if(!jsl.isEmpty(errorMessage))
             errObj.additionalInfo = errorMessage;
 
-        let converted = convertFileFormat.auto(fileFormat, errObj).toString();
+        let converted = convertFileFormat.auto(fileFormat, errObj, lang).toString();
 
         return pipeString(res, converted, parseURL.getMimeTypeFromFileFormatString(fileFormat), responseCode);
     }
@@ -696,6 +696,8 @@ const getAcceptedEncoding = req => {
  */
 function byteLength(str)
 {
+    if(!str)
+        return 0;
     return Buffer.byteLength(str, "utf8");
 }
 

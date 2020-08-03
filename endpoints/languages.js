@@ -16,7 +16,8 @@ const meta = {
         "method": "GET",
         "url": `${settings.info.docsURL}/languages`,
         "supportedParams": [
-            "format"
+            "format",
+            "lang"
         ]
     }
 };
@@ -40,6 +41,8 @@ const call = (req, res, url, params, format) => {
     let langArray = [];
     let pl = languages.getPossibleLanguages();
 
+    let lang = (params && params["lang"]) ? params["lang"] : settings.languages.defaultLanguage;
+
     Object.keys(pl).forEach(lc => {
         langArray.push({
             "code": lc,
@@ -55,7 +58,7 @@ const call = (req, res, url, params, format) => {
             "systemLanguages": { "code": sysLangs },
             "possibleLanguages": { "language": langArray },
             "timestamp": new Date().getTime()
-        });
+        }, lang);
     }
     else
     {
@@ -65,7 +68,7 @@ const call = (req, res, url, params, format) => {
             "systemLanguages": sysLangs,
             "possibleLanguages": langArray,
             "timestamp": new Date().getTime()
-        });
+        }, lang);
     }
 
     return httpServer.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format));

@@ -76,7 +76,7 @@ function languageToCode(language)
     let fuzzy = new Fuse(searchObj, {
         includeScore: true,
         keys: ["code", "lang"],
-        threshold: 0.3
+        threshold: 0.4
     });
 
     let result = fuzzy.search(language)[0];

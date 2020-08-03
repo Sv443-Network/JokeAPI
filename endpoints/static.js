@@ -95,6 +95,7 @@ const call = (req, res, url, params, format) => {
             debug("Static", `Serving static content "${requestedFile}" with encoding "${selectedEncoding}"`);
 
             res.setHeader("Content-Encoding", selectedEncoding);
+            res.setHeader("Cache-Control", "max-age=86400");
 
             return httpServer.pipeFile(res, filePath, mimeType, statusCode);
         }

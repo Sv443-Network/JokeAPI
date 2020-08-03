@@ -120,7 +120,7 @@ const writeJokeToFile = (res, filePath, submittedJoke, fileFormat, ip, analytics
             // successfully wrote to file
             let responseObj = {
                 "error": false,
-                "message": "Joke submission was successfully saved. It will soon be checked out by the author.",
+                "message": tr(langCode, "submissionSaved"),
                 "submission": reformattedJoke,
                 "timestamp": new Date().getTime()
             };
@@ -131,7 +131,7 @@ const writeJokeToFile = (res, filePath, submittedJoke, fileFormat, ip, analytics
             submissionObject.submission = reformattedJoke;
             logRequest("submission", ip, submissionObject);
 
-            return httpServer.pipeString(res, convertFileFormat.auto(fileFormat, responseObj), parseURL.getMimeTypeFromFileFormatString(fileFormat), 201);
+            return httpServer.pipeString(res, convertFileFormat.auto(fileFormat, responseObj, langCode), parseURL.getMimeTypeFromFileFormatString(fileFormat), 201);
         }
         // error while writing to file
         else return httpServer.respondWithError(res, 100, 500, fileFormat, tr(langCode, "errWhileSavingSubmission", err), langCode);

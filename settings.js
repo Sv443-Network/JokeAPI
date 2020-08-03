@@ -22,7 +22,6 @@ const settings = {
             website: packageJSON.author.url, // author website
             github: `https://github.com/${packageJSON.author.name}`, // author github page
         },
-        infoMsg: "If you want to stay up to date on the status and future updates of JokeAPI or need some help, consider joining my Discord server: https://sv443.net/discord",
         privacyPolicyUrl: "https://sv443.net/privacypolicy/en"
     },
     wrapper: {
@@ -174,7 +173,7 @@ const settings = {
         docsrecompiled: bgc.yellow + col.blue, // when the docs were recompiled
     },
     analytics: {
-        enabled: true, // whether or not the analytics module should be enabled
+        enabled: false, // whether or not the analytics module should be enabled
         dirPath: "./data/analytics/", // path to the analytics directory - needs trailing slash
         sqlTableName: "analytics",    // name of the SQL table
     },
@@ -189,11 +188,13 @@ const settings = {
         tokenValidHeader: "Token-Valid",     // the name of the token validity response header (normal case, not lower case)
         daemonInterval: 20, // after how many seconds the auth tokens should be refreshed
     },
-    languages:
-    {
+    languages: {
         langFilePath: "./data/languages.json",        // file containing all language codes and corresponding language information
         defaultLanguage: "en",                        // default language (two character code, lowercase)
         translationsFile: "./data/translations.json", // translations file
+    },
+    tests: { // unit tests
+        location: "./tests/",  // folder where unit tests are located - requires trailing slash
     }
 }
 

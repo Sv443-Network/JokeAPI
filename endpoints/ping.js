@@ -2,6 +2,7 @@ const http = require("http");
 const convertFileFormat = require("../src/fileFormatConverter");
 const httpServer = require("../src/httpServer");
 const parseURL = require("../src/parseURL");
+const tr = require("../src/translate");
 const jsl = require("svjsl");
 const settings = require("../settings");
 
@@ -15,7 +16,8 @@ const meta = {
         "method": "GET",
         "url": `${settings.info.docsURL}/ping`,
         "supportedParams": [
-            "format"
+            "format",
+            "lang"
         ]
     }
 };
@@ -31,11 +33,13 @@ const meta = {
 const call = (req, res, url, params, format) => {
     jsl.unused([req, url, params]);
 
+    let lang = (params && params["lang"]) ? params["lang"] : settings.languages.defaultLanguage;
+
     let responseText = convertFileFormat.auto(format, {
         "error": false,
-        "ping": "Pong!",
+        "ping": tr(lang, "pingPong"),
         "timestamp": new Date().getTime()
-    });
+    }, lang);
 
     httpServer.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format));
 };

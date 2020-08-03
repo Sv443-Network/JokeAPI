@@ -5,6 +5,7 @@
 const AllJokes = require("./AllJokes");
 const parseJokes = require("../parseJokes");
 const languages = require("../languages");
+const tr = require("../translate");
 const jsl = require("svjsl");
 const settings = require("../../settings");
 
@@ -401,7 +402,7 @@ class FilteredJoke
                     if(this._errors && this._errors.length > 0)
                         return reject(this._errors);
                     else
-                        return reject("No jokes were found that match your provided filter(s)");
+                        return reject(tr(this.getLanguage(), "foundNoMatchingJokes"));
                 }
                 
                 if(!_lastIDs || !Array.isArray(_lastIDs))
