@@ -4,243 +4,291 @@
     "languages": [
         "en",
         "de",
-        "ru"
+        "ru",
+        "cs"
     ],
     "tr": {
         "test": {
             "en": "Test. Hello, world!",
             "de": "Test. Hallo, Welt!",
-            "ru": "Тест. Привет, мир!"
+            "ru": "Тест. Привет, мир!",
+            "cs": "Test. Ahoj, světe."
         },
         "messageOfTheDay": {
             "en": "If you want to stay up to date on the status and future updates of %1 or need some help, consider joining my Discord server: https://sv443.net/discord",
             "de": "Wenn du über den Status und die zukünftigen Updates von %1 auf dem Laufenden bleiben willst oder Hilfe benötigst, kannst du auf meinen Discord-Server kommen: https://sv443.net/discord",
-            "ru": "Если вы хотите быть в курсе состояния и будущих обновлений %1 или вам нужна помощь, вы можете прийти на мой Discord-сервер: https://sv443.net/discord"
+            "ru": "Если вы хотите быть в курсе состояния и будущих обновлений %1 или вам нужна помощь, вы можете прийти на мой Discord-сервер: https://sv443.net/discord",
+            "cs": "Pokud chcete zůstat informováni o stavu a budoucích aktualizací %1 nebo potřebujete pomoc, zvažte připojení ke mému Discord serveru : https://sv443.net/discord"
         },
         "generalInternalError": {
             "en": "There was an internal error: %1",
             "de": "Es gab einen internen Fehler: %1",
-            "ru": "Произошла внутренняя ошибка: %1"
+            "ru": "Произошла внутренняя ошибка: %1",
+            "cs": "Došlo k interní chybě: %1"
         },
         "invalidLangCode": {
             "en": "The specified language code \"%1\" is invalid. Please see https://sv443.net/jokeapi/v2#langcodes-endpoint for more info.",
             "de": "Der angegebene Sprach-code \"%1\" ist nicht korrekt. Bitte besuche https://sv443.net/jokeapi/v2#langcodes-endpoint für mehr Info.",
-            "ru": "Указанный код языка \"%1\" является недействительным. Дополнительную информацию можно получить на сайте https://sv443.net/jokeapi/v2#langcodes-endpoint"
+            "ru": "Указанный код языка \"%1\" является недействительным. Дополнительную информацию можно получить на сайте https://sv443.net/jokeapi/v2#langcodes-endpoint",
+            "cs": "Zadaný kód jazyka \"%1\" je neplatný. Další informace naleznete na adrese https://sv443.net/jokeapi/v2#langcodes-endpoint"
         },
         "invalidLangCodeNoArg": {
             "en": "The specified language code is invalid. Please see http://localhost:8076/#langcodes-endpoint for more info.",
             "de": "Der angegebene Sprach-code ist nicht korrekt. Bitte besuche https://sv443.net/jokeapi/v2#langcodes-endpoint für mehr Info.",
-            "ru": "Указанный код языка является недействительным. Дополнительную информацию можно получить на сайте https://sv443.net/jokeapi/v2#langcodes-endpoint"
+            "ru": "Указанный код языка является недействительным. Дополнительную информацию можно получить на сайте https://sv443.net/jokeapi/v2#langcodes-endpoint",
+            "cs": "Zadaný kód jazyka je neplatný. Další informace naleznete na adrese https://sv443.net/jokeapi/v2#langcodes-endpoint"
         },
         "uriTooLong": {
             "en": "The provided URI (%1 characters) exceeds the maximum allowed length of %2 characters.",
             "de": "Der angegebene URI (%1 Zeichen) überschreitet die Maximallänge von %2 Zeichen.",
-            "ru": "Поставляемый URI (%1 символ) превышает максимально допустимую длину %2 символов."
+            "ru": "Поставляемый URI (%1 символ) превышает максимально допустимую длину %2 символов.",
+            "cs": "Zadaná URI (%1 znaků) překračuje maximální povolenou délku %2 znaků."
         },
         "ipBlacklisted": {
             "en": "You were blacklisted by the API and cannot send any requests anymore. If you believe this was done in error, please contact me: %1",
             "de": "Du wurdest von der API auf eine Blockierliste gesetzt und kannst keine Anfragen mehr senden. Wenn du glaubst, dass dies irrtümlicherweise geschehen ist, kontaktiere mich bitte: %1",
-            "ru": "Вы были помещены в список блоков API и больше не можете отправлять запросы. Если вы думаете, что это произошло по ошибке, пожалуйста, свяжитесь со мной: %1"
+            "ru": "Вы были помещены в список блоков API и больше не можете отправлять запросы. Если вы думаете, что это произошло по ошибке, пожалуйста, свяжитесь со мной: %1",
+            "cs": "Rozhraní API vám bylo zakázáno a už nemůžete odesílat žádné žádosti. Pokud se domníváte, že se to stalo omylem, kontaktujte mě: %1"
         },
         "errSetupHttpResponse": {
             "en": "There was an internal error while setting up the HTTP response: %1",
             "de": "Es gab einen internen Fehler während die HTTP-Antwort aufgebaut wurde: %1",
-            "ru": "При настройке ответа HTTP произошла внутренняя ошибка: %1"
+            "ru": "При настройке ответа HTTP произошла внутренняя ошибка: %1",
+            "cs": "Při nastavování odpovědi HTTP došlo k interní chybě: %1"
         },
         "rateLimited": {
             "en": "You are being rate limited because you have sent too many requests. The maximum is %1 requests every %2 seconds.",
             "de": "Deine Anfrage wurde blockiert, weil du zu viele Anfragen gesendet hast. Das Maximum sind %1 Anfragen innerhalb von %2 Sekunden.",
-            "ru": "Вы ограничены в тарифах, потому что отправили слишком много запросов. Максимальное значение составляет %1 запрос каждые %2 секунды."
+            "ru": "Вы ограничены в тарифах, потому что отправили слишком много запросов. Максимальное значение составляет %1 запрос каждые %2 секунды.",
+            "cs": "Jste rate limited, protože jste odeslali příliš mnoho žádostí. Maximální počet žádostí: %1 každé %2 sekundy."
         },
         "rateLimitedShort": {
             "en": "Blocked by rate limiting.",
             "de": "Blockiert durch Ratenbegrenzung.",
-            "ru": "Блокировано ограничением скорости."
+            "ru": "Блокировано ограничением скорости.",
+            "cs": "Blokováno omezením míry."
         },
         "endpointInternalError": {
             "en": "Internal Error while calling Endpoint: %1",
             "de": "Interner Error während des Aufrufs eines Endpunktes: %1",
-            "ru": "Внутренняя ошибка при вызове конечной точки: %1"
+            "ru": "Внутренняя ошибка при вызове конечной точки: %1",
+            "cs": "Interní chyba při volání koncového bodu: %1"
         },
         "endpointNotFound": {
             "en": "Endpoint \"%1\" not found - Please read the documentation at https://sv443.net/jokeapi/v2#endpoints to see all available endpoints.",
             "de": "Endpunkt \"%1\" nicht gefunden - Bitte lies die Dokumentation (https://sv443.net/jokeapi/v2#endpoints) um alle verfügbaren Endpunkte zu sehen.",
-            "ru": "Конечная точка \"%1\" не найдена - с документацией на https://sv443.net/jokeapi/v2#endpoints можно ознакомиться во всех доступных конечные точки."
+            "ru": "Конечная точка \"%1\" не найдена - с документацией на https://sv443.net/jokeapi/v2#endpoints можно ознакомиться во всех доступных конечные точки.",
+            "cs": "Koncový bod \"%1\" nebyl nalezen - přečtěte si prosím dokumentaci https://sv443.net/jokeapi/v2#endpoints a podívejte se na všechny dostupné koncové body."
         },
         "payloadTooLarge": {
             "en": "Payload too large (%1 Bytes - maximum is %2 Bytes).",
             "de": "Anfrageinhalt zu groß (%1 Bytes - maximal erlaubt sind %2 Bytes).",
-            "ru": "Слишком большая грузоподъемность (%1 байт - максимум %2 байта)."
+            "ru": "Слишком большая грузоподъемность (%1 байт - максимум %2 байта).",
+            "cs": "Datový obsah je příliš velký (%1 Bytes - maximum je %2 Bytes)."
         },
         "requestEmptyOrTimedOut": {
             "en": "Request body is empty or request timed out.",
             "de": "Anfrageinhalt ist leer oder es gab eine Zeitüberschreitung.",
-            "ru": "Тело запроса пустое или запрос таймаут."
+            "ru": "Тело запроса пустое или запрос таймаут.",
+            "cs": "Tělo požadavku je prázdné nebo vypršel časový limit požadavku."
         },
         "invalidSubmissionOrWrongEndpoint": {
             "en": "Request body is invalid or was sent to the wrong endpoint \"%1\", please refer to the documentation at https://sv443.net/jokeapi/v2#submit-joke to see how to correctly structure a joke submission.",
             "de": "Anfrageinhalt ist ungültig oder wurde an den falschen Endpunkt \"%1\" gesendet, lies bitte in der Dokumentation unter https://sv443.net/jokeapi/v2#submit-joke nach, wie eine Witzeinreichung korrekt strukturiert wird.",
-            "ru": "Тело запроса является недействительным или было отправлено не на ту конечную точку \"%1\", смотрите документацию на https://sv443.net/jokeapi/v2#submit-joke, чтобы узнать, как правильно структурировать шутку."
+            "ru": "Тело запроса является недействительным или было отправлено не на ту конечную точку \"%1\", смотрите документацию на https://sv443.net/jokeapi/v2#submit-joke, чтобы узнать, как правильно структурировать шутку.",
+            "cs": "Tělo požadavku je neplatné nebo bylo odesláno na špatný koncový bod \"%1\", viz dokumentace na stránce https://sv443.net/jokeapi/v2#submit-joke, kde najdete informace o tom, jak správně uspořádat podání vtipu."
         },
         "requestBodyIsInvalid": {
             "en": "Request body is empty.",
             "de": "Anfrageinhalt ist leer.",
-            "ru": "Тело запроса пусто."
+            "ru": "Тело запроса пусто.",
+            "cs": "Tělo požadavku je prázdné."
         },
         "invalidCategory": {
             "en": "The specified category/ies is/are invalid. Got: \"%1\" but possible categories are: \"%2\" (case insensitive).",
             "de": "Die angegebene Kategorie/n ist/sind inkorrekt. Angefragt wurde \"%1\", möglich sind jedoch nur \"%2\" (Groß- und Kleinschreibung wird ignoriert).",
-            "ru": "Указанная категория/единицы являются/являются недействительными. Запрос был \"%1\", но возможен только \"%2\". (Верхний и нижний регистр игнорируются)."
+            "ru": "Указанная категория/единицы являются/являются недействительными. Запрос был \"%1\", но возможен только \"%2\". (Верхний и нижний регистр игнорируются).",
+            "cs": "Zadaná/é kategorie je/jsou neplatná/é. Dostal: \"%1\", ale možné kategorie jsou: \"%2\" (nerozlišují velká a malá písmena)."
         },
         "invalidType": {
             "en": "The specified type is invalid. Got: \"%1\" but possible types are: \"%2\".",
             "de": "Der angegebene Dateityp ist inkorrekt. Angefragt wurde \"%1\", möglich sind jedoch nur \"%2\".",
-            "ru": "Указанный тип файла неверен. Запрос был \"%1\", но возможен только \"%2\"."
+            "ru": "Указанный тип файла неверен. Запрос был \"%1\", но возможен только \"%2\".",
+            "cs": "Zadaný typ je neplatný. Dostal: \"%1\" ale možné typy jsou: \"%2\"."
         },
         "idRangeInvalid": {
             "en": "The specified ID range is invalid. Got: \"%1 to %2\" but max possible ID range is: \"0-%3\".",
             "de": "Die angegebene ID-Bereich ist inkorrekt. Angefragt wurde: \"%1 bis %2\" aber der maximal mögliche Bereich ist: \"0-%3\".",
-            "ru": "Указанный диапазон ID неверен. Запрос был сделан: \"%1 - %2\", но это максимально возможный диапазон: \"0-%3\"."
+            "ru": "Указанный диапазон ID неверен. Запрос был сделан: \"%1 - %2\", но это максимально возможный диапазон: \"0-%3\".",
+            "cs": "Zadaný rozsah ID je neplatný. Dostal: \"%1 až %2\" ale maximální možný rozsah ID je: \"0-%3\"."
         },
         "idRangeInvalidSingle": {
             "en": "The specified ID range is invalid. Got: \"%1\" but max possible ID range is: \"0-%2\".",
             "de": "Die angegebene ID-Bereich ist inkorrekt. Angefragt wurde: \"%1\" aber der maximal mögliche Bereich ist: \"0-%2\".",
-            "ru": "Указанный диапазон ID неверен. Запрос был сделан: \"%1\", но это максимально возможный диапазон: \"0-%2\"."
+            "ru": "Указанный диапазон ID неверен. Запрос был сделан: \"%1\", но это максимально возможный диапазон: \"0-%2\".",
+            "cs": "Zadaný rozsah ID je neplatný. Dostal: \"%1\" ale maximální možný rozsah ID je: \"0-%2\"."
         },
         "idRangeInvalidGeneric": {
             "en": "The values in the \"idRange\" parameter are invalid or are not numbers. Error: %1",
             "de": "Der angegebene ID-Bereich im URL-parameter \"idRange\" ist inkorrekt oder enthält keine Zahl/en. Error: %1",
-            "ru": "Значения в параметре \"idRange\" недействительны или не являются номерами. Ошибка: %1"
+            "ru": "Значения в параметре \"idRange\" недействительны или не являются номерами. Ошибка: %1",
+            "cs": "Hodnoty v parametru \"idRange\" jsou neplatné nebo se nejedná o čísla. Chyba: %1"
         },
         "invalidFlags": {
             "en": "The specified flags are invalid. Got: \"%1\" - Possible flags are: \"%2\".",
             "de": "Die angegebene/n Markierung/en ist/sind inkorrekt. Angefragt wurde: \"%1\" - Possible flags are: \"%2\".",
-            "ru": "Указанные флаги недействительны. Понял: \"%1\" - Возможные флаги: \"%2\"."
+            "ru": "Указанные флаги недействительны. Понял: \"%1\" - Возможные флаги: \"%2\".",
+            "cs": "Zadané flags jsou neplatné. Dostal: \"%1\" Možné flags jsou: \"%2\"."
         },
         "amountInternalError": {
             "en": "Internal error while setting joke amount: %1",
             "de": "Interner Fehler bei der Einstellung der Witzanzahl: %1",
-            "ru": "Внутренняя ошибка при установке суммы шуток: %1"
+            "ru": "Внутренняя ошибка при установке суммы шуток: %1",
+            "cs": "Interní chyba při nastavení množství vtipů : %1"
         },
         "errorWhileFinalizing": {
             "en": "Error while finalizing joke filtering: %1",
             "de": "Fehler beim Abschließen der Witz-Filterung: %1",
-            "ru": "Ошибка при завершении фильтрации шуток: %1"
+            "ru": "Ошибка при завершении фильтрации шуток: %1",
+            "cs": "Chyba při dokončení filtrování vtipů: %1"
         },
         "invalidChars": {
             "en": "These are the invalid characters: %1",
             "de": "Dies sind die ungültigen Zeichen: %1",
-            "ru": "Это недопустимые символы: %1"
+            "ru": "Это недопустимые символы: %1",
+            "cs": "Toto jsou neplatné znaky: %1"
         },
         "submittedJokeFormatInvalid": {
             "en": "Submitted joke format is incorrect. Encountered error/s: %1",
             "de": "Eingesandtes Witzformat ist falsch. Aufgetretene/r Fehler: %1",
-            "ru": "Отправленный формат шутки неверен. Ошибка/Ошибки при встрече: %1"
+            "ru": "Отправленный формат шутки неверен. Ошибка/Ошибки при встрече: %1",
+            "cs": "Odeslaný vtip je špatně formátovaný. Došlo k chybě/chybám: %1"
         },
         "errWhileSavingSubmission": {
             "en": "Internal error while saving joke: %1",
             "de": "Interner Fehler beim Speichern des Witzes: %1",
-            "ru": "Внутренняя ошибка при сохранении шутки: %1"
+            "ru": "Внутренняя ошибка при сохранении шутки: %1",
+            "cs": "Interní chyba při ukládání vtipu: %1"
         },
         "wrongFormatVersion": {
             "en": "Joke format version is incorrect. expected \"%1\" but got \"%2\".",
             "de": "Die Format-Version des Witzes ist falsch. Erwartet wurde \"%1\", bekam stattdessen \"%2\".",
-            "ru": "Версия формата шуток некорректна. Ожидаемый \"%1\", получил \"%2\"."
+            "ru": "Версия формата шуток некорректна. Ожидаемый \"%1\", получил \"%2\".",
+            "cs": "Verze formátu vtipu je nesprávná. Očekávaval \"%1\", ale dostal \"%2\"."
         },
         "invalidJSON": {
             "en": "Request body contains invalid JSON: %1",
             "de": "Anfrage enthält ungültiges JSON: %1",
-            "ru": "Тело запроса содержит недействительный JSON: %1"
+            "ru": "Тело запроса содержит недействительный JSON: %1",
+            "cs": "Tělo požadavku obsahuje neplatný JSON: %1"
         },
         "noConversionMapping": {
             "en": "Internal Error - no conversion mapping for data with keys \"%1\" - %2",
             "de": "Interner Fehler - keine Konvertierungszuordnung für Daten mit Schlüsseln \"%1\" - %2",
-            "ru": "Внутренняя ошибка - нет отображения преобразования данных с помощью ключей \"%1\". - %2"
+            "ru": "Внутренняя ошибка - нет отображения преобразования данных с помощью ключей \"%1\". - %2",
+            "cs": "Interní chyba - žádné mapování konverzí pro data s klíči \"%1\" - %2"
         },
         "cantConvertToPlainText": {
             "en": "Internal Error - could not convert data to plain text - %1",
             "de": "Interner Fehler - konnte Daten nicht zu Text konvertieren - %1",
-            "ru": "Внутренняя ошибка - не удалось преобразовать данные в обычный текст - %1"
+            "ru": "Внутренняя ошибка - не удалось преобразовать данные в обычный текст - %1",
+            "cs": "Interní chyba - nelze převést data na prostý text - %1"
         },
         "conversionGeneralError": {
             "en": "Error %1 - %2\nThis error is caused by:\n- %3\n\nAdditional info: %4",
             "de": "Fehler %1 - %2\nDieser Fehler kann verursacht werden durch:\n- %3\n\nZusätzliche Informationen: %4",
-            "ru": "Ошибка %1 - %2\nЭта ошибка может быть вызвана:\n- %3\n\nДополнительная информация: %4"
+            "ru": "Ошибка %1 - %2\nЭта ошибка может быть вызвана:\n- %3\n\nДополнительная информация: %4",
+            "cs": "Chyba %1 -%2\nTato chyba je způsobena:\n- %3\n\nDalší informace: %4"
         },
         "conversionInternalError": {
             "en": "Internal Error %1 - %2\nThis error is caused by:\n- %3\n\nAdditional info: %4",
             "de": "Interner Fehler %1 - %2\nDieser Fehler kann verursacht werden durch:\n- %3\n\nZusätzliche Informationen: %4",
-            "ru": "Внутренняя ошибка %1 - %2\nЭта ошибка может быть вызвана:\n- %3\n\nДополнительная информация: %4"
+            "ru": "Внутренняя ошибка %1 - %2\nЭта ошибка может быть вызвана:\n- %3\n\nДополнительная информация: %4",
+            "cs": "Interní chyba %1 - %2\nTato chyba je způsobena:\n- %3\n\nDalší informace: %4"
         },
         "availableCategories": {
             "en": "Available categories are: \"%1\"",
             "de": "Verfügbare Kategorien sind: \"%1\"",
-            "ru": "Доступны следующие категории: \"%1\""
+            "ru": "Доступны следующие категории: \"%1\"",
+            "cs": "Dostupné kategorie jsou: \"%1\""
         },
         "availableFlags": {
             "en": "Available flags are: \"%1\"",
             "de": "Verfügbare Markierungen sind: \"%1\"",
-            "ru": "Доступны флаги: \"%1\""
+            "ru": "Доступны флаги: \"%1\"",
+            "cs": "Dostupné flags jsou: \"%1\"."
         },
         "timestamp": {
             "en": "Timestamp: %1",
             "de": "Zeitstempel: %1",
-            "ru": "Таймштамп: %1"
+            "ru": "Таймштамп: %1",
+            "cs": "Časové razítko: %1"
         },
         "genericError": {
             "en": "Error: %1",
             "de": "Fehler: %1",
-            "ru": "Ошибка: %1"
+            "ru": "Ошибка: %1",
+            "cs": "Chyba: %1"
         },
         "languageCode": {
             "en": "Language Code: %1",
             "de": "Sprach-Code: %1",
-            "ru": "Код языка: %1"
+            "ru": "Код языка: %1",
+            "cs": "Kód jazyka: %1"
         },
         "languagesEndpoint": {
             "en": "Default Language: %1 [%2]\nJoke Languages (%3): %4\nSystem Languages (%5): %6\n\nPossible Language Values:\n%7",
             "de": "Standardsprache: %1 [%2]\nWitz-Sprachen (%3): %4\nSystemsprachen (%5): %6\n\nMögliche Sprachwerte:\n%7",
-            "ru": "Язык по умолчанию: %1 [%2]\nЯзыки шуток (%3): %4\nСистемные языки (%5): %6\n\nВозможные значения языка:\n%7"
+            "ru": "Язык по умолчанию: %1 [%2]\nЯзыки шуток (%3): %4\nСистемные языки (%5): %6\n\nВозможные значения языка:\n%7",
+            "cs": "Výchozí jazyk:  %1 [%2]\nJazyk pro vtipy (%3): %4\nSystémové jazyky (%5): %6\n\nMožné jazykové hodnoty:\n%7"
         },
         "infoEndpoint": {
             "en": "%1 v%2 - Info:\n\nJoke Count: %3\nCategories: \"%4\"\nFlags: \"%5\"\nResponse Formats: \"%6\"\nJoke Types: \"%7\"\nSubmission URL: %8\n\nID Ranges:\n%9\n\nJoke Languages (%10): %11\nSystem Languages (%12): %13\n\nMessage of the Day: %14",
             "de": "%1 v%2 - Info:\n\nWitz-Anzahl: %3\nKategorien: \"%4\"\nMerkmale: \"%5\"\nAntwort-Dateiformate: \"%6\"\nWitz-Typen: \"%7\"\nEinreichungs-URL: %8\n\nID-Begrenzung:\n%9\n\nWitz-Sprachen (%10): %11\nSystemsprachen (%12): %13\n\nNachricht des Tages: %14",
-            "ru": "%1 v%2 - Информация:\n\nКоличество шуток: %3\nКатегории: \"%4\"\nФлаги: \"%5\"\nФорматы ответов: \"%6\"\nТипы шуток: \"%7\"\nАдрес отправки: %8\n\nID Диапазоны: \n%9\n\nЯзыки шуток (%10): %11\nСистемные языки (%12): %13\n\nПослание дня: %14"
+            "ru": "%1 v%2 - Информация:\n\nКоличество шуток: %3\nКатегории: \"%4\"\nФлаги: \"%5\"\nФорматы ответов: \"%6\"\nТипы шуток: \"%7\"\nАдрес отправки: %8\n\nID Диапазоны: \n%9\n\nЯзыки шуток (%10): %11\nСистемные языки (%12): %13\n\nПослание дня: %14",
+            "cs": "%1 v%2 - Informace:\n\nPočet vtipů: %3\nKategorie: \"%4\"\nVlajky: \"%5\"\nFormáty odpovědi: \"%6\"\nDruhy vtipů: \"%7\"\nURL pro odeslání vtipu: \"%8\"\n\nRozsahy ID: \n%9\n\nJazyky pro vtipy (%10): %11\nSystémové jazyky (%12): %13\n\nZpráva dne: %14"
         },
         "availableFormats": {
             "en": "Available formats are: %1",
             "de": "Verfügbare Dateiformate sind: %1",
-            "ru": "Доступные форматы: %1"
+            "ru": "Доступные форматы: %1",
+            "cs": "Dostupné formáty jsou: %1"
         },
         "endpointsWord": {
             "en": "Endpoints",
             "de": "Endpunkte",
-            "ru": "Конечные точки"
+            "ru": "Конечные точки",
+            "cs": "Koncové body"
         },
         "endpointDetails": {
             "en": "%1 - %2\n    Usage: %3 %4\n    Supported parameters: %5",
             "de": "%1 - %2\n    Benutzung: %3 %4\n    Unterstützte URL-Parameter: %5",
-            "ru": "%1 - %2\n    Использование: %3 %4\n    Поддерживаемые параметры URL: %5"
+            "ru": "%1 - %2\n    Использование: %3 %4\n    Поддерживаемые параметры URL: %5",
+            "cs": "%1 - %2\n    Zátěž: %3 %4\n    Podporované parametry: %5"
         },
         "foundNoMatchingJokes": {
             "en": "No jokes were found that match your provided filter(s).",
             "de": "Es wurden keine Witze gefunden, die mit dem/den bereitgestellten Filter(n) übereinstimmen.",
-            "ru": "Не было найдено ни одной шутки, которая бы соответствовала вашему фильтру(ам)."
+            "ru": "Не было найдено ни одной шутки, которая бы соответствовала вашему фильтру(ам).",
+            "cs": "Nebyly nalezeny žádné vtipy, které by odpovídaly zadaným filtrům."
         },
         "noLangCodeSpecified": {
             "en": "You need to specify a language in the URL. Example: /langcode/english",
             "de": "Du musst eine Sprache in der URL angeben. Beispiel: /langcode/german",
-            "ru": "Вам необходимо указать язык в URL-адресе. Пример: /langcode/russian"
+            "ru": "Вам необходимо указать язык в URL-адресе. Пример: /langcode/russian",
+            "cs": "V adrese URL musíte zadat jazyk. Příklad: /langcode/czech"
         },
         "pingPong": {
             "en": "Pong!",
             "de": "Pong!",
-            "ru": "Понг!"
+            "ru": "Понг!",
+            "cs": "Pong!"
         },
         "submissionSaved": {
             "en": "Joke submission was successfully saved. It will soon be checked out by the author.",
             "de": "Die Witz-Einreichung wurde erfolgreich gespeichert. Sie wird demnächst vom Autor überprüft.",
-            "ru": "Представление шутки было успешно сохранено. Вскоре он будет проверен автором."
+            "ru": "Представление шутки было успешно сохранено. Вскоре он будет проверен автором.",
+            "cs": "Podání vtipu bylo úspěšně uloženo. Autor ho brzy zkontroluje."
         }
     }
 }
