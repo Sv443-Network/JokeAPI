@@ -18,8 +18,8 @@
 <!-- Add some screenshots here, if applicable -->
 
 ## Checklist
-- [ ] I have read the [Contributing Guide](../Contributing.md)
-- [ ] I read and accept the [Code of Conduct](../Code_of_Conduct.md) (TLDR: just behave in a friendly manner)
+- [ ] I have read the [Contributing Guide](../.github/Contributing.md)
+- [ ] I read and accept the [Code of Conduct](../.github/Code_of_Conduct.md) (TLDR: just behave in a friendly manner)
 - [ ] My code follows the general style of this project
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] I have made corresponding changes to the documentation (if applicable)
