@@ -71,7 +71,7 @@
     "xss": "^1.0.8"
   },
   "devDependencies": {
-    "eslint": "^7.5.0",
+    "eslint": "^7.6.0",
     "lodash": "^4.17.15",
     "madge": "^3.9.0",
     "snyk": "^1.361.3",
