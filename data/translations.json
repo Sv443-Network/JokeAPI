@@ -66,7 +66,7 @@
             "en": "Blocked by rate limiting.",
             "de": "Blockiert durch Ratenbegrenzung.",
             "ru": "Блокировано ограничением скорости.",
-            "cs": "Blokováno rate limiting."
+            "cs": "Blokováno omezením míry."
         },
         "endpointInternalError": {
             "en": "Internal Error while calling Endpoint: %1",
@@ -192,7 +192,7 @@
             "en": "Internal Error - could not convert data to plain text - %1",
             "de": "Interner Fehler - konnte Daten nicht zu Text konvertieren - %1",
             "ru": "Внутренняя ошибка - не удалось преобразовать данные в обычный текст - %1",
-            "cs": "Interní chyba - nelze převést data na prostý text -% 1"
+            "cs": "Interní chyba - nelze převést data na prostý text - %1"
         },
         "conversionGeneralError": {
             "en": "Error %1 - %2\nThis error is caused by:\n- %3\n\nAdditional info: %4",
@@ -204,7 +204,7 @@
             "en": "Internal Error %1 - %2\nThis error is caused by:\n- %3\n\nAdditional info: %4",
             "de": "Interner Fehler %1 - %2\nDieser Fehler kann verursacht werden durch:\n- %3\n\nZusätzliche Informationen: %4",
             "ru": "Внутренняя ошибка %1 - %2\nЭта ошибка может быть вызвана:\n- %3\n\nДополнительная информация: %4",
-            "cs": "Interní chyba %1 -%2\nTato chyba je způsobena:\n- %3\n\nDalší informace: %4"
+            "cs": "Interní chyba %1 - %2\nTato chyba je způsobena:\n- %3\n\nDalší informace: %4"
         },
         "availableCategories": {
             "en": "Available categories are: \"%1\"",
@@ -240,13 +240,13 @@
             "en": "Default Language: %1 [%2]\nJoke Languages (%3): %4\nSystem Languages (%5): %6\n\nPossible Language Values:\n%7",
             "de": "Standardsprache: %1 [%2]\nWitz-Sprachen (%3): %4\nSystemsprachen (%5): %6\n\nMögliche Sprachwerte:\n%7",
             "ru": "Язык по умолчанию: %1 [%2]\nЯзыки шуток (%3): %4\nСистемные языки (%5): %6\n\nВозможные значения языка:\n%7",
-            "cs": "Výchozí jazyk:  %1 [%2]\nJazyk pro vtipy (%3): %4\nSystémové jazyky(%5): %6\n\nMožné jazykové hodnoty:\n%7"
+            "cs": "Výchozí jazyk:  %1 [%2]\nJazyk pro vtipy (%3): %4\nSystémové jazyky (%5): %6\n\nMožné jazykové hodnoty:\n%7"
         },
         "infoEndpoint": {
             "en": "%1 v%2 - Info:\n\nJoke Count: %3\nCategories: \"%4\"\nFlags: \"%5\"\nResponse Formats: \"%6\"\nJoke Types: \"%7\"\nSubmission URL: %8\n\nID Ranges:\n%9\n\nJoke Languages (%10): %11\nSystem Languages (%12): %13\n\nMessage of the Day: %14",
             "de": "%1 v%2 - Info:\n\nWitz-Anzahl: %3\nKategorien: \"%4\"\nMerkmale: \"%5\"\nAntwort-Dateiformate: \"%6\"\nWitz-Typen: \"%7\"\nEinreichungs-URL: %8\n\nID-Begrenzung:\n%9\n\nWitz-Sprachen (%10): %11\nSystemsprachen (%12): %13\n\nNachricht des Tages: %14",
             "ru": "%1 v%2 - Информация:\n\nКоличество шуток: %3\nКатегории: \"%4\"\nФлаги: \"%5\"\nФорматы ответов: \"%6\"\nТипы шуток: \"%7\"\nАдрес отправки: %8\n\nID Диапазоны: \n%9\n\nЯзыки шуток (%10): %11\nСистемные языки (%12): %13\n\nПослание дня: %14",
-            "cs": "%1 v%2 - Informace:\n\nPočet vtipů: %3\nKategorie: \"%4\"\nVlajky: \"%5\"\nFormáty odpovědi: \"%6\"\nDruhy vtipů: \"%7\"\nURL pro odeslání vtipu: \"%8\"\n\nRozsahy ID: \n%9\n\nJazyky pro vtipy (%10): %11\nSystémové jazyky(%12): %13\n\nZpráva dne: %14"
+            "cs": "%1 v%2 - Informace:\n\nPočet vtipů: %3\nKategorie: \"%4\"\nVlajky: \"%5\"\nFormáty odpovědi: \"%6\"\nDruhy vtipů: \"%7\"\nURL pro odeslání vtipu: \"%8\"\n\nRozsahy ID: \n%9\n\nJazyky pro vtipy (%10): %11\nSystémové jazyky (%12): %13\n\nZpráva dne: %14"
         },
         "availableFormats": {
             "en": "Available formats are: %1",
