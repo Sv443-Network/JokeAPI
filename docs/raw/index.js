@@ -753,8 +753,11 @@ function sendTryItRequest()
 }
 
 //#MARKER interactive elements
-function resetTryItForm()
+function resetTryItForm(confirmation)
 {
+    if(confirmation === true && !confirm("Do you really want to reset the form?"))
+        return;
+
     ["cat-cb1", "cat-cb2", "cat-cb3", "cat-cb4"].forEach(function(cat) {
         gebid(cat).checked = false;
     });
@@ -777,6 +780,8 @@ function resetTryItForm()
     gebid("idRangeInputTo").value = parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->");
 
     gebid("jokesAmountInput").value = 1;
+
+    gebid("lcodeSelect").value = settings.defaultLang;
 
     reRender();
 }

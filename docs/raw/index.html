@@ -38,14 +38,14 @@
         <link rel="icon" type="image/png" href="./favicon.ico">
 
         <!-- IE detection -->
-        <script src="https://sv443.net/cdn/jokeapi/isIE.js" integrity="sha512-SibQCccl2OYEcFF7u++aXdsyBuL0syy24w+arsjj9sPdtvRUKVJHVUq5gGT/AjvDXrNlWZ2tZq9GbVelt2c7eQ==" crossorigin="anonymous"></script>
+        <script src="https://sv443.net/cdn/jokeapi/isIE.js"></script>
 
         <!-- #MARKER dependencies -->
         <!-- Have to do it like this because the page doesn't always have a trailing slash and that *somehow* makes it redirect to the page root: -->
         <!-- <link rel="stylesheet" href="<!--%#INSERT:DOCSURL#%--><!--/static/index.css"-->
         <link rel="stylesheet" href="static/index.css">
 
-        <script src="https://cdn.jsdelivr.net/gh/Sv443/jslib@1.5.0/jslib.js" integrity="sha512-jTdPVbIEUKKGdPFXb9+713FOD/Twcf9h9MeeKF/psBbpSzseYH8KmJuCsQ3qQHWQcA93UVQGG51651pB/h44ew==" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/gh/Sv443/jslib@1.5.0/jslib.js"></script>
 
         <!-- Have to do it like this because the page doesn't always have a trailing slash and that *somehow* makes it redirect to the page root: -->
         <!-- <script src="<!--%#INSERT:DOCSURL#%--><!--/static/index.js"></script-->
@@ -318,12 +318,13 @@
                     <br><br><br><br>
                     <div id="urlBuilderWrapper" class="flexItem">
                         URL: <span id="urlBuilderUrl">(Loading...)</span><br>
-                        <button onclick="resetTryItForm()">Reset Form</button> <button onclick="sendTryItRequest()">Send Request &gt;</button>
+                        <button onclick="resetTryItForm(true)">Reset Form</button> <button onclick="sendTryItRequest()">Send Request &gt;</button>
                     </div>
 <code id="urlBuilderPrettyprint" class="lang-json flexItem r"><span class="nocode codeheader">Result:</span>
 <div class="actualCode" id="tryItResult">(Set parameters and click "Send Request" above)</div>
 </code>
-                <span id="tryItFormLatency"></span>
+                    <br>
+                    <span id="tryItFormLatency"></span>
                 </div>
 
 
