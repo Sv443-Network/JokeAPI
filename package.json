@@ -1,6 +1,6 @@
 {
   "name": "@sv443/jokeapi",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "A RESTful API that serves jokes from many categories while also offering a lot of filtering methods",
   "main": "JokeAPI.js",
   "homepage": "https://sv443.net/jokeapi/v2",
@@ -57,24 +57,24 @@
     "dotenv": "^8.2.0",
     "farmhash": "^3.1.0",
     "fs-extra": "^9.0.1",
-    "fuse.js": "^5.2.3",
+    "fuse.js": "^6.4.1",
     "http-ratelimit": "^0.2.3",
     "js2xmlparser": "^4.0.1",
     "json-to-pretty-yaml": "^1.2.2",
     "mysql": "^2.18.1",
     "node-wrap": "^0.2.0",
     "promise-all-sequential": "^1.0.0",
-    "rate-limiter-flexible": "^2.1.9",
+    "rate-limiter-flexible": "^2.1.10",
     "request-ip": "^2.1.3",
     "svjsl": "^1.9.4",
     "url-parse": "^1.4.7",
     "xss": "^1.0.8"
   },
   "devDependencies": {
-    "eslint": "^7.5.0",
-    "lodash": "^4.17.15",
+    "eslint": "^7.6.0",
+    "lodash": "^4.17.19",
     "madge": "^3.9.0",
-    "snyk": "^1.361.3",
+    "snyk": "^1.370.1",
     "table": "^5.4.6"
   },
   "snyk": true

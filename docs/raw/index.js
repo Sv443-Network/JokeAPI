@@ -753,8 +753,11 @@ function sendTryItRequest()
 }
 
 //#MARKER interactive elements
-function resetTryItForm()
+function resetTryItForm(confirmation)
 {
+    if(confirmation === true && !confirm("Do you really want to reset the form?"))
+        return;
+
     ["cat-cb1", "cat-cb2", "cat-cb3", "cat-cb4"].forEach(function(cat) {
         gebid(cat).checked = false;
     });
@@ -778,6 +781,8 @@ function resetTryItForm()
 
     gebid("jokesAmountInput").value = 1;
 
+    gebid("lcodeSelect").value = settings.defaultLang;
+
     reRender();
 }
 
@@ -796,7 +801,16 @@ function submitJoke()
     xhr.onreadystatechange = function() {
         if(xhr.readyState == 4)
         {
-            var res = JSON.parse(xhr.responseText);
+            var res;
+            try
+            {
+                res = JSON.parse(xhr.responseText);
+            }
+            catch(err)
+            {
+                alert("Error " + res.status + " while sending your submission:\n" + res.message + (res.additionalInfo ? "\n\nAdditional info:\n" + res.additionalInfo : ""));
+                return;
+            }
 
             if(xhr.status < 300)
             {
