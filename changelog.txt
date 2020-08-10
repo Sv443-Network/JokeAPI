@@ -12,6 +12,7 @@
 
 
 [CURRENT: 2.2.1] - Version 2.2 Hotfix
+    - Added the Czech translation (PR #137) - provided by @ThatCopy (https://github.com/ThatCopy) - thanks :)
     - Added a missing conversion mapping when using format `txt` and the `amount` parameter on endpoint `/joke` (issue #138)
     - Fixed wrong URLs in the documentation's JavaScript
     - Fixed crash when a client asks for a translation that doesn't exist
