@@ -14,6 +14,9 @@
 [CURRENT: 2.2.1] - Version 2.2 Hotfix
     - Added a missing conversion mapping when using format `txt` and the `amount` parameter on endpoint `/joke` (issue #138)
     - Fixed wrong URLs in the documentation's JavaScript
+    - Fixed crash when a client asks for a translation that doesn't exist
+    - Slightly improved the documentation
+    - Applied a few security patches
 
 
 [2.2.0]
