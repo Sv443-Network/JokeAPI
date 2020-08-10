@@ -44,9 +44,11 @@ function translate(lang, id, ...args)
     if(!langTr)
         return null;
 
-    let translation = langTr[lang.toString().toLowerCase()].toString();
+    let translation = langTr[lang.toString().toLowerCase()];
     if(!translation)
-        return null;
+        translation = langTr[settings.languages.defaultLanguage];
+    
+    translation = translation.toString();
 
     if(Array.isArray(args) && translation.includes("%"))
     {
