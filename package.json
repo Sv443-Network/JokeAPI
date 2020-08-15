@@ -72,7 +72,7 @@
   },
   "devDependencies": {
     "eslint": "^7.6.0",
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.20",
     "madge": "^3.9.0",
     "snyk": "^1.370.1",
     "table": "^5.4.6"
