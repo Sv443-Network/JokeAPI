@@ -27,16 +27,16 @@
             "cs": "Došlo k interní chybě: %1"
         },
         "invalidLangCode": {
-            "en": "The specified language code \"%1\" is invalid. Please see https://sv443.net/jokeapi/v2#langcodes-endpoint for more info.",
-            "de": "Der angegebene Sprach-code \"%1\" ist nicht korrekt. Bitte besuche https://sv443.net/jokeapi/v2#langcodes-endpoint für mehr Info.",
-            "ru": "Указанный код языка \"%1\" является недействительным. Дополнительную информацию можно получить на сайте https://sv443.net/jokeapi/v2#langcodes-endpoint",
-            "cs": "Zadaný kód jazyka \"%1\" je neplatný. Další informace naleznete na adrese https://sv443.net/jokeapi/v2#langcodes-endpoint"
+            "en": "The specified language code \"%1\" is invalid. Please see https://jokeapi.dev/#langcodes-endpoint for more info.",
+            "de": "Der angegebene Sprach-code \"%1\" ist nicht korrekt. Bitte besuche https://jokeapi.dev/#langcodes-endpoint für mehr Info.",
+            "ru": "Указанный код языка \"%1\" является недействительным. Дополнительную информацию можно получить на сайте https://jokeapi.dev/#langcodes-endpoint",
+            "cs": "Zadaný kód jazyka \"%1\" je neplatný. Další informace naleznete na adrese https://jokeapi.dev/#langcodes-endpoint"
         },
         "invalidLangCodeNoArg": {
-            "en": "The specified language code is invalid. Please see http://localhost:8076/#langcodes-endpoint for more info.",
-            "de": "Der angegebene Sprach-code ist nicht korrekt. Bitte besuche https://sv443.net/jokeapi/v2#langcodes-endpoint für mehr Info.",
-            "ru": "Указанный код языка является недействительным. Дополнительную информацию можно получить на сайте https://sv443.net/jokeapi/v2#langcodes-endpoint",
-            "cs": "Zadaný kód jazyka je neplatný. Další informace naleznete na adrese https://sv443.net/jokeapi/v2#langcodes-endpoint"
+            "en": "The specified language code is invalid. Please see https://jokeapi.dev/#langcodes-endpoint for more info.",
+            "de": "Der angegebene Sprach-code ist nicht korrekt. Bitte besuche https://jokeapi.dev/#langcodes-endpoint für mehr Info.",
+            "ru": "Указанный код языка является недействительным. Дополнительную информацию можно получить на сайте https://jokeapi.dev/#langcodes-endpoint",
+            "cs": "Zadaný kód jazyka je neplatný. Další informace naleznete na adrese https://jokeapi.dev/#langcodes-endpoint"
         },
         "uriTooLong": {
             "en": "The provided URI (%1 characters) exceeds the maximum allowed length of %2 characters.",
@@ -75,10 +75,10 @@
             "cs": "Interní chyba při volání koncového bodu: %1"
         },
         "endpointNotFound": {
-            "en": "Endpoint \"%1\" not found - Please read the documentation at https://sv443.net/jokeapi/v2#endpoints to see all available endpoints.",
-            "de": "Endpunkt \"%1\" nicht gefunden - Bitte lies die Dokumentation (https://sv443.net/jokeapi/v2#endpoints) um alle verfügbaren Endpunkte zu sehen.",
-            "ru": "Конечная точка \"%1\" не найдена - с документацией на https://sv443.net/jokeapi/v2#endpoints можно ознакомиться во всех доступных конечные точки.",
-            "cs": "Koncový bod \"%1\" nebyl nalezen - přečtěte si prosím dokumentaci https://sv443.net/jokeapi/v2#endpoints a podívejte se na všechny dostupné koncové body."
+            "en": "Endpoint \"%1\" not found - Please read the documentation at https://jokeapi.dev/#endpoints to see all available endpoints.",
+            "de": "Endpunkt \"%1\" nicht gefunden - Bitte lies die Dokumentation (https://jokeapi.dev/#endpoints) um alle verfügbaren Endpunkte zu sehen.",
+            "ru": "Конечная точка \"%1\" не найдена - с документацией на https://jokeapi.dev/#endpoints можно ознакомиться во всех доступных конечные точки.",
+            "cs": "Koncový bod \"%1\" nebyl nalezen - přečtěte si prosím dokumentaci https://jokeapi.dev/#endpoints a podívejte se na všechny dostupné koncové body."
         },
         "payloadTooLarge": {
             "en": "Payload too large (%1 Bytes - maximum is %2 Bytes).",
@@ -93,10 +93,10 @@
             "cs": "Tělo požadavku je prázdné nebo vypršel časový limit požadavku."
         },
         "invalidSubmissionOrWrongEndpoint": {
-            "en": "Request body is invalid or was sent to the wrong endpoint \"%1\", please refer to the documentation at https://sv443.net/jokeapi/v2#submit-joke to see how to correctly structure a joke submission.",
-            "de": "Anfrageinhalt ist ungültig oder wurde an den falschen Endpunkt \"%1\" gesendet, lies bitte in der Dokumentation unter https://sv443.net/jokeapi/v2#submit-joke nach, wie eine Witzeinreichung korrekt strukturiert wird.",
-            "ru": "Тело запроса является недействительным или было отправлено не на ту конечную точку \"%1\", смотрите документацию на https://sv443.net/jokeapi/v2#submit-joke, чтобы узнать, как правильно структурировать шутку.",
-            "cs": "Tělo požadavku je neplatné nebo bylo odesláno na špatný koncový bod \"%1\", viz dokumentace na stránce https://sv443.net/jokeapi/v2#submit-joke, kde najdete informace o tom, jak správně uspořádat podání vtipu."
+            "en": "Request body is invalid or was sent to the wrong endpoint \"%1\", please refer to the documentation at https://jokeapi.dev/#submit-joke to see how to correctly structure a joke submission.",
+            "de": "Anfrageinhalt ist ungültig oder wurde an den falschen Endpunkt \"%1\" gesendet, lies bitte in der Dokumentation unter https://jokeapi.dev/#submit-joke nach, wie eine Witzeinreichung korrekt strukturiert wird.",
+            "ru": "Тело запроса является недействительным или было отправлено не на ту конечную точку \"%1\", смотрите документацию на https://jokeapi.dev/#submit-joke, чтобы узнать, как правильно структурировать шутку.",
+            "cs": "Tělo požadavku je neplatné nebo bylo odesláno na špatný koncový bod \"%1\", viz dokumentace na stránce https://jokeapi.dev/#submit-joke, kde najdete informace o tom, jak správně uspořádat podání vtipu."
         },
         "requestBodyIsInvalid": {
             "en": "Request body is empty.",

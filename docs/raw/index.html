@@ -207,6 +207,18 @@
                 </table>
                 <a href="https://status.sv443.net/" target="_blank">(more info)</a>
 
+
+                <!-- #MARKER Information -->
+                <div class="docHeader targetBlink" id="news"><a class="headerAnchorContainer" href="#news" title="Click to link to this header">🔗</a><span class="docHeaderText">News:</span></div>
+                <ul>
+                    <li>
+                        <!--%#INSERT:NAME#%--> now has its own domain!<br>
+                        You can now replace the base URL <mark>https://sv443.net/jokeapi/v2</mark> with <mark>https://jokeapi.dev/</mark><br>
+                        For backwards compatibility the old URL will still be usable until version 2 will be deprecated.
+                    </li>
+                </ul>
+
+
                 <!-- #MARKER Try It -->
                 <div class="docHeader targetBlink" id="try-it"><a class="headerAnchorContainer" href="#try-it" title="Click to link to this header">🔗</a><span class="docHeaderText">Try it out here:</span></div>
                 
@@ -690,7 +702,7 @@ None. It's a hardware problem.
                     <tr>
                         <td class="g">200</td>
                         <td>Ok</td>
-                        <td>The request was accepted and processed successfully and the respose text contains the requested data or a status message</td>
+                        <td>The request was accepted and processed successfully and the response text contains the requested data or a status message</td>
                     </tr>
                     <tr>
                         <td class="g">201</td>
@@ -1445,16 +1457,17 @@ public class Flags
                 <a class="sidenavHeaderItem closebtn mimica noul noselect nopad rtext" onclick="closeNav()" title="Click or press Esc to close">&times;</a>
             </div>
             <div id="sidenavContent">
-                <a class="noul" onclick="closeNav()" href="#info">Information</a>
-                <a class="noul" onclick="closeNav()" href="#try-it">Try it out</a>
-                <a class="noul" onclick="closeNav()" href="#getting-started">Getting Started</a>
-                <a class="noul" onclick="closeNav()" href="#wrappers">API Wrappers</a>
-                <a class="noul" onclick="closeNav()" href="#submit">Submit a Joke</a>
-                <a class="noul" onclick="closeNav()" href="#url-parameters">URL Parameters</a>
-                <a class="noul" onclick="closeNav()" href="#errors">Errors</a>
-                <a class="noul" onclick="closeNav()" href="#troubleshooting">Troubleshooting</a>
+                <a class="noul" onclick="closeNav()" href="#info" title="Some information about <!--%#INSERT:NAME#%-->">Information</a>
+                <a class="noul" onclick="closeNav()" href="#news" title="The latest news on <!--%#INSERT:NAME#%-->">News</a>
+                <a class="noul" onclick="closeNav()" href="#try-it" title="An interactive form to try out the API">Try it out</a>
+                <a class="noul" onclick="closeNav()" href="#getting-started" title="This is where you should start if you are new to <!--%#INSERT:NAME#%-->">Getting Started</a>
+                <a class="noul" onclick="closeNav()" href="#wrappers" title="API Wrappers make using <!--%#INSERT:NAME#%--> easier">API Wrappers</a>
+                <a class="noul" onclick="closeNav()" href="#submit" title="A form to submit a joke to <!--%#INSERT:NAME#%-->">Submit a Joke</a>
+                <a class="noul" onclick="closeNav()" href="#url-parameters" title="All URL Parameters you can use and how to use them">URL Parameters</a>
+                <a class="noul" onclick="closeNav()" href="#errors" title="How errors are structured">Errors</a>
+                <a class="noul" onclick="closeNav()" href="#troubleshooting" title="Some fixes for common errors">Troubleshooting</a>
                 <details>
-                    <summary>
+                    <summary title="All endpoints of <!--%#INSERT:NAME#%-->">
                         <span class="sidenav-mimica">Endpoints</span>
                     </summary>
 
@@ -1471,9 +1484,9 @@ public class Flags
                         <li><a class="noul" onclick="closeNav()" href="#submit-endpoint">Submit</a></li>
                     </ul>
                 </details>
-                <a class="noul" onclick="closeNav()" href="#filtering">Filtering Jokes</a>
-                <a class="noul" onclick="closeNav()" href="#api-tokens">API Tokens</a>
-                <a class="noul" onclick="closeNav()" href="#examples">Examples</a>
+                <a class="noul" onclick="closeNav()" href="#filtering" title="How you can filter jokes">Filtering Jokes</a>
+                <a class="noul" onclick="closeNav()" href="#api-tokens" title="All about <!--%#INSERT:NAME#%-->'s API tokens">API Tokens</a>
+                <a class="noul" onclick="closeNav()" href="#examples" title="Some code examples of how to use <!--%#INSERT:NAME#%-->">Examples</a>
                 <!-- <details>
                     <summary>
                         <span class="sidenav-mimica">Examples</span> 
@@ -1487,7 +1500,7 @@ public class Flags
                 </details> -->
                 <details>
                     <summary>
-                        <span class="sidenav-mimica">Terminology</span> 
+                        <span class="sidenav-mimica" title="What certain terms from this documentation mean">Terminology</span> 
                     </summary>
 
                     <ul>
@@ -1500,8 +1513,8 @@ public class Flags
                         <li><a class="noul" onclick="closeNav()" href="#amount">Joke Amount</a></li>
                     </ul>
                 </details>
-                <a class="noul" onclick="closeNav()" href="#legal">Legal Stuff</a>
-                <a class="noul bottomspacer" onclick="closeNav()" href="#dependents">Dependents</a>
+                <a class="noul" onclick="closeNav()" href="#legal" title="All the legal stuff">Legal Stuff</a>
+                <a class="noul bottomspacer" onclick="closeNav()" href="#dependents" title="Projects that use <!--%#INSERT:NAME#%-->">Dependents</a>
             </div>
         </div>
     </body>

@@ -12,8 +12,8 @@ So please read this guide before contributing. Thanks :)
 <br><br><br><br>
 
 ## Submitting or editing jokes:
-To submit a joke manually, you can use the form on [this page.](https://sv443.net/jokeapi/v2/#submit)  
-To submit it through code, you can make use of the ["submit" endpoint.](https://sv443.net/jokeapi/v2/#submit-endpoint)  
+To submit a joke manually, you can use the form on [this page.](https://v2.jokeapi.dev/#submit)  
+To submit it through code, you can make use of the ["submit" endpoint.](https://v2.jokeapi.dev/#submit-endpoint)  
   
 If you instead want to *edit* a joke, you can find them in the `jokes-xy.json` files in [`data/jokes/`](../data/jokes/)  
 Please then follow the [code contribution section](#submitting-code) as well.  

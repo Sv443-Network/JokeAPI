@@ -14,8 +14,8 @@
 
 <br><br>
 
-# [Documentation](https://sv443.net/jokeapi/v2)
-# [Try it out](https://sv443.net/jokeapi/v2#try-it) &bull; [Changelog](./changelog.txt)
+# [Documentation](https://jokeapi.dev/)
+# [Try it out](https://jokeapi.dev/#try-it) &bull; [Changelog](./changelog.txt)
 
 
 </div>

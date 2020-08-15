@@ -1,7 +1,7 @@
 // 🔹 JokeAPI by Sv443 🔹
 //
 // GitHub:    https://github.com/Sv443/JokeAPI
-// API Docs:  https://sv443.net/jokeapi/v2
+// API Docs:  https://jokeapi.dev/
 // ️
 // ⚠️ Please read the LICENSE.txt file before modifying, redistributing or even selling JokeAPI.
 // ⚠️ Thanks :)
