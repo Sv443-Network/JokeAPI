@@ -13,7 +13,8 @@
                 "political": false,
                 "racist": false,
                 "sexist": false
-            }
+            },
+            "id": 0
         },
         {
             "category": "Dark",
@@ -26,7 +27,8 @@
                 "political": false,
                 "racist": true,
                 "sexist": false
-            }
+            },
+            "id": 1
         },
         {
             "category": "Miscellaneous",
@@ -39,7 +41,8 @@
                 "political": false,
                 "racist": true,
                 "sexist": false
-            }
+            },
+            "id": 2
         }
     ]
 }
