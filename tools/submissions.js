@@ -34,6 +34,8 @@ const run = () => {
 
                 let submission = submissions[idx];
 
+                console.log(`${jsl.colors.fg.yellow}Submission ${idx + 1} / ${submissions.length}${jsl.colors.rst}\n`);
+
                 if(submission.formatVersion != settings.jokes.jokesFormatVersion)
                     console.error(`${jsl.colors.fg.red}Error: Format version is incorrect${jsl.colors.rst}`);
                 

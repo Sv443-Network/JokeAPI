@@ -3017,6 +3017,177 @@
                 "sexist": false
             },
             "id": 219
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "joke": " I visited my friend at his new house.\nHe told me to make myself at home so I threw him out.\nI hate having visitors.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Dark",
+            "type": "single",
+            "joke": "\"Knock Knock!\" - \"Who's there?\"\n\"It's Dave!\" - \"Dave who?\"\nDave bursts into tears, realizing that his grandmother's Alzheimers has progressed to the point where she no longer remembers him.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "Programmers while coding:\nIt doesn't work ... why?\nIt does work ... why?",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "Documentation is like sex:\nWhen it's good, it's very good.\nWhen it's bad, it's better than nothing.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Pun",
+            "type": "single",
+            "joke": "My friend got kicked by a horse, the doctor says his condition is stable.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "joke": "Have you heard about the two tomatoes that wanted to cross the road?\nOne of them got run over by a car and the other said: \"Come on Ketchup!\"",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "joke": "Yo mama is so old, she knew Burger King while he was still a prince.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Pun",
+            "type": "single",
+            "joke": "I went to the zoo the other day. There was only a single dog in it – it was a shih tzu.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "setup": "What's the difference between England and a tea bag?",
+            "delivery": "The tea bag stays in the cup longer.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Pun",
+            "type": "single",
+            "joke": "Man goes in a bar. No other fruits, just mangoes.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "What's the difference between a phone and a black person?",
+            "delivery": "A phone is actually useful.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": true,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Dark",
+            "type": "single",
+            "joke": "Recently my mother-in-law came to live with me and my wife.\nMan... I hate that, we can't have our privacy together now.\nWe can't even have sex anymore because every time we fuck we need to be quiet to not wake up my wife.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": true
+            }
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "setup": "What does the Conan the Barbarian do when he's in the coding mood?",
+            "delivery": "He prays for the Chrome.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Dark",
+            "type": "single",
+            "joke": "Bungee jumping is a great decision making tool if you are suicidal and indecisive at the same time.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
         }
     ]
 }

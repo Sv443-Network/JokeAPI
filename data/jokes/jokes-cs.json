@@ -1,0 +1,45 @@
+{
+    "info": {
+        "formatVersion": 3
+    },
+    "jokes": [
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "joke": "Znám spoustu vtipů ve znakové řeči, které nikdo neslyšel!",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "Jaký je rozdíl mezi skautem a Židem?",
+            "delivery": "Skaut se vrátí z tábora.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": true,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "Jaký je rozdíl mezi ekonomem a Židem?",
+            "delivery": "Ekonom ví vše o penězích.\nŽid je má.",
+            "flags": {
+                "nsfw": false,
+                "religious": true,
+                "political": false,
+                "racist": true,
+                "sexist": false
+            }
+        }
+    ]
+}
