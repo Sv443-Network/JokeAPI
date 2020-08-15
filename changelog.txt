@@ -14,7 +14,7 @@
 [CURRENT: 2.2.2] - The Domain Update
     - JokeAPI now has its own domain - https://jokeapi.dev/
         - Version 2 of the API should be called @ https://v2.jokeapi.dev/ but can also be called with the old domain and https://jokeapi.dev/
-        - The stage version resides @ https://stage.jokeapi.dev/
+        - The stage version is @ https://stage.jokeapi.dev/
         - Version 3 will be available @ https://v3.jokeapi.dev/
     - Added contributors to the documentation
     - Improved the documentation a little bit again
