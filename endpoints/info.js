@@ -36,31 +36,7 @@ const call = (req, res, url, params, format) => {
     jsl.unused([req, url, params]);
 
     let supportedLangsLength = languages.jokeLangs().length;
-
-    let errFromRegistry = require("." + settings.errors.errorMessagesPath)["100"];
     let responseText = {};
-    if(format != "xml")
-    {
-        responseText = {
-            "error": true,
-            "internalError": true,
-            "code": 100,
-            "message": errFromRegistry.errorMessage,
-            "causedBy": errFromRegistry.causedBy,
-            "timestamp": new Date().getTime()
-        };
-    }
-    else if(format == "xml")
-    {
-        responseText = {
-            "error": true,
-            "internalError": true,
-            "code": 100,
-            "message": errFromRegistry.errorMessage,
-            "causedBy": {"cause": errFromRegistry.causedBy},
-            "timestamp": new Date().getTime()
-        };
-    }
 
     let totalJokesCount = (!jsl.isEmpty(parseJokes.jokeCount) ? parseJokes.jokeCount : 0);
     

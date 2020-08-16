@@ -2,17 +2,56 @@
 
 const jsl = require("svjsl");
 const fs = require("fs-extra");
+const cp = require("child_process");
 const requireUncached = require('require-uncached');
 const { resolve, join } = require("path");
+const { XMLHttpRequest } = require("xmlhttprequest");
 
 const debug = require("../src/verboseLogging");
 const settings = require("../settings");
 
 var col = { rst: jsl.colors.rst, ...jsl.colors.fg };
+/** @type {cp.ChildProcess} */
+var jokeapiProc;
+var runningTests = false;
 
+const baseURL = `http://127.0.0.1:${settings.httpServer.port}`;
+const japiPath = resolve("./JokeAPI.js");
+
+
+function init()
+{
+    startJokeAPI();
+
+    let pingIv;
+
+    let pingJAPI = () => {
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", `${baseURL}/ping`);
+
+        xhr.onreadystatechange = () => {
+            if(xhr.readyState == 4 && !runningTests)
+            {
+                if(xhr.status < 300)
+                {
+                    console.log(`\n\n${col.blue}${settings.info.name} is now running.${col.rst}`);
+                    clearInterval(pingIv);
+                    runAllTests();
+                }
+            }
+        };
+
+        xhr.send();
+    };
+
+    pingIv = setInterval(() => pingJAPI(), settings.tests.initPingInterval);
+    pingJAPI();
+}
 
 function runAllTests()
 {
+    runningTests = true;
+
     if(process.argv.includes("--colorblind") || process.argv.includes("-cb"))
     {
         col.green = jsl.colors.fg.cyan;
@@ -23,7 +62,7 @@ function runAllTests()
     let tests = getAllTests();
     let testsRun = tests.map(t => t.run());
 
-    console.log(`\n\n${col.blue}Running ${tests.length} unit test scripts...${col.rst}`);
+    console.log(`${col.blue}Running ${tests.length} unit test scripts...${col.rst}`);
 
     Promise.allSettled(testsRun).then(results => {
         let allOk = true;
@@ -33,59 +72,58 @@ function runAllTests()
                 allOk = false;
         });
 
-        if(!allOk)
-        {
-            success = false;
-            let oneSuccessful = false;
+        let oneSuccessful = false;
 
-            console.log(`\n${col.green}These tests were successful:\n${col.rst}`);
+        console.log(`\n\n${col.green}These test scripts were successful:\n${col.rst}`);
 
-            results.forEach(res => {
-                if(res.status != "fulfilled")
-                    return;
+        results.forEach(res => {
+            if(res.status != "fulfilled")
+                return;
 
-                oneSuccessful = true;
-                
-                let meta = res.value.meta;
-                console.log(`- ${col.green}[${meta.category}/${col.cyan}${meta.name}${col.green}]${col.rst}`);
+            oneSuccessful = true;
+            
+            let meta = res.value.meta;
+            console.log(`- ${col.green}[${meta.category}/${col.cyan}${meta.name}${col.green}]${col.rst}`);
+        });
+
+        if(!oneSuccessful)
+            console.log("(none)");
+
+
+
+
+        results.forEach(res => {
+            if(res.status != "rejected")
+                return;
+
+            if(success)
+            {
+                console.error(`\n\n${col.red}These tests were unsuccessful:\n${col.rst}`);
+                success = false;
+            }
+            
+            let meta = res.reason.meta;
+            let errors = res.reason.errors;
+
+            console.log(`${col.red}[${meta.category}/${col.cyan}${meta.name}${col.red}]:${col.rst}`);
+            errors.forEach(e => {
+                console.log(`    - ${e}`);
             });
 
-            if(!oneSuccessful)
-                console.log("(none)");
-
-            console.log("\n\n");
-
-
-
-
-            console.error(`${col.red}These tests were unsuccessful:\n${col.rst}`);
-
-            results.forEach(res => {
-                if(res.status != "rejected")
-                    return;
-                
-                let meta = res.reason.meta;
-                let errors = res.reason.errors;
-
-                console.log(`${col.red}[${meta.category}/${col.cyan}${meta.name}${col.red}]:${col.rst}`);
-                errors.forEach(e => {
-                    console.log(`    - ${e}`);
-                });
-
-                process.stdout.write("\n");
-            });
-        }
-        else
-        {
-            console.log(`${col.green}All unit tests were successful.${col.rst}`);
-        }
+            process.stdout.write("\n");
+        });
         
         console.log(`\n${!success ? `\n${col.red}^ Some unit tests were not successful ^${col.rst}` : ""}\n`);
 
-        process.exit(success ? 0 : 1);
+        stopJokeAPI().then(() => {
+            process.exit(success ? 0 : 1);
+        });
     }).catch(err => {
         console.error(`${col.red}Error while running unit tests: ${err}\n\n${col.rst}`);
-        process.exit(1);
+
+        stopJokeAPI().then(() => {
+            process.exit(1);
+        });
     });
 }
 
@@ -97,11 +135,14 @@ function getAllTests()
     let testFiles = fs.readdirSync(testsFolder);
 
     testFiles.forEach(testFile => {
+        if(testFile == "template.js")
+            return;
+
         let testPath = join(testsFolder, testFile);
 
         try
         {
-            let testScript = requireUncached(testPath);
+            let testScript = requireUncached(testPath); // the normal require sometimes returns outdated files out of the cache so I need to use an external module
 
             if(typeof testScript.meta == "object" && typeof testScript.run == "function")
             {
@@ -122,4 +163,27 @@ function getAllTests()
     return allTests;
 }
 
-runAllTests();
+function startJokeAPI()
+{
+    jokeapiProc = cp.fork(japiPath, [process.argv[0], japiPath], {
+        cwd: resolve("./"),
+        stdio: "pipe"
+    });
+}
+
+function stopJokeAPI()
+{
+    return new Promise((resolve) => {
+        if(jokeapiProc != undefined)
+        {
+            jokeapiProc.on("exit", () => {
+                return resolve();
+            });
+            jokeapiProc.kill("SIGINT");
+        }
+        else
+            return resolve();
+    });
+}
+
+init();

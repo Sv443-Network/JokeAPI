@@ -78,6 +78,7 @@
     "require-uncached": "^2.0.0",
     "svjsl": "^1.9.4",
     "url-parse": "^1.4.7",
+    "xmlhttprequest": "^1.8.0",
     "xss": "^1.0.8"
   },
   "devDependencies": {
