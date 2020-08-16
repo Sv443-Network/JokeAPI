@@ -118,13 +118,13 @@
         },
         "idRangeInvalid": {
             "en": "The specified ID range is invalid. Got: \"%1 to %2\" but max possible ID range is: \"0-%3\".",
-            "de": "Die angegebene ID-Bereich ist inkorrekt. Angefragt wurde: \"%1 bis %2\" aber der maximal mögliche Bereich ist: \"0-%3\".",
+            "de": "Der angegebene ID-Bereich ist inkorrekt. Angefragt wurde: \"%1 bis %2\" aber der maximal mögliche Bereich ist: \"0-%3\".",
             "ru": "Указанный диапазон ID неверен. Запрос был сделан: \"%1 - %2\", но это максимально возможный диапазон: \"0-%3\".",
             "cs": "Zadaný rozsah ID je neplatný. Dostal: \"%1 až %2\" ale maximální možný rozsah ID je: \"0-%3\"."
         },
         "idRangeInvalidSingle": {
             "en": "The specified ID range is invalid. Got: \"%1\" but max possible ID range is: \"0-%2\".",
-            "de": "Die angegebene ID-Bereich ist inkorrekt. Angefragt wurde: \"%1\" aber der maximal mögliche Bereich ist: \"0-%2\".",
+            "de": "Der angegebene ID-Bereich ist inkorrekt. Angefragt wurde: \"%1\" aber der maximal mögliche Bereich ist: \"0-%2\".",
             "ru": "Указанный диапазон ID неверен. Запрос был сделан: \"%1\", но это максимально возможный диапазон: \"0-%2\".",
             "cs": "Zadaný rozsah ID je neplatný. Dostal: \"%1\" ale maximální možný rozsah ID je: \"0-%2\"."
         },
