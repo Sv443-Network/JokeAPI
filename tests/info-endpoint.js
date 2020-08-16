@@ -3,7 +3,7 @@
 const settings = require("../settings");
 
 const meta = {
-    name: "Joke",
+    name: "Info",
     category: "Endpoints"
 };
 
@@ -22,15 +22,7 @@ const meta = {
 function run()
 {
     return new Promise((resolve, reject) => {
-        return reject({
-            meta,
-            errors: [
-                "?amount=5 didn't return 5 jokes",
-                "?lang=xy didn't return an \"invalid lang\" error"
-            ]
-        });
-
-        // return resolve({ meta });
+        return resolve({ meta });
     });
 }
 

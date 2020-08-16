@@ -6,7 +6,8 @@
   "homepage": "https://jokeapi.dev",
   "scripts": {
     "start": "node . && exit $?",
-    "test": "snyk test && node tools/test",
+    "test": "node tools/test && snyk test",
+    "test-colorblind": "node tools/test --colorblind && snyk test",
     "reformat": "node tools/reformat",
     "reassign-ids": "node tools/reassign-ids",
     "validate-jokes": "node tools/validate-jokes",
@@ -74,6 +75,7 @@
     "promise-all-sequential": "^1.0.0",
     "rate-limiter-flexible": "^2.1.10",
     "request-ip": "^2.1.3",
+    "require-uncached": "^2.0.0",
     "svjsl": "^1.9.4",
     "url-parse": "^1.4.7",
     "xss": "^1.0.8"
@@ -82,6 +84,7 @@
     "eslint": "^7.6.0",
     "lodash": "^4.17.20",
     "madge": "^3.9.0",
+    "nyc": "^15.1.0",
     "snyk": "^1.373.1",
     "table": "^5.4.6"
   },

@@ -5,8 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "program": "${workspaceFolder}/tools/add-joke.js",
-            "name": "Tools/xy",
+            "type": "node",
+            "request": "launch",
+            "name": "Debug JokeAPI",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/JokeAPI.js",
+            "args": [
+                "--trace-deprecation"
+            ]
+        },
+        {
+            "program": "${workspaceFolder}/tools/test.js",
+            "name": "Unit Tests",
             "request": "launch",
             "type": "node",
             "skipFiles": [
@@ -18,16 +30,17 @@
             "console": "integratedTerminal"
         },
         {
-            "type": "node",
+            "program": "${workspaceFolder}/tools/add-joke.js",
+            "name": "Tools/xy",
             "request": "launch",
-            "name": "Debug JokeAPI",
+            "type": "node",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/JokeAPI.js",
             "args": [
                 "--trace-deprecation"
-            ]
+            ],
+            "console": "integratedTerminal"
         }
     ],
     "debug.javascript.usePreview": true
