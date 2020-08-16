@@ -57,7 +57,7 @@ If you want to submit a translation, please follow these steps:
 ## Other nice-to-know stuff:
 - I really recommend using [Visual Studio Code](https://code.visualstudio.com/) with the extension [`fabiospampinato.vscode-highlight`](https://marketplace.visualstudio.com/items?itemName=fabiospampinato.vscode-highlight) - it will add custom styling to the syntax highlighting in the editor and make the code easier to read and work with.  
 - If you want to generate a dependency graph, you need to install [Graphviz](https://graphviz.gitlab.io/download/) and add the path to the `bin` folder to your `%PATH%` / `$PATH` environment vaiable. Then, run the command `npm run dependency-graph` and open the file [`dev/dependency-graph.html`](../dev/dependency-graph.html) in a browser.  
-- If you need to add an authorization token, you can generate one or multiple tokens with the command `npm run add-token [amount]`. If you omit the "amount" parameter, the script will generate a single token. After you run the command, the tokens will be listed in the console and you can now (after restarting JokeAPI) use it in the `Authorization` header to gain unlimited access to JokeAPI.  
+- If you need to add an authorization token, you can generate one or multiple tokens with the command `npm run add-token [amount]`. If you omit the "amount" parameter, the script will generate a single token. After you run the command, the tokens will be listed in the console and you can now (after restarting JokeAPI) use it in the `Authorization` header to gain unlimited access to JokeAPI [(better explanation here).](https://jokeapi.dev/#api-tokens)  
 
 <br><br>
 
