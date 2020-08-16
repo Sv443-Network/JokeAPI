@@ -16,7 +16,7 @@
     "add-token": "node tools/add-token",
     "submissions": "node tools/submissions",
     "lint": "eslint ./ && exit $?",
-    "all": "npm run validate-jokes && npm run validate-ids && npm run lint",
+    "all": "npm run validate-jokes && npm run validate-ids && npm run lint && npm test",
     "dependency-graph": "node dev/madge",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect"
