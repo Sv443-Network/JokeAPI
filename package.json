@@ -82,12 +82,12 @@
     "xss": "^1.0.8"
   },
   "devDependencies": {
-    "eslint": "^7.6.0",
+    "eslint": "^7.8.1",
     "lodash": "^4.17.20",
     "madge": "^3.9.0",
     "nyc": "^15.1.0",
     "snyk": "^1.373.1",
-    "table": "^5.4.6"
+    "table": "^6.0.1"
   },
   "snyk": true
 }
