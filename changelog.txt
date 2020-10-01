@@ -17,6 +17,7 @@
         - The stage version is @ https://stage.jokeapi.dev/
         - Version 3 will be available @ https://v3.jokeapi.dev/
     - Added contributors to the documentation
+    - Added the blacklist flag "explicit" to filter out jokes containing explicit language
     - Improved the documentation a little bit again
         - Small sub-headers can now be linked to, too
     - Added some unit tests to make JokeAPI more reliable

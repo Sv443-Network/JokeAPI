@@ -271,6 +271,7 @@
                                     <input type="checkbox" id="blf-cb3" onchange="reRender()"><label for="blf-cb3">political</label>
                                     <input type="checkbox" id="blf-cb4" onchange="reRender()"><label for="blf-cb4">racist</label>
                                     <input type="checkbox" id="blf-cb5" onchange="reRender()"><label for="blf-cb5">sexist</label>
+                                    <input type="checkbox" id="blf-cb6" onchange="reRender()"><label for="blf-cb6">explicit</label>
                                 </div>
                             </td>
                         </tr>
@@ -437,6 +438,7 @@
                                     <input type="checkbox" class="uncheckOnInit" id="f_flags_political" value="political"><label for="f_flags_political">Political</label>
                                     <input type="checkbox" class="uncheckOnInit" id="f_flags_racist" value="racist"><label for="f_flags_racist">Racist</label>
                                     <input type="checkbox" class="uncheckOnInit" id="f_flags_sexist" value="sexist"><label for="f_flags_sexist">Sexist</label>
+                                    <input type="checkbox" class="uncheckOnInit" id="f_flags_explicit" value="explicit"><label for="f_flags_explicit">Explicit</label>
                                 </td>
                             </tr>
                             <tr>
@@ -491,6 +493,7 @@
 		&lt;political&gt;false&lt;/political&gt;
 		&lt;racist&gt;false&lt;/racist&gt;
 		&lt;sexist&gt;false&lt;/sexist&gt;
+		&lt;explicit&gt;false&lt;/explicit&gt;
 	&lt;/flags&gt;
     &lt;id&gt;12&lt;/id&gt;
     &lt;lang&gt;en&lt;/lang&gt;
@@ -522,8 +525,8 @@ None. It's a hardware problem.
                 </details><br>
 
                 <details><summary>Example 2 (click to view)</summary>
-                    URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?blacklistFlags=nsfw,racist,sexist</mark><br>
-                    Using the above URL makes sure you don't get any jokes that are not safe for work, racist and sexist.
+                    URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?blacklistFlags=nsfw,racist,sexist,explicit</mark><br>
+                    Using the above URL makes sure you don't get any jokes that are not safe for work, racist and sexist and that doesn't contain explicit language.
                 </details>
 
 
@@ -570,7 +573,8 @@ None. It's a hardware problem.
         "religious": false,
         "political": false,
         "racist": false,
-        "sexist": false
+        "sexist": false,
+        "explicit": false
     },
     "id": 58,
     "lang": "en"
@@ -600,7 +604,8 @@ None. It's a hardware problem.
         "religious": false,
         "political": false,
         "racist": false,
-        "sexist": false
+        "sexist": false,
+        "explicit": false
     },
     "id": 51,
     "lang": "en"
@@ -1044,7 +1049,7 @@ None. It's a hardware problem.
                 The joke category has to be any valid <a href="#categories">category</a>, excluding "Any".<br>
                 If the <a href="#joke-type">joke type</a> is set to "single", the properties "setup" and "delivery" will need to be omitted and the joke is to be put in the "joke" property.<br>
                 If the <a href="#joke-type">joke type</a> is set to "twopart", the "joke" property is to be replaced with the properties "setup" and "delivery".<br>
-                The <a href="#blacklist-flags">"flags"</a> property needs to be an object that contains the boolean properties "nsfw", "religious", "political", "racist" and "sexist". These need to be set accordingly.<br>
+                The <a href="#blacklist-flags">"flags"</a> property needs to be an object that contains the boolean properties "nsfw", "religious", "political", "racist", "sexist" and "explicit". These need to be set accordingly.<br>
                 The joke ID doesn't need to be provided as it will be automatically assigned to the joke.<br>
                 <br>
                 If the joke is valid and the server accepted the submission, you will get a response with the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201" target="_blank">status code 201.</a><br>
@@ -1061,7 +1066,8 @@ None. It's a hardware problem.
         "religious": false,
         "political": true,
         "racist": false,
-        "sexist": false
+        "sexist": false,
+        "explicit": false
     },
     "lang": "en"
 }
@@ -1087,7 +1093,8 @@ None. It's a hardware problem.
             "religious": false,
             "political": true,
             "racist": false,
-            "sexist": false
+            "sexist": false,
+            "explicit": false
         },
         "lang": "en"
     },
@@ -1282,6 +1289,7 @@ public class Flags
     public bool political { get; set; }
     public bool racist { get; set; }
     public bool sexist { get; set; }
+    public bool explicit { get; set; }
 }
 </div></code>
                 </details><br>

@@ -9,10 +9,11 @@
             "joke": "I've got a really good UDP joke to tell you but I don’t know if you'll get it.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 0
         },
@@ -23,10 +24,11 @@
             "delivery": "None. It's a hardware problem.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 1
         },
@@ -36,10 +38,11 @@
             "joke": "A guy walks into a bar and asks for 1.4 root beers.\nThe bartender says \"I'll have to charge you extra, that's a root beer float\".\nThe guy says \"In that case, better make it a double.\"",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 2
         },
@@ -49,10 +52,11 @@
             "joke": "A programmer puts two glasses on his bedside table before going to sleep.\nA full one, in case he gets thirsty, and an empty one, in case he doesn't.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 3
         },
@@ -62,10 +66,11 @@
             "joke": "Java and C were telling jokes. It was C's turn, so he writes something on the wall, points to it and says \"Do you get the reference?\" But Java didn't.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 4
         },
@@ -75,10 +80,11 @@
             "joke": "A SQL statement walks into a bar and sees two tables.\nIt approaches, and asks \"may I join you?\"",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 5
         },
@@ -89,10 +95,11 @@
             "delivery": "He immediately leaves in disgust as the restaurant was laid out in tables.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 6
         },
@@ -103,10 +110,11 @@
             "delivery": "Because 7 8 9 A?",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 7
         },
@@ -116,11 +124,12 @@
             "setup": "Programming is like sex.",
             "delivery": "Make one mistake and you end up supporting it for the rest of your life.",
             "flags": {
-                "nsfw": true,
+                "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 8
         },
@@ -130,10 +139,11 @@
             "joke": "Your mama's so FAT she can't save files bigger than 4GB.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 9
         },
@@ -144,10 +154,11 @@
             "delivery": "Parsing HTML with regex.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 10
         },
@@ -158,10 +169,11 @@
             "delivery": "Because Oct 31 = Dec 25",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 11
         },
@@ -171,10 +183,11 @@
             "joke": "// This line doesn't actually do anything, but the code stops working when I delete it.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 12
         },
@@ -185,10 +198,11 @@
             "delivery": "He keeps dropping the database.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 13
         },
@@ -199,10 +213,11 @@
             "delivery": "A developer.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 14
         },
@@ -213,10 +228,11 @@
             "delivery": "Because his interpreter was busy collecting garbage.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 15
         },
@@ -227,10 +243,11 @@
             "delivery": "Because he didn't get arrays.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 16
         },
@@ -241,10 +258,11 @@
             "delivery": "He looks at YOUR shoes when he's talking.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 17
         },
@@ -254,10 +272,11 @@
             "joke": "\"Honey, go to the store and buy some eggs.\"\n\"OK.\"\n\"Oh and while you're there, get some milk.\"\nHe never returned.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 18
         },
@@ -268,10 +287,11 @@
             "delivery": "He wrote the OS for an entire universe, but didn't leave a single useful comment.",
             "flags": {
                 "nsfw": false,
-                "religious": false,
-                "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "religious": true,
+                "political": false,
+                "explicit": false
             },
             "id": 19
         },
@@ -281,10 +301,11 @@
             "joke": "\"We messed up the keming again guys.\"",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 20
         },
@@ -295,10 +316,11 @@
             "delivery": "Because they are object-oriented.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 21
         },
@@ -308,10 +330,11 @@
             "joke": "If Bill Gates had a dime for every time Windows crashed ... Oh wait, he does.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 22
         },
@@ -321,10 +344,11 @@
             "joke": "The glass is neither half-full nor half-empty, the glass is twice as big as it needs to be.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 23
         },
@@ -334,10 +358,11 @@
             "joke": "A byte walks into a bar looking miserable.\nThe bartender asks him: \"What's wrong buddy?\"\n\"Parity error.\" he replies. \n\"Ah that makes sense, I thought you looked a bit off.\"",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 24
         },
@@ -347,10 +372,11 @@
             "joke": "ASCII silly question, get a silly ANSI.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 25
         },
@@ -361,10 +387,11 @@
             "delivery": "A regular expression.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 26
         },
@@ -374,10 +401,11 @@
             "joke": "Java is like Alzheimer's, it starts off slow, but eventually, your memory is gone.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 27
         },
@@ -387,10 +415,11 @@
             "joke": "Two C strings walk into a bar.\nThe bartender asks \"What can I get ya?\"\nThe first string says \"I'll have a gin and tonic.\"\nThe second string thinks for a minute, then says \"I'll take a tequila sunriseJF()#$JF(#)$(@J#()$@#())!*FNIN!OBN134ufh1ui34hf9813f8h8384h981h3984h5F!##@\"\nThe first string apologizes, \"You'll have to excuse my friend, he's not null-terminated.\"",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 28
         },
@@ -401,10 +430,11 @@
             "delivery": "A Hobbyte.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 29
         },
@@ -414,10 +444,11 @@
             "joke": "Saying that Java is nice because it works on every OS is like saying that anal sex is nice because it works on every gender.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 30
         },
@@ -428,10 +459,11 @@
             "delivery": "It ran out of memory.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 31
         },
@@ -442,10 +474,11 @@
             "delivery": "//",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 32
         },
@@ -455,10 +488,11 @@
             "joke": "TIL that changing random stuff until your program works is \"hacky\" and a \"bad coding practice\" but if you do it fast enough it's \"Machine Learning\" and pays 4x your current salary.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 33
         },
@@ -468,10 +502,11 @@
             "joke": "Eight bytes walk into a bar.\nThe bartender asks, \"Can I get you anything?\"\n\"Yeah,\" reply the bytes.\n\"Make us a double.\"",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 34
         },
@@ -481,10 +516,11 @@
             "joke": "There are only 10 kinds of people in this world: those who know binary and those who don't.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 35
         },
@@ -494,10 +530,11 @@
             "joke": "\"Knock, knock.\"\n\"Who's there?\"\n\n[very long pause]\n\n\"Java.\"",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 36
         },
@@ -507,10 +544,11 @@
             "joke": "Programming is 10% science, 20% ingenuity, and 70% getting the ingenuity to work with the science.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 37
         },
@@ -520,10 +558,11 @@
             "joke": "A man is smoking a cigarette and blowing smoke rings into the air. His girlfriend becomes irritated with the smoke and says, \"Can't you see the warning on the cigarette pack? Smoking is hazardous to your health!\" to which the man replies, \"I am a programmer.  We don't worry about warnings; we only worry about errors.\"",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 38
         },
@@ -533,10 +572,11 @@
             "joke": "The generation of random numbers is too important to be left to chance.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 39
         },
@@ -546,10 +586,11 @@
             "joke": "Debugging: Removing the needles from the haystack.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 40
         },
@@ -559,10 +600,11 @@
             "joke": "Hey Girl,\nRoses are #ff0000,\nViolets are #0000ff,\nI use hex codes,\nBut I'd use RGB for you.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 41
         },
@@ -572,10 +614,11 @@
             "joke": "Debugging is like being the detective in a crime movie where you're also the murderer at the same time.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 42
         },
@@ -585,10 +628,11 @@
             "joke": "How do you tell HTML from HTML5?\n- Try it out in Internet Explorer\n- Did it work?\n- No?\n- It's HTML5.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 43
         },
@@ -598,10 +642,11 @@
             "joke": "Have a great weekend!\nI hope your code behaves the same on Monday as it did on Friday.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 44
         },
@@ -611,10 +656,11 @@
             "joke": "Judge: \"I sentence you to the maximum punishment...\"\nMe (thinking): \"Please be death, please be death...\"\nJudge: \"Learn Java!\"\nMe: \"Damn.\"",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 45
         },
@@ -625,10 +671,11 @@
             "delivery": "Inheritance.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 46
         },
@@ -639,10 +686,11 @@
             "delivery": "There's only two of them.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": true,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": true
+                "explicit": false
             },
             "id": 47
         },
@@ -653,10 +701,11 @@
             "delivery": "Because he refused to take classes.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 48
         },
@@ -667,10 +716,11 @@
             "delivery": "They only like chicken NuGet.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 49
         },
@@ -681,10 +731,11 @@
             "delivery": "Because they need to C#",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 50
         },
@@ -694,10 +745,11 @@
             "joke": "Algorithm: A word used by programmers when they don't want to explain how their code works.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 51
         },
@@ -708,10 +760,11 @@
             "delivery": "An Al-Gore-ithm.",
             "flags": {
                 "nsfw": false,
-                "religious": false,
-                "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "religious": false,
+                "political": true,
+                "explicit": false
             },
             "id": 52
         },
@@ -722,10 +775,11 @@
             "delivery": "They don't want to live in a classless society.",
             "flags": {
                 "nsfw": false,
-                "religious": false,
-                "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "religious": false,
+                "political": true,
+                "explicit": false
             },
             "id": 53
         },
@@ -736,10 +790,11 @@
             "delivery": "... so you'd give me a callback.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 54
         },
@@ -749,10 +804,11 @@
             "joke": "1. Open terminal\n2. mkdir snuts\n3. cd snuts",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 55
         },
@@ -762,10 +818,11 @@
             "joke": "Your momma is so fat, you need to switch to NTFS to store a picture of her.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 56
         },
@@ -776,10 +833,11 @@
             "delivery": "Goodbye, world!",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 57
         },
@@ -789,10 +847,11 @@
             "joke": "\"Can I tell you a TCP joke?\"\n\"Please tell me a TCP joke.\"\n\"OK, I'll tell you a TCP joke.\"",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 58
         },
@@ -802,11 +861,12 @@
             "setup": "I asked my wife if I was the only one she's been with.",
             "delivery": "She said, \"Yes, the others were at least sevens or eights.\"",
             "flags": {
-                "nsfw": false,
+                "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 59
         },
@@ -817,10 +877,11 @@
             "delivery": "I don't think I'll ever be able to repay you.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 60
         },
@@ -831,10 +892,11 @@
             "delivery": "He did CrossFit.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": true,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 61
         },
@@ -845,10 +907,11 @@
             "delivery": "Because it's cheaper.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": true,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": true
+                "explicit": false
             },
             "id": 62
         },
@@ -859,10 +922,11 @@
             "delivery": "I called it \"highjacking\".",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 63
         },
@@ -873,10 +937,11 @@
             "delivery": "Dad, come back...",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 64
         },
@@ -887,10 +952,11 @@
             "delivery": "Pulled pork.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 65
         },
@@ -901,10 +967,11 @@
             "delivery": "There was nothing but de brie.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 66
         },
@@ -915,10 +982,11 @@
             "delivery": "Been in and around my ex-girlfriend's mouth.\nFuck you, Karen!",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 67
         },
@@ -929,10 +997,11 @@
             "delivery": "A Hyundaiiiiiiiiiiii",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 68
         },
@@ -943,10 +1012,11 @@
             "delivery": "In the end we decided to just let her live.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 69
         },
@@ -957,10 +1027,11 @@
             "delivery": "1080p.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 70
         },
@@ -971,10 +1042,11 @@
             "delivery": "You get Putin jail.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": true,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 71
         },
@@ -985,10 +1057,11 @@
             "delivery": "In the end you ignore everything and click \"I agree\".",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": true,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": true
+                "explicit": false
             },
             "id": 72
         },
@@ -998,10 +1071,11 @@
             "joke": "Two reasons I don't give money to homeless people.\n1) They are going to spend it all on drugs and alcohol\n2) I am going to spend it all on drugs and alcohol.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 73
         },
@@ -1011,10 +1085,11 @@
             "joke": "A neutron walks into a bar and asks for a price on a drink.\nThe barkeeper says: \"For you... no charge!\"",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 74
         },
@@ -1024,10 +1099,11 @@
             "joke": "A horse walks into a bar.\n\"Hey\", the Bartender says.\n\"Sure\", the horse replies.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 75
         },
@@ -1038,10 +1114,11 @@
             "delivery": "I'm feeling cannelloni now. :'(",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 76
         },
@@ -1052,38 +1129,41 @@
             "delivery": "Sign language.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 77
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "9/11 jokes are not funny.",
             "delivery": "The other 2 though, are hilarious!",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 78
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
             "setup": "I WRITE MY JOKES IN CAPITALS.",
             "delivery": "THIS ONE WAS WRITTEN IN PARIS.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 79
         },
@@ -1094,10 +1174,11 @@
             "delivery": "Raw men.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 80
         },
@@ -1108,10 +1189,11 @@
             "delivery": "It has an ex axis and a why axis.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 81
         },
@@ -1122,10 +1204,11 @@
             "delivery": "Oh wait, never mind. She was just getting the mail.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 82
         },
@@ -1135,10 +1218,11 @@
             "joke": "I have these weird muscle spasms in my gluteus maximus.\nI figured out from my doctor that everything was alright:\nHe said \"Weird flex, butt okay.\"",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 83
         },
@@ -1149,10 +1233,11 @@
             "delivery": "But still, I wish he hadn't.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 84
         },
@@ -1163,10 +1248,11 @@
             "delivery": "Not all this \"How the fuck did you get in my house?!\" nonsense.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 85
         },
@@ -1177,10 +1263,11 @@
             "delivery": "Guess who came crawling back.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 86
         },
@@ -1191,10 +1278,11 @@
             "delivery": "They wanted to give the Bucharest.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 87
         },
@@ -1205,10 +1293,11 @@
             "delivery": "They're so full of themselves.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 88
         },
@@ -1219,10 +1308,11 @@
             "delivery": "I told her, \"We already have food in the house\".",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 89
         },
@@ -1233,10 +1323,11 @@
             "delivery": "Kermit's Fingers.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 90
         },
@@ -1246,10 +1337,11 @@
             "joke": "Oysters hate to give away their pearls because they are shellfish.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 91
         },
@@ -1260,10 +1352,11 @@
             "delivery": "None, they'll just compliment it and get pissed off when it won't screw.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 92
         },
@@ -1274,10 +1367,11 @@
             "delivery": "An outlaw is wanted.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 93
         },
@@ -1288,10 +1382,11 @@
             "delivery": "He said from now on I have to pay in advance.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 94
         },
@@ -1301,11 +1396,12 @@
             "setup": "9 months before I was born, I went to a party with my dad...",
             "delivery": "...and left with my mum.",
             "flags": {
-                "nsfw": true,
+                "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 95
         },
@@ -1316,10 +1412,11 @@
             "delivery": "I said, \"Oh yeah... Just you wait.\"",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 96
         },
@@ -1330,10 +1427,11 @@
             "delivery": "Limb Limbs.",
             "flags": {
                 "nsfw": false,
+                "racist": true,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 97
         },
@@ -1343,24 +1441,26 @@
             "joke": "I didn't vaccinate my 10 kids and the one that survived is fine!",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 98
         },
         {
-            "category": "Pun",
+            "category": "Dark",
             "type": "twopart",
             "setup": "I'm thinking of setting up a comedy group to help people going through cancer treatment.",
             "delivery": "I'll call it \"A Sense of Tumor\".",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 99
         },
@@ -1371,10 +1471,11 @@
             "delivery": "I just had to be nice with the cops and not resist.",
             "flags": {
                 "nsfw": false,
-                "religious": false,
-                "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "religious": false,
+                "political": true,
+                "explicit": false
             },
             "id": 100
         },
@@ -1385,10 +1486,11 @@
             "delivery": "Because you can't use medicine on an empty stomach.",
             "flags": {
                 "nsfw": false,
-                "religious": false,
-                "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "religious": false,
+                "political": true,
+                "explicit": false
             },
             "id": 101
         },
@@ -1399,10 +1501,11 @@
             "delivery": "No one likes the blacks.",
             "flags": {
                 "nsfw": false,
+                "racist": true,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": true,
-                "sexist": false
+                "explicit": false
             },
             "id": 102
         },
@@ -1412,11 +1515,12 @@
             "setup": "What do an orgasm and a pulse have in common?",
             "delivery": "I don't care if she has one.",
             "flags": {
-                "nsfw": true,
+                "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 103
         },
@@ -1427,10 +1531,11 @@
             "delivery": "The apple will eventually fall from the tree that it's hanging from!",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": true,
-                "sexist": false
+                "explicit": true
             },
             "id": 104
         },
@@ -1440,10 +1545,11 @@
             "joke": "Me and my Jewish friend were eating lunch and I farted. He got mad so I said \"cmon man a little gas never killed anyone\".",
             "flags": {
                 "nsfw": false,
+                "racist": true,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": true,
-                "sexist": false
+                "explicit": false
             },
             "id": 105
         },
@@ -1454,10 +1560,11 @@
             "delivery": "Nine months.",
             "flags": {
                 "nsfw": false,
+                "racist": true,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": true,
-                "sexist": false
+                "explicit": false
             },
             "id": 106
         },
@@ -1468,10 +1575,11 @@
             "delivery": "They can't protect their towers.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": true,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 107
         },
@@ -1482,10 +1590,11 @@
             "delivery": "Then why did he kill 6 million of them?",
             "flags": {
                 "nsfw": false,
+                "racist": true,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": true,
-                "sexist": false
+                "explicit": false
             },
             "id": 108
         },
@@ -1496,10 +1605,11 @@
             "delivery": "The more children you have, the harder it gets.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 109
         },
@@ -1510,10 +1620,11 @@
             "delivery": "Because Jews only have 10 fingers.",
             "flags": {
                 "nsfw": false,
+                "racist": true,
+                "sexist": false,
                 "religious": true,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 110
         },
@@ -1521,13 +1632,14 @@
             "category": "Dark",
             "type": "twopart",
             "setup": "What's the most notable similarity between a pedophile and a roller coaster?",
-            "delivery": "They both make a child scream, but the first ride's never the last",
+            "delivery": "They both make a child scream, but the first ride's never the last.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 111
         },
@@ -1538,10 +1650,11 @@
             "delivery": "He would have been hung from a tree, not a cross.",
             "flags": {
                 "nsfw": false,
-                "religious": true,
-                "political": false,
                 "racist": true,
-                "sexist": false
+                "sexist": false,
+                "religious": false,
+                "political": false,
+                "explicit": false
             },
             "id": 112
         },
@@ -1552,10 +1665,11 @@
             "delivery": "Other than that, the sex is great.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 113
         },
@@ -1566,10 +1680,11 @@
             "delivery": "They both remove blackheads.",
             "flags": {
                 "nsfw": false,
+                "racist": true,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": true,
-                "sexist": false
+                "explicit": false
             },
             "id": 114
         },
@@ -1580,10 +1695,11 @@
             "delivery": "No matter what they do, they always get beat.",
             "flags": {
                 "nsfw": false,
+                "racist": true,
+                "sexist": false,
                 "religious": true,
                 "political": false,
-                "racist": true,
-                "sexist": false
+                "explicit": false
             },
             "id": 115
         },
@@ -1593,10 +1709,11 @@
             "joke": "Stop being homophobic and rude to the LGBTQ+ community. You should be thanking them for saving us plenty of room in heaven.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": true,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 116
         },
@@ -1607,10 +1724,11 @@
             "delivery": "\"Let's go have a couple of cold ones!\"",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 117
         },
@@ -1621,10 +1739,11 @@
             "delivery": "We do it in schools because we have class.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false
+                "political": true,
+                "explicit": false
             },
             "id": 118
         },
@@ -1635,10 +1754,11 @@
             "delivery": "It's more funny when children get it.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 119
         },
@@ -1649,10 +1769,11 @@
             "delivery": "Just like their kids.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 120
         },
@@ -1663,10 +1784,11 @@
             "delivery": "Names.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 121
         },
@@ -1677,10 +1799,11 @@
             "delivery": "You can't pick a pile of sand up with a pitchfork.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 122
         },
@@ -1691,10 +1814,11 @@
             "delivery": "One's satisfying to hit with a sledgehammer. The other's a watermelon.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 123
         },
@@ -1705,10 +1829,11 @@
             "delivery": "Fridges don't scream when you put your meat in them.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 124
         },
@@ -1718,10 +1843,11 @@
             "joke": "The six stages of debugging:\n1. That can't happen.\n2. That doesn't happen on my machine.\n3. That shouldn't happen.\n4. Why does that happen?\n5. Oh, I see.\n6. How did that ever work?",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 125
         },
@@ -1732,10 +1858,11 @@
             "delivery": "Thankfully he was still chained up in my basement.",
             "flags": {
                 "nsfw": false,
+                "racist": true,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": true,
-                "sexist": false
+                "explicit": false
             },
             "id": 126
         },
@@ -1746,10 +1873,11 @@
             "delivery": "Tooth hurt-y.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 127
         },
@@ -1759,10 +1887,11 @@
             "joke": "I'm reading a book about anti-gravity. It's impossible to put down!",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 128
         },
@@ -1773,10 +1902,11 @@
             "delivery": "Put a Windows user in front of Vim and tell him to exit.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 129
         },
@@ -1787,10 +1917,11 @@
             "delivery": "The pizza doesn't scream when you put it in the oven.",
             "flags": {
                 "nsfw": false,
+                "racist": true,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": true,
-                "sexist": false
+                "explicit": false
             },
             "id": 130
         },
@@ -1801,10 +1932,11 @@
             "delivery": "Floss.",
             "flags": {
                 "nsfw": false,
+                "racist": true,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": true,
-                "sexist": false
+                "explicit": false
             },
             "id": 131
         },
@@ -1815,10 +1947,11 @@
             "delivery": "A meowntain.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 132
         },
@@ -1829,10 +1962,11 @@
             "delivery": "Hebrews it.",
             "flags": {
                 "nsfw": false,
-                "religious": true,
-                "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "religious": false,
+                "political": false,
+                "explicit": false
             },
             "id": 133
         },
@@ -1842,10 +1976,11 @@
             "joke": "Four engineers get into a car. The car won't start.\nThe Mechanical engineer says \"It's a broken starter\".\nThe Electrical engineer says \"Dead battery\".\nThe Chemical engineer says \"Impurities in the gasoline\".\nThe IT engineer says \"Hey guys, I have an idea: How about we all get out of the car and get back in\".",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 134
         },
@@ -1855,10 +1990,11 @@
             "joke": "Nowadays people are so sensitive, you can't even say \"black paint\" anymore.\nInstead, you have to say \"Jamal, please paint the fence\".",
             "flags": {
                 "nsfw": false,
+                "racist": true,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": true,
-                "sexist": false
+                "explicit": false
             },
             "id": 135
         },
@@ -1869,10 +2005,11 @@
             "delivery": "Because women don't have rights.",
             "flags": {
                 "nsfw": false,
-                "religious": false,
-                "political": false,
                 "racist": false,
-                "sexist": true
+                "sexist": true,
+                "religious": false,
+                "political": true,
+                "explicit": false
             },
             "id": 136
         },
@@ -1883,10 +2020,11 @@
             "delivery": "A paraplegic after a house fire.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 137
         },
@@ -1897,37 +2035,40 @@
             "delivery": "To beat the crowd.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 138
         },
         {
             "category": "Miscellaneous",
             "type": "twopart",
-            "setup": "What does tofu and a dildo have in common?",
+            "setup": "What do tofu and a dildo have in common?",
             "delivery": "They're both meat substitutes.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 139
         },
         {
             "category": "Dark",
             "type": "single",
-            "joke": "Doctor: \"I have some news about your baby.\"\nParents: \"Don't tell us the gender, we want to keep it a surprise.\"\nDoctor: \"Ohh, you're those type of people. Okay, well IT is not breathing.\"",
+            "joke": "Doctor: \"I have some news about your baby.\"\nParents: \"Don't tell us the gender, we want to keep it a surprise.\"\nDoctor: \"Oh, you're those type of people. Okay, well, IT is not breathing.\"",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 140
         },
@@ -1937,10 +2078,11 @@
             "joke": "If you're here for the yodeling lesson, please form an orderly orderly orderly queue.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 141
         },
@@ -1951,10 +2093,11 @@
             "delivery": "He's a fizzician.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 142
         },
@@ -1965,10 +2108,11 @@
             "delivery": "One's a heated yam, the other's a yeeted ham.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 143
         },
@@ -1979,10 +2123,11 @@
             "delivery": "The grenade actually accomplishes something when it triggers.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": true,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 144
         },
@@ -1993,10 +2138,11 @@
             "delivery": "Unfortunately, that didn't impress anyone at the cremation...",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 145
         },
@@ -2007,24 +2153,26 @@
             "delivery": "I don't know, he hasn't opened it yet.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 146
         },
         {
-            "category": "Miscellaneous",
+            "category": "Dark",
             "type": "twopart",
             "setup": "My neighbor is a 90 year old with Alzheimer's, I see him every morning and he asks me If I've seen his wife.\nEvery day I have to tell this poor man that his wife died 20 years ago.\nI could have moved to another house or even ignore his question.",
             "delivery": "But the look of joy in his eyes whenever I answer him is worth the world.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 147
         },
@@ -2035,10 +2183,11 @@
             "delivery": "I was already on the highway when I noticed I forgot my car at home.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 148
         },
@@ -2049,10 +2198,11 @@
             "delivery": "I implemented a greek question mark in his JavaScript code.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 149
         },
@@ -2063,10 +2213,11 @@
             "delivery": "But Argon doesn't react.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 150
         },
@@ -2076,10 +2227,11 @@
             "joke": "Women are like KFC, once you're done with the breasts and thighs, you just have a greasy box to put your bone in.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": true,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": true
+                "explicit": true
             },
             "id": 151
         },
@@ -2090,10 +2242,11 @@
             "delivery": "I went to one of their meetings and there were a lot of black people hanging around.",
             "flags": {
                 "nsfw": false,
+                "racist": true,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": true,
-                "sexist": false
+                "explicit": false
             },
             "id": 152
         },
@@ -2104,23 +2257,25 @@
             "delivery": "His wife is dead.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 153
         },
         {
             "category": "Dark",
             "type": "single",
-            "joke": "My ex had an accident. I told the paramedics the wrong blood type for her. She'll finally experience what rejection is really like.",
+            "joke": "My ex had an accident.\nI told the paramedics the wrong blood type for her.\nShe'll finally experience what rejection is really like.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 154
         },
@@ -2131,10 +2286,11 @@
             "delivery": "The wheelchair.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 155
         },
@@ -2144,11 +2300,12 @@
             "setup": "What do Ted Bundy and the Space Shuttle Columbia have in common?",
             "delivery": "They both left bodies in four states.",
             "flags": {
-                "nsfw": false,
+                "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 156
         },
@@ -2159,10 +2316,11 @@
             "delivery": "A lip reader.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 157
         },
@@ -2173,10 +2331,11 @@
             "delivery": "A rip off.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 158
         },
@@ -2187,10 +2346,11 @@
             "delivery": "Miss by a few inches and you're in deep shit.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 159
         },
@@ -2201,10 +2361,11 @@
             "delivery": "He wiped his ass.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 160
         },
@@ -2215,24 +2376,26 @@
             "delivery": "Acne usually comes on a boys face after he turns 12.",
             "flags": {
                 "nsfw": true,
-                "religious": true,
-                "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "religious": false,
+                "political": false,
+                "explicit": true
             },
             "id": 161
         },
         {
             "category": "Dark",
             "type": "twopart",
-            "setup": "My first high-school football game was a lot like my first time having sex...",
+            "setup": "My first high-school football game was a lot like my first time having sex.",
             "delivery": "I was bloody and sore at the end, but at least my dad came.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 162
         },
@@ -2243,10 +2406,11 @@
             "delivery": "But at least they drive slowly through the school zones.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 163
         },
@@ -2256,10 +2420,11 @@
             "joke": "Dark humor is like food, not everyone gets it.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": true,
-                "sexist": false
+                "explicit": false
             },
             "id": 164
         },
@@ -2270,10 +2435,11 @@
             "delivery": "A refrigerator doesn't fart when I pull my meat out of it.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 165
         },
@@ -2284,10 +2450,11 @@
             "delivery": "Until they see their fingers.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 166
         },
@@ -2297,10 +2464,11 @@
             "joke": "My little daughter came to me all excited, saying \"Daddy! Daddy! Guess how old I'll be in June!\"\n\"Oh I don't know princess, why don't you tell me?\" I said. She gave me a huge smile and held up four fingers.\nIt's now three hours later, police have joined in and she still won't say where she got them.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 167
         },
@@ -2311,10 +2479,11 @@
             "delivery": "I hope.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 168
         },
@@ -2325,10 +2494,11 @@
             "delivery": "19 and easily spread.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 169
         },
@@ -2339,10 +2509,11 @@
             "delivery": "The third guy ducked.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 170
         },
@@ -2353,10 +2524,11 @@
             "delivery": "One was assaulted.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 171
         },
@@ -2367,10 +2539,11 @@
             "delivery": "Boo-Bees.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 172
         },
@@ -2381,10 +2554,11 @@
             "delivery": "I told her \"No, thanks. The carton works fine\".",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 173
         },
@@ -2395,10 +2569,11 @@
             "delivery": "Rubbit.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 174
         },
@@ -2409,10 +2584,11 @@
             "delivery": "Two in the front, three in the back, and a hundred in the ashtray.",
             "flags": {
                 "nsfw": false,
+                "racist": true,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": true,
-                "sexist": false
+                "explicit": false
             },
             "id": 175
         },
@@ -2423,10 +2599,11 @@
             "delivery": "A pizza can feed a family of five.",
             "flags": {
                 "nsfw": false,
+                "racist": true,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": true,
-                "sexist": false
+                "explicit": false
             },
             "id": 176
         },
@@ -2437,10 +2614,11 @@
             "delivery": "The taste.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 177
         },
@@ -2451,10 +2629,11 @@
             "delivery": "A Sandwich.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 178
         },
@@ -2465,10 +2644,11 @@
             "delivery": "Quatro Sinko.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 179
         },
@@ -2478,10 +2658,11 @@
             "joke": "My grandfather says I'm too reliant on technology.\nI called him a hypocrite and unplugged his life support.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 180
         },
@@ -2492,10 +2673,11 @@
             "delivery": "Cause they won't take anything until it's atleast 10% off.",
             "flags": {
                 "nsfw": false,
+                "racist": true,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": true,
-                "sexist": false
+                "explicit": true
             },
             "id": 181
         },
@@ -2505,10 +2687,11 @@
             "joke": "Knock knock.\nWho's there?\nRecursion.\nRecursion who?\nKnock knock.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 182
         },
@@ -2519,24 +2702,26 @@
             "delivery": "Yes, but the Constitution of the USA also guarantees freedom after the speech.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": true,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 183
         },
         {
-            "category": "Miscellaneous",
+            "category": "Pun",
             "type": "twopart",
-            "setup": "Why was the river rich?",
-            "delivery": "Because it had two banks.",
+            "setup": "Why is the river rich?",
+            "delivery": "Because it has two banks.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 184
         },
@@ -2547,10 +2732,11 @@
             "delivery": "Because it had nobody.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 185
         },
@@ -2560,10 +2746,11 @@
             "joke": "Being a self-taught developer is almost the same as being a cut neck chicken because you have no sense of direction in the beginning.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 186
         },
@@ -2573,10 +2760,11 @@
             "joke": "Two fish in a tank. One turns to the other and says, \"Do you know how to drive this thing?\"",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 187
         },
@@ -2587,10 +2775,11 @@
             "delivery": "They don't know where home is.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 188
         },
@@ -2601,10 +2790,11 @@
             "delivery": "I woke up bald.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 189
         },
@@ -2615,10 +2805,11 @@
             "delivery": "A cactus keeps the little pricks on the outside.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 190
         },
@@ -2629,10 +2820,11 @@
             "delivery": "They are very hard to get started, they make yucky smells and half the time they don't even work.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": true,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": true
+                "explicit": false
             },
             "id": 191
         },
@@ -2643,10 +2835,11 @@
             "delivery": "I'm all fed up with your service.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 192
         },
@@ -2656,10 +2849,11 @@
             "joke": "To whoever stole my copy of Microsoft Office, I will find you. You have my Word!",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 193
         },
@@ -2670,10 +2864,11 @@
             "delivery": "Because he did not have any koalafication.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 194
         },
@@ -2684,10 +2879,11 @@
             "delivery": "Profanity.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 195
         },
@@ -2698,10 +2894,11 @@
             "delivery": "I don't know, but the flag is a big plus.",
             "flags": {
                 "nsfw": false,
-                "religious": false,
                 "racist": false,
                 "sexist": false,
-                "political": false
+                "religious": false,
+                "political": false,
+                "explicit": false
             },
             "id": 196
         },
@@ -2711,10 +2908,11 @@
             "joke": "Relationship Status: just tried to reach for my dog's paw and he pulled it away so I pretended I was reaching for the remote.",
             "flags": {
                 "nsfw": false,
-                "religious": false,
                 "racist": false,
                 "sexist": false,
-                "political": false
+                "religious": false,
+                "political": false,
+                "explicit": false
             },
             "id": 197
         },
@@ -2725,10 +2923,11 @@
             "delivery": "Ground beef.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 198
         },
@@ -2738,10 +2937,11 @@
             "joke": "Schrödinger's cat walks into a bar and doesn't.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 199
         },
@@ -2752,10 +2952,11 @@
             "delivery": "It was tense.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 200
         },
@@ -2763,13 +2964,14 @@
             "category": "Pun",
             "type": "twopart",
             "setup": "What did the cell say when his sister cell stepped on his foot?",
-            "delivery": "Mitosis.",
+            "delivery": "Mitosis!",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 201
         },
@@ -2779,10 +2981,11 @@
             "joke": "Today, my son asked \"Can I have a book mark?\" and I burst into tears.\n11 years old and he still doesn't know my name is Brian.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 202
         },
@@ -2792,10 +2995,11 @@
             "joke": "My wife is really mad at the fact that I have no sense of direction.\nSo I packed up my stuff and right.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 203
         },
@@ -2805,10 +3009,11 @@
             "joke": "How do you make holy water? You boil the hell out of it.",
             "flags": {
                 "nsfw": false,
-                "religious": true,
-                "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "religious": false,
+                "political": false,
+                "explicit": false
             },
             "id": 204
         },
@@ -2818,10 +3023,11 @@
             "joke": "How do you make holy water? You freeze it and drill holes in it.",
             "flags": {
                 "nsfw": false,
-                "religious": true,
-                "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "religious": false,
+                "political": false,
+                "explicit": false
             },
             "id": 205
         },
@@ -2831,10 +3037,11 @@
             "joke": "I bought some shoes from a drug dealer. I don't know what he laced them with, but I was tripping all day!",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 206
         },
@@ -2845,10 +3052,11 @@
             "delivery": "Dam.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 207
         },
@@ -2859,10 +3067,11 @@
             "delivery": "Walking...\nJK, Rolling.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 208
         },
@@ -2872,10 +3081,11 @@
             "joke": "I was going to tell a dead baby joke. But I decided to abort.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 209
         },
@@ -2885,10 +3095,11 @@
             "joke": "I'll never forget my Granddad's last words to me just before he died. \"Are you still holding the ladder?\"",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 210
         },
@@ -2899,10 +3110,11 @@
             "delivery": "He was a dirty double-crosser!",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 211
         },
@@ -2910,13 +3122,14 @@
             "category": "Pun",
             "type": "twopart",
             "setup": "What do you call a deer with no eyes?",
-            "delivery": "No eye deer.",
+            "delivery": "No idea.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 212
         },
@@ -2927,10 +3140,11 @@
             "delivery": "Tiny things left when you drop your computer down the stairs.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 213
         },
@@ -2940,11 +3154,12 @@
             "setup": "Where do sick cruise ships go to get healthy?",
             "delivery": "The dock!",
             "flags": {
-                "nsfw": true,
-                "religious": false,
-                "political": true,
+                "nsfw": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "religious": false,
+                "political": false,
+                "explicit": false
             },
             "id": 214
         },
@@ -2954,11 +3169,12 @@
             "setup": "Has COVID-19 forced you to wear glasses and a mask at the same time?",
             "delivery": "If so, you may be entitled to condensation.",
             "flags": {
-                "nsfw": true,
-                "religious": false,
-                "political": true,
+                "nsfw": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "religious": false,
+                "political": false,
+                "explicit": false
             },
             "id": 215
         },
@@ -2969,10 +3185,11 @@
             "delivery": "Because debug was on his screen.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 216
         },
@@ -2983,10 +3200,11 @@
             "delivery": "It really hurt my head.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 217
         },
@@ -2997,10 +3215,11 @@
             "delivery": "An elephant.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 218
         },
@@ -3011,10 +3230,11 @@
             "delivery": "A bus full of children.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 219
         },
@@ -3024,10 +3244,11 @@
             "joke": " I visited my friend at his new house.\nHe told me to make myself at home so I threw him out.\nI hate having visitors.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 220
         },
@@ -3037,10 +3258,11 @@
             "joke": "\"Knock Knock!\" - \"Who's there?\"\n\"It's Dave!\" - \"Dave who?\"\nDave bursts into tears, realizing that his grandmother's Alzheimers has progressed to the point where she no longer remembers him.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 221
         },
@@ -3050,10 +3272,11 @@
             "joke": "Programmers while coding:\nIt doesn't work ... why?\nIt does work ... why?",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 222
         },
@@ -3063,10 +3286,11 @@
             "joke": "Documentation is like sex:\nWhen it's good, it's very good.\nWhen it's bad, it's better than nothing.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 223
         },
@@ -3076,10 +3300,11 @@
             "joke": "My friend got kicked by a horse, the doctor says his condition is stable.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 224
         },
@@ -3089,10 +3314,11 @@
             "joke": "Have you heard about the two tomatoes that wanted to cross the road?\nOne of them got run over by a car and the other said: \"Come on Ketchup!\"",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 225
         },
@@ -3102,10 +3328,11 @@
             "joke": "Yo mama is so old, she knew Burger King while he was still a prince.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
             "id": 226
         },
@@ -3115,10 +3342,11 @@
             "joke": "I went to the zoo the other day. There was only a single dog in it – it was a shih tzu.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 227
         },
@@ -3129,10 +3357,11 @@
             "delivery": "The tea bag stays in the cup longer.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 228
         },
@@ -3142,10 +3371,11 @@
             "joke": "Man goes in a bar. No other fruits, just mangoes.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 229
         },
@@ -3156,10 +3386,11 @@
             "delivery": "A phone is actually useful.",
             "flags": {
                 "nsfw": false,
+                "racist": true,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": true,
-                "sexist": false
+                "explicit": false
             },
             "id": 230
         },
@@ -3169,10 +3400,11 @@
             "joke": "Recently my mother-in-law came to live with me and my wife.\nMan... I hate that, we can't have our privacy together now.\nWe can't even have sex anymore because every time we fuck we need to be quiet to not wake up my wife.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": true
+                "explicit": true
             },
             "id": 231
         },
@@ -3183,10 +3415,11 @@
             "delivery": "He prays for the Chrome.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 232
         },
@@ -3196,10 +3429,11 @@
             "joke": "Bungee jumping is a great decision making tool if you are suicidal and indecisive at the same time.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
             "id": 233
         }

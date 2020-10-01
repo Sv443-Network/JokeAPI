@@ -115,6 +115,10 @@ const init = () => {
                             if(!jsl.isEmpty(joke.flags.religious) || (joke.flags.religious !== false && joke.flags.religious !== true))
                                 result.push(true);
                             else result.push(`Joke with index/ID ${i} has an invalid "religious" flag`);
+
+                            if(!jsl.isEmpty(joke.flags.explicit) || (joke.flags.explicit !== false && joke.flags.explicit !== true))
+                                result.push(true);
+                            else result.push(`Joke with index/ID ${i} has an invalid "explicit" flag`);
                         }
                         else result.push(`Joke with index/ID ${i} doesn't have a "flags" object or it is invalid`);
                     });
@@ -173,6 +177,7 @@ const init = () => {
  * @prop {Boolean} flags.racist Whether the joke is racist or not
  * @prop {Boolean} flags.religious Whether the joke is religiously offensive or not
  * @prop {Boolean} flags.political Whether the joke is politically offensive or not
+ * @prop {Boolean} flags.explicit Whether the joke contains explicit language
  * @prop {Number} id The ID of the joke
  * @prop {String} lang The language of the joke
  */
@@ -188,6 +193,7 @@ const init = () => {
  * @prop {Boolean} flags.racist Whether the joke is racist or not
  * @prop {Boolean} flags.religious Whether the joke is religiously offensive or not
  * @prop {Boolean} flags.political Whether the joke is politically offensive or not
+ * @prop {Boolean} flags.explicit Whether the joke contains explicit language
  * @prop {Number} id The ID of the joke
  * @prop {String} lang The language of the joke
  */
@@ -263,6 +269,9 @@ const validateSingle = joke => {
 
             if(jsl.isEmpty(joke.flags.religious) || (joke.flags.religious !== false && joke.flags.religious !== true))
                 jokeErrors.push(`Joke doesn't have the "religious" flag or it is invalid`);
+
+            if(jsl.isEmpty(joke.flags.explicit) || (joke.flags.explicit !== false && joke.flags.explicit !== true))
+                jokeErrors.push(`Joke doesn't have the "explicit" flag or it is invalid`);
         }
         else jokeErrors.push(`Joke doesn't have a "flags" object or it is invalid`);
 

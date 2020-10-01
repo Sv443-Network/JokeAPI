@@ -73,20 +73,21 @@ const settings = {
                 "Dark",
                 "Pun"
             ],
-            flags: [ // all flags - HAS TO BE LOWER CASE!
+            flags: [ // all flags - HAVE TO BE LOWER CASE!
                 "nsfw",
                 "religious",
                 "political",
                 "racist",
                 "sexist",
+                "explicit",
             ],
-            formats: [ // all formats - HAS TO BE LOWER CASE!
+            formats: [ // all content formats - HAVE TO BE LOWER CASE!
                 "json",
                 "xml",
                 "yaml",
                 "txt",
             ],
-            types: [ // all joke types - HAS TO BE LOWER CASE!
+            types: [ // all joke types - HAVE TO BE LOWER CASE!
                 "single",
                 "twopart"
             ],

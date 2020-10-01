@@ -12,7 +12,7 @@ try
     let newJokes = [];
     let id = 0;
 
-    initialJokes.forEach(joke => {
+    initialJokes.jokes.forEach(joke => {
         if(joke.type == "single") newJokes.push({
             category: joke.category,
             type: "single",
@@ -22,7 +22,8 @@ try
                 racist: isEmpty(joke.racist) ? false : true,
                 sexist: isEmpty(joke.sexist) ? false : true,
                 religious: isEmpty(joke.religious) ? false : true,
-                political: isEmpty(joke.political) ? false : true
+                political: isEmpty(joke.political) ? false : true,
+                explicit: isEmpty(joke.explicit) ? false : true
             },
             id: id
         });
@@ -37,7 +38,8 @@ try
                 racist: isEmpty(joke.racist) ? false : true,
                 sexist: isEmpty(joke.sexist) ? false : true,
                 religious: isEmpty(joke.religious) ? false : true,
-                political: isEmpty(joke.political) ? false : true
+                political: isEmpty(joke.political) ? false : true,
+                explicit: isEmpty(joke.explicit) ? false : true
             },
             id: id
         });
@@ -47,7 +49,7 @@ try
 
     let doneFile = {
         "info": {
-            "formatVersion": 2
+            "formatVersion": 3
         },
         "jokes": newJokes
     };

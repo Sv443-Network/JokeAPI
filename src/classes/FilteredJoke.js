@@ -10,6 +10,9 @@ const jsl = require("svjsl");
 const settings = require("../../settings");
 
 
+/** @typedef {"nsfw"|"racist"|"sexist"|"religious"|"political"|"explicit"} BlacklistFlags */
+
+
 jsl.unused(AllJokes);
 
 var _lastIDs = [];
@@ -209,7 +212,7 @@ class FilteredJoke
     //#MARKER flags
     /**
      * Sets the blacklist flags
-     * @param {Array<"nsfw"|"racist"|"sexist"|"religious"|"political">} flags 
+     * @param {Array<BlacklistFlags>} flags 
      * @returns {Boolean} Returns true if the flags were set, false if they are invalid
      */
     setBlacklistFlags(flags)
@@ -232,7 +235,7 @@ class FilteredJoke
 
     /**
      * Returns the set blacklist flags
-     * @returns {Array<"nsfw"|"racist"|"sexist"|"religious"|"political">}
+     * @returns {Array<BlacklistFlags>}
      */
     getBlacklistFlags()
     {

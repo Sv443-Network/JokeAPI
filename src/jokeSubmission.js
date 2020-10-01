@@ -172,6 +172,7 @@ function reformatJoke(joke)
         political: joke.flags.political,
         racist: joke.flags.racist,
         sexist: joke.flags.sexist,
+        explicit: joke.flags.explicit,
     };
 
     if(joke.lang)

@@ -218,6 +218,7 @@ function onLoad()
         "f_flags_political",
         "f_flags_racist",
         "f_flags_sexist",
+        "f_flags_explicit",
         "f_setup",
         "f_delivery",
         "f_language"
@@ -921,6 +922,7 @@ function buildSubmission()
             political: gebid("f_flags_political").checked,
             racist: gebid("f_flags_racist").checked,
             sexist: gebid("f_flags_sexist").checked,
+            explicit: gebid("f_flags_explicit").checked
         },
         lang: sLang
     };
