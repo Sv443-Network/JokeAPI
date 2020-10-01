@@ -1,4 +1,4 @@
-// this reformats jokes from the old <1.1.3 format to the new 2.0.0 format
+// this reformats jokes from format v2 to format v3
 // run this with the command "npm run reformat"
 
 const fs = require("fs-extra");
@@ -18,12 +18,12 @@ try
             type: "single",
             joke: joke.joke,
             flags: {
-                nsfw: isEmpty(joke.nsfw) ? false : true,
-                racist: isEmpty(joke.racist) ? false : true,
-                sexist: isEmpty(joke.sexist) ? false : true,
-                religious: isEmpty(joke.religious) ? false : true,
-                political: isEmpty(joke.political) ? false : true,
-                explicit: isEmpty(joke.explicit) ? false : true
+                nsfw: isEmpty(joke.flags.nsfw) ? false : true,
+                racist: isEmpty(joke.flags.racist) ? false : true,
+                sexist: isEmpty(joke.flags.sexist) ? false : true,
+                religious: isEmpty(joke.flags.religious) ? false : true,
+                political: isEmpty(joke.flags.political) ? false : true,
+                explicit: isEmpty(joke.flags.explicit) ? false : true
             },
             id: id
         });
@@ -34,12 +34,12 @@ try
             setup: joke.setup,
             delivery: joke.delivery,
             flags: {
-                nsfw: isEmpty(joke.nsfw) ? false : true,
-                racist: isEmpty(joke.racist) ? false : true,
-                sexist: isEmpty(joke.sexist) ? false : true,
-                religious: isEmpty(joke.religious) ? false : true,
-                political: isEmpty(joke.political) ? false : true,
-                explicit: isEmpty(joke.explicit) ? false : true
+                nsfw: isEmpty(joke.flags.nsfw) ? false : true,
+                racist: isEmpty(joke.flags.racist) ? false : true,
+                sexist: isEmpty(joke.flags.sexist) ? false : true,
+                religious: isEmpty(joke.flags.religious) ? false : true,
+                political: isEmpty(joke.flags.political) ? false : true,
+                explicit: isEmpty(joke.flags.explicit) ? false : true
             },
             id: id
         });
