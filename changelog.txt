@@ -18,6 +18,7 @@
         - Version 3 will be available @ https://v3.jokeapi.dev/
     - Added contributors to the documentation
     - Improved the documentation a little bit again
+        - Small sub-headers can now be linked to, too
     - Added some unit tests to make JokeAPI more reliable
         - Endpoint "/info"
         - Endpoint "/langcode/{LANGUAGE}"

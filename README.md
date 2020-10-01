@@ -21,7 +21,8 @@
 </div>
 <br><br>
 
-## If you want to contribute to JokeAPI (code, jokes or translations), please read the [contributing guide.](./.github/Contributing.md)
+### Note: due to the different types of humor, JokeAPI contains a wide variety of jokes, of which some are very offensive. They can be filtered out, but use this API at your own risk!
+### If you want to contribute to JokeAPI (code, jokes or translations), please read the [contributing guide.](./.github/Contributing.md)
 
 <br><br>
 
@@ -40,8 +41,10 @@
 - [https://irshad.ml/humour.html](https://irshad.ml/humour.html) by [draco-malfoy](https://github.com/draco-malfoy)
 - [Random Joke Generator with Flutter](https://github.com/variousnabil/Random-Joke-Generator-with-Flutter) by [variousnabil](https://github.com/variousnabil)
 - [comma](https://thatcopy.pw/comma) by [ThatCopy](https://github.com/ThatCopy)
+- [Joke Teller](https://github.com/AlHood77/Joke_Teller) by [AlHood77](https://github.com/AlHood77)
+- [jokes](https://github.com/remcoov/jokes) by [remcoov](https://github.com/remcoov)
   
-([Contact me](https://sv443.net/discord) to get your project added here)
+([Submit an issue](https://github.com/Sv443/JokeAPI/issues/new/choose) to get your project added here)
 
 
 <br><br>
