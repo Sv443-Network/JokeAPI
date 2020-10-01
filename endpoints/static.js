@@ -65,6 +65,18 @@ const call = (req, res, url, params, format) => {
             allowEncoding = false;
             mimeType = "text/plain";
         break;
+        case "rust-icon":
+            filePath = `${settings.documentation.dirPath}static/external/rust.svg`;
+            statusCode = 200;
+            allowEncoding = false;
+            mimeType = "image/svg+xml";
+        break;
+        case "python-icon":
+            filePath = `${settings.documentation.dirPath}static/external/python.svg`;
+            statusCode = 200;
+            allowEncoding = false;
+            mimeType = "image/svg+xml";
+        break;
         default:
             requestedFile = "fallback_err_404";
             filePath = settings.documentation.error404path;
