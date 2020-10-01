@@ -184,10 +184,10 @@
                 <br>
                 <span style="color: orangered;">If you are new to <!--%#INSERT:NAME#%-->, please start by reading the <a href="#getting-started">Getting Started Guide</a></span><br>
                 <br>
-                <span class="subHeader" id="note">Note:</span>
+                <div class="subHeaderContainer"><a href="#note" title="Click to link to this header">§</a> <span class="subHeader" id="note">Note:</span></div>
                 If you enjoy using <!--%#INSERT:NAME#%--> and want me to keep making free APIs and scripts, please consider donating <a href="https://github.com/sponsors/Sv443" target="_blank">here ♥</a><br>
                 <br>
-                <span class="subHeader" id="uptime">Uptime:</span>
+                <div class="subHeaderContainer"><a href="#uptime" title="Click to link to this header">§</a> <span class="subHeader" id="uptime">Uptime:</span></div>
                 <table id="uptimeTable">
                     <tr>
                         <td>Last day:</td>
@@ -205,7 +205,7 @@
                 <a href="https://status.sv443.net/" target="_blank">(more stats)</a>
                 <br>
                 <br>
-                <span class="subHeader" id="security">Security:</span>
+                <div class="subHeaderContainer"><a href="#security" title="Click to link to this header">§</a> <span class="subHeader" id="security">Security:</span></div>
                 <!--%#INSERT:NAME#%--> has been a target of DoS attacks in the past, which is why there is now a limit of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute and why joke submissions are manually curated.<br>
                 All dependencies are tested for vulnerabilities by <a href="https://snyk.io/" target="_blank">Snyk</a>, you can find a summary of the known vulnerabilities <a href="https://snyk.io/test/github/Sv443/JokeAPI" target="_blank">here.</a><br>
                 Page security score (powered by Mozilla Observatory): <a href="https://observatory.mozilla.org/analyze/sv443.net" target="_blank"><img src="https://img.shields.io/mozilla-observatory/grade-score/sv443.net?publish" class="badge"></a><br>
@@ -471,7 +471,7 @@
                 Example: <mark>https://example.org/some/page<span class="colB">?</span><span class="colY">key1=foo</span><span class="colB">&</span><span class="colY">key2=bar</span><span class="colB">&</span><span class="colY">key3=baz</span> ...</mark> (yellow = key/value pair)<br>
                 
                 <!--#SECTION Format-->
-                <span class="subHeader" id="format-param">Format:</span>
+                <div class="subHeaderContainer"><a href="#format-param" title="Click to link to this header">§</a> <span class="subHeader" id="format-param">Format:</span></div>
                 <mark>?format=format</mark><br><br>
                 This parameter is global - it can be used on every single endpoint of <!--%#INSERT:NAME#%--> (excluding the documentation and static content).<br>
                 It is used to change the response format from the default (JSON) to <span class="insFormatsS">(Loading...)</span>, depending on what you need.<br>
@@ -509,7 +509,7 @@ None. It's a hardware problem.
 
 
                 <br><br><!--#SECTION Blacklist Flags-->
-                <span class="subHeader" id="flags-param">Blacklist Flags:</span>
+                <div class="subHeaderContainer"><a href="#flags-param" title="Click to link to this header">§</a> <span class="subHeader" id="flags-param">Blacklist Flags:</span></div>
                 <mark>?blacklistFlags=flag1[,flag2,...]</mark><br><br>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If it is used, jokes that match the specified flag(s) will not be served (<a href="#blacklist-flags">what is a flag?</a>).<br>
@@ -528,7 +528,7 @@ None. It's a hardware problem.
 
 
                 <br><br><!--#SECTION Language-->
-                <span class="subHeader" id="lang">Language:</span>
+                <div class="subHeaderContainer"><a href="#lang" title="Click to link to this header">§</a> <span class="subHeader" id="lang">Language:</span></div>
                 <mark>?lang=langcode</mark><br><br>
                 This parameter can be used on every endpoint, but it is possible that no translations or jokes exist yet for your language.<br>
                 <br>
@@ -550,7 +550,7 @@ None. It's a hardware problem.
 
 
                 <br><br><!--#SECTION Joke Type-->
-                <span class="subHeader" id="type-param">Joke Type:</span>
+                <div class="subHeaderContainer"><a href="#type-param" title="Click to link to this header">§</a> <span class="subHeader" id="type-param">Joke Type:</span></div>
                 <mark>?type=type</mark><br><br>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If it is set, you will only receive jokes with the specified joke type (<a href="#joke-type">what is a joke type?</a>).<br>
@@ -581,7 +581,7 @@ None. It's a hardware problem.
 
 
                 <br><br><!--#SECTION Contains-->
-                <span class="subHeader" id="contains-param">Contains:</span>
+                <div class="subHeaderContainer"><a href="#contains-param" title="Click to link to this header">§</a> <span class="subHeader" id="contains-param">Contains:</span></div>
                 <mark>?contains=string</mark><br><br>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If this parameter is specified, only jokes that contain the value of this parameter will be served (case insensitive).<br>
@@ -610,7 +610,7 @@ None. It's a hardware problem.
 
 
                 <br><br><!--#SECTION ID Range-->
-                <span class="subHeader" id="idrange-param">ID Range:</span>
+                <div class="subHeaderContainer"><a href="#idrange-param" title="Click to link to this header">§</a> <span class="subHeader" id="idrange-param">ID Range:</span></div>
                 <mark>?idRange=number[-number]</mark><br><br>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If it is used, you will only get jokes that are inside the specified range of IDs.<br>
@@ -631,7 +631,7 @@ None. It's a hardware problem.
 
 
                 <br><br><!--#SECTION Joke Amount-->
-                <span class="subHeader" id="amount-param">Joke Amount:</span>
+                <div class="subHeaderContainer"><a href="#amount-param" title="Click to link to this header">§</a> <span class="subHeader" id="amount-param">Joke Amount:</span></div>
                 <mark>?amount=number</mark><br><br>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If it is used, you will get a certain number of jokes in a single request.<br>
@@ -694,7 +694,7 @@ None. It's a hardware problem.
 }
 </div></code><br>
                 
-                <span class="subHeader" id="status-codes">Status Codes:</span>
+                <div class="subHeaderContainer"><a href="#status-codes" title="Click to link to this header">§</a> <span class="subHeader" id="status-codes">Status Codes:</span></div>
                 <table id="statusCodeTable">
                     <!-- Use CSS classes g (green), r (red) and dr (dark red) on the td's to color status codes -->
                     <tr>
@@ -784,7 +784,7 @@ None. It's a hardware problem.
 
 
                 <!--#SECTION Get Joke-->
-                <span id="joke-endpoint" class="subHeader">Get Joke:</span>
+                <div class="subHeaderContainer"><a href="#joke-endpoint" title="Click to link to this header">§</a> <span id="joke-endpoint" class="subHeader">Get Joke:</span></div>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/joke/<span class="placeholder">[Category/-ies]</span></span>
@@ -818,7 +818,7 @@ None. It's a hardware problem.
 
 
                 <!--#SECTION Info-->
-                <span id="info-endpoint" class="subHeader">Info:</span>
+                <div class="subHeaderContainer"><a href="#info-endpoint" title="Click to link to this header">§</a> <span id="info-endpoint" class="subHeader">Info:</span></div>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/info</span>
@@ -843,7 +843,7 @@ None. It's a hardware problem.
 
 
                 <!--#SECTION Categories-->
-                <span id="categories-endpoint" class="subHeader">Categories:</span>
+                <div class="subHeaderContainer"><a href="#categories-endpoint" title="Click to link to this header">§</a> <span id="categories-endpoint" class="subHeader">Categories:</span></div>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/categories</span>
@@ -860,7 +860,7 @@ None. It's a hardware problem.
 
 
                 <!--#SECTION LangCode-->
-                <span id="langcodes-endpoint" class="subHeader">Language Code:</span>
+                <div class="subHeaderContainer"><a href="#langcode-endpoint" title="Click to link to this header">§</a> <span id="langcode-endpoint" class="subHeader">Language Code:</span></div>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/langcode/<span class="placeholder">[Language]</span></span>
@@ -906,7 +906,7 @@ None. It's a hardware problem.
 
 
                 <!--#SECTION Languages-->
-                <span id="languages-endpoint" class="subHeader">Supported Languages:</span>
+                <div class="subHeaderContainer"><a href="#languages-endpoint" title="Click to link to this header">§</a> <span id="languages-endpoint" class="subHeader">Supported Languages:</span></div>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/languages</span>
@@ -956,7 +956,7 @@ None. It's a hardware problem.
 
 
                 <!--#SECTION Flags-->
-                <span id="flags-endpoint" class="subHeader">Flags:</span>
+                <div class="subHeaderContainer"><a href="#flags-endpoint" title="Click to link to this header">§</a> <span id="flags-endpoint" class="subHeader">Flags:</span></div>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/flags</span>
@@ -973,7 +973,7 @@ None. It's a hardware problem.
 
 
                 <!--#SECTION Formats-->
-                <span id="formats-endpoint" class="subHeader">Formats:</span>
+                <div class="subHeaderContainer"><a href="#formats-endpoint" title="Click to link to this header">§</a> <span id="formats-endpoint" class="subHeader">Formats:</span></div>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/formats</span>
@@ -990,7 +990,7 @@ None. It's a hardware problem.
 
 
                 <!--#SECTION Ping-->
-                <span id="ping-endpoint" class="subHeader">Ping:</span>
+                <div class="subHeaderContainer"><a href="#ping-endpoint" title="Click to link to this header">§</a> <span id="ping-endpoint" class="subHeader">Ping:</span></div>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/ping</span>
@@ -1008,7 +1008,7 @@ None. It's a hardware problem.
 
 
                 <!--#SECTION Endpoints-->
-                <span id="endpoints-endpoint" class="subHeader">Endpoints:</span>
+                <div class="subHeaderContainer"><a href="#endpoints-endpoint" title="Click to link to this header">§</a> <span id="endpoints-endpoint" class="subHeader">Endpoints:</span></div>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/endpoints</span>
@@ -1027,7 +1027,7 @@ None. It's a hardware problem.
 
 
                 <!--#SECTION Submit-->
-                <span id="submit-endpoint" class="subHeader">Submit Joke:</span>
+                <div class="subHeaderContainer"><a href="#submit-endpoint" title="Click to link to this header">§</a> <span id="submit-endpoint" class="subHeader">Submit Joke:</span></div>
                 <span class="requestURLwrapper">
                     <span class="requestMethodPUT">PUT</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/submit</span>
@@ -1292,7 +1292,7 @@ public class Flags
                 You might come across some terms in this documentation you don't understand. This section teaches you what those terms mean.<br>
 
                 <!--#SECTION Categories-->
-                <span class="subHeader" id="categories">Categories:</span>
+                <div class="subHeaderContainer"><a href="#categories" title="Click to link to this header">§</a> <span class="subHeader" id="categories">Categories:</span></div>
                 <!--%#INSERT:NAME#%--> has a first, coarse filter that just categorizes the jokes depending on what the joke is about or who the joke is directed at.<br>
                 A joke about programming will be in the "Programming" category, dark humor will be in the "Dark" category and so on.<br>
                 If you want jokes from all categories, you can instead use "Any", which will make <!--%#INSERT:NAME#%--> randomly choose a category.<br><br>
@@ -1301,21 +1301,21 @@ public class Flags
                 <mark><!--%#INSERT:DOCSURL#%-->/joke/Programming</mark>
 
                 <!--#SECTION Flags-->
-                <span class="subHeader" id="blacklist-flags">(Blacklist-) Flags:</span>
+                <div class="subHeaderContainer"><a href="#blacklist-flags" title="Click to link to this header">§</a> <span class="subHeader" id="blacklist-flags">(Blacklist-) Flags:</span></div>
                 Blacklist Flags (or just "Flags") are a more fine layer of filtering.<br>
                 Multiple flags can be set on each joke and they tell you something about the offensiveness of each joke.<br>
                 You can tell <!--%#INSERT:NAME#%--> to not give you jokes that have the specified flags by using the <a href="#flags-param">?blacklistFlags</a> URL parameter.<br><br>
                 These are all the available flags: <mark class="insFlags">(Loading...)</mark><br>
 
                 <!--#SECTION Formats-->
-                <span class="subHeader" id="response-formats">(Response-) Formats:</span>
+                <div class="subHeaderContainer"><a href="#response-formats" title="Click to link to this header">§</a> <span class="subHeader" id="response-formats">(Response-) Formats:</span></div>
                 Response Formats (or just "Formats") are a way to get your data in a different file format.<br>
                 Maybe you are using some other code that only accepts XML. In that case, <!--%#INSERT:NAME#%--> is able to convert the JSON-formatted joke to XML for you.<br>
                 You can tell <!--%#INSERT:NAME#%--> which file format to respond with by using the <a href="#format-param">?format</a> URL parameter.<br><br>
                 These are all the available formats: <mark class="insFormats">(Loading...)</mark><br>
 
                 <!--#SECTION Type-->
-                <span class="subHeader" id="joke-type">Joke Type:</span>
+                <div class="subHeaderContainer"><a href="#joke-type" title="Click to link to this header">§</a> <span class="subHeader" id="joke-type">Joke Type:</span></div>
                 Each joke comes with one of two types: single or twopart.<br>
                 If a joke is of type "twopart", it has a setup string and a delivery string, which are both part of the joke.<br>
                 They are separated because you might want to present the users the delivery after a timeout or in a different section of the UI.<br>
@@ -1324,14 +1324,14 @@ public class Flags
                 These are the available types: <mark>single, twopart</mark><br>
 
                 <!--#SECTION Search String-->
-                <span class="subHeader" id="search-string">Search String:</span>
+                <div class="subHeaderContainer"><a href="#search-string" title="Click to link to this header">§</a> <span class="subHeader" id="search-string">Search String:</span></div>
                 If the search string filter is used, only jokes that contain the specified string will be returned.<br>
                 You can specify this search string by using the <a href="#contains-param">?contains</a> URL parameter.<br>
                 <span class="colY">IMPORTANT:</span> If the value of this parameter contains special characters, it needs to be <a href="https://tools.ietf.org/html/rfc3986#section-2.1" target="_blank">percent-encoded</a> according to the URI standard (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent" target="_blank">MDN Reference</a>), otherwise you might get an error or a wrong response.<br>
 
 
                 <!--#SECTION ID Range-->
-                <span class="subHeader" id="id-range">ID Range:</span>
+                <div class="subHeaderContainer"><a href="#id-range" title="Click to link to this header">§</a> <span class="subHeader" id="id-range">ID Range:</span></div>
                 If this filter is used, you will only get jokes that are within the provided range of IDs.<br>
                 You don't necessarily need to provide an ID <i>range</i> though, a single ID will work just fine as well.<br>
                 Example: an ID range of 0-9 will mean you will only get one of the first 10 jokes, while an ID range of 5 will mean you will only get the 6th joke.<br>
@@ -1340,7 +1340,7 @@ public class Flags
 
 
                 <!--#SECTION Amount-->
-                <span class="subHeader" id="amount">Joke Amount:</span>
+                <div class="subHeaderContainer"><a href="#amount" title="Click to link to this header">§</a> <span class="subHeader" id="amount">Joke Amount:</span></div>
                 This filter allows you to set a certain amount of jokes to receive in a single call to the <a href="#joke-endpoint">"Get Joke" endpoint.</a><br>
                 You can set it using the <a href="#amount-param">?amount</a> URL parameter.<br>
                 Setting the filter to an invalid number will result in the API defaulting to serving a single joke.<br>
@@ -1352,7 +1352,7 @@ public class Flags
                 <div class="docHeader targetBlink" id="legal"><a class="headerAnchorContainer" href="#legal" title="Click to link to this header">🔗</a><span class="docHeaderText">Legal Stuff:</span></div>
 
                 <!-- #SECTION License -->
-                <span class="subHeader">License:</span>
+                <div class="subHeaderContainer"><a href="#license" title="Click to link to this header">§</a> <span class="subHeader" id="license">License:</span></div>
                 <div class="indented">
                     <!--%#INSERT:NAME#%--> is licensed under the MIT License.<br>
                     Before modifying and / or redistributing the source code, please take two minutes to read the license text.<br>
@@ -1360,7 +1360,8 @@ public class Flags
                 </div>
 
                 <!-- #SECTION Privacy -->
-                <br><br><span class="subHeader">Privacy:</span>
+                <br><br>
+                <div class="subHeaderContainer"><a href="#privacy" title="Click to link to this header">§</a> <span class="subHeader" id="privacy">Privacy:</span></div>
                 <div class="indented">
                     <!--%#INSERT:NAME#%--> has to collect some anonymized data to work.<br>
                     To view a list with details, please <span class="mimica" onclick="privPolMoreInfo()">click here.</span><br>
@@ -1369,7 +1370,8 @@ public class Flags
                 </div>
 
                 <!-- #SECTION Disclaimer -->
-                <br><br><span class="subHeader">Disclaimer:</span>
+                <br><br>
+                <div class="subHeaderContainer"><a href="#disclaimer" title="Click to link to this header">§</a> <span class="subHeader" id="disclaimer">Disclaimer:</span></div>
                 <div class="indented">
                     I will hereby not claim any legal responsibility or liability for <!--%#INSERT:NAME#%--> and the jokes it serves (especially those from the "Dark" category).<br>
                     Whether it is used maliciously or breaks something in your project or someone gets offended by a joke, I can't be held accountable.<br>
@@ -1380,7 +1382,8 @@ public class Flags
                 </div>
 
                 <!-- #SECTION Fonts -->
-                <br><br><span class="subHeader">Fonts:</span>
+                <br><br>
+                <div class="subHeaderContainer"><a href="#fonts" title="Click to link to this header">§</a> <span class="subHeader" id="fonts">Fonts:</span></div>
                 <div class="indented">
                     <!--%#INSERT:NAME#%--> uses these third party fonts on its documentation page:
                     <ul>
@@ -1389,7 +1392,8 @@ public class Flags
                     </ul>
                 </div>
 
-                <br><br><span class="subHeader">Other Attributions:</span>
+                <br><br>
+                <div class="subHeaderContainer"><a href="#other-attributions" title="Click to link to this header">§</a> <span class="subHeader" id="other-attributions">Other Attributions:</span></div>
                 <div class="indented">
                     <ul>
                         <li>The Rust logo is owned by <a href="https://mozilla.org/" target="_blank">Mozilla</a> and licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution (CC-BY)</a> license</li>
@@ -1398,7 +1402,8 @@ public class Flags
                 </div>
 
                 <!-- #SECTION Libraries -->
-                <br><br><span class="subHeader">Libraries:</span>
+                <br><br>
+                <div class="subHeaderContainer"><a href="#libraries" title="Click to link to this header">§</a> <span class="subHeader" id="libraries">Libraries:</span></div>
                 <div class="indented">
                     <!--%#INSERT:NAME#%--> uses these libraries:
                     <ul>
@@ -1408,7 +1413,8 @@ public class Flags
                 </div>
 
                 <!-- #SECTION Dependencies -->
-                <br><br><span class="subHeader">Dependencies:</span>
+                <br><br>
+                <div class="subHeaderContainer"><a href="#dependencies" title="Click to link to this header">§</a> <span class="subHeader" id="dependencies">Dependencies:</span></div>
                 <div class="indented">
                     These are the packages <!--%#INSERT:NAME#%--> depends on (excluding dependencies of dependencies and devDependencies):
                     <ul>

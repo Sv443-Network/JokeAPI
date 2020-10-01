@@ -876,13 +876,31 @@ textarea {
     margin-top: 50px;
 }
 
-.subHeader {
+.subHeaderContainer {
     display: block;
     margin-top: 25px;
     margin-bottom: 8px;
     text-decoration: underline;
     text-underline-offset: 3px; /* currently only supported in FF70+ and SF12.1+ (see https://caniuse.com/#search=text-underline-offset) */
+}
+
+.subHeaderContainer .subHeader {
     font-size: var(--doc-sub-header-font-size);
+}
+
+.subHeaderContainer a {
+    vertical-align: super;
+    font-size: smaller;
+    text-decoration: none;
+    text-underline-offset: initial;
+
+    color: rgba(188, 194, 255, 0.4);
+    transition: color 0.075s linear;
+}
+
+.subHeaderContainer a:hover {
+    color: rgba(188, 194, 255, 1.0);
+    text-decoration: inherit;
 }
 
 /*#SECTION usage terms */
