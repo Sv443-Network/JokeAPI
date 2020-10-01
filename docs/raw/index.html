@@ -426,7 +426,7 @@
                                     <select id="f_language" class="appendLangOpts"></select>
                                     <span id="f_langHideContainer" class="hidden">
                                         <input type="text" id="f_customLang" placeholder="Language Code" minlength="2" maxlength="2" onchange="valChanged(this)" value="en">
-                                        <a href="<!--%#INSERT:DOCSURL#%-->/languages?format=txt" target="_blank" title="Click to view all possible language code values">(?)</a>
+                                        <a href="<!--%#INSERT:DOCSURL#%-->/languages?format=txt" target="_blank" title="Click to view all possible ISO 639-1 language code values">(?)</a>
                                     </span>
                                 </td>
                             </tr>
@@ -526,7 +526,7 @@ None. It's a hardware problem.
 
                 <details><summary>Example 2 (click to view)</summary>
                     URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?blacklistFlags=nsfw,racist,sexist,explicit</mark><br>
-                    Using the above URL makes sure you don't get any jokes that are not safe for work, racist and sexist and that doesn't contain explicit language.
+                    Using the above URL makes sure you don't get any jokes that are not safe for work, racist and sexist and that doesn't contain explicit language (swear words, etc.).
                 </details>
 
 
@@ -539,6 +539,7 @@ None. It's a hardware problem.
                 All system messages like errors can have a certain system language, while jokes can only have a joke language.<br>
                 It is possible, that system languages don't yet exist for your language while jokes already do.<br>
                 If no suitable system language is found, <!--%#INSERT:NAME#%--> will default to English.<br>
+                The language codes in <!--%#INSERT:NAME#%--> follow the <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" target="_blank">ISO 639-1</a> / Alpha-2 specification.<br>
                 <br>
                 If you are interested in providing translations, please read the <a href="https://github.com/Sv443/JokeAPI/blob/master/.github/Contributing.md#submitting-translations" target="_blank">Contributing Guide</a>; it will explain it.<br>
                 You can also submit jokes in different languages. Please understand that I will not be able to ensure their proper formatting or legitimacy.<br>
@@ -871,8 +872,8 @@ None. It's a hardware problem.
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/langcode/<span class="placeholder">[Language]</span></span>
                 </span>
                 <br><br>
-                This endpoint returns the language code of a provided language. It is searched with a fuzzy search, so you just have to provide the approximate language name.<br>
-                This language code is to be used in <a href="#joke-endpoint">fetching</a> and <a href="#submit-endpoint">submitting</a> jokes in different languages.<br>
+                This endpoint returns the ISO 639-1 language code of a provided language. It is searched with a fuzzy search, so you just have to provide the approximate language name.<br>
+                The resulting language code is to be used in <a href="#joke-endpoint">fetching</a> and <a href="#submit-endpoint">submitting</a> jokes in different languages.<br>
                 <br>
                 <details>
                     <summary>Example 1 - click to view</summary>
@@ -918,7 +919,7 @@ None. It's a hardware problem.
                 </span>
                 <br><br>
                 This endpoint returns lists of supported languages in jokes and supported languages in system messages (error messages).<br>
-                Also, it returns a list of possible language values you can use to submit a joke or add a translation.<br>
+                Also, it returns a list of possible ISO 639-1 language codes you can use to submit a joke or add a translation.<br>
                 <details>
                     <summary>Example - click to view</summary>
                     <br>
