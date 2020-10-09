@@ -569,7 +569,7 @@ function buildURL()
 
 
     //#SECTION flags
-    var flagElems = [gebid("blf-cb1"), gebid("blf-cb2"), gebid("blf-cb3"), gebid("blf-cb4"), gebid("blf-cb5")];
+    var flagElems = [gebid("blf-cb1"), gebid("blf-cb2"), gebid("blf-cb3"), gebid("blf-cb4"), gebid("blf-cb5"), gebid("blf-cb6")];
     var flagNames = JSON.parse('<!--%#INSERT:FLAGSARRAY#%-->');
     var selectedFlags = [];
     flagElems.forEach(function(el, i) {
@@ -765,7 +765,7 @@ function resetTryItForm(confirmation)
 
     gebid("cat-radio1").checked = true;
 
-    ["blf-cb1", "blf-cb2", "blf-cb3", "blf-cb4", "blf-cb5"].forEach(function(flg) {
+    ["blf-cb1", "blf-cb2", "blf-cb3", "blf-cb4", "blf-cb5", "blf-cb6"].forEach(function(flg) {
         gebid(flg).checked = false;
     });
 
