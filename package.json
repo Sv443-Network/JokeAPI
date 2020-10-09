@@ -3,7 +3,7 @@
   "version": "2.2.2",
   "description": "A RESTful API that serves jokes from many categories while also offering a lot of filtering methods",
   "main": "JokeAPI.js",
-  "homepage": "https://jokeapi.dev",
+  "homepage": "http://127.0.0.1:8076",
   "scripts": {
     "start": "node . && exit $?",
     "test": "node tools/test && snyk test",

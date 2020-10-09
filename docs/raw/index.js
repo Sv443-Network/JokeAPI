@@ -93,13 +93,18 @@ this.setOuterHTML=function(id,outer_html){try{gebid("jsg_menu_"+id).outerHTML=ou
 catch(err){console.error("couldn't find menu or outer_html is not valid");return!1}}}
 function gebid(id){return document.getElementById(id);}
 
+
+var idRanges = {};
+var maxJokeIdRange = parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->");
+
+
 //#MARKER onload
 
 function onLoad()
 {
     window.jokeapi = {};
 
-    console.log("%cJokeAPI%cDocumentation (v<!--%#INSERT:VERSION#%-->)", "color: #b05ffc; background-color: black; padding: 5px; padding-right: 0;", "color: white; background-color: black; padding: 5px;");
+    console.log("%cJokeAPI%cDocumentation (v<!--%#INSERT:VERSION#%-->)  -  © Copyright Sv443 Network 2018-2020", "color: #b05ffc; background-color: black; padding: 5px; padding-right: 0; font-size: 1.2em;", "color: white; background-color: black; padding: 5px; font-size: 1.2em;");
 
     gebid("content").onclick = closeNav;
     document.getElementsByTagName("header")[0].onclick = closeNav;
@@ -325,6 +330,35 @@ function onLoad()
     };
     langXhr.send();
 
+
+    var infoXhr = new XMLHttpRequest();
+    infoXhr.open("GET", (settings.baseURL + "/info"));
+
+    infoXhr.onreadystatechange = function() {
+        if(infoXhr.readyState == 4 && infoXhr.status < 300)
+        {
+            var respJSON = JSON.parse(infoXhr.responseText.toString());
+
+            var idrKeys = Object.keys(respJSON.jokes.idRange);
+            for(var i = 0; i < idrKeys.length; i++)
+            {
+                var idrKey = idrKeys[i];
+                idRanges[idrKey] = respJSON.jokes.idRange[idrKey];
+
+                console.info("<!--%#INSERT:NAME#%--> is serving " + respJSON.jokes.idRange[idrKey][1] + " jokes from language \"" + idrKey + "\"");
+            }
+
+            reRender();
+        }
+        else if(infoXhr.readyState == 4 && infoXhr.status >= 300)
+        {
+            console.error("Couldn't get ID range of all languages. Defaulting to the max possible value.");
+        }
+    };
+
+    infoXhr.send();
+
+
     gebid("submitBtn").addEventListener("click", function() {
         submitJoke();
     });
@@ -333,6 +367,8 @@ function onLoad()
     setTimeout(function() { buildSubmission() }, 2000);
 
     gebid("insUserAgent").innerText = navigator.userAgent;
+
+    gebid("lcodeSelect").value = settings.defaultLang;
 
     var abElems = document.getElementsByClassName("antiBotE");
     for(var l = 0; l < abElems.length; l++)
@@ -346,6 +382,9 @@ function onLoad()
             }
         }
     }
+
+    gebid("lcodeSelect").value = settings.defaultLang;
+    gebid("lcodeSelect").onchange = function() { reRender(true) };
 }
 
 function addCodeTabs()
@@ -429,8 +468,13 @@ function openChangelog()
     sMenu.open("changelog");
 }
 
-function reRender()
+/**
+ * @param {Boolean} [langChanged]
+ */
+function reRender(langChanged)
 {
+    console.info("Re-rendering try-it form");
+
     var allOk = true;
 
     //#SECTION category
@@ -486,12 +530,35 @@ function reRender()
 
 
     //#SECTION id range
+    if(langChanged === true)
+    {
+        console.warn("langchanged")
+
+        var langCode = gebid("lcodeSelect").value;
+
+        if(idRanges[langCode])
+        {
+            var maxRange = parseInt(idRanges[langCode][1]);
+
+            gebid("idRangeInputTo").max = maxRange;
+            gebid("idRangeInputTo").value = maxRange;
+
+            maxJokeIdRange = maxRange;
+        }
+        else
+        {
+            gebid("idRangeInputTo").max = parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->");
+
+            maxJokeIdRange = parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->");
+        }
+    }
+
     var numRegex = /^[0-9]+$/gm;
     var fromVal = gebid("idRangeInputFrom").value;
     var toVal = gebid("idRangeInputTo").value;
     var fromValInt = parseInt(fromVal);
     var toValInt = parseInt(toVal);
-    var outOfRange = fromValInt < 0 || toValInt > parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->");
+    var outOfRange = (fromValInt < 0 || toValInt > maxJokeIdRange);
     var notNumber = ((fromVal.match(numRegex) == null) || (toVal.match(numRegex) == null));
 
     if(outOfRange || notNumber || fromValInt > toValInt)
@@ -621,14 +688,14 @@ function buildURL()
 
     //#SECTION id range
     var range = [parseInt(gebid("idRangeInputFrom").value), parseInt(gebid("idRangeInputTo").value)];
-    if(!isNaN(range[0]) && !isNaN(range[1]) && range[0] >= 0 && range[1] <= parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->") && range[1] >= range[0])
+    if(!isNaN(range[0]) && !isNaN(range[1]) && range[0] >= 0 && range[1] <= maxJokeIdRange && range[1] >= range[0])
     {
-        if(range[0] == range[1] && range[0] > 0 && range[0] <= parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->"))
+        if(range[0] == range[1] && range[0] >= 0 && range[0] <= maxJokeIdRange)
         {
             // Use "x" format
             queryParams.push("idRange=" + range[0]);
         }
-        else if(range[0] != 0 || range[1] != parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->"))
+        else if(range[0] != 0 || range[1] != maxJokeIdRange)
         {
             // Use "x-y" format
             queryParams.push("idRange=" + range[0] + "-" + range[1]);
@@ -781,8 +848,6 @@ function resetTryItForm(confirmation)
     gebid("idRangeInputTo").value = parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->");
 
     gebid("jokesAmountInput").value = 1;
-
-    gebid("lcodeSelect").value = settings.defaultLang;
 
     reRender();
 }
