@@ -81,7 +81,7 @@ const settings = {
                 "sexist",
                 "explicit",
             ],
-            formats: [ // all content formats - HAVE TO BE LOWER CASE!
+            formats: [ // all file formats - HAVE TO BE LOWER CASE!
                 "json",
                 "xml",
                 "yaml",

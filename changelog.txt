@@ -82,7 +82,7 @@
 
 [2.1.1] - Auth update hotfix
     - Fixed incorrect error cause when using an out-of-range ID range parameter (see GitHub issue #54)
-    - Added submission form (https://sv443.net/jokeapi/v2#submit)
+    - Added submission form (https://v2.jokeapi.dev/#submit)
 
 
 [2.1.0] - The auth update
@@ -102,7 +102,7 @@
 [2.0.0] - The complete rewrite - JokeAPI was completely rewritten and should now run like 100x better and be more easy to develop and maintain
     - Massively improved the "Try it out" section in the docs
     - Reformatted the jokes to always contain all flags
-    - Added support for selecting multiple categories at once (for example: "https://sv443.net/jokeapi/v2/joke/Dark,Miscellaneous/")
+    - Added support for selecting multiple categories at once (for example: "https://v2.jokeapi.dev/joke/Dark,Miscellaneous/")
     - Massive performance improvements:
         - The documentation page and some static content are now able to be served with gzip, deflate and brotli encoding, decreasing the required bandwidth and speeding up page loading time
         - Reformatted the jokes to have the IDs beforehand, furthermore increasing performance and making it easier to know which joke ID belongs to which joke
@@ -111,7 +111,7 @@
     - Added a few new URL parameters:
         - Added the "?type" URL parameter to specify the type of the served joke ("single" or "twopart")
         - Added the "?contains" URL parameter to only serve jokes that match the provided search query
-        - Added the "?idRange" URL parameter to get jokes from a single ID or an ID range (example: "https://sv443.net/jokeapi/v2/joke/Any?id=50-75" or "...?id=15")
+        - Added the "?idRange" URL parameter to get jokes from a single ID or an ID range (example: "https://v2.jokeapi.dev/joke/Any?id=50-75" or "...?id=15")
     - Added the "racist" and "sexist" flags for better filtering of offensive jokes
     - IP addresses are now hashed, protecting JokeAPI's users better and making it GDPR/DSGVO compliant
     - Added multiple scripts that should be run before contributing to the project / that are run through GitHub's Continuous Integration:
