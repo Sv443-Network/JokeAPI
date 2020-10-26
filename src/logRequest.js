@@ -163,7 +163,7 @@ const initMsg = (initTimestamp) => {
         console.log(` ├─ Connected to analytics database at ${jsl.colors.fg.green}${analytics.connectionInfo.info}${jsl.colors.rst}`);
     else
         console.log(` ├─ Analytics database ${settings.analytics.enabled ? jsl.colors.fg.red : jsl.colors.fg.yellow}not connected${settings.analytics.enabled ? "" : " (disabled)"}${jsl.colors.rst}`);
-    console.log(` ├─ ${settings.info.name} is listening at ${jsl.colors.fg.green}0.0.0.0:${settings.httpServer.port}${jsl.colors.rst}`);
+    console.log(` ├─ ${settings.info.name} is listening at ${jsl.colors.fg.green}http://localhost:${settings.httpServer.port}${jsl.colors.rst}`);
     console.log(` └─ Initialization took ${jsl.colors.fg.green}${(new Date().getTime() - initTimestamp).toFixed(0)}ms${jsl.colors.rst}`);
     process.stdout.write("\n");
     
