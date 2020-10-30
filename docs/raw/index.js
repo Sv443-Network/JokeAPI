@@ -7,7 +7,7 @@ var settings = {
     anyCategoryName: "Any",
     defaultFormat: "json",
     submitUrl: "<!--%#INSERT:DOCSURL#%-->/submit",
-    // submitUrl: "http://127.0.0.1:8076/submit",
+    // submitUrl: "http://127.0.0.1:8076/submit", // DEBUG
     defaultLang: "en",
     formatVersion: 3
 };
@@ -345,6 +345,8 @@ function onLoad()
             }
         }
     }
+
+    gebid("sideNavOpen").onclick = function() { return openNav(); };
 }
 
 function addCodeTabs()
