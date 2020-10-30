@@ -19,6 +19,7 @@
     - Added dependent ToastIT-dev/PoshBot.Joker (issue #173)
     - Added a bunch of joke submissions
     - Reliability improvements in the documentation (issue #181)
+    - Added POST as a method to submit data to the API since it makes more sense than PUT (maybe deprecating that some time)
 
 
 [2.2.1] - Version 2.2 Hotfix

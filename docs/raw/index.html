@@ -1014,12 +1014,14 @@ None. It's a hardware problem.
                 <!--#SECTION Submit-->
                 <span id="submit-endpoint" class="subHeader">Submit Joke:</span>
                 <span class="requestURLwrapper">
-                    <span class="requestMethodPUT">PUT</span>
+                    <span class="requestMethodPUT">POST / PUT</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/submit</span>
                 </span>
                 <br><br>
-                This endpoint is used to submit a joke to be reviewed and added to <!--%#INSERT:NAME#%-->'s official jokes.<br>
+                This endpoint is used to programatically submit a joke to be reviewed and added to <!--%#INSERT:NAME#%-->'s official jokes.<br>
                 If you instead just want to manually submit a joke, please <a href="#submit">click here.</a><br>
+                To ensure backwards compatibility you can use the <mark>PUT</mark> method even though it is discouraged.<br>
+                Using the <mark>PUT</mark> method might be deprecated in the future.<br><br>
                 The payload needs to be sent as JSON. Different <a href="#response-formats">formats</a> are not allowed here.<br>
                 The request payload has to follow the same object structure that the jokes are served in when using the "joke" endpoint.<br>
                 <br>
