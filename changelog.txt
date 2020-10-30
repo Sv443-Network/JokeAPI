@@ -12,10 +12,13 @@
 
 
 [CURRENT: 2.2.2] - The Seasonal Update
-    - Added some new seasonal categories:
+    - Added some new seasonal categories (issue #180)
         - Spooky (Halloween)
         - Christmas (thanks for the suggestion Dan)
         - Summer
+    - Added dependent ToastIT-dev/PoshBot.Joker (issue #173)
+    - Added a bunch of joke submissions
+    - Reliability improvements in the documentation (issue #181)
 
 
 [2.2.1] - Version 2.2 Hotfix
