@@ -10,6 +10,9 @@ const jsl = require("svjsl");
 const settings = require("../../settings");
 
 
+/** @typedef {"Any"|"Programming"|"Miscellaneous"|"Dark"} JokeCategory */
+
+
 jsl.unused(AllJokes);
 
 var _lastIDs = [];
@@ -58,7 +61,7 @@ class FilteredJoke
     //#MARKER categories
     /**
      * Sets the category / categories a joke can be from
-     * @param {("Any"|"Programming"|"Miscellaneous"|"Dark"|Array<"Any"|"Programming"|"Miscellaneous"|"Dark">} categories 
+     * @param {JokeCategory|JokeCategory[]} categories 
      * @returns {Boolean} Returns true if the category / categories were set successfully, else returns false
      */
     setAllowedCategories(categories)
@@ -94,7 +97,7 @@ class FilteredJoke
 
     /**
      * Returns the category / categories a joke can be in
-     * @returns {Array<"Any"|"Programming"|"Miscellaneous"|"Dark">}
+     * @returns {JokeCategory[]}
      */
     getAllowedCategories()
     {

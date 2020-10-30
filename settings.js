@@ -71,7 +71,10 @@ const settings = {
                 "Miscellaneous",
                 "Programming",
                 "Dark",
-                "Pun"
+                "Pun",
+                "Spooky",
+                "Christmas",
+                "Summer"
             ],
             flags: [ // all flags - HAS TO BE LOWER CASE!
                 "nsfw",
