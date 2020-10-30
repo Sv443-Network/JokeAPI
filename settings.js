@@ -117,6 +117,10 @@ const settings = {
         disableCache: true,   // whether or not to disable the cache - default: true (setting to false may prevent the users from getting new jokes)
         infoHeaders: true,    // whether or not to add an informational header about JokeAPI to each request
         reverseProxy: true,   // whether or not JokeAPI gets its requests from a reverse proxy
+        ssl: {
+            enabled: false,                // whether SSL is enabled
+            certFile: "./.ssl/cert-xy.pem" // to be implemented (issue #185)
+        },
         ipSanitization: {     // used to sanitize IP addresses so they can be used in file paths
             regex: /[^A-Za-z0-9\-_./]|^COM[0-9]([/.]|$)|^LPT[0-9]([/.]|$)|^PRN([/.]|$)|^CLOCK\$([/.]|$)|^AUX([/.]|$)|^NUL([/.]|$)|^CON([/.]|$)/gm,
             replaceChar: "#", // what character to use instead of illegal characters
