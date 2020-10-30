@@ -66,8 +66,8 @@ const settings = {
         },
         jokesTemplateFile: "template.json",  // relative to "jokes.jokesFolderPath"
         possible: {
-            anyCategoryName: "Any", // the name of the "Any" category
-            categories: [           // all categories (excluding "Any") - case insensitive
+            anyCategoryName: "Any", // the name of the "Any" category - readable name
+            categories: [           // all categories (excluding "Any") - case insensitive / readable name
                 "Miscellaneous",
                 "Programming",
                 "Dark",
