@@ -230,7 +230,6 @@
                                             <input type="checkbox" id="cat-cb4" onchange="reRender()" disabled><label for="cat-cb4">Pun</label>
                                             <input type="checkbox" id="cat-cb5" onchange="reRender()" disabled><label for="cat-cb5">Spooky</label>
                                             <input type="checkbox" id="cat-cb6" onchange="reRender()" disabled><label for="cat-cb6">Christmas</label>
-                                            <input type="checkbox" id="cat-cb7" onchange="reRender()" disabled><label for="cat-cb7">Summer</label>
                                         </span>
                                     </div>
                                 </div>
@@ -397,7 +396,6 @@
                                         <option value="Pun">Pun</option>
                                         <option value="Spooky">Spooky</option>
                                         <option value="Christmas">Christmas</option>
-                                        <option value="Summer">Summer</option>
                                     </select>
                                 </td>
                             </tr>
@@ -680,7 +678,7 @@ None. It's a hardware problem.
     "causedBy": [
         "No jokes were found that match your provided filter(s)"
     ],
-    "additionalInfo": "The specified category is invalid - Got: \"foo\" - Possible categories are: \"Any, Miscellaneous, Programming, Dark, Pun, Spooky, Christmas, Summer\" (case insensitive)",
+    "additionalInfo": "The specified category is invalid - Got: \"foo\" - Possible categories are: \"Any, Miscellaneous, Programming, Dark, Pun, Spooky, Christmas\" (case insensitive)",
     "timestamp": 1579170794412
 }
 </div></code><br>
@@ -1129,7 +1127,7 @@ None. It's a hardware problem.
 <div class="actualCode">const https = require("https"); // Native module, no need to explicitly install
 
 const baseURL = "<!--%#INSERT:DOCSURL#%-->";
-const categories = ["Programming", "Miscellaneous", "Pun", "Spooky", "Christmas", "Summer"];
+const categories = ["Programming", "Miscellaneous", "Pun", "Spooky", "Christmas"];
 const params = [
     "blacklistFlags=nsfw,religious,racist",
     "idRange=0-100"
@@ -1170,7 +1168,7 @@ https.get(`${baseURL}/joke/${categories.join(",")}?${params.join("&")}`, res => 
                 <details><summary id="example-js" class="big">Web-JavaScript (click to show)</summary>
 <code class="prettyprint"><span class="nocode codeheader">Web-JS:</span>
 <div class="actualCode">var baseURL = "<!--%#INSERT:DOCSURL#%-->";
-var categories = ["Programming", "Miscellaneous", "Pun", "Spooky", "Christmas", "Summer"];
+var categories = ["Programming", "Miscellaneous", "Pun", "Spooky", "Christmas"];
 var params = [
     "blacklistFlags=nsfw,religious,racist",
     "idRange=0-100"
@@ -1218,7 +1216,7 @@ using System.Web.Script.Serialization; // Requires you to include the assembly "
 private void getJoke()
 {
     string baseURL = "<!--%#INSERT:DOCSURL#%-->";
-    string[] categories = { "Programming", "Miscellaneous", "Pun", "Spooky", "Christmas", "Summer" };
+    string[] categories = { "Programming", "Miscellaneous", "Pun", "Spooky", "Christmas" };
     string[] parameters = {
         "blacklistFlags=nsfw,religious,racist",
         "idRange=0-100"

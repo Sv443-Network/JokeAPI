@@ -443,14 +443,14 @@ function reRender()
         if(el.value == "any")
         {
             isValid = true;
-            ["cat-cb1", "cat-cb2", "cat-cb3", "cat-cb4", "cat-cb5", "cat-cb6", "cat-cb7"].forEach(function(cat) {
+            ["cat-cb1", "cat-cb2", "cat-cb3", "cat-cb4", "cat-cb5", "cat-cb6"].forEach(function(cat) {
                 gebid(cat).disabled = true;
             });
         }
         else
         {
             var isChecked = false;
-            ["cat-cb1", "cat-cb2", "cat-cb3", "cat-cb4", "cat-cb5", "cat-cb6", "cat-cb7"].forEach(function(cat) {
+            ["cat-cb1", "cat-cb2", "cat-cb3", "cat-cb4", "cat-cb5", "cat-cb6"].forEach(function(cat) {
                 var cel = gebid(cat);
                 cel.disabled = false;
 
@@ -562,10 +562,6 @@ function buildURL()
         if(gebid("cat-cb6").checked)
         {
             selectedCategories.push("Christmas");
-        }
-        if(gebid("cat-cb7").checked)
-        {
-            selectedCategories.push("Summer");
         }
 
         if(selectedCategories.length == 0)
@@ -772,7 +768,7 @@ function resetTryItForm(confirmation)
     if(confirmation === true && !confirm("Do you really want to reset the form?"))
         return;
 
-    ["cat-cb1", "cat-cb2", "cat-cb3", "cat-cb4", "cat-cb5", "cat-cb6", "cat-cb7"].forEach(function(cat) {
+    ["cat-cb1", "cat-cb2", "cat-cb3", "cat-cb4", "cat-cb5", "cat-cb6"].forEach(function(cat) {
         gebid(cat).checked = false;
     });
 
