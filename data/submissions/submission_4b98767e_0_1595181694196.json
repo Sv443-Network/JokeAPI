@@ -1,0 +1,14 @@
+{
+    "formatVersion": 2,
+    "category": "Programming",
+    "type": "twopart",
+    "flags": {
+        "nsfw": true,
+        "religious": false,
+        "political": false,
+        "racist": false,
+        "sexist": false
+    },
+    "setup": "What’s the difference between England and a tea bag? ",
+    "delivery": "The tea bag stays in the cup longer"
+}

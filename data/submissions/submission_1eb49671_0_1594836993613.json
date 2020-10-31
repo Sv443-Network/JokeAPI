@@ -1,0 +1,14 @@
+{
+    "formatVersion": 2,
+    "category": "Miscellaneous",
+    "type": "twopart",
+    "flags": {
+        "nsfw": false,
+        "religious": true,
+        "political": false,
+        "racist": false,
+        "sexist": false
+    },
+    "setup": "this is Bernaud's joke",
+    "delivery": "nice from a first try"
+}

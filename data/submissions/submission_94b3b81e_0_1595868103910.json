@@ -1,0 +1,14 @@
+{
+    "formatVersion": 2,
+    "category": "Programming",
+    "type": "twopart",
+    "flags": {
+        "nsfw": true,
+        "religious": false,
+        "political": false,
+        "racist": false,
+        "sexist": false
+    },
+    "setup": "What will to call a beginner at programming",
+    "delivery": "a beginnergrammer"
+}

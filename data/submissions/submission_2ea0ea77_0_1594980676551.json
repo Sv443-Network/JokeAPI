@@ -1,0 +1,13 @@
+{
+    "formatVersion": 2,
+    "category": "Programming",
+    "type": "single",
+    "flags": {
+        "nsfw": false,
+        "religious": false,
+        "political": true,
+        "racist": false,
+        "sexist": false
+    },
+    "joke": "test"
+}

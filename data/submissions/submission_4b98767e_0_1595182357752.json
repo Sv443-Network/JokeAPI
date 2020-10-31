@@ -1,0 +1,14 @@
+{
+    "formatVersion": 2,
+    "category": "Dark",
+    "type": "twopart",
+    "setup": "What’s the difference between England and a tea bags?",
+    "delivery": "The tea bag stays in the cup longer",
+    "flags": {
+        "nsfw": true,
+        "religious": false,
+        "political": true,
+        "racist": false,
+        "sexist": false
+    }
+}

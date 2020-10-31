@@ -1,0 +1,14 @@
+{
+    "category": "Miscellaneous",
+    "error": false,
+    "flags": {
+        "nsfw": false,
+        "political": false,
+        "racist": false,
+        "religious": false,
+        "sexist": false
+    },
+    "formatVersion": 2,
+    "joke": "text\n",
+    "type": "single"
+}
