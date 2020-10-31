@@ -7,7 +7,7 @@ var settings = {
     anyCategoryName: "Any",
     defaultFormat: "json",
     submitUrl: "<!--%#INSERT:DOCSURL#%-->/submit",
-    // submitUrl: "http://127.0.0.1:8076/submit",
+    // submitUrl: "http://127.0.0.1:8076/submit", // DEBUG
     defaultLang: "en",
     formatVersion: 3
 };
@@ -345,6 +345,8 @@ function onLoad()
             }
         }
     }
+
+    gebid("sideNavOpen").onclick = function() { return openNav(); };
 }
 
 function addCodeTabs()
@@ -441,14 +443,14 @@ function reRender()
         if(el.value == "any")
         {
             isValid = true;
-            ["cat-cb1", "cat-cb2", "cat-cb3", "cat-cb4"].forEach(function(cat) {
+            ["cat-cb1", "cat-cb2", "cat-cb3", "cat-cb4", "cat-cb5", "cat-cb6"].forEach(function(cat) {
                 gebid(cat).disabled = true;
             });
         }
         else
         {
             var isChecked = false;
-            ["cat-cb1", "cat-cb2", "cat-cb3", "cat-cb4"].forEach(function(cat) {
+            ["cat-cb1", "cat-cb2", "cat-cb3", "cat-cb4", "cat-cb5", "cat-cb6"].forEach(function(cat) {
                 var cel = gebid(cat);
                 cel.disabled = false;
 
@@ -552,6 +554,14 @@ function buildURL()
         if(gebid("cat-cb4").checked)
         {
             selectedCategories.push("Pun");
+        }
+        if(gebid("cat-cb5").checked)
+        {
+            selectedCategories.push("Spooky");
+        }
+        if(gebid("cat-cb6").checked)
+        {
+            selectedCategories.push("Christmas");
         }
 
         if(selectedCategories.length == 0)
@@ -758,7 +768,7 @@ function resetTryItForm(confirmation)
     if(confirmation === true && !confirm("Do you really want to reset the form?"))
         return;
 
-    ["cat-cb1", "cat-cb2", "cat-cb3", "cat-cb4"].forEach(function(cat) {
+    ["cat-cb1", "cat-cb2", "cat-cb3", "cat-cb4", "cat-cb5", "cat-cb6"].forEach(function(cat) {
         gebid(cat).checked = false;
     });
 
