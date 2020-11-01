@@ -3017,6 +3017,528 @@
                 "sexist": false
             },
             "id": 219
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "How do construction workers party?",
+            "delivery": "They raise the roof",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "what do you tell a woman with 2 black eyes?",
+            "delivery": "nothing. you already told her twice",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "How do you make a Kleenox Dance?",
+            "delivery": "Put a little Buggie in it.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "what's the difference between harry potter and the jews?",
+            "delivery": "Harry escaped the chamber.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": true,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Pun",
+            "type": "single",
+            "joke": "I was struggling to figure out how lightning works, but then it struck me.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "Two SQL tables sit at the bar. A query approaches and asks: can I join you?",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "Why do cows wear bells?",
+            "delivery": "Because their horns don't work!",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": true,
+                "sexist": true
+            }
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "Newbie learning to code. Studies html says: \"Coding aint so bad\". Studies Css: \"Coding is work but I think I cn do it\" Studies Javascript: \"I think I'll just get my Real Estate License\"",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "Why was the mushroom always invited to parties?",
+            "delivery": "'Cos he's a fungi",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "What do you call a bird sitting with their legs spread?",
+            "delivery": "A prostitweety.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Mickey Mouse and Minnie Mouse are in divorce court.\nMickey, the judge says, Im sorry. I cant grant you a divorce on the grounds of insanity. Minnie seems quite sane to me.",
+            "delivery": "I didnt say she was insane, exclaims Mickey.\nI said she was fucking Goofy.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "setup": "Why do they call it hyper terminal",
+            "delivery": "Too much Java",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "How does a black woman fight crime",
+            "delivery": "She has an abortion",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": true,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Dark",
+            "type": "single",
+            "joke": "I don't know where I stand on abortion. I like killing babies, but I don't like giving women a choice.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": true
+            }
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "Why is it so hard to break up with a Japanese girlfriend?",
+            "delivery": "You have to drop the bomb twice before she gets it.\n\n",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": true,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "What do 9 out of 10 people enjoy?",
+            "delivery": "Gang rape",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": true,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "How much did your chimney cost?",
+            "delivery": "Nothing, it was on the house.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "debugging",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "setup": "Why programmers prefer dark mode?",
+            "delivery": "Because light attract bugs.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "joke": "What does the MacBook have in common with Donald Trump?\n\nI would tell you....\n\nBut I don't compare apples to oranges.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": true,
+                "racist": true,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "setup": "Why did the Python data scientist get arrested at customs?",
+            "delivery": "She was caught trying to import pandas!",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "joke": "My parents raised me as an only child, which really annoyed my younger brother.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Pun",
+            "type": "single",
+            "joke": "I was reading a great book about an immortal dog the other day. It was impossible to put down.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Dark",
+            "type": "single",
+            "joke": "I have a fish that can breakdance! Only for 20 seconds though, and only once.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Pun",
+            "type": "single",
+            "joke": "I have a joke about trickle down economics. But 99% of you will never get it.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "joke": "How do you keep black people out of your back yard? Hang one in the front!",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": true,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "What's long and hard and has cum in it?",
+            "delivery": "A cucumber",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Christmas",
+            "type": "twopart",
+            "setup": "What does Santa suffer from if he gets stuck in a chimney?",
+            "delivery": "Claustrophobia!",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Christmas",
+            "type": "twopart",
+            "setup": "Why does Santa have three gardens?",
+            "delivery": "So he can 'ho ho ho'!",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Christmas",
+            "type": "twopart",
+            "setup": "Why did Santa's helper see the doctor?",
+            "delivery": "Because he had a low \"elf\" esteem!",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Christmas",
+            "type": "twopart",
+            "setup": "What kind of motorbike does Santa ride?",
+            "delivery": "A Holly Davidson!",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Christmas",
+            "type": "twopart",
+            "setup": "What says Oh Oh Oh?",
+            "delivery": "Santa walking backwards!",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Christmas",
+            "type": "twopart",
+            "setup": "Who is Santa's favourite singer?",
+            "delivery": "Elf-is Presley!\n\n",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Christmas",
+            "type": "twopart",
+            "setup": "What's Santa's favourite type of music?",
+            "delivery": "Wrap!\n\n",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Christmas",
+            "type": "twopart",
+            "setup": "What do Santa's little helpers learn at school?",
+            "delivery": "The elf-abet!\n",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Christmas",
+            "type": "twopart",
+            "setup": "What do elves post on Social Media?",
+            "delivery": "Elf-ies!\n",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Christmas",
+            "type": "twopart",
+            "setup": "Who hides in the bakery at Christmas?",
+            "delivery": "A mince spy!\n",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Christmas",
+            "type": "twopart",
+            "setup": "How will Christmas dinner be different after Brexit?",
+            "delivery": "No Brussels!\n",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": true,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Christmas",
+            "type": "twopart",
+            "setup": "Why couldnt the skeleton go to the Christmas Party?",
+            "delivery": "Because he had no body to go with!\n",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Christmas",
+            "type": "twopart",
+            "setup": "Why does Santa go down the chimney?",
+            "delivery": "Because it soots him!",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Why do front end developers eat lunch alone?",
+            "delivery": "Because they don't know how to join tables",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
         }
     ]
 }
