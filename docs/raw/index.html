@@ -206,7 +206,7 @@
                 <br>
                 <br>
                 <div class="subHeaderContainer"><a href="#security" title="Click to link to this header">§</a> <span class="subHeader" id="security">Security:</span></div>
-                <!--%#INSERT:NAME#%--> has been a target of DoS attacks in the past, which is why there is now a limit of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute and why joke submissions are manually curated.<br>
+                <!--%#INSERT:NAME#%--> has been a target of DoS attacks in the past, which is why there is now a limit of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute and why joke submissions are manually curated. For more information <a href="#rate-limiting">click here.</a><br>
                 All dependencies are tested for vulnerabilities by <a href="https://snyk.io/" target="_blank">Snyk</a>, you can find a summary of the known vulnerabilities <a href="https://snyk.io/test/github/Sv443/JokeAPI" target="_blank">here.</a><br>
                 Page security score (powered by Mozilla Observatory): <a href="https://observatory.mozilla.org/analyze/sv443.net" target="_blank"><img src="https://img.shields.io/mozilla-observatory/grade-score/sv443.net?publish" class="badge"></a><br>
 
@@ -471,6 +471,37 @@
 
 
                 <!-- TODO: #MARKER Rate Limiting section-->
+                <div class="docHeader targetBlink" id="rate-limiting"><a class="headerAnchorContainer" href="#rate-limiting" title="Click to link to this header">🔗</a><span class="docHeaderText">Rate Limiting:</span></div>
+                Due to <!--%#INSERT:NAME#%--> being target of DoS attacks in the past, every client has a request budget of <!--%#INSERT:RATELIMITCOUNT#%--> requests they can send per minute.<br>
+                Sending any requests after this limit will make the API temporarily give you a HTTP 429 error until the time runs out.<br>
+                When submitting jokes, your budget is only <!--%#INSERT:SUBMISSIONRATELIMIT#%--> requests per minute.<br>
+                <br>
+                Almost everywhere when using <!--%#INSERT:NAME#%-->, you will be getting the following headers which tell you all you need to know about your current request budget:<br>
+                <br>
+                <table id="statusCodeTable" class="alternatingBgTable">
+                    <!-- Use CSS classes g (green), r (red) and dr (dark red) on the td's to color status codes -->
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>Retry-After</td>
+                        <td>Tells you in how many seconds your request budget gets reset</td>
+                    </tr>
+                    <tr>
+                        <td>RateLimit-Limit</td>
+                        <td>How many requests in total you can send to <!--%#INSERT:NAME#%--> per minute</td>
+                    </tr>
+                    <tr>
+                        <td>RateLimit-Remaining</td>
+                        <td>How many requests you have left in your budget</td>
+                    </tr>
+                    <tr>
+                        <td>RateLimit-Reset</td>
+                        <td>Contains an <a href="https://tools.ietf.org/html/rfc7231#section-7.1.1.1" target="_blank">IMF-fixdate</a> timestamp of when your request budget gets reset</td>
+                    </tr>
+                </table>
+
 
 
                 <!-- #MARKER URL parameters -->
@@ -723,7 +754,7 @@ None. It's a hardware problem.
 </div></code><br>
                 
                 <div class="subHeaderContainer"><a href="#status-codes" title="Click to link to this header">§</a> <span class="subHeader" id="status-codes">Status Codes:</span></div>
-                <table id="statusCodeTable">
+                <table id="statusCodeTable" class="alternatingBgTable">
                     <!-- Use CSS classes g (green), r (red) and dr (dark red) on the td's to color status codes -->
                     <tr>
                         <th>Code</th>
@@ -1536,9 +1567,8 @@ public class Flags
                 <a class="noul" onclick="closeNav()" href="#getting-started" title="This is where you should start if you are new to <!--%#INSERT:NAME#%-->">Getting Started</a>
                 <a class="noul" onclick="closeNav()" href="#wrappers" title="API Wrappers make using <!--%#INSERT:NAME#%--> easier">API Wrappers</a>
                 <a class="noul" onclick="closeNav()" href="#submit" title="A form to submit a joke to <!--%#INSERT:NAME#%-->">Submit a Joke</a>
+                <div class="sidenavSpacer"></div>
                 <a class="noul" onclick="closeNav()" href="#url-parameters" title="All URL Parameters you can use and how to use them">URL Parameters</a>
-                <a class="noul" onclick="closeNav()" href="#errors" title="How errors are structured">Errors</a>
-                <a class="noul" onclick="closeNav()" href="#troubleshooting" title="Some fixes for common errors">Troubleshooting</a>
                 <details>
                     <summary title="All endpoints of <!--%#INSERT:NAME#%-->">
                         <span class="sidenav-mimica">Endpoints</span>
@@ -1560,6 +1590,11 @@ public class Flags
                 <a class="noul" onclick="closeNav()" href="#filtering" title="How you can filter jokes">Filtering Jokes</a>
                 <a class="noul" onclick="closeNav()" href="#api-tokens" title="All about <!--%#INSERT:NAME#%-->'s API tokens">API Tokens</a>
                 <a class="noul" onclick="closeNav()" href="#examples" title="Some code examples of how to use <!--%#INSERT:NAME#%-->">Examples</a>
+                <div class="sidenavSpacer"></div>
+                <a class="noul" onclick="closeNav()" href="#errors" title="How errors are structured">Errors</a>
+                <a class="noul" onclick="closeNav()" href="#rate-limiting" title="How <!--%#INSERT:NAME#%--> protects itself against DoS attacks">Rate Limiting</a>
+                <a class="noul" onclick="closeNav()" href="#troubleshooting" title="Some fixes for common errors">Troubleshooting</a>
+                <div class="sidenavSpacer"></div>
                 <!-- <details>
                     <summary>
                         <span class="sidenav-mimica">Examples</span> 

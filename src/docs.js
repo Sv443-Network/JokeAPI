@@ -270,7 +270,8 @@ const inject = filePath => {
                     "<!--%#INSERT:JOKELANGCOUNT#%-->":         languages.jokeLangs().length.toString(),
                     "<!--%#INSERT:SYSLANGCOUNT#%-->":          languages.systemLangs().length.toString(),
                     "<!--%#INSERT:MAXJOKEAMOUNT#%-->":         settings.jokes.maxAmount.toString(),
-                    "<!--%#INSERT:JOKEENCODEAMOUNT#%-->":      settings.jokes.encodeAmount.toString()
+                    "<!--%#INSERT:JOKEENCODEAMOUNT#%-->":      settings.jokes.encodeAmount.toString(),
+                    "<!--%#INSERT:SUBMISSIONRATELIMIT#%-->":   settings.jokes.submissions.rateLimiting.toString()
                 };
 
                 let allMatches = 0;

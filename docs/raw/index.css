@@ -297,50 +297,51 @@ input#f_customLang {
     padding-left: 5px;
 }
 
-#statusCodeTable {
+.alternatingBgTable {
     margin: 0;
     padding: 0;
     border-spacing: 0;
 }
 
-#statusCodeTable tr:nth-child(2n+1) td {
+.alternatingBgTable tr:nth-child(2n+1) td {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-#statusCodeTable tr:nth-child(1) > th {
+.alternatingBgTable tr:nth-child(1) > th {
     border: 1px solid #fff;
     border-style: none none solid none;
     text-align: left;
 }
 
-#statusCodeTable tr > td:nth-child(1) {
+.alternatingBgTable tr > td:nth-child(1) {
     padding-top: 3px;
     padding-left: 4px;
+    padding-right: 10px;
 }
 
-#statusCodeTable tr th:not(:first-child), #statusCodeTable tr td:not(:first-child) {
+.alternatingBgTable tr th:not(:first-child), .alternatingBgTable tr td:not(:first-child) {
     padding: 2px 10px 2px 10px;
 }
 
-#statusCodeTable tr th:first-child {
+.alternatingBgTable tr th:first-child {
     padding-right: 10px;
     padding-bottom: 2px;
 }
 
-#statusCodeTable tr td:not(:first-child) {
+.alternatingBgTable tr td:not(:first-child) {
     border: 1px solid #fff;
     border-style: none none none solid;
 }
 
-#statusCodeTable tr td.g, span.col.g {
+.alternatingBgTable tr td.g, span.col.g {
     color: #89ff89;
 }
 
-#statusCodeTable tr td.r, span.col.r {
+.alternatingBgTable tr td.r, span.col.r {
     color: #ffad41;
 }
 
-#statusCodeTable tr td.dr, span.col.dr {
+.alternatingBgTable tr td.dr, span.col.dr {
     color: #f52727;
 }
 
@@ -802,6 +803,12 @@ textarea {
 
 #sidenav .closebtn {
     font-size: 36px;
+}
+
+div.sidenavSpacer {
+    display: block;
+    min-height: 18px;
+    max-height: 18px;
 }
 
 @media screen and (max-height: 450px) {
