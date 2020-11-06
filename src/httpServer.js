@@ -287,7 +287,7 @@ const init = () => {
                                 if(!jsl.isEmpty(fileFormat) && req.url.toLowerCase().includes("format"))
                                     return respondWithError(res, 102, 404, fileFormat, tr(lang, "endpointNotFound", (!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/")), lang);
                                 else
-                                    return respondWithErrorPage(res, 404, tr(lang, "endpointNotFound", (!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/")), lang);
+                                    return respondWithErrorPage(res, 404, tr(lang, "endpointNotFound", (!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/")));
                             }
                         }, 5000);
                     }
