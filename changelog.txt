@@ -1,6 +1,6 @@
 =====================
   JokeAPI Changelog
-  - Version 2.2.2 -
+  - Version 2.2.3 -
 =====================
 
 
@@ -11,7 +11,7 @@
     - Serve docs with nginx to speed up page load times (issue #118)
 
 
-[CURRENT: 2.2.2] - The Domain Update
+[CURRENT: 2.2.3] - The Domain Update
     - JokeAPI now has its own domain - https://jokeapi.dev/
         - Version 2 of the API should be called @ https://v2.jokeapi.dev/ but can also be called with the old domain and https://jokeapi.dev/
         - The stage version is @ https://stage.jokeapi.dev/
@@ -25,8 +25,18 @@
         - Endpoint "/langcode/{LANGUAGE}"
 
 
+[2.2.2] - The Seasonal Update
+    - Added some new seasonal categories (issue #180)
+        - Spooky (Halloween)
+        - Christmas (thanks for the suggestion Dan)
+    - Added dependent ToastIT-dev/PoshBot.Joker (issue #173)
+    - Added a bunch of joke submissions
+    - Reliability improvements in the documentation (issue #181)
+    - Added POST as a method to submit data to the API since it makes more sense than PUT (maybe deprecating that some time)
+
+
 [2.2.1] - Version 2.2 Hotfix
-    - Added a Czech translation (PR #137) - provided by @ThatCopy (https://github.com/ThatCopy) - thanks :)
+    - Added the Czech translation (PR #137) - provided by @ThatCopy (https://github.com/ThatCopy) - thanks :)
     - Added a missing conversion mapping when using format `txt` and the `amount` parameter on endpoint `/joke` (issue #138)
     - Fixed wrong URLs in the documentation's JavaScript
     - Fixed crash when a client asks for a translation that doesn't exist

@@ -1,0 +1,14 @@
+{
+    "formatVersion": 2,
+    "category": "Dark",
+    "type": "twopart",
+    "flags": {
+        "nsfw": false,
+        "religious": true,
+        "political": true,
+        "racist": false,
+        "sexist": false
+    },
+    "setup": "Yes I am going to heaven",
+    "delivery": "But you need to die first"
+}

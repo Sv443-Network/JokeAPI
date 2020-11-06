@@ -1,0 +1,13 @@
+{
+    "formatVersion": 2,
+    "category": "Dark",
+    "type": "single",
+    "flags": {
+        "nsfw": true,
+        "religious": false,
+        "political": false,
+        "racist": false,
+        "sexist": false
+    },
+    "joke": "ddffsdf"
+}

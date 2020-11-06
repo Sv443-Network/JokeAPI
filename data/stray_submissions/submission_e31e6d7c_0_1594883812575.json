@@ -1,0 +1,14 @@
+{
+    "formatVersion": 2,
+    "category": "Programming",
+    "type": "twopart",
+    "flags": {
+        "nsfw": false,
+        "religious": false,
+        "political": false,
+        "racist": true,
+        "sexist": true
+    },
+    "setup": "There is a time for everything",
+    "delivery": "Yes and the time is now."
+}

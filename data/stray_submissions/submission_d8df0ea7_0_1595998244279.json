@@ -1,0 +1,13 @@
+{
+    "formatVersion": 2,
+    "category": "Miscellaneous",
+    "type": "single",
+    "flags": {
+        "nsfw": false,
+        "religious": false,
+        "political": false,
+        "racist": false,
+        "sexist": false
+    },
+    "joke": "you might always think about you but you are not thing about you actually"
+}

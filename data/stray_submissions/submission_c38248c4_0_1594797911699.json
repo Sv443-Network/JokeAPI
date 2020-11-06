@@ -1,0 +1,13 @@
+{
+    "formatVersion": 2,
+    "category": "Miscellaneous",
+    "type": "single",
+    "flags": {
+        "nsfw": false,
+        "religious": false,
+        "political": false,
+        "racist": true,
+        "sexist": true
+    },
+    "joke": "How hungry are you?"
+}

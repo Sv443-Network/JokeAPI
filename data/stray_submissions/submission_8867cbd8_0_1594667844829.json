@@ -1,0 +1,13 @@
+{
+    "formatVersion": 2,
+    "category": "Miscellaneous",
+    "type": "single",
+    "flags": {
+        "nsfw": false,
+        "religious": true,
+        "political": false,
+        "racist": false,
+        "sexist": false
+    },
+    "joke": "xxxx"
+}

@@ -1,0 +1,14 @@
+{
+    "formatVersion": 2,
+    "category": "Programming",
+    "type": "twopart",
+    "flags": {
+        "nsfw": false,
+        "religious": false,
+        "political": false,
+        "racist": false,
+        "sexist": false
+    },
+    "setup": "That is the way it has always been ",
+    "delivery": "It just change"
+}

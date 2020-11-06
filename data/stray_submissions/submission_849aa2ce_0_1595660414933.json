@@ -1,0 +1,14 @@
+{
+    "formatVersion": 2,
+    "category": "Dark",
+    "type": "twopart",
+    "flags": {
+        "nsfw": true,
+        "religious": false,
+        "political": false,
+        "racist": true,
+        "sexist": false
+    },
+    "setup": "What's the difference between a phone and a black person?",
+    "delivery": "A phone is actually useful."
+}

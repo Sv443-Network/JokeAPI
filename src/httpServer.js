@@ -88,7 +88,7 @@ const init = () => {
                         {
                             res.setHeader("Access-Control-Allow-Origin", "*");
                             res.setHeader("Access-Control-Request-Method", "GET");
-                            res.setHeader("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS, PUT");
+                            res.setHeader("Access-Control-Allow-Methods", "GET, POST, HEAD, OPTIONS, PUT");
                             res.setHeader("Access-Control-Allow-Headers", "*");
                         }
                         catch(err)
@@ -97,7 +97,7 @@ const init = () => {
                         }
                     }
 
-                    res.setHeader("Allow", "GET, HEAD, OPTIONS, PUT");
+                    res.setHeader("Allow", "GET, POST, HEAD, OPTIONS, PUT");
 
                     if(settings.httpServer.infoHeaders)
                         res.setHeader("API-Info", `${settings.info.name} v${settings.info.version} (${settings.info.docsURL})`);
@@ -278,8 +278,8 @@ const init = () => {
                         }, 5000);
                     }
                 }
-                //#SECTION PUT
-                else if(req.method === "PUT")
+                //#SECTION PUT / POST
+                else if(req.method === "PUT" || req.method === "POST")
                 {
                     //#MARKER Joke submission
                     let submissionsRateLimited = await rlSubm.get(ip);
@@ -313,7 +313,7 @@ const init = () => {
                     }
                     else
                     {
-                        //#MARKER Restart / invalid PUT
+                        //#MARKER Restart / invalid PUT / POST
 
                         if(submissionsRateLimited && submissionsRateLimited._remainingPoints <= 0 && !headerAuth.isAuthorized)
                             return respondWithError(res, 110, 429, fileFormat, tr(lang, "rateLimitedShort"), lang);
@@ -343,7 +343,7 @@ const init = () => {
                         setTimeout(() => {
                             if(!dataGotten)
                             {
-                                debug("HTTP", "PUT request timed out");
+                                debug("HTTP", "PUT / POST request timed out");
                                 return respondWithErrorPage(res, 400, tr(lang, "requestBodyIsInvalid"));
                             }
                         }, 3000);

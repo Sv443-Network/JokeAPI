@@ -328,7 +328,7 @@
             "id": 21
         },
         {
-            "category": "Programming",
+            "category": "Christmas",
             "type": "twopart",
             "setup": "Was stellt sich ein Informatiker zu Weihnachten in die Wohnung?",
             "delivery": "Einen B-Baum.",
@@ -398,6 +398,43 @@
                 "explicit": false
             },
             "id": 26
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "Treffen sich zwei Kerzen.",
+            "delivery": " Fragt die eine: Was machst du heute? Sagt die andere: Ich gehe aus.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "joke": "Ich hab gerade den DJ angerufen. Er hat aufgelegt.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "Das echte Leben nervt ... aber die Grafik ist gut.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            }
         }
     ]
 }

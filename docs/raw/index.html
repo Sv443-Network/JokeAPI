@@ -60,7 +60,7 @@
             <header class="bodyFlexItem">
                 <span class="headeritem l">
                     <span id="headersidenavopenwrapper" class="noselect">
-                        <span id="sideNavOpen" onclick="openNav()" title="Click to open">&#9776; Menu</span>
+                        <span id="sideNavOpen" title="Click to open">&#9776; Menu</span>
                     </span>
                 </span>
                 <span class="headeritem m">
@@ -244,6 +244,8 @@
                                             <input type="checkbox" id="cat-cb2" onchange="reRender()" disabled><label for="cat-cb2">Miscellaneous</label>
                                             <input type="checkbox" id="cat-cb3" onchange="reRender()" disabled><label for="cat-cb3">Dark</label>
                                             <input type="checkbox" id="cat-cb4" onchange="reRender()" disabled><label for="cat-cb4">Pun</label>
+                                            <input type="checkbox" id="cat-cb5" onchange="reRender()" disabled><label for="cat-cb5">Spooky</label>
+                                            <input type="checkbox" id="cat-cb6" onchange="reRender()" disabled><label for="cat-cb6">Christmas</label>
                                         </span>
                                     </div>
                                 </div>
@@ -408,6 +410,8 @@
                                         <option value="Programming">Programming</option>
                                         <option value="Dark">Dark</option>
                                         <option value="Pun">Pun</option>
+                                        <option value="Spooky">Spooky</option>
+                                        <option value="Christmas">Christmas</option>
                                     </select>
                                 </td>
                             </tr>
@@ -695,7 +699,7 @@ None. It's a hardware problem.
     "causedBy": [
         "No jokes were found that match your provided filter(s)"
     ],
-    "additionalInfo": "The specified category is invalid - Got: \"foo\" - Possible categories are: \"Any, Miscellaneous, Programming, Dark, Pun\" (case insensitive)",
+    "additionalInfo": "The specified category is invalid - Got: \"foo\" - Possible categories are: \"Any, Miscellaneous, Programming, Dark, Pun, Spooky, Christmas\" (case insensitive)",
     "timestamp": 1579170794412
 }
 </div></code><br>
@@ -1035,12 +1039,14 @@ None. It's a hardware problem.
                 <!--#SECTION Submit-->
                 <div class="subHeaderContainer"><a href="#submit-endpoint" title="Click to link to this header">§</a> <span id="submit-endpoint" class="subHeader">Submit Joke:</span></div>
                 <span class="requestURLwrapper">
-                    <span class="requestMethodPUT">PUT</span>
+                    <span class="requestMethodPUT">POST / PUT</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/submit</span>
                 </span>
                 <br><br>
-                This endpoint is used to submit a joke to be reviewed and added to <!--%#INSERT:NAME#%-->'s official jokes.<br>
+                This endpoint is used to programatically submit a joke to be reviewed and added to <!--%#INSERT:NAME#%-->'s official jokes.<br>
                 If you instead just want to manually submit a joke, please <a href="#submit">click here.</a><br>
+                To ensure backwards compatibility you can use the <mark>PUT</mark> method even though it is discouraged.<br>
+                Using the <mark>PUT</mark> method might be deprecated in the future.<br><br>
                 The payload needs to be sent as JSON. Different <a href="#response-formats">formats</a> are not allowed here.<br>
                 The request payload has to follow the same object structure that the jokes are served in when using the "joke" endpoint.<br>
                 <br>
@@ -1144,7 +1150,7 @@ None. It's a hardware problem.
 <div class="actualCode">const https = require("https"); // Native module, no need to explicitly install
 
 const baseURL = "<!--%#INSERT:DOCSURL#%-->";
-const categories = ["Programming", "Miscellaneous", "Pun"];
+const categories = ["Programming", "Miscellaneous", "Pun", "Spooky", "Christmas"];
 const params = [
     "blacklistFlags=nsfw,religious,racist",
     "idRange=0-100"
@@ -1185,7 +1191,7 @@ https.get(`${baseURL}/joke/${categories.join(",")}?${params.join("&")}`, res => 
                 <details><summary id="example-js" class="big">Web-JavaScript (click to show)</summary>
 <code class="prettyprint"><span class="nocode codeheader">Web-JS:</span>
 <div class="actualCode">var baseURL = "<!--%#INSERT:DOCSURL#%-->";
-var categories = ["Programming", "Miscellaneous", "Pun"];
+var categories = ["Programming", "Miscellaneous", "Pun", "Spooky", "Christmas"];
 var params = [
     "blacklistFlags=nsfw,religious,racist",
     "idRange=0-100"
@@ -1233,7 +1239,7 @@ using System.Web.Script.Serialization; // Requires you to include the assembly "
 private void getJoke()
 {
     string baseURL = "<!--%#INSERT:DOCSURL#%-->";
-    string[] categories = { "Programming", "Miscellaneous", "Pun" };
+    string[] categories = { "Programming", "Miscellaneous", "Pun", "Spooky", "Christmas" };
     string[] parameters = {
         "blacklistFlags=nsfw,religious,racist",
         "idRange=0-100"
@@ -1465,6 +1471,8 @@ public class Flags
                     <li><a href="https://thatcopy.pw/comma" target="_blank">comma</a> by <a href="https://github.com/ThatCopy" target="_blank">ThatCopy</a></li>
                     <li><a href="https://github.com/AlHood77/Joke_Teller" target="_blank">Joke Teller</a> by <a href="https://github.com/AlHood77" target="_blank">AlHood77</a></li>
                     <li><a href="https://github.com/remcoov/jokes" target="_blank">Jokes plugin for Craft CMS 3.x</a> by <a href="https://github.com/remcoov" target="_blank">remcoov</a></li>
+                    <li><a href="https://github.com/ToastIT-dev/PoshBot.Joker" target="_blank">PoshBot.Joker</a> by <a href="https://github.com/ToastIT-dev" target="_blank">ToastIT-dev</a></li>
+
                     <!-- <li><a href="xyz" target="_blank">xyz</a> by <a href="https://github.com/xyz" target="_blank">xyz</a></li> -->
                 </ul>
                 (<a href="https://github.com/Sv443/JokeAPI/issues/new/choose" target="_blank">Submit an issue</a> to get your project added here)
