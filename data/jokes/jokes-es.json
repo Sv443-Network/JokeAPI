@@ -13,7 +13,8 @@
                 "political": true,
                 "racist": false,
                 "sexist": false
-            }
+            },
+            "id": 0
         }
     ]
 }
