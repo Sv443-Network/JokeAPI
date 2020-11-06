@@ -84,7 +84,7 @@ const call = (req, res, url, params, format) => {
                     name: "Submit",
                     description: `Used to submit a joke to be added to ${settings.info.name}`,
                     usage: {
-                        method: "PUT",
+                        method: "POST",
                         url: `${settings.info.docsURL}/submit`,
                         supportedParams: []
                     }
