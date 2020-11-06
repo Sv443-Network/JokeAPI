@@ -145,10 +145,10 @@ const init = () => {
                             try
                             {
                                 let rlRes = await rl.get(ip);
+                                setRateLimitedHeaders(res, rlRes);
 
                                 if((rlRes && rlRes._remainingPoints < 0) && !lists.isWhitelisted(ip) && !headerAuth.isAuthorized)
                                 {
-                                    setRateLimitedHeaders(res, rlRes);
                                     analytics.rateLimited(ip);
                                     logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
                                     return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
@@ -238,9 +238,10 @@ const init = () => {
                                     {
                                         let rlRes = await rl.get(ip);
 
+                                        setRateLimitedHeaders(res, rlRes);
+
                                         if((rlRes && rlRes._remainingPoints < 0) && !lists.isWhitelisted(ip) && !isAuthorized)
                                         {
-                                            setRateLimitedHeaders(res, rlRes);
                                             logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
                                             analytics.rateLimited(ip);
                                             return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
@@ -421,9 +422,9 @@ function setRateLimitedHeaders(res, rlRes)
 {
     let rlHeaders = {
         "Retry-After": Math.round(rlRes.msBeforeNext / 1000),
-        "X-RateLimit-Limit": settings.httpServer.rateLimiting,
-        "X-RateLimit-Remaining": rlRes.remainingPoints,
-        "X-RateLimit-Reset": new Date(Date.now() + rlRes.msBeforeNext)
+        "RateLimit-Limit": settings.httpServer.rateLimiting,
+        "RateLimit-Remaining": rlRes.remainingPoints,
+        "RateLimit-Reset": new Date(Date.now() + rlRes.msBeforeNext)
     }
 
     Object.keys(rlHeaders).forEach(key => {
