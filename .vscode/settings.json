@@ -1,6 +1,6 @@
 {
     "highlight.regexes": { // REQUIRES EXTENSION: fabiospampinato.vscode-highlight
-        "(jsl\\.unused\\([a-zA-Z_,\\[\\]\\s]+\\);*)": [ // jsl.unused([some_var, some_other_var]);
+        "(((jsl|scl)\\.)?unused\\([a-zA-Z_,\\[\\]\\s\\-\":.]+\\);*)": [ // jsl.unused([some_var, some_other_var]); or scl.unused(xy);
             {
                 "backgroundColor": "rgba(0, 0, 0, 0.2)",
                 "color": "#f88"
@@ -14,7 +14,7 @@
                 "overviewRulerColor": "#f41"
             }
         ],
-        "(#SECTION ([^\\S\\r\\n]*\\w+)*[:]*)": [ // #SECTION test
+        "(#SECTION ([^\\S\\r\\n]*[\\w,.\\-_]+)*[:]*)": [ // #SECTION test, 123
             {
                 "backgroundColor": "#44f",
                 "color": "white",
@@ -27,20 +27,13 @@
                 "color": "blue",
                 "overviewRulerColor": "#ff0"
             }
-        ],
-        "(<!--%#INSERT:[a-zA-Z0-9\\-]+#%-->|<!--%#INJECT:[a-zA-Z0-9\\-]+#%-->)": [ // <!--%#INSERT:TEST#%--> / <!--%#INJECT:TEST#%-->
-            {
-                "color": "orange",
-                "fontStyle": "italic",
-                "outline": "1px solid orange"
-            }
         ]
     },
+    "npm-scripts.showStartNotification": false,
 
     // JokeAPI-specific:
 
-    "npm-scripts.showStartNotification": false,
-    "files.exclude": {
+    "files.exclude": {         // hide files so they can't be opened in the IDE
         "docs/compiled": true, // to prevent accidentally changing the compiled documentation to only have it be overridden after the next compile
         "dev/madge": true,     // the files don't need to be modified, they only serve as a distraction
     }
