@@ -679,6 +679,21 @@ None. It's a hardware problem.
 
 
 
+                <br><br><!--#SECTION Dry Run-->
+                <div class="subHeaderContainer"><a href="#dryrun-param" title="Click to link to this header">§</a> <span class="subHeader" id="dryrun-param">Submission Dry Run:</span></div>
+                <mark>?dry-run</mark><br><br>
+                This parameter can only be used on the "submit" endpoint. It doesn't need a value (part to the right of the equals character).<br>
+                <br>
+                If present, <!--%#INSERT:NAME#%--> will respond just like the usual "submit" endpoint except the joke isn't actually saved to the API.<br>
+                This functionality can be used to check if a joke is valid / what is wrong with it.<br>
+                <br>
+                A successful dry run will have its <mark>error</mark> property set to false.<br>
+                It will also have a <mark>message</mark> property with a short status message and a <mark>timestamp</mark> property with a 13-character UNIX timestamp.<br>
+
+                
+
+
+
                 <!-- #MARKER Errors -->
                 <div class="docHeader targetBlink" id="errors"><a class="headerAnchorContainer" href="#errors" title="Click to link to this header">🔗</a><span class="docHeaderText">Errors:</span></div>
                 In <!--%#INSERT:NAME#%--> all response data, no matter from which endpoint will have a boolean "error" parameter.<br>
@@ -723,7 +738,7 @@ None. It's a hardware problem.
                     <tr>
                         <td class="g">201</td>
                         <td>Created</td>
-                        <td>The joke submission is formatted correctly and was accepted and successfully saved</td>
+                        <td>The joke submission is formatted correctly and was accepted and successfully saved (unless <a href="#dryrun-param">?dry-run</a> was used)</td>
                     </tr>
                     <tr>
                         <td class="r">400</td>
@@ -1062,6 +1077,9 @@ None. It's a hardware problem.
                 The <a href="#blacklist-flags">"flags"</a> property needs to be an object that contains the boolean properties "nsfw", "religious", "political", "racist", "sexist" and "explicit". These need to be set accordingly.<br>
                 The joke ID doesn't need to be provided as it will be automatically assigned to the joke.<br>
                 <br>
+                This endpoint has a unique URL parameter; <a href="#dryrun-param">?dry-run</a>, which if present will make the API respond just like the usual "submit" endpoint except the joke isn't actually saved to the API.<br>
+                This functionality can be used to check if a joke is valid / what is wrong with it.<br>
+                <br>
                 If the joke is valid and the server accepted the submission, you will get a response with the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201" target="_blank">status code 201.</a><br>
 
                 <br>
@@ -1085,7 +1103,9 @@ None. It's a hardware problem.
 
                 <br>
                 Supported URL parameters:<br>
-                (none)
+                <ul>
+                    <li><a class="requestURL" href="#dryrun-param">?dry-run</a></li>
+                </ul>
                 <br><br>
 
                 <details><summary>Click here to see how the server responds to a joke submission</summary>
@@ -1112,7 +1132,18 @@ None. It's a hardware problem.
 }
 </div></code>
                 </details>
-                <br><br><br>
+                <br><br>
+                
+                <details><summary>Click here to see how the server responds to a submission dry run</summary>
+<code class="prettyprint"><span class="nocode codeheader">Server Response:</span>
+<div class="actualCode">{
+    "error": false,
+    "message": "Dry Run complete! No errors were found.",
+    "timestamp": 1604627398681
+}
+</div></code>
+                                    </details>
+                                    <br><br><br>
 
 
                 <!-- #MARKER Filtering -->

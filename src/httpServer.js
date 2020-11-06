@@ -133,6 +133,8 @@ const init = () => {
                     //#MARKER GET
                     if(parsedURL.error === null)
                     {
+                        let foundEndpoint = false;
+
                         let urlPath = parsedURL.pathArray;
                         let requestedEndpoint = "";
                         let lowerCaseEndpoints = [];
@@ -144,17 +146,29 @@ const init = () => {
                         {
                             try
                             {
-                                let rlRes = await rl.get(ip);
-                                setRateLimitedHeaders(res, rlRes);
+                                rl.get(ip).then(rlRes => {
+                                    if(rlRes)
+                                        setRateLimitedHeaders(res, rlRes);
 
-                                if((rlRes && rlRes._remainingPoints < 0) && !lists.isWhitelisted(ip) && !headerAuth.isAuthorized)
-                                {
-                                    analytics.rateLimited(ip);
-                                    logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
-                                    return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
-                                }
-                                else
-                                    return serveDocumentation(req, res);
+                                    foundEndpoint = true;
+
+                                    if((rlRes && rlRes._remainingPoints < 0) && !lists.isWhitelisted(ip) && !headerAuth.isAuthorized)
+                                    {
+                                        analytics.rateLimited(ip);
+                                        logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
+                                        return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
+                                    }
+                                    else
+                                        return serveDocumentation(req, res);
+                                }).catch(rlRes => {
+                                    if(typeof rlRes.message == "string")
+                                        console.error(`Error while adding point to rate limiter: ${rlRes}`);
+                                    else if(rlRes.remainingPoints <= 0)
+                                    {
+                                        logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
+                                        return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
+                                    }
+                                });
                             }
                             catch(err)
                             {
@@ -177,7 +191,6 @@ const init = () => {
                         if(!jsl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "favicon.ico")
                             return pipeFile(res, settings.documentation.faviconPath, "image/x-icon", 200);
 
-                        let foundEndpoint = false;
                         endpoints.forEach(async (ep) => {
                             if(ep.name == requestedEndpoint)
                             {
@@ -274,7 +287,7 @@ const init = () => {
                                 if(!jsl.isEmpty(fileFormat) && req.url.toLowerCase().includes("format"))
                                     return respondWithError(res, 102, 404, fileFormat, tr(lang, "endpointNotFound", (!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/")), lang);
                                 else
-                                    return respondWithErrorPage(res, 404, tr(lang, "endpointNotFound", (!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/")));
+                                    return respondWithErrorPage(res, 404, tr(lang, "endpointNotFound", (!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/")), lang);
                             }
                         }, 5000);
                     }
@@ -287,8 +300,6 @@ const init = () => {
 
                     if(!jsl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "submit" && !(submissionsRateLimited && submissionsRateLimited._remainingPoints <= 0 && !headerAuth.isAuthorized))
                     {
-                        rlSubm.consume(ip, 1);
-
                         let data = "";
                         let dataGotten = false;
                         req.on("data", chunk => {
@@ -301,13 +312,37 @@ const init = () => {
                             if(!jsl.isEmpty(data))
                                 dataGotten = true;
 
-                            return jokeSubmission(res, data, fileFormat, ip, analyticsObject);
+                            let dryRun = (parsedURL.queryParams && parsedURL.queryParams["dry-run"] == true) || false;
+
+                            if(!dryRun)
+                            {
+                                rlSubm.consume(ip, 1).then(() => {
+                                    return jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun);
+                                }).catch(rlRes => {
+                                    if(rlRes.remainingPoints <= 0)
+                                        return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
+                                });
+                            }
+                            else
+                            {
+                                rl.consume(ip, 1).then(rlRes => {
+                                    setRateLimitedHeaders(res, rlRes);
+
+                                    return jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun);
+                                }).catch(rlRes => {
+                                    setRateLimitedHeaders(res, rlRes);
+
+                                    if(rlRes.remainingPoints <= 0)
+                                        return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
+                                });
+                            }
                         });
 
                         setTimeout(() => {
                             if(!dataGotten)
                             {
                                 debug("HTTP", "PUT request timed out");
+                                rlSubm.consume(ip, 1);
                                 return respondWithError(res, 105, 400, fileFormat, tr(lang, "requestEmptyOrTimedOut"), lang);
                             }
                         }, 3000);

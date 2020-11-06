@@ -58,6 +58,11 @@ function parseURL(url)
                     let splitEntry = qstrEntry.split("=");
                     qstrObj[decodeURIComponent(splitEntry[0])] = decodeURIComponent(splitEntry[1].toLowerCase());
                 }
+                else
+                {
+                    let valuelessEntry = qstrEntry.trim();
+                    qstrObj[decodeURIComponent(valuelessEntry)] = true;
+                }
             });
         }
         else

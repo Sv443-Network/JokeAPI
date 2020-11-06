@@ -27,7 +27,14 @@
                 "color": "blue",
                 "overviewRulerColor": "#ff0"
             }
-        ]
+        ],
+        "(<!--%#INSERT:[a-zA-Z0-9\\-]+#%-->|<!--%#INJECT:[a-zA-Z0-9\\-]+#%-->)": [ // <!--%#INSERT:TEST#%--> / <!--%#INJECT:TEST#%-->
+            {
+                "color": "orange",
+                "fontStyle": "italic",
+                "outline": "1px solid orange"
+            }
+        ],
     },
     "npm-scripts.showStartNotification": false,
 

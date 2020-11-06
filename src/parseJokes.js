@@ -206,6 +206,8 @@ const init = () => {
 const validateSingle = joke => {
     let jokeErrors = [];
 
+    // TODO: implement translations
+
     try
     {
         if(typeof joke == "object")

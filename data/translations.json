@@ -289,6 +289,12 @@
             "de": "Die Witz-Einreichung wurde erfolgreich gespeichert. Sie wird demnächst vom Autor überprüft.",
             "ru": "Представление шутки было успешно сохранено. Вскоре он будет проверен автором.",
             "cs": "Podání vtipu bylo úspěšně uloženo. Autor ho brzy zkontroluje."
+        },
+        "dryRunSuccessful":
+        {
+            "en": "Dry Run complete! No errors were found.",
+            "de": "Probelauf abgeschlossen! Keine Fehler gefunden.",
+            "ru": "Тестовый запуск завершен! Ошибок не найдено."
         }
     }
 }

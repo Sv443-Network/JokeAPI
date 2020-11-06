@@ -12,6 +12,7 @@ const meter = require("./meter");
 const tr = require("./translate");
 
 const settings = require("../settings");
+const fileFormatConverter = require("./fileFormatConverter");
 
 jsl.unused(http, analytics, tr);
 
@@ -23,10 +24,14 @@ jsl.unused(http, analytics, tr);
  * @param {String} fileFormat
  * @param {String} ip
  * @param {(analytics.AnalyticsDocsRequest|analytics.AnalyticsSuccessfulRequest|analytics.AnalyticsRateLimited|analytics.AnalyticsError|analytics.AnalyticsSubmission)} analyticsObject
+ * @param {Boolean} dryRun Set to true to not add the joke to the joke file after validating it
  */
-const jokeSubmission = (res, data, fileFormat, ip, analyticsObject) => {
+const jokeSubmission = (res, data, fileFormat, ip, analyticsObject, dryRun) => {
     try
     {
+        if(typeof dryRun != "boolean")
+            dryRun = false;
+
         if(typeof httpServer == "object" && Object.keys(httpServer).length <= 0)
             httpServer = require("./httpServer");
             
@@ -79,6 +84,16 @@ const jokeSubmission = (res, data, fileFormat, ip, analyticsObject) => {
                 try
                 {
                     // file name was found, write to file now:
+                    if(dryRun)
+                    {
+                        let respObj = {
+                            error: false,
+                            message: tr(langCode, "dryRunSuccessful", parseJokes.jokeFormatVersion, submittedJoke.formatVersion),
+                            timestamp: new Date().getTime()
+                        };
+
+                        return httpServer.pipeString(res, fileFormatConverter.auto(fileFormat, respObj, langCode), parseURL.getMimeTypeFromFileFormatString(fileFormat), 201);
+                    }
                     return writeJokeToFile(res, fileName, submittedJoke, fileFormat, ip, analyticsObject, langCode);
                 }
                 catch(err)
