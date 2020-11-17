@@ -402,7 +402,7 @@
         {
             "category": "Programming",
             "type": "single",
-            "joke": "Das echte Leben nervt ... aber die Grafik ist gut.",
+            "joke": "Das echte Leben nervt... aber die Grafik ist gut.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -411,6 +411,19 @@
                 "sexist": false
             },
             "id": 29
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "joke": "Ein Beamter zum anderen: \"Was haben die Leute nur, wir tun doch nichts!\"",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": true,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 30
         }
     ]
 }

@@ -3503,7 +3503,7 @@
         {
             "category": "Christmas",
             "type": "twopart",
-            "setup": "Why couldnt the skeleton go to the Christmas Party?",
+            "setup": "Why couldn't the skeleton go to the Christmas party?",
             "delivery": "Because he had no body to go with!",
             "flags": {
                 "nsfw": false,
@@ -3541,6 +3541,61 @@
                 "sexist": false
             },
             "id": 257
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "Why are cats so good at video games?",
+            "delivery": "They have nine lives.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 258
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Why did the banana go see a doctor?",
+            "delivery": "Because it wasn't peeling well.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 259
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "single",
+            "joke": "My wife and I have reached the difficult decision that we do not want children.\nIf anybody does, please just send me your contact details and we can drop them off tomorrow.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 260
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "I won the lottery today!",
+            "delivery": "Well, I only got the first two numbers, but my lawyers are working on having them stop the count.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": true,
+                "racist": false,
+                "sexist": false
+            },
+            "id": 261
         }
     ]
 }
