@@ -46,6 +46,21 @@
                 "explicit": false
             },
             "id": 2
+        },
+        {
+            "category": "Miscellaneous",
+            "type": "twopart",
+            "setup": "Uveďte holou větu, kde bude jenom podmět a přísudek.",
+            "delivery": "Čech abstinuje.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 3
         }
     ]
 }
