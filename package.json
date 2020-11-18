@@ -55,6 +55,13 @@
         "Added Czech translation",
         "Fixed grammar mistakes"
       ]
+    },
+    {
+      "name": "Sahithyan Kandathasan",
+      "email": "sahithyan2701@gmail.com",
+      "contributions": [
+        "Added changelog in Markdown format"
+      ]
     }
   ],
   "license": "MIT",
