@@ -75,7 +75,15 @@ function writeMD(
         outputLines.push(...versionContent, "\n");
     });
 
-    fs.writeFileSync(outputFile, outputLines.join("\n"));
+    let output = outputLines
+        .join("\n")
+        // convert issue reference to links
+        .replace(
+            /\(issue \#(\d{1,})\)/g,
+            "([issue #$1](https://github.com/Sv443/JokeAPI/issues/$1))"
+        );
+
+    fs.writeFileSync(outputFile, output);
 }
 
 extractData();

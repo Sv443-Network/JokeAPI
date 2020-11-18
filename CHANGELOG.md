@@ -1,25 +1,25 @@
 # JokeAPI Changelog (Version 2.2.2)
 
 ## [Planned for future releases]
-- Allow definition of max requests per minute per each client (issue #37)
-- Add positive flags and a "?whitelistFlags" param (issue #127)
-- Add Unit Tests (issue #121)
-- Serve docs with nginx to speed up page load times (issue #118)
+- Allow definition of max requests per minute per each client ([issue #37](https://github.com/Sv443/JokeAPI/issues/37))
+- Add positive flags and a "?whitelistFlags" param ([issue #127](https://github.com/Sv443/JokeAPI/issues/127))
+- Add Unit Tests ([issue #121](https://github.com/Sv443/JokeAPI/issues/121))
+- Serve docs with nginx to speed up page load times ([issue #118](https://github.com/Sv443/JokeAPI/issues/118))
 
 
 ## [CURRENT: 2.2.2] - The Seasonal Update
-- Added some new seasonal categories (issue #180)
+- Added some new seasonal categories ([issue #180](https://github.com/Sv443/JokeAPI/issues/180))
     - Spooky (Halloween)
     - Christmas (thanks for the suggestion Dan)
-- Added dependent ToastIT-dev/PoshBot.Joker (issue #173)
+- Added dependent ToastIT-dev/PoshBot.Joker ([issue #173](https://github.com/Sv443/JokeAPI/issues/173))
 - Added a bunch of joke submissions
-- Reliability improvements in the documentation (issue #181)
+- Reliability improvements in the documentation ([issue #181](https://github.com/Sv443/JokeAPI/issues/181))
 - Added POST as a method to submit data to the API since it makes more sense than PUT (maybe deprecating that some time)
 
 
 ## [2.2.1] - Version 2.2 Hotfix
 - Added the Czech translation (PR #137) - provided by @ThatCopy (https://github.com/ThatCopy) - thanks :)
-- Added a missing conversion mapping when using format `txt` and the `amount` parameter on endpoint `/joke` (issue #138)
+- Added a missing conversion mapping when using format `txt` and the `amount` parameter on endpoint `/joke` ([issue #138](https://github.com/Sv443/JokeAPI/issues/138))
 - Fixed wrong URLs in the documentation's JavaScript
 - Fixed crash when a client asks for a translation that doesn't exist
 - Slightly improved the documentation
@@ -27,28 +27,28 @@
 
 
 ## [2.2.0]
-- Added joke category "Pun" (issue #105)
-- Added "?amount" parameter to joke endpoint so multiple jokes can be fetched at once (issue #126)
-- Added support for jokes and error messages of different languages (issue #75)
+- Added joke category "Pun" ([issue #105](https://github.com/Sv443/JokeAPI/issues/105))
+- Added "?amount" parameter to joke endpoint so multiple jokes can be fetched at once ([issue #126](https://github.com/Sv443/JokeAPI/issues/126))
+- Added support for jokes and error messages of different languages ([issue #75](https://github.com/Sv443/JokeAPI/issues/75))
     - /langcode/{LANGUAGE} endpoint
     - /languages endpoint
     - "?lang=code" URL parameter
-- Fixed ID caching (again, sigh) (issue #80)
-- Added pm2 custom metrics (issue #91)
-- Fixed HTTP 403 errors (issue #96)
-- Remade the URL parser using a package (issue #97)
-- Daemonized the API token refreshing (issue #102)
-- Rate limiting joke submissions more harshly now (issue #104)
-- Fixed error where the end of the payload were cut off, thus invalidating JSON (issue #119)
-- Joke submission property order is now enforced, improving uniformity (issue #120)
-- Joke submissions are now validated to make sure they don't contain fancy Unicode chars (issue #123)
+- Fixed ID caching (again, sigh) ([issue #80](https://github.com/Sv443/JokeAPI/issues/80))
+- Added pm2 custom metrics ([issue #91](https://github.com/Sv443/JokeAPI/issues/91))
+- Fixed HTTP 403 errors ([issue #96](https://github.com/Sv443/JokeAPI/issues/96))
+- Remade the URL parser using a package ([issue #97](https://github.com/Sv443/JokeAPI/issues/97))
+- Daemonized the API token refreshing ([issue #102](https://github.com/Sv443/JokeAPI/issues/102))
+- Rate limiting joke submissions more harshly now ([issue #104](https://github.com/Sv443/JokeAPI/issues/104))
+- Fixed error where the end of the payload were cut off, thus invalidating JSON ([issue #119](https://github.com/Sv443/JokeAPI/issues/119))
+- Joke submission property order is now enforced, improving uniformity ([issue #120](https://github.com/Sv443/JokeAPI/issues/120))
+- Joke submissions are now validated to make sure they don't contain fancy Unicode chars ([issue #123](https://github.com/Sv443/JokeAPI/issues/123))
 
 
 ## [2.1.5] - 2020 Q3 general patch #2
-- Ditched my botched rate limiting package for a "commercial" one (issue #113)
-- Added API token section to documentation (issue #114)
-- Client now receives a "Token-Valid" header with the value 0 or 1 depending on token validity (issue #115)
-- Renamed "X-Auth-Token" header to "Authorization" so requests don't get blocked by Cloudflare (issue #117)
+- Ditched my botched rate limiting package for a "commercial" one ([issue #113](https://github.com/Sv443/JokeAPI/issues/113))
+- Added API token section to documentation ([issue #114](https://github.com/Sv443/JokeAPI/issues/114))
+- Client now receives a "Token-Valid" header with the value 0 or 1 depending on token validity ([issue #115](https://github.com/Sv443/JokeAPI/issues/115))
+- Renamed "X-Auth-Token" header to "Authorization" so requests don't get blocked by Cloudflare ([issue #117](https://github.com/Sv443/JokeAPI/issues/117))
 - Cleaned up a lot of code
 
 
