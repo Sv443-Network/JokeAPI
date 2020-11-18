@@ -19,6 +19,7 @@
 - Added some unit tests to make JokeAPI more reliable
     - Endpoint "/info"
     - Endpoint "/langcode/{LANGUAGE}"
+- Added changelog generation in Markdown format (thanks to Sahithyan Kandathasan / [issue #191](https://github.com/Sv443/JokeAPI/issues/191))
 
 
 ## [2.2.2] - The Seasonal Update
