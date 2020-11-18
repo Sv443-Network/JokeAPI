@@ -1,5 +1,5 @@
 /*
-    Pass --generate-json to generate JSON data
+    Pass --generate-json to generate JSON data file
 */
 
 const fs = require("fs");
