@@ -1,12 +1,13 @@
-/*
-    Pass --generate-json to generate JSON data file
-*/
+/**
+ * Pass --generate-json to generate JSON data file
+ * @author sahithyandev
+ */
 
 const fs = require("fs");
 const options = {
     SOURCE_FILE: "changelog.txt",
     DATA_FILE: "changelog-data.json",
-    OUTPUT_FILE: "CHANGELOG.md",
+    OUTPUT_FILE: "changelog.md",
 };
 
 function extractVersionArray(versionLines = []) {
@@ -84,7 +85,7 @@ function writeMD(
             .join("\n")
             // convert issue references to links
             .replace(
-                /issue \#(\d{1,})/g,
+                /issue #(\d{1,})/g,
                 "[issue #$1](https://github.com/Sv443/JokeAPI/issues/$1)"
             )
     );

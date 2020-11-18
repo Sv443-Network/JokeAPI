@@ -8,17 +8,23 @@
     "start": "node . && exit $?",
     "test": "node tools/test && snyk test",
     "test-colorblind": "node tools/test --colorblind && snyk test",
+    
     "reformat": "node tools/reformat",
+    "submissions": "node tools/submissions",
     "reassign-ids": "node tools/reassign-ids",
-    "validate-jokes": "node tools/validate-jokes",
-    "validate-ids": "node tools/validate-ids",
+    
     "add-joke": "node tools/add-joke",
     "add-token": "node tools/add-token",
-    "submissions": "node tools/submissions",
+    
+    "validate-jokes": "node tools/validate-jokes",
+    "validate-ids": "node tools/validate-ids",
     "lint": "eslint ./ && exit $?",
     "all": "npm run validate-jokes && npm run validate-ids && npm run lint && npm test",
+
     "dep-graph-old": "node dev/madge",
     "dep-graph": "depcruise --include-only \"^src|^endpoints|^tests|^tools\" --output-type dot . | dot -T svg > dev/dependencygraph.svg && echo Created dependency graph at \"dev/dependencygraph.svg\"",
+    "generate-changelog": "node tools/generate-changelog",
+
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect"
   },
