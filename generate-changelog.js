@@ -3,21 +3,24 @@
 */
 
 const fs = require("fs");
-const sourceFile = "changelog.txt";
-const dataFile = "changelog-data.json";
-const outputFile = "CHANGELOG.md";
+const options = {
+    SOURCE_FILE: "changelog.txt",
+    DATA_FILE: "changelog-data.json",
+    OUTPUT_FILE: "CHANGELOG.md",
+};
 
-function extractVersionArray(lines) {
+function extractVersionArray(versionLines = []) {
     const versionsObj = {};
-    let lastVersion = "";
-    for (let line of lines) {
+    let currentVersion = "";
+
+    versionLines.forEach((line) => {
         if (line.startsWith("[")) {
-            lastVersion = line;
+            currentVersion = line;
         } else {
-            let prevItems = versionsObj[lastVersion] || [];
-            versionsObj[lastVersion] = [...prevItems, line.slice(4)];
+            let prevItems = versionsObj[currentVersion] || [];
+            versionsObj[currentVersion] = [...prevItems, line.slice(4)];
         }
-    }
+    });
 
     // versionObj will be in this format
     // {
@@ -27,32 +30,32 @@ function extractVersionArray(lines) {
     //  ]
     // }
 
-    return Object.entries(versionsObj).map(([key, items]) => {
-        return {
-            versionTitle: key,
-            versionEntries: items,
-        };
-    });
+    return Object.entries(versionsObj).map(
+        ([versionTitle, versionEntries]) => ({
+            versionTitle,
+            versionEntries,
+        })
+    );
 }
 
 function extractData() {
-    const source = fs.readFileSync(sourceFile, "utf-8");
-    const output = {
+    const source = fs.readFileSync(options.SOURCE_FILE, "utf-8");
+    const jsonData = {
         currentVersion: source.match(/- Version (\d\.\d\.\d) -/)[1],
         versions: [],
     };
 
-    let lines = source
+    let versionData = source
         .split("\n")
         .filter((line) => line != "")
         .slice(4);
 
-    output.versions = extractVersionArray(lines);
+    jsonData.versions = extractVersionArray(versionData);
 
     if (process.argv.includes("--generate-json")) {
-        fs.writeFileSync(dataFile, JSON.stringify(output, null, 4));
+        fs.writeFileSync(options.DATA_FILE, JSON.stringify(jsonData, null, 4));
     }
-    writeMD(output);
+    return jsonData;
 }
 
 function writeMD(
@@ -75,15 +78,22 @@ function writeMD(
         outputLines.push(...versionContent, "\n");
     });
 
-    let output = outputLines
-        .join("\n")
-        // convert issue reference to links
-        .replace(
-            /\(issue \#(\d{1,})\)/g,
-            "([issue #$1](https://github.com/Sv443/JokeAPI/issues/$1))"
-        );
-
-    fs.writeFileSync(outputFile, output);
+    fs.writeFileSync(
+        options.OUTPUT_FILE,
+        outputLines
+            .join("\n")
+            // convert issue references to links
+            .replace(
+                /issue \#(\d{1,})/g,
+                "[issue #$1](https://github.com/Sv443/JokeAPI/issues/$1)"
+            )
+    );
 }
 
-extractData();
+function generateMD() {
+    const data = extractData();
+
+    writeMD(data);
+}
+
+generateMD();

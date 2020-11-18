@@ -57,9 +57,9 @@
 
 
 ## [2.1.3] - 2020 Q2 general patch #1
-- Added option to disable all console output but error messages (GitHub issue #72)
-- The content of jokes in the joke submission form is now correctly escaped and can no longer mess up the page (GitHub issue #68)
-- Fixed crash when parsing a malformatted URI (GitHub issue #69 (nice))
+- Added option to disable all console output but error messages (GitHub [issue #72](https://github.com/Sv443/JokeAPI/issues/72))
+- The content of jokes in the joke submission form is now correctly escaped and can no longer mess up the page (GitHub [issue #68](https://github.com/Sv443/JokeAPI/issues/68))
+- Fixed crash when parsing a malformatted URI (GitHub [issue #69](https://github.com/Sv443/JokeAPI/issues/69) (nice))
 - Re-flagged some jokes
 - Updated dependencies
 
@@ -73,14 +73,14 @@
 
 
 ## [2.1.1] - Auth update hotfix
-- Fixed incorrect error cause when using an out-of-range ID range parameter (see GitHub issue #54)
+- Fixed incorrect error cause when using an out-of-range ID range parameter (see GitHub [issue #54](https://github.com/Sv443/JokeAPI/issues/54))
 - Added submission form (https://sv443.net/jokeapi/v2#submit)
 
 
 ## [2.1.0] - The auth update
 - Added an authorization header to make whitelisting possible without needing to have a static IP
     - Added the script "npm run add-token [amount]" to add one or more tokens
-- Improved the documentation (see GitHub issue #52)
+- Improved the documentation (see GitHub [issue #52](https://github.com/Sv443/JokeAPI/issues/52))
 - Fixed a few bugs in the documentation
 
 
@@ -134,7 +134,7 @@ ery small improvements to the console window
 
 
 ## [1.1.0]
-- switched to ReadStreams instead of just loading the entire file to RAM to massively improve request performance (more details in GitHub issue #2)
+- switched to ReadStreams instead of just loading the entire file to RAM to massively improve request performance (more details in GitHub [issue #2](https://github.com/Sv443/JokeAPI/issues/2))
     - this basically means it transmits the data over time, instead of loading it all to RAM and sending it at once
 dded rate limiting to counter DoS attacks (yes I've been getting some of those *sigh*)
 
