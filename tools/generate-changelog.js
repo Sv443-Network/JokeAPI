@@ -3,7 +3,7 @@
  * @author sahithyandev
  */
 
-const fs = require("fs");
+const fs = require("fs-extra");
 const options = {
     SOURCE_FILE: "changelog.txt",
     DATA_FILE: "changelog-data.json",
@@ -89,6 +89,8 @@ function writeMD(
                 "[issue #$1](https://github.com/Sv443/JokeAPI/issues/$1)"
             )
     );
+
+    console.log(`\x1b[32m\x1b[1mGenerated changelog at ./${options.OUTPUT_FILE}\n\x1b[0m`);
 }
 
 function generateMD() {
