@@ -64,12 +64,6 @@ You can request to get your collected data deleted or to view the data about you
 <br><br><br>
 `;
 
-var cIHTML = `
-<iframe src="<!--%#INSERT:DOCSURL#%-->/static/changelog" style="width: 100%; height: 80%; font-family: 'Roboto', 'Segoe UI', 'Arial', sans-serif; color: black !important; background-color: white !important;"></iframe><br>
-<br>
-(The current Version is <!--%#INSERT:VERSION#%-->)
-`;
-
 var rsIHTML = `
 <form onsubmit="submitRestartForm()">
 <input type="password" id="restartFormToken" placeholder="Restart Token" style="width:30vw"> <button type="submit">Send &gt;</button>
@@ -345,7 +339,14 @@ function onLoad()
                 var idrKey = idrKeys[i];
                 idRanges[idrKey] = respJSON.jokes.idRange[idrKey];
 
-                console.info("<!--%#INSERT:NAME#%--> is serving " + respJSON.jokes.idRange[idrKey][1] + " jokes from language \"" + idrKey + "\"");
+                try
+                {
+                    console.info("<!--%#INSERT:NAME#%--> is serving " + (respJSON.jokes.idRange[idrKey][1] + 1) + " jokes from language \"" + idrKey + "\"");
+                }
+                catch(err)
+                {
+                    void(err);
+                }
             }
 
             reRender();
@@ -457,16 +458,6 @@ function getQueryStringObject()
     else return null;
 
     return qstrObj;
-}
-
-function openChangelog()
-{
-    if(!gebid("jsg_menu_changelog"))
-    {
-        sMenu.new("changelog", "JokeAPI Changelog:", cIHTML, 85, 85, true, true, true);
-        sMenu.theme("changelog", "dark");
-    }
-    sMenu.open("changelog");
 }
 
 /**
@@ -1133,4 +1124,4 @@ function unused(...args)
     });
 }
 
-unused(openNav, closeNav, onLoad, openChangelog, reRender, privPolMoreInfo, hideUsageTerms, sendTryItRequest, submitRestartForm);
+unused(openNav, closeNav, onLoad, reRender, privPolMoreInfo, hideUsageTerms, sendTryItRequest, submitRestartForm);

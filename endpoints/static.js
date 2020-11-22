@@ -59,12 +59,6 @@ const call = (req, res, url, params, format) => {
             statusCode = 200;
             mimeType = "application/javascript";
         break;
-        case "changelog":
-            filePath = `./changelog.txt`;
-            statusCode = 200;
-            allowEncoding = false;
-            mimeType = "text/plain";
-        break;
         case "rust-icon":
             filePath = `${settings.documentation.dirPath}static/external/rust.svg`;
             statusCode = 200;
