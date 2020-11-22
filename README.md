@@ -27,9 +27,9 @@
 <br><br>
 
 # Official API Wrappers:
-- <b><a href="https://github.com/canarado/sv443_jokeapi_wrapper#readme"><img src="./docs/static/external/rust.svg" width="16" height="16"> Rust</a></b>
+- <b><a href="https://github.com/canarado/sv443_jokeapi_wrapper#readme"><img src="./docs/static/external/rust.svg" width="16" height="16"> Rust</a></b> (outdated)
 - <b><a href="https://github.com/thenamesweretakenalready/Sv443s-JokeAPI-Python-Wrapper#readme"><img src="./docs/static/external/python.svg" width="16" height="16"> Python</a></b>
-- <b><a href="https://github.com/sahithyandev/sv443-joke-api-js-wrapper#readme"><img src="./docs/static/external/nodejs.svg" width="16" height="16"> Node.js</a></b>
+- <b><a href="https://github.com/sahithyandev/sv443-joke-api-js-wrapper#readme"><img src="./docs/static/external/nodejs.svg" width="16" height="16"> Node.js</a></b> (incomplete)
 
 
 <br>
