@@ -15,7 +15,7 @@
 <br><br>
 
 # [Documentation](https://jokeapi.dev/)
-# [Try it out](https://jokeapi.dev/#try-it) &bull; [Changelog](./changelog.txt)
+## [Try it out](https://jokeapi.dev/#try-it) &bull; [Changelog](./changelog.txt)
 
 
 </div>
@@ -27,8 +27,9 @@
 <br><br>
 
 # Official API Wrappers:
-- [Rust](https://github.com/canarado/sv443_jokeapi_wrapper)
-- [Python](https://github.com/thenamesweretakenalready/Sv443s-JokeAPI-Python-Wrapper)
+- <img src="./docs/static/external/rust.svg" style="width:1em"> [Rust](https://github.com/canarado/sv443_jokeapi_wrapper#readme)
+- <img src="./docs/static/external/python.svg" style="width:1em"> [Python](https://github.com/thenamesweretakenalready/Sv443s-JokeAPI-Python-Wrapper#readme)
+- <img src="./docs/static/external/nodejs.svg" style="width:1em"> [Node.js](https://github.com/sahithyandev/sv443-joke-api-js-wrapper#readme)
 
 <br>
 
@@ -44,13 +45,13 @@
 - [Joke Teller](https://github.com/AlHood77/Joke_Teller) by [AlHood77](https://github.com/AlHood77)
 - [jokes](https://github.com/remcoov/jokes) by [remcoov](https://github.com/remcoov)
   
-([Submit an issue](https://github.com/Sv443/JokeAPI/issues/new/choose) to get your project added here)
+[Submit an issue](https://github.com/Sv443/JokeAPI/issues/new/choose) and select `New Dependent` to get your project added here
 
 
 <br><br>
 <div align="center" style="text-align:center">
 
 Made with ❤️ by [Sv443](https://github.com/Sv443)  
-Support me on [Patreon](https://patreon.com/Sv443_), [Ko-fi](https://ko-fi.com/Sv443_) or [PayPal](https://paypal.me/SvenFehler)
+If you want to, you can support me on [Patreon](https://patreon.com/Sv443_), [Ko-fi](https://ko-fi.com/Sv443_) or [PayPal](https://paypal.me/SvenFehler)
 
 </div>
