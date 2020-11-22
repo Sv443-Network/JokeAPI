@@ -158,6 +158,8 @@ const logRequest = (type, additionalInfo, analyticsData) => {
  * @param {Number} initTimestamp The timestamp of when JokeAPI was initialized
  */
 const initMsg = (initTimestamp) => {
+    let initMs = (new Date().getTime() - initTimestamp).toFixed(0);
+
     console.log(`\n${jsl.colors.fg.blue}[${logger.getTimestamp(" | ")}] ${jsl.colors.rst}- ${jsl.colors.fg.green}${settings.info.name} v${settings.info.version}${jsl.colors.rst}`);
     console.log(` ├─ Registered and validated ${jsl.colors.fg.green}${parseJokes.jokeCount}${jsl.colors.rst} jokes from ${jsl.colors.fg.green}${languages.jokeLangs().length}${jsl.colors.rst} languages`);
     console.log(` ├─ ${jsl.colors.fg.green}${settings.jokes.possible.categories.length}${jsl.colors.rst} categories, ${jsl.colors.fg.green}${settings.jokes.possible.flags.length}${jsl.colors.rst} flags, ${jsl.colors.fg.green}${settings.jokes.possible.formats.length}${jsl.colors.rst} formats`);
@@ -166,7 +168,7 @@ const initMsg = (initTimestamp) => {
     else
         console.log(` ├─ Analytics database ${settings.analytics.enabled ? jsl.colors.fg.red : jsl.colors.fg.yellow}not connected${settings.analytics.enabled ? "" : " (disabled)"}${jsl.colors.rst}`);
     console.log(` ├─ ${settings.info.name} is listening at ${jsl.colors.fg.green}http://127.0.0.1:${settings.httpServer.port}${jsl.colors.rst} (SSL ${settings.httpServer.ssl.enabled ? `${jsl.colors.fg.green}enabled${jsl.colors.rst}` : `${jsl.colors.fg.yellow}disabled${jsl.colors.rst}`})`);
-    console.log(` └─ Initialization took around ${jsl.colors.fg.green}${(new Date().getTime() - initTimestamp).toFixed(0)}ms${jsl.colors.rst}`);
+    console.log(` └─ Initialization took around ${jsl.colors.fg.green}${initMs}ms${initMs == 69 ? " (nice)" : ""}${jsl.colors.rst}`);
     process.stdout.write("\n");
     console.log(`Colors: ${jsl.colors.fg.green}Success ${jsl.colors.fg.yellow}Warning ${jsl.colors.fg.red}Error${jsl.colors.rst}`);
     

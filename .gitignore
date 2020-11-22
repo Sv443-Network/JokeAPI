@@ -23,6 +23,9 @@ docs/documentation.html
 docs/compiled
 
 # Joke submissions:
+data/submissions
+data/submissions/**
+data/submissions/*/**
 data/submissions/*/*.json
 
 # Auth Tokens:
