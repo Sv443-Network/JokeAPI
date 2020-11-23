@@ -595,12 +595,13 @@ footer#copyrightNotice span {
 /*#SECTION Wrappers*/
 #wrapperTable {
     border-spacing: 0;
-    font-size: 105%;
+    font-size: 110%;
 }
 
 #wrapperTable tr th {
     text-align: left;
     padding: 2px;
+    padding-right: 20px;
     border: 1px solid white;
     border-style: none none solid none;
 }
@@ -613,6 +614,10 @@ footer#copyrightNotice span {
     text-align: left;
     padding: 2px;
     padding-right: 20px;
+}
+
+#wrapperTable tr td.wrappericon {
+    padding-right: 5px;
 }
 
 /*#SECTION submit*/

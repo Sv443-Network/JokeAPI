@@ -77,6 +77,12 @@ const call = (req, res, url, params, format) => {
             allowEncoding = false;
             mimeType = "image/svg+xml";
         break;
+        case "golang-icon":
+            filePath = `${settings.documentation.dirPath}static/external/golang.svg`;
+            statusCode = 200;
+            allowEncoding = false;
+            mimeType = "image/svg+xml";
+        break;
         default:
             requestedFile = "fallback_err_404";
             filePath = settings.documentation.error404path;
