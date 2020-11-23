@@ -1,4 +1,4 @@
-# JokeAPI Changelog (Version 2.2.3)
+# JokeAPI Changelog (Version 2.3.0)
 
 ## [Planned for future releases]
 - Allow definition of max requests per minute per each client ([issue #37](https://github.com/Sv443/JokeAPI/issues/37))
@@ -7,7 +7,7 @@
 - Serve docs with nginx to speed up page load times ([issue #118](https://github.com/Sv443/JokeAPI/issues/118))
 
 
-## [CURRENT: 2.2.3] - The Domain Update
+## [CURRENT: 2.3.0] - The Domain Update
 - JokeAPI now has its own domain - https://jokeapi.dev/
     - Version 2 of the API should be called @ https://v2.jokeapi.dev/ but can also be called with the old domain and https://jokeapi.dev/
     - The stage version is @ https://stage.jokeapi.dev/
@@ -19,7 +19,18 @@
 - Added some unit tests to make JokeAPI more reliable
     - Endpoint "/info"
     - Endpoint "/langcode/{LANGUAGE}"
+- Added a URL parameter to dry-run the /submit endpoint ([issue #187](https://github.com/Sv443/JokeAPI/issues/187))
+- API now tells clients how many requests they have left by providing some headers ([issue #188](https://github.com/Sv443/JokeAPI/issues/188))
 - Added changelog generation in Markdown format (thanks to Sahithyan Kandathasan / [issue #191](https://github.com/Sv443/JokeAPI/issues/191))
+- Added a few category aliases
+    - Miscellaneous for Misc
+    - Coding for Programming
+    - Development for Programming
+    - Halloween for Spooky
+- Renamed category "Miscellaneous" to "Misc" but kept old name "Miscellaneous" as an alias
+- Added two new wrapper libraries
+    - sv443-joke-api for Node.js / TS ([issue #190](https://github.com/Sv443/JokeAPI/issues/190))
+    - jokeapi-go for Golang ([issue #193](https://github.com/Sv443/JokeAPI/issues/193))
 
 
 ## [2.2.2] - The Seasonal Update

@@ -31,6 +31,8 @@ Keep in mind, though, that I will not remove jokes based on opinions as that wou
     - `npm run validate-jokes` to make sure all jokes are formatted correctly.
     - `npm run validate-ids` to verify that all jokes have the correct ID.
     - `npm run lint` to check the code for any warnings or errors.
+    - `npm run dep-graph` to generate a new dependency graph.
+    - `npm run generate-changelog` to generate a Markdown changelog out of the plaintext one.
     - `npm run test`, which runs the unit tests for JokeAPI. If you are colorblind, you can run the command `npm run test-colorblind` (will turn green into cyan and red into magenta).
 5. Run JokeAPI locally by running the command `node JokeAPI`, request some jokes and test the areas you modified / added to make sure everything still works.
 6. Add yourself to the `contributors` object in the [`package.json`](../package.json) file :)
