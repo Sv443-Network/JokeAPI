@@ -4,7 +4,7 @@
     },
     "jokes": [
         {
-            "category": "Miscellaneous",
+            "category": "Misc",
             "type": "single",
             "joke": "Una ardilla le pregunta a otra que quiere ser cuando grande, la otra ardilla de responde \"Ardila Lule\".",
             "flags": {

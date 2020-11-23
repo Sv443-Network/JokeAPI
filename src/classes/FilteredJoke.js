@@ -40,6 +40,7 @@ class FilteredJoke
             idRangePerLang[lc] = [ 0, (parseJokes.jokeCountPerLang[lc] - 1) ];
         });
 
+        /** Resolved category names (aliases are not allowed here) */
         this._allowedCategories = [
             settings.jokes.possible.anyCategoryName.toLowerCase(),
             ...settings.jokes.possible.categories.map(c => c.toLowerCase())

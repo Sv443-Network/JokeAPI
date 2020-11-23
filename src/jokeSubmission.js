@@ -167,7 +167,7 @@ function reformatJoke(joke)
 
     retJoke = {
         ...retJoke,
-        category: joke.category,
+        category: parseJokes.resolveCategoryAlias(joke.category),
         type: joke.type
     };
 

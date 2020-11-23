@@ -343,7 +343,7 @@
             "id": 22
         },
         {
-            "category": "Miscellaneous",
+            "category": "Misc",
             "type": "single",
             "joke": "Wer zuletzt lacht ... hat den höchsten Ping.",
             "flags": {
@@ -357,7 +357,7 @@
             "id": 23
         },
         {
-            "category": "Miscellaneous",
+            "category": "Misc",
             "type": "single",
             "joke": "Das echte Leben nervt ... aber die Grafik ist gut.",
             "flags": {
@@ -400,7 +400,7 @@
             "id": 26
         },
         {
-            "category": "Miscellaneous",
+            "category": "Misc",
             "type": "twopart",
             "setup": "Treffen sich zwei Kerzen.",
             "delivery": "Fragt die eine \"Was machst du heute?\"\nSagt die andere \"Ich gehe aus.\"",
@@ -415,7 +415,7 @@
             "id": 27
         },
         {
-            "category": "Miscellaneous",
+            "category": "Misc",
             "type": "single",
             "joke": "Ich hab gerade den DJ angerufen. Er hat aufgelegt.",
             "flags": {
@@ -443,7 +443,7 @@
             "id": 29
         },
         {
-            "category": "Miscellaneous",
+            "category": "Misc",
             "type": "single",
             "joke": "Ein Beamter zum anderen: \"Was haben die Leute nur, wir tun doch nichts!\"",
             "flags": {

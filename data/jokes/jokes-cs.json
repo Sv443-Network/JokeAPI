@@ -4,7 +4,7 @@
     },
     "jokes": [
         {
-            "category": "Miscellaneous",
+            "category": "Misc",
             "type": "single",
             "joke": "Znám spoustu vtipů ve znakové řeči, které nikdo neslyšel!",
             "flags": {
@@ -33,7 +33,7 @@
             "id": 1
         },
         {
-            "category": "Miscellaneous",
+            "category": "Misc",
             "type": "twopart",
             "setup": "Jaký je rozdíl mezi ekonomem a Židem?",
             "delivery": "Ekonom ví vše o penězích.\nŽid je má.",
@@ -48,7 +48,7 @@
             "id": 2
         },
         {
-            "category": "Miscellaneous",
+            "category": "Misc",
             "type": "twopart",
             "setup": "Uveďte holou větu, kde bude jenom podmět a přísudek.",
             "delivery": "Čech abstinuje.",

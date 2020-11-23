@@ -54,6 +54,13 @@ const call = (req, res, url, params, format) => {
 
     if(includesSplitChar)
         category = category.split(settings.jokes.splitCharRegex);
+
+    // resolve category aliases
+    if(Array.isArray(category))
+        category = parseJokes.resolveCategoryAliases(category);
+    else
+        category = parseJokes.resolveCategoryAlias(category);
+
     
     let categoryValid = false;
     [settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories].forEach(cat => {

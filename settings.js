@@ -68,13 +68,19 @@ const settings = {
         possible: {
             anyCategoryName: "Any", // the name of the "Any" category - readable name
             categories: [           // all categories (excluding "Any") - case insensitive / readable name
-                "Miscellaneous",
+                "Misc",
                 "Programming",
                 "Dark",
                 "Pun",
                 "Spooky",
                 "Christmas"
             ],
+            categoryAliases: { // aliases of categories. Key gets auto-converted to value. Value has to be present in the "categories" array above!
+                "Miscellaneous": "Misc",
+                "Coding": "Programming",
+                "Development": "Programming",
+                "Halloween": "Spooky"
+            },
             flags: [ // all flags - HAVE TO BE LOWER CASE!
                 "nsfw",
                 "religious",

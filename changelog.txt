@@ -24,6 +24,7 @@
         - Endpoint "/info"
         - Endpoint "/langcode/{LANGUAGE}"
     - Added changelog generation in Markdown format (thanks to Sahithyan Kandathasan / issue #191)
+    - Renamed category "Miscellaneous" to "Misc" but kept old name as an alias
 
 
 [2.2.2] - The Seasonal Update

@@ -314,6 +314,9 @@ const init = () => {
 
                             let dryRun = (parsedURL.queryParams && parsedURL.queryParams["dry-run"] == true) || false;
 
+                            if(lists.isWhitelisted(ip))
+                                return jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun);
+
                             if(!dryRun)
                             {
                                 rlSubm.consume(ip, 1).then(() => {
