@@ -84,7 +84,7 @@ function writeMD(
             .join("\n")
             // convert issue references to links
             .replace(
-                /issue \#(\d{1,})/g,
+                /issue #(\d{1,})/g,
                 "[issue #$1](https://github.com/Sv443/JokeAPI/issues/$1)"
             )
     );
