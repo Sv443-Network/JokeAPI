@@ -254,6 +254,7 @@ const inject = filePath => {
                     "<!--%#INSERT:AUTHORWEBSITEURL#%-->":      settings.info.author.website,
                     "<!--%#INSERT:AUTHORGITHUBURL#%-->":       settings.info.author.github,
                     "<!--%#INSERT:CONTRIBUTORS#%-->":          (!jsl.isEmpty(contributors) ? contributors : "{}"),
+                    "<!--%#INSERT:CONTRIBUTORGUIDEURL#%-->":   settings.info.contribGuideUrl.toString(),
                     "<!--%#INSERT:PROJGITHUBURL#%-->":         settings.info.projGitHub,
                     "<!--%#INSERT:JOKESUBMISSIONURL#%-->":     settings.jokes.jokeSubmissionURL,
                     "<!--%#INSERT:CATEGORYARRAY#%-->":         JSON.stringify([settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories]),
@@ -271,7 +272,7 @@ const inject = filePath => {
                     "<!--%#INSERT:SYSLANGCOUNT#%-->":          languages.systemLangs().length.toString(),
                     "<!--%#INSERT:MAXJOKEAMOUNT#%-->":         settings.jokes.maxAmount.toString(),
                     "<!--%#INSERT:JOKEENCODEAMOUNT#%-->":      settings.jokes.encodeAmount.toString(),
-                    "<!--%#INSERT:SUBMISSIONRATELIMIT#%-->":   settings.jokes.submissions.rateLimiting.toString()
+                    "<!--%#INSERT:SUBMISSIONRATELIMIT#%-->":   settings.jokes.submissions.rateLimiting.toString(),
                 };
 
                 let allMatches = 0;

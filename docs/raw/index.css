@@ -662,6 +662,26 @@ textarea {
     padding-right: 5px;
 }
 
+/* #SECTION contributors */
+
+#contributorsContainer .contributor {
+    margin-top: 30px;
+}
+
+#contributorsContainer .contributor .contributorName {
+    font-size: 115%;
+    font-weight: 125%;
+}
+
+#contributorsContainer .contributor .contributorContact {
+    display: inline;
+}
+
+#contributorsContainer .contributor .contributorContact:after {
+    content:"\a";
+    white-space: pre;
+}
+
 /*#MARKER sidenav*/
 #sidenav {
     display: flex;

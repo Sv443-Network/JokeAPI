@@ -22,7 +22,8 @@ const settings = {
             website: packageJSON.author.url, // author website
             github: `https://github.com/${packageJSON.author.name}`, // author github page
         },
-        privacyPolicyUrl: "https://sv443.net/privacypolicy/en"
+        privacyPolicyUrl: "https://sv443.net/privacypolicy/en",
+        contribGuideUrl: "https://github.com/Sv443/JokeAPI/blob/master/.github/Contributing.md#readme",
     },
     wrapper: {
         mainFilePath: "./src/main.js",          // main script file

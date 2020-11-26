@@ -9,7 +9,8 @@ var settings = {
     submitUrl: "<!--%#INSERT:DOCSURL#%-->/submit",
     // submitUrl: "http://127.0.0.1:8076/submit", // DEBUG
     defaultLang: "en",
-    formatVersion: 3
+    formatVersion: 3,
+    contributorsObject: JSON.parse('<!--%#INSERT:CONTRIBUTORS#%-->')
 };
 
 var submission = {};
@@ -85,6 +86,10 @@ this.setInnerHTML=function(id,inner_html){try{gebid("jsg_menu_"+id).innerHTML=in
 catch(err){console.error("couldn't find menu or inner_html is not valid");return!1}}
 this.setOuterHTML=function(id,outer_html){try{gebid("jsg_menu_"+id).outerHTML=outer_html}
 catch(err){console.error("couldn't find menu or outer_html is not valid");return!1}}}
+/**
+ * Alias for document.getElementById()
+ * @param {String} id ID of the element
+ */
 function gebid(id){return document.getElementById(id);}
 
 
@@ -387,6 +392,9 @@ function onLoad()
     gebid("lcodeSelect").value = settings.defaultLang;
     gebid("lcodeSelect").onchange = function() { reRender(true) };
     gebid("sideNavOpen").onclick = function() { return openNav(); };
+
+
+    loadContributors();
 }
 
 function addCodeTabs()
@@ -1110,6 +1118,77 @@ function toFormattedDate(unixTimestamp)
 {
     var d = new Date(unixTimestamp);
     return d.toLocaleString("de-DE");
+}
+
+/**
+ * Parses the contributor object and puts the contents into the element #contributorsContainer
+ */
+function loadContributors()
+{
+    var container = gebid("contributorsContainer");
+
+    container.innerHTML = "";
+
+    settings.contributorsObject.forEach(function(contributor) {
+        var contrElem = document.createElement("div");
+        contrElem.classList.add("contributor");
+
+        var name = document.createElement("div");
+        name.classList.add("contributorName");
+        name.innerText = contributor.name;
+        contrElem.appendChild(name);
+
+        if(typeof contributor.email == "string")
+        {
+            var email = document.createElement("a");
+            email.href = "mailto:" + contributor.email + "?subject=JokeAPI%20Contribution";
+            email.innerText = contributor.email;
+            email.classList.add("contributorEmail");
+            email.classList.add("contributorContact");
+            contrElem.appendChild(email);
+        }
+
+        if(typeof contributor.url == "string")
+        {
+            var url = document.createElement("a");
+            url.href = contributor.url;
+            url.innerText = contributor.url;
+            url.classList.add("contributorURL");
+            url.classList.add("contributorContact");
+            contrElem.appendChild(url);
+        }
+
+        if(Array.isArray(contributor.contributions))
+        {
+            var contributionList = document.createElement("ul");
+            contributionList.classList.add("contributorContributionsList");
+            contributor.contributions.forEach(function(contribution) {
+                var contributionEl = document.createElement("li");
+                contributionEl.innerText = contribution;
+                contributionList.appendChild(contributionEl);
+            });
+            contrElem.appendChild(contributionList);
+        }
+
+        container.appendChild(contrElem);
+    });
+
+    /*
+    [
+        {
+            "name": "XY",
+            "email": "xy@example.org", (OPTIONAL)
+            "url": "https://example.org", (OPTIONAL)
+            "contributions": [
+                "Implemented a whole lot of stuff",
+                "Stuff",
+                "Even more stuff",
+                ...
+            ]
+        },
+        ...
+    ]
+    */
 }
 
 
