@@ -1061,14 +1061,14 @@
             "id": 77
         },
         {
-            "category": "Misc",
+            "category": "Dark",
             "type": "twopart",
             "setup": "9/11 jokes are not funny.",
             "delivery": "The other 2 though, are hilarious!",
             "flags": {
                 "nsfw": false,
                 "religious": false,
-                "political": false,
+                "political": true,
                 "racist": false,
                 "sexist": false
             },
