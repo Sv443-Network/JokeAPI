@@ -1,6 +1,6 @@
 ---
-name: New Dependent
-about: Request your project to be added to the dependent lists in the readme and documentation
+name: Dependent
+about: Request your project to be added to the dependent lists in the readme and documentation or suggest an edit to a dependent
 title: 'New dependent: '
 labels: ⚙️ dependent
 assignees: Sv443
@@ -13,8 +13,8 @@ assignees: Sv443
     - https://github.com/Sv443/JokeAPI#readme    (scroll down all the way)
 -->
 
-## Link to my project:
-<!-- Add a single URL to your project here -->
+## Link to the project:
+<!-- Add a single URL to the dependent project here -->
 ```
 https://github.com/example/My_Project
 ```

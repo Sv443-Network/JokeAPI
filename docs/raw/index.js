@@ -10,7 +10,8 @@ var settings = {
     // submitUrl: "http://127.0.0.1:8076/submit", // DEBUG
     defaultLang: "en",
     formatVersion: 3,
-    contributorsObject: JSON.parse('<!--%#INSERT:CONTRIBUTORS#%-->')
+    contributorsObject: JSON.parse('<!--%#INSERT:CONTRIBUTORS#%-->'),
+    categoryAliasesObject: JSON.parse('<!--%#INSERT:CATEGORYALIASES#%-->')
 };
 
 var submission = {};
@@ -394,6 +395,7 @@ function onLoad()
     gebid("sideNavOpen").onclick = function() { return openNav(); };
 
 
+    loadCategoryAliases();
     loadContributors();
 }
 
@@ -1189,6 +1191,37 @@ function loadContributors()
         ...
     ]
     */
+}
+
+/**
+ * Loads all category aliases, adding them to the element #catAliasesContainer
+ */
+function loadCategoryAliases()
+{
+    var container = gebid("catAliasesContainer");
+    var amt = 0;
+
+    Object.keys(settings.categoryAliasesObject).forEach(function(key) {
+        var value = settings.categoryAliasesObject[key];
+
+        var trElem = document.createElement("tr");
+
+
+        var keyElem = document.createElement("td");
+        keyElem.innerText = key;
+
+        var valElem = document.createElement("td");
+        valElem.innerText = value;
+
+        trElem.appendChild(keyElem);
+        trElem.appendChild(valElem);
+
+
+        container.appendChild(trElem);
+        amt++;
+    });
+
+    console.info("Found " + amt + " category aliases");
 }
 
 

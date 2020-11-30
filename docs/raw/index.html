@@ -62,7 +62,7 @@
             <header class="bodyFlexItem">
                 <span class="headeritem l">
                     <span id="headersidenavopenwrapper" class="noselect">
-                        <span id="sideNavOpen" title="Click to open">&#9776; Menu</span>
+                        <span id="sideNavOpen" title="Click to open">☰</span>
                     </span>
                 </span>
                 <span class="headeritem m">
@@ -71,8 +71,8 @@
                 <span class="headeritem r">
                     <span id="headerversion">
                         <span id="headerVersionNumber">v<!--%#INSERT:VERSION#%--></span>
-                        (<a href="https://github.com/Sv443/JokeAPI/blob/master/changelog.md#readme" target="_blank">Changelog</a>)<br>
-                        <a href="<!--%#INSERT:PROJGITHUBURL#%-->">GitHub</a>&nbsp;&bull;&nbsp;<a href="#legal">Legal&nbsp;Stuff</a>&nbsp;&bull;&nbsp;<a href="<!--%#INSERT:AUTHORGITHUBURL#%-->">Author</a>
+                        <a id="changelogLink" href="https://github.com/Sv443/JokeAPI/blob/master/changelog.md#readme" target="_blank">(Changelog)</a><br>
+                        <a href="<!--%#INSERT:PROJGITHUBURL#%-->">GitHub</a>&nbsp;<span class="mobileHide">&bull;&nbsp;<a href="#legal">Legal&nbsp;Stuff</a>&nbsp;</span>&bull;&nbsp;<a href="<!--%#INSERT:AUTHORGITHUBURL#%-->">Author</a>
                     </span>
                 </span>
             </header>
@@ -395,7 +395,7 @@
                         <td class="wrappericon"><img class="miniimg" src="static/python-icon"></td>
                         <td>Python</td>
                         <td><a href="https://github.com/thenamesweretakenalready/Sv443s-JokeAPI-Python-Wrapper#readme" target="_blank">Sv443s JokeAPI Python Wrapper</a></td>
-                        <td><a href="https://github.com/thenamesweretakenalready" target="_blank">thenamesweretakenalready</a></td>
+                        <td><a href="https://github.com/thenamesweretakenalready" target="_blank">thenameswere<wbr>takenalready</a></td>
                     </tr>
                     <tr>
                         <td class="wrappericon"><img class="miniimg" src="static/nodejs-icon"></td>
@@ -460,6 +460,7 @@
                                     <input type="checkbox" class="uncheckOnInit" id="f_flags_nsfw" value="nsfw"><label for="f_flags_nsfw">NSFW</label>
                                     <input type="checkbox" class="uncheckOnInit" id="f_flags_religious" value="religious"><label for="f_flags_religious">Religious</label>
                                     <input type="checkbox" class="uncheckOnInit" id="f_flags_political" value="political"><label for="f_flags_political">Political</label>
+                                    <wbr>
                                     <input type="checkbox" class="uncheckOnInit" id="f_flags_racist" value="racist"><label for="f_flags_racist">Racist</label>
                                     <input type="checkbox" class="uncheckOnInit" id="f_flags_sexist" value="sexist"><label for="f_flags_sexist">Sexist</label>
                                     <input type="checkbox" class="uncheckOnInit" id="f_flags_explicit" value="explicit"><label for="f_flags_explicit">Explicit</label>
@@ -496,7 +497,7 @@
                 Sending any requests after this limit will make the API temporarily give you a HTTP 429 error until the time runs out.<br>
                 When submitting jokes, your budget is only <!--%#INSERT:SUBMISSIONRATELIMIT#%--> requests per minute.<br>
                 <br>
-                Almost everywhere when using <!--%#INSERT:NAME#%-->, you will be getting the following headers which tell you all you need to know about your current request budget:<br>
+                Almost everywhere when using <!--%#INSERT:NAME#%-->, you will be getting the following headers which tell you all you need to know about your current request budget:
                 <br>
                 <table id="statusCodeTable" class="alternatingBgTable">
                     <!-- Use CSS classes g (green), r (red) and dr (dark red) on the td's to color status codes -->
@@ -1395,10 +1396,34 @@ public class Flags
                 <div class="subHeaderContainer"><a href="#categories" title="Click to link to this header">§</a> <span class="subHeader" id="categories">Categories:</span></div>
                 <!--%#INSERT:NAME#%--> has a first, coarse filter that just categorizes the jokes depending on what the joke is about or who the joke is directed at.<br>
                 A joke about programming will be in the "Programming" category, dark humor will be in the "Dark" category and so on.<br>
-                If you want jokes from all categories, you can instead use "Any", which will make <!--%#INSERT:NAME#%--> randomly choose a category.<br><br>
+                If you want jokes from all categories, you can instead use "Any", which will make <!--%#INSERT:NAME#%--> randomly choose a category.<br>
+                Since version 2.3.0, there are now aliases to these categories. <a href="#category-aliases">This section</a> explains how they work.<br><br>
                 These are all the available categories: <mark class="insCategories">(Loading...)</mark><br>
                 To set the category you want, you need to add it to the URL path, just after the "/joke" endpoint, like this:
                 <mark><!--%#INSERT:DOCSURL#%-->/joke/Programming</mark>
+                <br>
+
+                <div class="subHeaderContainer"><a href="#category-aliases" title="Click to link to this header">§</a> <span class="subHeader" id="category-aliases">Category Aliases:</span></div>
+                Since version 2.3.0, there are now category aliases. You can use these as a shorter / more clear version of the normal set of <a href="#categories">categories.</a><br>
+                Internally, these aliases will be resolved to one of the normal categories and your request (including the API's response) will be treated as if you used the resolved value.<br>
+                <br>
+                The following is a list of aliases and what they will be resolved to internally:<br>
+                <table id="catAliasesContainer" class="alternatingBgTable">
+                    <tr>
+                        <th>Alias</th>
+                        <th>Resolved Category</th>
+                    </tr>
+                </table>
+                <br>
+
+                <details>
+                    <summary>Example - click to view</summary>
+                    The following URL will make <!--%#INSERT:NAME#%--> resolve the alias <mark>Coding</mark>, giving you a joke from the category <mark>Programming</mark>:
+                    <br>
+                    <span class="requestURLwrapper">
+                        <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/joke/Coding</span>
+                    </span>
+                </details><br>
 
                 <!--#SECTION Flags-->
                 <div class="subHeaderContainer"><a href="#blacklist-flags" title="Click to link to this header">§</a> <span class="subHeader" id="blacklist-flags">(Blacklist-) Flags:</span></div>
@@ -1410,7 +1435,7 @@ public class Flags
                 <!--#SECTION Formats-->
                 <div class="subHeaderContainer"><a href="#response-formats" title="Click to link to this header">§</a> <span class="subHeader" id="response-formats">(Response-) Formats:</span></div>
                 Response Formats (or just "Formats") are a way to get your data in a different file format.<br>
-                Maybe you are using some other code that only accepts XML. In that case, <!--%#INSERT:NAME#%--> is able to convert the JSON-formatted joke to XML for you.<br>
+                Maybe your environment or language doesn't support JSON natively. In that case, <!--%#INSERT:NAME#%--> is able to convert the JSON-formatted joke to a different format for you.<br>
                 You can tell <!--%#INSERT:NAME#%--> which file format to respond with by using the <a href="#format-param">?format</a> URL parameter.<br><br>
                 These are all the available formats: <mark class="insFormats">(Loading...)</mark><br>
 
@@ -1461,6 +1486,27 @@ public class Flags
                 If you want to contribute to <!--%#INSERT:NAME#%-->, please <a href="<!--%#INSERT:CONTRIBUTORGUIDEURL#%-->" target="_blank">read this guide.</a>
 
 
+                <!-- #MARKER Dependents -->
+                <div class="docHeader targetBlink" id="dependents"><a class="headerAnchorContainer" href="#dependents" title="Click to link to this header">🔗</a><span class="docHeaderText">Dependents:</span></div>
+                These are some of the projects that depend on <!--%#INSERT:NAME#%-->:
+                <ul>
+                    <li><a href="https://github.com/ZephyrVentum/dozens-Advices" target="_blank">dozens Advices</a> by <a href="https://github.com/ZephyrVentum" target="_blank">ZephyrVentum</a></li>
+                    <li><a href="https://github.com/QGIsK/Shadow-bot" target="_blank">shadow-bot</a> by <a href="https://github.com/QGIsK" target="_blank">QGIsK</a></li>
+                    <li><a href="https://github.com/aksty/Jokepy" target="_blank">Jokepy</a> by <a href="https://github.com/aksty/Jokepy" target="_blank">aksty</a></li>
+                    <li><a href="https://github.com/whiteadi/Dark1" target="_blank">Dark1</a> by <a href="https://github.com/whiteadi" target="_blank">whiteadi</a></li>
+                    <li><a href="https://github.com/LiamTownsley/Prejudice-Networks" target="_blank">Prejudice-Networks</a> by <a href="https://github.com/LiamTownsley" target="_blank">LiamTownsley</a></li>
+                    <li><a href="https://irshad.ml/humour.html" target="_blank">https://irshad.ml/humour.html</a> by <a href="https://github.com/draco-malfoy" target="_blank">draco-malfoy</a></li>
+                    <li><a href="https://github.com/variousnabil/Random-Joke-Generator-with-Flutter" target="_blank">Random-Joke-Generator-with-Flutter</a> by <a href="https://github.com/variousnabil" target="_blank">variousnabil</a></li>
+                    <li><a href="https://thatcopy.pw/comma" target="_blank">comma</a> by <a href="https://github.com/ThatCopy" target="_blank">ThatCopy</a></li>
+                    <li><a href="https://github.com/AlHood77/Joke_Teller" target="_blank">Joke Teller</a> by <a href="https://github.com/AlHood77" target="_blank">AlHood77</a></li>
+                    <li><a href="https://github.com/remcoov/jokes" target="_blank">Jokes plugin for Craft CMS 3.x</a> by <a href="https://github.com/remcoov" target="_blank">remcoov</a></li>
+                    <li><a href="https://github.com/ToastIT-dev/PoshBot.Joker" target="_blank">PoshBot.Joker</a> by <a href="https://github.com/ToastIT-dev" target="_blank">ToastIT-dev</a></li>
+
+                    <!-- <li><a href="xyz" target="_blank">xyz</a> by <a href="https://github.com/xyz" target="_blank">xyz</a></li> -->
+                </ul>
+                (<a href="https://github.com/Sv443/JokeAPI/issues/new/choose" target="_blank">Submit an issue</a> to get your project added here)
+
+
                 <!-- #MARKER Legal Stuff -->
                 <div class="docHeader targetBlink" id="legal"><a class="headerAnchorContainer" href="#legal" title="Click to link to this header">🔗</a><span class="docHeaderText">Legal Stuff:</span></div>
 
@@ -1494,6 +1540,11 @@ public class Flags
                     If you want to contact me, you can <a href="https://sv443.net/discord" target="_blank">join my Discord server</a> (fastest way to contact me) or send me an E-Mail: <span class="antiBotE" data-enc="Y29udGFjdEBzdjQ0My5uZXQ=">(click to show)</span>
                 </div>
 
+
+                <!-- #MARKER Attributions -->
+                <div class="docHeader targetBlink" id="attributions"><a class="headerAnchorContainer" href="#attributions" title="Click to link to this header">🔗</a><span class="docHeaderText">Attributions:</span></div>
+                These are the attributions to everything made by third parties that <!--%#INSERT:NAME#%--> is based on or needs to function.
+
                 <!-- #SECTION Fonts -->
                 <br><br>
                 <div class="subHeaderContainer"><a href="#fonts" title="Click to link to this header">§</a> <span class="subHeader" id="fonts">Fonts:</span></div>
@@ -1508,6 +1559,7 @@ public class Flags
                 <br><br>
                 <div class="subHeaderContainer"><a href="#other-attributions" title="Click to link to this header">§</a> <span class="subHeader" id="other-attributions">Other Attributions:</span></div>
                 <div class="indented">
+                    Third party logos / icons used on this page:
                     <ul>
                         <li>The Rust logo is owned by <a href="https://mozilla.org/" target="_blank">Mozilla</a> and licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution (CC-BY)</a> license</li>
                         <li>The Python logo is owned by the <a href="https://www.python.org/psf/" target="_blank">Python Software Foundation</a></li>
@@ -1555,31 +1607,8 @@ public class Flags
                         -->
                     </ul>
                 </div>
-
-
-                <!-- #MARKER Dependents -->
-                <div class="docHeader targetBlink" id="dependents"><a class="headerAnchorContainer" href="#dependents" title="Click to link to this header">🔗</a><span class="docHeaderText">Dependents:</span></div>
-                These are some of the projects that depend on <!--%#INSERT:NAME#%-->:
-                <ul>
-                    <li><a href="https://github.com/ZephyrVentum/dozens-Advices" target="_blank">dozens Advices</a> by <a href="https://github.com/ZephyrVentum" target="_blank">ZephyrVentum</a></li>
-                    <li><a href="https://github.com/QGIsK/Shadow-bot" target="_blank">shadow-bot</a> by <a href="https://github.com/QGIsK" target="_blank">QGIsK</a></li>
-                    <li><a href="https://github.com/aksty/Jokepy" target="_blank">Jokepy</a> by <a href="https://github.com/aksty/Jokepy" target="_blank">aksty</a></li>
-                    <li><a href="https://github.com/whiteadi/Dark1" target="_blank">Dark1</a> by <a href="https://github.com/whiteadi" target="_blank">whiteadi</a></li>
-                    <li><a href="https://github.com/LiamTownsley/Prejudice-Networks" target="_blank">Prejudice-Networks</a> by <a href="https://github.com/LiamTownsley" target="_blank">LiamTownsley</a></li>
-                    <li><a href="https://irshad.ml/humour.html" target="_blank">https://irshad.ml/humour.html</a> by <a href="https://github.com/draco-malfoy" target="_blank">draco-malfoy</a></li>
-                    <li><a href="https://github.com/variousnabil/Random-Joke-Generator-with-Flutter" target="_blank">Random-Joke-Generator-with-Flutter</a> by <a href="https://github.com/variousnabil" target="_blank">variousnabil</a></li>
-                    <li><a href="https://thatcopy.pw/comma" target="_blank">comma</a> by <a href="https://github.com/ThatCopy" target="_blank">ThatCopy</a></li>
-                    <li><a href="https://github.com/AlHood77/Joke_Teller" target="_blank">Joke Teller</a> by <a href="https://github.com/AlHood77" target="_blank">AlHood77</a></li>
-                    <li><a href="https://github.com/remcoov/jokes" target="_blank">Jokes plugin for Craft CMS 3.x</a> by <a href="https://github.com/remcoov" target="_blank">remcoov</a></li>
-                    <li><a href="https://github.com/ToastIT-dev/PoshBot.Joker" target="_blank">PoshBot.Joker</a> by <a href="https://github.com/ToastIT-dev" target="_blank">ToastIT-dev</a></li>
-
-                    <!-- <li><a href="xyz" target="_blank">xyz</a> by <a href="https://github.com/xyz" target="_blank">xyz</a></li> -->
-                </ul>
-                (<a href="https://github.com/Sv443/JokeAPI/issues/new/choose" target="_blank">Submit an issue</a> to get your project added here)
-
-
                 <br><br><br><br>
-
+    
                 <footer id="copyrightNotice">
                     <span>&copy; Copyright 2018-2020 Sv443 - licensed under the <a href="https://sv443.net/LICENSE" target="_blank">MIT license</a></span><br>
                     <span>This project is a part of the <a href="https://sv443.net/" target="_blank">Sv443 Network</a></span>
@@ -1648,6 +1677,7 @@ public class Flags
 
                     <ul>
                         <li><a class="noul" onclick="closeNav()" href="#categories">Categories</a></li>
+                        <li><a class="noul" onclick="closeNav()" href="#category-aliases">Category Aliases</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#blacklist-flags">(Blacklist-)&nbsp;Flags</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#response-formats">Formats</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#joke-type">Joke Type</a></li>
@@ -1657,8 +1687,9 @@ public class Flags
                     </ul>
                 </details>
                 <a class="noul" onclick="closeNav()" href="#contributors" title="People who contributed to <!--%#INSERT:NAME#%-->">Contributors</a>
+                <a class="noul" onclick="closeNav()" href="#dependents" title="Projects that use <!--%#INSERT:NAME#%-->">Dependents</a>
                 <a class="noul" onclick="closeNav()" href="#legal" title="All the legal stuff">Legal Stuff</a>
-                <a class="noul bottomspacer" onclick="closeNav()" href="#dependents" title="Projects that use <!--%#INSERT:NAME#%-->">Dependents</a>
+                <a class="noul bottomspacer" onclick="closeNav()" href="#attributions" title="Attributions to everything made by third parties that <!--%#INSERT:NAME#%--> is based on">Attributions</a>
             </div>
         </div>
     </body>

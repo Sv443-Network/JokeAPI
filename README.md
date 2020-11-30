@@ -45,7 +45,9 @@
 - [Random Joke Generator with Flutter](https://github.com/variousnabil/Random-Joke-Generator-with-Flutter) by [variousnabil](https://github.com/variousnabil)
 - [comma](https://thatcopy.pw/comma) by [ThatCopy](https://github.com/ThatCopy)
 - [Joke Teller](https://github.com/AlHood77/Joke_Teller) by [AlHood77](https://github.com/AlHood77)
-- [jokes](https://github.com/remcoov/jokes) by [remcoov](https://github.com/remcoov)
+- [Jokes plugin for Craft CMS 3.x](https://github.com/remcoov/jokes) by [remcoov](https://github.com/remcoov)
+- [PoshBot.Joker](https://github.com/ToastIT-dev/PoshBot.Joker) by [ToastIT-dev](https://github.com/ToastIT-dev)
+
   
 [Submit an issue](https://github.com/Sv443/JokeAPI/issues/new/choose) and select `New Dependent` to get your project added here
 

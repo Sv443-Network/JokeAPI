@@ -241,6 +241,17 @@ header #docTitle {
     filter: none;
 }
 
+@media (max-width: 750px) {
+    header #docTitle {
+        font-size: 20px;
+        white-space: normal;
+    }
+
+    .mobileHide {
+        display: none;
+    }
+}
+
 #docTitle:hover {
     color: var(--accent-color-light);
 
@@ -299,6 +310,7 @@ input#f_customLang {
 
 .alternatingBgTable {
     margin: 0;
+    margin-top: 10px;
     padding: 0;
     border-spacing: 0;
 }
@@ -424,6 +436,14 @@ body[data-sidenav="opened"] mark {
     margin-top: 0;
 
     transition: margin-left var(--sidenav-animation-speed);
+}
+
+
+@media (max-width: 750px) {
+    #content {
+        padding: 10px;
+        margin-left: 5px;
+    }
 }
 
 body[data-sidenav="closed"] code, body code {
@@ -640,6 +660,22 @@ footer#copyrightNotice span {
     margin-left: 30px;
 }
 
+@media (max-width: 1100px) {
+    #submitContainer {
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+    .submitFlexItem {
+        white-space: normal;
+    }
+
+    .submitFlexItem.l {
+        margin-top: 30px;
+        margin-left: 0;
+    }
+}
+
 #submitBtn {
     font-size: 1.5em;
 }
@@ -778,6 +814,20 @@ textarea {
     white-space: nowrap;
     font-size: 30px;
     cursor: pointer;
+}
+
+#sideNavOpen::after {
+    content: "Menu";
+}
+
+@media (max-width: 750px) {
+    #sideNavOpen::after {
+        content: "";
+    }
+
+    #changelogLink {
+        font-size: 10px;
+    }
 }
 
 #sidenav ul {
