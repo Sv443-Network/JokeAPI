@@ -106,9 +106,9 @@ function onLoad()
 
     console.log("%cJokeAPI%cDocumentation (v<!--%#INSERT:VERSION#%-->)  -  © Copyright Sv443 Network 2018-2020", "color: #b05ffc; background-color: black; padding: 5px; padding-right: 0; font-size: 1.2em;", "color: white; background-color: black; padding: 5px; font-size: 1.2em;");
 
-    gebid("content").onclick = closeNav;
-    document.getElementsByTagName("header")[0].onclick = closeNav;
-    gebid("docTitle").onclick = function() {window.location.reload()};
+    gebid("content").onclick = function(e){tryCloseSideNav(e)};
+    document.getElementsByTagName("header")[0].onclick = function(e){tryCloseSideNav(e)};
+    gebid("docTitle").onclick = function(){window.location.reload()};
 
     addCodeTabs();
 
@@ -399,6 +399,18 @@ function onLoad()
     loadContributors();
 }
 
+/**
+ * @param {MouseEvent} e
+ */
+function tryCloseSideNav(e)
+{
+    if(document.body.dataset["sidenav"] == "opened")
+    {
+        e.preventDefault();
+        closeNav();
+    }
+}
+
 function addCodeTabs()
 {
     var codeElements = document.getElementsByTagName("code");
@@ -413,6 +425,8 @@ function addCodeTabs()
 //#MARKER SideNav
 function openNav()
 {
+    console.info("opening nav");
+
     setTimeout(function() {
         document.body.dataset["sidenav"] = "opened";
     }, 50);
@@ -420,13 +434,15 @@ function openNav()
     window.jokeapi.sidenavOpened = true;
 
     gebid("sidenav").style.width = "280px";
-    gebid("content").style.marginLeft= "280px";
+    gebid("content").style.marginLeft = "280px";
     document.getElementsByTagName("header")[0].dataset["grayscaled"] = "true";
     gebid("sideNavOpen").style.visibility = "hidden";
 }
   
 function closeNav()
 {
+    console.info("closing nav");
+
     if(document.body.dataset["sidenav"] != "opened")
         return;
 
@@ -435,7 +451,7 @@ function closeNav()
     document.body.dataset["sidenav"] = "closed";
 
     gebid("sidenav").style.width = "0";
-    gebid("content").style.marginLeft= "10px";
+    gebid("content").style.marginLeft = "10px";
     document.getElementsByTagName("header")[0].dataset["grayscaled"] = "false";
     gebid("sideNavOpen").style.visibility = "visible";
 }

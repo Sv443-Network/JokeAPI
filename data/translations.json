@@ -207,10 +207,9 @@
             "cs": "Interní chyba %1 - %2\nTato chyba je způsobena:\n- %3\n\nDalší informace: %4"
         },
         "availableCategories": {
-            "en": "Available categories are: \"%1\"",
-            "de": "Verfügbare Kategorien sind: \"%1\"",
-            "ru": "Доступны следующие категории: \"%1\"",
-            "cs": "Dostupné kategorie jsou: \"%1\""
+            "en": "Available categories are:\n%1\n\nThese are the available category aliases:\n%2",
+            "de": "Verfügbare Kategorien sind:\n%1\n\nDas sind die verfügbaren Kategorie-Aliase:\n%2",
+            "ru": "Доступны следующие категории:\n%1\n\nЭто доступные псевдонимы категории:\n%2"
         },
         "availableFlags": {
             "en": "Available flags are: \"%1\"",

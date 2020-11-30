@@ -67,6 +67,12 @@ const toTXT = (jsonInput, lang) => {
         }
         else
         {
+            let categoryAliases = [];
+            jsonInput.categoryAliases.forEach(alias => {
+                categoryAliases.push(`- ${alias.alias} -> ${alias.resolved}`);
+            });
+
+
             if((jsonInput.joke || (jsonInput.jokes && Array.isArray(jsonInput.jokes))) || (jsonInput.setup && jsonInput.delivery)) // endpoint: /joke
             {
                 if(jsonInput.type == "single")
@@ -89,7 +95,7 @@ const toTXT = (jsonInput, lang) => {
             }
 
             else if(jsonInput.categories) // endpoint: /categories
-                returnText = tr(lang, "availableCategories", jsonInput.categories.join('", "'));
+                returnText = tr(lang, "availableCategories", jsonInput.categories.map(c => `- ${c}`).join("\n"), categoryAliases.join("\n"));
 
             else if(jsonInput.flags) // endpoint: /flags
                 returnText = tr(lang, "availableFlags", jsonInput.flags.join('", "'));

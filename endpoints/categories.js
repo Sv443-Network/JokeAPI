@@ -10,7 +10,7 @@ jsl.unused(http);
 
 const meta = {
     "name": "Categories",
-    "desc": "Returns a list of all available categories",
+    "desc": "Returns a list of all available categories and category aliases",
     "usage": {
         "method": "GET",
         "url": `${settings.info.docsURL}/categories`,
@@ -35,13 +35,23 @@ const call = (req, res, url, params, format) => {
     let responseText = "";
     let categories = [settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories];
 
-    let lang = (params && params["lang"]) ? params["lang"] : settings.languages.defaultLanguage;    
+    let catAliases = [];
+
+    Object.keys(settings.jokes.possible.categoryAliases).forEach(key => {
+        catAliases.push({
+            alias: key,
+            resolved: settings.jokes.possible.categoryAliases[key]
+        });
+    });
+
+    let lang = (params && params["lang"]) ? params["lang"] : settings.languages.defaultLanguage;
 
     if(format != "xml")
     {
         responseText = convertFileFormat.auto(format, {
             "error": false,
             "categories": categories,
+            "categoryAliases": catAliases,
             "timestamp": new Date().getTime()
         }, lang);
     }
@@ -50,6 +60,7 @@ const call = (req, res, url, params, format) => {
         responseText = convertFileFormat.auto(format, {
             "error": false,
             "categories": {"category": categories},
+            "categoryAliases": {"categoryAlias": catAliases},
             "timestamp": new Date().getTime()
         }, lang);
     }
