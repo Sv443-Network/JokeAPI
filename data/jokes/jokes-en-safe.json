@@ -12,7 +12,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 0,
             "safe": true
@@ -27,7 +28,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 1,
             "safe": true
@@ -41,7 +43,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 2,
             "safe": true
@@ -55,7 +58,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 3,
             "safe": true
@@ -69,7 +73,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 4,
             "safe": true
@@ -83,7 +88,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 5,
             "safe": true
@@ -98,7 +104,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 6,
             "safe": true
@@ -113,7 +120,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 7,
             "safe": true
@@ -128,7 +136,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 8,
             "safe": false
@@ -142,10 +151,11 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 9,
-            "safe": true
+            "safe": false
         },
         {
             "category": "Programming",
@@ -157,7 +167,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 10,
             "safe": true
@@ -172,7 +183,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 11,
             "safe": true
@@ -186,7 +198,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 12,
             "safe": true
@@ -201,7 +214,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 13,
             "safe": true
@@ -216,7 +230,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 14,
             "safe": true
@@ -231,7 +246,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 15,
             "safe": true
@@ -246,7 +262,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 16,
             "safe": true
@@ -261,7 +278,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 17,
             "safe": true
@@ -275,7 +293,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 18,
             "safe": true
@@ -287,13 +306,14 @@
             "delivery": "He wrote the OS for an entire universe, but didn't leave a single useful comment.",
             "flags": {
                 "nsfw": false,
-                "religious": false,
+                "religious": true,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 19,
-            "safe": true
+            "safe": false
         },
         {
             "category": "Programming",
@@ -304,7 +324,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 20,
             "safe": true
@@ -312,14 +333,15 @@
         {
             "category": "Programming",
             "type": "twopart",
-            "setup": "Why are modern programming  languages so materialistic?",
+            "setup": "Why are modern programming languages so materialistic?",
             "delivery": "Because they are object-oriented.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 21,
             "safe": true
@@ -333,7 +355,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 22,
             "safe": true
@@ -347,7 +370,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 23,
             "safe": true
@@ -355,13 +379,14 @@
         {
             "category": "Programming",
             "type": "single",
-            "joke": "A byte walks into a bar looking miserable.\nThe bartender asks him: \"What's wrong buddy?\"\n\"Parity error.\" he replies. \n\"Ah that makes sense, I thought you looked a bit off.\"",
+            "joke": "A byte walks into a bar looking miserable.\nThe bartender asks it: \"What's wrong buddy?\"\n\"Parity error.\" it replies. \n\"Ah that makes sense, I thought you looked a bit off.\"",
             "flags": {
                 "nsfw": false,
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 24,
             "safe": true
@@ -375,7 +400,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 25,
             "safe": true
@@ -390,7 +416,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 26,
             "safe": true
@@ -404,10 +431,11 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 27,
-            "safe": true
+            "safe": false
         },
         {
             "category": "Programming",
@@ -418,7 +446,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 28,
             "safe": true
@@ -433,7 +462,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 29,
             "safe": true
@@ -447,7 +477,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 30,
             "safe": false
@@ -462,7 +493,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 31,
             "safe": true
@@ -477,7 +509,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 32,
             "safe": true
@@ -485,13 +518,14 @@
         {
             "category": "Programming",
             "type": "single",
-            "joke": "TIL that changing random stuff until your program works is \"hacky\" and a \"bad coding practice\" but if you do it fast enough it's \"Machine Learning\" and pays 4x your current salary.",
+            "joke": "Today I learned that changing random stuff until your program works is \"hacky\" and a \"bad coding practice\" but if you do it fast enough it's \"Machine Learning\" and pays 4x your current salary.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 33,
             "safe": true
@@ -505,7 +539,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 34,
             "safe": true
@@ -519,7 +554,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 35,
             "safe": true
@@ -533,7 +569,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 36,
             "safe": true
@@ -547,7 +584,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 37,
             "safe": true
@@ -555,13 +593,14 @@
         {
             "category": "Programming",
             "type": "single",
-            "joke": "A man is smoking a cigarette and blowing smoke rings into the air. His girlfriend becomes irritated with the smoke and says, \"Can't you see the warning on the cigarette pack? Smoking is hazardous to your health!\" to which the man replies, \"I am a programmer.  We don't worry about warnings; we only worry about errors.\"",
+            "joke": "A man is smoking a cigarette and blowing smoke rings into the air. His girlfriend becomes irritated with the smoke and says \"Can't you see the warning on the cigarette pack? Smoking is hazardous to your health!\" to which the man replies, \"I am a programmer.  We don't worry about warnings; we only worry about errors.\"",
             "flags": {
                 "nsfw": false,
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 38,
             "safe": true
@@ -575,7 +614,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 39,
             "safe": true
@@ -589,7 +629,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 40,
             "safe": true
@@ -603,7 +644,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 41,
             "safe": true
@@ -617,7 +659,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 42,
             "safe": true
@@ -631,7 +674,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 43,
             "safe": true
@@ -645,7 +689,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 44,
             "safe": true
@@ -659,7 +704,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 45,
             "safe": true
@@ -674,7 +720,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 46,
             "safe": true
@@ -689,7 +736,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": true
+                "sexist": true,
+                "explicit": false
             },
             "id": 47,
             "safe": false
@@ -697,14 +745,15 @@
         {
             "category": "Programming",
             "type": "twopart",
-            "setup": "Why did the functional programming developer get thrown out of school?",
+            "setup": "Why did the functional programmer get thrown out of school?",
             "delivery": "Because he refused to take classes.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 48,
             "safe": true
@@ -719,7 +768,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 49,
             "safe": true
@@ -734,7 +784,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 50,
             "safe": true
@@ -748,7 +799,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 51,
             "safe": true
@@ -763,7 +815,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 52,
             "safe": true
@@ -778,7 +831,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 53,
             "safe": true
@@ -793,23 +847,10 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 54,
-            "safe": true
-        },
-        {
-            "category": "Programming",
-            "type": "single",
-            "joke": "1. Open terminal\n2. mkdir snuts\n3. cd snuts",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false
-            },
-            "id": 55,
             "safe": true
         },
         {
@@ -821,10 +862,11 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 56,
-            "safe": true
+            "safe": false
         },
         {
             "category": "Programming",
@@ -836,7 +878,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 57,
             "safe": true
@@ -850,7 +893,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 58,
             "safe": true
@@ -865,7 +909,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 59,
             "safe": true
@@ -880,7 +925,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 60,
             "safe": true
@@ -895,7 +941,8 @@
                 "religious": true,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 61,
             "safe": false
@@ -910,7 +957,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": true
+                "sexist": true,
+                "explicit": false
             },
             "id": 62,
             "safe": false
@@ -925,7 +973,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 63,
             "safe": false
@@ -940,10 +989,11 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 64,
-            "safe": true
+            "safe": false
         },
         {
             "category": "Pun",
@@ -955,7 +1005,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 65,
             "safe": false
@@ -970,7 +1021,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 66,
             "safe": true
@@ -985,7 +1037,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 67,
             "safe": false
@@ -1000,7 +1053,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 68,
             "safe": true
@@ -1015,7 +1069,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 69,
             "safe": false
@@ -1030,10 +1085,11 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 70,
-            "safe": true
+            "safe": false
         },
         {
             "category": "Pun",
@@ -1045,7 +1101,8 @@
                 "religious": false,
                 "political": true,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 71,
             "safe": false
@@ -1060,7 +1117,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": true
+                "sexist": true,
+                "explicit": false
             },
             "id": 72,
             "safe": false
@@ -1074,10 +1132,11 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 73,
-            "safe": true
+            "safe": false
         },
         {
             "category": "Misc",
@@ -1088,7 +1147,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 74,
             "safe": true
@@ -1102,7 +1162,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 75,
             "safe": true
@@ -1117,7 +1178,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 76,
             "safe": false
@@ -1132,7 +1194,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 77,
             "safe": true
@@ -1147,7 +1210,8 @@
                 "religious": false,
                 "political": true,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 78,
             "safe": false
@@ -1162,7 +1226,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 79,
             "safe": true
@@ -1177,10 +1242,11 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 80,
-            "safe": true
+            "safe": false
         },
         {
             "category": "Pun",
@@ -1192,7 +1258,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 81,
             "safe": true
@@ -1207,7 +1274,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 82,
             "safe": true
@@ -1221,7 +1289,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 83,
             "safe": false
@@ -1236,7 +1305,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 84,
             "safe": false
@@ -1251,13 +1321,14 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 85,
             "safe": false
         },
         {
-            "category": "Misc",
+            "category": "Dark",
             "type": "twopart",
             "setup": "My wife divorced me so I stole her wheelchair.",
             "delivery": "Guess who came crawling back.",
@@ -1266,7 +1337,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 86,
             "safe": true
@@ -1281,7 +1353,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 87,
             "safe": true
@@ -1296,7 +1369,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 88,
             "safe": true
@@ -1311,7 +1385,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 89,
             "safe": true
@@ -1326,7 +1401,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 90,
             "safe": false
@@ -1340,7 +1416,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 91,
             "safe": true
@@ -1355,7 +1432,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 92,
             "safe": false
@@ -1370,13 +1448,14 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 93,
             "safe": true
         },
         {
-            "category": "Misc",
+            "category": "Dark",
             "type": "twopart",
             "setup": "I told my psychiatrist I got suicidal tendencies.",
             "delivery": "He said from now on I have to pay in advance.",
@@ -1385,24 +1464,10 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 94,
-            "safe": true
-        },
-        {
-            "category": "Misc",
-            "type": "twopart",
-            "setup": "9 months before I was born, I went to a party with my dad...",
-            "delivery": "...and left with my mum.",
-            "flags": {
-                "nsfw": true,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false
-            },
-            "id": 95,
             "safe": false
         },
         {
@@ -1415,7 +1480,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 96,
             "safe": true
@@ -1430,13 +1496,14 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 97,
-            "safe": true
+            "safe": false
         },
         {
-            "category": "Dark",
+            "category": "Misc",
             "type": "single",
             "joke": "I didn't vaccinate my 10 kids and the one that survived is fine!",
             "flags": {
@@ -1444,7 +1511,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 98,
             "safe": false
@@ -1459,10 +1527,11 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 99,
-            "safe": true
+            "safe": false
         },
         {
             "category": "Dark",
@@ -1472,9 +1541,10 @@
             "flags": {
                 "nsfw": false,
                 "religious": false,
-                "political": false,
+                "political": true,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 100,
             "safe": false
@@ -1488,8 +1558,9 @@
                 "nsfw": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "racist": true,
+                "sexist": false,
+                "explicit": false
             },
             "id": 101,
             "safe": false
@@ -1504,7 +1575,8 @@
                 "religious": false,
                 "political": false,
                 "racist": true,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 102,
             "safe": false
@@ -1519,7 +1591,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 103,
             "safe": false
@@ -1534,7 +1607,8 @@
                 "religious": false,
                 "political": false,
                 "racist": true,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 104,
             "safe": false
@@ -1548,7 +1622,8 @@
                 "religious": false,
                 "political": false,
                 "racist": true,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 105,
             "safe": false
@@ -1563,7 +1638,8 @@
                 "religious": false,
                 "political": false,
                 "racist": true,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 106,
             "safe": false
@@ -1578,7 +1654,8 @@
                 "religious": false,
                 "political": true,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 107,
             "safe": false
@@ -1593,7 +1670,8 @@
                 "religious": false,
                 "political": false,
                 "racist": true,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 108,
             "safe": false
@@ -1608,12 +1686,13 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 109,
             "safe": false
         },
-        {
+        { // TODO: continue re-flagging here
             "category": "Dark",
             "type": "twopart",
             "setup": "Why do German showers have 11 holes?",
@@ -1623,7 +1702,8 @@
                 "religious": true,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 110,
             "safe": false
@@ -1638,7 +1718,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 111,
             "safe": false
@@ -1653,7 +1734,8 @@
                 "religious": true,
                 "political": false,
                 "racist": true,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 112,
             "safe": false
@@ -1668,7 +1750,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 113,
             "safe": false
@@ -1683,7 +1766,8 @@
                 "religious": false,
                 "political": false,
                 "racist": true,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 114,
             "safe": false
@@ -1698,7 +1782,8 @@
                 "religious": true,
                 "political": false,
                 "racist": true,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 115,
             "safe": false
@@ -1712,7 +1797,8 @@
                 "religious": true,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 116,
             "safe": false
@@ -1727,7 +1813,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 117,
             "safe": false
@@ -1742,7 +1829,8 @@
                 "religious": false,
                 "political": false,
                 "racist": true,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 118,
             "safe": false
@@ -1757,7 +1845,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 119,
             "safe": false
@@ -1772,7 +1861,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 120,
             "safe": false
@@ -1787,7 +1877,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 121,
             "safe": false
@@ -1802,7 +1893,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 122,
             "safe": false
@@ -1817,7 +1909,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 123,
             "safe": false
@@ -1832,7 +1925,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 124,
             "safe": false
@@ -1846,7 +1940,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 125,
             "safe": true
@@ -1861,7 +1956,8 @@
                 "religious": false,
                 "political": false,
                 "racist": true,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 126,
             "safe": false
@@ -1876,7 +1972,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 127,
             "safe": true
@@ -1890,7 +1987,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 128,
             "safe": true
@@ -1905,7 +2003,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 129,
             "safe": true
@@ -1920,7 +2019,8 @@
                 "religious": false,
                 "political": false,
                 "racist": true,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 130,
             "safe": false
@@ -1935,7 +2035,8 @@
                 "religious": false,
                 "political": false,
                 "racist": true,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 131,
             "safe": false
@@ -1950,7 +2051,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 132,
             "safe": true
@@ -1965,7 +2067,8 @@
                 "religious": true,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 133,
             "safe": false
@@ -1979,7 +2082,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 134,
             "safe": true
@@ -1993,7 +2097,8 @@
                 "religious": false,
                 "political": false,
                 "racist": true,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 135,
             "safe": false
@@ -2008,7 +2113,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": true
+                "sexist": true,
+                "explicit": true
             },
             "id": 136,
             "safe": false
@@ -2023,7 +2129,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 137,
             "safe": false
@@ -2038,7 +2145,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 138,
             "safe": true
@@ -2053,7 +2161,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 139,
             "safe": false
@@ -2067,7 +2176,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 140,
             "safe": false
@@ -2081,7 +2191,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 141,
             "safe": true
@@ -2096,7 +2207,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 142,
             "safe": true
@@ -2111,7 +2223,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 143,
             "safe": true
@@ -2126,7 +2239,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 144,
             "safe": true
@@ -2141,7 +2255,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 145,
             "safe": false
@@ -2156,7 +2271,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 146,
             "safe": false
@@ -2171,7 +2287,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 147,
             "safe": true
@@ -2186,7 +2303,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 148,
             "safe": true
@@ -2201,7 +2319,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 149,
             "safe": true
@@ -2216,7 +2335,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 150,
             "safe": true
@@ -2230,7 +2350,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": true
+                "sexist": true,
+                "explicit": true
             },
             "id": 151,
             "safe": false
@@ -2245,7 +2366,8 @@
                 "religious": false,
                 "political": false,
                 "racist": true,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 152,
             "safe": false
@@ -2260,7 +2382,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 153,
             "safe": false
@@ -2274,7 +2397,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 154,
             "safe": false
@@ -2289,7 +2413,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 155,
             "safe": false
@@ -2304,7 +2429,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 156,
             "safe": false
@@ -2319,7 +2445,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 157,
             "safe": false
@@ -2334,7 +2461,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 158,
             "safe": false
@@ -2349,7 +2477,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 159,
             "safe": false
@@ -2364,7 +2493,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 160,
             "safe": false
@@ -2379,7 +2509,8 @@
                 "religious": true,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 161,
             "safe": false
@@ -2394,7 +2525,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 162,
             "safe": false
@@ -2409,7 +2541,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 163,
             "safe": false
@@ -2423,7 +2556,8 @@
                 "religious": false,
                 "political": false,
                 "racist": true,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 164,
             "safe": false
@@ -2438,7 +2572,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 165,
             "safe": false
@@ -2453,7 +2588,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 166,
             "safe": false
@@ -2467,7 +2603,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 167,
             "safe": false
@@ -2482,7 +2619,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 168,
             "safe": true
@@ -2497,7 +2635,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 169,
             "safe": false
@@ -2512,7 +2651,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 170,
             "safe": true
@@ -2527,7 +2667,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 171,
             "safe": true
@@ -2542,7 +2683,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 172,
             "safe": false
@@ -2557,7 +2699,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 173,
             "safe": true
@@ -2572,7 +2715,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 174,
             "safe": false
@@ -2587,7 +2731,8 @@
                 "religious": false,
                 "political": false,
                 "racist": true,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 175,
             "safe": false
@@ -2602,7 +2747,8 @@
                 "religious": false,
                 "political": false,
                 "racist": true,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 176,
             "safe": false
@@ -2617,7 +2763,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 177,
             "safe": false
@@ -2632,7 +2779,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 178,
             "safe": true
@@ -2647,7 +2795,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 179,
             "safe": true
@@ -2661,7 +2810,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 180,
             "safe": false
@@ -2676,7 +2826,8 @@
                 "religious": false,
                 "political": false,
                 "racist": true,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 181,
             "safe": false
@@ -2690,7 +2841,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 182,
             "safe": true
@@ -2705,7 +2857,8 @@
                 "religious": false,
                 "political": true,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 183,
             "safe": false
@@ -2720,7 +2873,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 184,
             "safe": true
@@ -2735,7 +2889,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 185,
             "safe": true
@@ -2749,7 +2904,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 186,
             "safe": true
@@ -2763,7 +2919,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 187,
             "safe": true
@@ -2778,7 +2935,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 188,
             "safe": false
@@ -2793,7 +2951,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 189,
             "safe": false
@@ -2808,7 +2967,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 190,
             "safe": true
@@ -2823,7 +2983,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": true
+                "sexist": true,
+                "explicit": true
             },
             "id": 191,
             "safe": false
@@ -2838,7 +2999,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 192,
             "safe": true
@@ -2852,7 +3014,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 193,
             "safe": true
@@ -2867,7 +3030,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 194,
             "safe": true
@@ -2882,7 +3046,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 195,
             "safe": true
@@ -2897,7 +3062,8 @@
                 "religious": false,
                 "racist": false,
                 "sexist": false,
-                "political": false
+                "political": false,
+                "explicit": false
             },
             "id": 196,
             "safe": true
@@ -2911,7 +3077,8 @@
                 "religious": false,
                 "racist": false,
                 "sexist": false,
-                "political": false
+                "political": false,
+                "explicit": false
             },
             "id": 197,
             "safe": true
@@ -2926,7 +3093,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 198,
             "safe": true
@@ -2940,7 +3108,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 199,
             "safe": true
@@ -2955,7 +3124,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 200,
             "safe": true
@@ -2970,7 +3140,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 201,
             "safe": true
@@ -2984,7 +3155,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 202,
             "safe": true
@@ -2998,7 +3170,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 203,
             "safe": true
@@ -3012,7 +3185,8 @@
                 "religious": true,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 204,
             "safe": false
@@ -3026,7 +3200,8 @@
                 "religious": true,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 205,
             "safe": false
@@ -3040,7 +3215,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 206,
             "safe": true
@@ -3055,7 +3231,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 207,
             "safe": true
@@ -3070,7 +3247,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 208,
             "safe": true
@@ -3084,7 +3262,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 209,
             "safe": false
@@ -3098,7 +3277,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 210,
             "safe": false
@@ -3113,7 +3293,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 211,
             "safe": true
@@ -3128,7 +3309,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 212,
             "safe": true
@@ -3143,7 +3325,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 213,
             "safe": true
@@ -3158,7 +3341,8 @@
                 "religious": false,
                 "political": true,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 214,
             "safe": false
@@ -3173,7 +3357,8 @@
                 "religious": false,
                 "political": true,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 215,
             "safe": false
@@ -3188,7 +3373,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 216,
             "safe": true
@@ -3203,7 +3389,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 217,
             "safe": true
@@ -3218,7 +3405,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 218,
             "safe": false
@@ -3233,7 +3421,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 219,
             "safe": false
@@ -3248,7 +3437,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 220,
             "safe": true
@@ -3263,7 +3453,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": true
+                "sexist": true,
+                "explicit": true
             },
             "id": 221,
             "safe": false
@@ -3278,7 +3469,8 @@
                 "religious": false,
                 "political": false,
                 "racist": true,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 222,
             "safe": false
@@ -3292,7 +3484,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 223,
             "safe": true
@@ -3306,7 +3499,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 224,
             "safe": true
@@ -3321,7 +3515,8 @@
                 "religious": false,
                 "political": false,
                 "racist": true,
-                "sexist": true
+                "sexist": true,
+                "explicit": true
             },
             "id": 225,
             "safe": false
@@ -3336,7 +3531,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 226,
             "safe": true
@@ -3351,7 +3547,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 227,
             "safe": false
@@ -3366,7 +3563,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 228,
             "safe": false
@@ -3381,7 +3579,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 229,
             "safe": true
@@ -3396,7 +3595,8 @@
                 "religious": false,
                 "political": false,
                 "racist": true,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 230,
             "safe": false
@@ -3410,7 +3610,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": true
+                "sexist": true,
+                "explicit": true
             },
             "id": 231,
             "safe": false
@@ -3425,7 +3626,8 @@
                 "religious": false,
                 "political": false,
                 "racist": true,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 232,
             "safe": false
@@ -3440,7 +3642,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 233,
             "safe": false
@@ -3455,7 +3658,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 234,
             "safe": true
@@ -3470,7 +3674,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 235,
             "safe": false
@@ -3484,7 +3689,8 @@
                 "religious": false,
                 "political": true,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 236,
             "safe": false
@@ -3499,7 +3705,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 237,
             "safe": true
@@ -3513,7 +3720,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 238,
             "safe": true
@@ -3527,7 +3735,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 239,
             "safe": true
@@ -3541,7 +3750,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 240,
             "safe": false
@@ -3555,7 +3765,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 241,
             "safe": true
@@ -3570,7 +3781,8 @@
                 "religious": false,
                 "political": false,
                 "racist": true,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 242,
             "safe": false
@@ -3585,7 +3797,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 243,
             "safe": false
@@ -3600,7 +3813,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 244,
             "safe": true
@@ -3615,7 +3829,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 245,
             "safe": true
@@ -3630,7 +3845,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 246,
             "safe": true
@@ -3645,7 +3861,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 247,
             "safe": true
@@ -3660,7 +3877,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 248,
             "safe": true
@@ -3675,7 +3893,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 249,
             "safe": true
@@ -3690,7 +3909,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 250,
             "safe": true
@@ -3705,7 +3925,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 251,
             "safe": true
@@ -3720,7 +3941,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 252,
             "safe": true
@@ -3735,7 +3957,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 253,
             "safe": true
@@ -3750,7 +3973,8 @@
                 "religious": false,
                 "political": true,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 254,
             "safe": false
@@ -3765,7 +3989,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 255,
             "safe": true
@@ -3780,7 +4005,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 256,
             "safe": true
@@ -3795,7 +4021,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 257,
             "safe": true
@@ -3810,7 +4037,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 258,
             "safe": true
@@ -3825,7 +4053,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 259,
             "safe": true
@@ -3839,7 +4068,8 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
             "id": 260,
             "safe": true
@@ -3854,7 +4084,8 @@
                 "religious": false,
                 "political": true,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": true
             },
             "id": 261,
             "safe": false
