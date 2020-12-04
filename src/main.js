@@ -64,7 +64,7 @@ const initAll = () => {
             fn: auth.init
         },
         {
-            name: "Initializing HTTP listener",
+            name: "Initializing HTTP server",
             fn: httpServer.init
         },
         {
