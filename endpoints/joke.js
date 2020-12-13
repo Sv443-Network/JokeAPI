@@ -101,6 +101,10 @@ const call = (req, res, url, params, format) => {
         }
     }
 
+    //#SECTION safe mode
+    if(params && !jsl.isEmpty(params["safe-mode"]) && params["safe-mode"] === true)
+        filterJoke.setSafeMode(true);
+
     if(!fCat || !categoryValid)
     {
         let avlCats = [settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories].join(", ");

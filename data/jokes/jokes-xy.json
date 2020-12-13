@@ -3460,7 +3460,7 @@
             "safe": false
         },
         {
-            // TODO: continue re-flagging here - search regex:     "Dark"|"safe": false|"explicit": true
+            "comment": "// TODO: continue re-flagging here - search regex:     \"Dark\"|\"safe\": false|\"explicit\": true",
             "category": "Pun",
             "type": "single",
             "joke": "I was struggling to figure out how lightning works, but then it struck me.",

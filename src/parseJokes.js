@@ -88,7 +88,7 @@ const init = () => {
                     }
                     catch(err)
                     {
-                        return reject(`Error while parsing file "${settings.jokes.jokesFilePath}" as JSON: ${err}`);
+                        return reject(`Error while parsing jokes file "${jf}" as JSON: ${err}`);
                     }
 
                     //#MARKER format version

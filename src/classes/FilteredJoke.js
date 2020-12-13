@@ -53,6 +53,7 @@ class FilteredJoke
         this._errors = [];
         this._lang = settings.languages.defaultLanguage;
         this._amount = 1;
+        this._safeMode = false;
 
         if(!_lastIDs || !Array.isArray(_lastIDs))
             _lastIDs = [];
@@ -270,6 +271,31 @@ class FilteredJoke
         return this._lang || settings.languages.defaultLanguage;
     }
 
+    //#MARKER safe mode
+    /**
+     * Sets the safe mode
+     * @param {Boolean} safeModeEnabled 
+     * @returns {Boolean} Returns the new value of the safe mode
+     */
+    setSafeMode(safeModeEnabled)
+    {
+        if(typeof safeModeEnabled == "boolean")
+            this._safeMode = safeModeEnabled;
+        else
+            this._safeMode = false;
+        
+        return this._safeMode;
+    }
+
+    /**
+     * Returns the value of the safe mode
+     * @returns {Boolean}
+     */
+    getSafeMode()
+    {
+        return this._safeMode;
+    }
+
     //#MARKER amount
     /**
      * Sets the amount of jokes
@@ -317,9 +343,13 @@ class FilteredJoke
                     // iterate over each joke, reading all set filters and thereby checking if it suits the request
                     // to deny a joke from being served, just return from this callback function
 
+                    //#SECTION safe mode
+                    if(this.getSafeMode() === true && joke.safe === false) // if safe mode is enabled but joke is not safe, it's invalid
+                        return;
+
                     //#SECTION id range
                     let idRange = this.getIdRange(lang);
-                    if(joke.id < idRange[0] || joke.id > idRange[1]) // if the joke is 
+                    if(joke.id < idRange[0] || joke.id > idRange[1]) // if the joke is not in the specified ID range, it's invalid
                         return;
 
                     //#SECTION categories
@@ -366,14 +396,14 @@ class FilteredJoke
                     //#SECTION language
                     let langCode = this.getLanguage();
                     if(!languages.isValidLang(langCode))
-                        return; // invalid lang code
+                        return; // invalid lang code, joke is invalid
                     if(joke.lang.toLowerCase() != langCode.toLowerCase())
-                        return; // lang code doesn't match
+                        return; // lang code doesn't match so joke is invalid
                     
-                    // amount param is used in getJokes()
+                    // Note: amount param is used in getJokes()
 
                     //#SECTION done
-                    this._filteredJokes.push(joke); // joke is valid, push it to the array that gets passed in the resolve()
+                    this._filteredJokes.push(joke); // joke is valid, push it to the array that gets passed in the resolve() just below
                 });
 
                 return resolve(this._filteredJokes);
