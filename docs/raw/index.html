@@ -243,7 +243,7 @@
                                         <input type="radio" name="catSelect" value="multi" id="cat-radio2" onchange="reRender()"><label for="cat-radio2">Custom:</label>
                                         <span id="catSelectMulti">
                                             <input type="checkbox" id="cat-cb1" onchange="reRender()" disabled><label for="cat-cb1">Programming</label>
-                                            <input type="checkbox" id="cat-cb2" onchange="reRender()" disabled><label for="cat-cb2">Miscellaneous</label>
+                                            <input type="checkbox" id="cat-cb2" onchange="reRender()" disabled><label for="cat-cb2">Misc</label>
                                             <input type="checkbox" id="cat-cb3" onchange="reRender()" disabled><label for="cat-cb3">Dark</label>
                                             <input type="checkbox" id="cat-cb4" onchange="reRender()" disabled><label for="cat-cb4">Pun</label>
                                             <input type="checkbox" id="cat-cb5" onchange="reRender()" disabled><label for="cat-cb5">Spooky</label>
@@ -365,6 +365,9 @@
                         After you've finished reading that, you can start testing out the different endpoints with a client such as <a href="https://www.getpostman.com/" target="_blank">Postman</a> and look at some examples by <a href="#examples">going to the "Examples" section.</a>
                     </li>
                 </ul>
+                <br>
+                If your project really can't contain any explicit jokes, consider enabling the <a href="#safe-mode">Safe Mode.</a><br>
+                <br>
                 If you know any good jokes and want to add them to <!--%#INSERT:NAME#%-->, please <a href="#submit">click here.</a><br>
                 If you need any help, feel free to <a href="https://sv443.net/discord" target="_blank">join my Discord server.</a><br>
 
@@ -426,7 +429,7 @@
                                 <td>Category:</td>
                                 <td>
                                     <select id="f_category">
-                                        <option value="Miscellaneous" class="selectOnInit" selected>Miscellaneous</option>
+                                        <option value="Misc" class="selectOnInit" selected>Misc</option>
                                         <option value="Programming">Programming</option>
                                         <option value="Dark">Dark</option>
                                         <option value="Pun">Pun</option>
@@ -710,7 +713,7 @@ None. It's a hardware problem.
     "error": false,
     "jokes": [
         {
-            "category": "Miscellaneous",
+            "category": "Misc",
             "type": "single",
             ...
         },
@@ -745,6 +748,30 @@ None. It's a hardware problem.
 
 
 
+                <!-- #MARKER Safe Mode -->
+                <div class="docHeader targetBlink" id="safe-mode"><a class="headerAnchorContainer" href="#safe-mode" title="Click to link to this header">🔗</a><span class="docHeaderText">Safe Mode:</span></div>
+                Safe Mode was added in version 2.3.0. If enabled, <!--%#INSERT:NAME#%--> will try its best to serve only jokes that are considered safe for everyone.<br>
+                Unsafe jokes are those who can be considered explicit in any way, either through the used language, its references or its <a href="#blacklist-flags">blacklist flags.</a><br>
+                Jokes from the category <mark>Dark</mark> are also generally marked as unsafe.<br>
+                <br>
+                Note: this filter is really fine but that doesn't mean human error is out of the question.<br>
+                If you find any jokes that you consider unsafe but are served even when safe mode is activated, please <a href="https://github.com/Sv443/JokeAPI/issues/new/choose" target="_blank">submit an issue here.</a><br>
+                <br>
+                The Safe Mode can be enabled by adding the value-less URL parameter <mark>safe-mode</mark> to the URL.<br>
+                <br>
+                <details><summary>Example 1 (click to view)</summary>
+                    URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?safe-mode</mark><br>
+                    Using the above URL will make sure you won't get any unsafe jokes.
+                </details>
+                <br>
+                <details><summary>Example 2 (click to view)</summary>
+                    URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Misc,Programming?format=xml&safe-mode&type=single</mark><br>
+                    This URL will yield a safe joke from the Misc or Programming category in the file format XML that's also of type single.
+                </details><br>
+
+
+
+
                 <!-- #MARKER Errors -->
                 <div class="docHeader targetBlink" id="errors"><a class="headerAnchorContainer" href="#errors" title="Click to link to this header">🔗</a><span class="docHeaderText">Errors:</span></div>
                 In <!--%#INSERT:NAME#%--> all response data, no matter from which endpoint will have a boolean "error" parameter.<br>
@@ -768,7 +795,7 @@ None. It's a hardware problem.
     "causedBy": [
         "No jokes were found that match your provided filter(s)"
     ],
-    "additionalInfo": "The specified category is invalid - Got: \"foo\" - Possible categories are: \"Any, Miscellaneous, Programming, Dark, Pun, Spooky, Christmas\" (case insensitive)",
+    "additionalInfo": "The specified category is invalid - Got: \"foo\" - Possible categories are: \"Any, Misc, Programming, Dark, Pun, Spooky, Christmas\" (case insensitive)",
     "timestamp": 1579170794412
 }
 </div></code><br>
@@ -876,9 +903,9 @@ None. It's a hardware problem.
                 <details>
                     <summary>Full example - click to view</summary>
                     <span class="requestURLwrapper">
-                        <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/joke/Programming,Miscellaneous?format=xml&blacklistFlags=nsfw,sexist&type=single&lang=ru&amount=2</span>
+                        <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/joke/Programming,Misc?format=xml&blacklistFlags=nsfw,sexist&type=single&lang=ru&amount=2</span>
                     </span><br><br>
-                    Will give two Russian joke from either the Programming or the Miscellaneous category, with the payload <a href="#response-formats">format</a> XML,<br>
+                    Will give two Russian joke from either the Programming or the Misc category, with the payload <a href="#response-formats">format</a> XML,<br>
                     with the <a href="#joke-type">joke type</a> "single", while also preventing all jokes that are potentially not safe for work and sexist from being served.
                 </details>
                 <br><br>
@@ -1128,7 +1155,7 @@ None. It's a hardware problem.
                 The joke ID doesn't need to be provided as it will be automatically assigned to the joke.<br>
                 <br>
                 This endpoint has a unique URL parameter; <a href="#dryrun-param">?dry-run</a>, which if present will make the API respond just like the usual "submit" endpoint except the joke isn't actually saved to the API.<br>
-                This functionality can be used to check if a joke is valid / what is wrong with it.<br>
+                This functionality can be used to check if a joke is valid / what is wrong with it without having the joke actually submitted to the API.<br>
                 <br>
                 If the joke is valid and the server accepted the submission, you will get a response with the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201" target="_blank">status code 201.</a><br>
 
@@ -1136,7 +1163,7 @@ None. It's a hardware problem.
 <code class="prettyprint"><span class="nocode codeheader">Example Payload:</span>
 <div class="actualCode">{
     "formatVersion": <!--%#INSERT:FORMATVERSION#%-->,
-    "category": "Miscellaneous",
+    "category": "Misc",
     "type": "single",
     "joke": "A horse walks into a bar...",
     "flags": {
@@ -1165,7 +1192,7 @@ None. It's a hardware problem.
     "message": "Joke submission was successfully saved. It will soon be checked out by the author.",
     "submission": {
         "formatVersion": 2,
-        "category": "Miscellaneous",
+        "category": "Misc",
         "type": "single",
         "joke": "A horse walks into a bar...",
         "flags": {
@@ -1234,7 +1261,7 @@ None. It's a hardware problem.
 <div class="actualCode">const https = require("https"); // Native module, no need to explicitly install
 
 const baseURL = "<!--%#INSERT:DOCSURL#%-->";
-const categories = ["Programming", "Miscellaneous", "Pun", "Spooky", "Christmas"];
+const categories = ["Programming", "Misc", "Pun", "Spooky", "Christmas"];
 const params = [
     "blacklistFlags=nsfw,religious,racist",
     "idRange=0-100"
@@ -1275,7 +1302,7 @@ https.get(`${baseURL}/joke/${categories.join(",")}?${params.join("&")}`, res => 
                 <details><summary id="example-js" class="big">Web-JavaScript (click to show)</summary>
 <code class="prettyprint"><span class="nocode codeheader">Web-JS:</span>
 <div class="actualCode">var baseURL = "<!--%#INSERT:DOCSURL#%-->";
-var categories = ["Programming", "Miscellaneous", "Pun", "Spooky", "Christmas"];
+var categories = ["Programming", "Misc", "Pun", "Spooky", "Christmas"];
 var params = [
     "blacklistFlags=nsfw,religious,racist",
     "idRange=0-100"
@@ -1323,7 +1350,7 @@ using System.Web.Script.Serialization; // Requires you to include the assembly "
 private void getJoke()
 {
     string baseURL = "<!--%#INSERT:DOCSURL#%-->";
-    string[] categories = { "Programming", "Miscellaneous", "Pun", "Spooky", "Christmas" };
+    string[] categories = { "Programming", "Misc", "Pun", "Spooky", "Christmas" };
     string[] parameters = {
         "blacklistFlags=nsfw,religious,racist",
         "idRange=0-100"
@@ -1631,6 +1658,7 @@ public class Flags
                 <a class="noul" onclick="closeNav()" href="#submit" title="A form to submit a joke to <!--%#INSERT:NAME#%-->">Submit a Joke</a>
                 <div class="sidenavSpacer"></div>
                 <a class="noul" onclick="closeNav()" href="#url-parameters" title="All URL Parameters you can use and how to use them">URL Parameters</a>
+                <a class="noul" onclick="closeNav()" href="#safe-mode" title="How to enable <!--%#INSERT:NAME#%-->'s Safe Mode">Safe Mode</a>
                 <details>
                     <summary title="All endpoints of <!--%#INSERT:NAME#%-->">
                         <span class="sidenav-mimica">Endpoints</span>
