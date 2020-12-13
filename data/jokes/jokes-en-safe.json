@@ -1692,18 +1692,18 @@
             "id": 109,
             "safe": false
         },
-        { // TODO: continue re-flagging here
+        {
             "category": "Dark",
             "type": "twopart",
             "setup": "Why do German showers have 11 holes?",
             "delivery": "Because Jews only have 10 fingers.",
             "flags": {
                 "nsfw": false,
-                "religious": true,
+                "religious": false,
                 "political": false,
-                "racist": false,
+                "racist": true,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 110,
             "safe": false
@@ -1735,7 +1735,7 @@
                 "political": false,
                 "racist": true,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 112,
             "safe": false
@@ -1767,7 +1767,7 @@
                 "political": false,
                 "racist": true,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 114,
             "safe": false
@@ -1781,15 +1781,15 @@
                 "nsfw": false,
                 "religious": true,
                 "political": false,
-                "racist": true,
+                "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 115,
             "safe": false
         },
         {
-            "category": "Dark",
+            "category": "Misc",
             "type": "single",
             "joke": "Stop being homophobic and rude to the LGBTQ+ community. You should be thanking them for saving us plenty of room in heaven.",
             "flags": {
@@ -1798,7 +1798,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 116,
             "safe": false
@@ -1823,7 +1823,7 @@
             "category": "Dark",
             "type": "twopart",
             "setup": "White people don't shoot each other in the streets as black people do.",
-            "delivery": "We do it in schools because we have class.",
+            "delivery": "They do it in schools because they have class.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -1846,7 +1846,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 119,
             "safe": false
@@ -1862,7 +1862,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 120,
             "safe": false
@@ -1878,7 +1878,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 121,
             "safe": false
@@ -1957,7 +1957,7 @@
                 "political": false,
                 "racist": true,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 126,
             "safe": false
@@ -2068,7 +2068,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 133,
             "safe": false
@@ -2098,7 +2098,7 @@
                 "political": false,
                 "racist": true,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 135,
             "safe": false
@@ -2114,7 +2114,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": true,
-                "explicit": true
+                "explicit": false
             },
             "id": 136,
             "safe": false
@@ -2130,7 +2130,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 137,
             "safe": false
@@ -2146,10 +2146,10 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": false
+                "explicit": true
             },
             "id": 138,
-            "safe": true
+            "safe": false
         },
         {
             "category": "Misc",
@@ -2170,14 +2170,14 @@
         {
             "category": "Dark",
             "type": "single",
-            "joke": "Doctor: \"I have some news about your baby.\"\nParents: \"Don't tell us the gender, we want to keep it a surprise.\"\nDoctor: \"Ohh, you're those type of people. Okay, well IT is not breathing.\"",
+            "joke": "Doctor: \"I have some news about your baby.\"\nParents: \"Don't tell us the gender, we want to keep it a surprise.\"\nDoctor: \"Oh I get it, you're those type of people. Okay, well IT is not breathing.\"",
             "flags": {
                 "nsfw": false,
                 "religious": false,
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 140,
             "safe": false
@@ -2240,10 +2240,10 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": false
+                "explicit": true
             },
             "id": 144,
-            "safe": true
+            "safe": false
         },
         {
             "category": "Dark",
@@ -2256,7 +2256,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 145,
             "safe": false
@@ -2272,7 +2272,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 146,
             "safe": false
@@ -2291,7 +2291,7 @@
                 "explicit": false
             },
             "id": 147,
-            "safe": true
+            "safe": false
         },
         {
             "category": "Misc",
@@ -2398,7 +2398,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 154,
             "safe": false
@@ -2604,13 +2604,13 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 167,
             "safe": false
         },
         {
-            "category": "Misc",
+            "category": "Dark",
             "type": "twopart",
             "setup": "Dads are like boomerangs.",
             "delivery": "I hope.",
@@ -2748,7 +2748,7 @@
                 "political": false,
                 "racist": true,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 176,
             "safe": false
@@ -2811,7 +2811,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 180,
             "safe": false
@@ -2822,7 +2822,7 @@
             "setup": "Why do Jewish women prefer circumcised men?",
             "delivery": "Cause they won't take anything until it's atleast 10% off.",
             "flags": {
-                "nsfw": false,
+                "nsfw": true,
                 "religious": false,
                 "political": false,
                 "racist": true,
@@ -2858,7 +2858,7 @@
                 "political": true,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 183,
             "safe": false
@@ -2908,7 +2908,7 @@
                 "explicit": false
             },
             "id": 186,
-            "safe": true
+            "safe": false
         },
         {
             "category": "Pun",
@@ -2936,7 +2936,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 188,
             "safe": false
@@ -2968,10 +2968,10 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": false
+                "explicit": true
             },
             "id": 190,
-            "safe": true
+            "safe": false
         },
         {
             "category": "Misc",
@@ -2984,7 +2984,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": true,
-                "explicit": true
+                "explicit": false
             },
             "id": 191,
             "safe": false
@@ -3186,7 +3186,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 204,
             "safe": false
@@ -3201,7 +3201,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 205,
             "safe": false
@@ -3219,7 +3219,7 @@
                 "explicit": false
             },
             "id": 206,
-            "safe": true
+            "safe": false
         },
         {
             "category": "Pun",
@@ -3232,10 +3232,10 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": false
+                "explicit": true
             },
             "id": 207,
-            "safe": true
+            "safe": false
         },
         {
             "category": "Pun",
@@ -3278,13 +3278,13 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 210,
             "safe": false
         },
         {
-            "category": "Misc",
+            "category": "Pun",
             "type": "twopart",
             "setup": "Why did the chicken cross the road, roll in the mud and cross the road again?",
             "delivery": "He was a dirty double-crosser!",
@@ -3337,15 +3337,15 @@
             "setup": "Where do sick cruise ships go to get healthy?",
             "delivery": "The dock!",
             "flags": {
-                "nsfw": true,
+                "nsfw": false,
                 "religious": false,
                 "political": true,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 214,
-            "safe": false
+            "safe": true
         },
         {
             "category": "Pun",
@@ -3353,15 +3353,15 @@
             "setup": "Has COVID-19 forced you to wear glasses and a mask at the same time?",
             "delivery": "If so, you may be entitled to condensation.",
             "flags": {
-                "nsfw": true,
+                "nsfw": false,
                 "religious": false,
                 "political": true,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 215,
-            "safe": false
+            "safe": true
         },
         {
             "category": "Programming",
@@ -3409,22 +3409,6 @@
                 "explicit": true
             },
             "id": 218,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What's yellow and can't swim?",
-            "delivery": "A bus full of children.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 219,
             "safe": false
         },
         {
@@ -3476,6 +3460,7 @@
             "safe": false
         },
         {
+            // TODO: continue re-flagging here - search regex:     "Dark"|"safe": false|"explicit": true
             "category": "Pun",
             "type": "single",
             "joke": "I was struggling to figure out how lightning works, but then it struck me.",
