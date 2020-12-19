@@ -1,7 +1,6 @@
 {
     "info": {
-        "formatVersion": 3,
-        "TODO:": "add explicit flag to all"
+        "formatVersion": 3
     },
     "jokes": [
         {

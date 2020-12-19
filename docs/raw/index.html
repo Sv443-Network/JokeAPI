@@ -5,7 +5,6 @@
     Licensed under the MIT license (https://sv443.net/LICENSE)
 -->
 
-<!-- TODO: add category aliases to docs -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -494,7 +493,7 @@
                 Note: Only Unicode characters in the range U+0000 to U+0FFF are allowed <a href="https://unicode-table.com/en" target="_blank">(more info)</a>
 
 
-                <!-- TODO: #MARKER Rate Limiting section-->
+                <!-- #MARKER Rate Limiting section-->
                 <div class="docHeader targetBlink" id="rate-limiting"><a class="headerAnchorContainer" href="#rate-limiting" title="Click to link to this header">🔗</a><span class="docHeaderText">Rate Limiting:</span></div>
                 Due to <!--%#INSERT:NAME#%--> being target of DoS attacks in the past, every client has a request budget of <!--%#INSERT:RATELIMITCOUNT#%--> requests they can send per minute.<br>
                 Sending any requests after this limit will make the API temporarily give you a HTTP 429 error until the time runs out.<br>
@@ -1429,8 +1428,8 @@ public class Flags
                 <br>
 
                 <div class="subHeaderContainer"><a href="#category-aliases" title="Click to link to this header">§</a> <span class="subHeader" id="category-aliases">Category Aliases:</span></div>
-                Since version 2.3.0, there are now category aliases. You can use these as a shorter / more clear version of the normal set of <a href="#categories">categories.</a><br>
-                Internally, these aliases will be resolved to one of the normal categories and your request (including the API's response) will be treated as if you used the resolved value.<br>
+                Since version 2.3.0, there are now category aliases. You can use these as a shorter or just different version of the normal set of <a href="#categories">categories.</a><br>
+                Internally, these aliases will be resolved to one of the normal set of <a href="#categories">categories</a> and your request (including the API's response) will be treated as if you used the resolved value.<br>
                 <br>
                 The following is a list of aliases and what they will be resolved to internally:<br>
                 <table id="catAliasesContainer" class="alternatingBgTable">
