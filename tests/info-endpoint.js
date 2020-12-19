@@ -37,6 +37,7 @@ function run()
             xhr.onreadystatechange = () => {
                 if(xhr.readyState == 4)
                 {
+                    console.log(`+++++++++${xhr.status}`);
                     if(xhr.status >= 200 && xhr.status < 300)
                     {
                         let resp = JSON.parse(xhr.responseText);

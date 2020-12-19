@@ -11,41 +11,38 @@ const debug = require("../src/verboseLogging");
 const settings = require("../settings");
 
 var col = { rst: jsl.colors.rst, ...jsl.colors.fg };
-/** @type {cp.ChildProcess} */
-var jokeapiProc;
 var runningTests = false;
 
-const baseURL = `http://127.0.0.1:${settings.httpServer.port}`;
-const japiPath = resolve("./JokeAPI.js");
+// const baseURL = `http://127.0.0.1:${settings.httpServer.port}`;
 
 
 function init()
 {
-    startJokeAPI();
+    // let pingIv;
 
-    let pingIv;
+    // let pingJAPI = () => {
+    //     let xhr = new XMLHttpRequest();
+    //     xhr.open("GET", `${baseURL}/ping`);
 
-    let pingJAPI = () => {
-        let xhr = new XMLHttpRequest();
-        xhr.open("GET", `${baseURL}/ping`);
+    //     xhr.onreadystatechange = () => {
+    //         if(xhr.readyState == 4 && !runningTests)
+    //         {
+    //             if(xhr.status < 300)
+    //             {
+    //                 console.log(`\n\n${col.blue}${settings.info.name} is now running.${col.rst}`);
+    //                 clearInterval(pingIv);
+                    
+    //             }
+    //         }
+    //     };
 
-        xhr.onreadystatechange = () => {
-            if(xhr.readyState == 4 && !runningTests)
-            {
-                if(xhr.status < 300)
-                {
-                    console.log(`\n\n${col.blue}${settings.info.name} is now running.${col.rst}`);
-                    clearInterval(pingIv);
-                    runAllTests();
-                }
-            }
-        };
+    //     xhr.send();
+    // };
 
-        xhr.send();
-    };
-
-    pingIv = setInterval(() => pingJAPI(), settings.tests.initPingInterval);
-    pingJAPI();
+    // pingIv = setInterval(() => pingJAPI(), settings.tests.initPingInterval);
+    // pingJAPI();
+    console.log(`Trying to run tests...`);
+    runAllTests();
 }
 
 function runAllTests()
@@ -115,15 +112,11 @@ function runAllTests()
         
         console.log(`\n${!success ? `\n${col.red}^ Some unit tests were not successful ^${col.rst}` : ""}\n`);
 
-        stopJokeAPI().then(() => {
-            process.exit(success ? 0 : 1);
-        });
+
+        process.exit(success ? 0 : 1);
     }).catch(err => {
         console.error(`${col.red}Error while running unit tests: ${err}\n\n${col.rst}`);
-
-        stopJokeAPI().then(() => {
-            process.exit(1);
-        });
+        process.exit(1);
     });
 }
 
@@ -161,29 +154,6 @@ function getAllTests()
     });
 
     return allTests;
-}
-
-function startJokeAPI()
-{
-    jokeapiProc = cp.fork(japiPath, [process.argv[0], japiPath], {
-        cwd: resolve("./"),
-        stdio: "pipe"
-    });
-}
-
-function stopJokeAPI()
-{
-    return new Promise((resolve) => {
-        if(jokeapiProc != undefined)
-        {
-            jokeapiProc.on("exit", () => {
-                return resolve();
-            });
-            jokeapiProc.kill("SIGINT");
-        }
-        else
-            return resolve();
-    });
 }
 
 init();
