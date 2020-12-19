@@ -344,7 +344,7 @@ class FilteredJoke
                     // to deny a joke from being served, just return from this callback function
 
                     //#SECTION safe mode
-                    if(this.getSafeMode() === true && joke.safe === false) // if safe mode is enabled but joke is not safe, it's invalid
+                    if(this.getSafeMode() === true && joke.safe !== true) // if safe mode is enabled but joke is not safe, it's invalid
                         return;
 
                     //#SECTION id range

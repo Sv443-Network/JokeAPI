@@ -6,6 +6,7 @@ const settings = require("../settings");
 
 const baseURL = `http://127.0.0.1:${settings.httpServer.port}`;
 const requestAmount = 50;
+const defaultLang = "en";
 
 
 const meta = {
@@ -30,12 +31,17 @@ function run()
 {
     return new Promise((resolve, reject) => {
         let errors = [];
+        let languages = [];
 
         const run = () => new Promise(xhrResolve => {
             const get = () => {
+                if(languages.length == 0)
+                    languages = [defaultLang];
+
                 return new Promise((pRes, pRej) => {
                     let xhr = new XMLHttpRequest();
-                    xhr.open("GET", `${baseURL}/joke/Any?safe-mode&lang=xy`);
+                    let langCode = jsl.randomItem(languages);
+                    xhr.open("GET", `${baseURL}/joke/Any?safe-mode&lang=${langCode}`);
 
                     xhr.onreadystatechange = () => {
                         if(xhr.readyState == 4)
@@ -67,16 +73,45 @@ function run()
                 });
             }
 
-            let promises = [];
-            for(let i = 0; i < requestAmount; i++)
-                promises.push(get());
+            let langXhr = new XMLHttpRequest();
+            langXhr.open("GET", `${baseURL}/languages`);
+            langXhr.onreadystatechange = () => {
+                if(langXhr.readyState == 4)
+                {
+                    if(langXhr.status < 300)
+                    {
+                        try
+                        {
+                            let data = JSON.parse(langXhr.responseText);
 
-            Promise.all(promises).then(() => {
-                return xhrResolve();
-            }).catch(err => {
-                jsl.unused(err);
-                return xhrResolve();
-            });
+                            if(data.jokeLanguages)
+                                languages = data.jokeLanguages;
+                        }
+                        catch(err)
+                        {
+                            jsl.unused(err);
+                        }
+
+                        let promises = [];
+                        for(let i = 0; i < requestAmount; i++)
+                            promises.push(get());
+
+                        Promise.all(promises).then(() => {
+                            return xhrResolve();
+                        }).catch(err => {
+                            jsl.unused(err);
+                            return xhrResolve();
+                        });
+                    }
+                    else
+                    {
+                        errors.push(`Endpoint "languages" not available - status: ${langXhr.status}`);
+                        return xhrResolve();
+                    }
+                }
+            };
+
+            langXhr.send();
         });
 
 
