@@ -19,6 +19,7 @@ const meta = {
         "method": "GET",
         "url": `${settings.info.docsURL}/joke/{CATEGORY}`,
         "supportedParams": [
+            "safe-mode",
             "format",
             "blacklistFlags",
             "type",

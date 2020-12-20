@@ -86,7 +86,9 @@ const call = (req, res, url, params, format) => {
                     usage: {
                         method: "POST",
                         url: `${settings.info.docsURL}/submit`,
-                        supportedParams: []
+                        supportedParams: [
+                            "dry-run"
+                        ]
                     }
                 });
 
