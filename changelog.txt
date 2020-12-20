@@ -11,11 +11,12 @@
     - Serve docs with nginx to speed up page load times (issue #118)
 
 
-[CURRENT: 2.3.0] - The Domain Update
+[CURRENT: 2.3.0] - The Safe Mode Update
     - JokeAPI now has its own domain - https://jokeapi.dev/
         - Version 2 of the API should be called @ https://v2.jokeapi.dev/ but can also be called with the old domain and https://jokeapi.dev/
         - The stage version is @ https://stage.jokeapi.dev/
         - Version 3 will be available @ https://v3.jokeapi.dev/
+    - Implemented safe mode (issue #196)
     - Added contributors to the documentation
     - Added the blacklist flag "explicit" to filter out jokes containing explicit language
     - Improved the documentation a little bit again
@@ -36,6 +37,7 @@
     - Added two new wrapper libraries
         - sv443-joke-api for Node.js / TS (issue #190)
         - jokeapi-go for Golang (issue #193)
+    - Updated C# code example in the docs (issue #207)
 
 
 [2.2.2] - The Seasonal Update

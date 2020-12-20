@@ -1,5 +1,6 @@
 # JokeAPI Changelog (Version 2.3.0)
 
+<br><br><br>
 ## [Planned for future releases]
 - Allow definition of max requests per minute per each client ([issue #37](https://github.com/Sv443/JokeAPI/issues/37))
 - Add positive flags and a "?whitelistFlags" param ([issue #127](https://github.com/Sv443/JokeAPI/issues/127))
@@ -7,11 +8,13 @@
 - Serve docs with nginx to speed up page load times ([issue #118](https://github.com/Sv443/JokeAPI/issues/118))
 
 
-## [CURRENT: 2.3.0] - The Domain Update
+<br><br><br>
+## [CURRENT: 2.3.0] - The Safe Mode Update
 - JokeAPI now has its own domain - https://jokeapi.dev/
     - Version 2 of the API should be called @ https://v2.jokeapi.dev/ but can also be called with the old domain and https://jokeapi.dev/
     - The stage version is @ https://stage.jokeapi.dev/
     - Version 3 will be available @ https://v3.jokeapi.dev/
+- Implemented safe mode ([issue #196](https://github.com/Sv443/JokeAPI/issues/196))
 - Added contributors to the documentation
 - Added the blacklist flag "explicit" to filter out jokes containing explicit language
 - Improved the documentation a little bit again
@@ -32,8 +35,10 @@
 - Added two new wrapper libraries
     - sv443-joke-api for Node.js / TS ([issue #190](https://github.com/Sv443/JokeAPI/issues/190))
     - jokeapi-go for Golang ([issue #193](https://github.com/Sv443/JokeAPI/issues/193))
+- Updated C# code example in the docs ([issue #207](https://github.com/Sv443/JokeAPI/issues/207))
 
 
+<br><br><br>
 ## [2.2.2] - The Seasonal Update
 - Added some new seasonal categories ([issue #180](https://github.com/Sv443/JokeAPI/issues/180))
     - Spooky (Halloween)
@@ -44,6 +49,7 @@
 - Added POST as a method to submit data to the API since it makes more sense than PUT (maybe deprecating that some time)
 
 
+<br><br><br>
 ## [2.2.1] - Version 2.2 Hotfix
 - Added the Czech translation (PR #137) - provided by @ThatCopy (https://github.com/ThatCopy) - thanks :)
 - Added a missing conversion mapping when using format `txt` and the `amount` parameter on endpoint `/joke` ([issue #138](https://github.com/Sv443/JokeAPI/issues/138))
@@ -53,6 +59,7 @@
 - Applied a few security patches
 
 
+<br><br><br>
 ## [2.2.0] - The Pun Update
 - Added joke category "Pun" ([issue #105](https://github.com/Sv443/JokeAPI/issues/105))
 - Added "?amount" parameter to joke endpoint so multiple jokes can be fetched at once ([issue #126](https://github.com/Sv443/JokeAPI/issues/126))
@@ -71,6 +78,7 @@
 - Joke submissions are now validated to make sure they don't contain fancy Unicode chars ([issue #123](https://github.com/Sv443/JokeAPI/issues/123))
 
 
+<br><br><br>
 ## [2.1.5] - 2020 Q3 general patch #2
 - Ditched my botched rate limiting package for a "commercial" one ([issue #113](https://github.com/Sv443/JokeAPI/issues/113))
 - Added API token section to documentation ([issue #114](https://github.com/Sv443/JokeAPI/issues/114))
@@ -79,10 +87,12 @@
 - Cleaned up a lot of code
 
 
+<br><br><br>
 ## [2.1.4] - 2020 Q3 general patch #1
 - Fixed the IP getter module for like the 500th time now
 
 
+<br><br><br>
 ## [2.1.3] - 2020 Q2 general patch #1
 - Added option to disable all console output but error messages ([issue #72](https://github.com/Sv443/JokeAPI/issues/72))
 - The content of jokes in the joke submission form is now correctly escaped and can no longer mess up the page ([issue #68](https://github.com/Sv443/JokeAPI/issues/68))
@@ -91,6 +101,7 @@
 - Updated dependencies
 
 
+<br><br><br>
 ## [2.1.2] - Plain Text update
 - Added file format "txt" to receive data as plain text
 - Fixed the joke submission URL in the /info endpoint data
@@ -99,11 +110,13 @@
     - 414 URI Too Long
 
 
+<br><br><br>
 ## [2.1.1] - Auth update hotfix
 - Fixed incorrect error cause when using an out-of-range ID range parameter (see [issue #54](https://github.com/Sv443/JokeAPI/issues/54))
 - Added submission form (https://v2.jokeapi.dev/#submit)
 
 
+<br><br><br>
 ## [2.1.0] - The auth update
 - Added an authorization header to make whitelisting possible without needing to have a static IP
     - Added the script "npm run add-token [amount]" to add one or more tokens
@@ -111,6 +124,7 @@
 - Fixed a few bugs in the documentation
 
 
+<br><br><br>
 ## [2.0.1] - A few hotfixes for the big 2.0.0 updates and some very very minor features I wanted to add
 - Hotfixed a few bugs from the big 2.0.0 update
 - Fixed joke ID caching (to not serve the same jokes multiple times)
@@ -118,6 +132,7 @@
 - Enabled automated code fixing with ESLint
 
 
+<br><br><br>
 ## [2.0.0] - The complete rewrite - JokeAPI was completely rewritten and should now run like 100x better and be more easy to develop and maintain
 - Massively improved the "Try it out" section in the docs
 - Reformatted the jokes to always contain all flags
@@ -149,23 +164,27 @@
 - Updated the contributor guide (contributing.md file)
 
 
+<br><br><br>
 ## [1.1.2]
 oke categories are now case insensitive
 railing slashes now don't produce an "invalid category" error anymore
 
 
+<br><br><br>
 ## [1.1.1]
 etter IP getter for the rate limiting
 pdated dependencies
 ery small improvements to the console window
 
 
+<br><br><br>
 ## [1.1.0]
 - switched to ReadStreams instead of just loading the entire file to RAM to massively improve request performance (more details in [issue #2](https://github.com/Sv443/JokeAPI/issues/2))
     - this basically means it transmits the data over time, instead of loading it all to RAM and sending it at once
 dded rate limiting to counter DoS attacks (yes I've been getting some of those *sigh*)
 
 
+<br><br><br>
 ## [1.0.0]
 - turned the single endpoint into multiple endpoints
     - "categories" to get all available categories
@@ -197,6 +216,7 @@ dded rate limiting to counter DoS attacks (yes I've been getting some of those *
 - added this changelog
 
 
+<br><br><br>
 ## [0.1.2]
 - added "Dark" category
 - added joke submission form
@@ -204,12 +224,14 @@ dded rate limiting to counter DoS attacks (yes I've been getting some of those *
 - modified gitignore
 
 
+<br><br><br>
 ## [0.1.1]
 - added interactive example on docs page
 - made icon on docs page smaller
 - added wrapper script
 
 
+<br><br><br>
 ## [0.1.0]
 - basic functionality
     - 47 jokes

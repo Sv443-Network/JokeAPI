@@ -72,7 +72,7 @@ function writeMD(
 
     data.versions.forEach((versionObj) => {
         let versionContent = [
-            "## " + versionObj.versionTitle,
+            "<br><br><br>\n## " + versionObj.versionTitle,
             ...versionObj.versionEntries,
         ];
 
