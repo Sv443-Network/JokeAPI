@@ -27,7 +27,7 @@
                 "nsfw": false,
                 "racist": true,
                 "sexist": false,
-                "religious": false,
+                "religious": true,
                 "political": false,
                 "explicit": true
             },
@@ -43,7 +43,7 @@
                 "nsfw": false,
                 "racist": true,
                 "sexist": false,
-                "religious": false,
+                "religious": true,
                 "political": false,
                 "explicit": false
             },
