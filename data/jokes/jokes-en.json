@@ -4073,6 +4073,21 @@
             },
             "id": 258,
             "safe": false
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "UDP is better in the COVID era since it avoids unnecessary handshakes.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 259,
+            "safe": true
         }
     ]
 }
