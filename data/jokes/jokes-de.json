@@ -16,7 +16,8 @@
                 "political": false,
                 "explicit": false
             },
-            "id": 0
+            "id": 0,
+            "safe": true
         },
         {
             "category": "Pun",
@@ -31,7 +32,8 @@
                 "political": false,
                 "explicit": false
             },
-            "id": 1
+            "id": 1,
+            "safe": true
         },
         {
             "category": "Pun",
@@ -46,7 +48,8 @@
                 "political": false,
                 "explicit": false
             },
-            "id": 2
+            "id": 2,
+            "safe": true
         },
         {
             "category": "Pun",
@@ -61,7 +64,8 @@
                 "political": false,
                 "explicit": false
             },
-            "id": 3
+            "id": 3,
+            "safe": true
         },
         {
             "category": "Pun",
@@ -74,9 +78,10 @@
                 "sexist": false,
                 "religious": false,
                 "political": false,
-                "explicit": false
+                "explicit": true
             },
-            "id": 4
+            "id": 4,
+            "safe": false
         },
         {
             "category": "Pun",
@@ -91,7 +96,8 @@
                 "political": false,
                 "explicit": false
             },
-            "id": 5
+            "id": 5,
+            "safe": true
         },
         {
             "category": "Pun",
@@ -106,7 +112,8 @@
                 "political": false,
                 "explicit": false
             },
-            "id": 6
+            "id": 6,
+            "safe": true
         },
         {
             "category": "Pun",
@@ -119,9 +126,10 @@
                 "sexist": false,
                 "religious": false,
                 "political": false,
-                "explicit": false
+                "explicit": true
             },
-            "id": 7
+            "id": 7,
+            "safe": false
         },
         {
             "category": "Programming",
@@ -136,7 +144,8 @@
                 "political": false,
                 "explicit": false
             },
-            "id": 8
+            "id": 8,
+            "safe": true
         },
         {
             "category": "Pun",
@@ -151,7 +160,8 @@
                 "political": false,
                 "explicit": false
             },
-            "id": 9
+            "id": 9,
+            "safe": true
         },
         {
             "category": "Pun",
@@ -166,7 +176,8 @@
                 "political": false,
                 "explicit": false
             },
-            "id": 10
+            "id": 10,
+            "safe": true
         },
         {
             "category": "Pun",
@@ -181,7 +192,8 @@
                 "political": false,
                 "explicit": false
             },
-            "id": 11
+            "id": 11,
+            "safe": true
         },
         {
             "category": "Pun",
@@ -196,7 +208,8 @@
                 "political": false,
                 "explicit": false
             },
-            "id": 12
+            "id": 12,
+            "safe": true
         },
         {
             "category": "Pun",
@@ -211,7 +224,8 @@
                 "political": false,
                 "explicit": false
             },
-            "id": 13
+            "id": 13,
+            "safe": true
         },
         {
             "category": "Programming",
@@ -225,7 +239,8 @@
                 "political": false,
                 "explicit": false
             },
-            "id": 14
+            "id": 14,
+            "safe": true
         },
         {
             "category": "Programming",
@@ -239,7 +254,8 @@
                 "political": false,
                 "explicit": false
             },
-            "id": 15
+            "id": 15,
+            "safe": true
         },
         {
             "category": "Programming",
@@ -253,7 +269,8 @@
                 "political": false,
                 "explicit": false
             },
-            "id": 16
+            "id": 16,
+            "safe": true
         },
         {
             "category": "Programming",
@@ -267,21 +284,23 @@
                 "political": false,
                 "explicit": false
             },
-            "id": 17
+            "id": 17,
+            "safe": true
         },
         {
             "category": "Programming",
             "type": "single",
             "joke": "Facebook ist wie ein Gefängnis. Man sitzt rum, verschwendet Zeit, schreibt an Wände und wird angestupst von Leuten die man nicht kennt.",
             "flags": {
-                "nsfw": false,
+                "nsfw": true,
                 "racist": false,
                 "sexist": false,
                 "religious": false,
                 "political": false,
-                "explicit": false
+                "explicit": true
             },
-            "id": 18
+            "id": 18,
+            "safe": false
         },
         {
             "category": "Programming",
@@ -296,7 +315,8 @@
                 "political": false,
                 "explicit": false
             },
-            "id": 19
+            "id": 19,
+            "safe": true
         },
         {
             "category": "Programming",
@@ -311,7 +331,8 @@
                 "political": false,
                 "explicit": false
             },
-            "id": 20
+            "id": 20,
+            "safe": true
         },
         {
             "category": "Programming",
@@ -325,7 +346,8 @@
                 "political": false,
                 "explicit": false
             },
-            "id": 21
+            "id": 21,
+            "safe": true
         },
         {
             "category": "Christmas",
@@ -340,7 +362,8 @@
                 "political": false,
                 "explicit": false
             },
-            "id": 22
+            "id": 22,
+            "safe": true
         },
         {
             "category": "Misc",
@@ -354,7 +377,8 @@
                 "political": false,
                 "explicit": false
             },
-            "id": 23
+            "id": 23,
+            "safe": true
         },
         {
             "category": "Misc",
@@ -368,21 +392,23 @@
                 "political": false,
                 "explicit": false
             },
-            "id": 24
+            "id": 24,
+            "safe": true
         },
         {
             "category": "Programming",
             "type": "single",
             "joke": "Deine Mutter ist wie ein L3-Cache. Sie wird zwischen allen 4 Kernen durchgereicht und jeder hat Zugriff.",
             "flags": {
-                "nsfw": false,
+                "nsfw": true,
                 "racist": false,
                 "sexist": false,
                 "religious": false,
                 "political": false,
                 "explicit": true
             },
-            "id": 25
+            "id": 25,
+            "safe": false
         },
         {
             "category": "Programming",
@@ -397,7 +423,8 @@
                 "political": false,
                 "explicit": false
             },
-            "id": 26
+            "id": 26,
+            "safe": true
         },
         {
             "category": "Misc",
@@ -412,7 +439,8 @@
                 "sexist": false,
                 "explicit": false
             },
-            "id": 27
+            "id": 27,
+            "safe": true
         },
         {
             "category": "Misc",
@@ -426,21 +454,8 @@
                 "sexist": false,
                 "explicit": false
             },
-            "id": 28
-        },
-        {
-            "category": "Programming",
-            "type": "single",
-            "joke": "Das echte Leben nervt... aber die Grafik ist gut.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 29
+            "id": 28,
+            "safe": true
         },
         {
             "category": "Misc",
@@ -454,7 +469,8 @@
                 "sexist": false,
                 "explicit": false
             },
-            "id": 30
+            "id": 29,
+            "safe": false
         }
     ]
 }
