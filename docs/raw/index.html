@@ -1363,7 +1363,7 @@ namespace JokeAPIExample
         public async static Task<string> GetJoke()
         {
             var client = new HttpClient();
-            var response = await client.GetAsync("https://sv443.net/jokeapi/v2/joke/Any?format=txt&type=single&blacklistFlags=nsfw,racist,sexist&lang=en");
+            var response = await client.GetAsync("https://jokeapi.dev/joke/Any?format=txt&type=single&blacklistFlags=nsfw,racist,sexist&lang=en");
             var joke = await response.Content.ReadAsStringAsync();
             return joke;
         }
@@ -1401,7 +1401,7 @@ namespace TestHttpRequest
 
         public async static Task<Joke> GetJokeAdvanced()
         {
-            const string baseUrl = "https://sv443.net/jokeapi/v2";
+            const string baseUrl = "https://jokeapi.dev";
             string[] categories = { "Programming", "Miscellaneous", "Pun", "Spooky", "Christmas" };
             string[] parameters = {
                 "blacklistFlags=nsfw,religious,racist,sexist",
