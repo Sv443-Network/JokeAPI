@@ -195,6 +195,8 @@ function reformatJoke(joke)
     
     if(joke.id)
         retJoke.id = joke.id;
+
+    retJoke.safe = joke.safe || false;
     
     return retJoke;
 }

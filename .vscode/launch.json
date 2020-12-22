@@ -30,7 +30,7 @@
             "console": "integratedTerminal"
         },
         {
-            "program": "${workspaceFolder}/tools/add-joke.js",
+            "program": "${workspaceFolder}/tools/submissions.js",
             "name": "Tools/xy",
             "request": "launch",
             "type": "node",
@@ -40,7 +40,7 @@
             "args": [
                 "--trace-deprecation"
             ],
-            "console": "integratedTerminal"
+            "console": "externalTerminal"
         }
     ],
     "debug.javascript.usePreview": true
