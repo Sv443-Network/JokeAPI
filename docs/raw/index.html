@@ -1338,7 +1338,37 @@ xhr.send();
                 </details><br>
 
                 <!--#SECTION C#-->
+
                 <details><summary id="example-cs" class="big">C# (click to show)</summary>
+                <code class="prettyprint"><span class="nocode codeheader">C#:</span>
+                <div class="actualCode">using System;
+using System.Threading.Tasks;
+using System.Net.Http;
+
+namespace TestHttpRequest
+{
+    class Program
+    {
+        static async Task Main(string[] args)
+        {
+            string joke = await GetJoke();
+            Console.WriteLine("Joke = " + joke);
+        }
+
+        public async static Task<string> GetJoke()
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync("https://sv443.net/jokeapi/v2/joke/Any?format=txt&type=single&blacklistFlags=nsfw,racist,sexist&lang=en");
+            var joke = await response.Content.ReadAsStringAsync();
+            return joke;
+        }
+    }
+}
+</div></code>
+                </details><br>
+
+
+                <details><summary id="example-cs" class="big">C# - Advanced (click to show)</summary>
 <code class="prettyprint"><span class="nocode codeheader">C#:</span>
 <div class="actualCode">using System;
 using System.IO;
