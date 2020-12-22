@@ -38,6 +38,9 @@
         - sv443-joke-api for Node.js / TS (issue #190)
         - jokeapi-go for Golang (issue #193)
     - Updated C# code example in the docs (issue #207)
+    - Increased Rate Limiting budgets (issue #208)
+        - When using GET: from 60 to 120
+        - When using POST: from 3 to 5
 
 
 [2.2.2] - The Seasonal Update
