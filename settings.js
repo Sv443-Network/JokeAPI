@@ -62,7 +62,7 @@ const settings = {
         jokeSubmissionPath: "./data/submissions/",           // path to a directory where joke submissions should be saved to - needs trailing slash
         submissions: {
             timeFrame: 60,                              // time frame of submission rate limiter (in seconds)
-            rateLimiting: 3,                            // how many requests per timeframe should be allowed
+            rateLimiting: 5,                            // how many requests per timeframe should be allowed
             invalidCharRegex: /(?![\u0000-\u0fff])./gm, // eslint-disable-line no-control-regex
         },
         jokesTemplateFile: "template.json",  // relative to "jokes.jokesFolderPath"
@@ -116,8 +116,8 @@ const settings = {
     httpServer: {
         port: 8076,           // http server port
         allowCORS: true,      // whether or not to allow Cross Origin Resource Sharing
-        rateLimiting: 1000,     // amount of allowed requests per below defined timeframe
-        timeFrame: 1,        // timeframe in seconds
+        rateLimiting: 120,    // amount of allowed requests per below defined timeframe
+        timeFrame: 60,        // timeframe in seconds
         urlPathOffset: 0,     // example: "/jokeapi/info" with an offset of 1 will only start parsing the path beginning at "info" - an Apache reverse proxy will do this automatically though
         maxPayloadSize: 5120, // max size (in bytes) that will be accepted in a PUT request - if payload exceeds this size, it will abort with status 413
         maxUrlLength: 250,    // max amount of characters of the URL - if the URL is longer than this, the request will abort with status 414
