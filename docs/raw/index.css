@@ -19,8 +19,8 @@
     --accent-color-light: #b05ffc;
     --accent-color-sidenav-opened: #a779d3;
 
-    --doc-header-font-size: 27px;
-    --doc-sub-header-font-size: 19px;
+    --doc-header-font-size: 29px;
+    --doc-sub-header-font-size: 22px;
 
     --sidenav-animation-speed: 0.15s;
     --sidenav-colorblur-speed: 0.5s;
@@ -29,6 +29,8 @@
     --scrollbar-track-color: #222;
     --scrollbar-thumb-color: rgba(175, 175, 175, .7);
     --scrollbar-webkit-hover-color: rgba(65, 131, 196, .8);
+
+    --line-height: calc(100% + 4px);
 }
 
 @font-face { 
@@ -51,7 +53,9 @@ body {
     background-color: var(--bg-color);
     color: #fff;
     font-family: "Roboto", "Segoe UI", "Arial", sans-serif;
-    font-size: 15px;
+    font-size: 17px;
+    line-height: var(--line-height);
+    font-weight: 200;
 
     overflow-y: hidden;
 
@@ -183,6 +187,8 @@ header {
     height: var(--header-height);
 
     filter: grayscale(0%) drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.6));
+
+    line-height: initial;
 }
 
 header[data-grayscaled="true"] {
@@ -374,6 +380,10 @@ details summary {
 
 details summary.big {
     font-size: 110%;
+}
+
+#newsList li {
+    padding-top: 10px;
 }
 
 mark {
@@ -739,6 +749,7 @@ textarea {
     filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.6));
 
     white-space: nowrap;
+    line-height: initial;
 }
 
 #sidenav a, .sidenav-mimica {
@@ -951,6 +962,7 @@ div.sidenavSpacer {
     padding-bottom: 2px;
     margin-bottom: 10px;
     margin-top: 70px;
+    line-height: initial;
 }
 
 .docHeader:not(:first)

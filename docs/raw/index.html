@@ -77,8 +77,8 @@
             </header>
             <main id="content" class="bodyFlexItem">
                 <noscript>
-                    <h3 style="color: orangered;">You have disabled the execution of JavaScript code in your browser. Please note that this will severely impact your experience on this page.</h3>
-                    <span style="color: orangered;">
+                    <h3 style="color: #ff7644;">You have disabled the execution of JavaScript code in your browser. Please note that this will severely impact your experience on this page.</h3>
+                    <span style="color: #ff7644;">
                         If you didn't disable JavaScript code, the website might have loaded incorrectly. In this case, please press the <kbd>F5</kbd> key to try again.
                     </span>
                     <br><br>
@@ -156,7 +156,7 @@
                 </div> <!-- #MARKER end dev stuff -->
 
                 <div id="usageTerms">
-                    <h2 style="color: orangered;">By using this website and API you are agreeing to the <a href="<!--%#INSERT:PRIVACYPOLICYURL#%-->">privacy policy</a></h2>
+                    <h2 style="color: #ff7644;">By using this website and API you are agreeing to the <a href="<!--%#INSERT:PRIVACYPOLICYURL#%-->">privacy policy</a></h2>
                     <div id="usageTermsInnerLayout">
                         <span class="itm">
                             <span class="mimica" onclick="privPolMoreInfo()">(Click here to get more information on what data <!--%#INSERT:NAME#%--> collects)</span>
@@ -183,7 +183,7 @@
                 To report a bug or a grammar mistake or to suggest a feature, please <a href="<!--%#INSERT:PROJGITHUBURL#%-->/issues/new/choose" target="_blank">use the GitHub issue tracker.</a><br>
                 If you want to contribute to <!--%#INSERT:NAME#%-->, please read the <a href="<!--%#INSERT:PROJGITHUBURL#%-->/blob/master/.github/Contributing.md" target="_blank">Contributing Guide.</a><br>
                 <br>
-                <span style="color: orangered;">If you are new to <!--%#INSERT:NAME#%-->, please start by reading the <a href="#getting-started">Getting Started Guide</a></span><br>
+                <span style="color: #ff7644;">If you are new to <!--%#INSERT:NAME#%-->, please start by reading the <a href="#getting-started">Getting Started Guide</a></span><br>
                 <br>
                 <div class="subHeaderContainer"><a href="#note" title="Click to link to this header">§</a> <span class="subHeader" id="note">Note:</span></div>
                 If you enjoy using <!--%#INSERT:NAME#%--> and want me to keep making free APIs and scripts, please consider donating <a href="https://github.com/sponsors/Sv443" target="_blank">here ♥</a><br>
@@ -214,12 +214,16 @@
 
                 <!-- #MARKER Information -->
                 <div class="docHeader targetBlink" id="news"><a class="headerAnchorContainer" href="#news" title="Click to link to this header">🔗</a><span class="docHeaderText">News:</span></div>
-                <ul>
+                <ul id="newsList">
                     <li>
-                        <!--%#INSERT:NAME#%--> now has its own domain!<br>
+                        <b><!--%#INSERT:NAME#%--> now has its own domain!</b><br>
                         You can now replace the base URL <mark>https://sv443.net/jokeapi/v2</mark> with <mark>https://v2.jokeapi.dev/</mark><br>
                         Note: you should always use the <mark>v2</mark> subdomain to call the API but you can omit it if you just want to view the documentation.<br>
                         For backwards compatibility the old URL will still be usable until version 2 will be deprecated.
+                    </li>
+                    <li>
+                        <b>Is <!--%#INSERT:NAME#%--> serving too many offensive jokes?</b><br>
+                        Try using version 2.3.0's new <a href="#safe-mode">safe mode</a> and the <a href="#blacklist-flags">explicit flag.</a>
                     </li>
                 </ul>
 
@@ -335,7 +339,8 @@
                             </td>
                         </tr>
                     </table>
-                    <br><br><br><br>
+                    <br>
+                    <br>
                     <div id="urlBuilderWrapper" class="flexItem">
                         URL: <span id="urlBuilderUrl">(Loading...)</span><br>
                         <button onclick="resetTryItForm(true)">Reset Form</button> <button onclick="sendTryItRequest()">Send Request &gt;</button>
@@ -1371,74 +1376,70 @@ namespace JokeAPIExample
                 <details><summary id="example-cs" class="big">C# - Advanced (click to show)</summary>
 <code class="prettyprint"><span class="nocode codeheader">C#:</span>
 <div class="actualCode">using System;
-using System.IO;
-using System.Net;
-using System.Web.Script.Serialization; // Requires you to include the assembly "System.Web.Extensions" in your project
+using System.Threading.Tasks;
+using System.Net.Http;
+using Newtonsoft.Json;   // Install with NuGet Package Manager: https://www.nuget.org/packages/Newtonsoft.Json/12.0.3?_src=template
 
-
-private void getJoke()
+namespace TestHttpRequest
 {
-    string baseURL = "<!--%#INSERT:DOCSURL#%-->";
-    string[] categories = { "Programming", "Misc", "Pun", "Spooky", "Christmas" };
-    string[] parameters = {
-        "blacklistFlags=nsfw,religious,racist",
-        "idRange=0-100"
-    };
-
-    // Create request and wait for response
-    WebRequest request = WebRequest.Create($"{baseURL}/joke/{string.Join(",", categories)}?{string.Join("&", parameters)}");
-    WebResponse response = request.GetResponse();
-
-    using (Stream dataStream = response.GetResponseStream())
+    class Program
     {
-        // Convert the stream to a string
-        StreamReader reader = new StreamReader(dataStream);
-        string responseFromServer = reader.ReadToEnd();
-
-        // Deserialize the string into an object of the Joke class
-        JavaScriptSerializer ser = new JavaScriptSerializer();
-        Joke randomJoke = ser.Deserialize&lt;Joke&gt;(responseFromServer);
-
-        if (randomJoke.type == "single")
+        static async Task Main(string[] args)
         {
-            // If type == "single", the joke only has the "joke" property
-            Console.WriteLine(randomJoke.joke);
+            Joke randomJoke = await GetJokeAdvanced();
+            if (randomJoke.type == "single")
+            {
+                Console.WriteLine(randomJoke.joke);
+            }
+            else
+            {
+                Console.WriteLine(randomJoke.setup);
+                System.Threading.Thread.Sleep(3000);
+                Console.WriteLine(randomJoke.delivery);
+            }
         }
-        else
+
+        public async static Task<Joke> GetJokeAdvanced()
         {
-            // If type == "twopart", the joke has the "setup" and "delivery" properties
-            Console.WriteLine(randomJoke.setup);
-            System.Threading.Thread.Sleep(3000);
-            Console.WriteLine(randomJoke.delivery);
+            const string baseUrl = "https://sv443.net/jokeapi/v2";
+            string[] categories = { "Programming", "Miscellaneous", "Pun", "Spooky", "Christmas" };
+            string[] parameters = {
+                "blacklistFlags=nsfw,religious,racist,sexist",
+                "idRange=0-100"
+            };
+            string requestUrl = $"{baseUrl}/joke/{string.Join(",", categories)}?{string.Join("&", parameters)}";
+            Joke randomJoke;
+
+            using (var httpClient = new HttpClient())
+            {
+                var json = await httpClient.GetStringAsync(requestUrl);
+                randomJoke = JsonConvert.DeserializeObject<Joke>(json);
+            }
+
+            return randomJoke;
         }
     }
 
-    // Close the request
-    response.Close();
-}
+    public class Joke
+    {
+        public string type { get; set; }
+        public string joke { get; set; }
+        public string setup { get; set; }
+        public string delivery { get; set; }
+        public int id { get; set; }
+        public Flags flags { get; set; }
+    }
 
 
-public class Joke
-{
-    public string type { get; set; }
-    public string joke { get; set; }
-    public string setup { get; set; }
-    public string delivery { get; set; }
-    public int id { get; set; }
-    public Flags flags { get; set; }
-}
-
-
-public class Flags
-{
-    public bool nsfw { get; set; }
-    public bool religious { get; set; }
-    public bool political { get; set; }
-    public bool racist { get; set; }
-    public bool sexist { get; set; }
-    public bool explicit { get; set; }
-}
-</div></code>
+    public class Flags
+    {
+        public bool nsfw { get; set; }
+        public bool religious { get; set; }
+        public bool political { get; set; }
+        public bool racist { get; set; }
+        public bool sexist { get; set; }
+    }
+}</div></code>
                 </details><br>
 
 
