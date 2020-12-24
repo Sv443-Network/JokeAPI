@@ -53,6 +53,7 @@ function run()
                             }
                             catch(err)
                             {
+                                errors.push(`Couldn't parse API response as JSON: ${err}`);
                                 jsl.unused(err);
                             }
 
