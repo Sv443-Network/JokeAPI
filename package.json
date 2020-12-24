@@ -6,20 +6,27 @@
   "homepage": "https://v2.jokeapi.dev",
   "scripts": {
     "start": "node . && exit $?",
+
     "test": "node tools/test && snyk test",
     "test-colorblind": "node tools/test --colorblind && snyk test",
+
     "submissions": "node tools/submissions",
+
     "reformat": "node tools/reformat",
     "reassign-ids": "node tools/reassign-ids",
+
     "add-joke": "node tools/add-joke",
     "add-token": "node tools/add-token",
+
     "validate-jokes": "node tools/validate-jokes",
     "validate-ids": "node tools/validate-ids",
     "lint": "eslint ./ && exit $?",
     "all": "npm run validate-jokes && npm run validate-ids && npm run lint && npm run dep-graph && npm run generate-changelog && npm test",
+
     "dep-graph-old": "node dev/madge",
     "dep-graph": "depcruise --include-only \"^src|^endpoints|^tests|^tools\" --output-type dot . | dot -T svg > dev/dependencygraph.svg && echo Created dependency graph at \"dev/dependencygraph.svg\"",
     "generate-changelog": "node tools/generate-changelog",
+
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect"
   },
