@@ -59,13 +59,16 @@ function run()
                             if(respText.safe === false)
                                 errors.push(`Joke #${respText.id} is unsafe`);
 
-                            if(xhr.status < 300)
+                            if(xhr.status < 300 && xhr.status != 0)
                                 return pRes({
                                     i: respText.id,
                                     s: respText.safe
                                 });
                             else
+                            {
+                                errors.push(`Couldn't reach endpoint - HTTP status: ${xhr.status}`);
                                 return pRej(xhr.status);
+                            }
                         }
                     };
 
