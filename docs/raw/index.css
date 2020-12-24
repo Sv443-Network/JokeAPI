@@ -459,7 +459,7 @@ body[data-sidenav="opened"] mark {
 body[data-sidenav="closed"] code, body code {
     font-family: "Cascadia Code", "Inconsolata", "Courier New", "Consolas", monospace;
     font-variant-ligatures: none;
-    font-size: 14px;
+    font-size: 15px;
 
     white-space: pre;
     -moz-tab-size: 4;
