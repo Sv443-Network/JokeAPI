@@ -22,6 +22,7 @@
 - Added some unit tests to make JokeAPI more reliable
     - Endpoint "/info"
     - Endpoint "/langcode/{LANGUAGE}"
+    - Parameter "safe-mode" on Endpoint "/joke/{CATEGORY}"
 - Added a URL parameter to dry-run the /submit endpoint ([issue #187](https://github.com/Sv443/JokeAPI/issues/187))
 - API now tells clients how many requests they have left by providing some headers ([issue #188](https://github.com/Sv443/JokeAPI/issues/188))
 - Added changelog generation in Markdown format (thanks to Sahithyan Kandathasan / [issue #191](https://github.com/Sv443/JokeAPI/issues/191))
