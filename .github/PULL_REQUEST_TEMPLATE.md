@@ -18,10 +18,12 @@
 <!-- Add some screenshots here, if applicable -->
 
 ## Checklist
-- [ ] I have read the [Contributing Guide](https://github.com/Sv443/JokeAPI/blob/master/.github/Contributing.md)
-- [ ] I read and accept the [Code of Conduct](https://github.com/Sv443/JokeAPI/blob/master/.github/Code_of_Conduct.md) (TLDR: just behave in a friendly manner)
+- [ ] I have read and followed the [Contributing Guide](https://github.com/Sv443/JokeAPI/blob/master/.github/Contributing.md)
+- [ ] I have read and accept the [Code of Conduct](https://github.com/Sv443/JokeAPI/blob/master/.github/Code_of_Conduct.md) (TLDR: just behave in a friendly manner)
 - [ ] My code follows the general style of this project
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] I have made corresponding changes to the documentation (if applicable)
 - [ ] I ensured that the automated checks that ran on this PR have completed successfully
-- [ ] I added myself to the `package.json` file (optional)
+- [ ] I added myself to the `package.json` file (optional but highly encouraged :)
+
+**^ Not completing the checklist or ignoring what it says will invalidate your contribution and may even ban you from contributing altogether ^**

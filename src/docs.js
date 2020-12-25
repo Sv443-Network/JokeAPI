@@ -249,19 +249,20 @@ const inject = filePath => {
 
                 let injections = {
                     "<!--%#INSERT:VERSION#%-->":               settings.info.version,
-                    "<!--%#INSERT:NAME#%-->":                  settings.info.name,
-                    "<!--%#INSERT:DESC#%-->":                  settings.info.desc,
-                    "<!--%#INSERT:AUTHORWEBSITEURL#%-->":      settings.info.author.website,
-                    "<!--%#INSERT:AUTHORGITHUBURL#%-->":       settings.info.author.github,
+                    "<!--%#INSERT:NAME#%-->":                  settings.info.name.toString(),
+                    "<!--%#INSERT:DESC#%-->":                  settings.info.desc.toString(),
+                    "<!--%#INSERT:AUTHORWEBSITEURL#%-->":      settings.info.author.website.toString(),
+                    "<!--%#INSERT:AUTHORGITHUBURL#%-->":       settings.info.author.github.toString(),
                     "<!--%#INSERT:CONTRIBUTORS#%-->":          (!jsl.isEmpty(contributors) ? contributors : "{}"),
-                    "<!--%#INSERT:PROJGITHUBURL#%-->":         settings.info.projGitHub,
-                    "<!--%#INSERT:JOKESUBMISSIONURL#%-->":     settings.jokes.jokeSubmissionURL,
+                    "<!--%#INSERT:CONTRIBUTORGUIDEURL#%-->":   settings.info.contribGuideUrl.toString(),
+                    "<!--%#INSERT:PROJGITHUBURL#%-->":         settings.info.projGitHub.toString(),
+                    "<!--%#INSERT:JOKESUBMISSIONURL#%-->":     settings.jokes.jokeSubmissionURL.toString(),
                     "<!--%#INSERT:CATEGORYARRAY#%-->":         JSON.stringify([settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories]),
                     "<!--%#INSERT:FLAGSARRAY#%-->":            JSON.stringify(settings.jokes.possible.flags),
                     "<!--%#INSERT:FILEFORMATARRAY#%-->":       JSON.stringify(settings.jokes.possible.formats.map(itm => itm.toUpperCase())),
                     "<!--%#INSERT:TOTALJOKES#%-->":            (!jsl.isEmpty(jokeCount) ? jokeCount.toString() : 0),
                     "<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->": (!jsl.isEmpty(jokeCount) ? (jokeCount - 1).toString() : 0),
-                    "<!--%#INSERT:PRIVACYPOLICYURL#%-->":      settings.info.privacyPolicyUrl,
+                    "<!--%#INSERT:PRIVACYPOLICYURL#%-->":      settings.info.privacyPolicyUrl.toString(),
                     "<!--%#INSERT:DOCSURL#%-->":               (!jsl.isEmpty(settings.info.docsURL) ? settings.info.docsURL : "(Error: Documentation URL not defined)"),
                     "<!--%#INSERT:RATELIMITCOUNT#%-->":        settings.httpServer.rateLimiting.toString(),
                     "<!--%#INSERT:FORMATVERSION#%-->":         settings.jokes.jokesFormatVersion.toString(),
@@ -270,7 +271,9 @@ const inject = filePath => {
                     "<!--%#INSERT:JOKELANGCOUNT#%-->":         languages.jokeLangs().length.toString(),
                     "<!--%#INSERT:SYSLANGCOUNT#%-->":          languages.systemLangs().length.toString(),
                     "<!--%#INSERT:MAXJOKEAMOUNT#%-->":         settings.jokes.maxAmount.toString(),
-                    "<!--%#INSERT:JOKEENCODEAMOUNT#%-->":      settings.jokes.encodeAmount.toString()
+                    "<!--%#INSERT:JOKEENCODEAMOUNT#%-->":      settings.jokes.encodeAmount.toString(),
+                    "<!--%#INSERT:SUBMISSIONRATELIMIT#%-->":   settings.jokes.submissions.rateLimiting.toString(),
+                    "<!--%#INSERT:CATEGORYALIASES#%-->":       JSON.stringify(settings.jokes.possible.categoryAliases),
                 };
 
                 let allMatches = 0;

@@ -14,20 +14,24 @@
 
 <br><br>
 
-# [Documentation](https://sv443.net/jokeapi/v2)
-# [Try it out](https://sv443.net/jokeapi/v2#try-it) &bull; [Changelog](./changelog.txt)
+# [Documentation](https://jokeapi.dev/)
+## [Try it out](https://jokeapi.dev/#try-it) &bull; [Changelog](./changelog.md)
 
 
 </div>
 <br><br>
 
-## If you want to contribute to JokeAPI (code, jokes or translations), please read the [contributing guide.](./.github/Contributing.md)
+### Note: due to the different types of humor, JokeAPI contains a wide variety of jokes, of which some are very offensive. They can be filtered out, but use this API at your own risk!
+### If you want to contribute to JokeAPI (code, jokes or translations), please read the [contributing guide.](./.github/Contributing.md)
 
 <br><br>
 
 # Official API Wrappers:
-- [Rust](https://github.com/canarado/sv443_jokeapi_wrapper)
-- [Python](https://github.com/thenamesweretakenalready/Sv443s-JokeAPI-Python-Wrapper)
+- <b><a href="https://github.com/canarado/sv443_jokeapi_wrapper#readme"><img src="./docs/static/external/rust.svg" width="16" height="16"> Rust</a></b> (outdated)
+- <b><a href="https://github.com/thenamesweretakenalready/Sv443s-JokeAPI-Python-Wrapper#readme"><img src="./docs/static/external/python.svg" width="16" height="16"> Python</a></b>
+- <b><a href="https://github.com/sahithyandev/sv443-joke-api-js-wrapper#readme"><img src="./docs/static/external/nodejs.svg" width="16" height="16"> Node.js</a></b> (incomplete)
+- <b><a href="https://github.com/Icelain/jokeapi#readme"><img src="./docs/static/external/golang.svg" width="16" height="16"> Go</a></b>
+
 
 <br>
 
@@ -38,15 +42,20 @@
 - [Dark1](https://github.com/whiteadi/Dark1) by [whiteadi](https://github.com/whiteadi)
 - [Prejudice Networks](https://github.com/LiamTownsley/Prejudice-Networks) by [Liam Townsley](https://github.com/LiamTownsley)
 - [https://irshad.ml/humour.html](https://irshad.ml/humour.html) by [draco-malfoy](https://github.com/draco-malfoy)
+- [Random Joke Generator with Flutter](https://github.com/variousnabil/Random-Joke-Generator-with-Flutter) by [variousnabil](https://github.com/variousnabil)
 - [comma](https://thatcopy.pw/comma) by [ThatCopy](https://github.com/ThatCopy)
+- [Joke Teller](https://github.com/AlHood77/Joke_Teller) by [AlHood77](https://github.com/AlHood77)
+- [Jokes plugin for Craft CMS 3.x](https://github.com/remcoov/jokes) by [remcoov](https://github.com/remcoov)
+- [PoshBot.Joker](https://github.com/ToastIT-dev/PoshBot.Joker) by [ToastIT-dev](https://github.com/ToastIT-dev)
+
   
-([Contact me](https://sv443.net/discord) to get your project added here)
+[Submit an issue](https://github.com/Sv443/JokeAPI/issues/new/choose) and select `New Dependent` to get your project added here
 
 
 <br><br>
 <div align="center" style="text-align:center">
 
 Made with ❤️ by [Sv443](https://github.com/Sv443)  
-Support me on [Patreon](https://patreon.com/Sv443_), [Ko-fi](https://ko-fi.com/Sv443_) or [PayPal](https://paypal.me/SvenFehler)
+If you want to, you can support me on [Patreon](https://patreon.com/Sv443_), [Ko-fi](https://ko-fi.com/Sv443_) or [PayPal](https://paypal.me/SvenFehler)
 
 </div>

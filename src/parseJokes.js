@@ -8,17 +8,45 @@ const debug = require("./verboseLogging");
 const languages = require("./languages");
 const AllJokes = require("./classes/AllJokes");
 
+
 /**
- * Parses all jokes
+ * @typedef {Object} CategoryAlias
+ * @prop {String} alias Name of the alias
+ * @prop {String} value The value this alias resolves to
+ */
+
+/** @type {CategoryAlias[]} */
+var categoryAliases = [];
+
+
+/**
+ * Parses all jokes  
+ * TODO: categories seem to not get validated here
  * @returns {Promise<Boolean>}
  */
 const init = () => {
     return new Promise((resolve, reject) => {
+        // prepare category aliases
+        Object.keys(settings.jokes.possible.categoryAliases).forEach(alias => {
+            let aliasResolved = settings.jokes.possible.categoryAliases[alias];
+
+            if(!settings.jokes.possible.categories.includes(aliasResolved))
+                return reject(`Error while setting up category aliases: The resolved value "${aliasResolved}" of alias "${alias}" is not present in the "settings.jokes.possible.categories" array.`);
+            
+            categoryAliases.push({ alias, value: aliasResolved });
+        });
+
+        debug("JokeParser", `Registered ${categoryAliases.length} category aliases`);
+
+
+        // prepare jokes files
         let jokesFiles = fs.readdirSync(settings.jokes.jokesFolderPath);
         let result = [];
         let allJokesFilesObj = {};
 
         let outerPromises = [];
+
+        let parsedJokesAmount = 0;
 
         jokesFiles.forEach(jf => {
             if(jf == settings.jokes.jokesTemplateFile)
@@ -60,63 +88,75 @@ const init = () => {
                     }
                     catch(err)
                     {
-                        return reject(`Error while parsing file "${settings.jokes.jokesFilePath}" as JSON: ${err}`);
+                        return reject(`Error while parsing jokes file "${jf}" as JSON: ${err}`);
                     }
 
                     //#MARKER format version
                     if(jokesFile.info.formatVersion == settings.jokes.jokesFormatVersion)
                         result.push(true);
-                    else result.push(`Joke file format version is set to "${jokesFile.info.formatVersion}" - Expected: "${settings.jokes.jokesFormatVersion}"`);
+                    else result.push(`Joke file format version of language "${langCode}" is set to "${jokesFile.info.formatVersion}" - Expected: "${settings.jokes.jokesFormatVersion}"`);
 
                     jokesFile.jokes.forEach((joke, i) => {
                         //#MARKER joke ID
                         if(!jsl.isEmpty(joke.id) && !isNaN(parseInt(joke.id)))
                             result.push(true);
-                        else result.push(`Joke with index/ID ${i} doesn't have an "id" property or it is invalid`);
+                        else result.push(`Joke with index/ID ${i} of language "${langCode}" doesn't have an "id" property or it is invalid`);
+
+                        //#MARKER category
+                        if(settings.jokes.possible.categories.map(c => c.toLowerCase()).includes(joke.category.toLowerCase()))
+                            result.push(true);
+                        else
+                            result.push(`Joke with index/ID ${i} of language "${langCode}" has an invalid category (Note: aliases are not allowed here)`);
 
                         //#MARKER type and actual joke
                         if(joke.type == "single")
                         {
                             if(!jsl.isEmpty(joke.joke))
                                 result.push(true);
-                            else result.push(`Joke with index/ID ${i} doesn't have a "joke" property`);
+                            else result.push(`Joke with index/ID ${i} of language "${langCode}" doesn't have a "joke" property`);
                         }
                         else if(joke.type == "twopart")
                         {
                             if(!jsl.isEmpty(joke.setup))
                                 result.push(true);
-                            else result.push(`Joke with index/ID ${i} doesn't have a "setup" property`);
+                            else result.push(`Joke with index/ID ${i} of language "${langCode}" doesn't have a "setup" property`);
 
                             if(!jsl.isEmpty(joke.delivery))
                                 result.push(true);
-                            else result.push(`Joke with index/ID ${i} doesn't have a "delivery" property`);
+                            else result.push(`Joke with index/ID ${i} of language "${langCode}" doesn't have a "delivery" property`);
                         }
-                        else result.push(`Joke with index/ID ${i} doesn't have a "type" property or it is invalid`);
+                        else result.push(`Joke with index/ID ${i} of language "${langCode}" doesn't have a "type" property or it is invalid`);
 
                         //#MARKER flags
                         if(!jsl.isEmpty(joke.flags))
                         {
                             if(!jsl.isEmpty(joke.flags.nsfw) || (joke.flags.nsfw !== false && joke.flags.nsfw !== true))
                                 result.push(true);
-                            else result.push(`Joke with index/ID ${i} has an invalid "NSFW" flag`);
+                            else result.push(`Joke with index/ID ${i} of language "${langCode}" has an invalid "NSFW" flag`);
 
                             if(!jsl.isEmpty(joke.flags.racist) || (joke.flags.racist !== false && joke.flags.racist !== true))
                                 result.push(true);
-                            else result.push(`Joke with index/ID ${i} has an invalid "racist" flag`);
+                            else result.push(`Joke with index/ID ${i} of language "${langCode}" has an invalid "racist" flag`);
 
                             if(!jsl.isEmpty(joke.flags.sexist) || (joke.flags.sexist !== false && joke.flags.sexist !== true))
                                 result.push(true);
-                            else result.push(`Joke with index/ID ${i} has an invalid "sexist" flag`);
+                            else result.push(`Joke with index/ID ${i} of language "${langCode}" has an invalid "sexist" flag`);
 
                             if(!jsl.isEmpty(joke.flags.political) || (joke.flags.political !== false && joke.flags.political !== true))
                                 result.push(true);
-                            else result.push(`Joke with index/ID ${i} has an invalid "political" flag`);
+                            else result.push(`Joke with index/ID ${i} of language "${langCode}" has an invalid "political" flag`);
 
                             if(!jsl.isEmpty(joke.flags.religious) || (joke.flags.religious !== false && joke.flags.religious !== true))
                                 result.push(true);
-                            else result.push(`Joke with index/ID ${i} has an invalid "religious" flag`);
+                            else result.push(`Joke with index/ID ${i} of language "${langCode}" has an invalid "religious" flag`);
+
+                            if(!jsl.isEmpty(joke.flags.explicit) || (joke.flags.explicit !== false && joke.flags.explicit !== true))
+                                result.push(true);
+                            else result.push(`Joke with index/ID ${i} of language "${langCode}" has an invalid "explicit" flag`);
                         }
-                        else result.push(`Joke with index/ID ${i} doesn't have a "flags" object or it is invalid`);
+                        else result.push(`Joke with index/ID ${i} of language "${langCode}" doesn't have a "flags" object or it is invalid`);
+
+                        parsedJokesAmount++;
                     });
 
                     allJokesFilesObj[langCode] = jokesFile;
@@ -151,7 +191,7 @@ const init = () => {
             this.jokeFormatVersion = fmtVer;
 
 
-            debug("JokeParser", `Done parsing jokes. Errors: ${errors.length === 0 ? jsl.colors.fg.green : jsl.colors.fg.red}${errors.length}${jsl.colors.rst}`);
+            debug("JokeParser", `Done parsing all ${parsedJokesAmount} jokes. Errors: ${errors.length === 0 ? jsl.colors.fg.green : jsl.colors.fg.red}${errors.length}${jsl.colors.rst}`);
 
             if(jsl.allEqual(result) && result[0] === true && errors.length === 0)
                 return resolve();
@@ -164,23 +204,31 @@ const init = () => {
 }
 
 /**
+ * @typedef {"Misc"|"Programming"|"Dark"|"Pun"|"Spooky"|"Christmas"} JokeCategory Resolved category name (not an alias)
+ */
+/**
+ * @typedef {"Miscellaneous"|"Coding"|"Development"|"Halloween"} JokeCategoryAlias Category name aliases
+ */
+
+/**
  * @typedef {Object} SingleJoke A joke of type single
- * @prop {String} category The category of the joke
- * @prop {("single")} type The type of the joke
+ * @prop {JokeCategory} category The category of the joke
+ * @prop {"single"} type The type of the joke
  * @prop {String} joke The joke itself
  * @prop {Object} flags
  * @prop {Boolean} flags.nsfw Whether the joke is NSFW or not
  * @prop {Boolean} flags.racist Whether the joke is racist or not
  * @prop {Boolean} flags.religious Whether the joke is religiously offensive or not
  * @prop {Boolean} flags.political Whether the joke is politically offensive or not
+ * @prop {Boolean} flags.explicit Whether the joke contains explicit language
  * @prop {Number} id The ID of the joke
  * @prop {String} lang The language of the joke
  */
 
 /**
  * @typedef {Object} TwopartJoke A joke of type twopart
- * @prop {String} category The category of the joke
- * @prop {("twopart")} type The type of the joke
+ * @prop {JokeCategory} category The category of the joke
+ * @prop {"twopart"} type The type of the joke
  * @prop {String} setup The setup of the joke
  * @prop {String} delivery The delivery of the joke
  * @prop {Object} flags
@@ -188,6 +236,7 @@ const init = () => {
  * @prop {Boolean} flags.racist Whether the joke is racist or not
  * @prop {Boolean} flags.religious Whether the joke is religiously offensive or not
  * @prop {Boolean} flags.political Whether the joke is politically offensive or not
+ * @prop {Boolean} flags.explicit Whether the joke contains explicit language
  * @prop {Number} id The ID of the joke
  * @prop {String} lang The language of the joke
  */
@@ -199,6 +248,8 @@ const init = () => {
  */
 const validateSingle = joke => {
     let jokeErrors = [];
+
+    // TODO: implement translations
 
     try
     {
@@ -233,13 +284,15 @@ const validateSingle = joke => {
         else jokeErrors.push(`Joke doesn't have a "type" property or it is invalid - it has to be either "single" or "twopart"`);
 
         //#MARKER joke category
+        let jokeCat = resolveCategoryAlias(joke.category);
+
         if(joke.category == null)
             jokeErrors.push(`Joke doesn't have a "category" property or it is empty`);
         else
         {
             let categoryValid = false;
             settings.jokes.possible.categories.forEach(cat => {
-                if(joke.category.toLowerCase() == cat.toLowerCase())
+                if(jokeCat.toLowerCase() == cat.toLowerCase())
                     categoryValid = true;
             });
             if(!categoryValid)
@@ -263,6 +316,9 @@ const validateSingle = joke => {
 
             if(jsl.isEmpty(joke.flags.religious) || (joke.flags.religious !== false && joke.flags.religious !== true))
                 jokeErrors.push(`Joke doesn't have the "religious" flag or it is invalid`);
+
+            if(jsl.isEmpty(joke.flags.explicit) || (joke.flags.explicit !== false && joke.flags.explicit !== true))
+                jokeErrors.push(`Joke doesn't have the "explicit" flag or it is invalid`);
         }
         else jokeErrors.push(`Joke doesn't have a "flags" object or it is invalid`);
 
@@ -283,7 +339,34 @@ const validateSingle = joke => {
 
     if(jsl.isEmpty(jokeErrors))
         return true;
-    else return jokeErrors;
+    else
+        return jokeErrors;
 }
 
-module.exports = { init, validateSingle }
+/**
+ * Returns the resolved value of a joke category alias or returns the initial value if it isn't an alias or is invalid
+ * @param {JokeCategory|JokeCategoryAlias} category A singular joke category or joke category alias
+ * @returns {JokeCategory}
+ */
+function resolveCategoryAlias(category)
+{
+    let cat = category;
+    categoryAliases.forEach(catAlias => {
+        if(category.toLowerCase() == catAlias.alias.toLowerCase())
+            cat = catAlias.value;
+    });
+
+    return cat;
+}
+
+/**
+ * Returns the resolved values of an array of joke category aliases or returns the initial values if there are none
+ * @param {JokeCategory[]|JokeCategoryAlias[]} categories An array of joke categories (can contain aliases)
+ * @returns {JokeCategory[]}
+ */
+function resolveCategoryAliases(categories)
+{
+    return categories.map(cat => resolveCategoryAlias(cat));
+}
+
+module.exports = { init, validateSingle, resolveCategoryAlias, resolveCategoryAliases }

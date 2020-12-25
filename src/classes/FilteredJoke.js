@@ -10,6 +10,7 @@ const jsl = require("svjsl");
 const settings = require("../../settings");
 
 
+/** @typedef {"nsfw"|"racist"|"sexist"|"religious"|"political"|"explicit"} BlacklistFlags */
 /** @typedef {"Any"|"Programming"|"Miscellaneous"|"Dark"} JokeCategory */
 
 
@@ -39,6 +40,7 @@ class FilteredJoke
             idRangePerLang[lc] = [ 0, (parseJokes.jokeCountPerLang[lc] - 1) ];
         });
 
+        /** Resolved category names (aliases are not allowed here) */
         this._allowedCategories = [
             settings.jokes.possible.anyCategoryName.toLowerCase(),
             ...settings.jokes.possible.categories.map(c => c.toLowerCase())
@@ -51,6 +53,7 @@ class FilteredJoke
         this._errors = [];
         this._lang = settings.languages.defaultLanguage;
         this._amount = 1;
+        this._safeMode = false;
 
         if(!_lastIDs || !Array.isArray(_lastIDs))
             _lastIDs = [];
@@ -212,7 +215,7 @@ class FilteredJoke
     //#MARKER flags
     /**
      * Sets the blacklist flags
-     * @param {Array<"nsfw"|"racist"|"sexist"|"religious"|"political">} flags 
+     * @param {Array<BlacklistFlags>} flags 
      * @returns {Boolean} Returns true if the flags were set, false if they are invalid
      */
     setBlacklistFlags(flags)
@@ -235,7 +238,7 @@ class FilteredJoke
 
     /**
      * Returns the set blacklist flags
-     * @returns {Array<"nsfw"|"racist"|"sexist"|"religious"|"political">}
+     * @returns {Array<BlacklistFlags>}
      */
     getBlacklistFlags()
     {
@@ -266,6 +269,31 @@ class FilteredJoke
     getLanguage()
     {
         return this._lang || settings.languages.defaultLanguage;
+    }
+
+    //#MARKER safe mode
+    /**
+     * Sets the safe mode
+     * @param {Boolean} safeModeEnabled 
+     * @returns {Boolean} Returns the new value of the safe mode
+     */
+    setSafeMode(safeModeEnabled)
+    {
+        if(typeof safeModeEnabled == "boolean")
+            this._safeMode = safeModeEnabled;
+        else
+            this._safeMode = false;
+        
+        return this._safeMode;
+    }
+
+    /**
+     * Returns the value of the safe mode
+     * @returns {Boolean}
+     */
+    getSafeMode()
+    {
+        return this._safeMode;
     }
 
     //#MARKER amount
@@ -315,9 +343,21 @@ class FilteredJoke
                     // iterate over each joke, reading all set filters and thereby checking if it suits the request
                     // to deny a joke from being served, just return from this callback function
 
+                    //#SECTION safe mode
+                    if(this.getSafeMode() === true) // if safe mode is enabled
+                    {
+                        if(joke.safe !== true) // if joke is not safe, it's invalid
+                            return;
+                        
+                        if(joke.category == "Dark") // if joke is in category "Dark", it's invalid
+                            return;
+                    }
+                    
+                    
+
                     //#SECTION id range
                     let idRange = this.getIdRange(lang);
-                    if(joke.id < idRange[0] || joke.id > idRange[1]) // if the joke is 
+                    if(joke.id < idRange[0] || joke.id > idRange[1]) // if the joke is not in the specified ID range, it's invalid
                         return;
 
                     //#SECTION categories
@@ -364,14 +404,14 @@ class FilteredJoke
                     //#SECTION language
                     let langCode = this.getLanguage();
                     if(!languages.isValidLang(langCode))
-                        return; // invalid lang code
+                        return; // invalid lang code, joke is invalid
                     if(joke.lang.toLowerCase() != langCode.toLowerCase())
-                        return; // lang code doesn't match
+                        return; // lang code doesn't match so joke is invalid
                     
-                    // amount param is used in getJokes()
+                    // Note: amount param is used in getJokes()
 
                     //#SECTION done
-                    this._filteredJokes.push(joke); // joke is valid, push it to the array that gets passed in the resolve()
+                    this._filteredJokes.push(joke); // joke is valid, push it to the array that gets passed in the resolve() just below
                 });
 
                 return resolve(this._filteredJokes);

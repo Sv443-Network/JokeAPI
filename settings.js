@@ -5,7 +5,7 @@ const bgc = jsl.colors.bg;
 
 const settings = {
     debug: {
-        verboseLogging: false,      // set to true to enable extra debug output
+        verboseLogging: true,      // set to true to enable extra debug output
         progressBarDisabled: true,  // set to true to disable the progress bar - greatly improves readability of verbose debug output
         onlyLogErrors: true,        // set to true to disable sending any console logs but error messages
     },
@@ -22,7 +22,8 @@ const settings = {
             website: packageJSON.author.url, // author website
             github: `https://github.com/${packageJSON.author.name}`, // author github page
         },
-        privacyPolicyUrl: "https://sv443.net/privacypolicy/en"
+        privacyPolicyUrl: "https://sv443.net/privacypolicy/en",
+        contribGuideUrl: "https://github.com/Sv443/JokeAPI/blob/master/.github/Contributing.md",
     },
     wrapper: {
         mainFilePath: "./src/main.js",          // main script file
@@ -61,34 +62,41 @@ const settings = {
         jokeSubmissionPath: "./data/submissions/",           // path to a directory where joke submissions should be saved to - needs trailing slash
         submissions: {
             timeFrame: 60,                              // time frame of submission rate limiter (in seconds)
-            rateLimiting: 3,                            // how many requests per timeframe should be allowed
+            rateLimiting: 5,                            // how many requests per timeframe should be allowed
             invalidCharRegex: /(?![\u0000-\u0fff])./gm, // eslint-disable-line no-control-regex
         },
         jokesTemplateFile: "template.json",  // relative to "jokes.jokesFolderPath"
         possible: {
             anyCategoryName: "Any", // the name of the "Any" category - readable name
             categories: [           // all categories (excluding "Any") - case insensitive / readable name
-                "Miscellaneous",
+                "Misc",
                 "Programming",
                 "Dark",
                 "Pun",
                 "Spooky",
                 "Christmas"
             ],
-            flags: [ // all flags - HAS TO BE LOWER CASE!
+            categoryAliases: { // aliases of categories. Key gets auto-converted to value. Value has to be present in the "categories" array above!
+                "Miscellaneous": "Misc",
+                "Coding": "Programming",
+                "Development": "Programming",
+                "Halloween": "Spooky"
+            },
+            flags: [ // all flags - HAVE TO BE LOWER CASE!
                 "nsfw",
                 "religious",
                 "political",
                 "racist",
                 "sexist",
+                "explicit",
             ],
-            formats: [ // all formats - HAS TO BE LOWER CASE!
+            formats: [ // all file formats - HAVE TO BE LOWER CASE!
                 "json",
                 "xml",
                 "yaml",
                 "txt",
             ],
-            types: [ // all joke types - HAS TO BE LOWER CASE!
+            types: [ // all joke types - HAVE TO BE LOWER CASE!
                 "single",
                 "twopart"
             ],
@@ -108,7 +116,7 @@ const settings = {
     httpServer: {
         port: 8076,           // http server port
         allowCORS: true,      // whether or not to allow Cross Origin Resource Sharing
-        rateLimiting: 60,     // amount of allowed requests per below defined timeframe
+        rateLimiting: 120,    // amount of allowed requests per below defined timeframe
         timeFrame: 60,        // timeframe in seconds
         urlPathOffset: 0,     // example: "/jokeapi/info" with an offset of 1 will only start parsing the path beginning at "info" - an Apache reverse proxy will do this automatically though
         maxPayloadSize: 5120, // max size (in bytes) that will be accepted in a PUT request - if payload exceeds this size, it will abort with status 413
@@ -154,7 +162,7 @@ const settings = {
         rawDirPath: "./docs/raw/",            // path to the raw documentation files directory - needs trailing slash
         daemonInterval: 2,                    // interval (in seconds) at which the daemon checks for changes in the documentation directory
         errorPagePath: "./docs/raw/errorPage.html", // path to the error page
-        codeFontFileName: "static/CascadiaCode-Regular-VTT_1911.21.ttf", // the name of the font file that is going to be used in code blocks - has to be in the directory specified with the above property "dirPath"
+        codeFontFileName: "static/external/CascadiaCode-Regular-VTT_1911.21.ttf", // the name of the font file that is going to be used in code blocks - has to be in the directory specified with the above property "dirPath"
         submissionForm: {
             dirPath: "./docs/raw/", // path to the submission form directory - needs trailing slash
             fileNames: {
@@ -201,6 +209,7 @@ const settings = {
     },
     tests: { // unit tests
         location: "./tests/",  // folder where unit tests are located - requires trailing slash
+        initPingInterval: 250, // in ms - interval between init pings (default: 250)
     }
 }
 

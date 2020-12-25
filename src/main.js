@@ -33,8 +33,7 @@ settings.init.exitSignals.forEach(sig => {
 //#MARKER init all
 const initAll = () => {
     let initTimestamp = new Date().getTime();
-    debug("Init", "Initializing all modules - calling joke parser...");
-    
+
     process.jokeapi = {};
     initializeDirs();
 
@@ -65,7 +64,7 @@ const initAll = () => {
             fn: auth.init
         },
         {
-            name: "Initializing HTTP listener",
+            name: "Initializing HTTP server",
             fn: httpServer.init
         },
         {
@@ -86,11 +85,15 @@ const initAll = () => {
         initPromises.push(stage.fn);
     });
 
+    debug("Init", `Sequentially initializing all ${initStages.length} modules...`);
+
     promiseAllSequential(initPromises).then((res) => {
         jsl.unused(res);
 
         if(!jsl.isEmpty(pb))
             pb.next("Done.");
+
+        debug("Init", `Done initializing all ${initStages.length} modules. Printing init message...`);
 
         logRequest.initMsg(initTimestamp);
     }).catch(err => {
@@ -134,9 +137,12 @@ const initializeDirs = () => {
 
 /**
  * Ends all open connections and then shuts down the process with the specified exit code
- * @param {Number} code 
+ * @param {Number} [code=0] Exit code - defaults to 0
  */
 const softExit = code => {
+    if(typeof code != "number" || code < 0)
+        code = 0;
+
     analytics.endSqlConnection().then(() => process.exit(code)).catch(() => process.exit(code));
 }
 

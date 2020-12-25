@@ -211,6 +211,41 @@ const generateForClasses = () => {
     });
 }
 
+const generateForTests = () => {
+    let iterCount = 0;
+    let testsFiles = fs.readdirSync("./tests");
+    return new Promise((resolve, reject) => {
+        testsFiles.forEach(file => {
+            if(!file.endsWith(".js") || file == "template.js")
+            {
+                iterCount++;
+                return;
+            }
+
+            let filename = file.replace(/\.js/g, "");
+
+            try
+            {
+                madge(`./tests/${file}`, madgeOptions)
+                .then((res) => res.svg())
+                .then((output) => {
+                    iterCount++;
+                    fs.writeFileSync(`./dev/madge/tests-${filename}.html`, output.toString());
+
+                    if(iterCount == testsFiles.length)
+                    resolve();
+                });
+
+                fileList.push(`<li><span class="mimica" onclick="setIframe('./madge/tests-${filename}.html', '${filename}')">tests/${filename}.js</span></li>`);
+            }
+            catch(err)
+            {
+                reject(err);
+            }
+        });
+    });
+}
+
 const writeIndex = () => {
     let index = getIndex();
     fs.writeFileSync("./dev/dependency-graph.html", index);
@@ -301,6 +336,9 @@ async function exec()
         process.stdout.write(".");
 
         await generateForClasses();
+        process.stdout.write(".");
+
+        await generateForTests();
         process.stdout.write(".");
 
         writeIndex();

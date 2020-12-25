@@ -5,6 +5,7 @@
     Licensed under the MIT license (https://sv443.net/LICENSE)
 -->
 
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -60,7 +61,7 @@
             <header class="bodyFlexItem">
                 <span class="headeritem l">
                     <span id="headersidenavopenwrapper" class="noselect">
-                        <span id="sideNavOpen" title="Click to open">&#9776; Menu</span>
+                        <span id="sideNavOpen" title="Click to open">☰</span>
                     </span>
                 </span>
                 <span class="headeritem m">
@@ -69,15 +70,15 @@
                 <span class="headeritem r">
                     <span id="headerversion">
                         <span id="headerVersionNumber">v<!--%#INSERT:VERSION#%--></span>
-                        (<a class="mimica" onclick="openChangelog()">Changelog</a>)<br>
-                        <a href="<!--%#INSERT:PROJGITHUBURL#%-->">GitHub</a>&nbsp;&bull;&nbsp;<a href="#legal">Legal&nbsp;Stuff</a>&nbsp;&bull;&nbsp;<a href="<!--%#INSERT:AUTHORGITHUBURL#%-->">Author</a>
+                        <a id="changelogLink" href="https://github.com/Sv443/JokeAPI/blob/master/changelog.md#readme" target="_blank">(Changelog)</a><br>
+                        <a href="<!--%#INSERT:PROJGITHUBURL#%-->">GitHub</a>&nbsp;<span class="mobileHide">&bull;&nbsp;<a href="#legal">Legal&nbsp;Stuff</a>&nbsp;</span>&bull;&nbsp;<a href="<!--%#INSERT:AUTHORGITHUBURL#%-->">Author</a>
                     </span>
                 </span>
             </header>
             <main id="content" class="bodyFlexItem">
                 <noscript>
-                    <h3 style="color: orangered;">You have disabled the execution of JavaScript code in your browser. Please note that this will severely impact your experience on this page.</h3>
-                    <span style="color: orangered;">
+                    <h3 style="color: #ff7644;">You have disabled the execution of JavaScript code in your browser. Please note that this will severely impact your experience on this page.</h3>
+                    <span style="color: #ff7644;">
                         If you didn't disable JavaScript code, the website might have loaded incorrectly. In this case, please press the <kbd>F5</kbd> key to try again.
                     </span>
                     <br><br>
@@ -110,10 +111,10 @@
                             <td>Author GH URL:</td>
                             <td><a href="<!--%#INSERT:AUTHORGITHUBURL#%-->"><!--%#INSERT:AUTHORGITHUBURL#%--></a></td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td>Contributor Obj:</td>
-                            <td><!--%#INSERT:CONTRIBUTORS#%--></td>
-                        </tr>
+                            <-td><!--%#INSERT:CONTRIBUTORS#%--><!--<td>
+                        </tr> -->
                         <tr>
                             <td>Proj GH URL:</td>
                             <td><a href="<!--%#INSERT:PROJGITHUBURL#%-->"><!--%#INSERT:PROJGITHUBURL#%--></a></td>
@@ -155,7 +156,7 @@
                 </div> <!-- #MARKER end dev stuff -->
 
                 <div id="usageTerms">
-                    <h2 style="color: orangered;">By using this website and API you are agreeing to the <a href="<!--%#INSERT:PRIVACYPOLICYURL#%-->">privacy policy</a></h2>
+                    <h2 style="color: #ff7644;">By using this website and API you are agreeing to the <a href="<!--%#INSERT:PRIVACYPOLICYURL#%-->">privacy policy</a></h2>
                     <div id="usageTermsInnerLayout">
                         <span class="itm">
                             <span class="mimica" onclick="privPolMoreInfo()">(Click here to get more information on what data <!--%#INSERT:NAME#%--> collects)</span>
@@ -171,7 +172,7 @@
                 <!-- #MARKER Information -->
                 <div class="docHeader targetBlink" id="info"><a class="headerAnchorContainer" href="#info" title="Click to link to this header">🔗</a><span class="docHeaderText">Information:</span></div>
 
-                <!--%#INSERT:NAME#%--> is a RESTful API that serves uniformly and well formatted jokes.<br>
+                <!--%#INSERT:NAME#%--> is a REST API that serves uniformly and well formatted jokes.<br>
                 It can be used <u>without any API token, membership, registration or payment.</u><br>
                 It supports a variety of filters that can be applied to get just the right jokes you need.<br>
                 The usage is very simple and similar to other RESTful APIs and requires only basic knowledge of HTTP requests and JSON, XML, YAML or plain text.<br>
@@ -182,15 +183,12 @@
                 To report a bug or a grammar mistake or to suggest a feature, please <a href="<!--%#INSERT:PROJGITHUBURL#%-->/issues/new/choose" target="_blank">use the GitHub issue tracker.</a><br>
                 If you want to contribute to <!--%#INSERT:NAME#%-->, please read the <a href="<!--%#INSERT:PROJGITHUBURL#%-->/blob/master/.github/Contributing.md" target="_blank">Contributing Guide.</a><br>
                 <br>
-                <span style="color: orangered;">If you are new to <!--%#INSERT:NAME#%-->, please start by reading the <a href="#getting-started">Getting Started Guide</a></span><br>
+                <span style="color: #ff7644;">If you are new to <!--%#INSERT:NAME#%-->, please start by reading the <a href="#getting-started">Getting Started Guide</a></span><br>
                 <br>
-                <span class="subHeader" id="note">Note:</span>
-                <!--%#INSERT:NAME#%--> has been a target of DoS attacks in the past, which is why there is now a limit of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute and why joke submissions are manually curated.<br>
-                All dependencies are tested for vulnerabilities by <a href="https://snyk.io/" target="_blank">Snyk</a>, you can find a summary of the known vulnerabilities <a href="https://snyk.io/test/github/Sv443/JokeAPI" target="_blank">here.</a><br>
+                <div class="subHeaderContainer"><a href="#note" title="Click to link to this header">§</a> <span class="subHeader" id="note">Note:</span></div>
                 If you enjoy using <!--%#INSERT:NAME#%--> and want me to keep making free APIs and scripts, please consider donating <a href="https://github.com/sponsors/Sv443" target="_blank">here ♥</a><br>
-                Page security score (powered by Mozilla Observatory): <a href="https://observatory.mozilla.org/analyze/sv443.net" target="_blank"><img src="https://img.shields.io/mozilla-observatory/grade-score/sv443.net?publish" class="badge"></a><br>
                 <br>
-                <span class="subHeader" id="uptime">Uptime:</span>
+                <div class="subHeaderContainer"><a href="#uptime" title="Click to link to this header">§</a> <span class="subHeader" id="uptime">Uptime:</span></div>
                 <table id="uptimeTable">
                     <tr>
                         <td>Last day:</td>
@@ -205,7 +203,30 @@
                         <td><img src="https://img.shields.io/uptimerobot/ratio/30/m784261094-bff76b959ebb8fc39f7eb2d0" class="badge"></td>
                     </tr>
                 </table>
-                <a href="https://status.sv443.net/" target="_blank">(more info)</a>
+                <a href="https://status.sv443.net/" target="_blank">(more stats)</a>
+                <br>
+                <br>
+                <div class="subHeaderContainer"><a href="#security" title="Click to link to this header">§</a> <span class="subHeader" id="security">Security:</span></div>
+                <!--%#INSERT:NAME#%--> has been a target of DoS attacks in the past, which is why there is now a limit of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute and why joke submissions are manually curated. For more information <a href="#rate-limiting">click here.</a><br>
+                All dependencies are tested for vulnerabilities by <a href="https://snyk.io/" target="_blank">Snyk</a>, you can find a summary of the known vulnerabilities <a href="https://snyk.io/test/github/Sv443/JokeAPI" target="_blank">here.</a><br>
+                Page security score (powered by Mozilla Observatory): <a href="https://observatory.mozilla.org/analyze/sv443.net" target="_blank"><img src="https://img.shields.io/mozilla-observatory/grade-score/sv443.net?publish" class="badge"></a><br>
+
+
+                <!-- #MARKER Information -->
+                <div class="docHeader targetBlink" id="news"><a class="headerAnchorContainer" href="#news" title="Click to link to this header">🔗</a><span class="docHeaderText">News:</span></div>
+                <ul id="newsList">
+                    <li>
+                        <b><!--%#INSERT:NAME#%--> now has its own domain!</b><br>
+                        You can now replace the base URL <mark>https://sv443.net/jokeapi/v2</mark> with <mark>https://v2.jokeapi.dev/</mark><br>
+                        Note: you should always use the <mark>v2</mark> subdomain to call the API but you can omit it if you just want to view the documentation.<br>
+                        For backwards compatibility the old URL will still be usable until version 2 will be deprecated.
+                    </li>
+                    <li>
+                        <b>Is <!--%#INSERT:NAME#%--> serving too many offensive jokes?</b><br>
+                        Try using version 2.3.0's new <a href="#safe-mode">safe mode</a> and the <a href="#blacklist-flags">explicit flag.</a>
+                    </li>
+                </ul>
+
 
                 <!-- #MARKER Try It -->
                 <div class="docHeader targetBlink" id="try-it"><a class="headerAnchorContainer" href="#try-it" title="Click to link to this header">🔗</a><span class="docHeaderText">Try it out here:</span></div>
@@ -225,7 +246,7 @@
                                         <input type="radio" name="catSelect" value="multi" id="cat-radio2" onchange="reRender()"><label for="cat-radio2">Custom:</label>
                                         <span id="catSelectMulti">
                                             <input type="checkbox" id="cat-cb1" onchange="reRender()" disabled><label for="cat-cb1">Programming</label>
-                                            <input type="checkbox" id="cat-cb2" onchange="reRender()" disabled><label for="cat-cb2">Miscellaneous</label>
+                                            <input type="checkbox" id="cat-cb2" onchange="reRender()" disabled><label for="cat-cb2">Misc</label>
                                             <input type="checkbox" id="cat-cb3" onchange="reRender()" disabled><label for="cat-cb3">Dark</label>
                                             <input type="checkbox" id="cat-cb4" onchange="reRender()" disabled><label for="cat-cb4">Pun</label>
                                             <input type="checkbox" id="cat-cb5" onchange="reRender()" disabled><label for="cat-cb5">Spooky</label>
@@ -241,7 +262,7 @@
                             </td>
                             <td>
                                 <div class="multiselect noselect">
-                                    <select id="lcodeSelect" onchange="reRender()" class="appendLangOpts"></select>
+                                    <select id="lcodeSelect" class="appendLangOpts"></select>
                                 </div>
                             </td>
                         </tr>
@@ -257,6 +278,7 @@
                                     <input type="checkbox" id="blf-cb3" onchange="reRender()"><label for="blf-cb3">political</label>
                                     <input type="checkbox" id="blf-cb4" onchange="reRender()"><label for="blf-cb4">racist</label>
                                     <input type="checkbox" id="blf-cb5" onchange="reRender()"><label for="blf-cb5">sexist</label>
+                                    <input type="checkbox" id="blf-cb6" onchange="reRender()"><label for="blf-cb6">explicit</label>
                                 </div>
                             </td>
                         </tr>
@@ -317,7 +339,8 @@
                             </td>
                         </tr>
                     </table>
-                    <br><br><br><br>
+                    <br>
+                    <br>
                     <div id="urlBuilderWrapper" class="flexItem">
                         URL: <span id="urlBuilderUrl">(Loading...)</span><br>
                         <button onclick="resetTryItForm(true)">Reset Form</button> <button onclick="sendTryItRequest()">Send Request &gt;</button>
@@ -346,37 +369,60 @@
                         After you've finished reading that, you can start testing out the different endpoints with a client such as <a href="https://www.getpostman.com/" target="_blank">Postman</a> and look at some examples by <a href="#examples">going to the "Examples" section.</a>
                     </li>
                 </ul>
+                <br>
+                <br>
+                If your project really can't contain any explicit jokes, consider enabling the <a href="#safe-mode">Safe Mode.</a><br>
+                <br>
                 If you know any good jokes and want to add them to <!--%#INSERT:NAME#%-->, please <a href="#submit">click here.</a><br>
                 If you need any help, feel free to <a href="https://sv443.net/discord" target="_blank">join my Discord server.</a><br>
-
+                <br>
+                I struggled at explaining some features so consult the provided examples if you don't understand them.<br>
+                
 
                 <!-- #MARKER Wrappers -->
                 <div class="docHeader targetBlink" id="wrappers"><a class="headerAnchorContainer" href="#wrappers" title="Click to link to this header">🔗</a><span class="docHeaderText">Official API Wrappers:</span></div>
-                A wrapper is generally a library that wraps around a certain function or API to make your life easier.<br>
-                In the case of RESTful APIs like <!--%#INSERT:NAME#%-->, a wrapper library makes it so you can use functions and objects to communicate with the API and the wrapper will do all the HTTP requests for you in the background.<br>
-                Disclaimer: I will not take any responsibility for the wrappers, they are community-made and I can't ensure security and validity.<br>
+                A wrapper library translates some API into an interface that is easier to use for a certain language or environment.<br>
+                In the case of RESTful APIs like <!--%#INSERT:NAME#%-->, a wrapper library makes it so you can use your language's features to communicate with the API while the wrapper will do all the HTTP requests for you in the background.<br><br>
+                Disclaimer: I will not take any responsibility for the wrappers, they are community-made and I can't ensure security, validity and compatibility.<br>
                 The following is a list of officially supported <!--%#INSERT:NAME#%--> wrappers:<br>
 
                 <br>
 
-                <!-- TODO: in near future, switch to self-hosted logos so CSP can be set very harshly -->
                 <table id="wrapperTable">
                     <tr>
+                        <th></th>
                         <th>Language</th>
                         <th>Wrapper</th>
                         <th>Author</th>
                     </tr>
                     <tr>
-                        <td><img class="miniimg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Rust_programming_language_black_logo.svg/2000px-Rust_programming_language_black_logo.svg.png"> Rust</td>
-                        <td><a href="https://github.com/canarado/sv443_jokeapi_wrapper" target="_blank">Sv443_JokeAPI Rust Crate</a></td>
+                        <td class="wrappericon"><img class="miniimg" src="static/rust-icon"></td>
+                        <td>Rust</td>
+                        <td><a href="https://github.com/canarado/sv443_jokeapi_wrapper#readme" target="_blank">Sv443_JokeAPI Rust Crate</a></td>
                         <td><a href="https://github.com/canarado" target="_blank">canarado</a></td>
                     </tr>
                     <tr>
-                        <td><img class="miniimg" src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg"> Python</td>
-                        <td><a href="https://github.com/thenamesweretakenalready/Sv443s-JokeAPI-Python-Wrapper" target="_blank">Sv443s JokeAPI Python Wrapper</a></td>
-                        <td><a href="https://github.com/thenamesweretakenalready" target="_blank">thenamesweretakenalready</a></td>
+                        <td class="wrappericon"><img class="miniimg" src="static/python-icon"></td>
+                        <td>Python</td>
+                        <td><a href="https://github.com/thenamesweretakenalready/Sv443s-JokeAPI-Python-Wrapper#readme" target="_blank">Sv443s JokeAPI Python Wrapper</a></td>
+                        <td><a href="https://github.com/thenamesweretakenalready" target="_blank">thenameswere<wbr>takenalready</a></td>
+                    </tr>
+                    <tr>
+                        <td class="wrappericon"><img class="miniimg" src="static/nodejs-icon"></td>
+                        <td>Node.js</td>
+                        <td><a href="https://github.com/sahithyandev/sv443-joke-api-js-wrapper#readme" target="_blank">JokeAPI - JavaScript wrapper</a></td>
+                        <td><a href="https://github.com/sahithyandev" target="_blank">sahithyandev</a></td>
+                    </tr>
+                    <tr>
+                        <td class="wrappericon"><img class="miniimg" src="static/golang-icon"></td>
+                        <td>Go</td>
+                        <td><a href="https://github.com/Icelain/jokeapi#readme" target="_blank">jokeapi-go</a></td>
+                        <td><a href="https://github.com/Icelain" target="_blank">Icelain</a></td>
                     </tr>
                 </table>
+
+                <br>
+                <a href="#other-attributions">(Click here to see the icon attributions)</a>
 
 
 
@@ -390,7 +436,7 @@
                                 <td>Category:</td>
                                 <td>
                                     <select id="f_category">
-                                        <option value="Miscellaneous" class="selectOnInit" selected>Miscellaneous</option>
+                                        <option value="Misc" class="selectOnInit" selected>Misc</option>
                                         <option value="Programming">Programming</option>
                                         <option value="Dark">Dark</option>
                                         <option value="Pun">Pun</option>
@@ -414,7 +460,7 @@
                                     <select id="f_language" class="appendLangOpts"></select>
                                     <span id="f_langHideContainer" class="hidden">
                                         <input type="text" id="f_customLang" placeholder="Language Code" minlength="2" maxlength="2" onchange="valChanged(this)" value="en">
-                                        <a href="<!--%#INSERT:DOCSURL#%-->/languages?format=txt" target="_blank">(?)</a>
+                                        <a href="<!--%#INSERT:DOCSURL#%-->/languages?format=txt" target="_blank" title="Click to view all possible ISO 639-1 language code values">(?)</a>
                                     </span>
                                 </td>
                             </tr>
@@ -424,8 +470,10 @@
                                     <input type="checkbox" class="uncheckOnInit" id="f_flags_nsfw" value="nsfw"><label for="f_flags_nsfw">NSFW</label>
                                     <input type="checkbox" class="uncheckOnInit" id="f_flags_religious" value="religious"><label for="f_flags_religious">Religious</label>
                                     <input type="checkbox" class="uncheckOnInit" id="f_flags_political" value="political"><label for="f_flags_political">Political</label>
+                                    <wbr>
                                     <input type="checkbox" class="uncheckOnInit" id="f_flags_racist" value="racist"><label for="f_flags_racist">Racist</label>
                                     <input type="checkbox" class="uncheckOnInit" id="f_flags_sexist" value="sexist"><label for="f_flags_sexist">Sexist</label>
+                                    <input type="checkbox" class="uncheckOnInit" id="f_flags_explicit" value="explicit"><label for="f_flags_explicit">Explicit</label>
                                 </td>
                             </tr>
                             <tr>
@@ -453,6 +501,39 @@
                 Note: Only Unicode characters in the range U+0000 to U+0FFF are allowed <a href="https://unicode-table.com/en" target="_blank">(more info)</a>
 
 
+                <!-- #MARKER Rate Limiting section-->
+                <div class="docHeader targetBlink" id="rate-limiting"><a class="headerAnchorContainer" href="#rate-limiting" title="Click to link to this header">🔗</a><span class="docHeaderText">Rate Limiting:</span></div>
+                Due to <!--%#INSERT:NAME#%--> being target of DoS attacks in the past, every client has a request budget of <!--%#INSERT:RATELIMITCOUNT#%--> requests they can send per minute.<br>
+                Sending any requests after this limit will make the API temporarily give you a HTTP 429 error until the time runs out.<br>
+                When submitting jokes, your budget is only <!--%#INSERT:SUBMISSIONRATELIMIT#%--> requests per minute.<br>
+                <br>
+                Almost everywhere when using <!--%#INSERT:NAME#%-->, you will be getting the following headers which tell you all you need to know about your current request budget:
+                <br>
+                <table id="rateLimitingTable" class="alternatingBgTable">
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td>Retry-After</td>
+                        <td>Tells you in how many seconds your request budget gets reset back to <!--%#INSERT:RATELIMITCOUNT#%--></td>
+                    </tr>
+                    <tr>
+                        <td>RateLimit-Limit</td>
+                        <td>How many requests in total you can send to <!--%#INSERT:NAME#%--> per minute</td>
+                    </tr>
+                    <tr>
+                        <td>RateLimit-Remaining</td>
+                        <td>How many requests you have left in your budget</td>
+                    </tr>
+                    <tr>
+                        <td>RateLimit-Reset</td>
+                        <td>Contains an <a href="https://tools.ietf.org/html/rfc7231#section-7.1.1.1" target="_blank">IMF-fixdate</a> timestamp of when your request budget gets reset back to <!--%#INSERT:RATELIMITCOUNT#%--></td>
+                    </tr>
+                </table>
+
+
+
                 <!-- #MARKER URL parameters -->
                 <div class="docHeader targetBlink" id="url-parameters"><a class="headerAnchorContainer" href="#url-parameters" title="Click to link to this header">🔗</a><span class="docHeaderText">URL Parameters:</span></div>
                 URL parameters are like the settings or the configuration of an HTTP request.<br>
@@ -460,7 +541,7 @@
                 Example: <mark>https://example.org/some/page<span class="colB">?</span><span class="colY">key1=foo</span><span class="colB">&</span><span class="colY">key2=bar</span><span class="colB">&</span><span class="colY">key3=baz</span> ...</mark> (yellow = key/value pair)<br>
                 
                 <!--#SECTION Format-->
-                <span class="subHeader" id="format-param">Format:</span>
+                <div class="subHeaderContainer"><a href="#format-param" title="Click to link to this header">§</a> <span class="subHeader" id="format-param">Format:</span></div>
                 <mark>?format=format</mark><br><br>
                 This parameter is global - it can be used on every single endpoint of <!--%#INSERT:NAME#%--> (excluding the documentation and static content).<br>
                 It is used to change the response format from the default (JSON) to <span class="insFormatsS">(Loading...)</span>, depending on what you need.<br>
@@ -480,6 +561,7 @@
 		&lt;political&gt;false&lt;/political&gt;
 		&lt;racist&gt;false&lt;/racist&gt;
 		&lt;sexist&gt;false&lt;/sexist&gt;
+		&lt;explicit&gt;false&lt;/explicit&gt;
 	&lt;/flags&gt;
     &lt;id&gt;12&lt;/id&gt;
     &lt;lang&gt;en&lt;/lang&gt;
@@ -498,7 +580,7 @@ None. It's a hardware problem.
 
 
                 <br><br><!--#SECTION Blacklist Flags-->
-                <span class="subHeader" id="flags-param">Blacklist Flags:</span>
+                <div class="subHeaderContainer"><a href="#flags-param" title="Click to link to this header">§</a> <span class="subHeader" id="flags-param">Blacklist Flags:</span></div>
                 <mark>?blacklistFlags=flag1[,flag2,...]</mark><br><br>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If it is used, jokes that match the specified flag(s) will not be served (<a href="#blacklist-flags">what is a flag?</a>).<br>
@@ -511,13 +593,13 @@ None. It's a hardware problem.
                 </details><br>
 
                 <details><summary>Example 2 (click to view)</summary>
-                    URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?blacklistFlags=nsfw,racist,sexist</mark><br>
-                    Using the above URL makes sure you don't get any jokes that are not safe for work, racist and sexist.
+                    URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?blacklistFlags=nsfw,racist,sexist,explicit</mark><br>
+                    Using the above URL makes sure you don't get any jokes that are not safe for work, racist and sexist and that doesn't contain explicit language (swear words, etc.).
                 </details>
 
 
                 <br><br><!--#SECTION Language-->
-                <span class="subHeader" id="lang">Language:</span>
+                <div class="subHeaderContainer"><a href="#lang" title="Click to link to this header">§</a> <span class="subHeader" id="lang">Language:</span></div>
                 <mark>?lang=langcode</mark><br><br>
                 This parameter can be used on every endpoint, but it is possible that no translations or jokes exist yet for your language.<br>
                 <br>
@@ -525,6 +607,7 @@ None. It's a hardware problem.
                 All system messages like errors can have a certain system language, while jokes can only have a joke language.<br>
                 It is possible, that system languages don't yet exist for your language while jokes already do.<br>
                 If no suitable system language is found, <!--%#INSERT:NAME#%--> will default to English.<br>
+                The language codes in <!--%#INSERT:NAME#%--> follow the <a href="https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes" target="_blank">ISO 639-1</a> / Alpha-2 specification.<br>
                 <br>
                 If you are interested in providing translations, please read the <a href="https://github.com/Sv443/JokeAPI/blob/master/.github/Contributing.md#submitting-translations" target="_blank">Contributing Guide</a>; it will explain it.<br>
                 You can also submit jokes in different languages. Please understand that I will not be able to ensure their proper formatting or legitimacy.<br>
@@ -539,7 +622,7 @@ None. It's a hardware problem.
 
 
                 <br><br><!--#SECTION Joke Type-->
-                <span class="subHeader" id="type-param">Joke Type:</span>
+                <div class="subHeaderContainer"><a href="#type-param" title="Click to link to this header">§</a> <span class="subHeader" id="type-param">Joke Type:</span></div>
                 <mark>?type=type</mark><br><br>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If it is set, you will only receive jokes with the specified joke type (<a href="#joke-type">what is a joke type?</a>).<br>
@@ -559,7 +642,8 @@ None. It's a hardware problem.
         "religious": false,
         "political": false,
         "racist": false,
-        "sexist": false
+        "sexist": false,
+        "explicit": false
     },
     "id": 58,
     "lang": "en"
@@ -570,7 +654,7 @@ None. It's a hardware problem.
 
 
                 <br><br><!--#SECTION Contains-->
-                <span class="subHeader" id="contains-param">Contains:</span>
+                <div class="subHeaderContainer"><a href="#contains-param" title="Click to link to this header">§</a> <span class="subHeader" id="contains-param">Contains:</span></div>
                 <mark>?contains=string</mark><br><br>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If this parameter is specified, only jokes that contain the value of this parameter will be served (case insensitive).<br>
@@ -589,7 +673,8 @@ None. It's a hardware problem.
         "religious": false,
         "political": false,
         "racist": false,
-        "sexist": false
+        "sexist": false,
+        "explicit": false
     },
     "id": 51,
     "lang": "en"
@@ -599,7 +684,7 @@ None. It's a hardware problem.
 
 
                 <br><br><!--#SECTION ID Range-->
-                <span class="subHeader" id="idrange-param">ID Range:</span>
+                <div class="subHeaderContainer"><a href="#idrange-param" title="Click to link to this header">§</a> <span class="subHeader" id="idrange-param">ID Range:</span></div>
                 <mark>?idRange=number[-number]</mark><br><br>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If it is used, you will only get jokes that are inside the specified range of IDs.<br>
@@ -620,7 +705,7 @@ None. It's a hardware problem.
 
 
                 <br><br><!--#SECTION Joke Amount-->
-                <span class="subHeader" id="amount-param">Joke Amount:</span>
+                <div class="subHeaderContainer"><a href="#amount-param" title="Click to link to this header">§</a> <span class="subHeader" id="amount-param">Joke Amount:</span></div>
                 <mark>?amount=number</mark><br><br>
                 This parameter can only be used on the "joke" endpoint.<br>
                 If it is used, you will get a certain number of jokes in a single request.<br>
@@ -635,7 +720,7 @@ None. It's a hardware problem.
     "error": false,
     "jokes": [
         {
-            "category": "Miscellaneous",
+            "category": "Misc",
             "type": "single",
             ...
         },
@@ -652,6 +737,45 @@ None. It's a hardware problem.
                     URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?amount=5</mark><br>
                     Using the above URL will make <!--%#INSERT:NAME#%--> serve you five jokes at once.
                 </details><br>
+
+
+
+                <br><br><!--#SECTION Dry Run-->
+                <div class="subHeaderContainer"><a href="#dryrun-param" title="Click to link to this header">§</a> <span class="subHeader" id="dryrun-param">Submission Dry Run:</span></div>
+                <mark>?dry-run</mark><br><br>
+                This parameter can only be used on the "submit" endpoint. It doesn't need a value (part to the right of the equals character).<br>
+                <br>
+                If present, <!--%#INSERT:NAME#%--> will respond just like the usual "submit" endpoint except the joke isn't actually saved to the API.<br>
+                This functionality can be used to check if a joke is valid / what is wrong with it.<br>
+                <br>
+                A successful dry run will have its <mark>error</mark> property set to false.<br>
+                It will also have a <mark>message</mark> property with a short status message and a <mark>timestamp</mark> property with a 13-character UNIX timestamp.<br>
+
+                
+
+
+
+                <!-- #MARKER Safe Mode -->
+                <div class="docHeader targetBlink" id="safe-mode"><a class="headerAnchorContainer" href="#safe-mode" title="Click to link to this header">🔗</a><span class="docHeaderText">Safe Mode:</span></div>
+                Safe Mode was added in version 2.3.0. If enabled, <!--%#INSERT:NAME#%--> will try its best to serve only jokes that are considered safe for everyone.<br>
+                Unsafe jokes are those who can be considered explicit in any way, either through the used language, its references or its <a href="#blacklist-flags">blacklist flags.</a><br>
+                Jokes from the category <mark>Dark</mark> are also generally marked as unsafe.<br>
+                <br>
+                Note: this filter is really fine but that doesn't mean human error is out of the question.<br>
+                If you find any jokes that you consider unsafe but are served even when safe mode is activated, please <a href="https://github.com/Sv443/JokeAPI/issues/new/choose" target="_blank">submit an issue here.</a><br>
+                <br>
+                The Safe Mode can be enabled by adding the value-less URL parameter <mark>safe-mode</mark> to the URL.<br>
+                <br>
+                <details><summary>Example 1 (click to view)</summary>
+                    URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?safe-mode</mark><br>
+                    Using the above URL will make sure you won't get any unsafe jokes.
+                </details>
+                <br>
+                <details><summary>Example 2 (click to view)</summary>
+                    URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Misc,Programming?format=xml&safe-mode&type=single</mark><br>
+                    This URL will yield a safe joke from the Misc or Programming category in the file format XML that's also of type single.
+                </details><br>
+
 
 
 
@@ -678,13 +802,13 @@ None. It's a hardware problem.
     "causedBy": [
         "No jokes were found that match your provided filter(s)"
     ],
-    "additionalInfo": "The specified category is invalid - Got: \"foo\" - Possible categories are: \"Any, Miscellaneous, Programming, Dark, Pun, Spooky, Christmas\" (case insensitive)",
+    "additionalInfo": "The specified category is invalid - Got: \"foo\" - Possible categories are: \"Any, Misc, Programming, Dark, Pun, Spooky, Christmas\" (case insensitive)",
     "timestamp": 1579170794412
 }
 </div></code><br>
                 
-                <span class="subHeader" id="status-codes">Status Codes:</span>
-                <table id="statusCodeTable">
+                <div class="subHeaderContainer"><a href="#status-codes" title="Click to link to this header">§</a> <span class="subHeader" id="status-codes">Status Codes:</span></div>
+                <table id="statusCodeTable" class="alternatingBgTable">
                     <!-- Use CSS classes g (green), r (red) and dr (dark red) on the td's to color status codes -->
                     <tr>
                         <th>Code</th>
@@ -694,12 +818,12 @@ None. It's a hardware problem.
                     <tr>
                         <td class="g">200</td>
                         <td>Ok</td>
-                        <td>The request was accepted and processed successfully and the respose text contains the requested data or a status message</td>
+                        <td>The request was accepted and processed successfully and the response text contains the requested data or a status message</td>
                     </tr>
                     <tr>
                         <td class="g">201</td>
                         <td>Created</td>
-                        <td>The joke submission is formatted correctly and was accepted and successfully saved</td>
+                        <td>The joke submission is formatted correctly and was accepted and successfully saved (unless <a href="#dryrun-param">?dry-run</a> was used)</td>
                     </tr>
                     <tr>
                         <td class="r">400</td>
@@ -773,7 +897,7 @@ None. It's a hardware problem.
 
 
                 <!--#SECTION Get Joke-->
-                <span id="joke-endpoint" class="subHeader">Get Joke:</span>
+                <div class="subHeaderContainer"><a href="#joke-endpoint" title="Click to link to this header">§</a> <span id="joke-endpoint" class="subHeader">Get Joke:</span></div>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/joke/<span class="placeholder">[Category/-ies]</span></span>
@@ -786,9 +910,9 @@ None. It's a hardware problem.
                 <details>
                     <summary>Full example - click to view</summary>
                     <span class="requestURLwrapper">
-                        <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/joke/Programming,Miscellaneous?format=xml&blacklistFlags=nsfw,sexist&type=single&lang=ru&amount=2</span>
+                        <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/joke/Programming,Misc?format=xml&blacklistFlags=nsfw,sexist&type=single&lang=ru&amount=2</span>
                     </span><br><br>
-                    Will give two Russian joke from either the Programming or the Miscellaneous category, with the payload <a href="#response-formats">format</a> XML,<br>
+                    Will give two Russian joke from either the Programming or the Misc category, with the payload <a href="#response-formats">format</a> XML,<br>
                     with the <a href="#joke-type">joke type</a> "single", while also preventing all jokes that are potentially not safe for work and sexist from being served.
                 </details>
                 <br><br>
@@ -807,7 +931,7 @@ None. It's a hardware problem.
 
 
                 <!--#SECTION Info-->
-                <span id="info-endpoint" class="subHeader">Info:</span>
+                <div class="subHeaderContainer"><a href="#info-endpoint" title="Click to link to this header">§</a> <span id="info-endpoint" class="subHeader">Info:</span></div>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/info</span>
@@ -819,7 +943,7 @@ None. It's a hardware problem.
                 - All the available categories, flags, types and formats<br>
                 - A 13-character UNIX timestamp<br>
                 - The URL to a joke submission form<br>
-                - A list of languages (code and name) JokeAPI currently supports<br>
+                - A list of languages (code and name) <!--%#INSERT:NAME#%--> currently supports<br>
                 - The minimum and maximum values of an ID range<br>
                 - A string with some information, like a message of the day
                 <br><br>
@@ -832,13 +956,13 @@ None. It's a hardware problem.
 
 
                 <!--#SECTION Categories-->
-                <span id="categories-endpoint" class="subHeader">Categories:</span>
+                <div class="subHeaderContainer"><a href="#categories-endpoint" title="Click to link to this header">§</a> <span id="categories-endpoint" class="subHeader">Categories:</span></div>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/categories</span>
                 </span>
                 <br><br>
-                This endpoint returns a list / an array of all available <a href="#categories">joke categories</a> and a 13-character UNIX timestamp.
+                This endpoint returns a list / an array of all available <a href="#categories">joke categories</a>, all available <a href="#category-aliases">category aliases</a> and a 13-character UNIX timestamp.
                 <br><br>
                 Supported URL parameters:<br>
                 <ul>
@@ -849,14 +973,14 @@ None. It's a hardware problem.
 
 
                 <!--#SECTION LangCode-->
-                <span id="langcodes-endpoint" class="subHeader">Language Code:</span>
+                <div class="subHeaderContainer"><a href="#langcode-endpoint" title="Click to link to this header">§</a> <span id="langcode-endpoint" class="subHeader">Language Code:</span></div>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/langcode/<span class="placeholder">[Language]</span></span>
                 </span>
                 <br><br>
-                This endpoint returns the language code of a provided language. It is searched with a fuzzy search, so you just have to provide the approximate language name.<br>
-                This language code is to be used in <a href="#joke-endpoint">fetching</a> and <a href="#submit-endpoint">submitting</a> jokes in different languages.<br>
+                This endpoint returns the ISO 639-1 language code of a provided language. It is searched with a fuzzy search, so you just have to provide the approximate language name.<br>
+                The resulting language code is to be used in <a href="#joke-endpoint">fetching</a> and <a href="#submit-endpoint">submitting</a> jokes in different languages.<br>
                 <br>
                 <details>
                     <summary>Example 1 - click to view</summary>
@@ -895,14 +1019,14 @@ None. It's a hardware problem.
 
 
                 <!--#SECTION Languages-->
-                <span id="languages-endpoint" class="subHeader">Supported Languages:</span>
+                <div class="subHeaderContainer"><a href="#languages-endpoint" title="Click to link to this header">§</a> <span id="languages-endpoint" class="subHeader">Supported Languages:</span></div>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/languages</span>
                 </span>
                 <br><br>
                 This endpoint returns lists of supported languages in jokes and supported languages in system messages (error messages).<br>
-                Also, it returns a list of possible language values you can use to submit a joke or add a translation.<br>
+                Also, it returns a list of possible ISO 639-1 language codes you can use to submit a joke or add a translation.<br>
                 <details>
                     <summary>Example - click to view</summary>
                     <br>
@@ -945,7 +1069,7 @@ None. It's a hardware problem.
 
 
                 <!--#SECTION Flags-->
-                <span id="flags-endpoint" class="subHeader">Flags:</span>
+                <div class="subHeaderContainer"><a href="#flags-endpoint" title="Click to link to this header">§</a> <span id="flags-endpoint" class="subHeader">Flags:</span></div>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/flags</span>
@@ -962,7 +1086,7 @@ None. It's a hardware problem.
 
 
                 <!--#SECTION Formats-->
-                <span id="formats-endpoint" class="subHeader">Formats:</span>
+                <div class="subHeaderContainer"><a href="#formats-endpoint" title="Click to link to this header">§</a> <span id="formats-endpoint" class="subHeader">Formats:</span></div>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/formats</span>
@@ -979,7 +1103,7 @@ None. It's a hardware problem.
 
 
                 <!--#SECTION Ping-->
-                <span id="ping-endpoint" class="subHeader">Ping:</span>
+                <div class="subHeaderContainer"><a href="#ping-endpoint" title="Click to link to this header">§</a> <span id="ping-endpoint" class="subHeader">Ping:</span></div>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/ping</span>
@@ -997,7 +1121,7 @@ None. It's a hardware problem.
 
 
                 <!--#SECTION Endpoints-->
-                <span id="endpoints-endpoint" class="subHeader">Endpoints:</span>
+                <div class="subHeaderContainer"><a href="#endpoints-endpoint" title="Click to link to this header">§</a> <span id="endpoints-endpoint" class="subHeader">Endpoints:</span></div>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/endpoints</span>
@@ -1005,8 +1129,7 @@ None. It's a hardware problem.
                 <br>
                 <br>
                 This endpoint returns a list / an array of all available endpoints, their usage (method, url and supported parameters) and a short description each.<br>
-                Note: the <mark>lang</mark> parameter will not work here due to JokeAPI's fundamental architecture not allowing it.
-                <br>
+                Note: the <mark>lang</mark> parameter will not work here.<br>
                 <br>
                 Supported URL parameters:<br>
                 <ul>
@@ -1016,14 +1139,14 @@ None. It's a hardware problem.
 
 
                 <!--#SECTION Submit-->
-                <span id="submit-endpoint" class="subHeader">Submit Joke:</span>
+                <div class="subHeaderContainer"><a href="#submit-endpoint" title="Click to link to this header">§</a> <span id="submit-endpoint" class="subHeader">Submit Joke:</span></div>
                 <span class="requestURLwrapper">
-                    <span class="requestMethodPUT">POST / PUT</span>
+                    <span class="requestMethodPUT">POST</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/submit</span>
                 </span>
                 <br><br>
                 This endpoint is used to programatically submit a joke to be reviewed and added to <!--%#INSERT:NAME#%-->'s official jokes.<br>
-                If you instead just want to manually submit a joke, please <a href="#submit">click here.</a><br>
+                If you instead just want to manually submit a joke, please <a href="#submit">click here.</a><br><br>
                 To ensure backwards compatibility you can use the <mark>PUT</mark> method even though it is discouraged.<br>
                 Using the <mark>PUT</mark> method might be deprecated in the future.<br><br>
                 The payload needs to be sent as JSON. Different <a href="#response-formats">formats</a> are not allowed here.<br>
@@ -1035,8 +1158,11 @@ None. It's a hardware problem.
                 The joke category has to be any valid <a href="#categories">category</a>, excluding "Any".<br>
                 If the <a href="#joke-type">joke type</a> is set to "single", the properties "setup" and "delivery" will need to be omitted and the joke is to be put in the "joke" property.<br>
                 If the <a href="#joke-type">joke type</a> is set to "twopart", the "joke" property is to be replaced with the properties "setup" and "delivery".<br>
-                The <a href="#blacklist-flags">"flags"</a> property needs to be an object that contains the boolean properties "nsfw", "religious", "political", "racist" and "sexist". These need to be set accordingly.<br>
+                The <a href="#blacklist-flags">"flags"</a> property needs to be an object that contains the boolean properties "nsfw", "religious", "political", "racist", "sexist" and "explicit". These need to be set accordingly.<br>
                 The joke ID doesn't need to be provided as it will be automatically assigned to the joke.<br>
+                <br>
+                This endpoint has a unique URL parameter; <a href="#dryrun-param">?dry-run</a>, which if present will make the API respond just like the usual "submit" endpoint except the joke isn't actually saved to the API.<br>
+                This functionality can be used to check if a joke is valid / what is wrong with it without having the joke actually submitted to the API.<br>
                 <br>
                 If the joke is valid and the server accepted the submission, you will get a response with the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201" target="_blank">status code 201.</a><br>
 
@@ -1044,7 +1170,7 @@ None. It's a hardware problem.
 <code class="prettyprint"><span class="nocode codeheader">Example Payload:</span>
 <div class="actualCode">{
     "formatVersion": <!--%#INSERT:FORMATVERSION#%-->,
-    "category": "Miscellaneous",
+    "category": "Misc",
     "type": "single",
     "joke": "A horse walks into a bar...",
     "flags": {
@@ -1052,7 +1178,8 @@ None. It's a hardware problem.
         "religious": false,
         "political": true,
         "racist": false,
-        "sexist": false
+        "sexist": false,
+        "explicit": false
     },
     "lang": "en"
 }
@@ -1060,7 +1187,9 @@ None. It's a hardware problem.
 
                 <br>
                 Supported URL parameters:<br>
-                (none)
+                <ul>
+                    <li><a class="requestURL" href="#dryrun-param">?dry-run</a></li>
+                </ul>
                 <br><br>
 
                 <details><summary>Click here to see how the server responds to a joke submission</summary>
@@ -1070,7 +1199,7 @@ None. It's a hardware problem.
     "message": "Joke submission was successfully saved. It will soon be checked out by the author.",
     "submission": {
         "formatVersion": 2,
-        "category": "Miscellaneous",
+        "category": "Misc",
         "type": "single",
         "joke": "A horse walks into a bar...",
         "flags": {
@@ -1078,7 +1207,8 @@ None. It's a hardware problem.
             "religious": false,
             "political": true,
             "racist": false,
-            "sexist": false
+            "sexist": false,
+            "explicit": false
         },
         "lang": "en"
     },
@@ -1086,7 +1216,18 @@ None. It's a hardware problem.
 }
 </div></code>
                 </details>
-                <br><br><br>
+                <br><br>
+                
+                <details><summary>Click here to see how the server responds to a submission dry run</summary>
+<code class="prettyprint"><span class="nocode codeheader">Server Response:</span>
+<div class="actualCode">{
+    "error": false,
+    "message": "Dry Run complete! No errors were found.",
+    "timestamp": 1604627398681
+}
+</div></code>
+                                    </details>
+                                    <br><br><br>
 
 
                 <!-- #MARKER Filtering -->
@@ -1127,7 +1268,7 @@ None. It's a hardware problem.
 <div class="actualCode">const https = require("https"); // Native module, no need to explicitly install
 
 const baseURL = "<!--%#INSERT:DOCSURL#%-->";
-const categories = ["Programming", "Miscellaneous", "Pun", "Spooky", "Christmas"];
+const categories = ["Programming", "Misc", "Pun", "Spooky", "Christmas"];
 const params = [
     "blacklistFlags=nsfw,religious,racist",
     "idRange=0-100"
@@ -1168,7 +1309,7 @@ https.get(`${baseURL}/joke/${categories.join(",")}?${params.join("&")}`, res => 
                 <details><summary id="example-js" class="big">Web-JavaScript (click to show)</summary>
 <code class="prettyprint"><span class="nocode codeheader">Web-JS:</span>
 <div class="actualCode">var baseURL = "<!--%#INSERT:DOCSURL#%-->";
-var categories = ["Programming", "Miscellaneous", "Pun", "Spooky", "Christmas"];
+var categories = ["Programming", "Misc", "Pun", "Spooky", "Christmas"];
 var params = [
     "blacklistFlags=nsfw,religious,racist",
     "idRange=0-100"
@@ -1205,76 +1346,103 @@ xhr.send();
                 </details><br>
 
                 <!--#SECTION C#-->
+
                 <details><summary id="example-cs" class="big">C# (click to show)</summary>
+                <code class="prettyprint"><span class="nocode codeheader">C#:</span>
+                <div class="actualCode">using System;
+using System.Threading.Tasks;
+using System.Net.Http;
+
+namespace JokeAPIExample
+{
+    class Program
+    {
+        static async Task Main(string[] args)
+        {
+            string joke = await GetJoke();
+            Console.WriteLine("Joke = " + joke);
+        }
+
+        public async static Task<string> GetJoke()
+        {
+            var client = new HttpClient();
+            var response = await client.GetAsync("https://jokeapi.dev/joke/Any?format=txt&type=single&blacklistFlags=nsfw,racist,sexist&lang=en");
+            var joke = await response.Content.ReadAsStringAsync();
+            return joke;
+        }
+    }
+}
+</div></code>
+                </details><br>
+
+
+                <details><summary id="example-cs" class="big">C# - Advanced (click to show)</summary>
 <code class="prettyprint"><span class="nocode codeheader">C#:</span>
 <div class="actualCode">using System;
-using System.IO;
-using System.Net;
-using System.Web.Script.Serialization; // Requires you to include the assembly "System.Web.Extensions" in your project
+using System.Threading.Tasks;
+using System.Net.Http;
+using Newtonsoft.Json;   // Install with NuGet Package Manager: https://www.nuget.org/packages/Newtonsoft.Json/12.0.3?_src=template
 
-
-private void getJoke()
+namespace TestHttpRequest
 {
-    string baseURL = "<!--%#INSERT:DOCSURL#%-->";
-    string[] categories = { "Programming", "Miscellaneous", "Pun", "Spooky", "Christmas" };
-    string[] parameters = {
-        "blacklistFlags=nsfw,religious,racist",
-        "idRange=0-100"
-    };
-
-    // Create request and wait for response
-    WebRequest request = WebRequest.Create($"{baseURL}/joke/{string.Join(",", categories)}?{string.Join("&", parameters)}");
-    WebResponse response = request.GetResponse();
-
-    using (Stream dataStream = response.GetResponseStream())
+    class Program
     {
-        // Convert the stream to a string
-        StreamReader reader = new StreamReader(dataStream);
-        string responseFromServer = reader.ReadToEnd();
-
-        // Deserialize the string into an object of the Joke class
-        JavaScriptSerializer ser = new JavaScriptSerializer();
-        Joke randomJoke = ser.Deserialize&lt;Joke&gt;(responseFromServer);
-
-        if (randomJoke.type == "single")
+        static async Task Main(string[] args)
         {
-            // If type == "single", the joke only has the "joke" property
-            Console.WriteLine(randomJoke.joke);
+            Joke randomJoke = await GetJokeAdvanced();
+            if (randomJoke.type == "single")
+            {
+                Console.WriteLine(randomJoke.joke);
+            }
+            else
+            {
+                Console.WriteLine(randomJoke.setup);
+                System.Threading.Thread.Sleep(3000);
+                Console.WriteLine(randomJoke.delivery);
+            }
         }
-        else
+
+        public async static Task<Joke> GetJokeAdvanced()
         {
-            // If type == "twopart", the joke has the "setup" and "delivery" properties
-            Console.WriteLine(randomJoke.setup);
-            System.Threading.Thread.Sleep(3000);
-            Console.WriteLine(randomJoke.delivery);
+            const string baseUrl = "https://jokeapi.dev";
+            string[] categories = { "Programming", "Miscellaneous", "Pun", "Spooky", "Christmas" };
+            string[] parameters = {
+                "blacklistFlags=nsfw,religious,racist,sexist",
+                "idRange=0-100"
+            };
+            string requestUrl = $"{baseUrl}/joke/{string.Join(",", categories)}?{string.Join("&", parameters)}";
+            Joke randomJoke;
+
+            using (var httpClient = new HttpClient())
+            {
+                var json = await httpClient.GetStringAsync(requestUrl);
+                randomJoke = JsonConvert.DeserializeObject<Joke>(json);
+            }
+
+            return randomJoke;
         }
     }
 
-    // Close the request
-    response.Close();
-}
+    public class Joke
+    {
+        public string type { get; set; }
+        public string joke { get; set; }
+        public string setup { get; set; }
+        public string delivery { get; set; }
+        public int id { get; set; }
+        public Flags flags { get; set; }
+    }
 
 
-public class Joke
-{
-    public string type { get; set; }
-    public string joke { get; set; }
-    public string setup { get; set; }
-    public string delivery { get; set; }
-    public int id { get; set; }
-    public Flags flags { get; set; }
-}
-
-
-public class Flags
-{
-    public bool nsfw { get; set; }
-    public bool religious { get; set; }
-    public bool political { get; set; }
-    public bool racist { get; set; }
-    public bool sexist { get; set; }
-}
-</div></code>
+    public class Flags
+    {
+        public bool nsfw { get; set; }
+        public bool religious { get; set; }
+        public bool political { get; set; }
+        public bool racist { get; set; }
+        public bool sexist { get; set; }
+    }
+}</div></code>
                 </details><br>
 
 
@@ -1283,30 +1451,54 @@ public class Flags
                 You might come across some terms in this documentation you don't understand. This section teaches you what those terms mean.<br>
 
                 <!--#SECTION Categories-->
-                <span class="subHeader" id="categories">Categories:</span>
+                <div class="subHeaderContainer"><a href="#categories" title="Click to link to this header">§</a> <span class="subHeader" id="categories">Categories:</span></div>
                 <!--%#INSERT:NAME#%--> has a first, coarse filter that just categorizes the jokes depending on what the joke is about or who the joke is directed at.<br>
                 A joke about programming will be in the "Programming" category, dark humor will be in the "Dark" category and so on.<br>
-                If you want jokes from all categories, you can instead use "Any", which will make <!--%#INSERT:NAME#%--> randomly choose a category.<br><br>
+                If you want jokes from all categories, you can instead use "Any", which will make <!--%#INSERT:NAME#%--> randomly choose a category.<br>
+                Since version 2.3.0, there are now aliases to these categories. <a href="#category-aliases">This section</a> explains how they work.<br><br>
                 These are all the available categories: <mark class="insCategories">(Loading...)</mark><br>
                 To set the category you want, you need to add it to the URL path, just after the "/joke" endpoint, like this:
                 <mark><!--%#INSERT:DOCSURL#%-->/joke/Programming</mark>
+                <br>
+
+                <div class="subHeaderContainer"><a href="#category-aliases" title="Click to link to this header">§</a> <span class="subHeader" id="category-aliases">Category Aliases:</span></div>
+                Since version 2.3.0, there are now category aliases. You can use these as a shorter or just different version of the normal set of <a href="#categories">categories.</a><br>
+                Internally, these aliases will be resolved to one of the normal set of <a href="#categories">categories</a> and your request (including the API's response) will be treated as if you used the resolved value.<br>
+                <br>
+                The following is a list of aliases and what they will be resolved to internally:<br>
+                <table id="catAliasesContainer" class="alternatingBgTable">
+                    <tr>
+                        <th>Alias</th>
+                        <th>Resolved Category</th>
+                    </tr>
+                </table>
+                <br>
+
+                <details>
+                    <summary>Example - click to view</summary>
+                    The following URL will make <!--%#INSERT:NAME#%--> resolve the alias <mark>Coding</mark>, giving you a joke from the category <mark>Programming</mark>:
+                    <br>
+                    <span class="requestURLwrapper">
+                        <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/joke/Coding</span>
+                    </span>
+                </details><br>
 
                 <!--#SECTION Flags-->
-                <span class="subHeader" id="blacklist-flags">(Blacklist-) Flags:</span>
+                <div class="subHeaderContainer"><a href="#blacklist-flags" title="Click to link to this header">§</a> <span class="subHeader" id="blacklist-flags">(Blacklist-) Flags:</span></div>
                 Blacklist Flags (or just "Flags") are a more fine layer of filtering.<br>
                 Multiple flags can be set on each joke and they tell you something about the offensiveness of each joke.<br>
                 You can tell <!--%#INSERT:NAME#%--> to not give you jokes that have the specified flags by using the <a href="#flags-param">?blacklistFlags</a> URL parameter.<br><br>
                 These are all the available flags: <mark class="insFlags">(Loading...)</mark><br>
 
                 <!--#SECTION Formats-->
-                <span class="subHeader" id="response-formats">(Response-) Formats:</span>
+                <div class="subHeaderContainer"><a href="#response-formats" title="Click to link to this header">§</a> <span class="subHeader" id="response-formats">(Response-) Formats:</span></div>
                 Response Formats (or just "Formats") are a way to get your data in a different file format.<br>
-                Maybe you are using some other code that only accepts XML. In that case, <!--%#INSERT:NAME#%--> is able to convert the JSON-formatted joke to XML for you.<br>
+                Maybe your environment or language doesn't support JSON natively. In that case, <!--%#INSERT:NAME#%--> is able to convert the JSON-formatted joke to a different format for you.<br>
                 You can tell <!--%#INSERT:NAME#%--> which file format to respond with by using the <a href="#format-param">?format</a> URL parameter.<br><br>
                 These are all the available formats: <mark class="insFormats">(Loading...)</mark><br>
 
                 <!--#SECTION Type-->
-                <span class="subHeader" id="joke-type">Joke Type:</span>
+                <div class="subHeaderContainer"><a href="#joke-type" title="Click to link to this header">§</a> <span class="subHeader" id="joke-type">Joke Type:</span></div>
                 Each joke comes with one of two types: single or twopart.<br>
                 If a joke is of type "twopart", it has a setup string and a delivery string, which are both part of the joke.<br>
                 They are separated because you might want to present the users the delivery after a timeout or in a different section of the UI.<br>
@@ -1315,14 +1507,14 @@ public class Flags
                 These are the available types: <mark>single, twopart</mark><br>
 
                 <!--#SECTION Search String-->
-                <span class="subHeader" id="search-string">Search String:</span>
+                <div class="subHeaderContainer"><a href="#search-string" title="Click to link to this header">§</a> <span class="subHeader" id="search-string">Search String:</span></div>
                 If the search string filter is used, only jokes that contain the specified string will be returned.<br>
                 You can specify this search string by using the <a href="#contains-param">?contains</a> URL parameter.<br>
                 <span class="colY">IMPORTANT:</span> If the value of this parameter contains special characters, it needs to be <a href="https://tools.ietf.org/html/rfc3986#section-2.1" target="_blank">percent-encoded</a> according to the URI standard (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent" target="_blank">MDN Reference</a>), otherwise you might get an error or a wrong response.<br>
 
 
                 <!--#SECTION ID Range-->
-                <span class="subHeader" id="id-range">ID Range:</span>
+                <div class="subHeaderContainer"><a href="#id-range" title="Click to link to this header">§</a> <span class="subHeader" id="id-range">ID Range:</span></div>
                 If this filter is used, you will only get jokes that are within the provided range of IDs.<br>
                 You don't necessarily need to provide an ID <i>range</i> though, a single ID will work just fine as well.<br>
                 Example: an ID range of 0-9 will mean you will only get one of the first 10 jokes, while an ID range of 5 will mean you will only get the 6th joke.<br>
@@ -1331,7 +1523,7 @@ public class Flags
 
 
                 <!--#SECTION Amount-->
-                <span class="subHeader" id="amount">Joke Amount:</span>
+                <div class="subHeaderContainer"><a href="#amount" title="Click to link to this header">§</a> <span class="subHeader" id="amount">Joke Amount:</span></div>
                 This filter allows you to set a certain amount of jokes to receive in a single call to the <a href="#joke-endpoint">"Get Joke" endpoint.</a><br>
                 You can set it using the <a href="#amount-param">?amount</a> URL parameter.<br>
                 Setting the filter to an invalid number will result in the API defaulting to serving a single joke.<br>
@@ -1339,11 +1531,45 @@ public class Flags
                 If you request more than <!--%#INSERT:JOKEENCODEAMOUNT#%--> jokes, the API will try to serve them encoded with Brotli, Gzip or Deflate, depending on whether or not you set a <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding" target="_blank">Accept-Encoding</a> header.<br>
 
 
+                <!-- #MARKER Contributors -->
+                <div class="docHeader targetBlink" id="contributors"><a class="headerAnchorContainer" href="#contributors" title="Click to link to this header">🔗</a><span class="docHeaderText">Contributors:</span></div>
+                The following is a list of people that have directly contributed to <!--%#INSERT:NAME#%-->'s development.<br>
+                I am very grateful for this voluntary effort to improve <!--%#INSERT:NAME#%--> and would like to thank anyone who contributed :)<br>
+
+                <br>
+                <div id="contributorsContainer">
+                    (Loading...)
+                </div>
+                <br><br>
+                If you want to contribute to <!--%#INSERT:NAME#%-->, please <a href="<!--%#INSERT:CONTRIBUTORGUIDEURL#%-->" target="_blank">read this guide.</a>
+
+
+                <!-- #MARKER Dependents -->
+                <div class="docHeader targetBlink" id="dependents"><a class="headerAnchorContainer" href="#dependents" title="Click to link to this header">🔗</a><span class="docHeaderText">Dependents:</span></div>
+                These are some of the projects that depend on <!--%#INSERT:NAME#%-->:
+                <ul>
+                    <li><a href="https://github.com/ZephyrVentum/dozens-Advices" target="_blank">dozens Advices</a> by <a href="https://github.com/ZephyrVentum" target="_blank">ZephyrVentum</a></li>
+                    <li><a href="https://github.com/QGIsK/Shadow-bot" target="_blank">shadow-bot</a> by <a href="https://github.com/QGIsK" target="_blank">QGIsK</a></li>
+                    <li><a href="https://github.com/aksty/Jokepy" target="_blank">Jokepy</a> by <a href="https://github.com/aksty/Jokepy" target="_blank">aksty</a></li>
+                    <li><a href="https://github.com/whiteadi/Dark1" target="_blank">Dark1</a> by <a href="https://github.com/whiteadi" target="_blank">whiteadi</a></li>
+                    <li><a href="https://github.com/LiamTownsley/Prejudice-Networks" target="_blank">Prejudice-Networks</a> by <a href="https://github.com/LiamTownsley" target="_blank">LiamTownsley</a></li>
+                    <li><a href="https://irshad.ml/humour.html" target="_blank">https://irshad.ml/humour.html</a> by <a href="https://github.com/draco-malfoy" target="_blank">draco-malfoy</a></li>
+                    <li><a href="https://github.com/variousnabil/Random-Joke-Generator-with-Flutter" target="_blank">Random-Joke-Generator-with-Flutter</a> by <a href="https://github.com/variousnabil" target="_blank">variousnabil</a></li>
+                    <li><a href="https://thatcopy.pw/comma" target="_blank">comma</a> by <a href="https://github.com/ThatCopy" target="_blank">ThatCopy</a></li>
+                    <li><a href="https://github.com/AlHood77/Joke_Teller" target="_blank">Joke Teller</a> by <a href="https://github.com/AlHood77" target="_blank">AlHood77</a></li>
+                    <li><a href="https://github.com/remcoov/jokes" target="_blank">Jokes plugin for Craft CMS 3.x</a> by <a href="https://github.com/remcoov" target="_blank">remcoov</a></li>
+                    <li><a href="https://github.com/ToastIT-dev/PoshBot.Joker" target="_blank">PoshBot.Joker</a> by <a href="https://github.com/ToastIT-dev" target="_blank">ToastIT-dev</a></li>
+
+                    <!-- <li><a href="xyz" target="_blank">xyz</a> by <a href="https://github.com/xyz" target="_blank">xyz</a></li> -->
+                </ul>
+                (<a href="https://github.com/Sv443/JokeAPI/issues/new/choose" target="_blank">Submit an issue</a> to get your project added here)
+
+
                 <!-- #MARKER Legal Stuff -->
                 <div class="docHeader targetBlink" id="legal"><a class="headerAnchorContainer" href="#legal" title="Click to link to this header">🔗</a><span class="docHeaderText">Legal Stuff:</span></div>
 
                 <!-- #SECTION License -->
-                <span class="subHeader">License:</span>
+                <div class="subHeaderContainer"><a href="#license" title="Click to link to this header">§</a> <span class="subHeader" id="license">License:</span></div>
                 <div class="indented">
                     <!--%#INSERT:NAME#%--> is licensed under the MIT License.<br>
                     Before modifying and / or redistributing the source code, please take two minutes to read the license text.<br>
@@ -1351,7 +1577,8 @@ public class Flags
                 </div>
 
                 <!-- #SECTION Privacy -->
-                <br><br><span class="subHeader">Privacy:</span>
+                <br><br>
+                <div class="subHeaderContainer"><a href="#privacy" title="Click to link to this header">§</a> <span class="subHeader" id="privacy">Privacy:</span></div>
                 <div class="indented">
                     <!--%#INSERT:NAME#%--> has to collect some anonymized data to work.<br>
                     To view a list with details, please <span class="mimica" onclick="privPolMoreInfo()">click here.</span><br>
@@ -1360,7 +1587,8 @@ public class Flags
                 </div>
 
                 <!-- #SECTION Disclaimer -->
-                <br><br><span class="subHeader">Disclaimer:</span>
+                <br><br>
+                <div class="subHeaderContainer"><a href="#disclaimer" title="Click to link to this header">§</a> <span class="subHeader" id="disclaimer">Disclaimer:</span></div>
                 <div class="indented">
                     I will hereby not claim any legal responsibility or liability for <!--%#INSERT:NAME#%--> and the jokes it serves (especially those from the "Dark" category).<br>
                     Whether it is used maliciously or breaks something in your project or someone gets offended by a joke, I can't be held accountable.<br>
@@ -1370,8 +1598,14 @@ public class Flags
                     If you want to contact me, you can <a href="https://sv443.net/discord" target="_blank">join my Discord server</a> (fastest way to contact me) or send me an E-Mail: <span class="antiBotE" data-enc="Y29udGFjdEBzdjQ0My5uZXQ=">(click to show)</span>
                 </div>
 
+
+                <!-- #MARKER Attributions -->
+                <div class="docHeader targetBlink" id="attributions"><a class="headerAnchorContainer" href="#attributions" title="Click to link to this header">🔗</a><span class="docHeaderText">Attributions:</span></div>
+                These are the attributions to everything made by third parties that <!--%#INSERT:NAME#%--> is based on or needs to function.
+
                 <!-- #SECTION Fonts -->
-                <br><br><span class="subHeader">Fonts:</span>
+                <br><br>
+                <div class="subHeaderContainer"><a href="#fonts" title="Click to link to this header">§</a> <span class="subHeader" id="fonts">Fonts:</span></div>
                 <div class="indented">
                     <!--%#INSERT:NAME#%--> uses these third party fonts on its documentation page:
                     <ul>
@@ -1380,8 +1614,21 @@ public class Flags
                     </ul>
                 </div>
 
+                <br><br>
+                <div class="subHeaderContainer"><a href="#other-attributions" title="Click to link to this header">§</a> <span class="subHeader" id="other-attributions">Other Attributions:</span></div>
+                <div class="indented">
+                    Third party logos / icons used on this page:
+                    <ul>
+                        <li>The Rust logo is owned by <a href="https://mozilla.org/" target="_blank">Mozilla</a> and licensed under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">Creative Commons Attribution (CC-BY)</a> license</li>
+                        <li>The Python logo is owned by the <a href="https://www.python.org/psf/" target="_blank">Python Software Foundation</a></li>
+                        <li>The Node.js logo is owned by the <a href="https://openjsf.org/" target="_blank">OpenJS Foundation</a> - <a href="https://nodejs.org/en/about/trademark/" target="_blank">more info</a></li>
+                        <li>The Go logo is owned by the <a href="https://golang.org/doc/copyright.html" target="_blank">creators of Go</a></li>
+                    </ul>
+                </div>
+
                 <!-- #SECTION Libraries -->
-                <br><br><span class="subHeader">Libraries:</span>
+                <br><br>
+                <div class="subHeaderContainer"><a href="#libraries" title="Click to link to this header">§</a> <span class="subHeader" id="libraries">Libraries:</span></div>
                 <div class="indented">
                     <!--%#INSERT:NAME#%--> uses these libraries:
                     <ul>
@@ -1391,7 +1638,8 @@ public class Flags
                 </div>
 
                 <!-- #SECTION Dependencies -->
-                <br><br><span class="subHeader">Dependencies:</span>
+                <br><br>
+                <div class="subHeaderContainer"><a href="#dependencies" title="Click to link to this header">§</a> <span class="subHeader" id="dependencies">Dependencies:</span></div>
                 <div class="indented">
                     These are the packages <!--%#INSERT:NAME#%--> depends on (excluding dependencies of dependencies and devDependencies):
                     <ul>
@@ -1417,28 +1665,8 @@ public class Flags
                         -->
                     </ul>
                 </div>
-
-
-                <!-- #MARKER Dependents -->
-                <div class="docHeader targetBlink" id="dependents"><a class="headerAnchorContainer" href="#dependents" title="Click to link to this header">🔗</a><span class="docHeaderText">Dependents:</span></div>
-                These are some of the projects that depend on <!--%#INSERT:NAME#%-->:
-                <ul>
-                    <li><a href="https://github.com/ZephyrVentum/dozens-Advices" target="_blank">dozens Advices</a> by <a href="https://github.com/ZephyrVentum" target="_blank">ZephyrVentum</a></li>
-                    <li><a href="https://github.com/QGIsK/Shadow-bot" target="_blank">shadow-bot</a> by <a href="https://github.com/QGIsK" target="_blank">QGIsK</a></li>
-                    <li><a href="https://github.com/aksty/Jokepy" target="_blank">Jokepy</a> by <a href="https://github.com/aksty/Jokepy" target="_blank">aksty</a></li>
-                    <li><a href="https://github.com/whiteadi/Dark1" target="_blank">Dark1</a> by <a href="https://github.com/whiteadi" target="_blank">whiteadi</a></li>
-                    <li><a href="https://github.com/LiamTownsley/Prejudice-Networks" target="_blank">Prejudice-Networks</a> by <a href="https://github.com/LiamTownsley" target="_blank">LiamTownsley</a></li>
-                    <li><a href="https://irshad.ml/humour.html" target="_blank">https://irshad.ml/humour.html</a> by <a href="https://github.com/draco-malfoy" target="_blank">draco-malfoy</a></li>
-                    <li><a href="https://thatcopy.pw/comma" target="_blank">comma</a> by <a href="https://github.com/ThatCopy" target="_blank">ThatCopy</a></li>
-                    <li><a href="https://github.com/AlHood77/Joke_Teller" target="_blank">Joke Teller</a> by <a href="https://github.com/AlHood77" target="_blank">AlHood77</a></li>
-                    <li><a href="https://github.com/remcoov/jokes" target="_blank">Jokes plugin for Craft CMS 3.x</a> by <a href="https://github.com/remcoov" target="_blank">remcoov</a></li>
-                    <li><a href="https://github.com/ToastIT-dev/PoshBot.Joker" target="_blank">PoshBot.Joker</a> by <a href="https://github.com/ToastIT-dev" target="_blank">ToastIT-dev</a></li>
-                </ul>
-                (<a href="https://sv443.net/discord" target="_blank">Contact me</a> to get your project added here)
-
-
                 <br><br><br><br>
-
+    
                 <footer id="copyrightNotice">
                     <span>&copy; Copyright 2018-2020 Sv443 - licensed under the <a href="https://sv443.net/LICENSE" target="_blank">MIT license</a></span><br>
                     <span>This project is a part of the <a href="https://sv443.net/" target="_blank">Sv443 Network</a></span>
@@ -1455,16 +1683,17 @@ public class Flags
                 <a class="sidenavHeaderItem closebtn mimica noul noselect nopad rtext" onclick="closeNav()" title="Click or press Esc to close">&times;</a>
             </div>
             <div id="sidenavContent">
-                <a class="noul" onclick="closeNav()" href="#info">Information</a>
-                <a class="noul" onclick="closeNav()" href="#try-it">Try it out</a>
-                <a class="noul" onclick="closeNav()" href="#getting-started">Getting Started</a>
-                <a class="noul" onclick="closeNav()" href="#wrappers">API Wrappers</a>
-                <a class="noul" onclick="closeNav()" href="#submit">Submit a Joke</a>
-                <a class="noul" onclick="closeNav()" href="#url-parameters">URL Parameters</a>
-                <a class="noul" onclick="closeNav()" href="#errors">Errors</a>
-                <a class="noul" onclick="closeNav()" href="#troubleshooting">Troubleshooting</a>
+                <a class="noul" onclick="closeNav()" href="#info" title="Some information about <!--%#INSERT:NAME#%-->">Information</a>
+                <a class="noul" onclick="closeNav()" href="#news" title="The latest news about <!--%#INSERT:NAME#%-->">News</a>
+                <a class="noul" onclick="closeNav()" href="#try-it" title="An interactive form to try out the API">Try it out</a>
+                <a class="noul" onclick="closeNav()" href="#getting-started" title="This is where you should start if you are new to <!--%#INSERT:NAME#%-->">Getting Started</a>
+                <a class="noul" onclick="closeNav()" href="#wrappers" title="API Wrappers make using <!--%#INSERT:NAME#%--> easier">API Wrappers</a>
+                <a class="noul" onclick="closeNav()" href="#submit" title="A form to submit a joke to <!--%#INSERT:NAME#%-->">Submit a Joke</a>
+                <div class="sidenavSpacer"></div>
+                <a class="noul" onclick="closeNav()" href="#url-parameters" title="All URL Parameters you can use and how to use them">URL Parameters</a>
+                <a class="noul" onclick="closeNav()" href="#safe-mode" title="How to enable <!--%#INSERT:NAME#%-->'s Safe Mode">Safe Mode</a>
                 <details>
-                    <summary>
+                    <summary title="All endpoints of <!--%#INSERT:NAME#%-->">
                         <span class="sidenav-mimica">Endpoints</span>
                     </summary>
 
@@ -1481,9 +1710,14 @@ public class Flags
                         <li><a class="noul" onclick="closeNav()" href="#submit-endpoint">Submit</a></li>
                     </ul>
                 </details>
-                <a class="noul" onclick="closeNav()" href="#filtering">Filtering Jokes</a>
-                <a class="noul" onclick="closeNav()" href="#api-tokens">API Tokens</a>
-                <a class="noul" onclick="closeNav()" href="#examples">Examples</a>
+                <a class="noul" onclick="closeNav()" href="#filtering" title="How you can filter jokes">Filtering Jokes</a>
+                <a class="noul" onclick="closeNav()" href="#api-tokens" title="All about <!--%#INSERT:NAME#%-->'s API tokens">API Tokens</a>
+                <a class="noul" onclick="closeNav()" href="#examples" title="Some code examples of how to use <!--%#INSERT:NAME#%-->">Examples</a>
+                <div class="sidenavSpacer"></div>
+                <a class="noul" onclick="closeNav()" href="#errors" title="How errors are structured">Errors</a>
+                <a class="noul" onclick="closeNav()" href="#rate-limiting" title="How <!--%#INSERT:NAME#%--> protects itself against DoS attacks">Rate Limiting</a>
+                <a class="noul" onclick="closeNav()" href="#troubleshooting" title="Some fixes for common errors">Troubleshooting</a>
+                <div class="sidenavSpacer"></div>
                 <!-- <details>
                     <summary>
                         <span class="sidenav-mimica">Examples</span> 
@@ -1497,11 +1731,12 @@ public class Flags
                 </details> -->
                 <details>
                     <summary>
-                        <span class="sidenav-mimica">Terminology</span> 
+                        <span class="sidenav-mimica" title="What certain terms from this documentation mean">Terminology</span> 
                     </summary>
 
                     <ul>
                         <li><a class="noul" onclick="closeNav()" href="#categories">Categories</a></li>
+                        <li><a class="noul" onclick="closeNav()" href="#category-aliases">Category Aliases</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#blacklist-flags">(Blacklist-)&nbsp;Flags</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#response-formats">Formats</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#joke-type">Joke Type</a></li>
@@ -1510,8 +1745,10 @@ public class Flags
                         <li><a class="noul" onclick="closeNav()" href="#amount">Joke Amount</a></li>
                     </ul>
                 </details>
-                <a class="noul" onclick="closeNav()" href="#legal">Legal Stuff</a>
-                <a class="noul bottomspacer" onclick="closeNav()" href="#dependents">Dependents</a>
+                <a class="noul" onclick="closeNav()" href="#contributors" title="People who contributed to <!--%#INSERT:NAME#%-->">Contributors</a>
+                <a class="noul" onclick="closeNav()" href="#dependents" title="Projects that use <!--%#INSERT:NAME#%-->">Dependents</a>
+                <a class="noul" onclick="closeNav()" href="#legal" title="All the legal stuff">Legal Stuff</a>
+                <a class="noul bottomspacer" onclick="closeNav()" href="#attributions" title="Attributions to everything made by third parties that <!--%#INSERT:NAME#%--> is based on">Attributions</a>
             </div>
         </div>
     </body>

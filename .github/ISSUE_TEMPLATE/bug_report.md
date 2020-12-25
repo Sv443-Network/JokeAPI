@@ -2,7 +2,7 @@
 name: Bug report
 about: Create a bug report to help improve JokeAPI
 title: ''
-labels: 🕷 bug
+labels: bug
 assignees: Sv443
 
 ---

@@ -59,11 +59,29 @@ const call = (req, res, url, params, format) => {
             statusCode = 200;
             mimeType = "application/javascript";
         break;
-        case "changelog":
-            filePath = `./changelog.txt`;
+        case "rust-icon":
+            filePath = `${settings.documentation.dirPath}static/external/rust.svg`;
             statusCode = 200;
             allowEncoding = false;
-            mimeType = "text/plain";
+            mimeType = "image/svg+xml";
+        break;
+        case "python-icon":
+            filePath = `${settings.documentation.dirPath}static/external/python.svg`;
+            statusCode = 200;
+            allowEncoding = false;
+            mimeType = "image/svg+xml";
+        break;
+        case "nodejs-icon":
+            filePath = `${settings.documentation.dirPath}static/external/nodejs.svg`;
+            statusCode = 200;
+            allowEncoding = false;
+            mimeType = "image/svg+xml";
+        break;
+        case "golang-icon":
+            filePath = `${settings.documentation.dirPath}static/external/golang.svg`;
+            statusCode = 200;
+            allowEncoding = false;
+            mimeType = "image/svg+xml";
         break;
         default:
             requestedFile = "fallback_err_404";

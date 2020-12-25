@@ -1,22 +1,32 @@
 {
   "name": "@sv443/jokeapi",
-  "version": "2.2.2",
-  "description": "A RESTful API that serves jokes from many categories while also offering a lot of filtering methods",
+  "version": "2.3.0",
+  "description": "A REST API that serves jokes from many categories while also offering a lot of filtering methods",
   "main": "JokeAPI.js",
-  "homepage": "https://sv443.net/jokeapi/v2",
+  "homepage": "https://v2.jokeapi.dev",
   "scripts": {
     "start": "node . && exit $?",
-    "test": "snyk test && node tools/test",
+
+    "test": "node tools/test && snyk test",
+    "test-colorblind": "node tools/test --colorblind && snyk test",
+
+    "submissions": "node tools/submissions",
+
     "reformat": "node tools/reformat",
     "reassign-ids": "node tools/reassign-ids",
-    "validate-jokes": "node tools/validate-jokes",
-    "validate-ids": "node tools/validate-ids",
+
     "add-joke": "node tools/add-joke",
     "add-token": "node tools/add-token",
-    "submissions": "node tools/submissions",
+
+    "validate-jokes": "node tools/validate-jokes",
+    "validate-ids": "node tools/validate-ids",
     "lint": "eslint ./ && exit $?",
-    "all": "npm run validate-jokes && npm run validate-ids && npm run lint",
-    "dependency-graph": "node dev/madge",
+    "all": "npm run validate-jokes && npm run validate-ids && npm run lint && npm run dep-graph && npm run generate-changelog && npm test",
+
+    "dep-graph-old": "node dev/madge",
+    "dep-graph": "depcruise --include-only \"^src|^endpoints|^tests|^tools\" --output-type dot . | dot -T svg > dev/dependencygraph.svg && echo Created dependency graph at \"dev/dependencygraph.svg\"",
+    "generate-changelog": "node tools/generate-changelog",
+
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect"
   },
@@ -27,6 +37,7 @@
   "keywords": [
     "api",
     "restful",
+    "rest-api",
     "jokes",
     "humor",
     "entertainment"
@@ -40,15 +51,26 @@
     {
       "name": "Liam Townsley",
       "email": "contact@liamtownsley.me",
-      "url": "https://liamtownsley.me"
+      "url": "https://liamtownsley.me",
+      "contributions": [
+        "Fixed grammar mistakes",
+        "Removed dead dependent"
+      ]
     },
     {
       "name": "ThatCopy",
-      "url": "https://github.com/ThatCopy"
+      "url": "https://github.com/ThatCopy",
+      "contributions": [
+        "Added Czech translation",
+        "Fixed grammar mistakes"
+      ]
     },
     {
       "name": "Sahithyan Kandathasan",
-      "email": "sahithyan2701@gmail.com"
+      "email": "sahithyan2701@gmail.com",
+      "contributions": [
+        "Added changelog in Markdown format"
+      ]
     }
   ],
   "license": "MIT",
@@ -72,12 +94,16 @@
     "request-ip": "^2.1.3",
     "svjsl": "^1.9.4",
     "url-parse": "^1.4.7",
+    "xmlhttprequest": "^1.8.0",
     "xss": "^1.0.8"
   },
   "devDependencies": {
-    "eslint": "^7.10.0",
+    "dependency-cruiser": "^9.16.0",
+    "eslint": "^7.11.0",
     "lodash": "^4.17.20",
     "madge": "^3.12.0",
+    "nyc": "^15.1.0",
+    "require-uncached": "^2.0.0",
     "snyk": "^1.434.3",
     "table": "^6.0.1"
   },

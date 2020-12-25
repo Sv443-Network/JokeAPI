@@ -8,8 +8,8 @@
     --bg-accent-color-sidenav-opened: #666;
     --bg-accent-color-darker-sidenav-opened: #555;
     --bg-color-sidenav-opened: #777;
-    --header-bg-color: #101747;
-    --header-bg-color-sidenav-opened: #101747;
+    --header-bg-color: #0b1031;
+    --header-bg-color-sidenav-opened: #0b1031;
 
     --doc-header-color: #5a83c0;
 
@@ -19,8 +19,8 @@
     --accent-color-light: #b05ffc;
     --accent-color-sidenav-opened: #a779d3;
 
-    --doc-header-font-size: 27px;
-    --doc-sub-header-font-size: 19px;
+    --doc-header-font-size: 29px;
+    --doc-sub-header-font-size: 22px;
 
     --sidenav-animation-speed: 0.15s;
     --sidenav-colorblur-speed: 0.5s;
@@ -29,6 +29,8 @@
     --scrollbar-track-color: #222;
     --scrollbar-thumb-color: rgba(175, 175, 175, .7);
     --scrollbar-webkit-hover-color: rgba(65, 131, 196, .8);
+
+    --line-height: calc(100% + 4px);
 }
 
 @font-face { 
@@ -51,7 +53,9 @@ body {
     background-color: var(--bg-color);
     color: #fff;
     font-family: "Roboto", "Segoe UI", "Arial", sans-serif;
-    font-size: 15px;
+    font-size: 17px;
+    line-height: var(--line-height);
+    font-weight: 200;
 
     overflow-y: hidden;
 
@@ -183,6 +187,8 @@ header {
     height: var(--header-height);
 
     filter: grayscale(0%) drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.6));
+
+    line-height: initial;
 }
 
 header[data-grayscaled="true"] {
@@ -241,6 +247,17 @@ header #docTitle {
     filter: none;
 }
 
+@media (max-width: 750px) {
+    header #docTitle {
+        font-size: 20px;
+        white-space: normal;
+    }
+
+    .mobileHide {
+        display: none;
+    }
+}
+
 #docTitle:hover {
     color: var(--accent-color-light);
 
@@ -297,50 +314,52 @@ input#f_customLang {
     padding-left: 5px;
 }
 
-#statusCodeTable {
+.alternatingBgTable {
     margin: 0;
+    margin-top: 10px;
     padding: 0;
     border-spacing: 0;
 }
 
-#statusCodeTable tr:nth-child(2n+1) td {
+.alternatingBgTable tr:nth-child(2n+1) td {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
-#statusCodeTable tr:nth-child(1) > th {
+.alternatingBgTable tr:nth-child(1) > th {
     border: 1px solid #fff;
     border-style: none none solid none;
     text-align: left;
 }
 
-#statusCodeTable tr > td:nth-child(1) {
+.alternatingBgTable tr > td:nth-child(1) {
     padding-top: 3px;
     padding-left: 4px;
+    padding-right: 10px;
 }
 
-#statusCodeTable tr th:not(:first-child), #statusCodeTable tr td:not(:first-child) {
+.alternatingBgTable tr th:not(:first-child), .alternatingBgTable tr td:not(:first-child) {
     padding: 2px 10px 2px 10px;
 }
 
-#statusCodeTable tr th:first-child {
+.alternatingBgTable tr th:first-child {
     padding-right: 10px;
     padding-bottom: 2px;
 }
 
-#statusCodeTable tr td:not(:first-child) {
+.alternatingBgTable tr td:not(:first-child) {
     border: 1px solid #fff;
     border-style: none none none solid;
 }
 
-#statusCodeTable tr td.g, span.col.g {
+.alternatingBgTable tr td.g, span.col.g {
     color: #89ff89;
 }
 
-#statusCodeTable tr td.r, span.col.r {
+.alternatingBgTable tr td.r, span.col.r {
     color: #ffad41;
 }
 
-#statusCodeTable tr td.dr, span.col.dr {
+.alternatingBgTable tr td.dr, span.col.dr {
     color: #f52727;
 }
 
@@ -363,12 +382,16 @@ details summary.big {
     font-size: 110%;
 }
 
+#newsList li {
+    padding-top: 10px;
+}
+
 mark {
     border: 1px solid #777;
     border-radius: 2px;
     background-color: var(--bg-accent-color);
     display: inline-block;
-    padding: 2px;
+    padding: 1px;
     font-family: "Cascadia Code", "Roboto Mono", "Courier New", monospace;
     font-variant-ligatures: none;
     color: #ccc;
@@ -425,10 +448,18 @@ body[data-sidenav="opened"] mark {
     transition: margin-left var(--sidenav-animation-speed);
 }
 
+
+@media (max-width: 750px) {
+    #content {
+        padding: 10px;
+        margin-left: 5px;
+    }
+}
+
 body[data-sidenav="closed"] code, body code {
     font-family: "Cascadia Code", "Inconsolata", "Courier New", "Consolas", monospace;
     font-variant-ligatures: none;
-    font-size: 14px;
+    font-size: 15px;
 
     white-space: pre;
     -moz-tab-size: 4;
@@ -594,12 +625,13 @@ footer#copyrightNotice span {
 /*#SECTION Wrappers*/
 #wrapperTable {
     border-spacing: 0;
-    font-size: 105%;
+    font-size: 110%;
 }
 
 #wrapperTable tr th {
     text-align: left;
     padding: 2px;
+    padding-right: 20px;
     border: 1px solid white;
     border-style: none none solid none;
 }
@@ -612,6 +644,10 @@ footer#copyrightNotice span {
     text-align: left;
     padding: 2px;
     padding-right: 20px;
+}
+
+#wrapperTable tr td.wrappericon {
+    padding-right: 5px;
 }
 
 /*#SECTION submit*/
@@ -632,6 +668,22 @@ footer#copyrightNotice span {
 .submitFlexItem.l {
     width: 100%;
     margin-left: 30px;
+}
+
+@media (max-width: 1100px) {
+    #submitContainer {
+        flex-wrap: wrap;
+        flex-direction: column;
+    }
+
+    .submitFlexItem {
+        white-space: normal;
+    }
+
+    .submitFlexItem.l {
+        margin-top: 30px;
+        margin-left: 0;
+    }
 }
 
 #submitBtn {
@@ -656,6 +708,26 @@ textarea {
     padding-right: 5px;
 }
 
+/* #SECTION contributors */
+
+#contributorsContainer .contributor {
+    margin-top: 30px;
+}
+
+#contributorsContainer .contributor .contributorName {
+    font-size: 115%;
+    font-weight: 125%;
+}
+
+#contributorsContainer .contributor .contributorContact {
+    display: inline;
+}
+
+#contributorsContainer .contributor .contributorContact:after {
+    content:"\a";
+    white-space: pre;
+}
+
 /*#MARKER sidenav*/
 #sidenav {
     display: flex;
@@ -677,6 +749,7 @@ textarea {
     filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.6));
 
     white-space: nowrap;
+    line-height: initial;
 }
 
 #sidenav a, .sidenav-mimica {
@@ -754,6 +827,20 @@ textarea {
     cursor: pointer;
 }
 
+#sideNavOpen::after {
+    content: "Menu";
+}
+
+@media (max-width: 750px) {
+    #sideNavOpen::after {
+        content: "";
+    }
+
+    #changelogLink {
+        font-size: 10px;
+    }
+}
+
 #sidenav ul {
     flex-grow: 1;
 
@@ -802,6 +889,12 @@ textarea {
 
 #sidenav .closebtn {
     font-size: 36px;
+}
+
+div.sidenavSpacer {
+    display: block;
+    min-height: 18px;
+    max-height: 18px;
 }
 
 @media screen and (max-height: 450px) {
@@ -869,6 +962,7 @@ textarea {
     padding-bottom: 2px;
     margin-bottom: 10px;
     margin-top: 70px;
+    line-height: initial;
 }
 
 .docHeader:not(:first)
@@ -876,13 +970,31 @@ textarea {
     margin-top: 50px;
 }
 
-.subHeader {
+.subHeaderContainer {
     display: block;
     margin-top: 25px;
     margin-bottom: 8px;
     text-decoration: underline;
     text-underline-offset: 3px; /* currently only supported in FF70+ and SF12.1+ (see https://caniuse.com/#search=text-underline-offset) */
+}
+
+.subHeaderContainer .subHeader {
     font-size: var(--doc-sub-header-font-size);
+}
+
+.subHeaderContainer a {
+    vertical-align: super;
+    font-size: smaller;
+    text-decoration: none;
+    text-underline-offset: initial;
+
+    color: rgba(188, 194, 255, 0.4);
+    transition: color 0.075s linear;
+}
+
+.subHeaderContainer a:hover {
+    color: rgba(188, 194, 255, 1.0);
+    text-decoration: inherit;
 }
 
 /*#SECTION usage terms */

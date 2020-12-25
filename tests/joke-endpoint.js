@@ -21,7 +21,7 @@ const meta = {
 function run()
 {
     return new Promise((resolve, reject) => {
-
+        return resolve({ meta });
     });
 }
 

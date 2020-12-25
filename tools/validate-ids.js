@@ -3,7 +3,10 @@
 
 const { resolve, join } = require("path");
 const fs = require("fs-extra");
+const jsl = require("svjsl");
 const settings = require("../settings");
+
+const col = { ...jsl.colors.fg, rst: jsl.colors.rst };
 
 const exitWithError = (msg, err) => {
     console.log(`\n\n\x1b[31m\x1b[1m>> ${msg}:\n${err}\n\n\x1b[0m`);
@@ -44,14 +47,18 @@ try
         if(erroredJokes.length != 0)
         {
             console.log(`\n\n\x1b[31m\x1b[1mInvalid joke ID${erroredJokes.length > 1 ? "s" : ""} found:\x1b[0m\n`);
+            console.log(`Format:  #ID | LangCode | Category | Joke    (error)`);
             erroredJokes.forEach(errjoke => {
                 let jokeContent = "";
                 if(errjoke.joke.type == "single")
                     jokeContent = errjoke.joke.joke.replace(/\n/gm, "\\n");
                 else if(errjoke.joke.type == "twopart")
-                    jokeContent = `${errjoke.joke.setup.replace(/\n/gm, "\\n")} - ${errjoke.joke.delivery.replace(/\n/gm, "\\n")}`;
+                    jokeContent = `${errjoke.joke.setup.replace(/\n/gm, "\\n")} -/- ${errjoke.joke.delivery.replace(/\n/gm, "\\n")}`;
 
-                console.log(`#${errjoke.joke.id} | ${langCode} | ${errjoke.joke.category} | ${jokeContent}    (Expected ID #${errjoke.idx} - joke instead has #${errjoke.joke.id})`);
+                if(jokeContent.length > 40)
+                    jokeContent = `${jokeContent.substr(0, 40)}...`;
+
+                console.log(`#${errjoke.joke.id} | ${langCode} | ${errjoke.joke.category} | ${jokeContent}    ${col.red}(Expected ID #${errjoke.idx} - joke instead has #${errjoke.joke.id})${col.rst}`);
                 notOk++;
             });
         }

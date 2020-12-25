@@ -9,7 +9,9 @@ var settings = {
     submitUrl: "<!--%#INSERT:DOCSURL#%-->/submit",
     // submitUrl: "http://127.0.0.1:8076/submit", // DEBUG
     defaultLang: "en",
-    formatVersion: 3
+    formatVersion: 3,
+    contributorsObject: JSON.parse('<!--%#INSERT:CONTRIBUTORS#%-->'),
+    categoryAliasesObject: JSON.parse('<!--%#INSERT:CATEGORYALIASES#%-->')
 };
 
 var submission = {};
@@ -64,12 +66,6 @@ You can request to get your collected data deleted or to view the data about you
 <br><br><br>
 `;
 
-var cIHTML = `
-<iframe src="<!--%#INSERT:DOCSURL#%-->/static/changelog" style="width: 100%; height: 80%; font-family: 'Roboto', 'Segoe UI', 'Arial', sans-serif; color: black !important; background-color: white !important;"></iframe><br>
-<br>
-(The current Version is <!--%#INSERT:VERSION#%-->)
-`;
-
 var rsIHTML = `
 <form onsubmit="submitRestartForm()">
 <input type="password" id="restartFormToken" placeholder="Restart Token" style="width:30vw"> <button type="submit">Send &gt;</button>
@@ -91,7 +87,16 @@ this.setInnerHTML=function(id,inner_html){try{gebid("jsg_menu_"+id).innerHTML=in
 catch(err){console.error("couldn't find menu or inner_html is not valid");return!1}}
 this.setOuterHTML=function(id,outer_html){try{gebid("jsg_menu_"+id).outerHTML=outer_html}
 catch(err){console.error("couldn't find menu or outer_html is not valid");return!1}}}
+/**
+ * Alias for document.getElementById()
+ * @param {String} id ID of the element
+ */
 function gebid(id){return document.getElementById(id);}
+
+
+var idRanges = {};
+var maxJokeIdRange = parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->");
+
 
 //#MARKER onload
 
@@ -99,11 +104,11 @@ function onLoad()
 {
     window.jokeapi = {};
 
-    console.log("%cJokeAPI%cDocumentation (v<!--%#INSERT:VERSION#%-->)", "color: #b05ffc; background-color: black; padding: 5px; padding-right: 0;", "color: white; background-color: black; padding: 5px;");
+    console.log("%cJokeAPI%cDocumentation (v<!--%#INSERT:VERSION#%-->)  -  © Copyright Sv443 Network 2018-2020", "color: #b05ffc; background-color: black; padding: 5px; padding-right: 0; font-size: 1.2em;", "color: white; background-color: black; padding: 5px; font-size: 1.2em;");
 
-    gebid("content").onclick = closeNav;
-    document.getElementsByTagName("header")[0].onclick = closeNav;
-    gebid("docTitle").onclick = function() {window.location.reload()};
+    gebid("content").onclick = function(e){tryCloseSideNav(e)};
+    document.getElementsByTagName("header")[0].onclick = function(e){tryCloseSideNav(e)};
+    gebid("docTitle").onclick = function(){window.location.reload()};
 
     addCodeTabs();
 
@@ -218,6 +223,7 @@ function onLoad()
         "f_flags_political",
         "f_flags_racist",
         "f_flags_sexist",
+        "f_flags_explicit",
         "f_setup",
         "f_delivery",
         "f_language"
@@ -324,6 +330,42 @@ function onLoad()
     };
     langXhr.send();
 
+
+    var infoXhr = new XMLHttpRequest();
+    infoXhr.open("GET", (settings.baseURL + "/info"));
+
+    infoXhr.onreadystatechange = function() {
+        if(infoXhr.readyState == 4 && infoXhr.status < 300)
+        {
+            var respJSON = JSON.parse(infoXhr.responseText.toString());
+
+            var idrKeys = Object.keys(respJSON.jokes.idRange);
+            for(var i = 0; i < idrKeys.length; i++)
+            {
+                var idrKey = idrKeys[i];
+                idRanges[idrKey] = respJSON.jokes.idRange[idrKey];
+
+                try
+                {
+                    console.info("<!--%#INSERT:NAME#%--> is serving " + (respJSON.jokes.idRange[idrKey][1] + 1) + " jokes from language \"" + idrKey + "\"");
+                }
+                catch(err)
+                {
+                    void(err);
+                }
+            }
+
+            reRender();
+        }
+        else if(infoXhr.readyState == 4 && infoXhr.status >= 300)
+        {
+            console.error("Couldn't get ID range of all languages. Defaulting to the max possible value.");
+        }
+    };
+
+    infoXhr.send();
+
+
     gebid("submitBtn").addEventListener("click", function() {
         submitJoke();
     });
@@ -332,6 +374,8 @@ function onLoad()
     setTimeout(function() { buildSubmission() }, 2000);
 
     gebid("insUserAgent").innerText = navigator.userAgent;
+
+    gebid("lcodeSelect").value = settings.defaultLang;
 
     var abElems = document.getElementsByClassName("antiBotE");
     for(var l = 0; l < abElems.length; l++)
@@ -346,7 +390,25 @@ function onLoad()
         }
     }
 
+    gebid("lcodeSelect").value = settings.defaultLang;
+    gebid("lcodeSelect").onchange = function() { reRender(true) };
     gebid("sideNavOpen").onclick = function() { return openNav(); };
+
+
+    loadCategoryAliases();
+    loadContributors();
+}
+
+/**
+ * @param {MouseEvent} e
+ */
+function tryCloseSideNav(e)
+{
+    if(document.body.dataset["sidenav"] == "opened")
+    {
+        e.preventDefault();
+        closeNav();
+    }
 }
 
 function addCodeTabs()
@@ -363,6 +425,8 @@ function addCodeTabs()
 //#MARKER SideNav
 function openNav()
 {
+    console.info("opening nav");
+
     setTimeout(function() {
         document.body.dataset["sidenav"] = "opened";
     }, 50);
@@ -370,13 +434,15 @@ function openNav()
     window.jokeapi.sidenavOpened = true;
 
     gebid("sidenav").style.width = "280px";
-    gebid("content").style.marginLeft= "280px";
+    gebid("content").style.marginLeft = "280px";
     document.getElementsByTagName("header")[0].dataset["grayscaled"] = "true";
     gebid("sideNavOpen").style.visibility = "hidden";
 }
   
 function closeNav()
 {
+    console.info("closing nav");
+
     if(document.body.dataset["sidenav"] != "opened")
         return;
 
@@ -385,7 +451,7 @@ function closeNav()
     document.body.dataset["sidenav"] = "closed";
 
     gebid("sidenav").style.width = "0";
-    gebid("content").style.marginLeft= "10px";
+    gebid("content").style.marginLeft = "10px";
     document.getElementsByTagName("header")[0].dataset["grayscaled"] = "false";
     gebid("sideNavOpen").style.visibility = "visible";
 }
@@ -420,18 +486,13 @@ function getQueryStringObject()
     return qstrObj;
 }
 
-function openChangelog()
+/**
+ * @param {Boolean} [langChanged]
+ */
+function reRender(langChanged)
 {
-    if(!gebid("jsg_menu_changelog"))
-    {
-        sMenu.new("changelog", "JokeAPI Changelog:", cIHTML, 85, 85, true, true, true);
-        sMenu.theme("changelog", "dark");
-    }
-    sMenu.open("changelog");
-}
+    console.info("Re-rendering try-it form");
 
-function reRender()
-{
     var allOk = true;
 
     //#SECTION category
@@ -487,12 +548,35 @@ function reRender()
 
 
     //#SECTION id range
+    if(langChanged === true)
+    {
+        console.warn("langchanged")
+
+        var langCode = gebid("lcodeSelect").value;
+
+        if(idRanges[langCode])
+        {
+            var maxRange = parseInt(idRanges[langCode][1]);
+
+            gebid("idRangeInputTo").max = maxRange;
+            gebid("idRangeInputTo").value = maxRange;
+
+            maxJokeIdRange = maxRange;
+        }
+        else
+        {
+            gebid("idRangeInputTo").max = parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->");
+
+            maxJokeIdRange = parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->");
+        }
+    }
+
     var numRegex = /^[0-9]+$/gm;
     var fromVal = gebid("idRangeInputFrom").value;
     var toVal = gebid("idRangeInputTo").value;
     var fromValInt = parseInt(fromVal);
     var toValInt = parseInt(toVal);
-    var outOfRange = fromValInt < 0 || toValInt > parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->");
+    var outOfRange = (fromValInt < 0 || toValInt > maxJokeIdRange);
     var notNumber = ((fromVal.match(numRegex) == null) || (toVal.match(numRegex) == null));
 
     if(outOfRange || notNumber || fromValInt > toValInt)
@@ -578,7 +662,7 @@ function buildURL()
 
 
     //#SECTION flags
-    var flagElems = [gebid("blf-cb1"), gebid("blf-cb2"), gebid("blf-cb3"), gebid("blf-cb4"), gebid("blf-cb5")];
+    var flagElems = [gebid("blf-cb1"), gebid("blf-cb2"), gebid("blf-cb3"), gebid("blf-cb4"), gebid("blf-cb5"), gebid("blf-cb6")];
     var flagNames = JSON.parse('<!--%#INSERT:FLAGSARRAY#%-->');
     var selectedFlags = [];
     flagElems.forEach(function(el, i) {
@@ -630,14 +714,14 @@ function buildURL()
 
     //#SECTION id range
     var range = [parseInt(gebid("idRangeInputFrom").value), parseInt(gebid("idRangeInputTo").value)];
-    if(!isNaN(range[0]) && !isNaN(range[1]) && range[0] >= 0 && range[1] <= parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->") && range[1] >= range[0])
+    if(!isNaN(range[0]) && !isNaN(range[1]) && range[0] >= 0 && range[1] <= maxJokeIdRange && range[1] >= range[0])
     {
-        if(range[0] == range[1] && range[0] > 0 && range[0] <= parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->"))
+        if(range[0] == range[1] && range[0] >= 0 && range[0] <= maxJokeIdRange)
         {
             // Use "x" format
             queryParams.push("idRange=" + range[0]);
         }
-        else if(range[0] != 0 || range[1] != parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->"))
+        else if(range[0] != 0 || range[1] != maxJokeIdRange)
         {
             // Use "x-y" format
             queryParams.push("idRange=" + range[0] + "-" + range[1]);
@@ -774,7 +858,7 @@ function resetTryItForm(confirmation)
 
     gebid("cat-radio1").checked = true;
 
-    ["blf-cb1", "blf-cb2", "blf-cb3", "blf-cb4", "blf-cb5"].forEach(function(flg) {
+    ["blf-cb1", "blf-cb2", "blf-cb3", "blf-cb4", "blf-cb5", "blf-cb6"].forEach(function(flg) {
         gebid(flg).checked = false;
     });
 
@@ -790,8 +874,6 @@ function resetTryItForm(confirmation)
     gebid("idRangeInputTo").value = parseInt("<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->");
 
     gebid("jokesAmountInput").value = 1;
-
-    gebid("lcodeSelect").value = settings.defaultLang;
 
     reRender();
 }
@@ -931,6 +1013,7 @@ function buildSubmission()
             political: gebid("f_flags_political").checked,
             racist: gebid("f_flags_racist").checked,
             sexist: gebid("f_flags_sexist").checked,
+            explicit: gebid("f_flags_explicit").checked
         },
         lang: sLang
     };
@@ -1055,6 +1138,108 @@ function toFormattedDate(unixTimestamp)
     return d.toLocaleString("de-DE");
 }
 
+/**
+ * Parses the contributor object and puts the contents into the element #contributorsContainer
+ */
+function loadContributors()
+{
+    var container = gebid("contributorsContainer");
+
+    container.innerHTML = "";
+
+    settings.contributorsObject.forEach(function(contributor) {
+        var contrElem = document.createElement("div");
+        contrElem.classList.add("contributor");
+
+        var name = document.createElement("div");
+        name.classList.add("contributorName");
+        name.innerText = contributor.name;
+        contrElem.appendChild(name);
+
+        if(typeof contributor.email == "string")
+        {
+            var email = document.createElement("a");
+            email.href = "mailto:" + contributor.email + "?subject=JokeAPI%20Contribution";
+            email.innerText = contributor.email;
+            email.classList.add("contributorEmail");
+            email.classList.add("contributorContact");
+            contrElem.appendChild(email);
+        }
+
+        if(typeof contributor.url == "string")
+        {
+            var url = document.createElement("a");
+            url.href = contributor.url;
+            url.innerText = contributor.url;
+            url.classList.add("contributorURL");
+            url.classList.add("contributorContact");
+            contrElem.appendChild(url);
+        }
+
+        if(Array.isArray(contributor.contributions))
+        {
+            var contributionList = document.createElement("ul");
+            contributionList.classList.add("contributorContributionsList");
+            contributor.contributions.forEach(function(contribution) {
+                var contributionEl = document.createElement("li");
+                contributionEl.innerText = contribution;
+                contributionList.appendChild(contributionEl);
+            });
+            contrElem.appendChild(contributionList);
+        }
+
+        container.appendChild(contrElem);
+    });
+
+    /*
+    [
+        {
+            "name": "XY",
+            "email": "xy@example.org", (OPTIONAL)
+            "url": "https://example.org", (OPTIONAL)
+            "contributions": [
+                "Implemented a whole lot of stuff",
+                "Stuff",
+                "Even more stuff",
+                ...
+            ]
+        },
+        ...
+    ]
+    */
+}
+
+/**
+ * Loads all category aliases, adding them to the element #catAliasesContainer
+ */
+function loadCategoryAliases()
+{
+    var container = gebid("catAliasesContainer");
+    var amt = 0;
+
+    Object.keys(settings.categoryAliasesObject).forEach(function(key) {
+        var value = settings.categoryAliasesObject[key];
+
+        var trElem = document.createElement("tr");
+
+
+        var keyElem = document.createElement("td");
+        keyElem.innerText = key;
+
+        var valElem = document.createElement("td");
+        valElem.innerText = value;
+
+        trElem.appendChild(keyElem);
+        trElem.appendChild(valElem);
+
+
+        container.appendChild(trElem);
+        amt++;
+    });
+
+    console.info("Found " + amt + " category aliases");
+}
+
 
 
 //#MARKER cleanup
@@ -1067,4 +1252,4 @@ function unused(...args)
     });
 }
 
-unused(openNav, closeNav, onLoad, openChangelog, reRender, privPolMoreInfo, hideUsageTerms, sendTryItRequest, submitRestartForm);
+unused(openNav, closeNav, onLoad, reRender, privPolMoreInfo, hideUsageTerms, sendTryItRequest, submitRestartForm);

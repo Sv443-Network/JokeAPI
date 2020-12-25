@@ -10,12 +10,14 @@
             "delivery": "Radlos.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
-            "id": 0
+            "id": 0,
+            "safe": true
         },
         {
             "category": "Pun",
@@ -24,12 +26,14 @@
             "delivery": "Einen Papagay.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
-            "id": 1
+            "id": 1,
+            "safe": true
         },
         {
             "category": "Pun",
@@ -38,12 +42,14 @@
             "delivery": "Brechstange.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
-            "id": 2
+            "id": 2,
+            "safe": true
         },
         {
             "category": "Pun",
@@ -52,12 +58,14 @@
             "delivery": "Der Kugelschreibär.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
-            "id": 3
+            "id": 3,
+            "safe": true
         },
         {
             "category": "Pun",
@@ -66,12 +74,14 @@
             "delivery": "Ein Papageil.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
-            "id": 4
+            "id": 4,
+            "safe": false
         },
         {
             "category": "Pun",
@@ -80,12 +90,14 @@
             "delivery": "Die Stühle waren zu unbequem.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
-            "id": 5
+            "id": 5,
+            "safe": true
         },
         {
             "category": "Pun",
@@ -94,12 +106,14 @@
             "delivery": "Es war in einer Camouflasche.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
-            "id": 6
+            "id": 6,
+            "safe": true
         },
         {
             "category": "Pun",
@@ -108,12 +122,14 @@
             "delivery": "Hahndrang.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
-            "id": 7
+            "id": 7,
+            "safe": false
         },
         {
             "category": "Programming",
@@ -122,12 +138,14 @@
             "delivery": "Sind das dann 7 Bit?",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
-            "id": 8
+            "id": 8,
+            "safe": true
         },
         {
             "category": "Pun",
@@ -136,12 +154,14 @@
             "delivery": "Krakelig.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
-            "id": 9
+            "id": 9,
+            "safe": true
         },
         {
             "category": "Pun",
@@ -150,12 +170,14 @@
             "delivery": "Weil er Anubis.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
-            "id": 10
+            "id": 10,
+            "safe": true
         },
         {
             "category": "Pun",
@@ -164,12 +186,14 @@
             "delivery": "Rubbellos.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
-            "id": 11
+            "id": 11,
+            "safe": true
         },
         {
             "category": "Pun",
@@ -178,12 +202,14 @@
             "delivery": "Überall haben sie Schilder, auf denen steht \"Wander weg\"!",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
-            "id": 12
+            "id": 12,
+            "safe": true
         },
         {
             "category": "Pun",
@@ -192,12 +218,14 @@
             "delivery": "Kleopapier.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
-            "id": 13
+            "id": 13,
+            "safe": true
         },
         {
             "category": "Programming",
@@ -205,12 +233,14 @@
             "joke": "Die Selbsthilfegruppe \"HTML-Sonderzeichen-Probleme\" trifft sich heute im gro&szlig;en Saal.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
-            "id": 14
+            "id": 14,
+            "safe": true
         },
         {
             "category": "Programming",
@@ -218,12 +248,14 @@
             "joke": "Wenn man diese CD rückwärts spielt, sind satanische Verse zu hören.\nViel schlimmer, wenn man sie vorwärts spielt, installiert sie Windows.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
-            "id": 15
+            "id": 15,
+            "safe": true
         },
         {
             "category": "Programming",
@@ -231,12 +263,14 @@
             "joke": "Die Mutter schickt ihren Sohn mit folgender Einkaufsliste in den Supermarkt: \"Eine Packung Milch, und wenn die Eier haben, bring drei Packungen mit.\"\nIm Supermarkt stellt der Sohn fest, es gibt dort Eier, also bringt er drei Packungen Milch mit.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
-            "id": 16
+            "id": 16,
+            "safe": true
         },
         {
             "category": "Programming",
@@ -244,12 +278,14 @@
             "joke": "Täglich verschwinden hunderte Senioren im Netz, weil sie \"Alt\" und \"Entf\" drücken.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
-            "id": 17
+            "id": 17,
+            "safe": true
         },
         {
             "category": "Programming",
@@ -257,12 +293,14 @@
             "joke": "Facebook ist wie ein Gefängnis. Man sitzt rum, verschwendet Zeit, schreibt an Wände und wird angestupst von Leuten die man nicht kennt.",
             "flags": {
                 "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
-            "id": 18
+            "id": 18,
+            "safe": false
         },
         {
             "category": "Programming",
@@ -271,12 +309,14 @@
             "delivery": "Die einen verstehen das Binäre System, die anderen nicht.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
-            "id": 19
+            "id": 19,
+            "safe": true
         },
         {
             "category": "Programming",
@@ -285,12 +325,14 @@
             "delivery": "Aussteigen, einsteigen und nochmal starten.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
-            "id": 20
+            "id": 20,
+            "safe": true
         },
         {
             "category": "Programming",
@@ -298,12 +340,14 @@
             "joke": "Treffen sich ein Informatiker und ein Wirtschaftsinformatiker.\nInformatiker: \"Hast Du schon das neue Ubuntu?\"\nDer Wirtschaftsinformatiker: \"Nein, ich steh nicht auf Pokemon.\"",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
-            "id": 21
+            "id": 21,
+            "safe": true
         },
         {
             "category": "Christmas",
@@ -312,51 +356,59 @@
             "delivery": "Einen B-Baum.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
-            "id": 22
+            "id": 22,
+            "safe": true
         },
         {
-            "category": "Miscellaneous",
+            "category": "Misc",
             "type": "single",
             "joke": "Wer zuletzt lacht ... hat den höchsten Ping.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
-            "id": 23
+            "id": 23,
+            "safe": true
         },
         {
-            "category": "Miscellaneous",
+            "category": "Misc",
             "type": "single",
             "joke": "Das echte Leben nervt ... aber die Grafik ist gut.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
-            "id": 24
+            "id": 24,
+            "safe": true
         },
         {
             "category": "Programming",
             "type": "single",
             "joke": "Deine Mutter ist wie ein L3-Cache. Sie wird zwischen allen 4 Kernen durchgereicht und jeder hat Zugriff.",
             "flags": {
-                "nsfw": false,
+                "nsfw": true,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": true
             },
-            "id": 25
+            "id": 25,
+            "safe": false
         },
         {
             "category": "Programming",
@@ -365,29 +417,33 @@
             "delivery": "Busfahren.",
             "flags": {
                 "nsfw": false,
+                "racist": false,
+                "sexist": false,
                 "religious": false,
                 "political": false,
-                "racist": false,
-                "sexist": false
+                "explicit": false
             },
-            "id": 26
+            "id": 26,
+            "safe": true
         },
         {
-            "category": "Miscellaneous",
+            "category": "Misc",
             "type": "twopart",
             "setup": "Treffen sich zwei Kerzen.",
-            "delivery": " Fragt die eine: Was machst du heute? Sagt die andere: Ich gehe aus.",
+            "delivery": "Fragt die eine \"Was machst du heute?\"\nSagt die andere \"Ich gehe aus.\"",
             "flags": {
                 "nsfw": false,
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
-            "id": 27
+            "id": 27,
+            "safe": true
         },
         {
-            "category": "Miscellaneous",
+            "category": "Misc",
             "type": "single",
             "joke": "Ich hab gerade den DJ angerufen. Er hat aufgelegt.",
             "flags": {
@@ -395,25 +451,14 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
-            "id": 28
+            "id": 28,
+            "safe": true
         },
         {
-            "category": "Programming",
-            "type": "single",
-            "joke": "Das echte Leben nervt... aber die Grafik ist gut.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false
-            },
-            "id": 29
-        },
-        {
-            "category": "Miscellaneous",
+            "category": "Misc",
             "type": "single",
             "joke": "Ein Beamter zum anderen: \"Was haben die Leute nur, wir tun doch nichts!\"",
             "flags": {
@@ -421,9 +466,11 @@
                 "religious": false,
                 "political": true,
                 "racist": false,
-                "sexist": false
+                "sexist": false,
+                "explicit": false
             },
-            "id": 30
+            "id": 29,
+            "safe": false
         }
     ]
 }

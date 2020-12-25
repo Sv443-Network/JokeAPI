@@ -19,6 +19,7 @@ const meta = {
         "method": "GET",
         "url": `${settings.info.docsURL}/joke/{CATEGORY}`,
         "supportedParams": [
+            "safe-mode",
             "format",
             "blacklistFlags",
             "type",
@@ -54,6 +55,13 @@ const call = (req, res, url, params, format) => {
 
     if(includesSplitChar)
         category = category.split(settings.jokes.splitCharRegex);
+
+    // resolve category aliases
+    if(Array.isArray(category))
+        category = parseJokes.resolveCategoryAliases(category);
+    else
+        category = parseJokes.resolveCategoryAlias(category);
+
     
     let categoryValid = false;
     [settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories].forEach(cat => {
@@ -93,6 +101,10 @@ const call = (req, res, url, params, format) => {
             return isErrored(res, format, tr(langCode, "invalidLangCodeNoArg"), langCode);
         }
     }
+
+    //#SECTION safe mode
+    if(params && !jsl.isEmpty(params["safe-mode"]) && params["safe-mode"] === true)
+        filterJoke.setSafeMode(true);
 
     if(!fCat || !categoryValid)
     {
@@ -208,16 +220,16 @@ const call = (req, res, url, params, format) => {
             {
                 multiObj = {
                     error: false,
-                    jokes: jokesArray,
-                    amount: jokesArray.length || 1
+                    amount: (jokesArray.length || 1),
+                    jokes: jokesArray
                 };
             }
             else
             {
                 multiObj = {
                     error: false,
-                    jokes: { "joke": jokesArray },
-                    amount: jokesArray.length || 1
+                    amount: (jokesArray.length || 1),
+                    jokes: { "joke": jokesArray }
                 };
             }
 

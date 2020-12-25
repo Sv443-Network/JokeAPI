@@ -34,6 +34,8 @@ const run = () => {
 
                 let submission = submissions[idx];
 
+                console.log(`${jsl.colors.fg.yellow}Submission ${idx + 1} / ${submissions.length}${jsl.colors.rst}\n`);
+
                 if(submission.formatVersion != settings.jokes.jokesFormatVersion)
                     console.error(`${jsl.colors.fg.red}Error: Format version is incorrect${jsl.colors.rst}`);
                 
@@ -54,13 +56,22 @@ const run = () => {
                 }
                 else console.error(`${jsl.colors.fg.red}Error: Unsuppoted joke type "${submission.type}"${jsl.colors.rst}`);
 
-                jsl.pause("Do you want to add this joke? (y/N):").then(key => {
-                    if(key.toLowerCase() === "y")
+                jsl.pause("Do you want to add this joke? (Safe/Unsafe/No):").then(key => {
+                    let lcKey = key.toLowerCase();
+                    if(lcKey === "s")
                     {
+                        submissions[idx].safe = true;
                         addJoke(submissions[idx]);
                         process.stdout.write(`${jsl.colors.fg.green}Adding joke.${jsl.colors.rst}\n\n\n\n`);
                     }
-                    else process.stdout.write(`${jsl.colors.fg.red}Not adding joke.${jsl.colors.rst}\n\n\n\n`);
+                    else if(lcKey === "u")
+                    {
+                        submissions[idx].safe = false;
+                        addJoke(submissions[idx]);
+                        process.stdout.write(`${jsl.colors.fg.green}Adding joke.${jsl.colors.rst}\n\n\n\n`);
+                    }
+                    else
+                        process.stdout.write(`${jsl.colors.fg.red}Not adding joke.${jsl.colors.rst}\n\n\n\n`);
 
                     goThroughSubmission(++idx);
                 });
@@ -142,7 +153,8 @@ const finishAdding = () => {
         }
 
         console.log(`${jsl.colors.fg.green}Successfully added ${jsl.colors.fg.yellow}${addedCount}${jsl.colors.fg.green} joke${addedCount != 1 ? "s" : ""}${jsl.colors.rst}.\nExiting.\n\n`);
-        return process.exit(0);
+        require("./reassign-ids"); // reassign joke IDs
+        return;
     });
 };
 
