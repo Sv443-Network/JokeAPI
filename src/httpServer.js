@@ -459,10 +459,10 @@ const init = () => {
 function setRateLimitedHeaders(res, rlRes)
 {
     let rlHeaders = {
-        "Retry-After": Math.round(rlRes.msBeforeNext / 1000),
+        "Retry-After": rlRes.msBeforeNext ? Math.round(rlRes.msBeforeNext / 1000) : settings.httpServer.timeFrame,
         "RateLimit-Limit": settings.httpServer.rateLimiting,
-        "RateLimit-Remaining": rlRes.remainingPoints,
-        "RateLimit-Reset": new Date(Date.now() + rlRes.msBeforeNext)
+        "RateLimit-Remaining": rlRes.msBeforeNext ? rlRes.remainingPoints : settings.httpServer.rateLimiting,
+        "RateLimit-Reset": rlRes.msBeforeNext ? new Date(Date.now() + rlRes.msBeforeNext) : settings.httpServer.timeFrame
     }
 
     Object.keys(rlHeaders).forEach(key => {
