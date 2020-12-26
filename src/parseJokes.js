@@ -249,21 +249,54 @@ const init = () => {
 const validateSingle = joke => {
     let jokeErrors = [];
 
+
+    // reserialize object
+    if(typeof joke == "object")
+            joke = JSON.stringify(joke);
+
+    joke = JSON.parse(joke);
+
+
+    let jokeObj = {
+        "formatVersion": true,
+        "category": true,
+        "type": true,
+    };
+
+    if(joke.type == "single")
+        jokeObj.joke = true;
+    else if(joke.type == "twopart")
+    {
+        jokeObj.setup = true;
+        jokeObj.delivery = true;
+    }
+
+    jokeObj = {
+        ...jokeObj,
+        flags: {
+            nsfw: true,
+            religious: true,
+            political: true,
+            racist: true,
+            sexist: true
+        },
+        lang: true
+    }
+    console.log(jokeObj);
+
+
     // TODO: implement translations
 
     try
     {
-        if(typeof joke == "object")
-            joke = JSON.stringify(joke);
-
-        joke = JSON.parse(joke);
-
-
         //#MARKER format version
         if(joke.formatVersion != null)
         {
             if(joke.formatVersion != settings.jokes.jokesFormatVersion || joke.formatVersion != this.jokeFormatVersion)
+            {
                 jokeErrors.push(`Joke format version "${joke.formatVersion}" doesn't match up with required version "${this.jokeFormatVersion}"`);
+                jokeObj.formatVersion = false; // TODO: repeat this for everything below
+            }
         }
         else jokeErrors.push(`Joke doesn't have a "formatVersion" property or it is empty or invalid`);
 
