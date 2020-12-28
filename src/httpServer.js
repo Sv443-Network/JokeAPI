@@ -251,7 +251,8 @@ const init = () => {
                                     {
                                         let rlRes = await rl.get(ip);
 
-                                        setRateLimitedHeaders(res, rlRes);
+                                        if(rlRes)
+                                            setRateLimitedHeaders(res, rlRes);
 
                                         if((rlRes && rlRes._remainingPoints < 0) && !lists.isWhitelisted(ip) && !isAuthorized)
                                         {
@@ -329,11 +330,13 @@ const init = () => {
                             else
                             {
                                 rl.consume(ip, 1).then(rlRes => {
-                                    setRateLimitedHeaders(res, rlRes);
+                                    if(rlRes)
+                                        setRateLimitedHeaders(res, rlRes);
 
                                     return jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun);
                                 }).catch(rlRes => {
-                                    setRateLimitedHeaders(res, rlRes);
+                                    if(rlRes)
+                                        setRateLimitedHeaders(res, rlRes);
 
                                     if(rlRes.remainingPoints <= 0)
                                         return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
@@ -458,16 +461,24 @@ const init = () => {
  */
 function setRateLimitedHeaders(res, rlRes)
 {
-    let rlHeaders = {
-        "Retry-After": rlRes.msBeforeNext ? Math.round(rlRes.msBeforeNext / 1000) : settings.httpServer.timeFrame,
-        "RateLimit-Limit": settings.httpServer.rateLimiting,
-        "RateLimit-Remaining": rlRes.msBeforeNext ? rlRes.remainingPoints : settings.httpServer.rateLimiting,
-        "RateLimit-Reset": rlRes.msBeforeNext ? new Date(Date.now() + rlRes.msBeforeNext) : settings.httpServer.timeFrame
-    }
+    try
+    {
+        let rlHeaders = {
+            "Retry-After": rlRes.msBeforeNext ? Math.round(rlRes.msBeforeNext / 1000) : settings.httpServer.timeFrame,
+            "RateLimit-Limit": settings.httpServer.rateLimiting,
+            "RateLimit-Remaining": rlRes.msBeforeNext ? rlRes.remainingPoints : settings.httpServer.rateLimiting,
+            "RateLimit-Reset": rlRes.msBeforeNext ? new Date(Date.now() + rlRes.msBeforeNext) : settings.httpServer.timeFrame
+        }
 
-    Object.keys(rlHeaders).forEach(key => {
-        res.setHeader(key, rlHeaders[key]);
-    });
+        Object.keys(rlHeaders).forEach(key => {
+            res.setHeader(key, rlHeaders[key]);
+        });
+    }
+    catch(err)
+    {
+        let content = `Err: ${err}\nrlRes:\n${typeof rlRes == "object" ? JSON.stringify(rlRes, null, 4) : rlRes}\n\n\n`
+        fs.appendFileSync("./msBeforeNext.log", content);
+    }
 }
 
 /**
