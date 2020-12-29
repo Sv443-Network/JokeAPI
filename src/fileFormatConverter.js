@@ -68,10 +68,6 @@ const toTXT = (jsonInput, lang) => {
         else
         {
             let categoryAliases = [];
-            jsonInput.categoryAliases.forEach(alias => {
-                categoryAliases.push(`- ${alias.alias} -> ${alias.resolved}`);
-            });
-
 
             if((jsonInput.joke || (jsonInput.jokes && Array.isArray(jsonInput.jokes))) || (jsonInput.setup && jsonInput.delivery)) // endpoint: /joke
             {
@@ -95,7 +91,12 @@ const toTXT = (jsonInput, lang) => {
             }
 
             else if(jsonInput.categories) // endpoint: /categories
+            {
+                jsonInput.categoryAliases.forEach(alias => {
+                    categoryAliases.push(`- ${alias.alias} -> ${alias.resolved}`);
+                });
                 returnText = tr(lang, "availableCategories", jsonInput.categories.map(c => `- ${c}`).join("\n"), categoryAliases.join("\n"));
+            }
 
             else if(jsonInput.flags) // endpoint: /flags
                 returnText = tr(lang, "availableFlags", jsonInput.flags.join('", "'));
@@ -147,7 +148,7 @@ const toTXT = (jsonInput, lang) => {
             }
 
             else if(jsonInput.formats) // endpoint: /formats
-                returnText = tr(lang, "availableFormats", jsonInput.formats.join('", "'));
+                returnText = tr(lang, "availableFormats", `"${jsonInput.formats.join('", "')}"`);
 
             else if(Array.isArray(jsonInput) && jsonInput[0].usage && jsonInput[0].usage.method) // endpoint: /endpoints
             {
