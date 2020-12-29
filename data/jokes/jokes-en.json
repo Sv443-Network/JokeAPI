@@ -4088,6 +4088,479 @@
             },
             "id": 259,
             "safe": true
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "setup": "Why is Linux safe?",
+            "delivery": "Hackers peak through Windows only.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 260
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "What's the difference between Jesus and a hooker?",
+            "delivery": "The look on their face when you are nailing them.",
+            "flags": {
+                "nsfw": false,
+                "religious": true,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": true
+            },
+            "safe": false,
+            "id": 261
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "Why do Africans have dark skin?",
+            "delivery": "It's easier to commit crimes at night.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": true,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": false,
+            "id": 262
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "Why don't jews eat pussy?",
+            "delivery": "It's too close to the gas chamber.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": true,
+                "sexist": false,
+                "explicit": true
+            },
+            "safe": false,
+            "id": 263
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "setup": "Why are Assembly programmers always soaking wet?",
+            "delivery": "They work below C-level.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 264
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "setup": "Why did the database administrator leave his wife?",
+            "delivery": "She had one-to-many relationships.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 265
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "setup": "How did the programmer die in the shower?",
+            "delivery": "He read the shampoo bottle instructions: Lather. Rinse. Repeat.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": false,
+            "id": 266
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "What's the difference between a poorly dressed man on a unicycle and a well dressed man on a bicycle?",
+            "delivery": "Attire.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 267
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Why shouldn't you visit an expensive wig shop?",
+            "delivery": "It's too high a price \"toupee.\"",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 268
+        },
+        {
+            "category": "Dark",
+            "type": "single",
+            "joke": "Hey girl are you a school? Because I want to shoot some kids up inside of you.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": true
+            },
+            "safe": false,
+            "id": 269
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "You see, mountains aren't just funny.",
+            "delivery": "They are hill areas.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 270
+        },
+        {
+            "category": "Misc",
+            "type": "single",
+            "joke": "Never date a baker. They're too kneady.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 271
+        },
+        {
+            "category": "Misc",
+            "type": "twopart",
+            "setup": "What does the mermaid wear to math class?",
+            "delivery": "Algae-bra.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": false,
+            "id": 272
+        },
+        {
+            "category": "Misc",
+            "type": "single",
+            "joke": "My husband and I were happy for 20 years. And then we met.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 273
+        },
+        {
+            "category": "Dark",
+            "type": "single",
+            "joke": "I hate double standards. Burn a body at a crematorium, you're \"being a respectful friend.\" Do it at home and you're \"destroying evidence.\"",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": true
+            },
+            "safe": false,
+            "id": 274
+        },
+        {
+            "category": "Dark",
+            "type": "single",
+            "joke": "My girlfriend's dog died, so I tried to cheer her up by getting her an identical one. It just made her more upset. She screamed at me, \"What am I supposed to do with two dead dogs?\"",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": false,
+            "id": 275
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Did you hear about the claustrophobic astronaut?",
+            "delivery": "He just needed a little space.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 276
+        },
+        {
+            "category": "Misc",
+            "type": "twopart",
+            "setup": "\"99.9% of the people are dumb!\"",
+            "delivery": "\"Fortunately I belong to the remaining 1%\"",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 277
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "No matter how kind you are...",
+            "delivery": "German kids are always Kinder.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 278
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Which is faster, Hot or cold?",
+            "delivery": "Hot, because you can catch a cold",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 279
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "To prove he was right, the flat-earther walked to the end of the Earth.",
+            "delivery": "He eventually came around.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 280
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "I just saw my wife trip over and drop a basket full of ironed clothes.",
+            "delivery": "I watched it all unfold.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 281
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "I was feeling depressed, my wife put her hand on my back and said \"Earth.\"",
+            "delivery": "It meant the world to me.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 282
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "My employer came running to me and said, \"I was looking for you all day! Where the hell have you been?\"",
+            "delivery": "I replied, \"Good employees are hard to find.\"",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 283
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "The other day my wife asked me to pass her lipstick, but I accidentally gave her a glue stick.",
+            "delivery": "She still isn't talking to me.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 284
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Which part of the hospital has the least privacy?",
+            "delivery": "The ICU.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 285
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "A Roman walks into a bar and raises 2 fingers and says to the bartender...",
+            "delivery": "\"Five beers, please.\"",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 286
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "I stayed up all night wondering where the sun went.",
+            "delivery": "Then it dawned on me.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 287
+        },
+        {
+            "category": "Misc",
+            "type": "single",
+            "joke": "A perfectionist walked into a bar... apparently, the bar was not set high enough.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 288
+        },
+        {
+            "category": "Misc",
+            "type": "single",
+            "joke": "In Soviet Russia, gay sex gets you arrested. In America, getting arrested gets you gay sex.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": true
+            },
+            "safe": false,
+            "id": 289
         }
     ]
 }
