@@ -88,6 +88,11 @@ function writeMD(
                 /issue #(\d{1,})/g,
                 "[issue #$1](https://github.com/Sv443/JokeAPI/issues/$1)"
             )
+            // convert pull request references to links
+            .replace(
+                /PR #(\d{1,})/g,
+                "[pull request #$1](https://github.com/Sv443/JokeAPI/pull/$1)"
+            )
     );
 
     console.log(`\x1b[32m\x1b[1mGenerated changelog at ./${options.OUTPUT_FILE}\n\x1b[0m`);

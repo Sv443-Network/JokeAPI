@@ -9,7 +9,7 @@
 
 
 <br><br><br>
-## [CURRENT: 2.3.1] - The Safe Mode Hotfix, because bugs exist for some reason (PR #214)
+## [CURRENT: 2.3.1] - The Safe Mode Hotfix, because bugs exist for some reason ([pull request #214](https://github.com/Sv443/JokeAPI/pull/214))
 - Added flag and category descriptions to their endpoints ([issue #201](https://github.com/Sv443/JokeAPI/issues/201))
 - Added parseable object of faulty parameters when doing a submission dry run ([issue #209](https://github.com/Sv443/JokeAPI/issues/209))
 - Fixed bug "API Error 500 - Cannot read property 'msBeforeNext' of null" ([issue #212](https://github.com/Sv443/JokeAPI/issues/212))
@@ -64,7 +64,7 @@
 
 <br><br><br>
 ## [2.2.1] - Version 2.2 Hotfix
-- Added the Czech translation (PR #137) - provided by @ThatCopy (https://github.com/ThatCopy) - thanks :)
+- Added the Czech translation ([pull request #137](https://github.com/Sv443/JokeAPI/pull/137)) - provided by @ThatCopy (https://github.com/ThatCopy) - thanks :)
 - Added a missing conversion mapping when using format `txt` and the `amount` parameter on endpoint `/joke` ([issue #138](https://github.com/Sv443/JokeAPI/issues/138))
 - Fixed wrong URLs in the documentation's JavaScript
 - Fixed crash when a client asks for a translation that doesn't exist
