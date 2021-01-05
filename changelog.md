@@ -1,4 +1,4 @@
-# JokeAPI Changelog (Version 2.3.0)
+# JokeAPI Changelog (Version 2.3.1)
 
 <br><br><br>
 ## [Planned for future releases]
@@ -9,7 +9,16 @@
 
 
 <br><br><br>
-## [CURRENT: 2.3.0] - The Safe Mode Update
+## [CURRENT: 2.3.1] - The Safe Mode Hotfix, because bugs exist for some reason (PR #214)
+- Added flag and category descriptions to their endpoints ([issue #201](https://github.com/Sv443/JokeAPI/issues/201))
+- Added parseable object of faulty parameters when doing a submission dry run ([issue #209](https://github.com/Sv443/JokeAPI/issues/209))
+- Fixed bug "API Error 500 - Cannot read property 'msBeforeNext' of null" ([issue #212](https://github.com/Sv443/JokeAPI/issues/212))
+- Fixed bug where API responded with Error 106 when using format=txt on endpoint /joke ([issue #218](https://github.com/Sv443/JokeAPI/issues/218))
+- Re-flagged joke 79 ([issue #220](https://github.com/Sv443/JokeAPI/issues/220))
+
+
+<br><br><br>
+## [2.3.0] - The Safe Mode Update
 - JokeAPI now has its own domain - https://jokeapi.dev/
     - Version 2 of the API should be called @ https://v2.jokeapi.dev/ but can also be called with the old domain and https://jokeapi.dev/
     - The stage version is @ https://stage.jokeapi.dev/
