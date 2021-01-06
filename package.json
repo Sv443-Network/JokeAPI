@@ -94,7 +94,7 @@
     "dependency-cruiser": "^9.16.0",
     "eslint": "^7.17.0",
     "lodash": "^4.17.20",
-    "madge": "^3.12.0",
+    "madge": "^4.0.0",
     "nyc": "^15.1.0",
     "require-uncached": "^2.0.0",
     "snyk": "^1.434.3",
