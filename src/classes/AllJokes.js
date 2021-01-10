@@ -54,8 +54,9 @@ class AllJokes
 
         //#SECTION check validity, get joke count and get format versions
         Object.keys(jokeArray).forEach(key => {
-            if(languages.isValidLang(key) !== true)
-                throw new Error(`Invalid language code in construction of an AllJokes object. Expected valid two character language code - got "${key}"`);
+            let lValid = languages.isValidLang(key);
+            if(lValid !== true)
+                throw new Error(`Invalid language code in construction of an AllJokes object. Expected valid two character language code - got "${key}": ${lValid}`);
             
             let currentLangSafeJokesCount = 0;
 
