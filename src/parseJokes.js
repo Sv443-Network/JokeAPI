@@ -186,6 +186,8 @@ const init = () => {
             module.exports.allJokes = allJokesObj;
             module.exports.jokeCount = allJokesObj.getJokeCount();
             module.exports.jokeCountPerLang = allJokesObj.getJokeCountPerLang();
+            module.exports.safeJokes = allJokesObj.getSafeJokes();
+
             let fmtVer = allJokesObj.getFormatVersion("en");
             module.exports.jokeFormatVersion = fmtVer;
             this.jokeFormatVersion = fmtVer;

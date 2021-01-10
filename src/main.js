@@ -111,7 +111,7 @@ const initAll = () => {
  * @param {Error} err 
  */
 const initError = (action, err) => {
-    console.log(`\n\n\n${col.red}JokeAPI encountered an error while ${action}:\n${err}\n\n${jsl.colors.rst}`);
+    console.log(`\n\n\n${col.red}JokeAPI encountered an error while ${action}:\n${err.stack}\n\n${jsl.colors.rst}`);
     process.exit(1);
 }
 

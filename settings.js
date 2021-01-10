@@ -67,7 +67,7 @@ const settings = {
         },
         jokesTemplateFile: "template.json",  // relative to "jokes.jokesFolderPath"
         possible: {
-            anyCategoryName: "Any", // the name of the "Any" category - readable name
+            anyCategoryName: "Any", // the name of the "Any" category - case insensitive / readable name
             categories: [           // all categories (excluding "Any") - case insensitive / readable name
                 "Misc",
                 "Programming",
@@ -76,7 +76,7 @@ const settings = {
                 "Spooky",
                 "Christmas"
             ],
-            categoryAliases: { // aliases of categories. Key gets auto-converted to value. Value has to be present in the "categories" array above!
+            categoryAliases: { // aliases of categories. Alias at key gets resolved to category at value. Value has to be present in the "categories" array above - case insensitive / readable names
                 "Miscellaneous": "Misc",
                 "Coding": "Programming",
                 "Development": "Programming",

@@ -242,10 +242,10 @@
             "cs": "Výchozí jazyk:  %1 [%2]\nJazyk pro vtipy (%3): %4\nSystémové jazyky (%5): %6\n\nMožné jazykové hodnoty:\n%7"
         },
         "infoEndpoint": {
-            "en": "%1 v%2 - Info:\n\nJoke Count: %3\nCategories: \"%4\"\nFlags: \"%5\"\nResponse Formats: \"%6\"\nJoke Types: \"%7\"\nSubmission URL: %8\n\nID Ranges:\n%9\n\nJoke Languages (%10): %11\nSystem Languages (%12): %13\n\nMessage of the Day: %14",
-            "de": "%1 v%2 - Info:\n\nWitz-Anzahl: %3\nKategorien: \"%4\"\nMerkmale: \"%5\"\nAntwort-Dateiformate: \"%6\"\nWitz-Typen: \"%7\"\nEinreichungs-URL: %8\n\nID-Begrenzung:\n%9\n\nWitz-Sprachen (%10): %11\nSystemsprachen (%12): %13\n\nNachricht des Tages: %14",
-            "ru": "%1 v%2 - Информация:\n\nКоличество шуток: %3\nКатегории: \"%4\"\nФлаги: \"%5\"\nФорматы ответов: \"%6\"\nТипы шуток: \"%7\"\nАдрес отправки: %8\n\nID Диапазоны: \n%9\n\nЯзыки шуток (%10): %11\nСистемные языки (%12): %13\n\nПослание дня: %14",
-            "cs": "%1 v%2 - Informace:\n\nPočet vtipů: %3\nKategorie: \"%4\"\nVlajky: \"%5\"\nFormáty odpovědi: \"%6\"\nDruhy vtipů: \"%7\"\nURL pro odeslání vtipu: \"%8\"\n\nRozsahy ID: \n%9\n\nJazyky pro vtipy (%10): %11\nSystémové jazyky (%12): %13\n\nZpráva dne: %14"
+            "en": "%1 v%2 - Info:\n\nJoke count: %3\nCategories: \"%4\"\nFlags: \"%5\"\nResponse Formats: \"%6\"\nJoke Types: \"%7\"\nSubmission URL: %8\n\nID Ranges:\n%9\n\nJoke Languages (%10): %11\nSystem Languages (%12): %13\n\nAmount of safe jokes:\n%14\n\nMessage of the Day: %15",
+            "de": "%1 v%2 - Info:\n\nAnzahl der Witze: %3\nKategorien: \"%4\"\nMerkmale (Flags): \"%5\"\nAntwort-Dateiformate: \"%6\"\nWitz-Typen: \"%7\"\nEinreichungs-URL: %8\n\nID-Begrenzungen:\n%9\n\nWitz-Sprachen (%10): %11\nSystemsprachen (%12): %13\n\nAnzahl der sicheren Witze:\n%14\n\nNachricht des Tages: %15",
+            "ru": "%1 v%2 - Информация:\n\nКоличество шуток: %3\nКатегории: \"%4\"\nФлаги: \"%5\"\nФорматы ответов: \"%6\"\nТипы шуток: \"%7\"\nАдрес отправки: %8\n\nID Диапазоны:\n%9\n\nЯзыки шуток (%10): %11\nСистемные языки (%12): %13\n\nКоличество безопасных шуток:\n%14\n\nПослание дня: %15",
+            "cs": "%1 v%2 - Informace:\n\nPočet vtipů: %3\nKategorie: \"%4\"\nVlajky: \"%5\"\nFormáty odpovědi: \"%6\"\nDruhy vtipů: \"%7\"\nURL pro odeslání vtipu: \"%8\"\n\nRozsahy ID:\n%9\n\nJazyky pro vtipy (%10): %11\nSystémové jazyky (%12): %13\n\nMnožství bezpečných vtipů:\n%14\n\nZpráva dne: %15"
         },
         "availableFormats": {
             "en": "Available formats are: %1",

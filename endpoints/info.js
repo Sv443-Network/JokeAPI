@@ -13,7 +13,7 @@ jsl.unused(http);
 
 const meta = {
     "name": "Info",
-    "desc": `Returns some information on ${settings.info.name}`,
+    "desc": `Returns a lot of information about ${settings.info.name} and its jokes`,
     "usage": {
         "method": "GET",
         "url": `${settings.info.docsURL}/info`,
@@ -68,7 +68,8 @@ const call = (req, res, url, params, format) => {
                 "flags": settings.jokes.possible.flags,
                 "types": settings.jokes.possible.types,
                 "submissionURL": settings.jokes.jokeSubmissionURL,
-                "idRange": idRangePerLang
+                "idRange": idRangePerLang,
+                "safeJokes": parseJokes.safeJokes
             },
             "formats": settings.jokes.possible.formats,
             "jokeLanguages": supportedLangsLength,
@@ -89,7 +90,8 @@ const call = (req, res, url, params, format) => {
                 "flags": {"flag": settings.jokes.possible.flags},
                 "types": {"type": settings.jokes.possible.types},
                 "submissionURL": settings.jokes.jokeSubmissionURL,
-                "idRanges": { "idRange": idRangePerLangXml }
+                "idRanges": { "idRange": idRangePerLangXml },
+                "safeJokes": { "language": parseJokes.safeJokes }
             },
             "formats": {"format": settings.jokes.possible.formats},
             "jokeLanguages": supportedLangsLength,
