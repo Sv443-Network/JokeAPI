@@ -35,7 +35,28 @@
 
 <br>
 
-# Projects (I'm aware of) that use JokeAPI:
+# Projects that use JokeAPI:
+| Project | Author |
+| --- | --- |
+| [dozens Advices](https://github.com/ZephyrVentum/dozens-Advices) | [ZephyrVentum](https://github.com/ZephyrVentum) |
+| [Shadow-bot](https://github.com/QGIsK/Shadow-bot) | [QGIsK](https://github.com/QGIsK) |
+| [Jokepy](https://github.com/aksty/Jokepy) | [aksty](https://github.com/aksty) |
+| [Dark1](https://github.com/whiteadi/Dark1) | [whiteadi](https://github.com/whiteadi) |
+| [Prejudice Networks](https://github.com/LiamTownsley/Prejudice-Networks) | [Liam Townsley](https://github.com/LiamTownsley) |
+| [https://irshad.ml/humour.html](https://irshad.ml/humour.html) | [draco-malfoy](https://github.com/draco-malfoy) |
+| [Random Joke Generator with Flutter](https://github.com/variousnabil/Random-Joke-Generator-with-Flutter) | [variousnabil](https://github.com/variousnabil) |
+| [comma](https://thatcopy.pw/comma) | [ThatCopy](https://github.com/ThatCopy) |
+| [Joke Teller](https://github.com/AlHood77/Joke_Teller) | [AlHood77](https://github.com/AlHood77) |
+| [Jokes plugin for Craft CMS 3.x](https://github.com/remcoov/jokes) | [remcoov](https://github.com/remcoov) |
+| [PoshBot.Joker](https://github.com/ToastIT-dev/PoshBot.Joker) | [ToastIT-dev](https://github.com/ToastIT-dev) |
+| [JokeAPI_ComputerCraft](https://github.com/Sv443/JokeAPI_ComputerCraft) | [Sv443](https://github.com/Sv443) |
+
+<br>
+
+[Submit an issue](https://github.com/Sv443/JokeAPI/issues/new/choose) and select `Dependent` to get your project added here
+
+<!--
+Old list-style dependents:
 - [dozens Advices](https://github.com/ZephyrVentum/dozens-Advices) by [ZephyrVentum](https://github.com/ZephyrVentum)
 - [Shadow-bot](https://github.com/QGIsK/Shadow-bot) by [QGIsK](https://github.com/QGIsK)
 - [Jokepy](https://github.com/aksty/Jokepy) by [aksty](https://github.com/aksty)
@@ -47,15 +68,14 @@
 - [Joke Teller](https://github.com/AlHood77/Joke_Teller) by [AlHood77](https://github.com/AlHood77)
 - [Jokes plugin for Craft CMS 3.x](https://github.com/remcoov/jokes) by [remcoov](https://github.com/remcoov)
 - [PoshBot.Joker](https://github.com/ToastIT-dev/PoshBot.Joker) by [ToastIT-dev](https://github.com/ToastIT-dev)
-
-  
-[Submit an issue](https://github.com/Sv443/JokeAPI/issues/new/choose) and select `New Dependent` to get your project added here
+- [JokeAPI_ComputerCraft](https://github.com/Sv443/JokeAPI_ComputerCraft) by [Sv443](https://github.com/Sv443)
+-->
 
 
 <br><br>
 <div align="center" style="text-align:center">
 
 Made with ❤️ by [Sv443](https://github.com/Sv443)  
-If you want to, you can support me on [Patreon](https://patreon.com/Sv443_), [Ko-fi](https://ko-fi.com/Sv443_) or [PayPal](https://paypal.me/SvenFehler)
+Like JokeAPI? Please consider [supporting me](https://github.com/sponsors/Sv443)
 
 </div>
