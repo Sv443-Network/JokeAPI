@@ -274,6 +274,7 @@ const inject = filePath => {
                     "<!--%#INSERT:JOKEENCODEAMOUNT#%-->":      settings.jokes.encodeAmount.toString(),
                     "<!--%#INSERT:SUBMISSIONRATELIMIT#%-->":   settings.jokes.submissions.rateLimiting.toString(),
                     "<!--%#INSERT:CATEGORYALIASES#%-->":       JSON.stringify(settings.jokes.possible.categoryAliases),
+                    "<!--%#INSERT:LASTMODIFIEDISO#%-->":       new Date().toISOString().trim(),
                 };
 
                 let allMatches = 0;

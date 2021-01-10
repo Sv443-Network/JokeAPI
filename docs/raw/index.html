@@ -17,6 +17,7 @@
         <meta name="pagename" content="<!--%#INSERT:NAME#%-->">
 
         <meta charset="UTF-8">
+        <meta name="date" content="<!--%#INSERT:LASTMODIFIEDISO#%-->">
         <meta name="pagename" content="<!--%#INSERT:NAME#%-->">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="HandheldFriendly" content="true">
@@ -42,14 +43,14 @@
         <script src="https://sv443.net/cdn/jokeapi/isIE.js"></script>
 
         <!-- #MARKER dependencies -->
-        <!-- Have to do it like this because the page doesn't always have a trailing slash and that *somehow* makes it redirect to the page root: -->
-        <!-- <link rel="stylesheet" href="<!--%#INSERT:DOCSURL#%--><!--/static/index.css"-->
+        <!-- Have to do it with an absolute path because the page doesn't always have a trailing slash and that *somehow* makes it redirect to the page root: -->
+        <!-- <link rel="stylesheet" href="<!--%#INSERT:DOCSURL#%-->/static/index.css">-->
         <link rel="stylesheet" href="static/index.css">
 
         <script src="https://cdn.jsdelivr.net/gh/Sv443/jslib@1.5.0/jslib.js"></script>
 
-        <!-- Have to do it like this because the page doesn't always have a trailing slash and that *somehow* makes it redirect to the page root: -->
-        <!-- <script src="<!--%#INSERT:DOCSURL#%--><!--/static/index.js"></script-->
+        <!-- Have to do it with an absolute path because the page doesn't always have a trailing slash and that *somehow* makes it redirect to the page root: -->
+        <!-- <script src="<!--%#INSERT:DOCSURL#%-->/static/index.js"></script>-->
         <script src="static/index.js"></script>
 
         <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?skin=sunburst"></script> <!-- Google Code-Prettify -->
@@ -65,7 +66,7 @@
                     </span>
                 </span>
                 <span class="headeritem m">
-                    <a id="docTitle" href="<!--%#INSERT:DOCSURL#%-->" class="noselect" title="Click to reload"><!--%#INSERT:NAME#%--> Documentation</a>
+                    <a id="docTitle" href="<!--%#INSERT:DOCSURL#%-->" class="noselect" title="Click to reload" property=""><!--%#INSERT:NAME#%--> Documentation</a>
                 </span>
                 <span class="headeritem r">
                     <span id="headerversion">
