@@ -294,6 +294,116 @@
             "en": "Dry Run complete! No errors were found.",
             "de": "Probelauf abgeschlossen! Keine Fehler gefunden.",
             "ru": "Тестовый запуск завершен! Ошибок не найдено."
+        },
+        "parseJokesInvalidLanguageCode": {
+            "en": "Invalid language code provided.",
+            "de": "Der angegebene Sprachcode ist ungültig.",
+            "ru": "Предоставлен недействительный код языка."
+        },
+        "parseJokesFormatVersionMismatch": {
+            "en": "Joke format version \"%1\" doesn't match up with required version \"%2\"",
+            "de": "Witz-Format-Version \"%1\" stimmt nicht mit der erforderten Version \"%2\" überein.",
+            "ru": "Версия шуточного формата \"%1\" не соответствует требуемой версии \"%2\""
+        },
+        "parseJokesNoFormatVersionOrInvalid": {
+            "en": "Joke doesn't have a \"formatVersion\" property or it is empty or invalid.",
+            "de": "Witz hat keine Eigenschaft \"formatVersion\" oder sie ist leer oder ungültig.",
+            "ru": "У шутки нет свойства \"formatVersion\" или она пуста или недействительна."
+        },
+        "parseJokesSingleNoJokeProperty": {
+            "en": "Joke is of type \"single\" but doesn't have a \"joke\" property or it is empty.",
+            "de": "Witz ist vom Typ \"single\", hat aber keine Eigenschaft \"joke\" oder sie ist leer.",
+            "ru": "Шутка имеет тип \"single\", но не имеет свойства \"joke\" или она пуста."
+        },
+        "parseJokesTwopartNoSetupProperty": {
+            "en": "Joke is of type \"twopart\" but doesn't have a \"setup\" property or it is empty.",
+            "de": "Witz ist vom Typ \"twopart\", hat aber keine Eigenschaft \"setup\" oder sie ist leer.",
+            "ru": "Шутка имеет тип \"twopart\", но не имеет свойства \"setup\" или она пуста."
+        },
+        "parseJokesTwopartNoDeliveryProperty": {
+            "en": "Joke is of type \"twopart\" but doesn't have a \"delivery\" property or it is empty.",
+            "de": "Witz ist vom Typ \"twopart\", hat aber keine Eigenschaft \"Lieferung\" oder sie ist leer.",
+            "ru": "Шутка имеет тип \"twopart\", но не имеет свойства \"delivery\" или она пуста."
+        },
+        "parseJokesNoTypeProperty": {
+            "en": "Joke doesn't have a \"type\" property or it is invalid - it has to be either \"single\" or \"twopart\".",
+            "de": "Witz hat keine Eigenschaft \"type\" oder sie ist ungültig - es muss entweder \"single\" oder \"twopart\" sein.",
+            "ru": "У шутки нет свойства \"type\" или она недействительна - она должна быть либо \"single\", либо \"twopart\"."
+        },
+        "parseJokesNoCategoryProperty": {
+            "en": "Joke doesn't have a \"category\" property or it is empty.",
+            "de": "Witz hat keine Eigenschaft \"category\" oder sie ist leer.",
+            "ru": "У шутки нет свойства \"category\" или она пуста."
+        },
+        "parseJokesInvalidCategory": {
+            "en": "Joke category is invalid.",
+            "de": "Die Witz-Kategorie ist ungültig.",
+            "ru": "Категория шуток недействительна."
+        },
+        "parseJokesNoFlagNsfw": {
+            "en": "Joke doesn't have the \"nsfw\" flag or it is invalid.",
+            "de": "Witz hat nicht das Merkmal \"nsfw\" oder es ist ungültig.",
+            "ru": "В шутке нет флага \"nsfw\" или она недействительна."
+        },
+        "parseJokesNoFlagRacist": {
+            "en": "Joke doesn't have the \"racist\" flag or it is invalid.",
+            "de": "Witz hat nicht das Merkmal \"racist\" oder es ist ungültig.",
+            "ru": "В шутке нет флага \"racist\" или она недействительна."
+        },
+        "parseJokesNoFlagSexist": {
+            "en": "Joke doesn't have the \"sexist\" flag or it is invalid.",
+            "de": "Witz hat nicht das Merkmal \"sexist\" oder es ist ungültig.",
+            "ru": "В шутке нет флага \"sexist\" или она недействительна."
+        },
+        "parseJokesNoFlagPolitical": {
+            "en": "Joke doesn't have the \"political\" flag or it is invalid.",
+            "de": "Witz hat nicht das Merkmal \"political\" oder es ist ungültig.",
+            "ru": "В шутке нет флага \"political\" или она недействительна."
+        },
+        "parseJokesNoFlagReligious": {
+            "en": "Joke doesn't have the \"religious\" flag or it is invalid.",
+            "de": "Witz hat nicht das Merkmal \"religious\" oder es ist ungültig.",
+            "ru": "В шутке нет флага \"religious\" или она недействительна."
+        },
+        "parseJokesNoFlagExplicit": {
+            "en": "Joke doesn't have the \"explicit\" flag or it is invalid.",
+            "de": "Witz hat nicht das Merkmal \"explicit\" oder es ist ungültig.",
+            "ru": "В шутке нет флага \"explicit\" или она недействительна."
+        },
+        "parseJokesNoFlagsObject": {
+            "en": "Joke doesn't have a \"flags\" object or it is invalid.",
+            "de": "Witz hat kein Objekt \"flags\" oder es ist ungültig.",
+            "ru": "В шутке нет объекта \"flags\" или она недействительна."
+        },
+        "parseJokesNoLangProperty": {
+            "en": "Joke doesn't have a \"lang\" property or it is empty or of the wrong type.",
+            "de": "Joke doesn't have a \"lang\" property or it is empty or of the wrong type.",
+            "ru": "Joke doesn't have a \"lang\" property or it is empty or of the wrong type."
+        },
+        "parseJokesLangPropertyInvalid": {
+            "en": "Property \"lang\" is invalid: %1",
+            "de": "Eigenschaft \"lang\" ist ungültig: %1",
+            "ru": "Собственность \"lang\" недействительна: %1"
+        },
+        "parseJokesCantParseJson": {
+            "en": "Joke couldn't be parsed as JSON.",
+            "de": "Joke konnte nicht als JSON geparst werden.",
+            "ru": "Шутка не может быть разбита на JSON."
+        },
+        "langModuleInitError": {
+            "en": "Internal error: language module was not correctly initialized.",
+            "de": "Interner Fehler: Sprach-Modul wurde nicht korrekt initialisiert.",
+            "ru": "Внутренняя ошибка: языковой модуль был неправильно инициализирован."
+        },
+        "langCodeInvalidValue": {
+            "en": "Language code is not a string or not two characters in length.",
+            "de": "Der Sprachcode ist kein String oder nicht zwei Zeichen lang.",
+            "ru": "Языковой код не является строкой или не состоит из двух символов."
+        },
+        "langCodeDoesntExist": {
+            "en": "Language code doesn't exist.",
+            "de": "Der Sprachcode existiert nicht.",
+            "ru": "Языкового кода не существует."
         }
     }
 }

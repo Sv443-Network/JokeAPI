@@ -403,7 +403,7 @@ class FilteredJoke
                     
                     //#SECTION language
                     let langCode = this.getLanguage();
-                    if(!languages.isValidLang(langCode))
+                    if(languages.isValidLang(langCode) !== true)
                         return; // invalid lang code, joke is invalid
                     if(joke.lang.toLowerCase() != langCode.toLowerCase())
                         return; // lang code doesn't match so joke is invalid

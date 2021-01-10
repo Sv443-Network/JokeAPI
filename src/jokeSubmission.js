@@ -50,7 +50,7 @@ const jokeSubmission = (res, data, fileFormat, ip, analyticsObject, dryRun) => {
         if(submittedJoke.formatVersion == parseJokes.jokeFormatVersion && submittedJoke.formatVersion == settings.jokes.jokesFormatVersion)
         {
             // format version is correct, validate joke now
-            let validationResult = parseJokes.validateSingle(submittedJoke);
+            let validationResult = parseJokes.validateSingle(submittedJoke, langCode);
 
             if(Array.isArray(validationResult))
                 return httpServer.respondWithError(res, 105, 400, fileFormat, tr(langCode, "submittedJokeFormatInvalid", validationResult.join("\n")), langCode);

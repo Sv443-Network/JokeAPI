@@ -12,11 +12,12 @@
 
 
 [CURRENT: 2.3.1] - The Safe Mode Hotfix, because bugs exist for some reason (PR #214)
-    - Added flag and category descriptions to their endpoints (issue #201)
-    - Added parseable object of faulty parameters when doing a submission dry run (issue #209)
     - Fixed bug "API Error 500 - Cannot read property 'msBeforeNext' of null" (issue #212)
     - Fixed bug where API responded with Error 106 when using format=txt on endpoint /joke (issue #218)
     - Re-flagged joke 79 (issue #220)
+    - API now automatically adds modification date <meta> tag to the docs (issue #223)
+    - /info endpoint now gives the number of safe jokes per language (issue #224)
+    - Added dependent jonathanbossenger/devdadjokes (issue #225)
 
 
 [2.3.0] - The Safe Mode Update

@@ -54,7 +54,7 @@ class AllJokes
 
         //#SECTION check validity, get joke count and get format versions
         Object.keys(jokeArray).forEach(key => {
-            if(!languages.isValidLang(key))
+            if(languages.isValidLang(key) !== true)
                 throw new Error(`Error: invalid language code in construction of an AllJokes object. Expected valid two character language code - got "${key}"`);
             
             let currentLangSafeJokesCount = 0;
@@ -109,7 +109,7 @@ class AllJokes
      */
     getJokeArray(langCode)
     {
-        if(!languages.isValidLang(langCode))
+        if(languages.isValidLang(langCode) !== true)
             langCode = settings.languages.defaultLanguage;
 
         return (typeof this.jokes[langCode] == "object" ? this.jokes[langCode].jokes : []);
@@ -122,7 +122,7 @@ class AllJokes
      */
     getFormatVersion(langCode)
     {
-        if(!languages.isValidLang(langCode))
+        if(languages.isValidLang(langCode) !== true)
             langCode = settings.languages.defaultLanguage;
         
         if(typeof this.jokes[langCode] != "object")
