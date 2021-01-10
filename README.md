@@ -50,6 +50,7 @@
 | [Jokes plugin for Craft CMS 3.x](https://github.com/remcoov/jokes) | [remcoov](https://github.com/remcoov) |
 | [PoshBot.Joker](https://github.com/ToastIT-dev/PoshBot.Joker) | [ToastIT-dev](https://github.com/ToastIT-dev) |
 | [JokeAPI_ComputerCraft](https://github.com/Sv443/JokeAPI_ComputerCraft) | [Sv443](https://github.com/Sv443) |
+| [Dev Dad Jokes](https://github.com/jonathanbossenger/devdadjokes) | [Jonathan Bossenger](https://github.com/jonathanbossenger) |
 
 <br>
 
