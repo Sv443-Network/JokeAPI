@@ -265,31 +265,32 @@ function validateSingle(joke, lang)
     joke = JSON.parse(joke);
 
 
-    let jokeObj = {
-        "formatVersion": true,
-        "category": true,
-        "type": true,
-    };
+    // TODO: version 2.3.2:
+    // let jokeObj = {
+    //     "formatVersion": true,
+    //     "category": true,
+    //     "type": true,
+    // };
 
-    if(joke.type == "single")
-        jokeObj.joke = true;
-    else if(joke.type == "twopart")
-    {
-        jokeObj.setup = true;
-        jokeObj.delivery = true;
-    }
+    // if(joke.type == "single")
+    //     jokeObj.joke = true;
+    // else if(joke.type == "twopart")
+    // {
+    //     jokeObj.setup = true;
+    //     jokeObj.delivery = true;
+    // }
 
-    jokeObj = {
-        ...jokeObj,
-        flags: {
-            nsfw: true,
-            religious: true,
-            political: true,
-            racist: true,
-            sexist: true
-        },
-        lang: true
-    }
+    // jokeObj = {
+    //     ...jokeObj,
+    //     flags: {
+    //         nsfw: true,
+    //         religious: true,
+    //         political: true,
+    //         racist: true,
+    //         sexist: true
+    //     },
+    //     lang: true
+    // }
 
 
     try

@@ -38,7 +38,8 @@ function init()
  */
 function isValidLang(langCode, trLang)
 {
-    if(!trLang || (trLang && isValidLang(trLang) !== true))
+    // if trLang not provided or it was provided but is invalid, reset to default lang
+    if(trLang == undefined || (trLang != undefined && isValidLang(trLang) !== true))
         trLang = settings.languages.defaultLanguage;
 
     if(langs == undefined)
