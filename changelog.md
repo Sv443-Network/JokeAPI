@@ -16,6 +16,7 @@
 - API now automatically adds modification date <meta> tag to the docs ([issue #223](https://github.com/Sv443/JokeAPI/issues/223))
 - /info endpoint now gives the number of safe jokes per language ([issue #224](https://github.com/Sv443/JokeAPI/issues/224))
 - Added dependent jonathanbossenger/devdadjokes ([issue #225](https://github.com/Sv443/JokeAPI/issues/225))
+- Added translations to joke submission parser
 
 
 <br><br><br>

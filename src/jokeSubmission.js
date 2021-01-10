@@ -106,8 +106,6 @@ const jokeSubmission = (res, data, fileFormat, ip, analyticsObject, dryRun) => {
         {
             return httpServer.respondWithError(res, 105, 400, fileFormat, tr(langCode, "wrongFormatVersion", parseJokes.jokeFormatVersion, submittedJoke.formatVersion), langCode);
         }
-
-        return httpServer.respondWithError(res, 105, 500, fileFormat, "UNEXPECTED_ROUTE", settings.languages.defaultLanguage); // TODO: translate
     }
     catch(err)
     {

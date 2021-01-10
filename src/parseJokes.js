@@ -22,7 +22,7 @@ var categoryAliases = [];
 
 /**
  * Parses all jokes  
- * TODO: categories seem to not get validated here
+ * TODO: version 2.3.2: categories seem to not get validated here
  * @returns {Promise<Boolean>}
  */
 const init = () => {

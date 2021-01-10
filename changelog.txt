@@ -18,6 +18,7 @@
     - API now automatically adds modification date <meta> tag to the docs (issue #223)
     - /info endpoint now gives the number of safe jokes per language (issue #224)
     - Added dependent jonathanbossenger/devdadjokes (issue #225)
+    - Added translations to joke submission parser
 
 
 [2.3.0] - The Safe Mode Update

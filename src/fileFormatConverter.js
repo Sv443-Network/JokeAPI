@@ -14,7 +14,7 @@ const settings = require("../settings");
  * Converts a JSON object to a string representation of a XML, YAML, plain text or JSON (as fallback) object - based on a passed format string
  * @param {("xml"|"yaml"|"json"|"txt")} format Can be "xml", "yaml" or "txt", everything else will default to JSON
  * @param {Object} jsonInput
- * @param {String} [lang] Needed for converting to "txt" - TODO: implement everywhere
+ * @param {String} [lang] Needed for converting to "txt"
  * @returns {String} String representation of the converted object
  */
 const auto = (format, jsonInput, lang) => {
