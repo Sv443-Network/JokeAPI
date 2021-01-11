@@ -21,11 +21,11 @@ var categoryAliases = [];
 
 
 /**
- * Parses all jokes  
- * TODO: version 2.3.2: categories seem to not get validated here
+ * Parses all jokes
  * @returns {Promise<Boolean>}
  */
-const init = () => {
+function init()
+{
     return new Promise((resolve, reject) => {
         // prepare category aliases
         Object.keys(settings.jokes.possible.categoryAliases).forEach(alias => {

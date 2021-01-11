@@ -60,7 +60,7 @@ const initAll = () => {
             fn: docs.init
         },
         {
-            name: "Initializing Authorization module",
+            name: "Initializing authorization module",
             fn: auth.init
         },
         {
@@ -111,7 +111,8 @@ const initAll = () => {
  * @param {Error} err 
  */
 const initError = (action, err) => {
-    console.log(`\n\n\n${col.red}JokeAPI encountered an error while ${action}:\n${err.stack}\n\n${jsl.colors.rst}`);
+    let errMsg = err.stack || err || "(No error message provided)";
+    console.log(`\n\n\n${col.red}JokeAPI encountered an error while ${action}:\n${errMsg}\n\n${jsl.colors.rst}`);
     process.exit(1);
 }
 
