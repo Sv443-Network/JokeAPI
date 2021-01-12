@@ -394,8 +394,8 @@
         },
         "parseJokesNoLangProperty": {
             "en": "Joke doesn't have a \"lang\" property or it is empty or of the wrong type.",
-            "de": "Joke doesn't have a \"lang\" property or it is empty or of the wrong type.",
-            "ru": "Joke doesn't have a \"lang\" property or it is empty or of the wrong type.",
+            "de": "Witz hat keine Eigenschaft \"lang\" oder sie ist leer oder vom falschen Typ.",
+            "ru": "У шутки нет свойства \"lang\", или она пуста, или имеет неправильный тип.",
             "cs": "Vtip nemá vlastnost \"lang\" nebo je prázdná nebo nesprávného typu."
         },
         "parseJokesLangPropertyInvalid": {
