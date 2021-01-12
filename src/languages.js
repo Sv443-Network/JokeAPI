@@ -33,22 +33,27 @@ function init()
 /**
  * Checks whether or not a provided language code is ISO 639-1 or ISO 639-2 compatible
  * @param {String} langCode Two-character language code
+ * @param {String} [trLang] For translating the error messages
  * @returns {Boolean|String} Returns `true` if code exists, string with error message if not
  */
-function isValidLang(langCode)
+function isValidLang(langCode, trLang)
 {
+    // if trLang not provided or it was provided but is invalid, reset to default lang
+    if(trLang != "string" || (typeof trLang == "string" && isValidLang(trLang) !== true))
+        trLang = settings.languages.defaultLanguage;
+
     if(langs == undefined)
-        return "INTERNAL_ERROR: Language module was not correctly initialized (yet)";
+        return tr(trLang, "langModuleInitError");
 
     if(typeof langCode !== "string" || langCode.length !== 2)
-        return "Language code is not a string or not two characters in length";
+        return tr(trLang, "langCodeInvalidValue");
 
     let requested = langs[langCode.toLowerCase()];
 
     if(typeof requested === "string")
         return true;
     else
-        return "Language code doesn't exist";
+        return tr(trLang, "langCodeDoesntExist");
 }
 
 /**

@@ -113,7 +113,7 @@ const epError = (res, format, err, lang) => {
     if(errFromRegistry == undefined)
         throw new Error(`Couldn't find errorMessages module or Node is using an outdated, cached version`);
 
-    if(!lang || !languages.isValidLang(lang))
+    if(!lang || languages.isValidLang(lang) !== true)
         lang = settings.languages.defaultLanguage;
 
     if(format != "xml")

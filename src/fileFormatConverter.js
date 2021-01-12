@@ -14,7 +14,7 @@ const settings = require("../settings");
  * Converts a JSON object to a string representation of a XML, YAML, plain text or JSON (as fallback) object - based on a passed format string
  * @param {("xml"|"yaml"|"json"|"txt")} format Can be "xml", "yaml" or "txt", everything else will default to JSON
  * @param {Object} jsonInput
- * @param {String} [lang] Needed for converting to "txt" - TODO: implement everywhere
+ * @param {String} [lang] Needed for converting to "txt"
  * @returns {String} String representation of the converted object
  */
 const auto = (format, jsonInput, lang) => {
@@ -140,10 +140,15 @@ const toTXT = (jsonInput, lang) => {
                     idRanges.push(`${languages.codeToLanguage(lc)} [${lc}]: ${lcIr[0]}-${lcIr[1]}`);
                 });
 
+                let safeJokesAmounts = [];
+                jsonInput.jokes.safeJokes.forEach(safeJokesObj => {
+                    safeJokesAmounts.push(`${languages.codeToLanguage(safeJokesObj.lang)} [${safeJokesObj.lang}]: ${safeJokesObj.count}`);
+                });
+
                 returnText = tr(lang, "infoEndpoint",
                                     settings.info.name, jsonInput.version, jsonInput.jokes.totalCount, jsonInput.jokes.categories.join(`", "`), jsonInput.jokes.flags.join('", "'),
                                     jsonInput.formats.join('", "'), jsonInput.jokes.types.join('", "'), jsonInput.jokes.submissionURL, idRanges.join("\n"), languages.jokeLangs().length,
-                                    suppLangs.sort().join(", "), sysLangs.length, sysLangs.sort().join(", "), jsonInput.info
+                                    suppLangs.sort().join(", "), sysLangs.length, sysLangs.sort().join(", "), safeJokesAmounts.join("\n"), jsonInput.info
                                 );
             }
 

@@ -1233,17 +1233,17 @@
             "safe": true
         },
         {
-            "category": "Pun",
+            "category": "Dark",
             "type": "twopart",
             "setup": "What do Japanese cannibals eat?",
             "delivery": "Raw men.",
             "flags": {
-                "nsfw": false,
+                "nsfw": true,
                 "religious": false,
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": false
+                "explicit": true
             },
             "id": 79,
             "safe": false
@@ -4561,6 +4561,22 @@
             },
             "safe": false,
             "id": 289
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Why does the size of the snack not matter to a giraffe?",
+            "delivery": "Because even a little bit goes a long way.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 290
         }
     ]
 }

@@ -1,7 +1,7 @@
 // this module initializes the blacklist, whitelist and console blacklist
 
-const jsl = require("svjsl");
-const farmhash = require("farmhash");
+const scl = require("svcorelib");
+// const farmhash = require("farmhash");
 const fs = require("fs-extra");
 const settings = require("../settings");
 const debug = require("./verboseLogging");
@@ -13,13 +13,15 @@ const xss = require("xss");
 const semver = require("semver");
 const analytics = require("./analytics");
 const languages = require("./languages");
+const path = require("path");
 
 
 /**
  * Initializes the documentation files
  * @returns {Promise}
  */
-const init = () => {
+function init()
+{
     return new Promise((resolve, reject) => {
         try
         {
@@ -34,47 +36,72 @@ const init = () => {
             return reject(err);
         }
     });
-};
+}
 
 /**
  * Starts a daemon in the docs folder that awaits changes and then recompiles the docs
  */
-const startDaemon = () => {
-    let scanDir = () => {
-        fs.readdir(settings.documentation.rawDirPath, (err, files) => {
-            if(err) return console.log(`${jsl.colors.fg.red}Daemon got error: ${err}${jsl.colors.rst}\n`);
+function startDaemon()
+{
+    // See https://github.com/Sv443/SvCoreLib/issues/6 on why I set the blacklist pattern to [ "**/**/invalid" ]
+    let fd = new scl.FolderDaemon(path.resolve(settings.documentation.rawDirPath), [ "**/path/that_doesnt/exist/*" ], true, settings.documentation.daemonInterval * 1000);
+    fd.onChanged((error, result) => {
+        scl.unused(result);
+        if(!error)
+        {
+            debug("Daemon", "Noticed changed files");
+            logRequest("docsrecompiled");
+            recompileDocs();
+        }
+    });
+    // See also https://github.com/Sv443/SvCoreLib/issues/7 (why does software break smh)
 
-            let checksum = "";
-            files.forEach((file, i) => {
-                checksum += (i != 0 && i < files.length ? "-" : "") + farmhash.hash32(fs.readFileSync(`${settings.documentation.rawDirPath}${file}`)).toString();
-            });
 
-            process.jokeapi.documentation.newChecksum = checksum;
-            if(jsl.isEmpty(process.jokeapi.documentation.oldChecksum))
-                process.jokeapi.documentation.oldChecksum = checksum;
+
+
+
+    // old code in case of an emergency:
+
+    // let oldChecksum = "";
+    // let newChecksum = "";
+
+    // const scanDir = () => {
+    //     fs.readdir(settings.documentation.rawDirPath, (err, files) => {
+    //         if(err)
+    //             return console.log(`${scl.colors.fg.red}Daemon got error: ${err}${scl.colors.rst}\n`);
+
+    //         let checksum = "";
+    //         files.forEach((file, i) => {
+    //             checksum += (i != 0 && i < files.length ? "-" : "") + farmhash.hash32(fs.readFileSync(`${settings.documentation.rawDirPath}${file}`)).toString();
+    //         });
+
+    //         newChecksum = checksum;
+    //         if(scl.isEmpty(oldChecksum))
+    //             oldChecksum = checksum;
             
-            if(process.jokeapi.documentation.oldChecksum != process.jokeapi.documentation.newChecksum)
-            {
-                debug("Daemon", "Noticed changed files");
-                logRequest("docsrecompiled");
-                recompileDocs();
-            }
+    //         if(oldChecksum != newChecksum)
+    //         {
+    //             debug("Daemon", "Noticed changed files");
+    //             logRequest("docsrecompiled");
+    //             recompileDocs();
+    //         }
 
-            process.jokeapi.documentation.oldChecksum = checksum;
-        });
-    };
+    //         oldChecksum = checksum;
+    //     });
+    // };
 
-    if(jsl.isEmpty(process.jokeapi.documentation))
-        process.jokeapi.documentation = {};
-    process.jokeapi.documentation.daemonInterval = setInterval(() => scanDir(), settings.documentation.daemonInterval * 1000);
+    // if(scl.isEmpty(process.jokeapi.documentation))
+    //     process.jokeapi.documentation = {};
+    // process.jokeapi.documentation.daemonInterval = setInterval(() => scanDir(), settings.documentation.daemonInterval * 1000);
 
-    scanDir();
-};
+    // scanDir();
+}
 
 /**
  * Recompiles the documentation page
  */
-const recompileDocs = () => {
+function recompileDocs()
+{
     debug("Docs", "Recompiling docs...");
 
     try
@@ -102,21 +129,21 @@ const recompileDocs = () => {
 
         filesToInject.forEach((fti, i) => {
             promises.push(new Promise((resolve, reject) => {
-                jsl.unused(reject);
+                scl.unused(reject);
                 inject(fti).then((injected, injectionsNum) => {
-                    if(!jsl.isEmpty(injectionsNum) && !isNaN(parseInt(injectionsNum)))
+                    if(!scl.isEmpty(injectionsNum) && !isNaN(parseInt(injectionsNum)))
                         process.injectionCounter += parseInt(injectionsNum);
 
                     process.brCompErrOnce = false;
 
                     if(settings.httpServer.encodings.gzip)
-                        saveEncoded("gzip", injectedFileNames[i], injected).catch(err => jsl.unused(err));
+                        saveEncoded("gzip", injectedFileNames[i], injected).catch(err => scl.unused(err));
                     if(settings.httpServer.encodings.deflate)
-                        saveEncoded("deflate", injectedFileNames[i], injected).catch(err => jsl.unused(err));
+                        saveEncoded("deflate", injectedFileNames[i], injected).catch(err => scl.unused(err));
                     if(settings.httpServer.encodings.brotli)
                     {
                         saveEncoded("brotli", injectedFileNames[i], injected).catch(err => {
-                            jsl.unused(err);
+                            scl.unused(err);
 
                             if(!process.brCompErrOnce)
                             {
@@ -137,7 +164,7 @@ const recompileDocs = () => {
         });
 
         Promise.all(promises).then(() => {
-            debug("Docs", `Done recompiling docs in ${jsl.colors.fg.yellow}${new Date().getTime() - process.injectionTimestamp}ms${jsl.colors.rst}, injected ${jsl.colors.fg.yellow}${process.injectionCounter}${jsl.colors.rst} values`);
+            debug("Docs", `Done recompiling docs in ${scl.colors.fg.yellow}${new Date().getTime() - process.injectionTimestamp}ms${scl.colors.rst}, injected ${scl.colors.fg.yellow}${process.injectionCounter}${scl.colors.rst} values`);
         }).catch(err => {
             console.log(`Injection error: ${err}`);
         });
@@ -146,7 +173,7 @@ const recompileDocs = () => {
     {
         injectError(err);
     }
-};
+}
 
 /**
  * Asynchronously encodes a string and saves it encoded with the selected encoding
@@ -155,7 +182,8 @@ const recompileDocs = () => {
  * @param {String} content The string to encode
  * @returns {Promise<null|String>} Returns a Promise. Resolve contains no parameters, reject contains error message as a string
  */
-const saveEncoded = (encoding, filePath, content) => {
+function saveEncoded(encoding, filePath, content)
+{
     return new Promise((resolve, reject) => {
         switch(encoding)
         {
@@ -213,8 +241,9 @@ const saveEncoded = (encoding, filePath, content) => {
  * @param {String} err The error message
  * @param {Boolean} [exit=true] Whether or not to exit the process with code 1 - default: true
  */
-const injectError = (err, exit = true) => {
-    console.log(`\n${jsl.colors.fg.red}Error while injecting docs: ${err}${jsl.colors.rst}\n`);
+function injectError(err, exit = true)
+{
+    console.log(`\n${scl.colors.fg.red}Error while injecting values into docs: ${err}${scl.colors.rst}\n`);
     analytics({
         type: "Error",
         data: {
@@ -229,11 +258,12 @@ const injectError = (err, exit = true) => {
 }
 
 /**
- * Injects all constants and external files into the passed file
+ * Injects all constants, external files and values into the passed file
  * @param {String} filePath Path to the file to inject things into
  * @returns {Promise<String, Number>} Returns the finished file content as passed argument in a promise
  */
-const inject = filePath => {
+function inject(filePath)
+{
     return new Promise((resolve, reject) => {
         fs.readFile(filePath, (err, file) => {
             if(err)
@@ -244,44 +274,49 @@ const inject = filePath => {
                 file = file.toString();
 
                 //#SECTION INSERTs
-                let contributors = JSON.stringify(packageJSON.contributors);
-                let jokeCount = parseJokes.jokeCount;
+                const contributors = JSON.stringify(packageJSON.contributors);
+                const jokeCount = parseJokes.jokeCount;
 
-                let injections = {
-                    "<!--%#INSERT:VERSION#%-->":               settings.info.version,
-                    "<!--%#INSERT:NAME#%-->":                  settings.info.name.toString(),
-                    "<!--%#INSERT:DESC#%-->":                  settings.info.desc.toString(),
-                    "<!--%#INSERT:AUTHORWEBSITEURL#%-->":      settings.info.author.website.toString(),
-                    "<!--%#INSERT:AUTHORGITHUBURL#%-->":       settings.info.author.github.toString(),
-                    "<!--%#INSERT:CONTRIBUTORS#%-->":          (!jsl.isEmpty(contributors) ? contributors : "{}"),
-                    "<!--%#INSERT:CONTRIBUTORGUIDEURL#%-->":   settings.info.contribGuideUrl.toString(),
-                    "<!--%#INSERT:PROJGITHUBURL#%-->":         settings.info.projGitHub.toString(),
-                    "<!--%#INSERT:JOKESUBMISSIONURL#%-->":     settings.jokes.jokeSubmissionURL.toString(),
-                    "<!--%#INSERT:CATEGORYARRAY#%-->":         JSON.stringify([settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories]),
-                    "<!--%#INSERT:FLAGSARRAY#%-->":            JSON.stringify(settings.jokes.possible.flags),
-                    "<!--%#INSERT:FILEFORMATARRAY#%-->":       JSON.stringify(settings.jokes.possible.formats.map(itm => itm.toUpperCase())),
-                    "<!--%#INSERT:TOTALJOKES#%-->":            (!jsl.isEmpty(jokeCount) ? jokeCount.toString() : 0),
-                    "<!--%#INSERT:TOTALJOKESZEROINDEXED#%-->": (!jsl.isEmpty(jokeCount) ? (jokeCount - 1).toString() : 0),
-                    "<!--%#INSERT:PRIVACYPOLICYURL#%-->":      settings.info.privacyPolicyUrl.toString(),
-                    "<!--%#INSERT:DOCSURL#%-->":               (!jsl.isEmpty(settings.info.docsURL) ? settings.info.docsURL : "(Error: Documentation URL not defined)"),
-                    "<!--%#INSERT:RATELIMITCOUNT#%-->":        settings.httpServer.rateLimiting.toString(),
-                    "<!--%#INSERT:FORMATVERSION#%-->":         settings.jokes.jokesFormatVersion.toString(),
-                    "<!--%#INSERT:MAXPAYLOADSIZE#%-->":        settings.httpServer.maxPayloadSize.toString(),
-                    "<!--%#INSERT:MAXURLLENGTH#%-->":          settings.httpServer.maxUrlLength.toString(),
-                    "<!--%#INSERT:JOKELANGCOUNT#%-->":         languages.jokeLangs().length.toString(),
-                    "<!--%#INSERT:SYSLANGCOUNT#%-->":          languages.systemLangs().length.toString(),
-                    "<!--%#INSERT:MAXJOKEAMOUNT#%-->":         settings.jokes.maxAmount.toString(),
-                    "<!--%#INSERT:JOKEENCODEAMOUNT#%-->":      settings.jokes.encodeAmount.toString(),
-                    "<!--%#INSERT:SUBMISSIONRATELIMIT#%-->":   settings.jokes.submissions.rateLimiting.toString(),
-                    "<!--%#INSERT:CATEGORYALIASES#%-->":       JSON.stringify(settings.jokes.possible.categoryAliases),
+                const injections = {
+                    "%#INSERT:VERSION#%":               settings.info.version,
+                    "%#INSERT:NAME#%":                  settings.info.name.toString(),
+                    "%#INSERT:DESC#%":                  settings.info.desc.toString(),
+                    "%#INSERT:AUTHORWEBSITEURL#%":      settings.info.author.website.toString(),
+                    "%#INSERT:AUTHORGITHUBURL#%":       settings.info.author.github.toString(),
+                    "%#INSERT:CONTRIBUTORS#%":          (!scl.isEmpty(contributors) ? contributors : "{}"),
+                    "%#INSERT:CONTRIBUTORGUIDEURL#%":   settings.info.contribGuideUrl.toString(),
+                    "%#INSERT:PROJGITHUBURL#%":         settings.info.projGitHub.toString(),
+                    "%#INSERT:JOKESUBMISSIONURL#%":     settings.jokes.jokeSubmissionURL.toString(),
+                    "%#INSERT:CATEGORYARRAY#%":         JSON.stringify([settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories]),
+                    "%#INSERT:FLAGSARRAY#%":            JSON.stringify(settings.jokes.possible.flags),
+                    "%#INSERT:FILEFORMATARRAY#%":       JSON.stringify(settings.jokes.possible.formats.map(itm => itm.toUpperCase())),
+                    "%#INSERT:TOTALJOKES#%":            (!scl.isEmpty(jokeCount) ? jokeCount.toString() : 0),
+                    "%#INSERT:TOTALJOKESZEROINDEXED#%": (!scl.isEmpty(jokeCount) ? (jokeCount - 1).toString() : 0),
+                    "%#INSERT:PRIVACYPOLICYURL#%":      settings.info.privacyPolicyUrl.toString(),
+                    "%#INSERT:DOCSURL#%":               (!scl.isEmpty(settings.info.docsURL) ? settings.info.docsURL : "(Error: Documentation URL not defined)"),
+                    "%#INSERT:RATELIMITCOUNT#%":        settings.httpServer.rateLimiting.toString(),
+                    "%#INSERT:FORMATVERSION#%":         settings.jokes.jokesFormatVersion.toString(),
+                    "%#INSERT:MAXPAYLOADSIZE#%":        settings.httpServer.maxPayloadSize.toString(),
+                    "%#INSERT:MAXURLLENGTH#%":          settings.httpServer.maxUrlLength.toString(),
+                    "%#INSERT:JOKELANGCOUNT#%":         languages.jokeLangs().length.toString(),
+                    "%#INSERT:SYSLANGCOUNT#%":          languages.systemLangs().length.toString(),
+                    "%#INSERT:MAXJOKEAMOUNT#%":         settings.jokes.maxAmount.toString(),
+                    "%#INSERT:JOKEENCODEAMOUNT#%":      settings.jokes.encodeAmount.toString(),
+                    "%#INSERT:SUBMISSIONRATELIMIT#%":   settings.jokes.submissions.rateLimiting.toString(),
+                    "%#INSERT:CATEGORYALIASES#%":       JSON.stringify(settings.jokes.possible.categoryAliases),
+                    "%#INSERT:LASTMODIFIEDISO#%":       new Date().toISOString().trim(),
+                };
+
+                const checkMatch = (key, regex) => {
+                    allMatches += ((file.toString().match(regex) || []).length || 0);
+                    let injection = sanitize(injections[key]);
+                    file = file.replace(regex, !scl.isEmpty(injection) ? injection : "Error");
                 };
 
                 let allMatches = 0;
                 Object.keys(injections).forEach(key => {
-                    let regex = new RegExp(key, "gm");
-                    allMatches += ((file.toString().match(regex) || []).length || 0);
-                    let injection = sanitize(injections[key]);
-                    file = file.replace(regex, !jsl.isEmpty(injection) ? injection : "Error");
+                    checkMatch(key, new RegExp(`<${key}>`, "gm"));      // style: <%#INSERT:XY#%>
+                    checkMatch(key, new RegExp(`<!--${key}-->`, "gm")); // style: <!--%#INSERT:XY#%-->
                 });
 
                 if(isNaN(parseInt(allMatches)))
@@ -296,23 +331,27 @@ const inject = filePath => {
             }
         });
     });
-};
+}
 
 /**
  * Sanitizes a string to prevent XSS
  * @param {String} str 
  * @returns {String}
  */
-const sanitize = str => {
+function sanitize(str)
+{
     return xss(str);
-};
+}
 
 /**
  * Removes all line breaks and tab stops from an input string and returns it
  * @param {String} input 
  * @returns {String}
  */
-const minify = input => input.toString().replace(/(\n|\r\n|\t)/gm, "");
+function minify(input)
+{
+    return input.toString().replace(/(\n|\r\n|\t)/gm, "");
+}
 
 
 module.exports = { init, recompileDocs, minify, sanitize };

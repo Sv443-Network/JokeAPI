@@ -34,6 +34,8 @@ settings.init.exitSignals.forEach(sig => {
 const initAll = () => {
     let initTimestamp = new Date().getTime();
 
+    console.log(`Initializing ${settings.info.name}...\n`);
+
     process.jokeapi = {};
     initializeDirs();
 
@@ -60,7 +62,7 @@ const initAll = () => {
             fn: docs.init
         },
         {
-            name: "Initializing Authorization module",
+            name: "Initializing authorization module",
             fn: auth.init
         },
         {
@@ -111,7 +113,8 @@ const initAll = () => {
  * @param {Error} err 
  */
 const initError = (action, err) => {
-    console.log(`\n\n\n${col.red}JokeAPI encountered an error while ${action}:\n${err}\n\n${jsl.colors.rst}`);
+    let errMsg = err.stack || err || "(No error message provided)";
+    console.log(`\n\n\n${col.red}JokeAPI encountered an error while ${action}:\n${errMsg}\n\n${jsl.colors.rst}`);
     process.exit(1);
 }
 

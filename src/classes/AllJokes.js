@@ -32,6 +32,12 @@ jsl.unused(parseJokes); // only used for typedefs
  * @prop {Number} [de]
  */
 
+/**
+ * @typedef {Object} SafeJokesPerLangObj
+ * @prop {String} lang lang code
+ * @prop {Number} count amount of safe jokes
+ */
+
 class AllJokes
 {
     /**
@@ -44,12 +50,16 @@ class AllJokes
         let jokeCount = 0;
         let formatVersions = [];
         let jokeCountPerLang = {};
+        this._safeJokes = [];
 
         //#SECTION check validity, get joke count and get format versions
         Object.keys(jokeArray).forEach(key => {
-            if(!languages.isValidLang(key))
-                throw new Error(`Error: invalid language code in construction of an AllJokes object. Expected valid two character language code - got "${key}"`);
+            let lValid = languages.isValidLang(key);
+            if(lValid !== true)
+                throw new Error(`Invalid language code in construction of an AllJokes object. Expected valid two character language code - got "${key}": ${lValid}`);
             
+            let currentLangSafeJokesCount = 0;
+
             if(!jokeCountPerLang[key])
                 jokeCountPerLang[key] = 0;
 
@@ -58,8 +68,10 @@ class AllJokes
 
             let fv = jokeArray[key].info.formatVersion;
 
+            // iterates over each joke of the current language
             jokeArray[key].jokes.forEach((j, i) => {
-                jsl.unused(j);
+                if(j.safe === true)
+                    currentLangSafeJokesCount++;
 
                 jokeArray[key].jokes[i].lang = key;
             });
@@ -68,6 +80,11 @@ class AllJokes
                 throw new Error(`Error: Jokes file with language ${key} has the wrong format version. Expected ${settings.jokes.jokesFormatVersion} but got ${fv}`);
 
             formatVersions.push(fv);
+
+            this._safeJokes.push({
+                lang: key,
+                count: currentLangSafeJokesCount
+            });
         });
 
         formatVersions.push(settings.jokes.jokesFormatVersion);
@@ -93,7 +110,7 @@ class AllJokes
      */
     getJokeArray(langCode)
     {
-        if(!languages.isValidLang(langCode))
+        if(languages.isValidLang(langCode) !== true)
             langCode = settings.languages.defaultLanguage;
 
         return (typeof this.jokes[langCode] == "object" ? this.jokes[langCode].jokes : []);
@@ -106,7 +123,7 @@ class AllJokes
      */
     getFormatVersion(langCode)
     {
-        if(!languages.isValidLang(langCode))
+        if(languages.isValidLang(langCode) !== true)
             langCode = settings.languages.defaultLanguage;
         
         if(typeof this.jokes[langCode] != "object")
@@ -131,6 +148,15 @@ class AllJokes
     getJokeCountPerLang()
     {
         return this._jokeCountPerLang;
+    }
+
+    /**
+     * Returns an object containing the count of safe jokes per language
+     * @returns {SafeJokesPerLangObj[]}
+     */
+    getSafeJokes()
+    {
+        return this._safeJokes;
     }
 }
 

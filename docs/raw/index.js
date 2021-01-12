@@ -21,7 +21,6 @@ if(settings.baseURL.endsWith("/"))
     settings.baseURL = settings.baseURL.substr(0, (settings.baseURL.length - 1));
 }
 
-var qstr = null;
 var tryItOk = false;
 var tryItURL = "";
 var dIHTML = `
@@ -62,7 +61,7 @@ var dIHTML = `
 Please note that the collection of the above listed data is necessary to provide you this service.<br>
 Without it, rate limiting wouldn't be possible. This would lead to the API and all of my other services being taken down by DoS-attacks.<br>
 This has already happened before and it has impacted all of my services to the point of them being completely unresponsive.<br><br>
-You can request to get your collected data deleted or to view the data about you that JokeAPI collected (according to <a href="https://www.privacy-regulation.eu/en/article-12-transparent-information-communication-and-modalities-for-the-exercise-of-the-rights-of-the-data-subject-GDPR.htm">article 12 GDPR</a>) by sending me an e-mail: <a href="mailto:sven.fehler@web.de">sven.fehler@web.de</a>
+You can request to get your collected data deleted or to view the data about you that JokeAPI collected (according to <a href="https://www.privacy-regulation.eu/en/article-12-transparent-information-communication-and-modalities-for-the-exercise-of-the-rights-of-the-data-subject-GDPR.htm">article 12 GDPR</a>) by sending me an e-mail: <a href="mailto:contact@sv443.net">contact@sv443.net</a>
 <br><br><br>
 `;
 
@@ -129,15 +128,6 @@ function onLoad()
         gebid("usageTerms").style.display = "inline-block";
     }
 
-    try
-    {
-        // put ES6+ code here
-        qstr = getQueryStringObject();
-
-        if(qstr != null && qstr["devFeatures"] == "true")
-            gebid("devStuff").style.display = "inline-block";
-    }
-    catch(err) {unused();}
 
     document.addEventListener("keydown", function(e) {
         if(e.key == "Escape" && window.jokeapi.sidenavOpened)
@@ -456,35 +446,35 @@ function closeNav()
     gebid("sideNavOpen").style.visibility = "visible";
 }
 
-function getQueryStringObject()
-{
-    var qstrObj = {};
+// function getQueryStringObject()
+// {
+//     var qstrObj = {};
 
-    if(!window.location.href.includes("?"))
-        return null;
+//     if(!window.location.href.includes("?"))
+//         return null;
 
-    var rawQstr = window.location.href.split("?")[1];
-    var qstrArr = [];
+//     var rawQstr = window.location.href.split("?")[1];
+//     var qstrArr = [];
 
-    if(rawQstr.includes("#"))
-        rawQstr = rawQstr.split("#")[0];
+//     if(rawQstr.includes("#"))
+//         rawQstr = rawQstr.split("#")[0];
 
-    if(rawQstr != null && rawQstr.includes("&"))
-        qstrArr = rawQstr.split("&");
-    else if(rawQstr != null)
-        qstrArr = [rawQstr];
-    else return null;
+//     if(rawQstr != null && rawQstr.includes("&"))
+//         qstrArr = rawQstr.split("&");
+//     else if(rawQstr != null)
+//         qstrArr = [rawQstr];
+//     else return null;
 
 
-    if(qstrArr.length > 0)
-        qstrArr.forEach(function(qstrEntry) {
-            if(qstrEntry.includes("="))
-                qstrObj[qstrEntry.split("=")[0]] = qstrEntry.split("=")[1];
-        });
-    else return null;
+//     if(qstrArr.length > 0)
+//         qstrArr.forEach(function(qstrEntry) {
+//             if(qstrEntry.includes("="))
+//                 qstrObj[qstrEntry.split("=")[0]] = qstrEntry.split("=")[1];
+//         });
+//     else return null;
 
-    return qstrObj;
-}
+//     return qstrObj;
+// }
 
 /**
  * @param {Boolean} [langChanged]

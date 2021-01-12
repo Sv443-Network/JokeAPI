@@ -72,7 +72,7 @@ function writeMD(
 
     data.versions.forEach((versionObj) => {
         let versionContent = [
-            "<br><br><br>\n## " + versionObj.versionTitle,
+            "<br><br><br>\n\n## " + versionObj.versionTitle,
             ...versionObj.versionEntries,
         ];
 
@@ -88,6 +88,12 @@ function writeMD(
                 /issue #(\d{1,})/g,
                 "[issue #$1](https://github.com/Sv443/JokeAPI/issues/$1)"
             )
+            // convert pull request references to links
+            .replace(
+                /PR #(\d{1,})/g,
+                "[pull request #$1](https://github.com/Sv443/JokeAPI/pull/$1)"
+            )
+        + `<br><br><br>\n\nThis file was auto-generated from the source file at [./${options.SOURCE_FILE}](./${options.SOURCE_FILE})`
     );
 
     console.log(`\x1b[32m\x1b[1mGenerated changelog at ./${options.OUTPUT_FILE}\n\x1b[0m`);

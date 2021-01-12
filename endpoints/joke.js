@@ -91,7 +91,7 @@ const call = (req, res, url, params, format) => {
         {
             langCode = params["lang"].toString();
 
-            if(languages.isValidLang(langCode))
+            if(languages.isValidLang(langCode) === true)
                 filterJoke.setLanguage(langCode);
             else
                 return isErrored(res, format, tr(langCode, "invalidLangCode", langCode), langCode);

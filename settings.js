@@ -67,7 +67,7 @@ const settings = {
         },
         jokesTemplateFile: "template.json",  // relative to "jokes.jokesFolderPath"
         possible: {
-            anyCategoryName: "Any", // the name of the "Any" category - readable name
+            anyCategoryName: "Any", // the name of the "Any" category - case insensitive / readable name
             categories: [           // all categories (excluding "Any") - case insensitive / readable name
                 "Misc",
                 "Programming",
@@ -76,7 +76,7 @@ const settings = {
                 "Spooky",
                 "Christmas"
             ],
-            categoryAliases: { // aliases of categories. Key gets auto-converted to value. Value has to be present in the "categories" array above!
+            categoryAliases: { // aliases of categories. Alias at key gets resolved to category at value. Value has to be present in the "categories" array above - case insensitive / readable names
                 "Miscellaneous": "Misc",
                 "Coding": "Programming",
                 "Development": "Programming",
@@ -124,6 +124,7 @@ const settings = {
         disableCache: true,   // whether or not to disable the cache - default: true (setting to false may prevent the users from getting new jokes)
         infoHeaders: true,    // whether or not to add an informational header about JokeAPI to each request
         reverseProxy: true,   // whether or not JokeAPI gets its requests from a reverse proxy
+        startupTimeout: 30,   // in seconds, timeout after which startup fails if the HTTP server couldn't start up (blocked port, etc.)
         ssl: {
             enabled: false,                // whether SSL is enabled
             certFile: "./.ssl/cert-xy.pem" // to be implemented (issue #185)

@@ -2,12 +2,12 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto+Mono&display=swap");
 
 :root {
-    --bg-color: #444;
-    --bg-accent-color: #333;
-    --bg-accent-color-darker: #222;
-    --bg-accent-color-sidenav-opened: #666;
-    --bg-accent-color-darker-sidenav-opened: #555;
-    --bg-color-sidenav-opened: #777;
+    --bg-color: #2e323b;
+    --bg-accent-color: #1d2025;
+    --bg-accent-color-darker: #111316;
+    --bg-accent-color-sidenav-opened: #4e535c;
+    --bg-accent-color-darker-sidenav-opened: #5e646e;
+    --bg-color-sidenav-opened: #616774;
     --header-bg-color: #0b1031;
     --header-bg-color-sidenav-opened: #0b1031;
 
@@ -61,7 +61,7 @@ body {
 
     transition: background-color ease-out var(--sidenav-colorblur-speed);
 
-    /* I had to do this for some unknown reason - don't ask me why: */
+    /* Ah yes web development */
     -webkit-touch-callout: inherit;
     -webkit-user-select: inherit;
     -khtml-user-select: inherit;
@@ -291,6 +291,10 @@ label {
     height: 1.1em;
 }
 
+.miniimg.invert {
+    filter: invert(100%);
+}
+
 .shadow {
     filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.5));
 }
@@ -351,16 +355,16 @@ input#f_customLang {
     border-style: none none none solid;
 }
 
-.alternatingBgTable tr td.g, span.col.g {
-    color: #89ff89;
+table tr td.g, span.col.g {
+    color: #65b365;
 }
 
-.alternatingBgTable tr td.r, span.col.r {
+table tr td.r, span.col.r {
     color: #ffad41;
 }
 
-.alternatingBgTable tr td.dr, span.col.dr {
-    color: #f52727;
+table tr td.dr, span.col.dr {
+    color: #aa2828;
 }
 
 .colB {
@@ -574,6 +578,7 @@ ul.lispacer li {
     padding-left: 10px;
     padding-right: 40px;
     transition: background-color ease-out var(--sidenav-colorblur-speed);
+    white-space: nowrap;
 }
 
 body[data-sidenav="opened"] .requestURLwrapper {
@@ -584,6 +589,13 @@ body[data-sidenav="opened"] .requestURLwrapper {
 .requestMethodGET, .requestMethodPUT {
     display: inline-block;
     margin-right: 10px;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .requestMethodGET {
@@ -990,6 +1002,10 @@ div.sidenavSpacer {
 
     color: rgba(188, 194, 255, 0.4);
     transition: color 0.075s linear;
+}
+
+.smallText {
+    font-size: small;
 }
 
 .subHeaderContainer a:hover {
