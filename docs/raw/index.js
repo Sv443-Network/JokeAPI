@@ -61,7 +61,7 @@ var dIHTML = `
 Please note that the collection of the above listed data is necessary to provide you this service.<br>
 Without it, rate limiting wouldn't be possible. This would lead to the API and all of my other services being taken down by DoS-attacks.<br>
 This has already happened before and it has impacted all of my services to the point of them being completely unresponsive.<br><br>
-You can request to get your collected data deleted or to view the data about you that JokeAPI collected (according to <a href="https://www.privacy-regulation.eu/en/article-12-transparent-information-communication-and-modalities-for-the-exercise-of-the-rights-of-the-data-subject-GDPR.htm">article 12 GDPR</a>) by sending me an e-mail: <a href="mailto:sven.fehler@web.de">sven.fehler@web.de</a>
+You can request to get your collected data deleted or to view the data about you that JokeAPI collected (according to <a href="https://www.privacy-regulation.eu/en/article-12-transparent-information-communication-and-modalities-for-the-exercise-of-the-rights-of-the-data-subject-GDPR.htm">article 12 GDPR</a>) by sending me an e-mail: <a href="mailto:contact@sv443.net">contact@sv443.net</a>
 <br><br><br>
 `;
 
