@@ -30,11 +30,13 @@ const init = () => {
     debug("HTTP", "Starting HTTP server...");
     return new Promise((resolve, reject) => {
         let endpoints = [];
+        /** Whether or not the HTTP server could be initialized */
+        let httpServerInitialized = false;
 
         /**
          * Initializes the HTTP server - should only be called once
          */
-        let initHttpServer = () => {
+        const initHttpServer = () => {
             //#SECTION set up rate limiters
             let rl = new RateLimiterMemory({
                 points: settings.httpServer.rateLimiting,
@@ -45,6 +47,11 @@ const init = () => {
                 points: settings.jokes.submissions.rateLimiting,
                 duration: settings.jokes.submissions.timeFrame
             });
+
+            setTimeout(() => {
+                if(!httpServerInitialized)
+                    return reject(`HTTP server initialization timed out after ${settings.httpServer.startupTimeout} seconds.\nMaybe the port ${settings.httpServer.port} is already occupied or the firewall blocks the connection.\nTry killing the process that's blocking the port or change it in settings.httpServer.port`);
+            }, settings.httpServer.startupTimeout * 1000)
 
             //#SECTION create HTTP server
             let httpServer = http.createServer(async (req, res) => {
@@ -415,6 +422,7 @@ const init = () => {
             httpServer.listen(settings.httpServer.port, settings.httpServer.hostname, err => {
                 if(!err)
                 {
+                    httpServerInitialized = true;
                     debug("HTTP", `${jsl.colors.fg.green}HTTP Server successfully listens on port ${settings.httpServer.port}${jsl.colors.rst}`);
                     return resolve();
                 }

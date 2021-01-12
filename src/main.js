@@ -34,6 +34,8 @@ settings.init.exitSignals.forEach(sig => {
 const initAll = () => {
     let initTimestamp = new Date().getTime();
 
+    console.log(`Initializing ${settings.info.name}...\n`);
+
     process.jokeapi = {};
     initializeDirs();
 

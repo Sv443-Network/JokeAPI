@@ -124,6 +124,7 @@ const settings = {
         disableCache: true,   // whether or not to disable the cache - default: true (setting to false may prevent the users from getting new jokes)
         infoHeaders: true,    // whether or not to add an informational header about JokeAPI to each request
         reverseProxy: true,   // whether or not JokeAPI gets its requests from a reverse proxy
+        startupTimeout: 30,   // in seconds, timeout after which startup fails if the HTTP server couldn't start up (blocked port, etc.)
         ssl: {
             enabled: false,                // whether SSL is enabled
             certFile: "./.ssl/cert-xy.pem" // to be implemented (issue #185)
