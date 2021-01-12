@@ -17,6 +17,7 @@
 - /info endpoint now gives the number of safe jokes per language ([issue #224](https://github.com/Sv443/JokeAPI/issues/224))
 - Added dependent jonathanbossenger/devdadjokes ([issue #225](https://github.com/Sv443/JokeAPI/issues/225))
 - Added translations to joke submission parser
+- Made static content not indexable by web crawlers
 
 
 <br><br><br>
