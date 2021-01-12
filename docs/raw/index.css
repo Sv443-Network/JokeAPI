@@ -61,7 +61,7 @@ body {
 
     transition: background-color ease-out var(--sidenav-colorblur-speed);
 
-    /* I had to do this for some unknown reason - don't ask me why: */
+    /* Ah yes web development */
     -webkit-touch-callout: inherit;
     -webkit-user-select: inherit;
     -khtml-user-select: inherit;
@@ -355,15 +355,15 @@ input#f_customLang {
     border-style: none none none solid;
 }
 
-.alternatingBgTable tr td.g, span.col.g {
+table tr td.g, span.col.g {
     color: #65b365;
 }
 
-.alternatingBgTable tr td.r, span.col.r {
+table tr td.r, span.col.r {
     color: #ffad41;
 }
 
-.alternatingBgTable tr td.dr, span.col.dr {
+table tr td.dr, span.col.dr {
     color: #aa2828;
 }
 
@@ -578,6 +578,7 @@ ul.lispacer li {
     padding-left: 10px;
     padding-right: 40px;
     transition: background-color ease-out var(--sidenav-colorblur-speed);
+    white-space: nowrap;
 }
 
 body[data-sidenav="opened"] .requestURLwrapper {
@@ -588,6 +589,13 @@ body[data-sidenav="opened"] .requestURLwrapper {
 .requestMethodGET, .requestMethodPUT {
     display: inline-block;
     margin-right: 10px;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .requestMethodGET {
@@ -994,6 +1002,10 @@ div.sidenavSpacer {
 
     color: rgba(188, 194, 255, 0.4);
     transition: color 0.075s linear;
+}
+
+.smallText {
+    font-size: small;
 }
 
 .subHeaderContainer a:hover {
