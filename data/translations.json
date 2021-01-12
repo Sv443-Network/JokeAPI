@@ -293,117 +293,140 @@
         {
             "en": "Dry Run complete! No errors were found.",
             "de": "Probelauf abgeschlossen! Keine Fehler gefunden.",
-            "ru": "Тестовый запуск завершен! Ошибок не найдено."
+            "ru": "Тестовый запуск завершен! Ошибок не найдено.",
+            "cs": "Suchý běh dokončen! Nebyly nalezeny žádné chyby."
         },
         "parseJokesInvalidLanguageCode": {
             "en": "Invalid language code provided.",
             "de": "Der angegebene Sprachcode ist ungültig.",
-            "ru": "Предоставлен недействительный код языка."
+            "ru": "Предоставлен недействительный код языка.",
+            "cs": "Byl poskytnut neplatný kód jazyka."
         },
         "parseJokesFormatVersionMismatch": {
             "en": "Joke format version \"%1\" doesn't match up with required version \"%2\"",
             "de": "Witz-Format-Version \"%1\" stimmt nicht mit der erforderten Version \"%2\" überein.",
-            "ru": "Версия шуточного формата \"%1\" не соответствует требуемой версии \"%2\""
+            "ru": "Версия шуточного формата \"%1\" не соответствует требуемой версии \"%2\"",
+            "cs": "Verze formátu vtipu \"%1\" neodpovídá požadované verzi \"%2\""
         },
         "parseJokesNoFormatVersionOrInvalid": {
             "en": "Joke doesn't have a \"formatVersion\" property or it is empty or invalid.",
             "de": "Witz hat keine Eigenschaft \"formatVersion\" oder sie ist leer oder ungültig.",
-            "ru": "У шутки нет свойства \"formatVersion\" или она пуста или недействительна."
+            "ru": "У шутки нет свойства \"formatVersion\" или она пуста или недействительна.",
+            "cs": "Vtip nemá vlastnost \"formatVersion\" nebo je prázdný nebo neplatný."
         },
         "parseJokesSingleNoJokeProperty": {
             "en": "Joke is of type \"single\" but doesn't have a \"joke\" property or it is empty.",
             "de": "Witz ist vom Typ \"single\", hat aber keine Eigenschaft \"joke\" oder sie ist leer.",
-            "ru": "Шутка имеет тип \"single\", но не имеет свойства \"joke\" или она пуста."
+            "ru": "Шутка имеет тип \"single\", но не имеет свойства \"joke\" или она пуста.",
+            "cs": "Vtip je typu \"single\", ale nemá vlastnost \"joke\" nebo je prázdná."
         },
         "parseJokesTwopartNoSetupProperty": {
             "en": "Joke is of type \"twopart\" but doesn't have a \"setup\" property or it is empty.",
             "de": "Witz ist vom Typ \"twopart\", hat aber keine Eigenschaft \"setup\" oder sie ist leer.",
-            "ru": "Шутка имеет тип \"twopart\", но не имеет свойства \"setup\" или она пуста."
+            "ru": "Шутка имеет тип \"twopart\", но не имеет свойства \"setup\" или она пуста.",
+            "cs": "Vtip je typu \"twopart\", ale nemá vlastnost \"setup\" nebo je prázdná."
         },
         "parseJokesTwopartNoDeliveryProperty": {
             "en": "Joke is of type \"twopart\" but doesn't have a \"delivery\" property or it is empty.",
             "de": "Witz ist vom Typ \"twopart\", hat aber keine Eigenschaft \"Lieferung\" oder sie ist leer.",
-            "ru": "Шутка имеет тип \"twopart\", но не имеет свойства \"delivery\" или она пуста."
+            "ru": "Шутка имеет тип \"twopart\", но не имеет свойства \"delivery\" или она пуста.",
+            "cs": "Vtip je typu \"twopart\", ale nemá vlastnost \"delivery\" nebo je prázdná."
         },
         "parseJokesNoTypeProperty": {
             "en": "Joke doesn't have a \"type\" property or it is invalid - it has to be either \"single\" or \"twopart\".",
             "de": "Witz hat keine Eigenschaft \"type\" oder sie ist ungültig - es muss entweder \"single\" oder \"twopart\" sein.",
-            "ru": "У шутки нет свойства \"type\" или она недействительна - она должна быть либо \"single\", либо \"twopart\"."
+            "ru": "У шутки нет свойства \"type\" или она недействительна - она должна быть либо \"single\", либо \"twopart\".",
+            "cs": "Vtip nemá vlastnost \"type\" nebo je neplatná - musí to být buď \"single\" nebo \"twopart\"."
         },
         "parseJokesNoCategoryProperty": {
             "en": "Joke doesn't have a \"category\" property or it is empty.",
             "de": "Witz hat keine Eigenschaft \"category\" oder sie ist leer.",
-            "ru": "У шутки нет свойства \"category\" или она пуста."
+            "ru": "У шутки нет свойства \"category\" или она пуста.",
+            "cs": "Vtip nemá vlastnost \"category\" nebo je prázdná."
         },
         "parseJokesInvalidCategory": {
             "en": "Joke category is invalid.",
             "de": "Die Witz-Kategorie ist ungültig.",
-            "ru": "Категория шуток недействительна."
+            "ru": "Категория шуток недействительна.",
+            "cs": "Kategorie vtipu je neplatná."
         },
         "parseJokesNoFlagNsfw": {
             "en": "Joke doesn't have the \"nsfw\" flag or it is invalid.",
             "de": "Witz hat nicht das Merkmal \"nsfw\" oder es ist ungültig.",
-            "ru": "В шутке нет флага \"nsfw\" или она недействительна."
+            "ru": "В шутке нет флага \"nsfw\" или она недействительна.",
+            "cs": "Vtip nemá vlajku \"nsfw\" nebo je neplatná."
         },
         "parseJokesNoFlagRacist": {
             "en": "Joke doesn't have the \"racist\" flag or it is invalid.",
             "de": "Witz hat nicht das Merkmal \"racist\" oder es ist ungültig.",
-            "ru": "В шутке нет флага \"racist\" или она недействительна."
+            "ru": "В шутке нет флага \"racist\" или она недействительна.",
+            "cs": "Vtip nemá vlajku \"racist\" nebo je neplatná."
         },
         "parseJokesNoFlagSexist": {
             "en": "Joke doesn't have the \"sexist\" flag or it is invalid.",
             "de": "Witz hat nicht das Merkmal \"sexist\" oder es ist ungültig.",
-            "ru": "В шутке нет флага \"sexist\" или она недействительна."
+            "ru": "В шутке нет флага \"sexist\" или она недействительна.",
+            "cs": "Vtip nemá vlajku \"sexist\" nebo je neplatná."
         },
         "parseJokesNoFlagPolitical": {
             "en": "Joke doesn't have the \"political\" flag or it is invalid.",
             "de": "Witz hat nicht das Merkmal \"political\" oder es ist ungültig.",
-            "ru": "В шутке нет флага \"political\" или она недействительна."
+            "ru": "В шутке нет флага \"political\" или она недействительна.",
+            "cs": "Vtip nemá vlajku \"political\" nebo je neplatná."
         },
         "parseJokesNoFlagReligious": {
             "en": "Joke doesn't have the \"religious\" flag or it is invalid.",
             "de": "Witz hat nicht das Merkmal \"religious\" oder es ist ungültig.",
-            "ru": "В шутке нет флага \"religious\" или она недействительна."
+            "ru": "В шутке нет флага \"religious\" или она недействительна.",
+            "cs": "Vtip nemá vlajku \"religious\" nebo je neplatná."
         },
         "parseJokesNoFlagExplicit": {
             "en": "Joke doesn't have the \"explicit\" flag or it is invalid.",
             "de": "Witz hat nicht das Merkmal \"explicit\" oder es ist ungültig.",
-            "ru": "В шутке нет флага \"explicit\" или она недействительна."
+            "ru": "В шутке нет флага \"explicit\" или она недействительна.",
+            "cs": "Vtip nemá vlajku \"explicit\" nebo je neplatná"
         },
         "parseJokesNoFlagsObject": {
             "en": "Joke doesn't have a \"flags\" object or it is invalid.",
             "de": "Witz hat kein Objekt \"flags\" oder es ist ungültig.",
-            "ru": "В шутке нет объекта \"flags\" или она недействительна."
+            "ru": "В шутке нет объекта \"flags\" или она недействительна.",
+            "cs": "Vtip nemá objekt \"flags\" nebo je neplatný."
         },
         "parseJokesNoLangProperty": {
             "en": "Joke doesn't have a \"lang\" property or it is empty or of the wrong type.",
             "de": "Joke doesn't have a \"lang\" property or it is empty or of the wrong type.",
-            "ru": "Joke doesn't have a \"lang\" property or it is empty or of the wrong type."
+            "ru": "Joke doesn't have a \"lang\" property or it is empty or of the wrong type.",
+            "cs": "Vtip nemá vlastnost \"lang\" nebo je prázdná nebo nesprávného typu."
         },
         "parseJokesLangPropertyInvalid": {
             "en": "Property \"lang\" is invalid: %1",
             "de": "Eigenschaft \"lang\" ist ungültig: %1",
-            "ru": "Собственность \"lang\" недействительна: %1"
+            "ru": "Собственность \"lang\" недействительна: %1",
+            "cs": "Vlastnost \"lang\" je neplatná: %1"
         },
         "parseJokesCantParseJson": {
             "en": "Joke couldn't be parsed as JSON.",
             "de": "Joke konnte nicht als JSON geparst werden.",
-            "ru": "Шутка не может быть разбита на JSON."
+            "ru": "Шутка не может быть разбита на JSON.",
+            "cs": "Vtip nelze parsovat jako JSON"
         },
         "langModuleInitError": {
             "en": "Internal error: language module was not correctly initialized.",
             "de": "Interner Fehler: Sprach-Modul wurde nicht korrekt initialisiert.",
-            "ru": "Внутренняя ошибка: языковой модуль был неправильно инициализирован."
+            "ru": "Внутренняя ошибка: языковой модуль был неправильно инициализирован.",
+            "cs": "Interní chyba: jazykový modul nebyl správně inicializován."
         },
         "langCodeInvalidValue": {
             "en": "Language code is not a string or not two characters in length.",
             "de": "Der Sprachcode ist kein String oder nicht zwei Zeichen lang.",
-            "ru": "Языковой код не является строкой или не состоит из двух символов."
+            "ru": "Языковой код не является строкой или не состоит из двух символов.",
+            "cs": "Kód jazyka není textový řetězec nebo není dva znaky dlouhý"
         },
         "langCodeDoesntExist": {
             "en": "Language code doesn't exist.",
             "de": "Der Sprachcode existiert nicht.",
-            "ru": "Языкового кода не существует."
+            "ru": "Языкового кода не существует.",
+            "cs": "Kód jazyka neexistuje."
         }
     }
 }
