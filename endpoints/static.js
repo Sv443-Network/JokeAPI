@@ -30,6 +30,7 @@ const call = (req, res, url, params, format) => {
     let filePath, mimeType, statusCode;
     let requestedFile = !jsl.isEmpty(url[1]) ? url[1] : null;
     let allowEncoding = true;
+    let allowRobotIndexing = false; // allow indexing by robots like Googlebot
 
     switch(requestedFile)
     {
@@ -114,6 +115,9 @@ const call = (req, res, url, params, format) => {
 
             res.setHeader("Content-Encoding", selectedEncoding);
             res.setHeader("Cache-Control", "max-age=86400");
+
+            if(!allowRobotIndexing)
+                res.setHeader("X-Robots-Tag", "noindex, noimageindex");
 
             return httpServer.pipeFile(res, filePath, mimeType, statusCode);
         }
