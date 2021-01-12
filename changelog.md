@@ -1,6 +1,7 @@
 # JokeAPI Changelog (Version 2.3.1)
 
 <br><br><br>
+
 ## [Planned for future releases]
 - Allow definition of max requests per minute per each client ([issue #37](https://github.com/Sv443/JokeAPI/issues/37))
 - Add positive flags and a "?whitelistFlags" param ([issue #127](https://github.com/Sv443/JokeAPI/issues/127))
@@ -9,6 +10,7 @@
 
 
 <br><br><br>
+
 ## [CURRENT: 2.3.1] - The Safe Mode Hotfix, because bugs exist for some reason ([pull request #214](https://github.com/Sv443/JokeAPI/pull/214))
 - Fixed bug "API Error 500 - Cannot read property 'msBeforeNext' of null" ([issue #212](https://github.com/Sv443/JokeAPI/issues/212))
 - Fixed bug where API responded with Error 106 when using format=txt on endpoint /joke ([issue #218](https://github.com/Sv443/JokeAPI/issues/218))
@@ -21,6 +23,7 @@
 
 
 <br><br><br>
+
 ## [2.3.0] - The Safe Mode Update
 - JokeAPI now has its own domain - https://jokeapi.dev/
     - Version 2 of the API should be called @ https://v2.jokeapi.dev/ but can also be called with the old domain and https://jokeapi.dev/
@@ -55,6 +58,7 @@
 
 
 <br><br><br>
+
 ## [2.2.2] - The Seasonal Update
 - Added some new seasonal categories ([issue #180](https://github.com/Sv443/JokeAPI/issues/180))
     - Spooky (Halloween)
@@ -66,6 +70,7 @@
 
 
 <br><br><br>
+
 ## [2.2.1] - Version 2.2 Hotfix
 - Added the Czech translation ([pull request #137](https://github.com/Sv443/JokeAPI/pull/137)) - provided by @ThatCopy (https://github.com/ThatCopy) - thanks :)
 - Added a missing conversion mapping when using format `txt` and the `amount` parameter on endpoint `/joke` ([issue #138](https://github.com/Sv443/JokeAPI/issues/138))
@@ -76,6 +81,7 @@
 
 
 <br><br><br>
+
 ## [2.2.0] - The Pun Update
 - Added joke category "Pun" ([issue #105](https://github.com/Sv443/JokeAPI/issues/105))
 - Added "?amount" parameter to joke endpoint so multiple jokes can be fetched at once ([issue #126](https://github.com/Sv443/JokeAPI/issues/126))
@@ -95,6 +101,7 @@
 
 
 <br><br><br>
+
 ## [2.1.5] - 2020 Q3 general patch #2
 - Ditched my botched rate limiting package for a "commercial" one ([issue #113](https://github.com/Sv443/JokeAPI/issues/113))
 - Added API token section to documentation ([issue #114](https://github.com/Sv443/JokeAPI/issues/114))
@@ -104,11 +111,13 @@
 
 
 <br><br><br>
+
 ## [2.1.4] - 2020 Q3 general patch #1
 - Fixed the IP getter module for like the 500th time now
 
 
 <br><br><br>
+
 ## [2.1.3] - 2020 Q2 general patch #1
 - Added option to disable all console output but error messages ([issue #72](https://github.com/Sv443/JokeAPI/issues/72))
 - The content of jokes in the joke submission form is now correctly escaped and can no longer mess up the page ([issue #68](https://github.com/Sv443/JokeAPI/issues/68))
@@ -118,6 +127,7 @@
 
 
 <br><br><br>
+
 ## [2.1.2] - Plain Text update
 - Added file format "txt" to receive data as plain text
 - Fixed the joke submission URL in the /info endpoint data
@@ -127,12 +137,14 @@
 
 
 <br><br><br>
+
 ## [2.1.1] - Auth update hotfix
 - Fixed incorrect error cause when using an out-of-range ID range parameter (see [issue #54](https://github.com/Sv443/JokeAPI/issues/54))
 - Added submission form (https://v2.jokeapi.dev/#submit)
 
 
 <br><br><br>
+
 ## [2.1.0] - The auth update
 - Added an authorization header to make whitelisting possible without needing to have a static IP
     - Added the script "npm run add-token [amount]" to add one or more tokens
@@ -141,6 +153,7 @@
 
 
 <br><br><br>
+
 ## [2.0.1] - A few hotfixes for the big 2.0.0 updates and some very very minor features I wanted to add
 - Hotfixed a few bugs from the big 2.0.0 update
 - Fixed joke ID caching (to not serve the same jokes multiple times)
@@ -149,6 +162,7 @@
 
 
 <br><br><br>
+
 ## [2.0.0] - The complete rewrite - JokeAPI was completely rewritten and should now run like 100x better and be more easy to develop and maintain
 - Massively improved the "Try it out" section in the docs
 - Reformatted the jokes to always contain all flags
@@ -181,12 +195,14 @@
 
 
 <br><br><br>
+
 ## [1.1.2]
 oke categories are now case insensitive
 railing slashes now don't produce an "invalid category" error anymore
 
 
 <br><br><br>
+
 ## [1.1.1]
 etter IP getter for the rate limiting
 pdated dependencies
@@ -194,6 +210,7 @@ ery small improvements to the console window
 
 
 <br><br><br>
+
 ## [1.1.0]
 - switched to ReadStreams instead of just loading the entire file to RAM to massively improve request performance (more details in [issue #2](https://github.com/Sv443/JokeAPI/issues/2))
     - this basically means it transmits the data over time, instead of loading it all to RAM and sending it at once
@@ -201,6 +218,7 @@ dded rate limiting to counter DoS attacks (yes I've been getting some of those *
 
 
 <br><br><br>
+
 ## [1.0.0]
 - turned the single endpoint into multiple endpoints
     - "categories" to get all available categories
@@ -233,6 +251,7 @@ dded rate limiting to counter DoS attacks (yes I've been getting some of those *
 
 
 <br><br><br>
+
 ## [0.1.2]
 - added "Dark" category
 - added joke submission form
@@ -241,6 +260,7 @@ dded rate limiting to counter DoS attacks (yes I've been getting some of those *
 
 
 <br><br><br>
+
 ## [0.1.1]
 - added interactive example on docs page
 - made icon on docs page smaller
@@ -248,8 +268,12 @@ dded rate limiting to counter DoS attacks (yes I've been getting some of those *
 
 
 <br><br><br>
+
 ## [0.1.0]
 - basic functionality
     - 47 jokes
     - category filter
 
+<br><br><br>
+
+This file was auto-generated from the source file at [./changelog.txt](./changelog.txt)
