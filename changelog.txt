@@ -10,13 +10,16 @@
     - Add Unit Tests (issue #121)
     - Serve docs with nginx to speed up page load times (issue #118)
 
-[CURRENT: 2.4.0] - XY (PR #XY) TODO:
-    - Fixed C# code example in documentation once again (issue #237)
-    - Added safe mode toggle to Try-It section (issue #231)
-    - Fixed broken Try-It section result when using format=xml (issue #232)
-    - Replaced deprecated function fs.exists() throughout the API (issue #230)
-    - Added easily parseable info about faulty parameters when doing a submission dry run (issue #209)
-    - Added flag and category descriptions (issue #201)
+[CURRENT: 2.4.0] - The Big Caching Fix (PR #239)
+    - Fixes:
+        - Finally fixed joke ID caching once and for all (I hope) (issue #238)
+        - Fixed C# code example in documentation once again (issue #237)
+        - Fixed broken Try-It section result when using format=xml (issue #232)
+        - Replaced deprecated function fs.exists() throughout the API (issue #230)
+    - Additions:
+        - Added safe mode toggle to Try-It section (issue #231)
+        - Added easily parseable info about faulty parameters when doing a submission dry run (issue #209)
+        - Added flag and category descriptions (issue #201)
 
 
 [2.3.1] - The Safe Mode Hotfix, because bugs exist for some reason (PR #214)
