@@ -1,6 +1,6 @@
 =====================
   JokeAPI Changelog
-  - Version 2.3.1 -
+  - Version 2.3.2 -
 =====================
 
 
@@ -10,8 +10,13 @@
     - Add Unit Tests (issue #121)
     - Serve docs with nginx to speed up page load times (issue #118)
 
+[2.3.2] - 2021 Q1 general patch #1 (PR TODO:#xyz)
+    - Fixed C# code example in documentation once again (issue #237)
+    - Fixed broken Try-It section result when using format=xml (issue #232)
+    - Replaced deprecated function fs.exists() throughout the API (issue #230)
 
-[CURRENT: 2.3.1] - The Safe Mode Hotfix, because bugs exist for some reason (PR #214)
+
+[2.3.1] - The Safe Mode Hotfix, because bugs exist for some reason (PR #214)
     - Fixed bug "API Error 500 - Cannot read property 'msBeforeNext' of null" (issue #212)
     - Fixed bug where API responded with Error 106 when using format=txt on endpoint /joke (issue #218)
     - Re-flagged joke 79 (issue #220)
