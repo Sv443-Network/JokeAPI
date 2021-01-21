@@ -4577,6 +4577,213 @@
             },
             "safe": true,
             "id": 290
+        },
+        {
+            "category": "Misc",
+            "type": "twopart",
+            "setup": "What do you call a Jewish Pokemon Trainer?",
+            "delivery": "Ash.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": true,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": false,
+            "id": 291
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "setup": "Why was the JavaScript developer sad?",
+            "delivery": "Because he didn't Node how to Express himself!",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 292
+        },
+        {
+            "category": "Christmas",
+            "type": "twopart",
+            "setup": "Whats the Grinchs least favorite band?",
+            "delivery": "The Who.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 293
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "setup": "why do python programmers wear glasses?",
+            "delivery": "Because they can't C.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 294
+        },
+        {
+            "category": "Spooky",
+            "type": "twopart",
+            "setup": "Why do ghosts go on diets?",
+            "delivery": "So they can keep their ghoulish figures.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 295
+        },
+        {
+            "category": "Spooky",
+            "type": "twopart",
+            "setup": "What is in a ghost's nose?",
+            "delivery": "Boo-gers.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 296
+        },
+        {
+            "category": "Spooky",
+            "type": "twopart",
+            "setup": "What's it like to be kissed by a vampire?",
+            "delivery": "It's a pain in the neck.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 297
+        },
+        {
+            "category": "Spooky",
+            "type": "twopart",
+            "setup": "What does a turkey dress up as for Halloween?",
+            "delivery": "A gobblin'!",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 298
+        },
+        {
+            "category": "Spooky",
+            "type": "twopart",
+            "setup": "Why did the ghost go inside the bar?",
+            "delivery": "For the boos.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 299
+        },
+        {
+            "category": "Spooky",
+            "type": "twopart",
+            "setup": "How do Rednecks celebrate Halloween?",
+            "delivery": "Pump kin!",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": true
+            },
+            "safe": false,
+            "id": 300
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "I have a joke about Stack Overflow, but you would say it's a duplicate.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 301
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "I just got fired from my job at the keyboard factory.",
+            "delivery": "They told me I wasn't putting in enough shifts.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 302
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "I can't believe I got fired from the calendar factory.",
+            "delivery": "All I did was take a day off.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 303
         }
     ]
 }
