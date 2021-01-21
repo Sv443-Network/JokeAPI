@@ -75,7 +75,7 @@
     "@pm2/io": "^4.3.5",
     "dotenv": "^8.2.0",
     "farmhash": "^3.1.0",
-    "fs-extra": "^9.0.1",
+    "fs-extra": "^9.1.0",
     "fuse.js": "^6.4.1",
     "http-ratelimit": "^0.2.3",
     "js2xmlparser": "^4.0.1",
