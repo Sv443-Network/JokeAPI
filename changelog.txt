@@ -10,7 +10,7 @@
     - Add Unit Tests (issue #121)
     - Serve docs with nginx to speed up page load times (issue #118)
 
-[2.3.2] - 2021 Q1 general patch #1 (PR TODO:#xyz)
+[CURRENT: 2.3.2] - 2021 Q1 general patch #1 (PR TODO:#xyz)
     - Fixed C# code example in documentation once again (issue #237)
     - Fixed broken Try-It section result when using format=xml (issue #232)
     - Replaced deprecated function fs.exists() throughout the API (issue #230)
