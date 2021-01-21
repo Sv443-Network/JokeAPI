@@ -6,6 +6,10 @@ contact_links:
     about: "Please read the documentation before opening a new issue"
     url: "https://jokeapi.dev/"
   -
+    name: "Discussions"
+    about: "If there's some topic you want to talk about, please open a new thread on the JokeAPI discussion board"
+    url: "https://github.com/Sv443/JokeAPI/discussions"
+  -
     name: "Chat"
-    about: "If you have any non-issue-worthy questions, join my Discord server and I'll try to help you"
+    about: "If you want to chat with the JokeAPI community, you can join my Discord server"
     url: "https://sv443.net/discord"

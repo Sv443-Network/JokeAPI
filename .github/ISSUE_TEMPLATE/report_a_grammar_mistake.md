@@ -2,7 +2,7 @@
 name: Report a grammar mistake
 about: Use this to make me feel bad about messing up basic english grammar
 title: ''
-labels: 🔠 grammar
+labels: grammar
 assignees: Sv443
 
 ---

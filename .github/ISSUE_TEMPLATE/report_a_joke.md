@@ -2,7 +2,7 @@
 name: Report a joke
 about: Report a joke that is too offensive / needs to be reflagged or recategorized
 title: ''
-labels: ❗ reported joke
+labels: reported joke
 assignees: Sv443
 
 ---
