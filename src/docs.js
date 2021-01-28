@@ -43,8 +43,7 @@ function init()
  */
 function startDaemon()
 {
-    // See https://github.com/Sv443/SvCoreLib/issues/6 on why I set the blacklist pattern to [ "**/**/invalid" ]
-    let fd = new scl.FolderDaemon(path.resolve(settings.documentation.rawDirPath), [ "**/path/that_doesnt/exist/*" ], true, settings.documentation.daemonInterval * 1000);
+    let fd = new scl.FolderDaemon(path.resolve(settings.documentation.rawDirPath), [], true, settings.documentation.daemonInterval * 1000);
     fd.onChanged((error, result) => {
         scl.unused(result);
         if(!error)
@@ -54,7 +53,6 @@ function startDaemon()
             recompileDocs();
         }
     });
-    // See also https://github.com/Sv443/SvCoreLib/issues/7 (why does software break smh)
 
 
 

@@ -1,7 +1,6 @@
 const http = require("http");
 const scl = require("svcorelib");
 const fs = require("fs-extra");
-const crypto = require("crypto");
 
 const exists = require("./exists");
 
@@ -10,7 +9,6 @@ const settings = require("../settings");
 scl.unused([http]);
 
 
-var previousDaemonHash;
 var tokenList;
 
 /**
@@ -25,28 +23,35 @@ function init()
                 fs.writeFileSync(settings.auth.tokenListFile, JSON.stringify([], null, 4));
             
             refreshTokens();
-            setInterval(() => daemonInterval(), settings.auth.daemonInterval);
+
+            let fd = new scl.FolderDaemon(settings.auth.tokenListFolder, [], false, settings.auth.daemonInterval * 1000)
+            fd.onChanged((err, res) => {
+                if(!err && res.length > 0)
+                    refreshTokens();
+            });
+
             return resolve();
         });
     });
 }
 
-/**
- * To be called on interval to check if the tokens should be refreshed
- */
-function daemonInterval()
-{
-    let tokenFileRaw = fs.readFileSync(settings.auth.tokenListFile).toString();
-    let tokenHash = crypto.createHash("md5").update(tokenFileRaw).digest("hex");
+// prevoius code in case of an emergency (call on interval in init(), after exists() callback)
+// /**
+//  * To be called on interval to check if the tokens should be refreshed
+//  */
+// function daemonInterval()
+// {
+//     let tokenFileRaw = fs.readFileSync(settings.auth.tokenListFile).toString();
+//     let tokenHash = crypto.createHash("md5").update(tokenFileRaw).digest("hex");
 
-    if(previousDaemonHash == undefined)
-        return;
-    else if(previousDaemonHash != tokenHash)
-    {
-        previousDaemonHash = tokenHash;
-        refreshTokens();
-    }
-}
+//     if(previousDaemonHash == undefined)
+//         return;
+//     else if(previousDaemonHash != tokenHash)
+//     {
+//         previousDaemonHash = tokenHash;
+//         refreshTokens();
+//     }
+// }
 
 /**
  * Refreshes the auth tokens in memory

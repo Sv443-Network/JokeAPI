@@ -198,10 +198,11 @@ const settings = {
         port: 3306,          // the port of the DB - default is 3306
     },
     auth: {
-        tokenListFile: "./data/tokens.json", // path to the token list file
-        tokenHeaderName: "authorization",     // the name of the token header (lower case)
-        tokenValidHeader: "Token-Valid",     // the name of the token validity response header (normal case, not lower case)
-        daemonInterval: 20, // after how many seconds the auth tokens should be refreshed
+        tokenListFile: "./data/auth/tokens.json", // path to the token list file
+        tokenListFolder: "./data/auth",           // path to the auth folder
+        tokenHeaderName: "authorization",         // the name of the token header (lower case)
+        tokenValidHeader: "Token-Valid",          // the name of the token validity response header (normal case, not lower case)
+        daemonInterval: 20,                       // after how many seconds the auth tokens should be refreshed
     },
     languages: {
         langFilePath: "./data/languages.json",        // file containing all language codes and corresponding language information
