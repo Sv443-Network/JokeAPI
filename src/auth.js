@@ -1,10 +1,13 @@
 const http = require("http");
-const jsl = require("svjsl");
+const scl = require("svcorelib");
 const fs = require("fs-extra");
 const crypto = require("crypto");
+
+const exists = require("./exists");
+
 const settings = require("../settings");
 
-jsl.unused([http]);
+scl.unused([http]);
 
 
 var previousDaemonHash;
@@ -12,10 +15,12 @@ var tokenList;
 
 /**
  * Initializes the auth module
+ * @returns {Promise}
  */
-const init = () => {
+function init()
+{
     return new Promise(resolve => {
-        fs.exists(settings.auth.tokenListFile, exists => {
+        exists(settings.auth.tokenListFile).then(exists => {
             if(!exists)
                 fs.writeFileSync(settings.auth.tokenListFile, JSON.stringify([], null, 4));
             
@@ -24,7 +29,7 @@ const init = () => {
             return resolve();
         });
     });
-};
+}
 
 /**
  * To be called on interval to check if the tokens should be refreshed
@@ -72,7 +77,8 @@ function refreshTokens()
  * @param {http.ServerResponse} [res] If not provided, users will not get the `Token-Valid` response header
  * @returns {Authorization}
  */
-const authByHeader = (req, res) => {
+function authByHeader(req, res)
+{
     let isAuthorized = false;
     let requestersToken = "";
 
@@ -97,6 +103,6 @@ const authByHeader = (req, res) => {
         isAuthorized: isAuthorized,
         token: requestersToken
     };
-};
+}
 
 module.exports = { init, authByHeader };

@@ -1,6 +1,6 @@
 // This module starts the HTTP server, parses the request and calls the requested endpoint
 
-const jsl = require("svjsl");
+const scl = require("svcorelib");
 const http = require("http");
 const Readable = require("stream").Readable;
 const fs = require("fs-extra");
@@ -22,8 +22,9 @@ const meter = require("./meter");
 const languages = require("./languages");
 const { RateLimiterMemory, RateLimiterRes } = require("rate-limiter-flexible");
 const tr = require("./translate");
+const exists = require("./exists");
 
-jsl.unused(RateLimiterRes); // typedef only
+scl.unused(RateLimiterRes); // typedef only
 
 
 const init = () => {
@@ -69,10 +70,10 @@ const init = () => {
                 if(languages.isValidLang(lang) !== true)
                     lang = settings.languages.defaultLanguage;
 
-                debug("HTTP", `Incoming ${req.method} request from "${lang}-${ip.substring(0, 8)}${localhostIP ? `..." ${jsl.colors.fg.blue}(local)${jsl.colors.rst}` : "...\""} to ${req.url}`);
+                debug("HTTP", `Incoming ${req.method} request from "${lang}-${ip.substring(0, 8)}${localhostIP ? `..." ${scl.colors.fg.blue}(local)${scl.colors.rst}` : "...\""} to ${req.url}`);
                 
                 let fileFormat = settings.jokes.defaultFileFormat.fileFormat;
-                if(!jsl.isEmpty(parsedURL.queryParams) && !jsl.isEmpty(parsedURL.queryParams.format))
+                if(!scl.isEmpty(parsedURL.queryParams) && !scl.isEmpty(parsedURL.queryParams.format))
                     fileFormat = parseURL.getFileFormatFromQString(parsedURL.queryParams);
 
                 if(req.url.length > settings.httpServer.maxUrlLength)
@@ -100,7 +101,7 @@ const init = () => {
                         }
                         catch(err)
                         {
-                            console.log(`${jsl.colors.fg.red}Error while setting up CORS headers: ${err}${jsl.colors.rst}`);
+                            console.log(`${scl.colors.fg.red}Error while setting up CORS headers: ${err}${scl.colors.rst}`);
                         }
                     }
 
@@ -111,10 +112,10 @@ const init = () => {
                 }
                 catch(err)
                 {
-                    if(jsl.isEmpty(fileFormat))
+                    if(scl.isEmpty(fileFormat))
                     {
                         fileFormat = settings.jokes.defaultFileFormat.fileFormat;
-                        if(!jsl.isEmpty(parsedURL.queryParams) && !jsl.isEmpty(parsedURL.queryParams.format))
+                        if(!scl.isEmpty(parsedURL.queryParams) && !scl.isEmpty(parsedURL.queryParams.format))
                             fileFormat = parseURL.getFileFormatFromQString(parsedURL.queryParams);
                     }
 
@@ -147,7 +148,7 @@ const init = () => {
                         let lowerCaseEndpoints = [];
                         endpoints.forEach(ep => lowerCaseEndpoints.push(ep.name.toLowerCase()));
 
-                        if(!jsl.isArrayEmpty(urlPath))
+                        if(!scl.isArrayEmpty(urlPath))
                             requestedEndpoint = urlPath[0];
                         else
                         {
@@ -195,7 +196,7 @@ const init = () => {
                         }
 
                         // serve favicon:
-                        if(!jsl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "favicon.ico")
+                        if(!scl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "favicon.ico")
                             return pipeFile(res, settings.documentation.faviconPath, "image/x-icon", 200);
 
                         endpoints.forEach(async (ep) => {
@@ -213,13 +214,13 @@ const init = () => {
                                     }
                                     catch(err)
                                     {
-                                        jsl.unused(err); // gets handled elsewhere
+                                        scl.unused(err); // gets handled elsewhere
                                     }
                                 }
                                 
                                 if(isAuthorized)
                                 {
-                                    debug("HTTP", `Requester has valid token ${jsl.colors.fg.green}${req.headers[settings.auth.tokenHeaderName] || null}${jsl.colors.rst}`);
+                                    debug("HTTP", `Requester has valid token ${scl.colors.fg.green}${req.headers[settings.auth.tokenHeaderName] || null}${scl.colors.rst}`);
                                     analytics({
                                         type: "AuthTokenIncluded",
                                         data: {
@@ -236,11 +237,11 @@ const init = () => {
                                 let callEndpoint = require(`.${ep.absPath}`);
                                 let meta = callEndpoint.meta;
                                 
-                                if(!jsl.isEmpty(meta) && meta.skipRateLimitCheck === true)
+                                if(!scl.isEmpty(meta) && meta.skipRateLimitCheck === true)
                                 {
                                     try
                                     {
-                                        if(jsl.isEmpty(meta) || (!jsl.isEmpty(meta) && meta.noLog !== true))
+                                        if(scl.isEmpty(meta) || (!scl.isEmpty(meta) && meta.noLog !== true))
                                         {
                                             if(!lists.isConsoleBlacklisted(ip))
                                                 logRequest("success", null, analyticsObject);
@@ -269,7 +270,7 @@ const init = () => {
                                         }
                                         else
                                         {
-                                            if(jsl.isEmpty(meta) || (!jsl.isEmpty(meta) && meta.noLog !== true))
+                                            if(scl.isEmpty(meta) || (!scl.isEmpty(meta) && meta.noLog !== true))
                                             {
                                                 if(!lists.isConsoleBlacklisted(ip))
                                                     logRequest("success", null, analyticsObject);
@@ -292,10 +293,10 @@ const init = () => {
                         setTimeout(() => {
                             if(!foundEndpoint)
                             {
-                                if(!jsl.isEmpty(fileFormat) && req.url.toLowerCase().includes("format"))
-                                    return respondWithError(res, 102, 404, fileFormat, tr(lang, "endpointNotFound", (!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/")), lang);
+                                if(!scl.isEmpty(fileFormat) && req.url.toLowerCase().includes("format"))
+                                    return respondWithError(res, 102, 404, fileFormat, tr(lang, "endpointNotFound", (!scl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/")), lang);
                                 else
-                                    return respondWithErrorPage(res, 404, tr(lang, "endpointNotFound", (!jsl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/")));
+                                    return respondWithErrorPage(res, 404, tr(lang, "endpointNotFound", (!scl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/")));
                             }
                         }, 5000);
                     }
@@ -306,7 +307,7 @@ const init = () => {
                     //#MARKER Joke submission
                     let submissionsRateLimited = await rlSubm.get(ip);
 
-                    if(!jsl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "submit" && !(submissionsRateLimited && submissionsRateLimited._remainingPoints <= 0 && !headerAuth.isAuthorized))
+                    if(!scl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "submit" && !(submissionsRateLimited && submissionsRateLimited._remainingPoints <= 0 && !headerAuth.isAuthorized))
                     {
                         let data = "";
                         let dataGotten = false;
@@ -317,7 +318,7 @@ const init = () => {
                             if(payloadLength > settings.httpServer.maxPayloadSize)
                                 return respondWithError(res, 107, 413, fileFormat, tr(lang, "payloadTooLarge", payloadLength, settings.httpServer.maxPayloadSize), lang);
 
-                            if(!jsl.isEmpty(data))
+                            if(!scl.isEmpty(data))
                                 dataGotten = true;
 
                             let dryRun = (parsedURL.queryParams && parsedURL.queryParams["dry-run"] == true) || false;
@@ -372,7 +373,7 @@ const init = () => {
                         req.on("data", chunk => {
                             data += chunk;
 
-                            if(!jsl.isEmpty(data))
+                            if(!scl.isEmpty(data))
                                 dataGotten = true;
 
                             if(data == process.env.RESTART_TOKEN && parsedURL.pathArray != null && parsedURL.pathArray[0] == "restart")
@@ -383,7 +384,7 @@ const init = () => {
                                     "message": `Restarting ${settings.info.name}`,
                                     "timestamp": new Date().getTime()
                                 }, lang));
-                                console.log(`\n\n[${logger.getTimestamp(" | ")}]  ${jsl.colors.fg.red}IP ${jsl.colors.fg.yellow}${ip.substr(0, 8)}[...]${jsl.colors.fg.red} sent a restart command\n\n\n${jsl.colors.rst}`);
+                                console.log(`\n\n[${logger.getTimestamp(" | ")}]  ${scl.colors.fg.red}IP ${scl.colors.fg.yellow}${ip.substr(0, 8)}[...]${scl.colors.fg.red} sent a restart command\n\n\n${scl.colors.rst}`);
                                 process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
                             }
                             else return respondWithErrorPage(res, 400, tr(lang, "invalidSubmissionOrWrongEndpoint", (parsedURL.pathArray != null ? parsedURL.pathArray[0] : "/")));
@@ -423,12 +424,12 @@ const init = () => {
                 if(!err)
                 {
                     httpServerInitialized = true;
-                    debug("HTTP", `${jsl.colors.fg.green}HTTP Server successfully listens on port ${settings.httpServer.port}${jsl.colors.rst}`);
+                    debug("HTTP", `${scl.colors.fg.green}HTTP Server successfully listens on port ${settings.httpServer.port}${scl.colors.rst}`);
                     return resolve();
                 }
                 else
                 {
-                    debug("HTTP", `${jsl.colors.fg.red}HTTP listener init encountered error: ${settings.httpServer.port}${jsl.colors.rst}`);
+                    debug("HTTP", `${scl.colors.fg.red}HTTP listener init encountered error: ${settings.httpServer.port}${scl.colors.rst}`);
                     return reject(err);
                 }
             });
@@ -550,7 +551,7 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
             }
         }
 
-        if(!jsl.isEmpty(errorMessage))
+        if(!scl.isEmpty(errorMessage))
             errObj.additionalInfo = errorMessage;
 
         let converted = convertFileFormat.auto(fileFormat, errObj, lang).toString();
@@ -578,10 +579,10 @@ const respondWithErrorPage = (res, statusCode, error) => {
     if(isNaN(statusCode))
     {
         statusCode = 500;
-        error += ((!jsl.isEmpty(error) ? " - Ironically, an additional " : "An ") + "error was encountered while sending this error page: \"statusCode is not a number (in: httpServer.respondWithErrorPage)\"");
+        error += ((!scl.isEmpty(error) ? " - Ironically, an additional " : "An ") + "error was encountered while sending this error page: \"statusCode is not a number (in: httpServer.respondWithErrorPage)\"");
     }
 
-    if(!jsl.isEmpty(error))
+    if(!scl.isEmpty(error))
     {
         res.setHeader("Set-Cookie", `errorInfo=${JSON.stringify({"API-Error-Message": error, "API-Error-StatusCode": statusCode})}`);
         res.setHeader("API-Error", error);
@@ -702,7 +703,7 @@ const serveDocumentation = (req, res) => {
     let filePath = `${settings.documentation.compiledPath}documentation.html${fileExtension}`;
     let fallbackPath = `${settings.documentation.compiledPath}documentation.html`;
 
-    fs.exists(filePath, exists => {
+    exists(filePath).then(exists => {
         if(exists)
         {
             if(selectedEncoding == null)

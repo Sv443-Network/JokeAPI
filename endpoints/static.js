@@ -1,11 +1,13 @@
 const http = require("http");
-const httpServer = require("../src/httpServer");
-const jsl = require("svjsl");
-const settings = require("../settings");
-const fs = require("fs-extra");
-const debug = require("../src/verboseLogging");
+const scl = require("svcorelib");
 
-jsl.unused(http);
+const httpServer = require("../src/httpServer");
+const debug = require("../src/verboseLogging");
+const exists = require("../src/exists");
+
+const settings = require("../settings");
+
+scl.unused(http);
 
 
 const meta = {
@@ -24,11 +26,12 @@ const meta = {
  * @param {Object} params URL query params gotten from the URL parser module
  * @param {String} format The file format to respond with
  */
-const call = (req, res, url, params, format) => {
-    jsl.unused([req, params, format]);
+function call(req, res, url, params, format)
+{
+    scl.unused([req, params, format]);
 
     let filePath, mimeType, statusCode;
-    let requestedFile = !jsl.isEmpty(url[1]) ? url[1] : null;
+    let requestedFile = !scl.isEmpty(url[1]) ? url[1] : null;
     let allowEncoding = true;
     let allowRobotIndexing = false; // allow indexing by robots like Googlebot
 
@@ -105,7 +108,7 @@ const call = (req, res, url, params, format) => {
 
     filePath = `${filePath}${fileExtension}`;
 
-    fs.exists(filePath, exists => {
+    exists(filePath).then(exists => {
         if(exists)
         {
             if(selectedEncoding == null || selectedEncoding == "identity")
@@ -127,6 +130,6 @@ const call = (req, res, url, params, format) => {
             return httpServer.pipeFile(res, filePath, mimeType, statusCode);
         }
     });
-};
+}
 
 module.exports = { call, meta };
