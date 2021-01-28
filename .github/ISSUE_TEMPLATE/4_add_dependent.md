@@ -2,7 +2,7 @@
 name: Dependent
 about: Request your project to be added to the dependent lists in the readme and documentation or suggest an edit to a dependent
 title: 'New dependent: '
-labels: ⚙️ dependent
+labels: dependent
 assignees: Sv443
 
 ---
