@@ -2,7 +2,7 @@
 This is a documentation on the internals of JokeAPI.  
 The following files will teach you about how every aspect works:
 
-- [Knowledge Prerequisites](#knowledge-prerequisites#readme)
+- [Knowledge Prerequisites](#knowledge-prerequisites)
 - [Execution Flow](./execution-flow.md#readme)
 - [Docs Compilation](./docs-compilation.md#readme)
 
