@@ -5,7 +5,7 @@ const bgc = jsl.colors.bg;
 
 const settings = {
     debug: {
-        verboseLogging: false,      // set to true to enable extra debug output
+        verboseLogging: true,      // set to true to enable extra debug output
         progressBarDisabled: true,  // set to true to disable the progress bar - greatly improves readability of verbose debug output
         onlyLogErrors: true,        // set to true to disable sending any console logs but error messages
     },
@@ -189,8 +189,8 @@ const settings = {
     },
     analytics: {
         enabled: false, // whether or not the analytics module should be enabled
-        dirPath: "./data/analytics/", // path to the analytics directory - needs trailing slash
-        sqlTableName: "analytics",    // name of the SQL table
+        dirPath: "./data/sql/",    // path to the analytics directory - needs trailing slash
+        sqlTableName: "analytics", // name of the SQL table
     },
     sql: { // (login credentials are set in the .env file)
         host: "localhost",   // IP address to the DB host - default for local device is "localhost"
@@ -212,6 +212,10 @@ const settings = {
     tests: { // unit tests
         location: "./tests/",  // folder where unit tests are located - requires trailing slash
         initPingInterval: 250, // in ms - interval between init pings (default: 250)
+    },
+    jokeCaching: {
+        tableName: "id_caching",
+        createTableFile: "./data/sql/create_id_caching.sql"
     }
 }
 
