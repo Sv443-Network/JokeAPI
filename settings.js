@@ -196,6 +196,7 @@ const settings = {
         host: "localhost",   // IP address to the DB host - default for local device is "localhost"
         database: "jokeapi", // the name of the DB
         port: 3306,          // the port of the DB - default is 3306
+        timeout: 5000,       // after how many milliseconds queries should time out
     },
     auth: {
         tokenListFile: "./data/auth/tokens.json", // path to the token list file
@@ -214,8 +215,9 @@ const settings = {
         initPingInterval: 250, // in ms - interval between init pings (default: 250)
     },
     jokeCaching: {
-        tableName: "id_caching",
-        createTableFile: "./data/sql/create_id_caching.sql"
+        tableName: "joke_cache",                             // table name of the joke cache DB table
+        createTableFile: "./data/sql/create_joke_cache.sql", // file that contains SQL code to create the cache table
+        ipHashRegex: /^[a-fA-F0-9]{64}$/                     // regex to validate an IP hash
     }
 }
 

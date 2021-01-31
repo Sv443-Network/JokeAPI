@@ -52,7 +52,7 @@ const init = () => {
             setTimeout(() => {
                 if(!httpServerInitialized)
                     return reject(`HTTP server initialization timed out after ${settings.httpServer.startupTimeout} seconds.\nMaybe the port ${settings.httpServer.port} is already occupied or the firewall blocks the connection.\nTry killing the process that's blocking the port or change it in settings.httpServer.port`);
-            }, settings.httpServer.startupTimeout * 1000)
+            }, settings.httpServer.startupTimeout * 1000);
 
             //#SECTION create HTTP server
             let httpServer = http.createServer(async (req, res) => {

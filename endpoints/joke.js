@@ -1,4 +1,6 @@
+const scl = require("svcorelib");
 const http = require("http");
+
 const convertFileFormat = require("../src/fileFormatConverter");
 const httpServer = require("../src/httpServer");
 const parseURL = require("../src/parseURL");
@@ -6,10 +8,10 @@ const parseJokes = require("../src/parseJokes");
 const languages = require("../src/languages");
 const tr = require("../src/translate");
 const FilteredJoke = require("../src/classes/FilteredJoke");
-const jsl = require("svjsl");
-const settings = require("../settings");
+const resolveIP = require("../src/resolveIP");
 
-jsl.unused(http);
+const settings = require("../settings");
+scl.unused(http);
 
 
 const meta = {
@@ -40,7 +42,9 @@ const meta = {
  * @param {String} format The file format to respond with
  */
 const call = (req, res, url, params, format) => {
-    jsl.unused([req, url]);
+    scl.unused([req, url]);
+
+    let ip = resolveIP(req);
 
     let filterJoke = new FilteredJoke(parseJokes.allJokes);
 
@@ -49,7 +53,7 @@ const call = (req, res, url, params, format) => {
 
     let includesSplitChar = false;
     settings.jokes.splitChars.forEach(splC => {
-        if(!jsl.isEmpty(category) && category.includes(splC))
+        if(!scl.isEmpty(category) && category.includes(splC))
             includesSplitChar = true;
     });
 
@@ -85,7 +89,7 @@ const call = (req, res, url, params, format) => {
     let langCode = settings.languages.defaultLanguage;
 
     //#SECTION language
-    if(params && !jsl.isEmpty(params["lang"]))
+    if(params && !scl.isEmpty(params["lang"]))
     {
         try
         {
@@ -103,7 +107,7 @@ const call = (req, res, url, params, format) => {
     }
 
     //#SECTION safe mode
-    if(params && !jsl.isEmpty(params["safe-mode"]) && params["safe-mode"] === true)
+    if(params && !scl.isEmpty(params["safe-mode"]) && params["safe-mode"] === true)
         filterJoke.setSafeMode(true);
 
     if(!fCat || !categoryValid)
@@ -116,24 +120,24 @@ const call = (req, res, url, params, format) => {
     
     let jokeAmount = 1;
 
-    if(!jsl.isEmpty(params))
+    if(!scl.isEmpty(params))
     {
         //#SECTION type
-        if(!jsl.isEmpty(params["type"]) && settings.jokes.possible.types.map(t => t.toLowerCase()).includes(params["type"].toLowerCase()))
+        if(!scl.isEmpty(params["type"]) && settings.jokes.possible.types.map(t => t.toLowerCase()).includes(params["type"].toLowerCase()))
         {
             if(!filterJoke.setAllowedType(params["type"].toLowerCase()))
                 return isErrored(res, format, tr(langCode, "invalidType", params["type"], settings.jokes.possible.types.join(", ")), langCode);
         }
         
         //#SECTION contains
-        if(!jsl.isEmpty(params["contains"]))
+        if(!scl.isEmpty(params["contains"]))
         {
             if(!filterJoke.setSearchString(params["contains"].toLowerCase()))
                 return isErrored(res, format, tr(langCode, "invalidType", params["type"], settings.jokes.possible.types.join(", ")), langCode);
         }
 
         //#SECTION idRange
-        if(!jsl.isEmpty(params["idRange"]))
+        if(!scl.isEmpty(params["idRange"]))
         {
             try
             {
@@ -164,7 +168,7 @@ const call = (req, res, url, params, format) => {
         }
 
         //#SECTION blacklistFlags
-        if(!jsl.isEmpty(params["blacklistFlags"]))
+        if(!scl.isEmpty(params["blacklistFlags"]))
         {
             let flags = params["blacklistFlags"].split(settings.jokes.splitCharRegex) || [];
             let erroredFlags = [];
@@ -183,7 +187,7 @@ const call = (req, res, url, params, format) => {
         }
 
         //#SECTION amount
-        if(!jsl.isEmpty(params["amount"]))
+        if(!scl.isEmpty(params["amount"]))
         {
             jokeAmount = parseInt(params["amount"]);
 
@@ -200,7 +204,7 @@ const call = (req, res, url, params, format) => {
     }
     
 
-    filterJoke.getJokes(filterJoke.getAmount()).then(jokesArray => {
+    filterJoke.getJokes(ip, langCode, filterJoke.getAmount()).then(jokesArray => {
         let responseText = "";
 
         if(jokeAmount == 1)

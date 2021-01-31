@@ -3,6 +3,8 @@ This is a documentation on the internals of JokeAPI.
 The following files will teach you about how every aspect works:
 
 - [Knowledge Prerequisites](#knowledge-prerequisites)
+- [Technical Prerequisites](#technical-prerequisites)
+- [How to set up JokeAPI](./setup.md#readme)
 - [Execution Flow](./execution-flow.md#readme)
 - [Docs Compilation](./docs-compilation.md#readme)
 
@@ -45,4 +47,24 @@ These are **optional** requirements. It is helpful but not necessary to know the
 
 <br><br><br>
 
-EOF, please see the other files at the top.
+
+<!-- #MARKER technical prerequisites -->
+
+## Technical Prerequisites:
+These are the technological requirements you need to have in order to work with JokeAPI's code.
+
+### Required:
+You **need** these things for working on JokeAPI.
+- Node.js v11.7.0 (needed for the brotli compression of the docs - otherwise set `settings.httpServer.encodings.brotli` to false)
+- MySQL / MariaDB / MSSQL database with a UTF-8_bin database that has the name of `settings.sql.database` (usually `jokeapi`)
+
+### Optional:
+These things are **optional** but strongly recommended.
+- Visual Studio Code with the following extensions:
+    - [`fabiospampinato.vscode-highlight`](https://marketplace.visualstudio.com/items?itemName=fabiospampinato.vscode-highlight)
+    - [`coenraads.bracket-pair-colorizer-2`](https://marketplace.visualstudio.com/items?itemName=coenraads.bracket-pair-colorizer-2)
+
+
+<br><br><br>
+
+**EOF, please see the other files at the top.**

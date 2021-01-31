@@ -1,7 +1,7 @@
 -- for recreating the tables
-DROP TABLE id_caching;
+DROP TABLE joke_cache;
 
-CREATE TABLE id_caching (
+CREATE TABLE joke_cache (
 	`ClientIpHash` VARCHAR(96) NOT NULL COLLATE 'utf8_bin',
 	`JokeID` INT(6) NULL DEFAULT NULL COLLATE 'utf8_bin',
 	`LangCode` VARCHAR(2) NOT NULL COLLATE 'utf8_bin',
@@ -23,13 +23,13 @@ COLLATE='utf8_bin';
 
 
 
-SELECT * FROM id_caching;
+SELECT * FROM joke_cache;
 
 -- Add a new entry to a client's cache list
-INSERT INTO id_caching (ClientIpHash, JokeID, LangCode) VALUES (
-	"eff8e7ca506627fe15dda5e0e512fcaad70b6d520f37cc76597fdb4f2d83a1a3",
-	-- "818503e10b0d60e9ee016770d38c3a05030d9d41d2f6cfee427388bd8bcb221f",
-	227,
+INSERT INTO joke_cache (ClientIpHash, JokeID, LangCode) VALUES (
+	-- "eff8e7ca506627fe15dda5e0e512fcaad70b6d520f37cc76597fdb4f2d83a1a3",
+	"818503e10b0d60e9ee016770d38c3a05030d9d41d2f6cfee427388bd8bcb221f",
+	93,
 	"de"
 );
 
@@ -44,18 +44,24 @@ INSERT INTO client_index (ClientIpHash) VALUES (
 
 
 -- total count of ef's cache list
-SELECT COUNT(*) AS "Total cache list entries of 'ef'" FROM id_caching WHERE ClientIpHash = "eff8e7ca506627fe15dda5e0e512fcaad70b6d520f37cc76597fdb4f2d83a1a3";
+SELECT COUNT(*) AS "Total cache list entries of 'ef'" FROM joke_cache WHERE ClientIpHash = "eff8e7ca506627fe15dda5e0e512fcaad70b6d520f37cc76597fdb4f2d83a1a3";
 
 -- list of joke IDs to NOT serve to the provided client
-SELECT JokeID FROM id_caching
+SELECT JokeID FROM joke_cache
 	WHERE ClientIpHash = "eff8e7ca506627fe15dda5e0e512fcaad70b6d520f37cc76597fdb4f2d83a1a3"
 	AND LangCode = "de"
 	ORDER BY JokeID ASC;
 
-SELECT * FROM id_caching;
+SELECT * FROM joke_cache;
 
 -- list all entries of the table to delete (because the client was inactive for the provided
 -- SELECT * FROM id_caching WHERE `DateTime` BETWEEN '2021-01-30 16:11:45' AND CURRENT_TIMESTAMP;
 
-SELECT `DateTime` FROM id_caching;
-SELECT DATE_ADD(id_caching.`DateTime`, INTERVAL 30 MINUTE) FROM id_caching;
+SELECT `DateTime` FROM joke_cache;
+SELECT DATE_ADD(joke_cache.`DateTime`, INTERVAL 30 MINUTE) FROM joke_cache;
+
+
+-- list all joke IDs of specified langcode and the provided client IP hash
+SELECT JokeID FROM joke_cache
+	WHERE ClientIpHash = "eff8e7ca506627fe15dda5e0e512fcaad70b6d520f37cc76597fdb4f2d83a1a3"
+	AND LangCode = "en";

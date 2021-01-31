@@ -14,7 +14,7 @@
                 "overviewRulerColor": "#f41"
             }
         ],
-        "(#SECTION ([^\\S\\r\\n]*[\\w,.\\-_]+)*[:]*)": [ // #SECTION test, 123
+        "(#SECTION ([^\\S\\r\\n]*[\\w,.\\-_&]+)*[:]*)": [ // #SECTION test, 123 & foo
             {
                 "backgroundColor": "#44f",
                 "color": "white",
@@ -26,6 +26,12 @@
                 "backgroundColor": "#ff0",
                 "color": "blue",
                 "overviewRulerColor": "#ff0"
+            }
+        ],
+        "(IMPORTANT:)": [ // IMPORTANT:
+            {
+                "backgroundColor": "#a22",
+                "color": "#fff"
             }
         ],
         "(<!--%#INSERT:[a-zA-Z0-9\\-]+#%-->|<!--%#INJECT:[a-zA-Z0-9\\-]+#%-->)": [ // <!--%#INSERT:TEST#%--> / <!--%#INJECT:TEST#%-->
@@ -44,6 +50,15 @@
         ],
     },
     "npm-scripts.showStartNotification": false,
+
+    "bracket-pair-colorizer-2.colors": [
+        "#0F6A8F",
+        "#659061",
+        "#41BCA3",
+        "#EDD553",
+        "#E09563",
+        "#B85442"
+    ],
 
     // JokeAPI-specific:
 

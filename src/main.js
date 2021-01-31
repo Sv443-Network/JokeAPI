@@ -6,7 +6,7 @@
 
 const jsl = require("svjsl");
 const fs = require("fs-extra");
-require("dotenv").config();
+const promiseAllSequential = require("promise-all-sequential");
 
 const settings = require("../settings");
 const debug = require("./verboseLogging");
@@ -20,11 +20,13 @@ const auth = require("./auth");
 const languages = require("./languages");
 const translate = require("./translate");
 const meter = require("./meter");
-const promiseAllSequential = require("promise-all-sequential");
+const jokeCache = require("./jokeCache");
 
 const col = jsl.colors.fg;
 process.debuggerActive = jsl.inDebugger();
 const noDbg = process.debuggerActive || false;
+
+require("dotenv").config();
 
 settings.init.exitSignals.forEach(sig => {
     process.on(sig, () => softExit(0));
@@ -74,6 +76,10 @@ const initAll = () => {
             fn: analytics.init
         },
         {
+            name: "Initializing Joke Cache",
+            fn: jokeCache.init
+        },
+        {
             name: "Initializing pm2 meter",
             fn: meter.init
         }
@@ -91,6 +97,14 @@ const initAll = () => {
 
     promiseAllSequential(initPromises).then((res) => {
         jsl.unused(res);
+
+        // //#DEBUG#
+        // require("./jokeCache").cache.listEntries("eff8e7ca506627fe15dda5e0e512fcaad70b6d520f37cc76597fdb4f2d83a1a3", "de").then(res => {
+        //     console.log(res);
+        // }).catch(err => {
+        //     console.error(`Err: ${err}`);
+        // });
+        // //#DEBUG#
 
         if(!jsl.isEmpty(pb))
             pb.next("Done.");

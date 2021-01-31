@@ -1,3 +1,4 @@
+[<< Home](./index.md#readme)
 # JokeAPI - Code Execution Flow [WIP]
 This file tells you about what modules JokeAPI executes and in what order and gives a short summary about the modules.
 
@@ -9,3 +10,8 @@ This file tells you about what modules JokeAPI executes and in what order and gi
         3. [Joke Parser](#joke-parser-module-initialization)
 2. [Incoming Requests](#incoming-requests)
 ...
+
+
+<br><br><br><br>
+
+[<< Home](./index.md#readme)
