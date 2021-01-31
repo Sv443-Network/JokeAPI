@@ -473,9 +473,10 @@ class FilteredJoke
                     filteredJokes.forEach(joke => promises.push(jokeCache.cache.addEntry(ip, joke.id, langCode)));
 
                     Promise.all(promises).then(() => {
-                        return; // joke caching doesn't need to be waited for
+                        return; // joke cache checking doesn't need to be waited for
                     }).catch(err => {
-
+                        scl.unused(err);
+                        return; // joke cache checking doesn't necessarily *need* to succeed
                     });
                 }
 
