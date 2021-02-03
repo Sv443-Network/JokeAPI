@@ -355,7 +355,7 @@ const init = () => {
                         setTimeout(() => {
                             if(!dataGotten)
                             {
-                                debug("HTTP", "PUT request timed out");
+                                debug("HTTP", "POST/PUT request timed out");
                                 rlSubm.consume(ip, 1);
                                 return respondWithError(res, 105, 400, fileFormat, tr(lang, "requestEmptyOrTimedOut"), lang);
                             }

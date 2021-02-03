@@ -4,7 +4,10 @@ The JokeAPI documentation is semi-static.
 It goes through a compilation process that is unique to JokeAPI.  
 This file will teach you all about it.  
   
-In the init phase,
+In the init phase, a [daemon](https://github.com/Sv443/SvCoreLib/blob/master/docs.md#folderdaemon) is started which supervises the directory the raw docs files are in.  
+If it detects that a file has changed, the documentation is recompiled.  
+This allows you to modify the docs while JokeAPI is running.  
+Note that this process might take up to a few seconds.
 
 <br>
 
@@ -39,10 +42,10 @@ The insertion markings are in one of these two formats:
 <!--%#KEYWORD:CONSTANTNAME#%-->
 ```
 or
-```
+```html
 <%#KEYWORD:CONSTANTNAME#%>
 ```
-`KEYWORD` can be either `INSERT`, if a single value should be inserted, or `INJECT` if an entire file's contents should be injected.  
+`KEYWORD` can be either `INSERT`, if a single value should be inserted, or `INJECT` if an entire file's contents should be injected (though the functionality to inject entire files doesn't exist at this point).  
   
 `CONSTANTNAME` is a predefined name, which can be set and assigned a value in the variable `injections` of the function `inject()` inside `./src/docs.js`  
 Here you can add your own values or edit or delete existing ones.
@@ -59,7 +62,7 @@ The encoded files are taken from and put back into `settings.documentation.compi
 Encoding algorithms that JokeAPI supports:
 | Efficiency | Name | Algorithm | File Extension |
 | --- | --- | --- | --- |
-| 3 | `brotli` (`br`) | [Brotli](https://en.wikipedia.org/wiki/Brotli) | `.br` |
+| 3 | `brotli` / `br` | [Brotli](https://en.wikipedia.org/wiki/Brotli) | `.br` |
 | 2 | `gzip` | [Gzip / Lempel-Ziv / LZ77](https://en.wikipedia.org/wiki/Gzip) | `.gz` |
 | 1 | `deflate` | [Deflate](https://en.wikipedia.org/wiki/DEFLATE) | `.zz` |
 | 0 | `identity` | None | - |

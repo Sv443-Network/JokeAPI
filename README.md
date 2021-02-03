@@ -15,14 +15,17 @@
 <br><br>
 
 # [Documentation](https://jokeapi.dev/)
-## [Try it out](https://jokeapi.dev/#try-it) &bull; [Changelog](./changelog.md)
+## [Try it out](https://jokeapi.dev/#try-it) &bull; [Changelog](./changelog.md#readme)
+
+<br>
+
+[Internal Documentation](./dev/docs/index.md#readme) &bull; [Contributing Guide](./.github/Contributing.md#readme)
 
 
 </div>
 <br><br>
 
 ### Note: due to the different types of humor, JokeAPI contains a wide variety of jokes, of which some are very offensive. They can be filtered out, but use this API at your own risk!
-### If you want to contribute to JokeAPI (code, jokes or translations), please read the [contributing guide.](./.github/Contributing.md)
 
 <br><br>
 

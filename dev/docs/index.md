@@ -1,6 +1,7 @@
 # JokeAPI - Developer Documentation [WIP]
 This is a documentation on the internals of JokeAPI.  
-The following files will teach you about how every aspect works:
+Use it to get to know how the API works and to learn about its quirks.  
+The following topics will teach you about how every aspect works:
 
 - [Knowledge Prerequisites](#knowledge-prerequisites)
 - [Technical Prerequisites](#technical-prerequisites)
@@ -51,7 +52,7 @@ These are **optional** requirements. It is helpful but not necessary to know the
 <!-- #MARKER technical prerequisites -->
 
 ## Technical Prerequisites:
-These are the technological requirements you need to have in order to work with JokeAPI's code.
+These are the technical requirements you need to have in order to work with JokeAPI's code.
 
 ### Required:
 You **need** these things for working on JokeAPI.

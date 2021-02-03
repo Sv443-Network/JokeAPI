@@ -15,14 +15,15 @@ If you need help during setup, feel free to reach out to me [on Discord.](https:
 <br><br>
 
 ## Setup Guide:
-1. Open a terminal window in the project root directory (where the `package.json` file is)
-2. Run the command `npm i` to install all dependencies
-3. Edit the file `.env.template`, filling it out with your values (`notepad .env.template` on Windows or `nano .env.template` on *nix)
-4. Rename the file `.env.template` to just ".env" - VS Code should now hide this file
-5. Customize values in the `settings.js` file (optional)
-6. Make sure the server's port (defined in `settings.httpServer.port` - default 8076) is being forwarded or proxied correctly so that HTTP requests can reach JokeAPI
-7. Run the [unit tests](#unit-tests) to make sure everything works as it should - correct mistakes if there are any
-8. Use `npm start` or `node JokeAPI` to start JokeAPI
+1. Open a terminal window in the project root directory (where the `package.json` file is).
+2. Run the command `npm i` to install all dependencies.
+3. Edit the file `.env.template`, filling it out with your values (`notepad .env.template` on Windows or `nano .env.template` on *nix).
+4. Rename the file `.env.template` to just ".env" - VS Code should now hide this file.
+5. Customize values in the `settings.js` file (optional).
+6. Make sure the server's port (defined in `settings.httpServer.port` - default 8076) is being forwarded or proxied correctly so that HTTP requests can reach JokeAPI.
+7. Create a `jokeapi` database on the SQL server defined in the `.env` file. It is required for joke caching and analytics.
+8. Run the [unit tests](#unit-tests) to make sure everything works as it should - correct mistakes if there are any-
+9. Use `npm start` or `node JokeAPI` to start JokeAPI.
     - If you need JokeAPI to continuously run in the background and reboot on any potential crash, I recommend using [the process manager `pm2`.](https://npmjs.com/package/pm2)  
     JokeAPI has a pm2 monitor integration, which can be accessed with the command `pm2 monit`
 
