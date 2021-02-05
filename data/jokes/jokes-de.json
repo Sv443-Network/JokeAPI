@@ -487,6 +487,22 @@
             },
             "id": 30,
             "safe": true
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Wenn dir von Baguette schlecht wird...",
+            "delivery": "...dann war's wohl eine Brechstange.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 31,
+            "safe": true
         }
     ]
 }
