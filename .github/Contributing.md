@@ -24,7 +24,7 @@ Keep in mind, though, that I will not remove jokes based on opinions as that wou
 <br><br>
 
 ## Submitting code:
-For a better understanding of how JokeAPI works, please consult the developer documentation [found here.](../dev/docs/index.md#readme)
+For a better understanding of how JokeAPI works, please consult the developer documentation [found here.](../dev/docs/home.md#readme)
 
 1. [Read the Code_of_Conduct.md file](./Code_of_Conduct.md) (TLDR: just behave in a friendly manner).
 2. [Click here](https://github.com/Sv443/JokeAPI/fork) to fork the repository. Afterwards, clone or download it and locate the folder where it is contained.
