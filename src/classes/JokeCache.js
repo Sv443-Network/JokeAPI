@@ -1,7 +1,7 @@
 const mysql = require("mysql");
 const { unused, sql } = require("svcorelib");
 
-const { isValidLang } = require("./languages");
+const { isValidLang } = require("../languages");
 
 const settings = require("../../settings");
 
