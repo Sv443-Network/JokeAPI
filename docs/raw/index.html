@@ -188,6 +188,16 @@
                         </tr>
                         <tr>
                             <td>
+                                Safe mode:
+                            </td>
+                            <td>
+                                <div class="multiselect noselect" id="safeModeSelectWrapper">
+                                    <input type="checkbox" id="sfe-cb" onchange="reRender()"><label for="sfe-cb" id="sfe-cb-label">enabled</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
                                 Select <a href="#languages-endpoint">language</a>:
                             </td>
                             <td>
@@ -270,6 +280,7 @@
                         </tr>
                     </table>
                     <br>
+                    <div id="tryItErrors"></div>
                     <br>
                     <div id="urlBuilderWrapper" class="flexItem">
                         URL: <span id="urlBuilderUrl">(Loading...)</span><br>

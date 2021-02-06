@@ -1065,6 +1065,10 @@ div.sidenavSpacer {
     font-size: 90%;
 }
 
+#tryItErrors {
+    color: red;
+}
+
 .highlightedContainer {
     display: block;
     background-color: var(--bg-accent-color);

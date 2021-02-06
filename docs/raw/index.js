@@ -484,7 +484,11 @@ function reRender(langChanged)
     console.info("Re-rendering try-it form");
 
     var allOk = true;
+    /** @type {string[]} */
+    var errors = [];
 
+    gebid("tryItErrors").innerHTML = "";
+    
     //#SECTION category
     var isValid = false;
     document.getElementsByName("catSelect").forEach(function(el) {
@@ -518,9 +522,56 @@ function reRender(langChanged)
     {
         allOk = false;
         gebid("categoryWrapper").style.borderColor = "red";
+
+        errors.push("No category selected.");
     }
     else
     {
+        gebid("categoryWrapper").style.borderColor = "initial";
+    }
+
+
+    //#SECTION safe mode
+    if(gebid("sfe-cb").checked)
+    {
+        gebid("sfe-cb-label").innerText = "enabled";
+
+        if(gebid("cat-cb3").checked) // if dark category checked
+        {
+            var checkedCategories = 0;
+
+            ["cat-cb1", "cat-cb2", "cat-cb3", "cat-cb4", "cat-cb5", "cat-cb6"].forEach(function(cat) {
+                if(gebid(cat).checked)
+                {
+                    checkedCategories++;
+                }
+            });
+
+            if(checkedCategories == 1) // if *only* dark category checked
+            {
+                gebid("safeModeSelectWrapper").style.borderColor = "red";
+                gebid("categoryWrapper").style.borderColor = "red";
+
+                errors.push("Using the safe mode and category \"Dark\" at the same time.");
+
+                allOk = false;
+            }
+            else if(checkedCategories != 0)
+            {
+                gebid("safeModeSelectWrapper").style.borderColor = "initial";
+                gebid("categoryWrapper").style.borderColor = "initial";
+            }
+        }
+        else
+        {
+            gebid("safeModeSelectWrapper").style.borderColor = "initial";
+        }
+    }
+    else
+    {
+        gebid("sfe-cb-label").innerText = "disabled";
+
+        gebid("safeModeSelectWrapper").style.borderColor = "initial";
         gebid("categoryWrapper").style.borderColor = "initial";
     }
 
@@ -530,6 +581,8 @@ function reRender(langChanged)
     {
         allOk = false;
         gebid("typeSelectWrapper").style.borderColor = "red";
+
+        errors.push("Please select at least one joke type.");
     }  
     else
     {
@@ -573,6 +626,8 @@ function reRender(langChanged)
     {
         allOk = false;
         gebid("idRangeWrapper").style.borderColor = "red";
+
+        errors.push("Using out of range or invalid ID range (allowed values are 0-" + maxJokeIdRange + " and \"To\" can't be smaller than \"From\")");
     }
     else
     {
@@ -585,6 +640,8 @@ function reRender(langChanged)
     {
         allOk = false;
         gebid("jokeAmountWrapper").style.borderColor = "red";
+
+        errors.push("Using out of range or invalid amount (allowed values are 1-<!--%#INSERT:MAXJOKEAMOUNT#%-->).");
     }
     else
     {
@@ -600,7 +657,19 @@ function reRender(langChanged)
         tryItOk = false;
     }
 
+
     buildURL();
+
+
+    if(errors.length > 0)
+    {
+        errors.forEach(function(error) {
+            var errElem = document.createElement("div");
+            errElem.classList.add("tryItError");
+            errElem.innerText = "Error: " + error;
+            gebid("tryItErrors").appendChild(errElem);
+        });
+    }
 }
 
 //#MARKER build URL
@@ -619,7 +688,7 @@ function buildURL()
         }
         if(gebid("cat-cb2").checked)
         {
-            selectedCategories.push("Miscellaneous");
+            selectedCategories.push("Misc");
         }
         if(gebid("cat-cb3").checked)
         {
@@ -645,10 +714,19 @@ function buildURL()
     }
 
 
+    //#SECTION safe mode
+    if(gebid("sfe-cb").checked)
+    {
+        queryParams.push("safe-mode");
+    }
+
+
     //#SECTION language
     var langCode = gebid("lcodeSelect").value || settings.defaultLang;
     if(langCode != settings.defaultLang)
+    {
         queryParams.push("lang=" + langCode);
+    }
 
 
     //#SECTION flags
@@ -850,6 +928,9 @@ function resetTryItForm(confirmation)
     ["cat-cb1", "cat-cb2", "cat-cb3", "cat-cb4", "cat-cb5", "cat-cb6"].forEach(function(cat) {
         gebid(cat).checked = false;
     });
+
+    gebid("sfe-cb").checked = true;
+    gebid("sfe-cb-label").innerText = "enabled";
 
     gebid("cat-radio1").checked = true;
 
