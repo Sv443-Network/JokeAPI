@@ -244,7 +244,7 @@ const settings = {
     jokeCaching: {
         tableName: "joke_cache",                             // table name of the joke cache DB table
         createTableFile: "./data/sql/create_joke_cache.sql", // file that contains SQL code to create the cache table
-        ipHashRegex: /^[a-fA-F0-9]{64}$/                     // regex to validate an IP hash
+        ipHashRegex: /^[0-9a-fA-F]{64}$/                     // regex to validate an IP hash (hexadecimal, exactly 64 chars)
     }
 }
 
