@@ -428,6 +428,12 @@
             "de": "Der Sprachcode existiert nicht.",
             "ru": "Языкового кода не существует.",
             "cs": "Kód jazyka neexistuje."
+        },
+        "langCodeCouldntResolve": {
+            "en": "The provided language \"%1\" could not be resolved.",
+            "de": "Die angegebene Sprache \"%1\" konnte nicht aufgelöst werden.",
+            "ru": "Предоставленный язык \"%1\" не может быть решен.",
+            "cs": "Zadaný jazyk \"%1\" nelze vyřešit."
         }
     }
 }

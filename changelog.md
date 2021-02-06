@@ -1,4 +1,4 @@
-# JokeAPI Changelog (Version 2.3.1)
+# JokeAPI Changelog (Version 2.4.0)
 
 <br><br><br>
 
@@ -11,7 +11,21 @@
 
 <br><br><br>
 
-## [CURRENT: 2.3.1] - The Safe Mode Hotfix, because bugs exist for some reason ([pull request #214](https://github.com/Sv443/JokeAPI/pull/214))
+## [CURRENT: 2.4.0] - The Big Caching Fix ([pull request #239](https://github.com/Sv443/JokeAPI/pull/239))
+- Fixes:
+    - Finally fixed joke ID caching once and for all (I hope) ([issue #238](https://github.com/Sv443/JokeAPI/issues/238))
+    - Fixed C# code example in documentation once again ([issue #237](https://github.com/Sv443/JokeAPI/issues/237))
+    - Fixed broken Try-It section result when using format=xml ([issue #232](https://github.com/Sv443/JokeAPI/issues/232))
+    - Replaced deprecated function fs.exists() throughout the API ([issue #230](https://github.com/Sv443/JokeAPI/issues/230))
+- Additions:
+    - Added safe mode toggle to Try-It section ([issue #231](https://github.com/Sv443/JokeAPI/issues/231))
+    - Added easily parseable info about faulty parameters when doing a submission dry run ([issue #209](https://github.com/Sv443/JokeAPI/issues/209))
+    - Added flag and category descriptions ([issue #201](https://github.com/Sv443/JokeAPI/issues/201))
+
+
+<br><br><br>
+
+## [2.3.1] - The Safe Mode Hotfix, because bugs exist for some reason ([pull request #214](https://github.com/Sv443/JokeAPI/pull/214))
 - Fixed bug "API Error 500 - Cannot read property 'msBeforeNext' of null" ([issue #212](https://github.com/Sv443/JokeAPI/issues/212))
 - Fixed bug where API responded with Error 106 when using format=txt on endpoint /joke ([issue #218](https://github.com/Sv443/JokeAPI/issues/218))
 - Re-flagged joke 79 ([issue #220](https://github.com/Sv443/JokeAPI/issues/220))

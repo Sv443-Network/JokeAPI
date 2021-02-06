@@ -1,4 +1,4 @@
-[<< Home](./index.md#readme)
+[<< Home](./home.md#readme)
 # JokeAPI - Documentation Compilation [WIP]
 The JokeAPI documentation is semi-static.  
 It goes through a compilation process that is unique to JokeAPI.  
@@ -74,4 +74,4 @@ File extension = the file extension of the encoded files in `settings.documentat
 
 <br><br><br><br>
 
-[<< Home](./index.md#readme)
+[<< Home](./home.md#readme)

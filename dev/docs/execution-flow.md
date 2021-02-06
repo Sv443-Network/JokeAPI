@@ -1,4 +1,4 @@
-[<< Home](./index.md#readme)
+[<< Home](./home.md#readme)
 # JokeAPI - Code Execution Flow [WIP]
 This file tells you about what modules JokeAPI executes and in what order and gives a short summary about the modules.
 
@@ -17,9 +17,11 @@ This file tells you about what modules JokeAPI executes and in what order and gi
     6. [Update pm2 meter](#update-pm2-meter)
     - [GET Request](#get-request)
         - [Check for matching Endpoint](#check-for-matching-endpoint)
+            - [Endpoints](./endpoints.md#readme)
         - endpoint found
-            1. [Call endpoint's .call() function](#call-endpoint)
-            2. [Apply headers to prevent caching](#add-anti-caching-headers)
+            1. [Apply headers to prevent caching](#add-anti-caching-headers)
+            2. [Call endpoint's .call() function](#call-endpoint)
+                - [Parse query parameters](#parse-query-parameters)
         - no endpoint found
             - [Serve Documentation](#serve-documentation)
     - [POST/PUT Request](#post-put-request)
@@ -34,4 +36,4 @@ This file tells you about what modules JokeAPI executes and in what order and gi
 
 <br><br><br><br>
 
-[<< Home](./index.md#readme)
+[<< Home](./home.md#readme)

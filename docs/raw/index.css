@@ -391,11 +391,13 @@ details summary.big {
 }
 
 mark {
-    border: 1px solid #777;
+    border: 1px solid #58616d;
     border-radius: 2px;
     background-color: var(--bg-accent-color);
     display: inline-block;
     padding: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
     font-family: "Cascadia Code", "Roboto Mono", "Courier New", monospace;
     font-variant-ligatures: none;
     color: #ccc;

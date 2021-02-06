@@ -64,7 +64,7 @@ const call = (req, res, url, params, format) => {
         statusCode = 400;
         responseText = convertFileFormat.auto(format, {
             "error": true,
-            "message": `The provided language "${decodeURIComponent(language)}" could not be resolved.`
+            "message": translate(lang, "langCodeCouldntResolve", decodeURIComponent(language))
         }, lang);
     }
     else
