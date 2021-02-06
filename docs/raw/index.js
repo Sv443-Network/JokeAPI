@@ -814,8 +814,13 @@ function sendTryItRequest()
                     }
 
                     result = xhr.responseText.toString();
-                    result = result.replace(/[<]/gm, "&lt;");
-                    result = result.replace(/[>]/gm, "&gt;");
+
+
+                    // this caused issue #232
+                    // using `innerText` below mitigates XSS so this isn't really needed
+
+                    // result = result.replace(/[<]/gm, "&lt;");
+                    // result = result.replace(/[>]/gm, "&gt;");
                 }
 
                 gebid("tryItResult").innerText = result;

@@ -467,7 +467,7 @@ body[data-sidenav="closed"] code, body code {
     font-variant-ligatures: none;
     font-size: 15px;
 
-    white-space: pre;
+    white-space: pre-wrap;
     -moz-tab-size: 4;
     -o-tab-size: 4;
     tab-size: 4;
