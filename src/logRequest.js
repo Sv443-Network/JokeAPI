@@ -20,7 +20,8 @@ const settings = require("../settings");
  * @param {String} [additionalInfo] Provides additional information in certain log types
  * @param {AnalyticsData} [analyticsData] Additional analytics data
  */
-const logRequest = (type, additionalInfo, analyticsData) => {
+function logRequest(type, additionalInfo, analyticsData)
+{
     let color = "";
     let logType = null;
     let logDisabled = false;
@@ -157,7 +158,8 @@ const logRequest = (type, additionalInfo, analyticsData) => {
  * Sends an initialization message - called when the initialization is done
  * @param {Number} initTimestamp The timestamp of when JokeAPI was initialized
  */
-const initMsg = (initTimestamp) => {
+function initMsg(initTimestamp)
+{
     let initMs = (new Date().getTime() - initTimestamp).toFixed(0);
 
     console.log(`\n${jsl.colors.fg.blue}[${logger.getTimestamp(" | ")}] ${jsl.colors.rst}- ${jsl.colors.fg.green}${settings.info.name} v${settings.info.version}${jsl.colors.rst}`);
@@ -167,7 +169,7 @@ const initMsg = (initTimestamp) => {
         console.log(` ├─ Connected to analytics database at ${jsl.colors.fg.green}${analytics.connectionInfo.info}${jsl.colors.rst}`);
     else
         console.log(` ├─ Analytics database ${settings.analytics.enabled ? jsl.colors.fg.red : jsl.colors.fg.yellow}not connected${settings.analytics.enabled ? "" : " (disabled)"}${jsl.colors.rst}`);
-    console.log(` ├─ ${settings.info.name} is listening at ${jsl.colors.fg.green}http://127.0.0.1:${settings.httpServer.port}${jsl.colors.rst} (SSL ${settings.httpServer.ssl.enabled ? `${jsl.colors.fg.green}enabled${jsl.colors.rst}` : `${jsl.colors.fg.yellow}disabled${jsl.colors.rst}`})`);
+    console.log(` ├─ ${settings.info.name} is listening at ${jsl.colors.fg.green}${getLocalURL()}${jsl.colors.rst} (SSL ${settings.httpServer.ssl.enabled ? `${jsl.colors.fg.green}enabled${jsl.colors.rst}` : `${jsl.colors.fg.yellow}disabled${jsl.colors.rst}`})`);
     console.log(` └─ Initialization took around ${jsl.colors.fg.green}${initMs}ms${initMs == 69 ? " (nice)" : ""}${jsl.colors.rst}`);
     process.stdout.write("\n");
     console.log(`Colors: ${jsl.colors.fg.green}Success ${jsl.colors.fg.yellow}Warning ${jsl.colors.fg.red}Error${jsl.colors.rst}`);
@@ -180,6 +182,11 @@ const initMsg = (initTimestamp) => {
         process.stdout.write(" └─► ");
         process.stdout.write(jsl.colors.rst);
     }
+}
+
+function getLocalURL()
+{
+    return `${settings.httpServer.ssl.enabled ? "https" : "http"}://127.0.0.1:${settings.httpServer.port}/`;
 }
 
 module.exports = logRequest;

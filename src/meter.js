@@ -6,16 +6,26 @@ const fs = require("fs-extra");
 const debug = require("./verboseLogging");
 const settings = require("../settings");
 
-var req1mMeter = null;
-var req10mMeter = null;
-var req1hMeter = null;
-var reqtotalMeter = null;
-var submissionMeter = null;
-var m1 = 0;
-var m10 = 0;
-var h1 = 0;
-var tot = 0;
-var subms = 0;
+var meters = {
+    req1mMeter: null,
+    req10mMeter: null,
+    req1hMeter: null,
+    reqtotalMeter: null,
+    submissionMeter: null
+}
+
+var values = {
+    /** Requests per 1 minute */
+    m1: 0,
+    /** Requests per 10 minutes */
+    m10: 0,
+    /** Requests per 1 hour */
+    h1: 0,
+    /** Total requests */
+    tot: 0,
+    /** Total submissions */
+    subms: 0
+}
 
 /**
  * Initializes the meter module
@@ -26,55 +36,55 @@ function init()
     return new Promise((resolve, reject) => {
         try
         {
-            req1mMeter = io.metric({
+            meters.req1mMeter = io.metric({
                 name: "Reqs / 1m",
                 unit: "req"
             });
-            req1mMeter.set(-1);
+            meters.req1mMeter.set(-1);
             setInterval(() => {
-                req1mMeter.set(m1);
-                m1 = 0;
+                meters.req1mMeter.set(values.m1);
+                values.m1 = 0;
             }, 1000 * 60);
 
 
-            req10mMeter = io.metric({
+            meters.req10mMeter = io.metric({
                 name: "Reqs / 10m",
                 unit: "req"
             });
-            req10mMeter.set(-1);
+            meters.req10mMeter.set(-1);
             setInterval(() => {
-                req10mMeter.set(m10);
-                m10 = 0;
+                meters.req10mMeter.set(values.m10);
+                values.m10 = 0;
             }, 1000 * 60 * 10);
 
 
-            req1hMeter = io.metric({
+            meters.req1hMeter = io.metric({
                 name: "Reqs / 1h",
                 unit: "req"
             });
-            req1hMeter.set(-1);
+            meters.req1hMeter.set(-1);
             setInterval(() => {
-                req1hMeter.set(h1);
-                h1 = 0;
+                meters.req1hMeter.set(values.h1);
+                values.h1 = 0;
             }, 1000 * 60 * 60);
 
 
-            reqtotalMeter = io.metric({
+            meters.reqtotalMeter = io.metric({
                 name: "Total Reqs",
                 unit: "req"
             });
-            reqtotalMeter.set(-1);
+            meters.reqtotalMeter.set(-1);
 
 
-            submissionMeter = io.metric({
+            meters.submissionMeter = io.metric({
                 name: "Submissions",
                 unit: "sub"
             });
-            subms = fs.readdirSync(settings.jokes.jokeSubmissionPath).length;
-            submissionMeter.set(subms);
+            values.subms = fs.readdirSync(settings.jokes.jokeSubmissionPath).length;
+            meters.submissionMeter.set(values.subms);
             setInterval(() => {
-                subms = fs.readdirSync(settings.jokes.jokeSubmissionPath).length;
-                submissionMeter.set(subms);
+                values.subms = fs.readdirSync(settings.jokes.jokeSubmissionPath).length;
+                meters.submissionMeter.set(values.subms);
             }, 1000 * 60 * 10);
         }
         catch(err)
@@ -87,41 +97,41 @@ function init()
 }
 
 /**
- * Adds a number to a meter
+ * Increments a meter's value
  * @param {"req1min"|"req10mins"|"req1hour"|"reqtotal"|"submission"} meterName
- * @param {Number|undefined} addValue
+ * @param {Number} [addValue] If left empty, the meter will update by `1`
  */
 function update(meterName, addValue)
 {
     if(typeof addValue == "undefined")
         addValue = 1;
-
-    debug("Meter", `Updating meter ${meterName} - adding value ${addValue}`);
-    
+        
     if(typeof addValue != "number")
         throw new TypeError(`meter.update(): "addValue" has wrong type "${typeof addValue}" - expected "number"`);
+
+    debug("Meter", `Updating meter ${meterName} - adding value ${addValue}`);
 
     switch(meterName)
     {
         case "req1min":
-            m1 += addValue;
+            values.m1 += addValue;
         break;
         case "req10min":
-            m10 += addValue;
+            values.m10 += addValue;
         break;
         case "req1hour":
-            h1 += addValue;
+            values.h1 += addValue;
         break;
         case "reqtotal":
-            tot += addValue;
-            reqtotalMeter.set(tot);
+            values.tot += addValue;
+            meters.reqtotalMeter.set(values.tot);
         break;
         case "submission":
-            subms += addValue;
-            submissionMeter.set(subms);
+            values.subms += addValue;
+            meters.submissionMeter.set(values.subms);
         break;
         default:
-            throw new Error(`meter.update(): "meterName" has incorrect value`);
+            throw new TypeError(`meter.update(): "meterName" has incorrect value`);
     }
 
     return;
