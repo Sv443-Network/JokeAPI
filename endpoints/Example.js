@@ -1,5 +1,5 @@
 const { unused } = require("svcorelib");
-const Endpoint = require("./Endpoint");
+const Endpoint = require("../src/classes/Endpoint");
 
 
 class Example extends Endpoint {

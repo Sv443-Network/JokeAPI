@@ -1,12 +1,12 @@
 const { unused, http } = require("svcorelib");
 const _http = require("http");
 
-const convertFileFormat = require("../src/fileFormatConverter");
-const parseURL = require("../src/parseURL");
-const tr = require("../src/translate");
-const { isValidLang } = require("../src/languages");
+const convertFileFormat = require("../fileFormatConverter");
+const parseURL = require("../parseURL");
+const tr = require("../translate");
+const { isValidLang } = require("../languages");
 
-const settings = require("../settings");
+const settings = require("../../settings");
 const endpointsTrFile = require(`.${settings.endpoints.translationsFile}`);
 
 
