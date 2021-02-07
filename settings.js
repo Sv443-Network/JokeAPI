@@ -198,6 +198,7 @@ const settings = {
         ratelimitBlacklist: [    // calling an endpoint in this array will not count towards the rate limit counter
             "static",
         ],
+        translationsFile: "./data/translations/endpoints.json", // file where endpoint translations are located in
     },
     /** Colors to use in the console */
     colors: {
@@ -231,9 +232,9 @@ const settings = {
     },
     /** Settings regarding languages */
     languages: {
-        langFilePath: "./data/languages.json",        // file containing all language codes and corresponding language information
-        defaultLanguage: "en",                        // default language (two character code, lowercase)
-        translationsFile: "./data/translations.json", // translations file
+        langFilePath: "./data/languages.json",                // file containing all language codes and corresponding language information
+        defaultLanguage: "en",                                // default language (two character code, lowercase)
+        translationsFile: "./data/translations/general.json", // general translations file
     },
     /** Unit tests */
     tests: {

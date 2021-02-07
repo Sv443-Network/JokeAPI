@@ -1,0 +1,35 @@
+{
+    "info": "This file contains translations for the endpoints.",
+    "defaultLang": "en",
+    "languages": [
+        "en",
+        "de",
+        "ru"
+    ],
+    "tr": {
+        "example": {
+            "name": {
+                "en": "Example",
+                "de": "Beispiel",
+                "ru": "Пример"
+            },
+            "desc": {
+                "en": "This is an example endpoint",
+                "de": "Dies ist ein Beispiel-Endpunkt",
+                "ru": "Это пример конечной точки"
+            }
+        },
+        "joke": {
+            "name": {
+                "en": "Joke",
+                "de": "Witz",
+                "ru": "Шутка"
+            },
+            "desc": {
+                "en": "Returns a joke from the specified category / categories that is also matching the provided filters",
+                "de": "Gibt einen Witz aus der angegebenen Kategorie / den angegebenen Kategorien zurück, der auch den angegebenen Filtern entspricht",
+                "ru": "Возвращает шутка из указанной категория / категории, который также соответствует указанным фильтрам"
+            }
+        }
+    }
+}
