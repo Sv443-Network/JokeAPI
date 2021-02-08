@@ -1,4 +1,4 @@
-const jsl = require("svjsl");
+const scl = require("svcorelib");
 const fs = require("fs-extra");
 const http = require("http");
 
@@ -14,7 +14,7 @@ const tr = require("./translate");
 const settings = require("../settings");
 const fileFormatConverter = require("./fileFormatConverter");
 
-jsl.unused(http, analytics, tr);
+scl.unused(http, analytics, tr);
 
 
 /**
@@ -39,7 +39,7 @@ const jokeSubmission = (res, data, fileFormat, ip, analyticsObject, dryRun) => {
 
         let langCode = submittedJoke.lang || settings.languages.defaultLanguage;
 
-        if(jsl.isEmpty(submittedJoke))
+        if(scl.isEmpty(submittedJoke))
             return httpServer.respondWithError(res, 105, 400, fileFormat, tr(langCode, "requestBodyIsInvalid"), langCode);
             
         let invalidChars = data.match(settings.jokes.submissions.invalidCharRegex);
