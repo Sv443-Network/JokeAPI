@@ -20,13 +20,14 @@ scl.unused(http, analytics, tr);
 /**
  * To be called when a joke is submitted
  * @param {http.ServerResponse} res
- * @param {String} data
- * @param {String} fileFormat
- * @param {String} ip
+ * @param {string} data
+ * @param {string} fileFormat
+ * @param {string} ip
  * @param {(analytics.AnalyticsDocsRequest|analytics.AnalyticsSuccessfulRequest|analytics.AnalyticsRateLimited|analytics.AnalyticsError|analytics.AnalyticsSubmission)} analyticsObject
- * @param {Boolean} dryRun Set to true to not add the joke to the joke file after validating it
+ * @param {boolean} dryRun Set to true to not add the joke to the joke file after validating it
  */
-const jokeSubmission = (res, data, fileFormat, ip, analyticsObject, dryRun) => {
+function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun)
+{
     try
     {
         if(typeof dryRun != "boolean")
@@ -34,19 +35,19 @@ const jokeSubmission = (res, data, fileFormat, ip, analyticsObject, dryRun) => {
 
         if(typeof httpServer == "object" && Object.keys(httpServer).length <= 0)
             httpServer = require("./httpServer");
-            
+
         let submittedJoke = JSON.parse(data);
 
         let langCode = submittedJoke.lang || settings.languages.defaultLanguage;
 
         if(scl.isEmpty(submittedJoke))
             return httpServer.respondWithError(res, 105, 400, fileFormat, tr(langCode, "requestBodyIsInvalid"), langCode);
-            
+
         let invalidChars = data.match(settings.jokes.submissions.invalidCharRegex);
         let invalidCharsStr = invalidChars ? invalidChars.map(ch => `0x${ch.charCodeAt(0).toString(16)}`).join(", ") : null;
         if(invalidCharsStr && invalidChars.length > 0)
             return httpServer.respondWithError(res, 109, 400, fileFormat, tr(langCode, "invalidChars", invalidCharsStr), langCode);
-        
+
         if(submittedJoke.formatVersion == parseJokes.jokeFormatVersion && submittedJoke.formatVersion == settings.jokes.jokesFormatVersion)
         {
             // format version is correct, validate joke now
@@ -116,14 +117,15 @@ const jokeSubmission = (res, data, fileFormat, ip, analyticsObject, dryRun) => {
 /**
  * Writes a joke to a json file
  * @param {http.ServerResponse} res
- * @param {String} filePath
+ * @param {string} filePath
  * @param {parseJokes.SingleJoke|parseJokes.TwopartJoke} submittedJoke
- * @param {String} fileFormat
- * @param {String} ip
+ * @param {string} fileFormat
+ * @param {string} ip
  * @param {(analytics.AnalyticsDocsRequest|analytics.AnalyticsSuccessfulRequest|analytics.AnalyticsRateLimited|analytics.AnalyticsError|analytics.AnalyticsSubmission)} analyticsObject
- * @param {String} [langCode]
+ * @param {string} [langCode]
  */
-const writeJokeToFile = (res, filePath, submittedJoke, fileFormat, ip, analyticsObject, langCode) => {
+function writeJokeToFile(res, filePath, submittedJoke, fileFormat, ip, analyticsObject, langCode)
+{
     if(typeof httpServer == "object" && Object.keys(httpServer).length <= 0)
         httpServer = require("./httpServer");
 
@@ -192,12 +194,12 @@ function reformatJoke(joke)
 
     if(joke.lang)
         retJoke.lang = joke.lang;
-    
+
     if(joke.id)
         retJoke.id = joke.id;
 
     retJoke.safe = joke.safe || false;
-    
+
     return retJoke;
 }
 
