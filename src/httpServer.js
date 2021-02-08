@@ -499,6 +499,7 @@ function setRateLimitedHeaders(res, rlRes)
  * @param {String} errorMessage Additional error info
  * @param {String} lang Language code of the request
  * @param {...any} args Arguments to replace numbered %-placeholders with. Only use objects that are strings or convertable to them with `.toString()`!
+ * @since 2.4.0 API error code of response is now an integer instead of a string
  */
 const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage, lang, ...args) => {
     try
@@ -533,7 +534,7 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
             errObj = {
                 "error": true,
                 "internalError": errFromRegistry.errorInternal,
-                "code": errorCode,
+                "code": parseInt(errorCode),
                 "message": insArgs(errFromRegistry.errorMessage[lang], args) || insArgs(errFromRegistry.errorMessage[settings.languages.defaultLanguage], args),
                 "causedBy": insArgs(errFromRegistry.causedBy[lang], args) || insArgs(errFromRegistry.causedBy[settings.languages.defaultLanguage], args),
                 "timestamp": new Date().getTime()
@@ -544,7 +545,7 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
             errObj = {
                 "error": true,
                 "internalError": errFromRegistry.errorInternal,
-                "code": errorCode,
+                "code": parseInt(errorCode),
                 "message": insArgs(errFromRegistry.errorMessage[lang], args) || insArgs(errFromRegistry.errorMessage[settings.languages.defaultLanguage], args),
                 "causedBy": {"cause": insArgs(errFromRegistry.causedBy[lang], args) || insArgs(errFromRegistry.causedBy[settings.languages.defaultLanguage], args)},
                 "timestamp": new Date().getTime()

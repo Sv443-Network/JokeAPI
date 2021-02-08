@@ -434,6 +434,12 @@
             "de": "Die angegebene Sprache \"%1\" konnte nicht aufgelöst werden.",
             "ru": "Предоставленный язык \"%1\" не может быть решен.",
             "cs": "Zadaný jazyk \"%1\" nelze vyřešit."
+        },
+        "submissionMalformedJoke": {
+            "en": "Malformed Joke",
+            "de": "Falsch formatierter Witz",
+            "ru": "Малоформальная шутка",
+            "cs": "Poškozený vtip"
         }
     }
 }

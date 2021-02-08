@@ -51,11 +51,26 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun)
         if(submittedJoke.formatVersion == parseJokes.jokeFormatVersion && submittedJoke.formatVersion == settings.jokes.jokesFormatVersion)
         {
             // format version is correct, validate joke now
-            let validationResult = parseJokes.validateSingle(submittedJoke, langCode);
+            const validationResult = parseJokes.validateSubmission(submittedJoke, langCode);
 
-            if(Array.isArray(validationResult))
-                return httpServer.respondWithError(res, 105, 400, fileFormat, tr(langCode, "submittedJokeFormatInvalid", validationResult.join("\n")), langCode);
-            else if(validationResult === true)
+            if(!validationResult.valid)
+            {
+                // joke is invalid, respond with error
+                const clientResponse = {
+                    error: true,
+                    internalError: false,
+                    code: 105,
+                    message: tr(langCode, "submissionMalformedJoke"),
+                    causedBy: validationResult.errorStrings,
+                    timestamp: 1612822945543,
+                    additionalInfo: "",
+                    parameterValidity: validationResult.jokeParams
+                };
+
+                return scl.http.pipeString(res, fileFormatConverter.auto(fileFormat, clientResponse, langCode), parseURL.getMimeTypeFromFileFormatString(fileFormat), 400);
+                // return httpServer.respondWithError(res, 105, 400, fileFormat, tr(langCode, "submittedJokeFormatInvalid", validationResult.join("\n")), langCode);
+            }
+            else
             {
                 // joke is valid, find file name and then write to file
 

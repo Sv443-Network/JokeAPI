@@ -10,16 +10,80 @@ const AllJokes = require("./classes/AllJokes");
 const tr = require("./translate");
 
 
+//#MARKER types
 /**
- * @typedef {Object} CategoryAlias
+ * @typedef {Object} CategoryAliasObj
  * @prop {String} alias Name of the alias
  * @prop {String} value The value this alias resolves to
  */
 
-/** @type {CategoryAlias[]} */
+/**
+ * @typedef {"Misc"|"Programming"|"Dark"|"Pun"|"Spooky"|"Christmas"} JokeCategory Resolved category name (not an alias)
+ */
+/**
+ * @typedef {"Miscellaneous"|"Coding"|"Development"|"Halloween"} JokeCategoryAlias Category name aliases
+ */
+
+/**
+ * @typedef {object} SingleJoke A joke of type single
+ * @prop {JokeCategory} category The category of the joke
+ * @prop {"single"} type The type of the joke
+ * @prop {string} joke The joke itself
+ * @prop {object} flags
+ * @prop {boolean} flags.nsfw Whether the joke is NSFW or not
+ * @prop {boolean} flags.racist Whether the joke is racist or not
+ * @prop {boolean} flags.religious Whether the joke is religiously offensive or not
+ * @prop {boolean} flags.political Whether the joke is politically offensive or not
+ * @prop {boolean} flags.explicit Whether the joke contains explicit language
+ * @prop {number} id The ID of the joke
+ * @prop {string} lang The language of the joke
+ */
+
+/**
+ * @typedef {Object} TwopartJoke A joke of type twopart
+ * @prop {JokeCategory} category The category of the joke
+ * @prop {"twopart"} type The type of the joke
+ * @prop {string} setup The setup of the joke
+ * @prop {string} delivery The delivery of the joke
+ * @prop {object} flags
+ * @prop {boolean} flags.nsfw Whether the joke is NSFW or not
+ * @prop {boolean} flags.racist Whether the joke is racist or not
+ * @prop {boolean} flags.religious Whether the joke is religiously offensive or not
+ * @prop {boolean} flags.political Whether the joke is politically offensive or not
+ * @prop {boolean} flags.explicit Whether the joke contains explicit language
+ * @prop {number} id The ID of the joke
+ * @prop {string} lang The language of the joke
+ */
+
+/**
+ * @typedef {object} JokeSubmissionParams
+ * @prop {boolean} formatVersion Version of the joke format
+ * @prop {boolean} category The category of the joke
+ * @prop {boolean} type The type of the joke
+ * @prop {boolean} [joke] The actual joke [when type=single]
+ * @prop {boolean} [setup] The setup of the joke [when type=twopart]
+ * @prop {boolean} [delivery] The delivery of the joke [when type=twopart]
+ * @prop {object} flags
+ * @prop {boolean} flags.nsfw Whether the joke is NSFW or not
+ * @prop {boolean} flags.racist Whether the joke is racist or not
+ * @prop {boolean} flags.religious Whether the joke is religiously offensive or not
+ * @prop {boolean} flags.political Whether the joke is politically offensive or not
+ * @prop {boolean} flags.explicit Whether the joke contains explicit language
+ * @prop {boolean} lang The language of the joke
+ */
+
+/**
+ * @typedef {object} ValidationResult
+ * @prop {boolean} valid Whether or not this joke's format is valid
+ * @prop {string[]} errorStrings (Legacy) Array of error strings
+ * @prop {JokeSubmissionParams|null} jokeParams An object describing all valid and invalid parameters - If set to `null`, the joke couldn't be parsed (invalid JSON)
+ */
+
+/** @type {CategoryAliasObj[]} */
 var categoryAliases = [];
 
 
+//#MARKER init
 /**
  * Parses all jokes
  * @returns {Promise<Boolean>}
@@ -92,24 +156,24 @@ function init()
                         return reject(`Error while parsing jokes file "${jf}" as JSON: ${err}`);
                     }
 
-                    //#MARKER format version
+                    //#SECTION format version
                     if(jokesFile.info.formatVersion == settings.jokes.jokesFormatVersion)
                         result.push(true);
                     else result.push(`Joke file format version of language "${langCode}" is set to "${jokesFile.info.formatVersion}" - Expected: "${settings.jokes.jokesFormatVersion}"`);
 
                     jokesFile.jokes.forEach((joke, i) => {
-                        //#MARKER joke ID
+                        //#SECTION joke ID
                         if(!jsl.isEmpty(joke.id) && !isNaN(parseInt(joke.id)))
                             result.push(true);
                         else result.push(`Joke with index/ID ${i} of language "${langCode}" doesn't have an "id" property or it is invalid`);
 
-                        //#MARKER category
+                        //#SECTION category
                         if(settings.jokes.possible.categories.map(c => c.toLowerCase()).includes(joke.category.toLowerCase()))
                             result.push(true);
                         else
                             result.push(`Joke with index/ID ${i} of language "${langCode}" has an invalid category (Note: aliases are not allowed here)`);
 
-                        //#MARKER type and actual joke
+                        //#SECTION type and actual joke
                         if(joke.type == "single")
                         {
                             if(!jsl.isEmpty(joke.joke))
@@ -128,7 +192,7 @@ function init()
                         }
                         else result.push(`Joke with index/ID ${i} of language "${langCode}" doesn't have a "type" property or it is invalid`);
 
-                        //#MARKER flags
+                        //#SECTION flags
                         if(!jsl.isEmpty(joke.flags))
                         {
                             if(!jsl.isEmpty(joke.flags.nsfw) || (joke.flags.nsfw !== false && joke.flags.nsfw !== true))
@@ -206,51 +270,15 @@ function init()
     });
 }
 
+//#MARKER validate single
 /**
- * @typedef {"Misc"|"Programming"|"Dark"|"Pun"|"Spooky"|"Christmas"} JokeCategory Resolved category name (not an alias)
+ * Validates a joke submission
+ * @param {(SingleJoke|TwopartJoke)} joke A joke object of type single or twopart (plus the `formatVersion` prop)
+ * @param {string} lang Language code
+ * @returns {ValidationResult}
+ * @version 2.4.0 Changed return value (to implement issue #209)
  */
-/**
- * @typedef {"Miscellaneous"|"Coding"|"Development"|"Halloween"} JokeCategoryAlias Category name aliases
- */
-
-/**
- * @typedef {Object} SingleJoke A joke of type single
- * @prop {JokeCategory} category The category of the joke
- * @prop {"single"} type The type of the joke
- * @prop {String} joke The joke itself
- * @prop {Object} flags
- * @prop {Boolean} flags.nsfw Whether the joke is NSFW or not
- * @prop {Boolean} flags.racist Whether the joke is racist or not
- * @prop {Boolean} flags.religious Whether the joke is religiously offensive or not
- * @prop {Boolean} flags.political Whether the joke is politically offensive or not
- * @prop {Boolean} flags.explicit Whether the joke contains explicit language
- * @prop {Number} id The ID of the joke
- * @prop {String} lang The language of the joke
- */
-
-/**
- * @typedef {Object} TwopartJoke A joke of type twopart
- * @prop {JokeCategory} category The category of the joke
- * @prop {"twopart"} type The type of the joke
- * @prop {String} setup The setup of the joke
- * @prop {String} delivery The delivery of the joke
- * @prop {Object} flags
- * @prop {Boolean} flags.nsfw Whether the joke is NSFW or not
- * @prop {Boolean} flags.racist Whether the joke is racist or not
- * @prop {Boolean} flags.religious Whether the joke is religiously offensive or not
- * @prop {Boolean} flags.political Whether the joke is politically offensive or not
- * @prop {Boolean} flags.explicit Whether the joke contains explicit language
- * @prop {Number} id The ID of the joke
- * @prop {String} lang The language of the joke
- */
-
-/**
- * Validates a single joke passed as a parameter
- * @param {(SingleJoke|TwopartJoke)} joke A joke object of type single or twopart
- * @param {String} lang Language code
- * @returns {(Boolean|Array<String>)} Returns true if the joke has the correct format, returns string array containing error(s) if invalid
- */
-function validateSingle(joke, lang)
+function validateSubmission(joke, lang)
 {
     let jokeErrors = [];
 
@@ -265,68 +293,84 @@ function validateSingle(joke, lang)
     joke = JSON.parse(joke);
 
 
-    // TODO: version 2.3.2:
-    // let jokeObj = {
-    //     "formatVersion": true,
-    //     "category": true,
-    //     "type": true,
-    // };
+    /** @type {JokeSubmissionParams} */
+    let validParamsObj = {
+        formatVersion: true,
+        category: true,
+        type: true
+    };
 
-    // if(joke.type == "single")
-    //     jokeObj.joke = true;
-    // else if(joke.type == "twopart")
-    // {
-    //     jokeObj.setup = true;
-    //     jokeObj.delivery = true;
-    // }
+    if(joke.type == "single")
+        validParamsObj.joke = true;
+    else if(joke.type == "twopart")
+    {
+        validParamsObj.setup = true;
+        validParamsObj.delivery = true;
+    }
 
-    // jokeObj = {
-    //     ...jokeObj,
-    //     flags: {
-    //         nsfw: true,
-    //         religious: true,
-    //         political: true,
-    //         racist: true,
-    //         sexist: true
-    //     },
-    //     lang: true
-    // }
+    validParamsObj = {
+        ...validParamsObj,
+        flags: {
+            nsfw: true,
+            religious: true,
+            political: true,
+            racist: true,
+            sexist: true
+        },
+        lang: true
+    }
 
 
     try
     {
-        //#MARKER format version
+        //#SECTION format version
         if(joke.formatVersion != null)
         {
             if(joke.formatVersion != settings.jokes.jokesFormatVersion || joke.formatVersion != this.jokeFormatVersion)
             {
                 jokeErrors.push(tr(lang, "parseJokesFormatVersionMismatch", joke.formatVersion, this.jokeFormatVersion));
-                // jokeObj.formatVersion = false; // TODO: version 2.3.2: repeat this for everything below
+                validParamsObj.formatVersion = false;
             }
         }
-        else jokeErrors.push(tr(lang, "parseJokesNoFormatVersionOrInvalid"));
+        else
+        {
+            jokeErrors.push(tr(lang, "parseJokesNoFormatVersionOrInvalid"));
+            validParamsObj.formatVersion = false;
+        }
 
-        //#MARKER type and actual joke
+        //#SECTION type and actual joke
         if(joke.type == "single")
         {
             if(jsl.isEmpty(joke.joke))
+            {
                 jokeErrors.push(tr(lang, "parseJokesSingleNoJokeProperty"));
+                validParamsObj.joke = false;
+            }
         }
         else if(joke.type == "twopart")
         {
             if(jsl.isEmpty(joke.setup))
+            {
                 jokeErrors.push(tr(lang, "parseJokesTwopartNoSetupProperty"));
+                validParamsObj.setup = false;
+            }
 
             if(jsl.isEmpty(joke.delivery))
+            {
                 jokeErrors.push(tr(lang, "parseJokesTwopartNoDeliveryProperty"));
+                validParamsObj.delivery = false;
+            }
         }
         else jokeErrors.push(tr(lang, "parseJokesNoTypeProperty"));
 
-        //#MARKER joke category
+        //#SECTION joke category
         let jokeCat = resolveCategoryAlias(joke.category);
 
         if(joke.category == null)
+        {
             jokeErrors.push(tr(lang, "parseJokesNoCategoryProperty"));
+            validParamsObj.category = false;
+        }
         else
         {
             let categoryValid = false;
@@ -334,54 +378,106 @@ function validateSingle(joke, lang)
                 if(jokeCat.toLowerCase() == cat.toLowerCase())
                     categoryValid = true;
             });
+            
             if(!categoryValid)
+            {
                 jokeErrors.push(tr(lang, "parseJokesInvalidCategory"));
+                validParamsObj.category = false;
+            }
         }
 
-        //#MARKER flags
+        //#SECTION flags
         if(!jsl.isEmpty(joke.flags))
         {
             if(jsl.isEmpty(joke.flags.nsfw) || (joke.flags.nsfw !== false && joke.flags.nsfw !== true))
+            {
                 jokeErrors.push(tr(lang, "parseJokesNoFlagNsfw"));
+                validParamsObj.flags.nsfw = false;
+            }
 
             if(jsl.isEmpty(joke.flags.racist) || (joke.flags.racist !== false && joke.flags.racist !== true))
+            {
                 jokeErrors.push(tr(lang, "parseJokesNoFlagRacist"));
+                validParamsObj.flags.racist = false;
+            }
             
             if(jsl.isEmpty(joke.flags.sexist) || (joke.flags.sexist !== false && joke.flags.sexist !== true))
+            {
                 jokeErrors.push(tr(lang, "parseJokesNoFlagSexist"));
+                validParamsObj.flags.sexist = false;
+            }
 
             if(jsl.isEmpty(joke.flags.political) || (joke.flags.political !== false && joke.flags.political !== true))
+            {
                 jokeErrors.push(tr(lang, "parseJokesNoFlagPolitical"));
+                validParamsObj.flags.political = false;
+            }
 
             if(jsl.isEmpty(joke.flags.religious) || (joke.flags.religious !== false && joke.flags.religious !== true))
+            {
                 jokeErrors.push(tr(lang, "parseJokesNoFlagReligious"));
+                validParamsObj.flags.religious = false;
+            }
 
             if(jsl.isEmpty(joke.flags.explicit) || (joke.flags.explicit !== false && joke.flags.explicit !== true))
+            {
                 jokeErrors.push(tr(lang, "parseJokesNoFlagExplicit"));
+                validParamsObj.flags.explicit = false;
+            }
         }
-        else jokeErrors.push(tr(lang, "parseJokesNoFlagsObject"));
+        else
+        {
+            jokeErrors.push(tr(lang, "parseJokesNoFlagsObject"));
+            validParamsObj.flags = {
+                nsfw: false,
+                racist: false,
+                sexist: false,
+                political: false,
+                religious: false,
+                explicit: false
+            };
+        }
 
-        //#MARKER lang
+        //#SECTION lang
+        let noLangProp = false;
         if(jsl.isEmpty(joke.lang))
-            jokeErrors.push(tr(lang, "parseJokesNoLangProperty"));
+            noLangProp = true;
         
         let langV = languages.isValidLang(joke.lang, lang);
         if(typeof langV === "string")
+        {
             jokeErrors.push(tr(lang, "parseJokesLangPropertyInvalid", langV));
+            validParamsObj.lang = false;
+        }
         else if(langV !== true)
+            noLangProp = false;
+
+        if(noLangProp)
+        {
             jokeErrors.push(tr(lang, "parseJokesNoLangProperty"));
+            validParamsObj.lang = false;
+        }
     }
     catch(err)
     {
         jokeErrors.push(tr(lang, "parseJokesCantParseJson"));
+        validParamsObj = null;
     }
 
-    if(jsl.isEmpty(jokeErrors))
-        return true;
-    else
-        return jokeErrors;
+
+    let valid = true;
+
+    if(jokeErrors.length != 0)
+        valid = false;
+
+    return {
+        valid,
+        errorStrings: jokeErrors,
+        jokeParams: validParamsObj
+    };
 }
 
+//#MARKER category aliases
 /**
  * Returns the resolved value of a joke category alias or returns the initial value if it isn't an alias or is invalid
  * @param {JokeCategory|JokeCategoryAlias} category A singular joke category or joke category alias
@@ -408,4 +504,5 @@ function resolveCategoryAliases(categories)
     return categories.map(cat => resolveCategoryAlias(cat));
 }
 
-module.exports = { init, validateSingle, resolveCategoryAlias, resolveCategoryAliases }
+
+module.exports = { init, validateSubmission, resolveCategoryAlias, resolveCategoryAliases }

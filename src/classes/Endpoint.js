@@ -3,8 +3,8 @@ const _http = require("http");
 
 const convertFileFormat = require("../fileFormatConverter");
 const parseURL = require("../parseURL");
-const tr = require("../translate");
 const { isValidLang } = require("../languages");
+const debug = require("../verboseLogging");
 
 const settings = require("../../settings");
 const endpointsTrFile = require(`.${settings.endpoints.translationsFile}`);
@@ -31,6 +31,19 @@ unused("types:", _http);
  * @prop {TranslatedStrings[]} names Display name translations of this endpoint
  * @prop {TranslatedStrings[]} descriptions Description translations of this endpoint
  */
+
+//#MARKER MissingImplementationError
+class MissingImplementationError extends Error {
+    constructor(message)
+    {
+        super(message);
+        this.name = "This member was not implemented correctly";
+        this.date = new Date();
+
+        if(Error.captureStackTrace)
+            Error.captureStackTrace(this, MissingImplementationError);
+    }
+}
 
 //#MARKER class def + constructor
 /**
@@ -60,6 +73,8 @@ class Endpoint {
 
         this.pathName = pathName;
         this.meta = meta;
+
+        debug("Endpoint_Base", `Instantiated endpoint at /${pathName}/`);
     }
 
     //#MARKER "normal" methods
@@ -121,26 +136,20 @@ class Endpoint {
 
     //#MARKER call
     /**
-     * This method is run each time a client requests this endpoint
+     * This method is run each time a client requests this endpoint  
+     * Abstract method - to be overwritten!
+     * @abstract ❗️ Abstract method - Override this, else an Error is thrown ❗️
      * @param {_http.IncomingMessage} req The HTTP server request
      * @param {_http.ServerResponse} res The HTTP server response
      * @param {string[]} url URL path array gotten from the URL parser module
      * @param {object} params URL query params gotten from the URL parser module
      * @param {string} format The file format to respond with
+     * @throws Throws an Error if this method was not overwritten
      */
     call(req, res, url, params, format)
     {
-        unused(req, url);
-
-        const lang = Endpoint.getLang(params);
-
-        const data = {
-            error: false,
-            ping: tr(lang, "pingPong"),
-            timestamp: new Date().getTime()
-        };
-
-        return Endpoint.respond(res, format, lang, data);
+        unused(req, res, url, params, format);
+        throw new MissingImplementationError(`Method Endpoint.call() is an abstract method that needs to be overridden in a subclass of "Endpoint"`);
     }
 
     //#MARKER static
@@ -220,3 +229,4 @@ class Endpoint {
 }
 
 module.exports = Endpoint;
+module.exports.MissingImplementationError = MissingImplementationError;
