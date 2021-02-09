@@ -175,11 +175,11 @@ function initMsg(initTimestamp, initDurationMs)
     const hsVal = heapStats.used_heap_size;
     const heapPercent = scl.mapRange(hsVal, 0, hsMax, 0, 100).toFixed(2);
     let heapColor = col.green;
-
+    
+    if(heapPercent >= 80)
+        heapColor = col.red;
     if(heapPercent >= 60)
         heapColor = col.yellow;
-    else if(heapPercent >= 80)
-        heapColor = col.red;
 
     lines.push(`\n${col.blue}[${logger.getTimestamp(" - ")}] ${col.rst}- ${col.blue}${settings.info.name} v${settings.info.version}${col.rst}\n`);
     lines.push(` ├─ Registered and validated ${col.green}${parseJokes.jokeCount}${col.rst} jokes from ${col.green}${languages.jokeLangs().length}${col.rst} languages\n`);
