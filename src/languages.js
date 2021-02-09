@@ -22,8 +22,7 @@ function init()
             else
             {
                 let languages = JSON.parse(data.toString());
-                // TODO: yields undefined, check if this is broken
-                debug("Languages", `Found ${languages.length} languages`);
+                debug("Languages", `Found ${Object.keys(languages).length} languages`);
                 langs = languages;
                 return resolve(languages);
             }
