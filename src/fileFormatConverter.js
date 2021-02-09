@@ -177,7 +177,7 @@ const toTXT = (jsonInput, lang) => {
 
             else if(Array.isArray(jsonInput) && jsonInput[0].usage && jsonInput[0].usage.method) // endpoint: /endpoints
             {
-                returnText = `${tr(lang, "endpointsWord")}:\n\n\n`;
+                returnText = "";
                 jsonInput.forEach(ep => {
                     returnText += `${tr(lang, "endpointDetails", ep.name, ep.description, ep.usage.method, ep.usage.url, (ep.usage.supportedParams.length > 0 ? `"${ep.usage.supportedParams.join('", "')}"` : "X"))}\n\n`;
                 });

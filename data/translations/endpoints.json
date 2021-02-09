@@ -7,6 +7,30 @@
         "ru"
     ],
     "tr": {
+        "categories": {
+            "name": {
+                "en": "Categories",
+                "de": "Kategorien",
+                "ru": "Категории"
+            },
+            "desc": {
+                "en": "Returns a list of categories and category aliases, as well as category descriptions",
+                "de": "Gibt eine Liste von Kategorien und Kategorie-Aliase sowie Kategorie-Beschreibungen zurück",
+                "ru": "Возвращает список категорий и псевдонимы категорий, а также описания категорий"
+            }
+        },
+        "endpoints": {
+            "name": {
+                "en": "Endpoints",
+                "de": "Endpunkte",
+                "ru": "Конечные точки"
+            },
+            "desc": {
+                "en": "Returns a list of all endpoints and their description and usage",
+                "de": "Gibt eine Liste aller Endpunkte und deren Beschreibung und Verwendung zurück",
+                "ru": "Возвращает список всех конечных точек, их описание и использование"
+            }
+        },
         "example": {
             "name": {
                 "en": "Example",
@@ -29,6 +53,18 @@
                 "en": "Lists all available joke blacklist flags and their descriptions",
                 "de": "Listet alle verfügbaren Witz-Markierungen und ihre Beschreibungen auf",
                 "ru": "Перечисляет все доступные флаги черного списка шуток и их описания"
+            }
+        },
+        "formats": {
+            "name": {
+                "en": "Response Formats",
+                "de": "Rückgabe-Formate",
+                "ru": "Форматы ответов"
+            },
+            "desc": {
+                "en": "Returns a list of supported response / file formats",
+                "de": "Gibt eine Liste der unterstützten Rückgabe-Formate zurück",
+                "ru": "Возвращает список поддерживаемых форматов ответа"
             }
         },
         "info": {

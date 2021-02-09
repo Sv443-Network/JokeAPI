@@ -28,6 +28,8 @@ class LangCode extends Endpoint {
         };
 
         super("langcode", meta);
+
+        this.positionalArguments = ["LanguageName"];
     }
 
     /**

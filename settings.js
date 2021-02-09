@@ -7,7 +7,7 @@ const settings = {
     /** Settings regarding debugging */
     debug: {
         verboseLogging: true,       // set to true to enable extra debug output
-        dashboardEnabled: true,     // refreshes the init message every second
+        dashboardEnabled: false,     // refreshes the init message every second
         progressBarDisabled: true,  // set to true to disable the progress bar - greatly improves readability of verbose debug output in the startup phase
         onlyLogErrors: true,        // set to true to disable sending any console logs but error messages
     },

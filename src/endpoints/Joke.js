@@ -41,6 +41,8 @@ class Joke extends Endpoint {
         super("joke", meta);
 
         this.allJokes = parseJokes.allJokes;
+        
+        this.positionalArguments = ["Category|CategoryAlias"];
     }
 
     //#MARKER get joke

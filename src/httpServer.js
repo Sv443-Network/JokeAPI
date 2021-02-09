@@ -452,6 +452,7 @@ function init()
         fs.readdir(settings.endpoints.dirPath, (err1, files) => {
             if(err1)
                 return reject(`Error while reading the endpoints directory: ${err1}`);
+
             files.forEach(file => {
                 let fileName = file.split(".");
                 fileName.pop();
@@ -462,7 +463,7 @@ function init()
                 if(fs.statSync(endpointFilePath).isFile())
                 {
                     const EndpointClass = require(endpointFilePath);
-                    let instance = new EndpointClass;
+                    let instance = new EndpointClass();
 
                     endpoints.push({
                         name: fileName,

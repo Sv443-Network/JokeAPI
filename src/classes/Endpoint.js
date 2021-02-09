@@ -26,6 +26,9 @@ unused("types:", _http);
  * @prop {object} usage How to use this endpoint
  * @prop {string} usage.method HTTP method
  * @prop {string[]} usage.supportedParams An array of supported URL parameters
+ * @prop {boolean} [unlisted] Makes the `/endpoints/` endpoint ignore this endpoint
+ * @prop {boolean} [noLog] Prohibits the `logRequest` module from writing analytics data and from sending a console message
+ * @prop {boolean} [skipRateLimitCheck] Prevents the rate limiter from being incremented
  */
 
 /**
@@ -73,6 +76,9 @@ class Endpoint {
         this.pathName = pathName;
         this.meta = meta;
 
+        /** @type {string[]} Positional URL path arguments - override in the subclass' constructor if needed */
+        this.positionalArguments = [];
+
         debug("Endpoint_Base", `Instantiated endpoint at /${pathName}/`);
     }
 
@@ -105,11 +111,14 @@ class Endpoint {
         if(!isValidLang(langCode))
             throw new TypeError(`Parameter "langCode" is not a valid language code`);
 
-        let dispName = this.meta.names.find(n => n.lang == langCode);
+        let dispName = this.translations.names.find(n => n.lang == langCode);
 
         // if dispName is undefined, no name exists for the provided langCode so default to the default language
         if(!dispName)
-            dispName = this.meta.names.find(n => n.lang == settings.languages.defaultLanguage);
+            dispName = this.translations.names.find(n => n.lang == settings.languages.defaultLanguage);
+
+        if(!dispName)
+            throw new Error(`No default language translation found for endpoint "${this.pathName}"`);
 
         return dispName.text;
     }
@@ -124,13 +133,25 @@ class Endpoint {
         if(!isValidLang(langCode))
             throw new TypeError(`Parameter "langCode" is not a valid language code`);
 
-        let description = this.meta.descriptions.find(d => d.lang == langCode);
+        let description = this.translations.descriptions.find(d => d.lang == langCode);
 
         // if description is undefined, no description exists for the provided langCode so default to the default language
         if(!description)
-            description = this.meta.descriptions.find(d => d.lang == settings.languages.defaultLanguage);
+            description = this.translations.descriptions.find(d => d.lang == settings.languages.defaultLanguage);
+
+        if(!description)
+            throw new Error(`No default language translation found for endpoint "${this.pathName}"`);
 
         return description.text;
+    }
+
+    /**
+     * Returns all positional URL path arguments
+     * @returns {string[]}
+     */
+    getPositionalArguments()
+    {
+        return this.positionalArguments;
     }
 
     /**

@@ -254,12 +254,6 @@
             "ru": "Доступные форматы: %1\n\nЭто описания форматов:\n%2",
             "cs": "Dostupné formáty jsou: %1\n\nToto jsou popisy formátu:\n%2"
         },
-        "endpointsWord": {
-            "en": "Endpoints",
-            "de": "Endpunkte",
-            "ru": "Конечные точки",
-            "cs": "Koncové body"
-        },
         "endpointDetails": {
             "en": "%1 - %2\n    Usage: %3 %4\n    Supported parameters: %5",
             "de": "%1 - %2\n    Benutzung: %3 %4\n    Unterstützte URL-Parameter: %5",
