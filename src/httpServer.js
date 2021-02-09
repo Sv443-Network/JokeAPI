@@ -830,7 +830,7 @@ function tryServeEncoded(req, res, data, mimeType, statusCode)
             {
                 zlib.brotliCompress(data, (err, encRes) => {
                     if(!err)
-                        return pipeString(res, encRes, mimeType, statusCode, statusCode);
+                        return pipeString(res, encRes, mimeType, statusCode);
                     else
                         return pipeString(res, `Internal error while encoding text into ${selectedEncoding}: ${err}`, mimeType, statusCode);
                 });
