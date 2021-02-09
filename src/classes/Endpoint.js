@@ -138,13 +138,13 @@ class Endpoint {
     /**
      * This method is run each time a client requests this endpoint  
      * Abstract method - to be overwritten!
-     * @abstract ❗️ Abstract method - Override this, else an Error is thrown ❗️
+     * @abstract ❗️ Abstract method - Override this, else a MissingImplementationError is thrown ❗️
      * @param {_http.IncomingMessage} req The HTTP server request
      * @param {_http.ServerResponse} res The HTTP server response
      * @param {string[]} url URL path array gotten from the URL parser module
      * @param {object} params URL query params gotten from the URL parser module
      * @param {string} format The file format to respond with
-     * @throws Throws an Error if this method was not overwritten
+     * @throws Throws a MissingImplementationError if this method was not overwritten
      */
     call(req, res, url, params, format)
     {

@@ -234,6 +234,7 @@ const init = () => {
 
                                 foundEndpoint = true;
 
+                                //TODO: refactor
                                 let callEndpoint = require(`.${ep.absPath}`);
                                 let meta = callEndpoint.meta;
                                 
@@ -435,6 +436,8 @@ const init = () => {
             });
         };
 
+        //#SECTION execute endpoint
+        // TODO: refactor
         fs.readdir(settings.endpoints.dirPath, (err1, files) => {
             if(err1)
                 return reject(`Error while reading the endpoints directory: ${err1}`);
