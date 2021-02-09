@@ -108,7 +108,7 @@ const generateForSrc = () => {
 
 const generateForEndpoints = () => {
     let iterCount = 0;
-    let endpointFiles = fs.readdirSync("./endpoints");
+    let endpointFiles = fs.readdirSync("./src/endpoints");
     return new Promise((resolve, reject) => {
         endpointFiles.forEach(file => {
             if(!file.endsWith(".js"))
@@ -121,7 +121,7 @@ const generateForEndpoints = () => {
 
             try
             {
-                madge(`./endpoints/${file}`, madgeOptions)
+                madge(`./src/endpoints/${file}`, madgeOptions)
                 .then((res) => res.svg())
                 .then((output) => {
                     iterCount++;
@@ -131,7 +131,7 @@ const generateForEndpoints = () => {
                     resolve();
                 });
 
-                fileList.push(`<li><span class="mimica" onclick="setIframe('./madge/endpoints-${filename}.html', '${filename}')">endpoints/${filename}.js</span></li>`);
+                fileList.push(`<li><span class="mimica" onclick="setIframe('./madge/endpoints-${filename}.html', '${filename}')">src/endpoints/${filename}.js</span></li>`);
             }
             catch(err)
             {

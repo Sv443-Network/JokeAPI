@@ -18,7 +18,7 @@
     "lint": "eslint ./ && exit $?",
     "all": "npm run validate-jokes && npm run validate-ids && npm run lint && npm run dep-graph && npm run generate-changelog && npm test",
     "dep-graph-old": "node dev/madge",
-    "dep-graph": "depcruise --include-only \"^src|^endpoints|^tests|^tools\" --output-type dot . | dot -T svg > dev/dependencygraph.svg && echo Created dependency graph at \"dev/dependencygraph.svg\"",
+    "dep-graph": "depcruise --include-only \"^src|^src/endpoints|^tests|^tools\" --output-type dot . | dot -T svg > dev/dependencygraph.svg && echo Created dependency graph at \"dev/dependencygraph.svg\"",
     "generate-changelog": "node tools/generate-changelog",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect"
