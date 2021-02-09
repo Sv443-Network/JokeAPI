@@ -194,8 +194,8 @@ const settings = {
     },
     /** Everything regarding endpoints */
     endpoints: {
-        dirPath: "./endpoints/", // path to the dir containing all the endpoint scripts
-        ratelimitBlacklist: [    // calling an endpoint in this array will not count towards the rate limit counter
+        dirPath: "./src/endpoints/", // path to the dir containing all the endpoint classes
+        ratelimitBlacklist: [        // calling an endpoint in this array will not count towards the rate limit counter
             "static",
         ],
         translationsFile: "./data/translations/endpoints.json", // file where endpoint translations are located in

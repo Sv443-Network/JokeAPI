@@ -23,13 +23,25 @@ const languages = require("./languages");
 const { RateLimiterMemory, RateLimiterRes } = require("rate-limiter-flexible");
 const tr = require("./translate");
 const exists = require("./exists");
+const Endpoint = require("./classes/Endpoint");
 
-scl.unused(RateLimiterRes); // typedef only
+scl.unused(RateLimiterRes, Endpoint); // typedef only
 
 
-const init = () => {
+/**
+ * @typedef {object} EpObject A cached endpoint
+ * @prop {string} name File name
+ * @prop {Endpoint.EndpointMeta} meta Meta object
+ * @prop {string} absPath Absolute path to endpoint class
+ * @prop {string} pathName Path at which to call this endpoint
+ * @prop {Endpoint} instance An instance of the endpoint subclass. Use this to call the endpoint, execute base class methods, etc.
+ */
+
+function init()
+{
     debug("HTTP", "Starting HTTP server...");
     return new Promise((resolve, reject) => {
+        /** @type {EpObject[]} */
         let endpoints = [];
         /** Whether or not the HTTP server could be initialized */
         let httpServerInitialized = false;
@@ -145,11 +157,11 @@ const init = () => {
 
                         let urlPath = parsedURL.pathArray;
                         let requestedEndpoint = "";
-                        let lowerCaseEndpoints = [];
-                        endpoints.forEach(ep => lowerCaseEndpoints.push(ep.name.toLowerCase()));
+                        // let lowerCaseEndpoints = [];
+                        // endpoints.forEach(ep => lowerCaseEndpoints.push(ep.name.toLowerCase()));
 
                         if(!scl.isArrayEmpty(urlPath))
-                            requestedEndpoint = urlPath[0];
+                            requestedEndpoint = urlPath[0].toLowerCase();
                         else
                         {
                             try
@@ -199,8 +211,8 @@ const init = () => {
                         if(!scl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "favicon.ico")
                             return pipeFile(res, settings.documentation.faviconPath, "image/x-icon", 200);
 
-                        endpoints.forEach(async (ep) => {
-                            if(ep.name == requestedEndpoint)
+                        endpoints.forEach( /** @param {EpObject} ep Endpoint matching request URL */ async (ep) => {
+                            if(ep.pathName == requestedEndpoint)
                             {
                                 let isAuthorized = headerAuth.isAuthorized;
                                 let headerToken = headerAuth.token;
@@ -234,9 +246,7 @@ const init = () => {
 
                                 foundEndpoint = true;
 
-                                //TODO: refactor
-                                let callEndpoint = require(`.${ep.absPath}`);
-                                let meta = callEndpoint.meta;
+                                let meta = ep.meta;
                                 
                                 if(!scl.isEmpty(meta) && meta.skipRateLimitCheck === true)
                                 {
@@ -247,7 +257,8 @@ const init = () => {
                                             if(!lists.isConsoleBlacklisted(ip))
                                                 logRequest("success", null, analyticsObject);
                                         }
-                                        return callEndpoint.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
+                                        // actually call the endpoint
+                                        return ep.instance.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
                                     }
                                     catch(err)
                                     {
@@ -277,7 +288,7 @@ const init = () => {
                                                     logRequest("success", null, analyticsObject);
                                             }
                                                 
-                                            return callEndpoint.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
+                                            return ep.instance.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
                                         }
                                     }
                                     catch(err)
@@ -437,7 +448,6 @@ const init = () => {
         };
 
         //#SECTION execute endpoint
-        // TODO: refactor
         fs.readdir(settings.endpoints.dirPath, (err1, files) => {
             if(err1)
                 return reject(`Error while reading the endpoints directory: ${err1}`);
@@ -450,10 +460,14 @@ const init = () => {
 
                 if(fs.statSync(endpointFilePath).isFile())
                 {
+                    let instance = new require(`.${endpointFilePath}`);
+
                     endpoints.push({
                         name: fileName,
-                        desc: require(`.${endpointFilePath}`).meta.desc, // needs an extra . cause require() is relative to this file, whereas "fs" is relative to the project root
-                        absPath: endpointFilePath
+                        meta: instance.getMeta(),
+                        absPath: endpointFilePath,
+                        pathName: instance.getPathName(),
+                        instance
                     });
                 }
             });
