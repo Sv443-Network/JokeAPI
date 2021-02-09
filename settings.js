@@ -192,6 +192,7 @@ const settings = {
                 css: "../static/submit.css", // name of the CSS file of the submission form - relative to the parameter "documentation.submissionForm.dirPath"
             },
         },
+        staticCacheAge: 86400, // in ms - after how much time a client browser should delete and re-fetch the cached static content
     },
     /** Everything regarding endpoints */
     endpoints: {

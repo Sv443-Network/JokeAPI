@@ -54,8 +54,6 @@ class Joke extends Endpoint {
      */
     call(req, res, url, params, format)
     {
-        scl.unused(req, url);
-
         const lang = Endpoint.getLang(params);
 
         let statusCode = 200;

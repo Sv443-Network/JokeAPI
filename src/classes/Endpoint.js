@@ -1,4 +1,5 @@
 const { unused, http } = require("svcorelib");
+const { resolve } = require("path");
 const _http = require("http");
 
 const convertFileFormat = require("../fileFormatConverter");
@@ -190,6 +191,27 @@ class Endpoint {
             statusCode = 200;
     
         return http.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format), statusCode);
+    }
+
+    /**
+     * Sends a file to the client
+     * @static
+     * @param {_http.ServerResponse} res
+     * @param {string} mimeType MIME type
+     * @param {string} lang Language code
+     * @param {string} filePath Path to the file
+     * @param {number} [statusCode] Status code (defaults to 200)
+     */
+    static respondWithFile(res, mimeType, lang, filePath, statusCode)
+    {
+        filePath = resolve(filePath);
+
+        statusCode = parseInt(statusCode);
+
+        if(typeof statusCode != "number" || isNaN(statusCode) || statusCode < 100)
+            statusCode = 200;
+    
+        return http.pipeFile(res, filePath, mimeType, statusCode);
     }
 
     /**
