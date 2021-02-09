@@ -131,6 +131,15 @@ class Endpoint {
         return description.text;
     }
 
+    /**
+     * Returns a string representation of this endpoint
+     * @returns {string}
+     */
+    toString()
+    {
+        return `Endpoint /${this.getPathName()}/ - ${this.getDescription()}`;
+    }
+
     //#MARKER call
     /**
      * This method is run each time a client requests this endpoint  
