@@ -19,6 +19,42 @@
                 "ru": "Это пример конечной точки"
             }
         },
+        "langcode": {
+            "name": {
+                "en": "Language Code",
+                "de": "Sprach-Code",
+                "ru": "Код Языка"
+            },
+            "desc": {
+                "en": "Used for resolving a language name to a two character language code",
+                "de": "Löst den Namen einer Sprache zu einem zweistelligen Sprachcode auf",
+                "ru": "Используется для преобразования названия языка в двухсимвольный код языка"
+            }
+        },
+        "languages": {
+            "name": {
+                "en": "Languages",
+                "de": "Sprachen",
+                "ru": "Languages"
+            },
+            "desc": {
+                "en": "Returns a list of joke and system languages, as well as a list of all possible language codes",
+                "de": "Gibt eine Liste der Witz- und Systemsprachen, sowie eine Liste aller möglichen Sprachcodes zurück",
+                "ru": "Возвращает список анекдотов и системных языков, а также список всех возможных языковых кодов"
+            }
+        },
+        "ping": {
+            "name": {
+                "en": "Ping",
+                "de": "Ping",
+                "ru": "Пинг"
+            },
+            "desc": {
+                "en": "Used for checking if the API is online or to test connection latency",
+                "de": "Wird verwendet, um zu prüfen, ob die API online ist oder um die Verbindungslatenz zu testen",
+                "ru": "Используется для проверки работоспособности API или для проверки задержек соединения"
+            }
+        },
         "joke": {
             "name": {
                 "en": "Joke",
