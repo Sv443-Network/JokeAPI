@@ -11,10 +11,11 @@ const settings = require("../settings");
 /** @type {JokeCache} */
 var cache;
 module.exports.cache = cache;
+module.exports.connectionInfo = {};
 
 
 /**
- * Initializes the joke cache module and instantiates the `cache` export.
+ * Initializes the joke cache module and instantiates the `cache` instance.
  * @returns {Promise<undefined, string>}
  */
 function init()

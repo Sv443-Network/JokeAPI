@@ -1,8 +1,11 @@
 const jsl = require("svjsl");
+
 const logger = require("./logger");
 const parseJokes = require("./parseJokes");
 const analytics = require("./analytics");
 const languages = require("./languages");
+const jokeCache = require("./jokeCache");
+
 const settings = require("../settings");
 
 
@@ -164,13 +167,14 @@ function initMsg(initTimestamp)
 
     console.log(`\n${jsl.colors.fg.blue}[${logger.getTimestamp(" | ")}] ${jsl.colors.rst}- ${jsl.colors.fg.green}${settings.info.name} v${settings.info.version}${jsl.colors.rst}`);
     console.log(` ├─ Registered and validated ${jsl.colors.fg.green}${parseJokes.jokeCount}${jsl.colors.rst} jokes from ${jsl.colors.fg.green}${languages.jokeLangs().length}${jsl.colors.rst} languages`);
-    console.log(` ├─ ${jsl.colors.fg.green}${settings.jokes.possible.categories.length}${jsl.colors.rst} categories, ${jsl.colors.fg.green}${settings.jokes.possible.flags.length}${jsl.colors.rst} flags, ${jsl.colors.fg.green}${settings.jokes.possible.formats.length}${jsl.colors.rst} formats`);
+    console.log(` ├─ Found ${jsl.colors.fg.green}${settings.jokes.possible.categories.length}${jsl.colors.rst} categories, ${jsl.colors.fg.green}${settings.jokes.possible.flags.length}${jsl.colors.rst} flags, ${jsl.colors.fg.green}${settings.jokes.possible.formats.length}${jsl.colors.rst} formats`);
     if(analytics.connectionInfo && analytics.connectionInfo.connected)
         console.log(` ├─ Connected to analytics database at ${jsl.colors.fg.green}${analytics.connectionInfo.info}${jsl.colors.rst}`);
     else
         console.log(` ├─ Analytics database ${settings.analytics.enabled ? jsl.colors.fg.red : jsl.colors.fg.yellow}not connected${settings.analytics.enabled ? "" : " (disabled)"}${jsl.colors.rst}`);
-    console.log(` ├─ ${settings.info.name} is listening at ${jsl.colors.fg.green}${getLocalURL()}${jsl.colors.rst} (SSL ${settings.httpServer.ssl.enabled ? `${jsl.colors.fg.green}enabled${jsl.colors.rst}` : `${jsl.colors.fg.yellow}disabled${jsl.colors.rst}`})`);
-    console.log(` └─ Initialization took around ${jsl.colors.fg.green}${initMs}ms${initMs == 69 ? " (nice)" : ""}${jsl.colors.rst}`);
+    console.log(` ├─ Joke Cache database ${jokeCache.connectionInfo.connected ? `${jsl.colors.fg.green}connected` : `${jsl.colors.fg.red}not connected`}${jsl.colors.rst}`);
+    console.log(` ├─ HTTP${settings.httpServer.ssl.enabled ? "S" : ""} server is listening at ${jsl.colors.fg.green}${getLocalURL()}${jsl.colors.rst} (SSL ${settings.httpServer.ssl.enabled ? `${jsl.colors.fg.green}enabled${jsl.colors.rst}` : `${jsl.colors.fg.yellow}disabled${jsl.colors.rst}`})`);
+    console.log(` └─ Initialization took ${jsl.colors.fg.green}${initMs}ms${initMs == 69 ? " (nice)" : ""}${jsl.colors.rst}`);
     process.stdout.write("\n");
     console.log(`Colors: ${jsl.colors.fg.green}Success ${jsl.colors.fg.yellow}Warning ${jsl.colors.fg.red}Error${jsl.colors.rst}`);
     
