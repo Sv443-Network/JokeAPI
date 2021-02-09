@@ -74,8 +74,9 @@ const settings = {
             invalidCharRegex: /(?![\u0000-\u0fff])./gm, // eslint-disable-line no-control-regex
         },
         jokesTemplateFile: "template.json",  // relative to "jokes.jokesFolderPath"
-        /** Possible / available components of jokes */
+        /** Possible / available filter components of jokes */
         possible: {
+            filterComponentTranslationFile: "./data/translations/filterComponents.json", // translations for the filter components
             anyCategoryName: "Any", // the name of the "Any" category - case insensitive / readable name
             categories: [           // all categories (excluding "Any") - case insensitive / readable name
                 "Misc",

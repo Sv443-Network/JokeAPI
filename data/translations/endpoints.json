@@ -19,6 +19,18 @@
                 "ru": "Это пример конечной точки"
             }
         },
+        "flags": {
+            "name": {
+                "en": "Flags",
+                "de": "Markierungen",
+                "ru": "Флаги"
+            },
+            "desc": {
+                "en": "Lists all available joke blacklist flags and their descriptions",
+                "de": "Listet alle verfügbaren Witz-Markierungen und ihre Beschreibungen auf",
+                "ru": "Перечисляет все доступные флаги черного списка шуток и их описания"
+            }
+        },
         "langcode": {
             "name": {
                 "en": "Language Code",

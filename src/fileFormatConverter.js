@@ -67,8 +67,6 @@ const toTXT = (jsonInput, lang) => {
         }
         else
         {
-            let categoryAliases = [];
-
             if((jsonInput.joke || (jsonInput.jokes && Array.isArray(jsonInput.jokes))) || (jsonInput.setup && jsonInput.delivery)) // endpoint: /joke
             {
                 if(jsonInput.type == "single")
@@ -92,14 +90,29 @@ const toTXT = (jsonInput, lang) => {
 
             else if(jsonInput.categories) // endpoint: /categories
             {
+                let categoryAliases = [];
+                let categoryDescriptions = [];
+
                 jsonInput.categoryAliases.forEach(alias => {
                     categoryAliases.push(`- ${alias.alias} -> ${alias.resolved}`);
                 });
-                returnText = tr(lang, "availableCategories", jsonInput.categories.map(c => `- ${c}`).join("\n"), categoryAliases.join("\n"));
+
+                jsonInput.categoryDescriptions.forEach(desc => {
+                    categoryDescriptions.push(`- ${desc.name}: ${desc.description || "(x)"}`);
+                });
+
+                returnText = tr(lang, "availableCategories", jsonInput.categories.map(c => `- ${c}`).join("\n"), categoryAliases.join("\n"), categoryDescriptions.join("\n"));
             }
 
             else if(jsonInput.flags) // endpoint: /flags
-                returnText = tr(lang, "availableFlags", jsonInput.flags.join('", "'));
+            {
+                let flagDescriptions = [];
+                jsonInput.flagDescriptions.forEach(desc => {
+                    flagDescriptions.push(`- ${desc.name}: ${desc.description || "(x)"}`);
+                });
+
+                returnText = tr(lang, "availableFlags", jsonInput.flags.join('", "'), flagDescriptions.join("\n"));
+            }
 
             else if(jsonInput.ping) // endpoint: /ping
                 returnText = `${jsonInput.ping}\n${tr(lang, "timestamp", jsonInput.timestamp)}`;
@@ -152,8 +165,15 @@ const toTXT = (jsonInput, lang) => {
                                 );
             }
 
-            else if(jsonInput.formats) // endpoint: /formats
-                returnText = tr(lang, "availableFormats", `"${jsonInput.formats.join('", "')}"`);
+            else if(jsonInput.formats && jsonInput.formatDescriptions) // endpoint: /formats
+            {
+                let formatDescriptions = [];
+                jsonInput.formatDescriptions.forEach(desc => {
+                    formatDescriptions.push(`- ${desc.name}: ${desc.description || "(x)"}`);
+                });
+
+                returnText = tr(lang, "availableFormats", `"${jsonInput.formats.join('", "')}"`, formatDescriptions.join("\n"));
+            }
 
             else if(Array.isArray(jsonInput) && jsonInput[0].usage && jsonInput[0].usage.method) // endpoint: /endpoints
             {

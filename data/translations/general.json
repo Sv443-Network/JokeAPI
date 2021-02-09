@@ -207,16 +207,16 @@
             "cs": "Interní chyba %1 - %2\nTato chyba je způsobena:\n- %3\n\nDalší informace: %4"
         },
         "availableCategories": {
-            "en": "Available categories are:\n%1\n\nThese are the available category aliases:\n%2",
-            "de": "Verfügbare Kategorien sind:\n%1\n\nDas sind die verfügbaren Kategorie-Aliase:\n%2",
-            "ru": "Доступны следующие категории:\n%1\n\nЭто доступные псевдонимы категории:\n%2",
-            "cs": "Dostupné kategorie jsou:\n%1\n\nToto jsou dostupné zkratky kategorií:\n%2"
+            "en": "Available categories are:\n%1\n\nThese are the available category aliases:\n%2\n\nThese are the category descriptions:\n%3",
+            "de": "Verfügbare Kategorien sind:\n%1\n\nDas sind die verfügbaren Kategorie-Aliase:\n%2\n\nDies sind die Beschreibungen der Kategorien:\n%3",
+            "ru": "Доступны следующие категории:\n%1\n\nЭто доступные псевдонимы категории:\n%2\n\nЭто описания категорий:\n%3",
+            "cs": "Dostupné kategorie jsou:\n%1\n\nToto jsou dostupné zkratky kategorií:\n%2\n\nToto jsou popisy kategorií:\n%4"
         },
         "availableFlags": {
-            "en": "Available flags are: \"%1\"",
-            "de": "Verfügbare Markierungen sind: \"%1\"",
-            "ru": "Доступны флаги: \"%1\"",
-            "cs": "Dostupné flags jsou: \"%1\"."
+            "en": "Available flags are: \"%1\"\n\nThese are the flag descriptions:\n%2",
+            "de": "Verfügbare Markierungen sind: \"%1\"\n\nDies sind die Beschreibungen der Markierungen:\n%2",
+            "ru": "Доступны флаги: \"%1\"\n\nЭто описания флагов:\n%2",
+            "cs": "Dostupné flags jsou: \"%1\"\n\nToto jsou popisy příznaků:\n%2"
         },
         "timestamp": {
             "en": "Timestamp: %1",
@@ -249,10 +249,10 @@
             "cs": "%1 v%2 - Informace:\n\nPočet vtipů: %3\nKategorie: \"%4\"\nVlajky: \"%5\"\nFormáty odpovědi: \"%6\"\nDruhy vtipů: \"%7\"\nURL pro odeslání vtipu: \"%8\"\n\nRozsahy ID:\n%9\n\nJazyky pro vtipy (%10): %11\nSystémové jazyky (%12): %13\n\nMnožství bezpečných vtipů:\n%14\n\nZpráva dne: %15"
         },
         "availableFormats": {
-            "en": "Available formats are: %1",
-            "de": "Verfügbare Dateiformate sind: %1",
-            "ru": "Доступные форматы: %1",
-            "cs": "Dostupné formáty jsou: %1"
+            "en": "Available formats are: %1\n\nThese are the format descriptions:\n%2",
+            "de": "Verfügbare Dateiformate sind: %1\n\nDies sind die Formatbeschreibungen:\n%2",
+            "ru": "Доступные форматы: %1\n\nЭто описания форматов:\n%2",
+            "cs": "Dostupné formáty jsou: %1\n\nToto jsou popisy formátu:\n%2"
         },
         "endpointsWord": {
             "en": "Endpoints",

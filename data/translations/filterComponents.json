@@ -1,0 +1,97 @@
+{
+    "info": "This file contains translations for filter components (categories, flags, formats, ...)",
+    "defaultLang": "en",
+    "languages": [
+        "en",
+        "de",
+        "ru"
+    ],
+    "tr": {
+        "categories": {
+            "Misc": {
+                "en": "This category contains jokes that don't fit in any other category",
+                "de": "Diese Kategorie enthält Witze, die in keine andere Kategorie passen",
+                "ru": "Эта категория содержит анекдоты, которые не вписываются ни в одну другую категорию"
+            },
+            "Programming": {
+                "en": "Jokes about programming, computers and technology",
+                "de": "Witze über das Programmieren, Computer und Technik",
+                "ru": "Шутки о программировании, компьютерах и технологиях"
+            },
+            "Dark": {
+                "en": "Dark humor - use with caution!",
+                "de": "Dunkler Humor - mit Vorsicht benutzen!",
+                "ru": "Темный юмор - используйте с осторожностью!"
+            },
+            "Pun": {
+                "en": "This category contains puns / word play jokes",
+                "de": "Diese Kategorie enthält Wortspiele",
+                "ru": "Эта категория содержит каламбуры"
+            },
+            "Spooky": {
+                "en": "Jokes from this category are Halloween and spooky-themed",
+                "de": "Witze aus dieser Kategorie sind Halloween- und Grusel-thematisiert",
+                "ru": "Шутки из этой категории - Хэллоуин и зловещая тема"
+            },
+            "Christmas": {
+                "en": "This category contains christmas-themed jokes",
+                "de": "Diese Kategorie enthält Witze zum Thema Weihnachten",
+                "ru": "В этой категории есть рождественские шутки"
+            }
+        },
+        "formats": {
+            "json": {
+                "en": "JavaScript Object Notation - https://en.wikipedia.org/wiki/JSON",
+                "de": "JavaScript Object Notation - https://de.wikipedia.org/wiki/JSON",
+                "ru": "JavaScript Object Notation - https://ru.wikipedia.org/wiki/JSON"
+            },
+            "xml": {
+                "en": "Extensible Markup Language - https://en.wikipedia.org/wiki/XML",
+                "de": "Extensible Markup Language - https://de.wikipedia.org/wiki/XML",
+                "ru": "Extensible Markup Language - https://ru.wikipedia.org/wiki/XML"
+            },
+            "yaml": {
+                "en": "YAML Ain't Markup Language - https://en.wikipedia.org/wiki/YAML",
+                "de": "YAML Ain't Markup Language - https://de.wikipedia.org/wiki/YAML",
+                "ru": "YAML Ain't Markup Language - https://ru.wikipedia.org/wiki/YAML"
+            },
+            "txt": {
+                "en": "Plain text",
+                "de": "Klartext",
+                "ru": "Простой текст"
+            }
+        },
+        "flags": {
+            "nsfw": {
+                "en": "These jokes are not safe for work - They contain sexual references",
+                "de": "Diese Witze enthalten sexuelle Anspielungen",
+                "ru": "Эти шутки содержат сексуальные инсинуации"
+            },
+            "religious": {
+                "en": "These jokes are targeted at religion(s) or contain religious references",
+                "de": "Diese Witze zielen auf Religion(en) ab oder enthalten religiöse Hinweise",
+                "ru": "Эти шутки направлены против религия / религий или содержат религиозные ориентиры"
+            },
+            "political": {
+                "en": "These jokes contain politics or are targeted at politicians / political parties",
+                "de": "Diese Witze enthalten Politik oder richten sich an Politiker / politische Parteien",
+                "ru": "Эти шутки содержат политику или нацелены на политиков / политические партии."
+            },
+            "racist": {
+                "en": "These jokes contain racism",
+                "de": "Diese Witze enthalten Rassismus",
+                "ru": "Эти шутки содержат расизм"
+            },
+            "sexist": {
+                "en": "These jokes contain sexism",
+                "de": "Diese Witze enthalten Sexismus",
+                "ru": "Эти шутки содержат сексизм"
+            },
+            "explicit": {
+                "en": "These jokes contain explicit language",
+                "de": "Diese Witze enthalten Schimpfwörter",
+                "ru": "Эти анекдоты содержат явные формулировки"
+            }
+        }
+    }
+}
