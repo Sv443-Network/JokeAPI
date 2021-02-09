@@ -1,4 +1,4 @@
-const { unused } = require("svcorelib");
+const { unused, randRange } = require("svcorelib");
 const Endpoint = require("../classes/Endpoint");
 
 
@@ -35,7 +35,10 @@ class Example extends Endpoint {
 
         const data = {
             error: false,
-            txt: "Hi was geht",
+            example: {
+                text: "Hi I'm an example",
+                randomNum: randRange(0, 420)
+            },
             timestamp: new Date().getTime()
         };
 
@@ -43,4 +46,4 @@ class Example extends Endpoint {
     }
 }
 
-unused(Example);
+module.exports = Example;

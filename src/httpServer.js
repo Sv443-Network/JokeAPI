@@ -6,6 +6,7 @@ const Readable = require("stream").Readable;
 const fs = require("fs-extra");
 const zlib = require("zlib");
 const semver = require("semver");
+const path = require("path");
 
 const settings = require("../settings");
 const debug = require("./verboseLogging");
@@ -456,11 +457,12 @@ function init()
                 fileName.pop();
                 fileName = fileName.length > 1 ? fileName.join(".") : fileName[0];
 
-                let endpointFilePath = `${settings.endpoints.dirPath}${file}`;
+                let endpointFilePath = path.resolve(`${settings.endpoints.dirPath}${file}`);
 
                 if(fs.statSync(endpointFilePath).isFile())
                 {
-                    let instance = new require(`.${endpointFilePath}`);
+                    const EndpointClass = require(endpointFilePath);
+                    let instance = new EndpointClass;
 
                     endpoints.push({
                         name: fileName,

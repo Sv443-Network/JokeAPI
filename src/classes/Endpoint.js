@@ -7,7 +7,7 @@ const { isValidLang } = require("../languages");
 const debug = require("../verboseLogging");
 
 const settings = require("../../settings");
-const endpointsTrFile = require(`.${settings.endpoints.translationsFile}`);
+const endpointsTrFile = require(`../../${settings.endpoints.translationsFile}`);
 
 
 //#MARKER type stuff
@@ -61,9 +61,6 @@ class Endpoint {
     {
         if(typeof pathName !== "string")
             throw new TypeError(`Parameter "pathName" is not of type string (got "${typeof pathName}")`);
-
-        if(typeof displayName !== "string")
-            throw new TypeError(`Parameter "displayName" is not of type string (got "${typeof displayName}")`);
 
         if(typeof meta !== "object")
             throw new TypeError(`Parameter "meta" is not of type object (got "${typeof meta}")`);

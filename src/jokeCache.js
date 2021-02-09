@@ -90,7 +90,7 @@ function init()
                         }
                     }).catch(err => {
                         debug("JokeCache", `Error while detecting joke caching table in DB: ${err}`);
-                        return pRej(`${err}\nMaybe the database server isn't running or doesn't allow the connection`);
+                        return pRej(`Error while initializing joke cache: ${err}\nMaybe the database server isn't running or doesn't allow the connection`);
                     });
                 }
             });
