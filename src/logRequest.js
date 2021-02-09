@@ -163,7 +163,7 @@ function logRequest(type, additionalInfo, analyticsData)
 /**
  * Sends an initialization message - called when the initialization is done
  * @param {number} initTimestamp The timestamp of when JokeAPI was initialized
- * @param {number}
+ * @param {number} [initDurationMs] Duration until startup
  */
 function initMsg(initTimestamp, initDurationMs)
 {
@@ -191,8 +191,8 @@ function initMsg(initTimestamp, initDurationMs)
     lines.push(` ├─ Joke Cache database ${jokeCache.connectionInfo.connected ? `${col.green}connected` : `${col.red}not connected`}${col.rst}\n`);
     lines.push(` ├─ HTTP${settings.httpServer.ssl.enabled ? "S" : ""} server is listening at ${col.green}${getLocalURL()}${col.rst} (SSL ${settings.httpServer.ssl.enabled ? `${col.green}enabled${col.rst}` : `${col.yellow}disabled${col.rst}`})\n`);
     lines.push(` ├─ Initialization took ${col.green}${initMs}ms${initMs == 69 ? " (nice)" : ""}${col.rst}\n`);
-    lines.push(` └─ Heap Usage: ${heapColor}${heapPercent}%${col.rst}\n`);
-    lines.push(`Colors: ${col.green}Success ${col.yellow}Warning ${col.red}Error${col.rst}\n`);
+    lines.push(` └─ Heap Usage: ${heapColor}${heapPercent}%${col.rst}\n\n`);
+    lines.push(`Colors: ${col.green}Success ${col.yellow}Warning/Info ${col.red}Error${col.rst}\n`);
     
     if(!settings.debug.onlyLogErrors)
     {
