@@ -31,6 +31,18 @@
                 "ru": "Перечисляет все доступные флаги черного списка шуток и их описания"
             }
         },
+        "info": {
+            "name": {
+                "en": "Information",
+                "de": "Information",
+                "ru": "Информация"
+            },
+            "desc": {
+                "en": "Returns a variety of information and properties",
+                "de": "Liefert eine Vielzahl von Informationen und Eigenschaften",
+                "ru": "Возвращает различную информацию и свойства"
+            }
+        },
         "langcode": {
             "name": {
                 "en": "Language Code",

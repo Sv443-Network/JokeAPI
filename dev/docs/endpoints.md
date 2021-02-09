@@ -7,6 +7,7 @@ If you need an explanation of what an endpoint is, [this should help you.](https
 ## Table of Contents:
 - [How JokeAPI's endpoints work](#how-jokeapis-endpoints-work)
 - [Location and execution of endpoints](#location-and-execution-of-endpoints)
+- [Types of Endpoints](#endpoint-types)
 - [Endpoint List](#endpoint-list)
     - [Categories](#categories)
     - [Endpoints](#endpoints)
@@ -45,6 +46,15 @@ This function gets passed a lot of parameters, which are essential in parsing an
 - `params` - An object containing all query parameters (`?foo=bar&baz=xyz`)
 - `format` - The requested file format (xml, yaml, txt, json)
 
+
+<br><br><br>
+<!-- #MARKER Endpoint Types -->
+
+## Endpoint Types:
+### Normal:
+[WIP]
+### Filter Component:
+[WIP]
 
 <br><br><br>
 <!-- #MARKER Endpoint List -->
