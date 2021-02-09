@@ -7,6 +7,7 @@ const { isValidLang } = require("../languages");
 const debug = require("../verboseLogging");
 
 const settings = require("../../settings");
+const { tryServeEncoded } = require("../httpServer");
 const endpointsTrFile = require(`../../${settings.endpoints.translationsFile}`);
 
 
@@ -189,6 +190,28 @@ class Endpoint {
             statusCode = 200;
     
         return http.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format), statusCode);
+    }
+
+    /**
+     * Sends an encoded response to the client - Runs file format auto-conversion, tries to encode, then uses httpServer.pipeString()
+     * @static
+     * @param {_http.ClientRequest} req
+     * @param {_http.ServerResponse} res
+     * @param {string} format File format
+     * @param {string} lang Language code
+     * @param {object} data JSON-compatible object - data to send to the client
+     * @param {number} [statusCode] Status code (defaults to 200)
+     */
+    static tryRespondEncoded(req, res, format, lang, data, statusCode)
+    {
+        const responseText = convertFileFormat.auto(format, data, lang);
+
+        statusCode = parseInt(statusCode);
+
+        if(typeof statusCode != "number" || isNaN(statusCode) || statusCode < 100)
+            statusCode = 200;
+    
+        return tryServeEncoded(req, res, responseText, parseURL.getMimeTypeFromFileFormatString(format), statusCode);
     }
 
     /**

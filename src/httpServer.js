@@ -806,12 +806,17 @@ const getFileExtensionFromEncoding = encoding => {
  * @param {http.ServerResponse} res The HTTP res object
  * @param {String} data The data to send to the client
  * @param {String} mimeType The MIME type to respond with
+ * @param {number} statusCode HTTP response code
  */
-function tryServeEncoded(req, res, data, mimeType)
+function tryServeEncoded(req, res, data, mimeType, statusCode)
 {
     let selectedEncoding = getAcceptedEncoding(req);
 
     debug("HTTP", `Trying to serve with encoding ${selectedEncoding}`);
+
+    statusCode = parseInt(statusCode);
+    if(isNaN(statusCode) || statusCode < 100)
+        statusCode = 200;
 
     if(selectedEncoding)
         res.setHeader("Content-Encoding", selectedEncoding);
@@ -825,38 +830,38 @@ function tryServeEncoded(req, res, data, mimeType)
             {
                 zlib.brotliCompress(data, (err, encRes) => {
                     if(!err)
-                        return pipeString(res, encRes, mimeType);
+                        return pipeString(res, encRes, mimeType, statusCode, statusCode);
                     else
-                        return pipeString(res, `Internal error while encoding text into ${selectedEncoding}: ${err}`, mimeType);
+                        return pipeString(res, `Internal error while encoding text into ${selectedEncoding}: ${err}`, mimeType, statusCode);
                 });
             }
             else
             {
                 res.setHeader("Content-Encoding", "identity");
 
-                return pipeString(res, data, mimeType);
+                return pipeString(res, data, mimeType, statusCode);
             }
         break;
         case "gzip":
             zlib.gzip(data, (err, encRes) => {
                 if(!err)
-                    return pipeString(res, encRes, mimeType);
+                    return pipeString(res, encRes, mimeType, statusCode);
                 else
-                    return pipeString(res, `Internal error while encoding text into ${selectedEncoding}: ${err}`, mimeType);
+                    return pipeString(res, `Internal error while encoding text into ${selectedEncoding}: ${err}`, mimeType, statusCode);
             });
         break;
         case "deflate":
             zlib.deflate(data, (err, encRes) => {
                 if(!err)
-                    return pipeString(res, encRes, mimeType);
+                    return pipeString(res, encRes, mimeType, statusCode);
                 else
-                    return pipeString(res, `Internal error while encoding text into ${selectedEncoding}: ${err}`, mimeType);
+                    return pipeString(res, `Internal error while encoding text into ${selectedEncoding}: ${err}`, mimeType, statusCode);
             });
         break;
         default:
             res.setHeader("Content-Encoding", "identity");
 
-            return pipeString(res, data, mimeType);
+            return pipeString(res, data, mimeType, statusCode);
     }
 }
 

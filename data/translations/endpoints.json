@@ -43,6 +43,18 @@
                 "ru": "Возвращает различную информацию и свойства"
             }
         },
+        "joke": {
+            "name": {
+                "en": "Get Joke",
+                "de": "Witz abrufen",
+                "ru": "Вспомнить шутку"
+            },
+            "desc": {
+                "en": "Returns a joke from the specified category / categories that is also matching the provided filters",
+                "de": "Gibt einen Witz aus der angegebenen Kategorie / den angegebenen Kategorien zurück, der auch den angegebenen Filtern entspricht",
+                "ru": "Возвращает шутка из указанной категория / категории, который также соответствует указанным фильтрам"
+            }
+        },
         "langcode": {
             "name": {
                 "en": "Language Code",
@@ -77,18 +89,6 @@
                 "en": "Used for checking if the API is online or to test connection latency",
                 "de": "Wird verwendet, um zu prüfen, ob die API online ist oder um die Verbindungslatenz zu testen",
                 "ru": "Используется для проверки работоспособности API или для проверки задержек соединения"
-            }
-        },
-        "joke": {
-            "name": {
-                "en": "Joke",
-                "de": "Witz",
-                "ru": "Шутка"
-            },
-            "desc": {
-                "en": "Returns a joke from the specified category / categories that is also matching the provided filters",
-                "de": "Gibt einen Witz aus der angegebenen Kategorie / den angegebenen Kategorien zurück, der auch den angegebenen Filtern entspricht",
-                "ru": "Возвращает шутка из указанной категория / категории, который также соответствует указанным фильтрам"
             }
         }
     }
