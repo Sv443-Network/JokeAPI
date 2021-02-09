@@ -32,9 +32,13 @@ var dIHTML = `
 
 <br><br><br>
 
-<b>This is a list of everything JokeAPI stores temporarily (this data will be deleted after about a month):</b><br>
+<b>This is a list of everything JokeAPI stores temporarily:</b><br>
 <ul>
-    <li>A hash of your IP address, your request headers, the request method and the request date and time (this will be kept inside a secure log file so I can debug JokeAPI and help you solve any issues you might have)</li>
+    <!--
+        Analytics are disabled atm:
+        <li>A hash of your IP address, your request headers, the request method and the request date and time (this will be kept inside a secure log file so I can debug JokeAPI and help you solve any issues you might have)</li>
+    -->
+    <li>Since version 2.4.0, a hash of your IP address gets added to a database every time you request a joke. This is needed to enable joke caching. All data is deleted after <%#INSERT:CACHINGDATAEXPIRYHOURS#%> hours of inactivity.</li>
 </ul>
 
 <br><br>
@@ -44,8 +48,11 @@ var dIHTML = `
     <li>A hash of your IP address <u>if it gets added to the <i>blacklist</i>.</u> This happens if you have shown malicious behavior or have exceeded the rate limiting for too long / often</li>
     <li>A hash of your IP address <u>if it gets added to a <i>whitelist</i>.</u> This only happens if you contacted me to get more requests per minute or are partnered with me and have been informed that this is happening</li>
     <li>A hash of your IP address <u>if it gets added to a <i>console blacklist</i>.</u> This (if at all) also only happens if you are partnered with me</li>
-    <li>The requested URL, consisting of the URL path, the URL parameters and the URL anchor</li>
-    <li>The payload of joke submissions (using PUT requests on the submission endpoint)</li>
+    <!--
+        Analytics are disabled atm:
+        <li>The requested URL, consisting of the URL path, the URL parameters and the URL anchor</li>
+    -->
+    <li>The payload of joke submissions (using a POST request on the /submission endpoint)</li>
 </ul>
 
 <br><br>
