@@ -52,8 +52,8 @@ For a better understanding of how JokeAPI works, please consult the developer do
 ## Submitting Translations:
 If you want to submit a translation, please follow these steps:  
 1. Find your language's two-character code in the file [`data/languages.json`](../data/languages.json). You'll need to specify it for every translation.
-2. Translate coded error messages in the file [`data/errorMessages.js`](../data/errorMessages.js) by following the style of the other translations.
-3. Translate the generic strings inside of the file [`data/translations.json`](../data/translations.json) by also following the style of the other translations.
+2. Translate error messages that are bound to an API error number in the file [`data/errorMessages.js`](../data/errorMessages.js) by following the style of the other translations.
+3. Translate the strings inside the JSON files in the directory [`data/translations/`](../data/translations/) by following the style of the rest of the file.
 4. Add yourself to the `contributors` object in the [`package.json`](../package.json) file :)
 
 <br><br>
