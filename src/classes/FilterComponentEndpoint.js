@@ -1,3 +1,4 @@
+const debug = require("../verboseLogging");
 const Endpoint = require("./Endpoint");
 
 // const filterComponentsTrFile = require(`../../${settings.jokes.possible.filterComponentTranslationFile}`);
@@ -39,6 +40,8 @@ class FilterComponentEndpoint extends Endpoint {
                 })
             });
         });
+
+        debug("FilterComponentEndpoint_Base", `Instantiated filter component endpoint "${filterComponentName}" at /${pathName}/`);
     }
 
     /**

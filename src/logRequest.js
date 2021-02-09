@@ -1,4 +1,5 @@
-const jsl = require("svjsl");
+const scl = require("svcorelib");
+const v8 = require("v8");
 
 const logger = require("./logger");
 const parseJokes = require("./parseJokes");
@@ -7,6 +8,8 @@ const languages = require("./languages");
 const jokeCache = require("./jokeCache");
 
 const settings = require("../settings");
+
+const col = scl.colors.fg;
 
 
 /**
@@ -39,7 +42,7 @@ function logRequest(type, additionalInfo, analyticsData)
         case "success":
             color = settings.colors.success;
 
-            if(!jsl.isEmpty(analyticsData))
+            if(!scl.isEmpty(analyticsData))
             {
                 analytics({
                     type: "SuccessfulRequest",
@@ -54,7 +57,7 @@ function logRequest(type, additionalInfo, analyticsData)
         case "docs":
             color = settings.colors.docs;
 
-            if(!jsl.isEmpty(analyticsData))
+            if(!scl.isEmpty(analyticsData))
             {
                 analytics({
                     type: "Docs",
@@ -70,7 +73,7 @@ function logRequest(type, additionalInfo, analyticsData)
             color = settings.colors.ratelimit;
             logType = "ratelimit";
 
-            if(!jsl.isEmpty(analyticsData))
+            if(!scl.isEmpty(analyticsData))
             {
                 analytics({
                     type: "RateLimited",
@@ -89,7 +92,7 @@ function logRequest(type, additionalInfo, analyticsData)
             color = settings.colors.ratelimit;
             logType = "error";
 
-            if(!jsl.isEmpty(analyticsData))
+            if(!scl.isEmpty(analyticsData))
             {
                 analytics({
                     type: "Error",
@@ -107,10 +110,10 @@ function logRequest(type, additionalInfo, analyticsData)
             logChar = "r ";
         break;
         case "submission":
-            logChar = `\n\n${jsl.colors.fg.blue}⯈ Got a submission${!jsl.isEmpty(additionalInfo) ? ` from ${jsl.colors.fg.yellow}${additionalInfo.substring(0, 8)}` : ""}${jsl.colors.rst}\n\n`;
+            logChar = `\n\n${col.blue}⯈ Got a submission${!scl.isEmpty(additionalInfo) ? ` from ${col.yellow}${additionalInfo.substring(0, 8)}` : ""}${col.rst}\n\n`;
             spacerDisabled = true;
 
-            if(!jsl.isEmpty(analyticsData))
+            if(!scl.isEmpty(analyticsData))
             {
                 analytics({
                     type: "JokeSubmission",
@@ -129,7 +132,7 @@ function logRequest(type, additionalInfo, analyticsData)
             if(!settings.logging.blacklistLoggingEnabled)
                 logDisabled = true;
 
-            if(!jsl.isEmpty(analyticsData))
+            if(!scl.isEmpty(analyticsData))
             {
                 analytics({
                     type: "Blacklisted",
@@ -145,12 +148,12 @@ function logRequest(type, additionalInfo, analyticsData)
     }
 
     if(!settings.logging.disableLogging && !logDisabled)
-        process.stdout.write(`${(process.jokeapi.reqCounter % settings.logging.spacerAfter && !spacerDisabled) == 0 ? " " : ""}${color}${logChar}${jsl.colors.rst}`);
+        process.stdout.write(`${(process.jokeapi.reqCounter % settings.logging.spacerAfter && !spacerDisabled) == 0 ? " " : ""}${color}${logChar}${col.rst}`);
 
     if(logType != null)
-        logger(logType, !jsl.isEmpty(additionalInfo) ? additionalInfo : "no additional information provided", true);
+        logger(logType, !scl.isEmpty(additionalInfo) ? additionalInfo : "no additional information provided", true);
 
-    if(jsl.isEmpty(process.jokeapi.reqCounter))
+    if(scl.isEmpty(process.jokeapi.reqCounter))
         process.jokeapi.reqCounter = 0;
     
     if(!spacerDisabled)
@@ -159,32 +162,55 @@ function logRequest(type, additionalInfo, analyticsData)
 
 /**
  * Sends an initialization message - called when the initialization is done
- * @param {Number} initTimestamp The timestamp of when JokeAPI was initialized
+ * @param {number} initTimestamp The timestamp of when JokeAPI was initialized
+ * @param {number}
  */
-function initMsg(initTimestamp)
+function initMsg(initTimestamp, initDurationMs)
 {
-    let initMs = (new Date().getTime() - initTimestamp).toFixed(0);
+    let lines = [];
+    let initMs = initDurationMs ? initDurationMs : (new Date().getTime() - initTimestamp).toFixed(0);
 
-    console.log(`\n${jsl.colors.fg.blue}[${logger.getTimestamp(" | ")}] ${jsl.colors.rst}- ${jsl.colors.fg.green}${settings.info.name} v${settings.info.version}${jsl.colors.rst}`);
-    console.log(` ├─ Registered and validated ${jsl.colors.fg.green}${parseJokes.jokeCount}${jsl.colors.rst} jokes from ${jsl.colors.fg.green}${languages.jokeLangs().length}${jsl.colors.rst} languages`);
-    console.log(` ├─ Found ${jsl.colors.fg.green}${settings.jokes.possible.categories.length}${jsl.colors.rst} categories, ${jsl.colors.fg.green}${settings.jokes.possible.flags.length}${jsl.colors.rst} flags, ${jsl.colors.fg.green}${settings.jokes.possible.formats.length}${jsl.colors.rst} formats`);
+    const heapStats = v8.getHeapStatistics();
+    const hsMax = heapStats.heap_size_limit;
+    const hsVal = heapStats.used_heap_size;
+    const heapPercent = scl.mapRange(hsVal, 0, hsMax, 0, 100).toFixed(2);
+    let heapColor = col.green;
+
+    if(heapPercent >= 60)
+        heapColor = col.yellow;
+    else if(heapPercent >= 80)
+        heapColor = col.red;
+
+    lines.push(`\n${col.blue}[${logger.getTimestamp(" - ")}] ${col.rst}- ${col.blue}${settings.info.name} v${settings.info.version}${col.rst}\n`);
+    lines.push(` ├─ Registered and validated ${col.green}${parseJokes.jokeCount}${col.rst} jokes from ${col.green}${languages.jokeLangs().length}${col.rst} languages\n`);
+    lines.push(` ├─ Found ${col.green}${settings.jokes.possible.categories.length}${col.rst} categories, ${col.green}${settings.jokes.possible.flags.length}${col.rst} flags, ${col.green}${settings.jokes.possible.formats.length}${col.rst} formats\n`);
     if(analytics.connectionInfo && analytics.connectionInfo.connected)
-        console.log(` ├─ Connected to analytics database at ${jsl.colors.fg.green}${analytics.connectionInfo.info}${jsl.colors.rst}`);
+        lines.push(` ├─ Connected to analytics database at ${col.green}${analytics.connectionInfo.info}${col.rst}\n`);
     else
-        console.log(` ├─ Analytics database ${settings.analytics.enabled ? jsl.colors.fg.red : jsl.colors.fg.yellow}not connected${settings.analytics.enabled ? "" : " (disabled)"}${jsl.colors.rst}`);
-    console.log(` ├─ Joke Cache database ${jokeCache.connectionInfo.connected ? `${jsl.colors.fg.green}connected` : `${jsl.colors.fg.red}not connected`}${jsl.colors.rst}`);
-    console.log(` ├─ HTTP${settings.httpServer.ssl.enabled ? "S" : ""} server is listening at ${jsl.colors.fg.green}${getLocalURL()}${jsl.colors.rst} (SSL ${settings.httpServer.ssl.enabled ? `${jsl.colors.fg.green}enabled${jsl.colors.rst}` : `${jsl.colors.fg.yellow}disabled${jsl.colors.rst}`})`);
-    console.log(` └─ Initialization took ${jsl.colors.fg.green}${initMs}ms${initMs == 69 ? " (nice)" : ""}${jsl.colors.rst}`);
-    process.stdout.write("\n");
-    console.log(`Colors: ${jsl.colors.fg.green}Success ${jsl.colors.fg.yellow}Warning ${jsl.colors.fg.red}Error${jsl.colors.rst}`);
+        lines.push(` ├─ Analytics database ${settings.analytics.enabled ? col.red : col.yellow}not connected${settings.analytics.enabled ? "" : " (disabled)"}${col.rst}\n`);
+    lines.push(` ├─ Joke Cache database ${jokeCache.connectionInfo.connected ? `${col.green}connected` : `${col.red}not connected`}${col.rst}\n`);
+    lines.push(` ├─ HTTP${settings.httpServer.ssl.enabled ? "S" : ""} server is listening at ${col.green}${getLocalURL()}${col.rst} (SSL ${settings.httpServer.ssl.enabled ? `${col.green}enabled${col.rst}` : `${col.yellow}disabled${col.rst}`})\n`);
+    lines.push(` ├─ Initialization took ${col.green}${initMs}ms${initMs == 69 ? " (nice)" : ""}${col.rst}\n`);
+    lines.push(` └─ Heap Usage: ${heapColor}${heapPercent}%${col.rst}\n`);
+    lines.push(`Colors: ${col.green}Success ${col.yellow}Warning ${col.red}Error${col.rst}\n`);
     
     if(!settings.debug.onlyLogErrors)
     {
-        console.log(`\n  ${settings.colors.success}${settings.logging.logChar} Success ${settings.colors.docs}${settings.logging.logChar} Docs ${settings.colors.ratelimit}${settings.logging.logChar} RateLimited ${settings.colors.error}${settings.logging.logChar} Error${jsl.colors.rst}`);
-        process.stdout.write("\x1b[2m");
-        process.stdout.write("└┬───────────────────────────────────────┘\n");
-        process.stdout.write(" └─► ");
-        process.stdout.write(jsl.colors.rst);
+        lines.push(`\n  ${settings.colors.success}${settings.logging.logChar} Success ${settings.colors.docs}${settings.logging.logChar} Docs ${settings.colors.ratelimit}${settings.logging.logChar} RateLimited ${settings.colors.error}${settings.logging.logChar} Error${col.rst}\n`);
+        lines.push("\x1b[2m");
+        lines.push("└┬───────────────────────────────────────┘\n");
+        lines.push(" └─► ");
+        lines.push(col.rst);
+    }
+
+    process.stdout.write(lines.join(""));
+
+    if(settings.debug.dashboardEnabled)
+    {
+        setTimeout(() => {
+            console.clear();
+            initMsg(initTimestamp, initMs);
+        }, 1000);
     }
 }
 
