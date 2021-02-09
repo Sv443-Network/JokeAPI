@@ -70,7 +70,6 @@ class LangCode extends Endpoint {
         if(langCode == null || ltc === false)
         {
             // error
-            statusCode = 400;
             responseObj = {
                 "error": true,
                 "message": tr(lang, "langCodeCouldntResolve", decodeURIComponent(language))
