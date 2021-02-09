@@ -50,7 +50,6 @@ class LangCode extends Endpoint {
 
         if(url[1] == undefined)
         {
-            statusCode = 400;
             return Endpoint.respond(res, format, lang, {
                 "error": true,
                 "message": tr(lang, "noLangCodeSpecified")
