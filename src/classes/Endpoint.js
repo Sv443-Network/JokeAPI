@@ -8,7 +8,7 @@ const { isValidLang } = require("../languages");
 const debug = require("../verboseLogging");
 
 const settings = require("../../settings");
-const { tryServeEncoded } = require("../httpServer");
+const httpServer = require("../httpServer");
 const endpointsTrFile = require(`../../${settings.endpoints.translationsFile}`);
 
 
@@ -254,7 +254,7 @@ class Endpoint {
         if(typeof statusCode != "number" || isNaN(statusCode) || statusCode < 100)
             statusCode = 200;
     
-        return tryServeEncoded(req, res, responseText, parseURL.getMimeTypeFromFileFormatString(format), statusCode);
+        return httpServer.tryServeEncoded(req, res, responseText, parseURL.getMimeTypeFromFileFormatString(format), statusCode);
     }
 
     /**
