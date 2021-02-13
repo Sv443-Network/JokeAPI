@@ -109,7 +109,7 @@ const initAll = () => {
         if(!jsl.isEmpty(pb))
             pb.next("Done.");
 
-        debug("Init", `Done initializing all ${initStages.length} modules. Printing init message...`);
+        debug("Init", `Successfully initialized all ${initStages.length} modules. Printing init message:\n`);
 
         logRequest.initMsg(initTimestamp);
     }).catch(err => {

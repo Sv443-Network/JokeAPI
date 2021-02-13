@@ -164,8 +164,9 @@ function logRequest(type, additionalInfo, analyticsData)
  * Sends an initialization message - called when the initialization is done
  * @param {number} initTimestamp The timestamp of when JokeAPI was initialized
  * @param {number} [initDurationMs] Duration until startup
+ * @param {number} [loadingIconState] State of the loading icon - only if dashboard mode is active
  */
-function initMsg(initTimestamp, initDurationMs)
+function initMsg(initTimestamp, initDurationMs, loadingIconState)
 {
     let lines = [];
     let initMs = initDurationMs ? initDurationMs : (new Date().getTime() - initTimestamp).toFixed(0);
@@ -174,42 +175,92 @@ function initMsg(initTimestamp, initDurationMs)
     const hsMax = heapStats.heap_size_limit;
     const hsVal = heapStats.used_heap_size;
     const heapPercent = scl.mapRange(hsVal, 0, hsMax, 0, 100).toFixed(2);
+    
     let heapColor = col.green;
+    const brBlack = "\x1b[1m\x1b[30m";
     
     if(heapPercent >= 80)
         heapColor = col.red;
     if(heapPercent >= 60)
         heapColor = col.yellow;
 
-    lines.push(`\n${col.blue}[${logger.getTimestamp(" - ")}] ${col.rst}- ${col.blue}${settings.info.name} v${settings.info.version}${col.rst}\n`);
-    lines.push(` ├─ Registered and validated ${col.green}${parseJokes.jokeCount}${col.rst} jokes from ${col.green}${languages.jokeLangs().length}${col.rst} languages\n`);
-    lines.push(` ├─ Found ${col.green}${settings.jokes.possible.categories.length}${col.rst} categories, ${col.green}${settings.jokes.possible.flags.length}${col.rst} flags, ${col.green}${settings.jokes.possible.formats.length}${col.rst} formats\n`);
-    if(analytics.connectionInfo && analytics.connectionInfo.connected)
-        lines.push(` ├─ Connected to analytics database at ${col.green}${analytics.connectionInfo.info}${col.rst}\n`);
-    else
-        lines.push(` ├─ Analytics database ${settings.analytics.enabled ? col.red : col.yellow}not connected${settings.analytics.enabled ? "" : " (disabled)"}${col.rst}\n`);
-    lines.push(` ├─ Joke Cache database ${jokeCache.connectionInfo.connected ? `${col.green}connected` : `${col.red}not connected`}${col.rst}\n`);
-    lines.push(` ├─ HTTP${settings.httpServer.ssl.enabled ? "S" : ""} server is listening at ${col.green}${getLocalURL()}${col.rst} (SSL ${settings.httpServer.ssl.enabled ? `${col.green}enabled${col.rst}` : `${col.yellow}disabled${col.rst}`})\n`);
-    lines.push(` ├─ Initialization took ${col.green}${initMs}ms${initMs == 69 ? " (nice)" : ""}${col.rst}\n`);
-    lines.push(` └─ Heap Usage: ${heapColor}${heapPercent}%${col.rst}\n\n`);
-    lines.push(`Colors: ${col.green}Success ${col.yellow}Warning/Info ${col.red}Error${col.rst}\n`);
     
-    if(!settings.debug.onlyLogErrors)
+    // loading icon
+    let loadingIcon = "";
+    if(typeof loadingIconState === "number")
     {
-        lines.push(`\n  ${settings.colors.success}${settings.logging.logChar} Success ${settings.colors.docs}${settings.logging.logChar} Docs ${settings.colors.ratelimit}${settings.logging.logChar} RateLimited ${settings.colors.error}${settings.logging.logChar} Error${col.rst}\n`);
-        lines.push("\x1b[2m");
-        lines.push("└┬───────────────────────────────────────┘\n");
-        lines.push(" └─► ");
-        lines.push(col.rst);
+        loadingIcon += `${col.blue}`;
+        const statesAmount = 4;
+
+        switch(loadingIconState)
+        {
+            case 0:
+                loadingIcon += "■┬─";
+                break;
+            case 1:
+                loadingIcon += "─■─";
+                break;
+            case 2:
+                loadingIcon += "─┬■";
+                break;
+            case 3:
+                loadingIcon += "─■─";
+                break;
+
+            default:
+                loadingIcon += "?";
+                break;
+        }
+
+        loadingIcon += `${col.rst} `;
+
+        loadingIconState++;
+        if(loadingIconState == statesAmount)
+            loadingIconState = 0;
     }
+    
+
+    lines.push(`\n${loadingIcon}${col.blue}[${logger.getTimestamp(" - ")}] ${col.rst}- ${col.blue}${settings.info.name} v${settings.info.version}${col.rst}\n`);
+    lines.push(` ${brBlack}├─${col.rst} Registered and validated ${col.green}${parseJokes.jokeCount}${col.rst} jokes from ${col.green}${languages.jokeLangs().length}${col.rst} languages\n`);
+    lines.push(` ${brBlack}├─${col.rst} Found ${col.green}${settings.jokes.possible.categories.length}${col.rst} categories, ${col.green}${settings.jokes.possible.flags.length}${col.rst} flags, ${col.green}${settings.jokes.possible.formats.length}${col.rst} formats\n`);
+    if(analytics.connectionInfo && analytics.connectionInfo.connected)
+        lines.push(` ${brBlack}├─${col.rst} Connected to analytics database at ${col.green}${analytics.connectionInfo.info}${col.rst}\n`);
+    else
+        lines.push(` ${brBlack}├─${col.rst} Analytics database ${settings.analytics.enabled ? col.red : col.yellow}not connected${settings.analytics.enabled ? "" : " (disabled)"}${col.rst}\n`);
+    lines.push(` ${brBlack}├─${col.rst} Joke Cache database ${jokeCache.connectionInfo.connected ? `${col.green}connected` : `${col.red}not connected`}${col.rst}\n`);
+    lines.push(` ${brBlack}├─${col.rst} HTTP${settings.httpServer.ssl.enabled ? "S" : ""} server is listening at ${col.green}${getLocalURL()}${col.rst} (SSL ${settings.httpServer.ssl.enabled ? `${col.green}enabled${col.rst}` : `${col.yellow}disabled${col.rst}`})\n`);
+    lines.push(` ${brBlack}├─${col.rst} Initialization took ${col.green}${initMs}ms${initMs == 69 ? " (nice)" : ""}${col.rst}\n`);
+    lines.push(` ${brBlack}└─${col.rst} Heap Usage: ${heapColor}${heapPercent}%${col.rst}\n`);
+
+    lines.push(`${brBlack}${settings.debug.dashboardEnabled ? "" : `  • Dashboard mode disabled.`}${col.rst}\n`);
+
+    lines.push("\n");
+
+    lines.push(`Colors: ${col.green}Success ${col.yellow}Warning/Info ${col.red}Error${col.rst}\n`);
+
+    // make it look better when spammed by debug messages immediately after:
+    if(settings.debug.verboseLogging)
+        lines.push("\n\n");
+    
+    // if(!settings.debug.onlyLogErrors)
+    // {
+    //     lines.push(`\n  ${settings.colors.success}${settings.logging.logChar} Success ${settings.colors.docs}${settings.logging.logChar} Docs ${settings.colors.ratelimit}${settings.logging.logChar} RateLimited ${settings.colors.error}${settings.logging.logChar} Error${col.rst}\n`);
+    //     lines.push("\x1b[2m");
+    //     lines.push("└┬───────────────────────────────────────┘\n");
+    //     lines.push(" └─► ");
+    //     lines.push(col.rst);
+    // }
 
     process.stdout.write(lines.join(""));
 
     if(settings.debug.dashboardEnabled)
     {
+        if(typeof loadingIconState != "number")
+            loadingIconState = 0;
+
         setTimeout(() => {
             console.clear();
-            initMsg(initTimestamp, initMs);
+            initMsg(initTimestamp, initMs, loadingIconState);
         }, 1000);
     }
 }
