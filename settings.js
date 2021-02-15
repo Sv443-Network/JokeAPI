@@ -183,7 +183,7 @@ const settings = {
         rawDirPath: "./docs/raw/",                  // path to the raw documentation files directory - needs trailing slash
         daemonInterval: 2,                          // interval (in seconds) at which the daemon checks for changes in the documentation directory
         errorPagePath: "./docs/raw/errorPage.html", // path to the error page
-        codeFontFileName: "static/external/CascadiaCode-Regular-VTT_1911.21.ttf", // the name of the font file that is going to be used in code blocks - has to be in the directory specified with the above property "dirPath"
+        codeFontFileName: "static/external/CascadiaCode-Regular-2102.03.ttf", // the name of the font file that is going to be used in code blocks - has to be in the directory specified with the above property "dirPath"
         /** Settings regarding the submission form (https://jokeapi.dev/#submit) */
         submissionForm: {
             dirPath: "./docs/raw/", // path to the submission form directory - needs trailing slash

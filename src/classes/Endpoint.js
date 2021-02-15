@@ -1,4 +1,4 @@
-const { unused, http } = require("svcorelib");
+const { unused, http, allOfType } = require("svcorelib");
 const { resolve } = require("path");
 const _http = require("http");
 
@@ -76,7 +76,7 @@ class Endpoint {
         this.pathName = pathName;
         this.meta = meta;
 
-        /** @type {string[]} Positional URL path arguments - override in the subclass' constructor if needed */
+        /** @type {string[]} Positional URL path arguments - is an empty array if not set - override in the subclass' constructor if needed */
         this.positionalArguments = [];
 
         debug("Endpoint_Base", `Instantiated endpoint at /${pathName}/`);
@@ -151,6 +151,9 @@ class Endpoint {
      */
     getPositionalArguments()
     {
+        if(!Array.isArray(this.positionalArguments) || (Array.isArray(this.positionalArguments) && this.positionalArguments.length > 0 && !allOfType(this.positionalArguments, "string")))
+            throw new TypeError(`The member variable "positionalArguments" is not an array of strings or an empty array.`);
+
         return this.positionalArguments;
     }
 
