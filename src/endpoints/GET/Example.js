@@ -1,16 +1,8 @@
-const { unused } = require("svcorelib");
-
-const tr = require("../translate");
-const Endpoint = require("../classes/Endpoint");
+const { unused, randRange } = require("svcorelib");
+const Endpoint = require("../../classes/Endpoint");
 
 
-/**
- * Used for checking if the API is online or to test connection latency
- */
-class Ping extends Endpoint {
-    /**
-     * Used for checking if the API is online or to test connection latency
-     */
+class Example extends Endpoint {
     constructor()
     {
         /** @type {Endpoint.EndpointMeta} */
@@ -24,7 +16,7 @@ class Ping extends Endpoint {
             }
         };
 
-        super("ping", meta);
+        super("example", meta);
     }
 
     /**
@@ -42,13 +34,16 @@ class Ping extends Endpoint {
         const lang = Endpoint.getLang(params);
 
         const data = {
-            "error": false,
-            "ping": tr(lang, "pingPong"),
-            "timestamp": new Date().getTime()
+            error: false,
+            example: {
+                text: "Hi I'm an example",
+                randomNum: randRange(0, 420)
+            },
+            timestamp: new Date().getTime()
         };
 
         return Endpoint.respond(res, format, lang, data);
     }
 }
 
-module.exports = Ping;
+module.exports = Example;

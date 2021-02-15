@@ -1,11 +1,11 @@
 const scl = require("svcorelib");
 
-const httpServer = require("../httpServer");
-const debug = require("../verboseLogging");
-const exists = require("../exists");
-const Endpoint = require("../classes/Endpoint");
+const httpServer = require("../../httpServer");
+const debug = require("../../verboseLogging");
+const exists = require("../../exists");
+const Endpoint = require("../../classes/Endpoint");
 
-const settings = require("../../settings");
+const settings = require("../../../settings");
 
 /**
  * Used for checking if the API is online or to test connection latency

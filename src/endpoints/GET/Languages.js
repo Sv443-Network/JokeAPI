@@ -1,10 +1,10 @@
 const { unused } = require("svcorelib");
 
 // const tr = require("../translate");
-const languages = require("../languages");
-const Endpoint = require("../classes/Endpoint");
+const languages = require("../../languages");
+const Endpoint = require("../../classes/Endpoint");
 
-const settings = require("../../settings");
+const settings = require("../../../settings");
 
 
 /**

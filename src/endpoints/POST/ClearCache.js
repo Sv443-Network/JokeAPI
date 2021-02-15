@@ -1,17 +1,17 @@
 const { unused } = require("svcorelib");
 
-const tr = require("../translate");
-const Endpoint = require("../classes/Endpoint");
-const jokeCache = require("../jokeCache");
-const resolveIp = require("../resolveIp");
+const tr = require("../../translate");
+const SubmissionEndpoint = require("../../classes/SubmissionEndpoint");
+const jokeCache = require("../../jokeCache");
+const resolveIp = require("../../resolveIp");
 
-const settings = require("../../settings");
+const settings = require("../../../settings");
 
 
 /**
  * Clears the joke cache of the client that called this endpoint
  */
-class ClearJokeCache extends Endpoint {
+class ClearJokeCache extends SubmissionEndpoint {
     /**
      * Clears the joke cache of the client that called this endpoint
      */
@@ -38,12 +38,13 @@ class ClearJokeCache extends Endpoint {
      * @param {string[]} url URL path array gotten from the URL parser module
      * @param {object} params URL query params gotten from the URL parser module
      * @param {string} format The file format to respond with
+     * @param {string} data The raw data, as a string
      */
-    async call(req, res, url, params, format)
+    async call(req, res, url, params, format, data)
     {
-        unused(req, url);
+        unused(url, data);
 
-        const lang = Endpoint.getLang(params);
+        const lang = SubmissionEndpoint.getLang(params);
         const ip = resolveIp(req);
 
         let statusCode = 200;
@@ -86,7 +87,7 @@ class ClearJokeCache extends Endpoint {
         }
 
 
-        return Endpoint.respond(res, format, lang, responseObj, statusCode);
+        return SubmissionEndpoint.respond(res, format, lang, responseObj, statusCode);
     }
 }
 

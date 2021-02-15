@@ -1,18 +1,18 @@
 const { unused } = require("svcorelib");
 
 // const tr = require("../translate");
-const Endpoint = require("../classes/Endpoint");
-const FilterComponentEndpoint = require("../classes/FilterComponentEndpoint");
+const Endpoint = require("../../classes/Endpoint");
+const FilterComponentEndpoint = require("../../classes/FilterComponentEndpoint");
 
-const settings = require("../../settings");
+const settings = require("../../../settings");
 
 
 /**
- * Returns a list of joke blacklist flags
+ * Returns a list of supported response / file formats
  */
-class Flags extends FilterComponentEndpoint {
+class Formats extends FilterComponentEndpoint {
     /**
-     * Returns a list of joke blacklist flags
+     * Returns a list of supported response / file formats
      */
     constructor()
     {
@@ -27,7 +27,7 @@ class Flags extends FilterComponentEndpoint {
             }
         };
 
-        super("flags", "flags", meta);
+        super("formats", "formats", meta);
     }
 
     /**
@@ -48,30 +48,29 @@ class Flags extends FilterComponentEndpoint {
         let responseObj = {};
 
 
-        let flagDescriptions = this.getComponentDescriptions(lang);
+        let fmtDescriptions = this.getComponentDescriptions(lang);
 
         if(format != "xml")
         {
             responseObj = {
                 "error": false,
-                "flags": settings.jokes.possible.flags,
-                "flagDescriptions": flagDescriptions,
+                "formats": settings.jokes.possible.formats,
+                "formatDescriptions": fmtDescriptions,
                 "timestamp": new Date().getTime()
             };
         }
-        else
+        else if(format == "xml")
         {
             responseObj = {
                 "error": false,
-                "flags": {"flag": settings.jokes.possible.flags},
-                "flagDescriptions": {"description": flagDescriptions},
+                "formats": {"format": settings.jokes.possible.formats},
+                "formatDescriptions": {"description": fmtDescriptions},
                 "timestamp": new Date().getTime()
             };
         }
-        
 
         return Endpoint.respond(res, format, lang, responseObj, statusCode);
     }
 }
 
-module.exports = Flags;
+module.exports = Formats;

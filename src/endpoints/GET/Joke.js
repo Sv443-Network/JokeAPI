@@ -1,13 +1,13 @@
 const scl = require("svcorelib");
 
-const parseJokes = require("../parseJokes");
-const FilteredJoke = require("../classes/FilteredJoke");
-const resolveIP = require("../resolveIP");
-const Endpoint = require("../classes/Endpoint");
-const languages = require("../languages");
-const tr = require("../translate");
+const parseJokes = require("../../parseJokes");
+const FilteredJoke = require("../../classes/FilteredJoke");
+const resolveIP = require("../../resolveIP");
+const Endpoint = require("../../classes/Endpoint");
+const languages = require("./Languages");
+const tr = require("../../translate");
 
-const settings = require("../../settings");
+const settings = require("../../../settings");
 
 
 //#MARKER class def + constructor
@@ -271,7 +271,7 @@ class Joke extends Endpoint {
      */
     isErrored(res, format, msg, lang, ...args)
     {
-        let errFromRegistry = require(`../.${settings.errors.errorMessagesPath}`)["106"];
+        let errFromRegistry = require(`../../.${settings.errors.errorMessagesPath}`)["106"]; // <- this is really badly written. If this file is moved, this path needs to be changed
         let errorObj = {};
 
         let insArgs = (texts, insertions) => {

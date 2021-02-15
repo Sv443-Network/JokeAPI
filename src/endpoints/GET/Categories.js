@@ -1,10 +1,10 @@
 const { unused } = require("svcorelib");
 
 // const tr = require("../translate");
-const Endpoint = require("../classes/Endpoint");
-const FilterComponentEndpoint = require("../classes/FilterComponentEndpoint");
+const Endpoint = require("../../classes/Endpoint");
+const FilterComponentEndpoint = require("../../classes/FilterComponentEndpoint");
 
-const settings = require("../../settings");
+const settings = require("../../../settings");
 
 
 /**

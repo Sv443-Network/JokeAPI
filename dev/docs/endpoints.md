@@ -33,7 +33,7 @@ You can find more info on the `call()` function in this section: [Location and e
 
 ## Location and execution of endpoints:
 ### Location:
-Endpoints are located in the folder defined in `settings.endpoints.dirPath` (by default `./endpoints/`).
+Endpoints are located in the folder defined in `settings.endpoints.get.dirPath` (by default `./endpoints/`).
 
 <br>
 
@@ -91,7 +91,7 @@ Additionally to all the information you see here, JokeAPI will *always* include 
 > Also note that as of `v2.4.0`, the `lang` parameter is not yet supported.  
 > This is due to the static nature of the `meta` object. [Issue #243](https://github.com/Sv443/JokeAPI/issues/243) will fix this.  
 >   
-> The list of endpoints is created by iterating through every file inside `settings.endpoints.dirPath`  
+> The list of endpoints is created by iterating through every file inside `settings.endpoints.get.dirPath`  
 > If a file ends with `.js`, the `meta` object is extracted and appended to the list of endpoints which is eventually returned to the client.
 
 <br><br>

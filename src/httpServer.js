@@ -4,9 +4,9 @@ const scl = require("svcorelib");
 const http = require("http");
 const Readable = require("stream").Readable;
 const fs = require("fs-extra");
+const path = require("path");
 const zlib = require("zlib");
 const semver = require("semver");
-const path = require("path");
 
 const settings = require("../settings");
 const debug = require("./verboseLogging");
@@ -57,7 +57,7 @@ function init()
                 duration: settings.httpServer.timeFrame
             });
 
-            let rlSubm = new RateLimiterMemory({
+            let rlPost = new RateLimiterMemory({
                 points: settings.jokes.submissions.rateLimiting,
                 duration: settings.jokes.submissions.timeFrame
             });
@@ -83,7 +83,7 @@ function init()
                 if(languages.isValidLang(lang) !== true)
                     lang = settings.languages.defaultLanguage;
 
-                debug("HTTP", `Incoming ${req.method} request from "${lang}-${ip.substring(0, 8)}${localhostIP ? `..." ${scl.colors.fg.blue}(local)${scl.colors.rst}` : "...\""} to ${req.url}`);
+                debug("HTTP", `Incoming ${req.method} request from "${ip.substring(0, 8)}${localhostIP ? `..." ${scl.colors.fg.blue}(local)${scl.colors.rst} (lang=${lang})` : "...\""} to ${req.url}`);
                 
                 let fileFormat = settings.jokes.defaultFileFormat.fileFormat;
                 if(!scl.isEmpty(parsedURL.queryParams) && !scl.isEmpty(parsedURL.queryParams.format))
@@ -148,6 +148,9 @@ function init()
                 meter.update("req1min", 1);
                 meter.update("req10min", 1);
 
+                const urlPath = parsedURL.pathArray;
+
+
                 //#SECTION GET
                 if(req.method === "GET")
                 {
@@ -156,7 +159,6 @@ function init()
                     {
                         let foundEndpoint = false;
 
-                        let urlPath = parsedURL.pathArray;
                         let requestedEndpoint = "";
                         // let lowerCaseEndpoints = [];
                         // endpoints.forEach(ep => lowerCaseEndpoints.push(ep.name.toLowerCase()));
@@ -215,89 +217,92 @@ function init()
                         endpoints.forEach( /** @param {EpObject} ep Endpoint matching request URL */ async (ep) => {
                             if(ep.pathName == requestedEndpoint)
                             {
-                                let isAuthorized = headerAuth.isAuthorized;
-                                let headerToken = headerAuth.token;
-
-                                // now that the request is not a docs / favicon request, the blacklist is checked and the request is made eligible for rate limiting
-                                if(!settings.endpoints.ratelimitBlacklist.includes(ep.name) && !isAuthorized)
+                                if(ep.meta.usage.method == "GET")
                                 {
-                                    try
-                                    {
-                                        await rl.consume(ip, 1);
-                                    }
-                                    catch(err)
-                                    {
-                                        scl.unused(err); // gets handled elsewhere
-                                    }
-                                }
-                                
-                                if(isAuthorized)
-                                {
-                                    debug("HTTP", `Requester has valid token ${scl.colors.fg.green}${req.headers[settings.auth.tokenHeaderName] || null}${scl.colors.rst}`);
-                                    analytics({
-                                        type: "AuthTokenIncluded",
-                                        data: {
-                                            ipAddress: ip,
-                                            urlParameters: parsedURL.queryParams,
-                                            urlPath: parsedURL.pathArray,
-                                            submission: headerToken
-                                        }
-                                    });
-                                }
+                                    let isAuthorized = headerAuth.isAuthorized;
+                                    let headerToken = headerAuth.token;
 
-                                foundEndpoint = true;
-
-                                let meta = ep.meta;
-                                
-                                if(!scl.isEmpty(meta) && meta.skipRateLimitCheck === true)
-                                {
-                                    try
+                                    // now that the request is not a docs / favicon request, the blacklist is checked and the request is made eligible for rate limiting
+                                    if(!settings.endpoints.ratelimitBlacklist.includes(ep.name) && !isAuthorized)
                                     {
-                                        if(scl.isEmpty(meta) || (!scl.isEmpty(meta) && meta.noLog !== true))
+                                        try
                                         {
-                                            if(!lists.isConsoleBlacklisted(ip))
-                                                logRequest("success", null, analyticsObject);
+                                            await rl.consume(ip, 1);
                                         }
-                                        // actually call the endpoint
-                                        return ep.instance.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
-                                    }
-                                    catch(err)
-                                    {
-                                        return respondWithError(res, 104, 500, fileFormat, tr(lang, "endpointInternalError", err), lang);
-                                    }
-                                }
-                                else
-                                {
-                                    try
-                                    {
-                                        let rlRes = await rl.get(ip);
-
-                                        if(rlRes)
-                                            setRateLimitedHeaders(res, rlRes);
-
-                                        if((rlRes && rlRes._remainingPoints < 0) && !lists.isWhitelisted(ip) && !isAuthorized)
+                                        catch(err)
                                         {
-                                            logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
-                                            analytics.rateLimited(ip);
-                                            return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
+                                            scl.unused(err); // gets handled elsewhere
                                         }
-                                        else
+                                    }
+                                    
+                                    if(isAuthorized)
+                                    {
+                                        debug("HTTP", `Requester has valid token ${scl.colors.fg.green}${req.headers[settings.auth.tokenHeaderName] || null}${scl.colors.rst}`);
+                                        analytics({
+                                            type: "AuthTokenIncluded",
+                                            data: {
+                                                ipAddress: ip,
+                                                urlParameters: parsedURL.queryParams,
+                                                urlPath: parsedURL.pathArray,
+                                                submission: headerToken
+                                            }
+                                        });
+                                    }
+
+                                    foundEndpoint = true;
+
+                                    let meta = ep.meta;
+                                    
+                                    if(!scl.isEmpty(meta) && meta.skipRateLimitCheck === true)
+                                    {
+                                        try
                                         {
                                             if(scl.isEmpty(meta) || (!scl.isEmpty(meta) && meta.noLog !== true))
                                             {
                                                 if(!lists.isConsoleBlacklisted(ip))
                                                     logRequest("success", null, analyticsObject);
                                             }
-                                                
+                                            // actually call the endpoint
                                             return ep.instance.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
                                         }
+                                        catch(err)
+                                        {
+                                            return respondWithError(res, 104, 500, fileFormat, tr(lang, "endpointInternalError", err), lang);
+                                        }
                                     }
-                                    catch(err)
+                                    else
                                     {
-                                        // setRateLimitedHeaders(res, rlRes);
-                                        logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
-                                        analytics.rateLimited(ip);
-                                        return respondWithError(res, 100, 500, fileFormat, tr(lang, "generalInternalError", err), lang);
+                                        try
+                                        {
+                                            let rlRes = await rl.get(ip);
+
+                                            if(rlRes)
+                                                setRateLimitedHeaders(res, rlRes);
+
+                                            if((rlRes && rlRes._remainingPoints < 0) && !lists.isWhitelisted(ip) && !isAuthorized)
+                                            {
+                                                logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
+                                                analytics.rateLimited(ip);
+                                                return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
+                                            }
+                                            else
+                                            {
+                                                if(scl.isEmpty(meta) || (!scl.isEmpty(meta) && meta.noLog !== true))
+                                                {
+                                                    if(!lists.isConsoleBlacklisted(ip))
+                                                        logRequest("success", null, analyticsObject);
+                                                }
+                                                    
+                                                return ep.instance.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
+                                            }
+                                        }
+                                        catch(err)
+                                        {
+                                            // setRateLimitedHeaders(res, rlRes);
+                                            logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
+                                            analytics.rateLimited(ip);
+                                            return respondWithError(res, 100, 500, fileFormat, tr(lang, "generalInternalError", err), lang);
+                                        }
                                     }
                                 }
                             }
@@ -317,100 +322,111 @@ function init()
                 //#SECTION PUT / POST
                 else if(req.method === "PUT" || req.method === "POST")
                 {
-                    //#MARKER Joke submission
-                    let submissionsRateLimited = await rlSubm.get(ip);
+                    let requestedEndpoint = "";
+                    if(!scl.isArrayEmpty(urlPath))
+                        requestedEndpoint = urlPath[0].toLowerCase();
+                        
+                    let dataInterval = setTimeout(() => {
+                        debug("HTTP", "PUT / POST request timed out");
+                        return respondWithErrorPage(res, 400, tr(lang, "requestBodyIsInvalid"));
+                    }, 3000);
 
-                    if(!scl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "submit" && !(submissionsRateLimited && submissionsRateLimited._remainingPoints <= 0 && !headerAuth.isAuthorized))
-                    {
-                        let data = "";
-                        let dataGotten = false;
-                        req.on("data", chunk => {
-                            data += chunk;
 
-                            let payloadLength = byteLength(data);
-                            if(payloadLength > settings.httpServer.maxPayloadSize)
-                                return respondWithError(res, 107, 413, fileFormat, tr(lang, "payloadTooLarge", payloadLength, settings.httpServer.maxPayloadSize), lang);
+                    endpoints.forEach( /** @param {EpObject} ep Endpoint matching request URL */ async (ep) => {
+                        if(ep.pathName == requestedEndpoint && ["POST", "PUT"].includes(ep.meta.usage.method))
+                        {
+                            let postRateLimited = await rlPost.get(ip);
 
-                            if(!scl.isEmpty(data))
-                                dataGotten = true;
+                            req.on("data", chunk => {
+                                const data = chunk.toString();
 
-                            let dryRun = (parsedURL.queryParams && parsedURL.queryParams["dry-run"] == true) || false;
+                                let payloadLength = byteLength(data);
+                                if(payloadLength > settings.httpServer.maxPayloadSize)
+                                    return respondWithError(res, 107, 413, fileFormat, tr(lang, "payloadTooLarge", payloadLength, settings.httpServer.maxPayloadSize), lang);
 
-                            if(lists.isWhitelisted(ip))
-                                return jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun);
+                                if(!scl.isEmpty(data))
+                                    clearTimeout(dataInterval);
 
-                            if(!dryRun)
-                            {
-                                rlSubm.consume(ip, 1).then(() => {
-                                    return jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun);
-                                }).catch(rlRes => {
-                                    if(rlRes.remainingPoints <= 0)
-                                        return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
-                                });
-                            }
-                            else
-                            {
-                                rl.consume(ip, 1).then(rlRes => {
-                                    if(rlRes)
-                                        setRateLimitedHeaders(res, rlRes);
+                                ep.instance.call(req, res, )
+                            });
 
-                                    return jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun);
-                                }).catch(rlRes => {
-                                    if(rlRes)
-                                        setRateLimitedHeaders(res, rlRes);
+                            // //#MARKER Joke submission
+                            // let submissionsRateLimited = await rlSubm.get(ip);
 
-                                    if(rlRes.remainingPoints <= 0)
-                                        return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
-                                });
-                            }
-                        });
+                            // if(!scl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "submit" && !(submissionsRateLimited && submissionsRateLimited._remainingPoints <= 0 && !headerAuth.isAuthorized))
+                            // {
+                            //     let data = "";
+                            //     req.on("data", chunk => {
+                            //         data += chunk;
 
-                        setTimeout(() => {
-                            if(!dataGotten)
-                            {
-                                debug("HTTP", "POST/PUT request timed out");
-                                rlSubm.consume(ip, 1);
-                                return respondWithError(res, 105, 400, fileFormat, tr(lang, "requestEmptyOrTimedOut"), lang);
-                            }
-                        }, 3000);
-                    }
-                    else
-                    {
-                        //#MARKER Restart / invalid PUT / POST
+                            //         let payloadLength = byteLength(data);
+                            //         if(payloadLength > settings.httpServer.maxPayloadSize)
+                            //             return respondWithError(res, 107, 413, fileFormat, tr(lang, "payloadTooLarge", payloadLength, settings.httpServer.maxPayloadSize), lang);
 
-                        if(submissionsRateLimited && submissionsRateLimited._remainingPoints <= 0 && !headerAuth.isAuthorized)
-                            return respondWithError(res, 110, 429, fileFormat, tr(lang, "rateLimitedShort"), lang);
+                            //         if(!scl.isEmpty(data))
+                            //             clearTimeout(dataInterval);
 
-                        let data = "";
-                        let dataGotten = false;
-                        req.on("data", chunk => {
-                            data += chunk;
+                            //         let dryRun = (parsedURL.queryParams && parsedURL.queryParams["dry-run"] == true) || false;
 
-                            if(!scl.isEmpty(data))
-                                dataGotten = true;
+                            //         if(lists.isWhitelisted(ip))
+                            //             return jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun);
 
-                            if(data == process.env.RESTART_TOKEN && parsedURL.pathArray != null && parsedURL.pathArray[0] == "restart")
-                            {
-                                res.writeHead(200, {"Content-Type": parseURL.getMimeTypeFromFileFormatString(fileFormat)});
-                                res.end(convertFileFormat.auto(fileFormat, {
-                                    "error": false,
-                                    "message": `Restarting ${settings.info.name}`,
-                                    "timestamp": new Date().getTime()
-                                }, lang));
-                                console.log(`\n\n[${logger.getTimestamp(" | ")}]  ${scl.colors.fg.red}IP ${scl.colors.fg.yellow}${ip.substr(0, 8)}[...]${scl.colors.fg.red} sent a restart command\n\n\n${scl.colors.rst}`);
-                                process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
-                            }
-                            else return respondWithErrorPage(res, 400, tr(lang, "invalidSubmissionOrWrongEndpoint", (parsedURL.pathArray != null ? parsedURL.pathArray[0] : "/")));
-                        });
+                            //         if(!dryRun)
+                            //         {
+                            //             rlSubm.consume(ip, 1).then(() => {
+                            //                 return jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun);
+                            //             }).catch(rlRes => {
+                            //                 if(rlRes.remainingPoints <= 0)
+                            //                     return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
+                            //             });
+                            //         }
+                            //         else
+                            //         {
+                            //             rl.consume(ip, 1).then(rlRes => {
+                            //                 if(rlRes)
+                            //                     setRateLimitedHeaders(res, rlRes);
 
-                        setTimeout(() => {
-                            if(!dataGotten)
-                            {
-                                debug("HTTP", "PUT / POST request timed out");
-                                return respondWithErrorPage(res, 400, tr(lang, "requestBodyIsInvalid"));
-                            }
-                        }, 3000);
-                    }
+                            //                 return jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun);
+                            //             }).catch(rlRes => {
+                            //                 if(rlRes)
+                            //                     setRateLimitedHeaders(res, rlRes);
+
+                            //                 if(rlRes.remainingPoints <= 0)
+                            //                     return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
+                            //             });
+                            //         }
+                            //     });
+                            // }
+                            // else
+                            // {
+                            //     //#MARKER Restart / invalid PUT / POST
+
+                            //     if(submissionsRateLimited && submissionsRateLimited._remainingPoints <= 0 && !headerAuth.isAuthorized)
+                            //         return respondWithError(res, 110, 429, fileFormat, tr(lang, "rateLimitedShort"), lang);
+
+                            //     let data = "";
+                            //     req.on("data", chunk => {
+                            //         data += chunk;
+
+                            //         if(!scl.isEmpty(data))
+                            //             clearTimeout(dataInterval);
+
+                            //         if(data == process.env.RESTART_TOKEN && parsedURL.pathArray != null && parsedURL.pathArray[0] == "restart")
+                            //         {
+                            //             res.writeHead(200, {"Content-Type": parseURL.getMimeTypeFromFileFormatString(fileFormat)});
+                            //             res.end(convertFileFormat.auto(fileFormat, {
+                            //                 "error": false,
+                            //                 "message": `Restarting ${settings.info.name}`,
+                            //                 "timestamp": new Date().getTime()
+                            //             }, lang));
+                            //             console.log(`\n\n[${logger.getTimestamp(" | ")}]  ${scl.colors.fg.red}IP ${scl.colors.fg.yellow}${ip.substr(0, 8)}[...]${scl.colors.fg.red} sent a restart command\n\n\n${scl.colors.rst}`);
+                            //             process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
+                            //         }
+                            //         else return respondWithErrorPage(res, 400, tr(lang, "invalidSubmissionOrWrongEndpoint", (parsedURL.pathArray != null ? parsedURL.pathArray[0] : "/")));
+                            //     });
+                            // }
+                        }
+                    });
                 }
                 //#SECTION HEAD / OPTIONS
                 else if(req.method === "HEAD" || req.method === "OPTIONS")
@@ -448,35 +464,50 @@ function init()
             });
         };
 
-        //#SECTION execute endpoint
-        fs.readdir(settings.endpoints.dirPath, (err1, files) => {
-            if(err1)
-                return reject(`Error while reading the endpoints directory: ${err1}`);
-
-            files.forEach(file => {
-                let fileName = file.split(".");
-                fileName.pop();
-                fileName = fileName.length > 1 ? fileName.join(".") : fileName[0];
-
-                let endpointFilePath = path.resolve(`${settings.endpoints.dirPath}${file}`);
-
-                if(fs.statSync(endpointFilePath).isFile())
-                {
-                    const EndpointClass = require(endpointFilePath);
-                    let instance = new EndpointClass();
-
-                    endpoints.push({
-                        name: fileName,
-                        meta: instance.getMeta(),
-                        absPath: endpointFilePath,
-                        pathName: instance.getPathName(),
-                        instance
+        //#SECTION register endpoints
+        const registerEndpoints = (folderPath) => {
+            return new Promise((pRes) => {
+                fs.readdir(folderPath, (err1, files) => {
+                    if(err1)
+                        return reject(`Error while reading the endpoints directory: ${err1}`);
+        
+                    files.forEach(file => {
+                        let fileName = file.split(".");
+                        fileName.pop();
+                        fileName = fileName.length > 1 ? fileName.join(".") : fileName[0];
+        
+                        let endpointFilePath = path.resolve(`${folderPath}${file}`);
+        
+                        if(fs.statSync(endpointFilePath).isFile())
+                        {
+                            const EndpointClass = require(endpointFilePath);
+                            let instance = new EndpointClass();
+        
+                            endpoints.push({
+                                name: fileName,
+                                meta: instance.getMeta(),
+                                absPath: endpointFilePath,
+                                pathName: instance.getPathName(),
+                                instance
+                            });
+                        }
                     });
-                }
-            });
 
+                    return pRes();
+                });
+            });
+        };
+
+        let promises = [
+            registerEndpoints(settings.endpoints.get.dirPath),
+            registerEndpoints(settings.endpoints.post.dirPath)
+        ];
+
+        Promise.all(promises).then(() => {
             //#MARKER call HTTP server init
             initHttpServer();
+        }).catch(err => {
+            return reject(err);
         });
     });
 }

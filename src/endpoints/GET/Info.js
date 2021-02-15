@@ -1,10 +1,10 @@
 const scl = require("svcorelib");
-const parseJokes = require("../parseJokes");
-const languages = require("../languages");
-const settings = require("../../settings");
-const translate = require("../translate");
+const parseJokes = require("../../parseJokes");
+const languages = require("./Languages");
+const settings = require("../../../settings");
+const translate = require("../../translate");
 
-const Endpoint = require("../classes/Endpoint");
+const Endpoint = require("../../classes/Endpoint");
 
 
 /**

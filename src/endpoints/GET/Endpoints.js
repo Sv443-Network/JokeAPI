@@ -6,9 +6,9 @@ const fs = require("fs-extra");
 // const settings = require("../../settings");
 // const translate = require("../translate");
 
-const Endpoint = require("../classes/Endpoint");
+const Endpoint = require("../../classes/Endpoint");
 
-const settings = require("../../settings");
+const settings = require("../../../settings");
 
 
 /** 
@@ -108,7 +108,7 @@ class Endpoints extends Endpoint {
             }
         ];
 
-        const files = fs.readdirSync(settings.endpoints.dirPath);
+        const files = fs.readdirSync(settings.endpoints.get.dirPath);
 
         if(Array.isArray(files) && files.length > 0)
         {
@@ -118,7 +118,7 @@ class Endpoints extends Endpoint {
                     if(f.toLowerCase() == "endpoints.js")
                         return;
 
-                    const absPath = path.resolve(settings.endpoints.dirPath, f);
+                    const absPath = path.resolve(settings.endpoints.get.dirPath, f);
 
                     /** @type {Endpoint} */
                     const EndpointClass = require(absPath);

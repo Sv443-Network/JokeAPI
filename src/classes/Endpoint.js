@@ -8,8 +8,9 @@ const { isValidLang } = require("../languages");
 const debug = require("../verboseLogging");
 
 const settings = require("../../settings");
-const httpServer = require("../httpServer");
 const endpointsTrFile = require(`../../${settings.endpoints.translationsFile}`);
+
+var httpServer = require("../httpServer"); // needs to be re-loaded sometimes because of circular dependency bullshit
 
 
 //#MARKER type stuff
@@ -250,6 +251,9 @@ class Endpoint {
      */
     static tryRespondEncoded(req, res, format, lang, data, statusCode)
     {
+        if(!httpServer || (typeof httpServer == "object" && Object.keys(httpServer).length == 0)) // TODO: improve this - loading 1000 lines on each request is probably not a good idea
+            httpServer = require("../httpServer");
+
         const responseText = convertFileFormat.auto(format, data, lang);
 
         statusCode = parseInt(statusCode);

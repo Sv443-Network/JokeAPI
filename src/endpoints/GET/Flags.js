@@ -1,18 +1,18 @@
 const { unused } = require("svcorelib");
 
 // const tr = require("../translate");
-const Endpoint = require("../classes/Endpoint");
-const FilterComponentEndpoint = require("../classes/FilterComponentEndpoint");
+const Endpoint = require("../../classes/Endpoint");
+const FilterComponentEndpoint = require("../../classes/FilterComponentEndpoint");
 
-const settings = require("../../settings");
+const settings = require("../../../settings");
 
 
 /**
- * Returns a list of supported response / file formats
+ * Returns a list of joke blacklist flags
  */
-class Formats extends FilterComponentEndpoint {
+class Flags extends FilterComponentEndpoint {
     /**
-     * Returns a list of supported response / file formats
+     * Returns a list of joke blacklist flags
      */
     constructor()
     {
@@ -27,7 +27,7 @@ class Formats extends FilterComponentEndpoint {
             }
         };
 
-        super("formats", "formats", meta);
+        super("flags", "flags", meta);
     }
 
     /**
@@ -48,29 +48,30 @@ class Formats extends FilterComponentEndpoint {
         let responseObj = {};
 
 
-        let fmtDescriptions = this.getComponentDescriptions(lang);
+        let flagDescriptions = this.getComponentDescriptions(lang);
 
         if(format != "xml")
         {
             responseObj = {
                 "error": false,
-                "formats": settings.jokes.possible.formats,
-                "formatDescriptions": fmtDescriptions,
+                "flags": settings.jokes.possible.flags,
+                "flagDescriptions": flagDescriptions,
                 "timestamp": new Date().getTime()
             };
         }
-        else if(format == "xml")
+        else
         {
             responseObj = {
                 "error": false,
-                "formats": {"format": settings.jokes.possible.formats},
-                "formatDescriptions": {"description": fmtDescriptions},
+                "flags": {"flag": settings.jokes.possible.flags},
+                "flagDescriptions": {"description": flagDescriptions},
                 "timestamp": new Date().getTime()
             };
         }
+        
 
         return Endpoint.respond(res, format, lang, responseObj, statusCode);
     }
 }
 
-module.exports = Formats;
+module.exports = Flags;

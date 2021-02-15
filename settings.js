@@ -13,8 +13,8 @@ const bgc = scl.colors.bg;
 const settings = {
     /** Settings regarding debugging */
     debug: {
-        verboseLogging: false,       // set to true to enable extra debug output
-        dashboardEnabled: true,     // refreshes the init message every second
+        verboseLogging: true,       // set to true to enable extra debug output
+        dashboardEnabled: false,     // refreshes the init message every second
         progressBarDisabled: true,  // set to true to disable the progress bar - greatly improves readability of verbose debug output in the startup phase
         onlyLogErrors: true,        // set to true to disable sending any console logs but error messages
     },
@@ -76,7 +76,7 @@ const settings = {
         jokesFolderPath: "./data/jokes/",                    // path to the jokes folder - needs trailing slash
         jokeSubmissionURL: `${packageJSON.homepage}#submit`, // joke submission url
         jokeSubmissionPath: "./data/submissions/",           // path to a directory where joke submissions should be saved to - needs trailing slash
-        /** Anything regarding joke submissions */
+        /** Anything regarding submitted data of any kind (POST / PUT) */
         submissions: {
             timeFrame: 60,                              // time frame of submission rate limiter (in seconds)
             rateLimiting: 5,                            // how many requests per timeframe should be allowed
@@ -205,7 +205,14 @@ const settings = {
     },
     /** Everything regarding endpoints */
     endpoints: {
-        dirPath: "./src/endpoints/", // path to the dir containing all the endpoint classes
+        /** Http method GET */
+        get: {
+            dirPath: "./src/endpoints/GET/", // path to the dir containing all the GET endpoint classes
+        },
+        /** Http method POST or PUT */
+        post: {
+            dirPath: "./src/endpoints/POST/", // path to the dir containing all the POST endpoint classes
+        },
         ratelimitBlacklist: [        // calling an endpoint in this array will not count towards the rate limit counter
             "static",
         ],
