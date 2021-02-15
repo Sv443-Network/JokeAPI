@@ -11,7 +11,7 @@ unused("typedefs:", mysql);
 /**
  * This class is in direct contact to the SQL DB.  
  * It can add to or read from the joke cache in the database table.  
- * It also handles garbage collection (deleting outdated entries)
+ * It also handles garbage collection (deleting outdated entries)  
  * This class also handles garbage collection (clearing expired entries).
  * @since 2.4.0
  */

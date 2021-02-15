@@ -1,19 +1,26 @@
 const packageJSON = require("./package.json");
-const jsl = require("svjsl");
-const col = jsl.colors.fg;
-const bgc = jsl.colors.bg;
+const scl = require("svcorelib");
+const col = scl.colors.fg;
+const bgc = scl.colors.bg;
 
+/**
+ * Global settings for JokeAPI.  
+ * (Yes this file is huge but this is intentional to make JokeAPI as dynamic as possible)  
+ *   
+ * - The exported object `settings` can (and should) not be modified at runtime!  
+ * - Developer Documentation: settings nodes are declared like this: `settings.foo.bar`
+ */
 const settings = {
     /** Settings regarding debugging */
     debug: {
-        verboseLogging: true,       // set to true to enable extra debug output
-        dashboardEnabled: false,     // refreshes the init message every second
+        verboseLogging: false,       // set to true to enable extra debug output
+        dashboardEnabled: true,     // refreshes the init message every second
         progressBarDisabled: true,  // set to true to disable the progress bar - greatly improves readability of verbose debug output in the startup phase
         onlyLogErrors: true,        // set to true to disable sending any console logs but error messages
     },
     /** General information about JokeAPI */
     info: {
-        name: "JokeAPI",                                // the name of JokeAPI (I don't like the name, I may change it at a later time)
+        name: "JokeAPI",                                // the name of JokeAPI (I don't like the name, I may change it at a later time - I'm indecisive, leave me alone)
         desc: packageJSON.description,                  // the description of JokeAPI
         projGitHub: "https://github.com/Sv443/JokeAPI", // URL to the project's GitHub page
         version: packageJSON.version,                   // the version as a string
@@ -29,10 +36,11 @@ const settings = {
         privacyPolicyUrl: "https://sv443.net/privacypolicy/en",
         contribGuideUrl: "https://github.com/Sv443/JokeAPI/blob/master/.github/Contributing.md",
     },
-    /** Settings for the "node-wrap" package */
+    /** Settings for the API wrapping, powered by my package "node-wrap" */
     wrapper: {
         mainFilePath: "./src/main.js",          // main script file
         skipWrapping: true,                     // whether or not to skip the wrapping through node-wrap (set to true because I'm using pm2 now)
+        /** node-wrap internal settings object */
         wrapperSettings: {
             console: true,                      // whether Node-Wrap should log to the console
             crashTimeout: 2000,                 // timeout (in ms) until the process should be restarted after a crash
@@ -253,4 +261,5 @@ const settings = {
     }
 }
 
-module.exports = Object.freeze(settings); // use Object.freeze() to prevent modifications at runtime
+// use Object.freeze() to prevent modifications at runtime:
+module.exports = Object.freeze(settings);
