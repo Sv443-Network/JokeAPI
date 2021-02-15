@@ -23,11 +23,11 @@ class JokeCache {
      */
     constructor(dbConnection, tableName)
     {
-        this._db = dbConnection;
-        this._table = typeof tableName == "string" ? tableName : settings.jokeCaching.tableName;
+        this.db = dbConnection;
+        this.table = typeof tableName == "string" ? tableName : settings.jokeCaching.tableName;
 
         /** @type {mysql.QueryOptions} */
-        this._queryOptions = {
+        this.queryOptions = {
             timeout: settings.sql.timeout
         };
     }
@@ -54,14 +54,14 @@ class JokeCache {
             if(!isValidLang(langCode))
                 throw new TypeError(`Parameter "langCode" is not a valid language code`);
 
-            let insValues = [
-                this._table,
+            const insValues = [
+                this.table,
                 clientIpHash,
                 jokeID,
                 langCode
             ];
 
-            sql.sendQuery(this._db, `INSERT INTO ?? (ClientIpHash, JokeID, LangCode) VALUES (?, ?, ?);`, this._queryOptions, ...insValues)
+            sql.sendQuery(this.db, `INSERT INTO ?? (ClientIpHash, JokeID, LangCode) VALUES (?, ?, ?);`, this.queryOptions, ...insValues)
             .then(res => {
                 return pRes(res);
             }).catch(err => {
@@ -73,10 +73,28 @@ class JokeCache {
     /**
      * Clears all joke cache entries of the specified client
      * @param {string} clientIpHash 64-character IP hash of the client
+     * @throws Throws a TypeError if the client IP hash is invalid
+     * @returns {Promise} Resolves with the amount of deleted entries (0 if none were found) - rejects with an instance of `Error` (see also https://www.npmjs.com/package/mysql#error-handling )
      */
     clearEntries(clientIpHash)
     {
-        // TODO:
+        return new Promise((pRes, pRej) => {
+            if(!JokeCache.isValidClientIpHash(clientIpHash))
+                throw new TypeError(`Provided client IP hash is invalid.`);
+
+
+            const insValues = [
+                this.table,
+                clientIpHash
+            ];
+
+
+            sql.sendQuery(this.db, "DELETE FROM ?? WHERE ClientIpHash LIKE ?", this.queryOptions, ...insValues).then(res => {
+                return pRes(res.affectedRows ? res.affectedRows : 0);
+            }).catch(err => {
+                return pRej(err);
+            });
+        });
     }
 
     /**
@@ -94,13 +112,13 @@ class JokeCache {
             if(!isValidLang(langCode))
                 throw new TypeError(`Parameter "langCode" is not a valid language code`);
             
-            let insValues = [
-                this._table,
+            const insValues = [
+                this.table,
                 clientIpHash,
                 langCode
             ];
 
-            sql.sendQuery(this._db, `SELECT JokeID FROM ?? WHERE ClientIpHash = ? AND LangCode = ?;`, this._queryOptions, insValues)
+            sql.sendQuery(this.db, `SELECT JokeID FROM ?? WHERE ClientIpHash = ? AND LangCode = ?;`, this.queryOptions, insValues)
             .then(res => {
                 res = res.map(itm => itm.JokeID).sort();
 
