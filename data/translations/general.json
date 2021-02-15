@@ -436,10 +436,22 @@
             "cs": "Poškozený vtip"
         },
         "jokeCacheCleared": {
-            "en": "Successfully cleared your joke cache.",
-            "de": "Erfolgreich den Witz-Zwischenspeicher geleert.",
-            "ru": "Успешно очистили кэш шуток.",
-            "cs": "Mezipaměť vtipů byla úspěšně vymazána."
+            "en": "Successfully cleared all %1 entries of the joke cache.",
+            "de": "Erfolgreich alle %1 Einträge aus dem Witz-Zwischenspeicher gelöscht.",
+            "ru": "Успешно удалены все %1 записи из кэша шуток.",
+            "cs": "Úspěšně odstraněny všechny položky %1 z mezipaměti vtipů."
+        },
+        "jokeCacheClearNoEntries": {
+            "en": "Found no entries for deletion in the joke cache.",
+            "de": "Keine Einträge zum Löschen im Witz-Zwischenspeicher gefunden.",
+            "ru": "В кэше шуток нет записей для удаления.",
+            "cs": "V mezipaměti vtipů nebyly nalezeny žádné položky k odstranění."
+        },
+        "jokeCacheClearError": {
+            "en": "Error while clearing joke cache: %1",
+            "de": "Fehler beim Löschen des Witz-Zwischenspeichers: %1",
+            "ru": "Ошибка при очистке кэша шуток: %1",
+            "cs": "Chyba při čištění mezipaměti vtipů: %1"
         }
     }
 }

@@ -232,7 +232,11 @@ function initMsg(initTimestamp, initDurationMs, loadingIconState)
     lines.push(` ${brBlack}├─${col.rst} Initialization took ${col.green}${initMs}ms${initMs == 69 ? " (nice)" : ""}${col.rst}\n`);
     lines.push(` ${brBlack}└─${col.rst} Heap Usage: ${heapColor}${heapPercent}%${col.rst}\n`);
 
-    lines.push(`${brBlack}${settings.debug.dashboardEnabled ? "" : `  • Dashboard mode disabled.`}${col.rst}\n`);
+    lines.push(`${brBlack}${settings.debug.dashboardEnabled ? "" : `  • Dashboard mode disabled.\n`}${col.rst}`);
+
+    // GDPR compliance notice
+    if(!settings.httpServer.ipHashing.enabled || settings.jokeCaching.expiryHours <= 0)
+        lines.push(`${col.yellow}  • Not compliant with the GDPR!${col.rst}\n`);
 
     lines.push("\n");
 
@@ -251,7 +255,11 @@ function initMsg(initTimestamp, initDurationMs, loadingIconState)
     //     lines.push(col.rst);
     // }
 
-    process.stdout.write(lines.join(""));
+    let writeLines = lines.join("");
+
+    // clear, then immediately write using stdout directly, to try to remove "jitter" when updating the dashboard
+    console.clear();
+    process.stdout.write(writeLines);
 
     if(settings.debug.dashboardEnabled)
     {
@@ -259,7 +267,6 @@ function initMsg(initTimestamp, initDurationMs, loadingIconState)
             loadingIconState = 0;
 
         setTimeout(() => {
-            console.clear();
             initMsg(initTimestamp, initMs, loadingIconState);
         }, 1000);
     }

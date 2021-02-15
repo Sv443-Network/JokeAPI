@@ -8,7 +8,7 @@ const JokeCache = require("./classes/JokeCache");
 const settings = require("../settings");
 
 
-/** @type {JokeCache} */
+/** @type {JokeCache} Globally usable joke cache instance. Always use this instance to modify the cache! */
 var cache;
 module.exports.cache = cache;
 module.exports.connectionInfo = {};

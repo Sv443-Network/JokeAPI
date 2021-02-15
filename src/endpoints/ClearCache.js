@@ -2,6 +2,8 @@ const { unused } = require("svcorelib");
 
 const tr = require("../translate");
 const Endpoint = require("../classes/Endpoint");
+const jokeCache = require("../jokeCache");
+const resolveIp = require("../resolveIp");
 
 const settings = require("../../settings");
 
@@ -37,24 +39,52 @@ class ClearJokeCache extends Endpoint {
      * @param {object} params URL query params gotten from the URL parser module
      * @param {string} format The file format to respond with
      */
-    call(req, res, url, params, format)
+    async call(req, res, url, params, format)
     {
         unused(req, url);
 
         const lang = Endpoint.getLang(params);
+        const ip = resolveIp(req);
 
         let statusCode = 200;
         let responseObj = {};
 
 
-        // TODO: clear cache
-        
+        try
+        {
+            const deletedEntries = await jokeCache.cache.clearEntries(ip);
 
-        responseObj = {
-            "error": false,
-            "message": tr(lang, "jokeCacheCleared")
-        };
-        
+            if(deletedEntries == 0)
+            {
+                responseObj = {
+                    "error": false,
+                    "message": tr(lang, "jokeCacheClearNoEntries"),
+                    "entriesDeleted": 0,
+                    "timestamp": new Date().getTime()
+                };
+            }
+            else
+            {
+                responseObj = {
+                    "error": false,
+                    "message": tr(lang, "jokeCacheCleared", deletedEntries.toString()),
+                    "entriesDeleted": deletedEntries,
+                    "timestamp": new Date().getTime()
+                };
+            }
+        }
+        catch(err)
+        {
+            statusCode = 500;
+
+            responseObj = {
+                "error": true,
+                "message": tr(lang, "jokeCacheClearError", err.toString()),
+                "entriesDeleted": 0,
+                "timestamp": new Date().getTime()
+            }
+        }
+
 
         return Endpoint.respond(res, format, lang, responseObj, statusCode);
     }
