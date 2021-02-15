@@ -19,6 +19,7 @@ If you need an explanation of what an endpoint is, [this should help you.](https
     - [Languages](#languages)
     - [Ping](#ping)
     - [Submit](#submit)
+    - [Clear Joke Cache](#clear-joke-cache)
 
 <br><br><br>
 <!-- #MARKER How endpoints work -->
@@ -232,6 +233,16 @@ Additionally to all the information you see here, JokeAPI will *always* include 
 > - `unlisted` - Makes the `/endpoints/` endpoint ignore this endpoint
 > - `noLog` - Prohibits the `logRequest` module from writing analytics data and from sending a console message
 > - `skipRateLimitCheck` - Prevents the [rate limiting](./rate-limiting.md#readme) from being incremented
+
+
+<br><br>
+
+> ### Clear Joke Cache
+> - URL: `/clearJokeCache/`
+> - Method: `POST`
+> - Parameters: `format`, `lang`
+>   
+> TODO:
 
 
 

@@ -434,6 +434,12 @@
             "de": "Falsch formatierter Witz",
             "ru": "Малоформальная шутка",
             "cs": "Poškozený vtip"
+        },
+        "jokeCacheCleared": {
+            "en": "Successfully cleared your joke cache.",
+            "de": "Erfolgreich den Witz-Zwischenspeicher geleert.",
+            "ru": "Успешно очистили кэш шуток.",
+            "cs": "Mezipaměť vtipů byla úspěšně vymazána."
         }
     }
 }

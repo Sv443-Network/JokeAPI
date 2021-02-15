@@ -71,6 +71,15 @@ class JokeCache {
     }
 
     /**
+     * Clears all joke cache entries of the specified client
+     * @param {string} clientIpHash 64-character IP hash of the client
+     */
+    clearEntries(clientIpHash)
+    {
+        // TODO:
+    }
+
+    /**
      * Queries the DB for a list of all joke IDs the client has in their joke cache.
      * @param {string} clientIpHash 64-character IP hash of the client
      * @param {string} langCode Language code of the joke to cache
