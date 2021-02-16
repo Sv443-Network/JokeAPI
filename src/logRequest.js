@@ -13,17 +13,19 @@ const col = scl.colors.fg;
 
 
 /**
- * @typedef {Object} AnalyticsData
- * @prop {String} ipAddress
- * @prop {Array<String>} urlPath
- * @prop {Object} urlParameters
- * @prop {Object} [submission] Only has to be used on type = "submission"
+ * @typedef {object} AnalyticsData
+ * @prop {string} ipAddress
+ * @prop {string[]} urlPath
+ * @prop {object} urlParameters
+ * @prop {object} [submission] Only has to be used on type = "submission"
  */
 
+/** @typedef {"success"|"docs"|"ratelimited"|"error"|"blacklisted"|"docsrecompiled"|"submission"} RequestType */
+
 /**
- * Logs a request to the console. The `type` parameter specifies the color and additional logging level
- * @param {("success"|"docs"|"ratelimited"|"error"|"blacklisted"|"docsrecompiled"|"submission")} type 
- * @param {String} [additionalInfo] Provides additional information in certain log types
+ * Logs a request to the console and to the analytics database
+ * @param {RequestType} type Sets the color and logging level
+ * @param {string} [additionalInfo] Provides additional information in certain log types
  * @param {AnalyticsData} [analyticsData] Additional analytics data
  */
 function logRequest(type, additionalInfo, analyticsData)
