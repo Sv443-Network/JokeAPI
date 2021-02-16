@@ -198,7 +198,7 @@ class Endpoint {
     }
 
     /**
-     * Sends a response to the client - Runs file format auto-conversion and uses httpServer.pipeString()
+     * Sends a response to the client - Runs file format auto-conversion, then pipes data to the client using `httpServer.pipeString()`
      * @static
      * @param {_http.ServerResponse} res
      * @param {string} format File format
@@ -251,7 +251,7 @@ class Endpoint {
      */
     static tryRespondEncoded(req, res, format, lang, data, statusCode)
     {
-        if(!httpServer || (typeof httpServer == "object" && Object.keys(httpServer).length == 0)) // TODO: improve this - loading 1000 lines on each request is probably not a good idea
+        if(!httpServer || (typeof httpServer == "object" && Object.keys(httpServer).length == 0)) // TODO: improve this - loading 1000 lines on each request is probably not a good idea (around 5x performance impact)
             httpServer = require("../httpServer");
 
         const responseText = convertFileFormat.auto(format, data, lang);
