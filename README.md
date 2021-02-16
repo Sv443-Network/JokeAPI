@@ -39,7 +39,7 @@
 | Project | Author |
 | --- | --- |
 | [dozens Advices](https://github.com/ZephyrVentum/dozens-Advices) | [ZephyrVentum](https://github.com/ZephyrVentum) |
-| [Shadow-bot](https://github.com/QGIsK/Shadow-bot) | [QGIsK](https://github.com/QGIsK) |
+| [Shadow](https://github.com/QGIsK/Shadow) | [QGIsK](https://github.com/QGIsK) |
 | [Jokepy](https://github.com/aksty/Jokepy) | [aksty](https://github.com/aksty) |
 | [Dark1](https://github.com/whiteadi/Dark1) | [whiteadi](https://github.com/whiteadi) |
 | [Prejudice Networks](https://github.com/LiamTownsley/Prejudice-Networks) | [Liam Townsley](https://github.com/LiamTownsley) |
