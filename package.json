@@ -87,7 +87,7 @@
     "request-ip": "^2.1.3",
     "svcorelib": "^1.12.0",
     "svjsl": "^1.9.4",
-    "url-parse": "^1.5.0",
+    "url-parse": "^1.5.1",
     "xmlhttprequest": "^1.8.0",
     "xss": "^1.0.8"
   },
