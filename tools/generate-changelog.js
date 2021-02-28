@@ -15,11 +15,18 @@ function extractVersionArray(versionLines = []) {
     let currentVersion = "";
 
     versionLines.forEach((line) => {
+        if(line.includes("___TEST___"))
+            console.log("DBG");
+
         if (line.startsWith("[")) {
             currentVersion = line;
         } else {
+            let trimmedLine = line;
+            trimmedLine = trimmedLine.replace(/^\t/, "");
+            trimmedLine = trimmedLine.replace(/^\s{4}/, "");
+
             let prevItems = versionsObj[currentVersion] || [];
-            versionsObj[currentVersion] = [...prevItems, line.slice(4)];
+            versionsObj[currentVersion] = [...prevItems, trimmedLine];
         }
     });
 
@@ -59,25 +66,85 @@ function extractData() {
     return jsonData;
 }
 
+function getTableOfContents(currentVersion, otherVersions)
+{
+    let versionLinks = [];
+
+
+    versionLinks.push(`- [Current Version: ${currentVersion}](#${currentVersion.replace(/\./g, "")})`);
+
+    otherVersions.forEach(ver => {
+        versionLinks.push(`- [${ver}](#${ver.replace(/\./g, "")})`);
+    });
+
+
+    return [
+        "## Table of Contents:",
+        ...versionLinks
+    ].join("  \n");
+}
+
 function writeMD(
     data = {
         currentVersion: "",
         versions: [],
     }
 ) {
-    let outputLines = [
-        `# JokeAPI Changelog (Version ${data["currentVersion"]})`,
-        "",
-    ];
+    let currentVersionNumber = "";
+    let versionNumbers = [];
+
+    let outputLines = [];
 
     data.versions.forEach((versionObj) => {
-        let versionContent = [
-            "<br><br><br>\n\n## " + versionObj.versionTitle,
-            ...versionObj.versionEntries,
-        ];
+        let currentVersion = versionObj.versionTitle.match(/\[CURRENT:\s*(\d+\.\d+.\d+)\]?/);
+        let versionNum = versionObj.versionTitle.match(/\[(\d+\.\d+.\d+)\]?/);
+
+        if(currentVersion)
+        {
+            currentVersionNumber = currentVersion[1];
+            versionNum = currentVersion[1];
+        }
+        
+        if(Array.isArray(versionNum))
+        {
+            versionNumbers.push(versionNum[1]);
+            versionNum = versionNum[1];
+        }
+
+        let versionTitleRaw = "";
+        if(versionObj.versionTitle.match(/^.*\s-\s.*$/))
+            versionTitleRaw = versionObj.versionTitle.split("-")[1].trim();
+
+
+        let versionContent = [];
+
+        if(versionObj.versionTitle.toLowerCase().includes("planned"))
+        {
+            let plannedTitle = versionObj.versionTitle.match(/\[(.*)\]/);
+            versionContent = [
+                "<br><br><br>\n\n## " + plannedTitle[1] + ":  ",
+                ...versionObj.versionEntries,
+            ];
+        }
+        else
+        {
+            versionContent = [
+                "<br><br><br>\n\n## " + (versionNum ? versionNum : versionTitleRaw) + "  ",
+                (versionNum && versionTitleRaw ? "#### " + versionTitleRaw : ""),
+                ...versionObj.versionEntries,
+            ];
+        }
 
         outputLines.push(...versionContent, "\n");
     });
+
+
+    // insert table of contents
+    outputLines.unshift(getTableOfContents(currentVersionNumber, versionNumbers));
+
+    // insert doc title
+    outputLines.unshift(`# JokeAPI Changelog (Version ${data["currentVersion"]})`);
+
 
     fs.writeFileSync(
         options.OUTPUT_FILE,

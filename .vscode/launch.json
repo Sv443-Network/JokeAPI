@@ -30,7 +30,7 @@
             "console": "integratedTerminal"
         },
         {
-            "program": "${workspaceFolder}/tools/submissions.js",
+            "program": "${workspaceFolder}/tools/generate-changelog.js",
             "name": "Tools/xy",
             "request": "launch",
             "type": "node",
@@ -40,7 +40,7 @@
             "args": [
                 "--trace-deprecation"
             ],
-            "console": "externalTerminal"
+            "console": "integratedTerminal"
         }
     ],
     "debug.javascript.usePreview": true

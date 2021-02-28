@@ -10,8 +10,8 @@
     - Add Unit Tests (issue #121)
     - Serve docs with nginx to speed up page load times (issue #118)
 
-[CURRENT: 2.4.0] - The Big Caching Fix (PR #239)
-TODO: this is incomplete
+
+[CURRENT: 2.4.0] - TODO: The Big Caching Fix (PR #239)
     - Fixes:
         - Finally fixed joke ID caching once and for all (I hope) (issue #238)
         - Fixed C# code example in documentation once again (issue #237)
