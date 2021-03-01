@@ -106,9 +106,9 @@ const generateForSrc = () => {
     });
 }
 
-const generateForEndpoints = () => {
+const generateForGetEndpoints = () => {
     let iterCount = 0;
-    let endpointFiles = fs.readdirSync("./src/endpoints");
+    let endpointFiles = fs.readdirSync("./src/endpoints/GET");
     return new Promise((resolve, reject) => {
         endpointFiles.forEach(file => {
             if(!file.endsWith(".js"))
@@ -121,17 +121,52 @@ const generateForEndpoints = () => {
 
             try
             {
-                madge(`./src/endpoints/${file}`, madgeOptions)
+                madge(`./src/endpoints/GET/${file}`, madgeOptions)
                 .then((res) => res.svg())
                 .then((output) => {
                     iterCount++;
-                    fs.writeFileSync(`./dev/madge/endpoints-${filename}.html`, output.toString());
+                    fs.writeFileSync(`./dev/madge/endpoints-get-${filename}.html`, output.toString());
 
                     if(iterCount == endpointFiles.length)
                     resolve();
                 });
 
-                fileList.push(`<li><span class="mimica" onclick="setIframe('./madge/endpoints-${filename}.html', '${filename}')">src/endpoints/${filename}.js</span></li>`);
+                fileList.push(`<li><span class="mimica" onclick="setIframe('./madge/endpoints-get-${filename}.html', '${filename}')">src/endpoints/GET/${filename}.js</span></li>`);
+            }
+            catch(err)
+            {
+                reject(err);
+            }
+        });
+    });
+}
+
+const generateForPostEndpoints = () => {
+    let iterCount = 0;
+    let endpointFiles = fs.readdirSync("./src/endpoints/POST");
+    return new Promise((resolve, reject) => {
+        endpointFiles.forEach(file => {
+            if(!file.endsWith(".js"))
+            {
+                iterCount++;
+                return;
+            }
+
+            let filename = file.replace(/\.js/g, "");
+
+            try
+            {
+                madge(`./src/endpoints/POST/${file}`, madgeOptions)
+                .then((res) => res.svg())
+                .then((output) => {
+                    iterCount++;
+                    fs.writeFileSync(`./dev/madge/endpoints-post-${filename}.html`, output.toString());
+
+                    if(iterCount == endpointFiles.length)
+                    resolve();
+                });
+
+                fileList.push(`<li><span class="mimica" onclick="setIframe('./madge/endpoints-post-${filename}.html', '${filename}')">src/endpoints/POST/${filename}.js</span></li>`);
             }
             catch(err)
             {
@@ -329,7 +364,10 @@ async function exec()
         await generateForSrc();
         process.stdout.write(".");
 
-        await generateForEndpoints();
+        await generateForGetEndpoints();
+        process.stdout.write(".");
+
+        await generateForPostEndpoints();
         process.stdout.write(".");
 
         await generateForTools();
