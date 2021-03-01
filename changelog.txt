@@ -7,8 +7,10 @@
 [Planned for future releases]
     - Allow definition of max requests per minute per each client (issue #37)
     - Add positive flags and a "?whitelistFlags" param (issue #127)
-    - Add Unit Tests (issue #121)
     - Serve docs with nginx to speed up page load times (issue #118)
+    - Ongoing:
+        - Add unit tests (issue #121)
+        - Complete the developer documentation (issue #242)
 
 
 [CURRENT: 2.4.0] - TODO: The Big Caching Fix (PR #239)

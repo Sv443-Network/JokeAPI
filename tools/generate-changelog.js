@@ -4,6 +4,8 @@
  */
 
 const fs = require("fs-extra");
+const semver = require("semver");
+
 const options = {
     SOURCE_FILE: "changelog.txt",
     DATA_FILE: "changelog-data.json",
@@ -15,9 +17,6 @@ function extractVersionArray(versionLines = []) {
     let currentVersion = "";
 
     versionLines.forEach((line) => {
-        if(line.includes("___TEST___"))
-            console.log("DBG");
-
         if (line.startsWith("[")) {
             currentVersion = line;
         } else {
@@ -66,17 +65,36 @@ function extractData() {
     return jsonData;
 }
 
+/**
+ * @param {semver.SemVer} currentVersion 
+ * @param {semver.SemVer[]} otherVersions 
+ */
 function getTableOfContents(currentVersion, otherVersions)
 {
     let versionLinks = [];
 
 
-    versionLinks.push(`- [Current Version: ${currentVersion}](#${currentVersion.replace(/\./g, "")})`);
+    let curVerMajor = currentVersion.major;
+    let curVerMinor = currentVersion.minor;
+
+    versionLinks.push(`- ${curVerMajor}.${curVerMinor}`);
+
+    versionLinks.push(`    - **[Current Version: ${currentVersion.version}](#${currentVersion.version.replace(/\./g, "")})**`);
 
     otherVersions.forEach(ver => {
-        versionLinks.push(`- [${ver}](#${ver.replace(/\./g, "")})`);
+        if(ver.major != curVerMajor || ver.minor != curVerMinor)
+        {
+            curVerMajor = ver.major;
+            curVerMinor = ver.minor;
+
+            versionLinks.push(`- ${curVerMajor}.${curVerMinor}`);
+        }
+
+        versionLinks.push(`    - [${ver.version}](#${ver.version.replace(/\./g, "")})`);
     });
 
+
+    console.log("Written table of contents.");
 
     return [
         "## Table of Contents:",
@@ -138,14 +156,17 @@ function writeMD(
         outputLines.push(...versionContent, "\n");
     });
 
+    console.log("Prepared changelog content.");
+
 
     // insert table of contents
-    outputLines.unshift(getTableOfContents(currentVersionNumber, versionNumbers));
+    outputLines.unshift(getTableOfContents(semver.parse(currentVersionNumber), versionNumbers.map(v => semver.parse(v))));
 
     // insert doc title
     outputLines.unshift(`# JokeAPI Changelog (Version ${data["currentVersion"]})`);
 
 
+    console.log("Writing to output file...");
     fs.writeFileSync(
         options.OUTPUT_FILE,
         outputLines
