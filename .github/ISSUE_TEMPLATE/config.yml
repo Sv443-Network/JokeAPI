@@ -3,11 +3,11 @@ blank_issues_enabled: true
 contact_links:
   -
     name: "Documentation"
-    about: "Please read the documentation before opening a new issue"
+    about: "Please read the API documentation before opening a new issue"
     url: "https://jokeapi.dev/"
   -
     name: "Discussions"
-    about: "If there's some topic you want to talk about, please open a new thread on the JokeAPI discussion board"
+    about: "If there's a specific topic you want to talk about, please open a new thread on the discussion board"
     url: "https://github.com/Sv443/JokeAPI/discussions"
   -
     name: "Chat"
