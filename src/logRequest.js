@@ -171,7 +171,7 @@ function logRequest(type, additionalInfo, analyticsData)
 function initMsg(initTimestamp, initDurationMs, loadingIconState)
 {
     let lines = [];
-    let initMs = initDurationMs ? initDurationMs : (new Date().getTime() - initTimestamp).toFixed(0);
+    let initMs = initDurationMs ? initDurationMs : (Date.now() - initTimestamp).toFixed(0);
 
     const heapStats = v8.getHeapStatistics();
     const hsMax = heapStats.heap_size_limit;
@@ -210,7 +210,7 @@ function initMsg(initTimestamp, initDurationMs, loadingIconState)
                 break;
 
             default:
-                loadingIcon += "?";
+                loadingIcon += "???";
                 break;
         }
 
@@ -234,7 +234,11 @@ function initMsg(initTimestamp, initDurationMs, loadingIconState)
     lines.push(` ${brBlack}├─${col.rst} Initialization took ${col.green}${initMs}ms${initMs == 69 ? " (nice)" : ""}${col.rst}\n`);
     lines.push(` ${brBlack}└─${col.rst} Heap Usage: ${heapColor}${heapPercent}%${col.rst}\n`);
 
-    lines.push(`${brBlack}${settings.debug.dashboardEnabled ? "" : `  • Dashboard mode disabled\n`}${col.rst}`);
+    let dbIntervalSeconds = settings.debug.dashboardInterval / 1000;
+    if(dbIntervalSeconds % 1 != 0)
+        dbIntervalSeconds = dbIntervalSeconds.toFixed(1);
+
+    lines.push(`${brBlack}${!settings.debug.dashboardEnabled ? "" : `  • Dashboard mode enabled (${dbIntervalSeconds}s interval)\n`}${col.rst}`);
 
     // GDPR compliance notice
     if(!settings.httpServer.ipHashing.enabled || settings.jokeCaching.expiryHours <= 0)
@@ -270,7 +274,7 @@ function initMsg(initTimestamp, initDurationMs, loadingIconState)
 
         setTimeout(() => {
             initMsg(initTimestamp, initMs, loadingIconState);
-        }, 1000);
+        }, settings.debug.dashboardInterval);
     }
 }
 
