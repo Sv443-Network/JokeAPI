@@ -9,17 +9,19 @@ If you need an explanation of what an endpoint is, [this should help you.](https
 - [Location and execution of endpoints](#location-and-execution-of-endpoints)
 - [Types of Endpoints](#endpoint-types)
 - [Endpoint List](#endpoint-list)
-    - [Categories](#categories)
-    - [Endpoints](#endpoints)
-    - [Flags](#flags)
-    - [Formats](#formats)
-    - [Info](#info)
-    - [Joke](#joke)
-    - [LangCode](#langcode)
-    - [Languages](#languages)
-    - [Ping](#ping)
-    - [Submit](#submit)
-    - [Clear Joke Cache](#clear-joke-cache)
+    - [Data Endpoints](#data-endpoints)
+        - [Categories](#categories)
+        - [Endpoints](#endpoints)
+        - [Flags](#flags)
+        - [Formats](#formats)
+        - [Info](#info)
+        - [Joke](#joke)
+        - [LangCode](#langcode)
+        - [Languages](#languages)
+        - [Ping](#ping)
+    - [Submission Endpoints](#submission-endpoints)
+        - [Submit](#submit)
+        - [Clear Data](#clear-data)
 
 <br><br><br>
 <!-- #MARKER How endpoints work -->
@@ -52,17 +54,29 @@ This function gets passed a lot of parameters, which are essential in parsing an
 <!-- #MARKER Endpoint Types -->
 
 ## Endpoint Types:
-### Normal:
+### Data:
 [WIP]
 ### Filter Component:
+[WIP]
+
+### Submission:
 [WIP]
 
 <br><br><br>
 <!-- #MARKER Endpoint List -->
 
 ## Endpoint List:
-This is a list of all of JokeAPI's endpoints.  
-Additionally to all the information you see here, JokeAPI will *always* include a `timestamp` and an `error` property.
+This is a list of all of JokeAPI's endpoints:
+
+<br><br><br><br>
+
+<!--#MARKER Data endpoints -->
+## Data Endpoints
+These endpoints are all called with the GET method.  
+They just return data, they don't accept any.  
+The only way to modify the returned data is by modifying the URL (path or query parameters, depending on the endpoint).  
+  
+Additionally to all the information you see in this section, JokeAPI will *always* include a `timestamp` and an `error` property.
 
 <br><br>
 
@@ -235,14 +249,42 @@ Additionally to all the information you see here, JokeAPI will *always* include 
 > - `skipRateLimitCheck` - Prevents the [rate limiting](./rate-limiting.md#readme) from being incremented
 
 
+<br><br><br><br>
+
+<!--#MARKER Submission endpoints -->
+## Submission Endpoints
+These endpoints all accept data.  
+They need to be called with the POST method (the PUT method is also supported for backwards compatibility, this might change though).  
+If no data is passed in the request body, the request will time out after the timeout specified in `settings.httpServer.submissionNoDataTimeout`
+
 <br><br>
 
-> ### Clear Joke Cache
-> - URL: `/clearJokeCache/`
+> ### Submit
+> - URL: `/submit/`
+> - Method: `POST`
+> - Parameters: none
+>   
+> This endpoint is used to submit a joke.  
+> JokeAPI will save the joke for the API maintainer to check it out and add it to the official joke list.  
+>   
+> The submissions are only accepted in JSON format.  
+> The jokes need to have the same format that is returned when retrieving a single joke from the [`/joke/`](#joke) endpoint.  
+> Additionally though, they need the `formatVersion` property.  
+> The current format version is set in `settings.jokes.jokesFormatVersion` and needs to be consistent with the property `info.formatVersion` in the joke files.  
+> This property was added since the format of jokes changed quite a lot throughout JokeAPI's updates.
+
+<br><br>
+
+> ### Clear Data
+> - URL: `/clearData/`
 > - Method: `POST`
 > - Parameters: `format`, `lang`
 >   
-> TODO:
+> This endpoints purpose is to delete all data that has been collected on the client that sent the request.  
+> Deleted data includes:  
+> - joke cache
+>   
+> As of v2.4.0 it is not possible to specify which data should be deleted, this might be added later on.
 
 
 

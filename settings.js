@@ -147,7 +147,8 @@ const settings = {
         disableCache: true,   // whether or not to disable the cache - default: true (setting to false may prevent the users from getting new jokes without explicit cache control headers)
         infoHeaders: true,    // whether or not to add an informational header about JokeAPI to each request
         reverseProxy: true,   // whether or not JokeAPI's requests are passed through a reverse proxy
-        startupTimeout: 15,   // in seconds, timeout after which startup fails if the HTTP server couldn't start up (blocked port, etc.)
+        startupTimeout: 15,            // in seconds, timeout after which startup fails if the HTTP server couldn't start up (blocked port, etc.)
+        submissionNoDataTimeout: 5000, // in milliseconds, timeout after which a submission request times out if no data was transmitted
         /** SSL / HTTPS settings (to be implemented) */
         ssl: {
             enabled: false,                // whether SSL is enabled

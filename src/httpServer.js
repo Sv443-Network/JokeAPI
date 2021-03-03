@@ -332,7 +332,7 @@ function init()
                     let dataInterval = setTimeout(() => {
                         debug("HTTP", "PUT / POST request timed out");
                         return respondWithErrorPage(res, 400, tr(lang, "requestBodyIsInvalid"));
-                    }, 3000);
+                    }, settings.httpServer.submissionNoDataTimeout);
 
 
                     endpoints.forEach( /** @param {EpObject} ep Endpoint matching request URL */ async (ep) => {
