@@ -17,7 +17,7 @@ const convertFileFormat = require("./fileFormatConverter");
 const parseURL = require("./parseURL");
 const lists = require("./lists");
 const analytics = require("./analytics");
-const jokeSubmission = require("./jokeSubmission");
+// const jokeSubmission = require("./jokeSubmission");
 const auth = require("./auth");
 const meter = require("./meter");
 const languages = require("./languages");
@@ -27,6 +27,9 @@ const exists = require("./exists");
 const Endpoint = require("./classes/Endpoint");
 
 scl.unused(RateLimiterRes, Endpoint); // typedef only
+
+
+// TODO: implement submission endpoints like /submit and /clearData
 
 
 /**
@@ -57,10 +60,10 @@ function init()
                 duration: settings.httpServer.timeFrame
             });
 
-            let rlPost = new RateLimiterMemory({
-                points: settings.jokes.submissions.rateLimiting,
-                duration: settings.jokes.submissions.timeFrame
-            });
+            // let rlPost = new RateLimiterMemory({
+            //     points: settings.jokes.submissions.rateLimiting,
+            //     duration: settings.jokes.submissions.timeFrame
+            // });
 
             setTimeout(() => {
                 if(!httpServerInitialized)
@@ -335,7 +338,7 @@ function init()
                     endpoints.forEach( /** @param {EpObject} ep Endpoint matching request URL */ async (ep) => {
                         if(ep.pathName == requestedEndpoint && ["POST", "PUT"].includes(ep.meta.usage.method))
                         {
-                            let postRateLimited = await rlPost.get(ip);
+                            // let postRateLimited = await rlPost.get(ip);
 
                             req.on("data", chunk => {
                                 const data = chunk.toString();

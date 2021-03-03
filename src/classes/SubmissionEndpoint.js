@@ -1,8 +1,12 @@
 const { unused } = require("svcorelib");
 
+const _http = require("http");
+
 const debug = require("../verboseLogging");
 const Endpoint = require("./Endpoint");
 
+
+unused("types:", _http);
 
 /**
  * Base class for all submission endpoint (POST / PUT)
