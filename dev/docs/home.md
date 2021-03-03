@@ -12,15 +12,15 @@ The following topics will teach you about how every aspect works:
     - [Miscellaneous Concepts](#miscellaneous-concepts)
 - Other Topics
     - [How to set up JokeAPI](./setup.md#readme)
-    - [Execution Flow](./execution-flow.md#readme)
-    - [Docs Compilation](./docs-compilation.md#readme)
+    - [WIP - Execution Flow](./execution-flow.md#readme)
+    - [WIP - Docs Compilation](./docs-compilation.md#readme)
     - [Endpoints](./endpoints.md#readme)
-    - [File Format Conversion](./file-format-conversion.md#readme)
-    - [Translations](./translations.md#readme)
-    - [Rate Limiting](./rate-limiting.md#readme)
-    - [Lists](./lists.md#readme)
-    - [Joke Submissions](./joke-submissions.md#readme)
-    - [Joke Caching](./joke-caching.md#readme)
+    - [WIP - File Format Conversion](./file-format-conversion.md#readme)
+    - [WIP - Translations](./translations.md#readme)
+    - [WIP - Rate Limiting](./rate-limiting.md#readme)
+    - [WIP - Lists](./lists.md#readme)
+    - [WIP - Joke Submissions](./joke-submissions.md#readme)
+    - [WIP - Joke Caching](./joke-caching.md#readme)
 
 
 

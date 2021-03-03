@@ -81,4 +81,4 @@ function hashIP(ip)
 module.exports = resolveIP;
 module.exports.isValidIP = isValidIP;
 module.exports.hashIP = hashIP;
-module.exports. isLocal = isLocal;
+module.exports.isLocal = isLocal;

@@ -187,7 +187,8 @@ class Endpoint {
 
     //#MARKER static
     /**
-     * Returns the language code, retrieved from a URL parameter object
+     * Returns the language code, retrieved from a URL parameter object.  
+     * If no language was specified in the `params`, returns the default language defined at `settings.languages.defaultLanguage` 
      * @static
      * @param {object} params URL query params gotten from the URL parser module
      * @returns {string}
@@ -198,7 +199,8 @@ class Endpoint {
     }
 
     /**
-     * Sends a response to the client - Runs file format auto-conversion, then pipes data to the client using `httpServer.pipeString()`
+     * Static method that sends a response to the client.  
+     * Runs file format auto-conversion, then pipes data to the client using `httpServer.pipeString()`
      * @static
      * @param {_http.ServerResponse} res
      * @param {string} format File format

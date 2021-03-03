@@ -2,16 +2,17 @@ const { unused } = require("svcorelib");
 
 const tr = require("../../translate");
 const SubmissionEndpoint = require("../../classes/SubmissionEndpoint");
+const Endpoint = require("../../classes/Endpoint");
 const jokeCache = require("../../jokeCache");
 const resolveIp = require("../../resolveIp");
 
-const settings = require("../../../settings");
+// const settings = require("../../../settings");
 
 
 /**
  * Clears the joke cache of the client that called this endpoint
  */
-class ClearJokeCache extends SubmissionEndpoint {
+class ClearData extends SubmissionEndpoint {
     /**
      * Clears the joke cache of the client that called this endpoint
      */
@@ -44,7 +45,7 @@ class ClearJokeCache extends SubmissionEndpoint {
     {
         unused(url, data);
 
-        const lang = SubmissionEndpoint.getLang(params);
+        const lang = Endpoint.getLang(params);
         const ip = resolveIp(req);
 
         let statusCode = 200;
@@ -53,14 +54,16 @@ class ClearJokeCache extends SubmissionEndpoint {
 
         try
         {
-            const deletedEntries = await jokeCache.cache.clearEntries(ip);
+            const deletedEntries = await this.clearJokeCache(ip, lang);
 
             if(deletedEntries == 0)
             {
                 responseObj = {
                     "error": false,
-                    "message": tr(lang, "jokeCacheClearNoEntries"),
-                    "entriesDeleted": 0,
+                    "jokeCache": {
+                        "message": tr(lang, "jokeCacheClearNoEntries"),
+                        "entriesDeleted": 0
+                    },
                     "timestamp": new Date().getTime()
                 };
             }
@@ -68,8 +71,10 @@ class ClearJokeCache extends SubmissionEndpoint {
             {
                 responseObj = {
                     "error": false,
-                    "message": tr(lang, "jokeCacheCleared", deletedEntries.toString()),
-                    "entriesDeleted": deletedEntries,
+                    "jokeCache": {
+                        "message": tr(lang, "jokeCacheCleared", deletedEntries.toString()),
+                        "cacheEntriesDeleted": deletedEntries
+                    },
                     "timestamp": new Date().getTime()
                 };
             }
@@ -80,15 +85,36 @@ class ClearJokeCache extends SubmissionEndpoint {
 
             responseObj = {
                 "error": true,
-                "message": tr(lang, "jokeCacheClearError", err.toString()),
-                "entriesDeleted": 0,
+                "jokeCache": {
+                    "message": err.toString(),
+                    "cacheEntriesDeleted": 0
+                },
                 "timestamp": new Date().getTime()
             }
         }
 
+        return Endpoint.respond(res, format, lang, responseObj, statusCode);
+    }
 
-        return SubmissionEndpoint.respond(res, format, lang, responseObj, statusCode);
+    //#MARKER clear methods
+
+    /**
+     * Clears the joke cache.  
+     * Resolves with the amount of cleared entries, rejects with an error message
+     * @param {string} ip The IP hash of the client
+     * @param {string} [lang] Language code
+     * @returns {number}
+     */
+    clearJokeCache(ip, lang)
+    {
+        return new Promise((pRes, pRej) => {
+            jokeCache.cache.clearEntries(ip).then(amt => {
+                return pRes(amt);
+            }).catch(err => {
+                return pRej(tr(lang, "jokeCacheClearError", err.toString()));
+            });
+        });
     }
 }
 
-module.exports = ClearJokeCache;
+module.exports = ClearData;
