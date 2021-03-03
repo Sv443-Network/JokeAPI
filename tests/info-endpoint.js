@@ -91,7 +91,7 @@ function run()
 
                         //#SECTION timestamp
                         let resTS = parseInt(resp.timestamp);
-                        let localTS = parseInt(new Date().getTime());
+                        let localTS = parseInt(Date.now());
                         let tsRange = [localTS - 600000, localTS + 600000];
                         if(resTS < tsRange[0] || resTS > tsRange[1])
                             errors.push(`API system's time is out of sync by more than 10 minutes`);

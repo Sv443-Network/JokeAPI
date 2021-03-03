@@ -64,7 +64,7 @@ class ClearData extends SubmissionEndpoint {
                         "message": tr(lang, "jokeCacheClearNoEntries"),
                         "entriesDeleted": 0
                     },
-                    "timestamp": new Date().getTime()
+                    "timestamp": Date.now()
                 };
             }
             else
@@ -75,7 +75,7 @@ class ClearData extends SubmissionEndpoint {
                         "message": tr(lang, "jokeCacheCleared", deletedEntries.toString()),
                         "cacheEntriesDeleted": deletedEntries
                     },
-                    "timestamp": new Date().getTime()
+                    "timestamp": Date.now()
                 };
             }
         }
@@ -89,7 +89,7 @@ class ClearData extends SubmissionEndpoint {
                     "message": err.toString(),
                     "cacheEntriesDeleted": 0
                 },
-                "timestamp": new Date().getTime()
+                "timestamp": Date.now()
             }
         }
 

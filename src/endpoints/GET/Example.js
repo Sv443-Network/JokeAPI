@@ -39,7 +39,7 @@ class Example extends Endpoint {
                 text: "Hi I'm an example",
                 randomNum: randRange(0, 420)
             },
-            timestamp: new Date().getTime()
+            timestamp: Date.now()
         };
 
         return Endpoint.respond(res, format, lang, data);

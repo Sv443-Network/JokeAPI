@@ -75,7 +75,7 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun)
                 // joke is valid, find file name and then write to file
 
                 let sanitizedIP = ip.replace(settings.httpServer.ipSanitization.regex, settings.httpServer.ipSanitization.replaceChar).substring(0, 8);
-                let curUnix = new Date().getTime();
+                let curUnix = Date.now();
                 let fileName = `${settings.jokes.jokeSubmissionPath}${langCode}/submission_${sanitizedIP}_0_${curUnix}.json`;
 
                 let iter = 0;
@@ -105,7 +105,7 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun)
                         let respObj = {
                             error: false,
                             message: tr(langCode, "dryRunSuccessful", parseJokes.jokeFormatVersion, submittedJoke.formatVersion),
-                            timestamp: new Date().getTime()
+                            timestamp: Date.now()
                         };
 
                         return httpServer.pipeString(res, fileFormatConverter.auto(fileFormat, respObj, langCode), parseURL.getMimeTypeFromFileFormatString(fileFormat), 201);
@@ -154,7 +154,7 @@ function writeJokeToFile(res, filePath, submittedJoke, fileFormat, ip, analytics
                 "error": false,
                 "message": tr(langCode, "submissionSaved"),
                 "submission": reformattedJoke,
-                "timestamp": new Date().getTime()
+                "timestamp": Date.now()
             };
 
             meter.update("submission", 1);

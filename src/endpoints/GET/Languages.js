@@ -67,7 +67,7 @@ class Languages extends Endpoint {
                 "jokeLanguages": { "code": jokeLangs },
                 "systemLanguages": { "code": sysLangs },
                 "possibleLanguages": { "language": langArray },
-                "timestamp": new Date().getTime()
+                "timestamp": Date.now()
             };
         }
         else
@@ -77,7 +77,7 @@ class Languages extends Endpoint {
                 "jokeLanguages": jokeLangs,
                 "systemLanguages": sysLangs,
                 "possibleLanguages": langArray,
-                "timestamp": new Date().getTime()
+                "timestamp": Date.now()
             };
         }
 

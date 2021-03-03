@@ -79,7 +79,7 @@ class Categories extends FilterComponentEndpoint {
                 "categories": primaryCategories,
                 "categoryAliases": catAliases,
                 "categoryDescriptions": catDescriptions,
-                "timestamp": new Date().getTime()
+                "timestamp": Date.now()
             };
         }
         else
@@ -89,7 +89,7 @@ class Categories extends FilterComponentEndpoint {
                 "categories": {"category": primaryCategories},
                 "categoryAliases": {"categoryAlias": catAliases},
                 "categoryDescriptions": {"description": catDescriptions},
-                "timestamp": new Date().getTime()
+                "timestamp": Date.now()
             };
         }
         

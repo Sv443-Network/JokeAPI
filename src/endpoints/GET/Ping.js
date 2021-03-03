@@ -44,7 +44,7 @@ class Ping extends Endpoint {
         const data = {
             "error": false,
             "ping": tr(lang, "pingPong"),
-            "timestamp": new Date().getTime()
+            "timestamp": Date.now()
         };
 
         return Endpoint.respond(res, format, lang, data);

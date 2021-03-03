@@ -52,7 +52,7 @@ class TEMPLATE extends SubmissionEndpoint {
         responseObj = {
             "error": false,
             "template": "Hello, World!",
-            "timestamp": new Date().getTime()
+            "timestamp": Date.now()
         };
 
 

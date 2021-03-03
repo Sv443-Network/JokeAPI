@@ -82,7 +82,7 @@ class Info extends Endpoint {
                 "jokeLanguages": supportedLangsLength,
                 "systemLanguages": systemLanguagesLength,
                 "info": translate(lang, "messageOfTheDay", settings.info.name),
-                "timestamp": new Date().getTime()
+                "timestamp": Date.now()
             };
         }
         else if(format == "xml")
@@ -104,7 +104,7 @@ class Info extends Endpoint {
                 "jokeLanguages": supportedLangsLength,
                 "systemLanguages": systemLanguagesLength,
                 "info": translate(lang, "messageOfTheDay", settings.info.name),
-                "timestamp": new Date().getTime()
+                "timestamp": Date.now()
             };
         }
 

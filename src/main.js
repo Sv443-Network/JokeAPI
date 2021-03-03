@@ -34,7 +34,7 @@ settings.init.exitSignals.forEach(sig => {
 
 //#MARKER init all
 const initAll = () => {
-    let initTimestamp = new Date().getTime();
+    let initTimestamp = Date.now();
 
     console.log(`Initializing ${settings.info.name}...\n`);
 

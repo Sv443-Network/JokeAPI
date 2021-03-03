@@ -417,7 +417,7 @@ function init()
                             //             res.end(convertFileFormat.auto(fileFormat, {
                             //                 "error": false,
                             //                 "message": `Restarting ${settings.info.name}`,
-                            //                 "timestamp": new Date().getTime()
+                            //                 "timestamp": Date.now()
                             //             }, lang));
                             //             console.log(`\n\n[${logger.getTimestamp(" | ")}]  ${scl.colors.fg.red}IP ${scl.colors.fg.yellow}${ip.substr(0, 8)}[...]${scl.colors.fg.red} sent a restart command\n\n\n${scl.colors.rst}`);
                             //             process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
@@ -439,7 +439,7 @@ function init()
                         "error": true,
                         "internalError": false,
                         "message": `Wrong method "${req.method}" used. Expected "GET", "OPTIONS" or "HEAD"`,
-                        "timestamp": new Date().getTime()
+                        "timestamp": Date.now()
                     }, lang));
                 }
             });
@@ -588,7 +588,7 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
                 "code": parseInt(errorCode),
                 "message": insArgs(errFromRegistry.errorMessage[lang], args) || insArgs(errFromRegistry.errorMessage[settings.languages.defaultLanguage], args),
                 "causedBy": insArgs(errFromRegistry.causedBy[lang], args) || insArgs(errFromRegistry.causedBy[settings.languages.defaultLanguage], args),
-                "timestamp": new Date().getTime()
+                "timestamp": Date.now()
             }
         }
         else if(fileFormat == "xml")
@@ -599,7 +599,7 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
                 "code": parseInt(errorCode),
                 "message": insArgs(errFromRegistry.errorMessage[lang], args) || insArgs(errFromRegistry.errorMessage[settings.languages.defaultLanguage], args),
                 "causedBy": {"cause": insArgs(errFromRegistry.causedBy[lang], args) || insArgs(errFromRegistry.causedBy[settings.languages.defaultLanguage], args)},
-                "timestamp": new Date().getTime()
+                "timestamp": Date.now()
             }
         }
 

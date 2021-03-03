@@ -825,7 +825,7 @@ function buildURL()
 //#MARKER send request
 function sendTryItRequest()
 {
-    var sendStartTimestamp = new Date().getTime();
+    var sendStartTimestamp = Date.now();
     var prpr = gebid("urlBuilderPrettyprint");
     var tryItRequestError = function(err) {
         if(prpr.classList.contains("prettyprint"))
@@ -909,7 +909,7 @@ function sendTryItRequest()
                 }
 
                 gebid("tryItResult").innerText = result;
-                gebid("tryItFormLatency").innerText = "Latency: " + (new Date().getTime() - sendStartTimestamp) + " ms";
+                gebid("tryItFormLatency").innerText = "Latency: " + (Date.now() - sendStartTimestamp) + " ms";
 
                 PR.prettyPrint(); // eslint-disable-line no-undef
             }

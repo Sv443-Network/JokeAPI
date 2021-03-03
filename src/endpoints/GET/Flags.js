@@ -56,7 +56,7 @@ class Flags extends FilterComponentEndpoint {
                 "error": false,
                 "flags": settings.jokes.possible.flags,
                 "flagDescriptions": flagDescriptions,
-                "timestamp": new Date().getTime()
+                "timestamp": Date.now()
             };
         }
         else
@@ -65,7 +65,7 @@ class Flags extends FilterComponentEndpoint {
                 "error": false,
                 "flags": {"flag": settings.jokes.possible.flags},
                 "flagDescriptions": {"description": flagDescriptions},
-                "timestamp": new Date().getTime()
+                "timestamp": Date.now()
             };
         }
         

@@ -50,7 +50,7 @@ class TEMPLATE extends Endpoint {
         responseObj = {
             "error": false,
             "template": "Hello, World!",
-            "timestamp": new Date().getTime()
+            "timestamp": Date.now()
         };
 
 

@@ -56,7 +56,7 @@ class Formats extends FilterComponentEndpoint {
                 "error": false,
                 "formats": settings.jokes.possible.formats,
                 "formatDescriptions": fmtDescriptions,
-                "timestamp": new Date().getTime()
+                "timestamp": Date.now()
             };
         }
         else if(format == "xml")
@@ -65,7 +65,7 @@ class Formats extends FilterComponentEndpoint {
                 "error": false,
                 "formats": {"format": settings.jokes.possible.formats},
                 "formatDescriptions": {"description": fmtDescriptions},
-                "timestamp": new Date().getTime()
+                "timestamp": Date.now()
             };
         }
 

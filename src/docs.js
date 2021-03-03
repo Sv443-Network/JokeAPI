@@ -123,7 +123,7 @@ function recompileDocs()
         let promises = [];
         
         process.injectionCounter = 0;
-        process.injectionTimestamp = new Date().getTime();
+        process.injectionTimestamp = Date.now();
 
         filesToInject.forEach((fti, i) => {
             promises.push(new Promise((resolve, reject) => {
@@ -162,7 +162,7 @@ function recompileDocs()
         });
 
         Promise.all(promises).then(() => {
-            debug("Docs", `Done recompiling docs in ${scl.colors.fg.yellow}${new Date().getTime() - process.injectionTimestamp}ms${scl.colors.rst}, injected ${scl.colors.fg.yellow}${process.injectionCounter}${scl.colors.rst} values`);
+            debug("Docs", `Done recompiling docs in ${scl.colors.fg.yellow}${Date.now() - process.injectionTimestamp}ms${scl.colors.rst}, injected ${scl.colors.fg.yellow}${process.injectionCounter}${scl.colors.rst} values`);
         }).catch(err => {
             console.log(`Injection error: ${err}`);
         });

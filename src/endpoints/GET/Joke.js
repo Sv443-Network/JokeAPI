@@ -298,7 +298,7 @@ class Joke extends Endpoint {
                 message: insArgs(errFromRegistry.errorMessage[lang], args) || insArgs(errFromRegistry.errorMessage[settings.languages.defaultLanguage], args),
                 causedBy: insArgs(errFromRegistry.causedBy[lang], args) || insArgs(errFromRegistry.causedBy[settings.languages.defaultLanguage], args),
                 additionalInfo: msg,
-                timestamp: new Date().getTime()
+                timestamp: Date.now()
             };
         }
         else if(format == "xml")
@@ -310,7 +310,7 @@ class Joke extends Endpoint {
                 message: insArgs(errFromRegistry.errorMessage[lang], args) || insArgs(errFromRegistry.errorMessage[settings.languages.defaultLanguage], args),
                 causedBy: {"cause": insArgs(errFromRegistry.causedBy[lang], args) || insArgs(errFromRegistry.causedBy[settings.languages.defaultLanguage], args)},
                 additionalInfo: msg,
-                timestamp: new Date().getTime()
+                timestamp: Date.now()
             };
         }
 
