@@ -3,14 +3,24 @@ This documentation is up to date with version: `2.4.0`
   
 This is a documentation on the internals of JokeAPI.  
 Use it to get to know how the API works and to learn about its quirks.  
-The following topics will teach you about how every aspect works:
+  
+Note that it can be incomplete or inaccurate due to how many times I change the API.  
+So I recommend the practice of learning by doing, additionally to what you find here.  
+  
+Please read through this file first.  
+Afterwards, refer to the following topics to learn about every aspect of the API:  
 
-- Home
+<br>
+
+### Table of Contents:
+- **Home**
     - [Important Information](#important-information)
     - [Knowledge Prerequisites](#knowledge-prerequisites)
     - [Technical Prerequisites](#technical-prerequisites)
     - [Miscellaneous Concepts](#miscellaneous-concepts)
-- Other Topics
+        - [Category Aliases](#category-aliases)
+        - [Filter Components](#filter-components)
+- **Other Topics**
     - [How to set up JokeAPI](./setup.md#readme)
     - [WIP - Execution Flow](./execution-flow.md#readme)
     - [WIP - Docs Compilation](./docs-compilation.md#readme)
@@ -28,10 +38,15 @@ The following topics will teach you about how every aspect works:
 <!-- #MARKER Important Info -->
 
 ## Important Information:
-- Settings Notation
-    > In this documentation you'll encounter a lot of values denoted like this: `settings.foo.bar`  
-    > These values are defined at a central point for easy modification. You'll find them in the JSON-like `settings` object in the file [settings.js](../../settings.js) in the root directory of JokeAPI.  
-    > The settings object can not be modified at runtime due to the usage of `Object.freeze()` - this prevents possible XSS-like exploits and just general inconsistencies.
+This section contains some very important information about how this documentation works.  
+It is probably vital for you to read this.
+
+<br>
+
+> ### Settings Notation
+> In this documentation you'll encounter a lot of values denoted like this: `settings.foo.bar`  
+> These values are defined at a central point for easy modification. You'll find them in the JSON-like `settings` object in the file [settings.js](../..settings.js) in the root directory of JokeAPI.  
+> The settings object can not be modified at runtime due to the usage of `Object.freeze()` - this prevents possible XSS-like exploits and just general inconsistencies.
 
 
 
@@ -95,18 +110,44 @@ These things are **optional** but strongly recommended.
 
 
 <br><br><br>
+
 <!-- #MARKER Misc Concepts -->
 
 ## Miscellaneous Concepts:
-### Category Aliases:
-> Category aliases were introduced when I really started to dislike the category name `Miscellaneous`, which I changed to `Misc`.  
-> In order not to break backwards compatibility though, `Miscellaneous` would have to still give the same jokes.  
+These are some miscellaneous concepts that I didn't feel like creating a separate file for.  
+You will probably get redirected to this section by the other files in this documentation.
+
+<br>
+
+> ### Category Aliases:
+> Category aliases were introduced when I really started to dislike the category name `Miscellaneous`, which I wanted to change to `Misc`  
+> In order not to break backwards compatibility though, `Miscellaneous` would have to still work.  
 > So I decided to kill two birds with one stone by implementing category aliases.  
 > Internally, they are resolved to one of the primary categories.  
+> Externally, they provide a synonymous category name that you can use if you don't like the default one.  
+>   
 > Example: The category `Miscellaneous` will be automatically converted to `Misc` by JokeAPI and will be treated as if the client used `Misc` in the first place.
+
+<br>
+
+> ### Filter Components:
+> The filter components are all of the parameters that can be set to filter out jokes.  
+> As of v2.4.0 there are these filter components:  
+> | Component | Defined in / settings node |
+> | --- | --- |
+> | Joke Category | `settings.jokes.possible.categories` |
+> | Category Aliases | `settings.jokes.possible.categoryAliases` |
+> | (Blacklist-) Flags | `settings.jokes.possible.flags` |
+> | (Response) Formats | `settings.jokes.possible.formats` |
+> | Joke Types | `settings.jokes.possible.types` |
+> | Joke Language | File at `settings.languages.langFilePath` |
+> | ID Range | Joke files - amount of items in `jokes` array |
 
 
 
 <br><br><br>
 
-**EOF, please see the other files at the top.**
+**> EOF, please see the other topics in the [table of contents](#table-of-contents) <**
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> <!-- padding to improve the #anchor links at the bottom -->

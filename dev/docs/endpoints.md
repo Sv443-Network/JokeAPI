@@ -55,12 +55,20 @@ This function gets passed a lot of parameters, which are essential in parsing an
 
 ## Endpoint Types:
 ### Data:
-[WIP]
+Data endpoints only return data, they don't accept it.  
+They are the most common type of endpoint.
+
+<br>
+
 ### Filter Component:
-[WIP]
+Filter component endpoints are also data endpoints, since they don't accept any submitted data.  
+Filter components are the different components that are used to filter out jokes. See [this section](./home.md#filter-components) for a better explanation.  
+
+<br>
 
 ### Submission:
-[WIP]
+A submission endpoint usually accepts data.  
+What it does with said data is up to the specific endpoint.
 
 <br><br><br>
 <!-- #MARKER Endpoint List -->
@@ -68,7 +76,7 @@ This function gets passed a lot of parameters, which are essential in parsing an
 ## Endpoint List:
 This is a list of all of JokeAPI's endpoints:
 
-<br><br><br><br>
+<br><br>
 
 <!--#MARKER Data endpoints -->
 ## Data Endpoints
@@ -78,7 +86,7 @@ The only way to modify the returned data is by modifying the URL (path or query 
   
 Additionally to all the information you see in this section, JokeAPI will *always* include a `timestamp` and an `error` property.
 
-<br><br>
+<br>
 
 > ### Categories
 > - URL: `/categories/`
@@ -90,7 +98,7 @@ Additionally to all the information you see in this section, JokeAPI will *alway
 > The list of categories is formed by concatenating `settings.jokes.possible.anyCategoryName` and `settings.jokes.possible.categories` into an array.  
 > The aliases are pulled from `settings.jokes.possible.categoryAliases`
 
-<br><br>
+<br>
 
 > ### Endpoints
 > - URL: `/endpoints/`
@@ -108,7 +116,7 @@ Additionally to all the information you see in this section, JokeAPI will *alway
 > The list of endpoints is created by iterating through every file inside `settings.endpoints.get.dirPath`  
 > If a file ends with `.js`, the `meta` object is extracted and appended to the list of endpoints which is eventually returned to the client.
 
-<br><br>
+<br>
 
 > ### Flags
 > - URL: `/flags/`
@@ -119,7 +127,7 @@ Additionally to all the information you see in this section, JokeAPI will *alway
 >   
 > The flags are pulled from `settings.jokes.possible.flags`
 
-<br><br>
+<br>
 
 > ### Formats
 > - URL: `/formats/`
@@ -130,7 +138,7 @@ Additionally to all the information you see in this section, JokeAPI will *alway
 >   
 > The formats are pulled from `settings.jokes.possible.formats`
 
-<br><br>
+<br>
 
 > ### Info
 > - URL: `/info/`
@@ -142,7 +150,7 @@ Additionally to all the information you see in this section, JokeAPI will *alway
 >   
 > I'm too lazy to list where all values are pulled from, so please just look at the file yourself (after the line `responseText = convertFileFormat.auto(format, { `)
 
-<br><br>
+<br>
 
 > ### Joke
 > - URL: `/joke/{CATEGORY||ALIAS}`
@@ -177,7 +185,7 @@ Additionally to all the information you see in this section, JokeAPI will *alway
 > If set to nothing or a value below `0`, it defaults to `1`.  
 > If set to a value above the maximum amount (defined in `settings.jokes.maxAmount` - usually 10), the value of `settings.jokes.maxAmount` is used.
 
-<br><br>
+<br>
 
 > ### LangCode
 > - URL: `/langcode/{LANGUAGE_NAME}`
@@ -193,7 +201,7 @@ Additionally to all the information you see in this section, JokeAPI will *alway
 > Fuzzy means that provided language doesn't have to be an exact match, it just has to be vaguely correct.  
 > Example: `egl1sh` would still be recognized as `English`, yielding the language code `en`
 
-<br><br>
+<br>
 
 > ### Languages
 > - URL: `/languages/`
@@ -212,7 +220,7 @@ Additionally to all the information you see in this section, JokeAPI will *alway
 >   
 > The list of all possible language codes is created from the file defined by `settings.languages.langFilePath`
 
-<br><br>
+<br>
 
 > ### Ping
 > - URL: `/ping/`
@@ -222,7 +230,7 @@ Additionally to all the information you see in this section, JokeAPI will *alway
 > This endpoint was created as an inexpensive way to test if JokeAPI is online.  
 > It's inexpensive because the returned data is very small (especially with `format=txt`) and the only real calculation done is file format conversion and translation.
 
-<br><br>
+<br>
 
 > ### Static
 > - URL: `/static/{FILE_NAME}`
@@ -257,7 +265,7 @@ These endpoints all accept data.
 They need to be called with the POST method (the PUT method is also supported for backwards compatibility, this might change though).  
 If no data is passed in the request body, the request will time out after the timeout specified in `settings.httpServer.submissionNoDataTimeout`
 
-<br><br>
+<br>
 
 > ### Submit
 > - URL: `/submit/`
@@ -273,7 +281,7 @@ If no data is passed in the request body, the request will time out after the ti
 > The current format version is set in `settings.jokes.jokesFormatVersion` and needs to be consistent with the property `info.formatVersion` in the joke files.  
 > This property was added since the format of jokes changed quite a lot throughout JokeAPI's updates.
 
-<br><br>
+<br>
 
 > ### Clear Data
 > - URL: `/clearData/`
@@ -281,8 +289,11 @@ If no data is passed in the request body, the request will time out after the ti
 > - Parameters: `format`, `lang`
 >   
 > This endpoints purpose is to delete all data that has been collected on the client that sent the request.  
-> Deleted data includes:  
-> - joke cache
+> It doesn't do anything with data submitted in the request body, the only processed information is the client's IP address.  
+> The IP address is used to delete the associated data.  
+>   
+> Data deleted by this endpoint includes:  
+> - Joke Cache
 >   
 > As of v2.4.0 it is not possible to specify which data should be deleted, this might be added later on.
 
