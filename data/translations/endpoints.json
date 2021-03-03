@@ -139,16 +139,16 @@
                 "ru": "Эта конечная точка служит статическому контенту, который необходим для страницы документации"
             }
         },
-        "clearJokeCache": {
+        "clearData": {
             "name": {
-                "en": "Clear Joke Cache",
-                "de": "Witz-Zwischenspeicher Leeren",
-                "ru": "Очистить кэш шуток"
+                "en": "Clear Data",
+                "de": "Daten Löschen",
+                "ru": "Удалить данные"
             },
             "desc": {
-                "en": "This endpoint clears the joke cache of the client that called it",
-                "de": "Dieser Endpunkt löscht den Witz-Zwischenspeicher des Clients, der ihn aufgerufen hat",
-                "ru": "Эта конечная точка очищает кэш шуток клиента, который ее вызвал"
+                "en": "This endpoint clears all collected data of the client that called it",
+                "de": "Dieser Endpunkt löscht alle gesammelten Daten des Clients, der ihn aufgerufen hat",
+                "ru": "Эта конечная точка удаляет все собранные данные с вызвавшего ее клиента"
             }
         }
     }

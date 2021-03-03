@@ -10,11 +10,11 @@ const resolveIp = require("../../resolveIp");
 
 
 /**
- * Clears the joke cache of the client that called this endpoint
+ * Clears all collected data of the client that called this endpoint
  */
 class ClearData extends SubmissionEndpoint {
     /**
-     * Clears the joke cache of the client that called this endpoint
+     * Clears all collected data of the client that called this endpoint
      */
     constructor()
     {
@@ -29,7 +29,7 @@ class ClearData extends SubmissionEndpoint {
             }
         };
 
-        super("clearJokeCache", meta);
+        super("clearData", meta);
     }
 
     /**
@@ -103,7 +103,7 @@ class ClearData extends SubmissionEndpoint {
      * Resolves with the amount of cleared entries, rejects with an error message
      * @param {string} ip The IP hash of the client
      * @param {string} [lang] Language code
-     * @returns {number}
+     * @returns {Promise<number, string>}
      */
     clearJokeCache(ip, lang)
     {
