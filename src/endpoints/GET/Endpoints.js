@@ -12,7 +12,7 @@ const settings = require("../../../settings");
 
 
 /** 
- * @typedef {object} EndpointObj
+ * @typedef {Object} EndpointObj
  * @prop {Endpoint.EndpointMeta} meta
  * @prop {string} pathName
  * @prop {string} displayName
@@ -50,7 +50,7 @@ class Endpoints extends Endpoint {
      * @param {http.IncomingMessage} req The HTTP server request
      * @param {http.ServerResponse} res The HTTP server response
      * @param {string[]} url URL path array gotten from the URL parser module
-     * @param {object} params URL query params gotten from the URL parser module
+     * @param {Object} params URL query params gotten from the URL parser module
      * @param {string} format The file format to respond with
      */
     call(req, res, url, params, format)

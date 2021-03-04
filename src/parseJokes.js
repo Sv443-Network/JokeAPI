@@ -25,11 +25,11 @@ const tr = require("./translate");
  */
 
 /**
- * @typedef {object} SingleJoke A joke of type single
+ * @typedef {Object} SingleJoke A joke of type single
  * @prop {JokeCategory} category The category of the joke
  * @prop {"single"} type The type of the joke
  * @prop {string} joke The joke itself
- * @prop {object} flags
+ * @prop {Object} flags
  * @prop {boolean} flags.nsfw Whether the joke is NSFW or not
  * @prop {boolean} flags.racist Whether the joke is racist or not
  * @prop {boolean} flags.religious Whether the joke is religiously offensive or not
@@ -45,7 +45,7 @@ const tr = require("./translate");
  * @prop {"twopart"} type The type of the joke
  * @prop {string} setup The setup of the joke
  * @prop {string} delivery The delivery of the joke
- * @prop {object} flags
+ * @prop {Object} flags
  * @prop {boolean} flags.nsfw Whether the joke is NSFW or not
  * @prop {boolean} flags.racist Whether the joke is racist or not
  * @prop {boolean} flags.religious Whether the joke is religiously offensive or not
@@ -56,14 +56,14 @@ const tr = require("./translate");
  */
 
 /**
- * @typedef {object} JokeSubmissionParams
+ * @typedef {Object} JokeSubmissionParams
  * @prop {boolean} formatVersion Version of the joke format
  * @prop {boolean} category The category of the joke
  * @prop {boolean} type The type of the joke
  * @prop {boolean} [joke] The actual joke [when type=single]
  * @prop {boolean} [setup] The setup of the joke [when type=twopart]
  * @prop {boolean} [delivery] The delivery of the joke [when type=twopart]
- * @prop {object} flags
+ * @prop {Object} flags
  * @prop {boolean} flags.nsfw Whether the joke is NSFW or not
  * @prop {boolean} flags.racist Whether the joke is racist or not
  * @prop {boolean} flags.religious Whether the joke is religiously offensive or not
@@ -73,7 +73,7 @@ const tr = require("./translate");
  */
 
 /**
- * @typedef {object} ValidationResult
+ * @typedef {Object} ValidationResult
  * @prop {boolean} valid Whether or not this joke's format is valid
  * @prop {string[]} errorStrings (Legacy) Array of error strings
  * @prop {JokeSubmissionParams|null} jokeParams An object describing all valid and invalid parameters - If set to `null`, the joke couldn't be parsed (invalid JSON)

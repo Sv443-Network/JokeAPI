@@ -17,14 +17,14 @@ var httpServer = require("../httpServer"); // needs to be re-loaded sometimes be
 unused("types:", _http);
 
 /**
- * @typedef {object} TranslatedStrings
+ * @typedef {Object} TranslatedStrings
  * @prop {string} lang Language code
  * @prop {string} text Translated text
  */
 
 /**
- * @typedef {object} EndpointMeta
- * @prop {object} usage How to use this endpoint
+ * @typedef {Object} EndpointMeta
+ * @prop {Object} usage How to use this endpoint
  * @prop {string} usage.method HTTP method
  * @prop {string[]} usage.supportedParams An array of supported URL parameters
  * @prop {boolean} [unlisted] Makes the `/endpoints/` endpoint ignore this endpoint
@@ -33,7 +33,7 @@ unused("types:", _http);
  */
 
 /**
- * @typedef {object} TranslationsObj
+ * @typedef {Object} TranslationsObj
  * @prop {TranslatedStrings[]} names Display name translations of this endpoint
  * @prop {TranslatedStrings[]} descriptions Description translations of this endpoint
  */
@@ -175,7 +175,7 @@ class Endpoint {
      * @param {_http.IncomingMessage} req The HTTP server request
      * @param {_http.ServerResponse} res The HTTP server response
      * @param {string[]} url URL path array gotten from the URL parser module
-     * @param {object} params URL query params gotten from the URL parser module
+     * @param {Object} params URL query params gotten from the URL parser module
      * @param {string} format The file format to respond with
      * @throws Throws a MissingImplementationError if this method was not overwritten
      */
@@ -190,7 +190,7 @@ class Endpoint {
      * Returns the language code, retrieved from a URL parameter object.  
      * If no language was specified in the `params`, returns the default language defined at `settings.languages.defaultLanguage` 
      * @static
-     * @param {object} params URL query params gotten from the URL parser module
+     * @param {Object} params URL query params gotten from the URL parser module
      * @returns {string}
      */
     static getLang(params)
@@ -205,7 +205,7 @@ class Endpoint {
      * @param {_http.ServerResponse} res
      * @param {string} format File format
      * @param {string} lang Language code
-     * @param {object} data JSON-compatible object - data to send to the client
+     * @param {Object} data JSON-compatible object - data to send to the client
      * @param {number} [statusCode] Status code (defaults to 200)
      */
     static respond(res, format, lang, data, statusCode)
@@ -248,7 +248,7 @@ class Endpoint {
      * @param {_http.ServerResponse} res
      * @param {string} format File format
      * @param {string} lang Language code
-     * @param {object} data JSON-compatible object - data to send to the client
+     * @param {Object} data JSON-compatible object - data to send to the client
      * @param {number} [statusCode] Status code (defaults to 200)
      */
     static tryRespondEncoded(req, res, format, lang, data, statusCode)

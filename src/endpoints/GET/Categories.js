@@ -8,13 +8,13 @@ const settings = require("../../../settings");
 
 
 /**
- * @typedef {object} CategoryDescriptionObj
+ * @typedef {Object} CategoryDescriptionObj
  * @prop {"Misc"|"Programming"|"Dark"|"Pun"|"Spooky"|"Christmas"} category
  * @prop {string} description
  */
 
 /**
- * @typedef {object} CatDescMember
+ * @typedef {Object} CatDescMember
  * @prop {CategoryDescriptionObj[]} en
  * @prop {CategoryDescriptionObj[]} de
  */
@@ -47,7 +47,7 @@ class Categories extends FilterComponentEndpoint {
      * @param {http.IncomingMessage} req The HTTP server request
      * @param {http.ServerResponse} res The HTTP server response
      * @param {string[]} url URL path array gotten from the URL parser module
-     * @param {object} params URL query params gotten from the URL parser module
+     * @param {Object} params URL query params gotten from the URL parser module
      * @param {string} format The file format to respond with
      */
     call(req, res, url, params, format)

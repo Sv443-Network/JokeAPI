@@ -33,7 +33,7 @@ class SubmissionEndpoint extends Endpoint {
      * @param {_http.IncomingMessage} req The HTTP server request
      * @param {_http.ServerResponse} res The HTTP server response
      * @param {string[]} url URL path array gotten from the URL parser module
-     * @param {object} params URL query params gotten from the URL parser module
+     * @param {Object} params URL query params gotten from the URL parser module
      * @param {string} format The file format to respond with
      * @param {string} data The raw data, as a string
      * @throws Throws a MissingImplementationError if this method was not overwritten

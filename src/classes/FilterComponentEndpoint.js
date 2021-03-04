@@ -47,7 +47,7 @@ class FilterComponentEndpoint extends Endpoint {
     /**
      * Returns all descriptions of this component
      * @param {string} lang Language code
-     * @returns {object|null} Returns `null` if no decsriptions were found
+     * @returns {Object|null} Returns `null` if no decsriptions were found
      */
     getComponentDescriptions(lang)
     {

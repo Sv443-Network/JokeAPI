@@ -13,11 +13,11 @@ const col = scl.colors.fg;
 
 
 /**
- * @typedef {object} AnalyticsData
+ * @typedef {Object} AnalyticsData
  * @prop {string} ipAddress
  * @prop {string[]} urlPath
- * @prop {object} urlParameters
- * @prop {object} [submission] Only has to be used on type = "submission"
+ * @prop {Object} urlParameters
+ * @prop {Object} [submission] Only has to be used on type = "submission"
  */
 
 /** @typedef {"success"|"docs"|"ratelimited"|"error"|"blacklisted"|"docsrecompiled"|"submission"} RequestType */

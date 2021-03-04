@@ -33,7 +33,7 @@ scl.unused(RateLimiterRes, Endpoint); // typedef only
 
 
 /**
- * @typedef {object} EpObject A cached endpoint
+ * @typedef {Object} EpObject A cached endpoint
  * @prop {string} name File name
  * @prop {Endpoint.EndpointMeta} meta Meta object
  * @prop {string} absPath Absolute path to endpoint class

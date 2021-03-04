@@ -22,6 +22,7 @@ Afterwards, refer to the following topics to learn about every aspect of the API
         - [Filter Components](#filter-components)
 - **Other Topics**
     - [How to set up JokeAPI](./setup.md#readme)
+    - [Code Style](./code-style.md#readme)
     - [WIP - Execution Flow](./execution-flow.md#readme)
     - [WIP - Docs Compilation](./docs-compilation.md#readme)
     - [Endpoints](./endpoints.md#readme)
