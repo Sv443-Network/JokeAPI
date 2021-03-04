@@ -11,6 +11,11 @@ const settings = require("../settings");
 
 const col = scl.colors.fg;
 
+/** Data that persists until JokeAPI is stopped */
+const persistentData = {
+    maxHeapUsage: 0
+};
+
 
 /**
  * @typedef {Object} AnalyticsData
@@ -171,22 +176,22 @@ function logRequest(type, additionalInfo, analyticsData)
 function initMsg(initTimestamp, initDurationMs, loadingIconState)
 {
     let lines = [];
-    let initMs = initDurationMs ? initDurationMs : (Date.now() - initTimestamp).toFixed(0);
+    let initMs = initDurationMs ? initDurationMs : Math.round(Date.now() - initTimestamp);
 
     const heapStats = v8.getHeapStatistics();
     const hsMax = heapStats.heap_size_limit;
     const hsVal = heapStats.used_heap_size;
-    const heapPercent = scl.mapRange(hsVal, 0, hsMax, 0, 100).toFixed(2);
-    
-    let heapColor = col.green;
-    const brBlack = "\x1b[1m\x1b[30m";
-    
-    if(heapPercent >= 80)
-        heapColor = col.red;
-    if(heapPercent >= 60)
-        heapColor = col.yellow;
+    const heapPercent = parseFloat(scl.mapRange(hsVal, 0, hsMax, 0, 100).toFixed(2));
 
-    
+    if(settings.debug.dashboardEnabled && heapPercent > persistentData.maxHeapUsage)
+        persistentData.maxHeapUsage = heapPercent;
+
+    const heapColor = getHeapColor(heapPercent);
+    const maxHeapColor = settings.debug.dashboardEnabled ? getHeapColor(persistentData.maxHeapUsage) : null;
+
+    const brBlack = "\x1b[1m\x1b[30m";
+
+
     // loading icon
     let loadingIcon = "";
     if(typeof loadingIconState === "number")
@@ -222,6 +227,8 @@ function initMsg(initTimestamp, initDurationMs, loadingIconState)
     }
     
 
+    let maxHeapText = settings.debug.dashboardEnabled ? ` (max: ${maxHeapColor}${persistentData.maxHeapUsage}%${col.rst})` : "";
+
     lines.push(`\n${loadingIcon}${col.blue}[${logger.getTimestamp(" - ")}] ${col.rst}- ${col.blue}${settings.info.name} v${settings.info.version}${col.rst}\n`);
     lines.push(` ${brBlack}├─${col.rst} Registered and validated ${col.green}${parseJokes.jokeCount}${col.rst} jokes from ${col.green}${languages.jokeLangs().length}${col.rst} languages\n`);
     lines.push(` ${brBlack}├─${col.rst} Found ${col.green}${settings.jokes.possible.categories.length}${col.rst} categories, ${col.green}${settings.jokes.possible.flags.length}${col.rst} flags, ${col.green}${settings.jokes.possible.formats.length}${col.rst} formats\n`);
@@ -232,7 +239,7 @@ function initMsg(initTimestamp, initDurationMs, loadingIconState)
     lines.push(` ${brBlack}├─${col.rst} Joke Cache database ${jokeCache.connectionInfo.connected ? `${col.green}connected` : `${col.red}not connected`}${col.rst}\n`);
     lines.push(` ${brBlack}├─${col.rst} HTTP${settings.httpServer.ssl.enabled ? "S" : ""} server is listening at ${col.green}${getLocalURL()}${col.rst} (SSL ${settings.httpServer.ssl.enabled ? `${col.green}enabled${col.rst}` : `${col.yellow}disabled${col.rst}`})\n`);
     lines.push(` ${brBlack}├─${col.rst} Initialization took ${col.green}${initMs}ms${initMs == 69 ? " (nice)" : ""}${col.rst}\n`);
-    lines.push(` ${brBlack}└─${col.rst} Heap Usage: ${heapColor}${heapPercent}%${col.rst}\n`);
+    lines.push(` ${brBlack}└─${col.rst} ${!settings.debug.dashboardEnabled ? "Initial " : ""}Heap Usage: ${heapColor}${heapPercent}%${col.rst}${maxHeapText}\n`);
 
     let dbIntervalSeconds = settings.debug.dashboardInterval / 1000;
     if(dbIntervalSeconds % 1 != 0)
@@ -281,6 +288,18 @@ function initMsg(initTimestamp, initDurationMs, loadingIconState)
 function getLocalURL()
 {
     return `${settings.httpServer.ssl.enabled ? "https" : "http"}://127.0.0.1:${settings.httpServer.port}/`;
+}
+
+function getHeapColor(percentage)
+{
+    let retColor = col.green;
+
+    if(percentage >= 80)
+        retColor = col.red;
+    else if(percentage >= 60)
+        retColor = col.yellow;
+
+    return retColor;
 }
 
 module.exports = logRequest;
