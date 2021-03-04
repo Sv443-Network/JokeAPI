@@ -1,6 +1,10 @@
 [<< Home](./home.md#readme)
-# Code Style [WIP]
-I've changed my code style quite a lot throughout the years and so you'll find a very unique style of code used in JokeAPI.
+# Code Style
+I've changed my code style quite a lot throughout the years and so you'll find a very unique style of code used in JokeAPI.  
+In this document I will try to explain it.  
+  
+Please adhere to this style, if you edit files I have created.  
+If you have created a file yourself, you can use your own style.
 
 <br>
 
@@ -8,7 +12,8 @@ I've changed my code style quite a lot throughout the years and so you'll find a
 This describes the general style of the code.  
   
 > ### Always add semicolons
-> Yes, JavaScript automatically adds semicolons. But still, I've gotten used to always adding them.
+> Yes, JavaScript automatically adds semicolons. But still, I've gotten used to always adding them.  
+> If you are inside a file *you* have created, feel free to omit them.
 > ```js
 > let x = 3;
 > 
@@ -21,7 +26,7 @@ This describes the general style of the code.
 
 > ### Double quotes for strings
 > This is pretty controversial, but I always use double quotes (`"`) for simple strings.  
-> Using single quotes (`'`) is fine, but only in files you have created.
+> Using single quotes (`'`) is fine, but only in files *you* have created.
 > ```js
 > let myString = "something";
 > ```
@@ -98,7 +103,7 @@ This describes the general style of the code.
 
 
 
-## Always add JSDoc comments:
+## JSDoc Comments:
 JSDoc is a style of comments that describe a part of the code, like a function, method, variable or class.  
 It's pretty difficult to get used to at first, but it's a great way to comment code, especially for a dynamically typed language like JavaScript.  
 [This page can be used to learn about JSDoc.](https://devdocs.io/jsdoc/)  
@@ -209,7 +214,7 @@ console.log(Person.getName(sven)); // "Sven"
 
 
 
-## Use ES6 Classes:
+## ES6 Classes:
 Use ES6 classes as much as possible.  
 Object oriented programming (OOP) is pretty cool, especially when you need multiple objects that have the same base functionality.  
   
