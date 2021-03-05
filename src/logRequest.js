@@ -248,7 +248,7 @@ function initMsg(initTimestamp, initDurationMs, loadingIconState)
     lines.push(`${brBlack}${!settings.debug.dashboardEnabled ? "" : `  • Dashboard mode enabled (${dbIntervalSeconds}s interval)\n`}${col.rst}`);
 
     // GDPR compliance notice
-    if(!settings.httpServer.ipHashing.enabled || settings.jokeCaching.expiryHours <= 0)
+    if(!isGdprCompliant())
         lines.push(`${col.yellow}  • Not compliant with the GDPR${col.rst}\n`);
 
     lines.push("\n");
@@ -285,11 +285,20 @@ function initMsg(initTimestamp, initDurationMs, loadingIconState)
     }
 }
 
+/**
+ * Returns the local URL of JokeAPI depending on a few settings
+ * @returns {string}
+ */
 function getLocalURL()
 {
     return `${settings.httpServer.ssl.enabled ? "https" : "http"}://127.0.0.1:${settings.httpServer.port}/`;
 }
 
+/**
+ * Returns a color value depending on an input percentage
+ * @param {number} percentage Float between 0 and 100
+ * @returns {string}
+ */
 function getHeapColor(percentage)
 {
     let retColor = col.green;
@@ -300,6 +309,15 @@ function getHeapColor(percentage)
         retColor = col.yellow;
 
     return retColor;
+}
+
+/**
+ * Checks if JokeAPI is GDPR compliant
+ * @returns {boolean}
+ */
+function isGdprCompliant()
+{
+    return (!settings.httpServer.ipHashing.enabled || settings.jokeCaching.expiryHours <= 0);
 }
 
 module.exports = logRequest;
