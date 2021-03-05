@@ -9,7 +9,7 @@ const Endpoint = require("./Endpoint");
 unused("types:", _http);
 
 /**
- * Base class for all submission endpoint (POST / PUT)
+ * Base class for all submission endpoints POST / (PUT)
  */
 class SubmissionEndpoint extends Endpoint {
     /**

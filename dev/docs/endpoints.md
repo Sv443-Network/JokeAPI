@@ -8,6 +8,9 @@ If you need an explanation of what an endpoint is, [this should help you.](https
 - [How JokeAPI's endpoints work](#how-jokeapis-endpoints-work)
 - [Location and execution of endpoints](#location-and-execution-of-endpoints)
 - [Types of Endpoints](#endpoint-types)
+    - [Data Endpoints](#data-endpoints)
+    - [Filter Component Endpoints](#filter-component-endpoints)
+    - [Submission Endpoints](#submission-endpoints)
 - [Endpoint List](#endpoint-list)
     - [Data Endpoints](#data-endpoints)
         - [Categories](#categories)
@@ -54,21 +57,31 @@ This function gets passed a lot of parameters, which are essential in parsing an
 <!-- #MARKER Endpoint Types -->
 
 ## Endpoint Types:
-### Data:
+### Data Endpoints:
 Data endpoints only return data, they don't accept it.  
-They are the most common type of endpoint.
+They are the most common type of endpoint.  
+  
+The base class of data endpoints is `Endpoint`, located at [`./src/classes/Endpoint.js`](../../src/classes/Endpoint.js)  
+Inheritance is as follows: `Endpoint -> <Xyz>`
 
 <br>
 
-### Filter Component:
+### Filter Component Endpoints:
 Filter component endpoints are also data endpoints, since they don't accept any submitted data.  
 Filter components are the different components that are used to filter out jokes. See [this section](./home.md#filter-components) for a better explanation.  
+  
+The base class of filter component endpoints is `FilterComponentEndpoint`, located at [`./src/classes/FilterComponentEndpoint.js`](../../src/classes/FilterComponentEndpoint.js)  
+Inheritance is as follows: `Endpoint -> FilterComponentEndpoint -> <Xyz>`
 
 <br>
 
-### Submission:
-A submission endpoint usually accepts data.  
-What it does with said data is up to the specific endpoint.
+### Submission Endpoints:
+A submission endpoint usually accepts data in some way or another.  
+Usually, data can be transferred with the explicit request body. But implicit data like headers could also be used.  
+What is done with said data is up to the implementation in the endpoint's class.  
+  
+The base class of submission endpoints is `SubmissionEndpoint`, located at [`./src/classes/SubmissionEndpoint.js`](../../src/classes/SubmissionEndpoint.js)  
+Inheritance is as follows: `Endpoint -> SubmissionEndpoint -> <Xyz>`
 
 <br><br><br>
 <!-- #MARKER Endpoint List -->
@@ -92,6 +105,7 @@ Additionally to all the information you see in this section, JokeAPI will *alway
 > - URL: `/categories/`
 > - Method: `GET`
 > - Parameters: `format`, `lang`
+> - Settings Node: `settings.jokes.possible.categories`, `settings.jokes.possible.categoryAliases`
 >   
 > This endpoint returns a list of all joke categories and [category aliases.](./home.md#category-aliases)  
 >   
@@ -104,6 +118,7 @@ Additionally to all the information you see in this section, JokeAPI will *alway
 > - URL: `/endpoints/`
 > - Method: `GET`
 > - Parameters: `format`
+> - Settings Node: `settings.endpoints`
 >   
 > This endpoint returns a list of all endpoints (such endpoint).  
 > The returned list of endpoints is basically just a list of the endpoint's `meta` object export.  
@@ -122,6 +137,7 @@ Additionally to all the information you see in this section, JokeAPI will *alway
 > - URL: `/flags/`
 > - Method: `GET`
 > - Parameters: `format`, `lang`
+> - Settings Node: `settings.jokes.possible.flags`
 >   
 > This endpoint returns a list of all blacklist flags and a description of what they stand for.  
 >   
@@ -133,6 +149,7 @@ Additionally to all the information you see in this section, JokeAPI will *alway
 > - URL: `/formats/`
 > - Method: `GET`
 > - Parameters: `format`, `lang`
+> - Settings Node: `settings.jokes.possible.formats`
 >   
 > This endpoint returns a list of all file formats.  
 >   
@@ -144,6 +161,7 @@ Additionally to all the information you see in this section, JokeAPI will *alway
 > - URL: `/info/`
 > - Method: `GET`
 > - Parameters: `format`, `lang`
+> - Settings Node: `settings.info`, `settings.jokes` and more
 >   
 > It acts as a central point for most of JokeAPI's information.  
 > It also contains some values that already have a dedicated endpoint.  
@@ -156,6 +174,7 @@ Additionally to all the information you see in this section, JokeAPI will *alway
 > - URL: `/joke/{CATEGORY||ALIAS}`
 > - Method: `GET`
 > - Parameters: `safe-mode`, `format`, `blacklistFlags`, `type`, `contains`, `idRange`, `lang`, `amount`
+> - Settings Node: `settings.jokes`
 >   
 > Now this endpoint is a chonker.  
 > The URL must contain a valid category name or [category alias](./home.md#category-aliases) (case insensitive).  
@@ -191,6 +210,7 @@ Additionally to all the information you see in this section, JokeAPI will *alway
 > - URL: `/langcode/{LANGUAGE_NAME}`
 > - Method: `GET`
 > - Parameters: `format`, `lang`
+> - Settings Node: `settings.languages`
 >   
 > This endpoint is used to get the two character [ISO 639-1 / Alpha-2](https://en.wikipedia.org/wiki/ISO_639-1) language code.  
 > The name of the language has to be provided in the URL path.  
@@ -207,6 +227,7 @@ Additionally to all the information you see in this section, JokeAPI will *alway
 > - URL: `/languages/`
 > - Method: `GET`
 > - Parameters: `format`, `lang`
+> - Settings Node: `settings.languages`
 >   
 > This endpoint returns a list of all joke and system languages and a list of all possible language codes.  
 > It also returns the default language code (defined in `settings.languages.defaultLanguage` - usually `en`).  
@@ -226,6 +247,7 @@ Additionally to all the information you see in this section, JokeAPI will *alway
 > - URL: `/ping/`
 > - Method: `GET`
 > - Parameters: `format`, `lang`
+> - Settings Node: none
 >   
 > This endpoint was created as an inexpensive way to test if JokeAPI is online.  
 > It's inexpensive because the returned data is very small (especially with `format=txt`) and the only real calculation done is file format conversion and translation.
@@ -236,6 +258,7 @@ Additionally to all the information you see in this section, JokeAPI will *alway
 > - URL: `/static/{FILE_NAME}`
 > - Method: `GET`
 > - Parameters: none
+> - Settings Node: `settings.documentation`
 >   
 > This endpoint is special. It is not listed on the `/endpoints/` endpoint and is mainly used by JokeAPI's documentation.  
 > It serves static content, which, contrary to the semi-dynamic documentation, isn't modified by JokeAPI.  
@@ -269,8 +292,9 @@ If no data is passed in the request body, the request will time out after the ti
 
 > ### Submit
 > - URL: `/submit/`
-> - Method: `POST`
+> - Method: `POST`, (`PUT`)
 > - Parameters: none
+> - Settings Node: `settings.jokes.submissions`
 >   
 > This endpoint is used to submit a joke.  
 > JokeAPI will save the joke for the API maintainer to check it out and add it to the official joke list.  
@@ -285,18 +309,32 @@ If no data is passed in the request body, the request will time out after the ti
 
 > ### Clear Data
 > - URL: `/clearData/`
-> - Method: `POST`
+> - Method: `POST`, (`PUT`)
 > - Parameters: `format`, `lang`
+> - Settings Node: `settings.jokeCaching`
 >   
 > This endpoints purpose is to delete all data that has been collected on the client that sent the request.  
 > It doesn't do anything with data submitted in the request body, the only processed information is the client's IP address.  
 > The IP address is used to delete the associated data.  
+>   
+> The endpoint is in direct contact with the joke cache SQL database / table.  
+> Connection settings are set in `settings.sql` and in the [`.env`](../../.env) file.
 >   
 > Data deleted by this endpoint includes:  
 > - Joke Cache
 >   
 > As of v2.4.0 it is not possible to specify which data should be deleted, this might be added later on.
 
+<br>
+
+> ### Restart
+> - URL: `/restart/`
+> - Method: `POST`, (`PUT`)
+> - Parameters: none
+> - Settings: [`.env`](../../.env) file
+>   
+> This endpoint can be used to remotely restart JokeAPI.  
+> The only thing it accepts is the restart token defined in the [`.env`](../../.env) file.  
 
 
 <br><br><br><br>

@@ -317,7 +317,7 @@ function getHeapColor(percentage)
  */
 function isGdprCompliant()
 {
-    return (!settings.httpServer.ipHashing.enabled || settings.jokeCaching.expiryHours <= 0);
+    return !(!settings.httpServer.ipHashing.enabled || settings.jokeCaching.expiryHours <= 0);
 }
 
 module.exports = logRequest;

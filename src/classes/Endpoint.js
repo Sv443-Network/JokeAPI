@@ -210,13 +210,29 @@ class Endpoint {
      */
     static respond(res, format, lang, data, statusCode)
     {
+        if(!(res instanceof _http.ServerResponse))
+            throw new TypeError(`Parameter "res" is not an instance of "http.ServerResponse"`);
+
+        if(typeof format !== "string")
+            throw new TypeError(`Parameter "format" is not of type "string"`);
+
+        if(!isValidLang(lang))
+            throw new TypeError(`Parameter "lang" is not a valid language code`);
+
+        if(typeof data !== "object")
+            throw new TypeError(`Parameter "data" is not of type "object"`);
+
+        if(statusCode != undefined && typeof statusCode !== "number")
+            throw new TypeError(`Parameter "statusCode" was set but is not of type "number"`);
+
+
         const responseText = convertFileFormat.auto(format, data, lang);
 
         statusCode = parseInt(statusCode);
 
         if(typeof statusCode != "number" || isNaN(statusCode) || statusCode < 100)
             statusCode = 200;
-    
+
         return http.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format), statusCode);
     }
 
@@ -237,14 +253,14 @@ class Endpoint {
 
         if(typeof statusCode != "number" || isNaN(statusCode) || statusCode < 100)
             statusCode = 200;
-    
+
         return http.pipeFile(res, filePath, mimeType, statusCode);
     }
 
     /**
      * Sends an encoded response to the client - Runs file format auto-conversion, tries to encode, then uses httpServer.pipeString()
      * @static
-     * @param {_http.ClientRequest} req
+     * @param {_http.IncomingMessage} req
      * @param {_http.ServerResponse} res
      * @param {string} format File format
      * @param {string} lang Language code
@@ -262,7 +278,7 @@ class Endpoint {
 
         if(typeof statusCode != "number" || isNaN(statusCode) || statusCode < 100)
             statusCode = 200;
-    
+
         return httpServer.tryServeEncoded(req, res, responseText, parseURL.getMimeTypeFromFileFormatString(format), statusCode);
     }
 
@@ -275,7 +291,7 @@ class Endpoint {
     static getTranslations(pathName)
     {
         // const endpointsTrFile = require("../data/translations/endpoints.json");
-        
+
         /** @type {TranslationsObj} */
         let translations = {
             names: [],
