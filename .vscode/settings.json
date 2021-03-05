@@ -1,4 +1,5 @@
 {
+    "highlight.regexFlags": "g",
     "highlight.regexes": { // REQUIRES EXTENSION: fabiospampinato.vscode-highlight
         "(((jsl|scl)\\.)?unused\\([a-zA-Z_,\\[\\]\\s\\-\":.]+\\);*)": [ // jsl.unused([some_var, some_other_var]); or scl.unused(xy);
             {
@@ -6,12 +7,19 @@
                 "color": "#f88"
             }
         ],
+        "(TODO:?)": [ // TODO: or TODO but not todo
+            {
+                "backgroundColor": "#cd5",
+                "color": "#000",
+                "overviewRulerColor": "#cd5"
+            }
+        ],
         "(#MARKER)": [ // #MARKER test
             {
-                "backgroundColor": "#f41",
+                "backgroundColor": "#920",
                 "color": "#fff",
                 "isWholeLine": true,
-                "overviewRulerColor": "#f41"
+                "overviewRulerColor": "#920"
             }
         ],
         "(#SECTION ([^\\S\\r\\n]*[\\w,.\\-_&]+)*[:]*)": [ // #SECTION test, 123 & foo
@@ -21,7 +29,7 @@
                 "overviewRulerColor": "#44f"
             }
         ],
-        "(#DEBUG#)": [ // #DEBUG#
+        "(#DEBUG#?)": [ // #DEBUG# or #DEBUG
             {
                 "backgroundColor": "#ff0",
                 "color": "blue",
@@ -51,6 +59,7 @@
     },
     "npm-scripts.showStartNotification": false,
 
+    // REQUIRES EXTENSION: coenraads.bracket-pair-colorizer-2
     "bracket-pair-colorizer-2.colors": [
         "#0F6A8F",
         "#659061",
@@ -65,10 +74,5 @@
     "files.exclude": {         // hide files so they can't be opened in the IDE
         "docs/compiled": true, // to prevent accidentally changing the compiled documentation to only have it be overridden after the next compile
         "dev/madge": true,     // the files don't need to be modified, they only serve as a distraction
-    },
-
-    "markdownlint.config": {
-        "MD033": false,
-        "MD012": false
     }
 }
