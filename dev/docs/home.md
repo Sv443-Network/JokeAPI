@@ -32,6 +32,7 @@ Afterwards, refer to the following topics to learn about every aspect of the API
     - [WIP - Lists](./lists.md#readme)
     - [WIP - Joke Submissions](./joke-submissions.md#readme)
     - [WIP - Joke Caching](./joke-caching.md#readme)
+    - [Legacy / Deprecated Features](./legacy-features.md#readme)
 
 
 

@@ -25,8 +25,9 @@ const { RateLimiterMemory, RateLimiterRes } = require("rate-limiter-flexible");
 const tr = require("./translate");
 const exists = require("./exists");
 const Endpoint = require("./classes/Endpoint");
+const SubmissionEndpoint = require("./classes/SubmissionEndpoint");
 
-scl.unused(RateLimiterRes, Endpoint); // typedef only
+scl.unused("types:", RateLimiterRes, Endpoint, SubmissionEndpoint);
 
 
 // TODO: implement submission endpoints like /submit and /clearData
@@ -45,8 +46,13 @@ function init()
 {
     debug("HTTP", "Starting HTTP server...");
     return new Promise((resolve, reject) => {
-        /** @type {EpObject[]} */
-        let endpoints = [];
+        /** @type {EpObject[]} Data endpoints */
+        let dataEndpoints = [];
+
+        /** @type {EpObject[]} Submission endpoints */
+        let submissionEndpoints = [];
+
+
         /** Whether or not the HTTP server could be initialized */
         let httpServerInitialized = false;
 
@@ -217,7 +223,7 @@ function init()
                         if(!scl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "favicon.ico")
                             return pipeFile(res, settings.documentation.faviconPath, "image/x-icon", 200);
 
-                        endpoints.forEach( /** @param {EpObject} ep Endpoint matching request URL */ async (ep) => {
+                        dataEndpoints.forEach( /** @param {EpObject} ep Endpoint matching request URL */ async (ep) => {
                             if(ep.pathName == requestedEndpoint)
                             {
                                 if(ep.meta.usage.method == "GET")
@@ -323,7 +329,7 @@ function init()
                     }
                 }
                 //#SECTION PUT / POST
-                else if(req.method === "PUT" || req.method === "POST")
+                else if(req.method === "POST" || (settings.legacy.submissionEndpointsPutMethod && req.method === "PUT"))
                 {
                     let requestedEndpoint = "";
                     if(!scl.isArrayEmpty(urlPath))
@@ -335,7 +341,7 @@ function init()
                     }, settings.httpServer.submissionNoDataTimeout);
 
 
-                    endpoints.forEach( /** @param {EpObject} ep Endpoint matching request URL */ async (ep) => {
+                    submissionEndpoints.forEach( /** @param {EpObject} ep Endpoint matching request URL */ async (ep) => {
                         if(ep.pathName == requestedEndpoint && ["POST", "PUT"].includes(ep.meta.usage.method))
                         {
                             // let postRateLimited = await rlPost.get(ip);
@@ -468,7 +474,7 @@ function init()
         };
 
         //#SECTION register endpoints
-        const registerEndpoints = (folderPath) => {
+        const registerDataEndpoints = (folderPath) => {
             return new Promise((pRes) => {
                 fs.readdir(folderPath, (err1, files) => {
                     if(err1)
@@ -484,9 +490,44 @@ function init()
                         if(fs.statSync(endpointFilePath).isFile())
                         {
                             const EndpointClass = require(endpointFilePath);
+                            /** @type {Endpoint} */
                             let instance = new EndpointClass();
         
-                            endpoints.push({
+                            dataEndpoints.push({
+                                name: fileName,
+                                meta: instance.getMeta(),
+                                absPath: endpointFilePath,
+                                pathName: instance.getPathName(),
+                                instance
+                            });
+                        }
+                    });
+
+                    return pRes();
+                });
+            });
+        };
+        
+        const registerSubmissionEndpoints = (folderPath) => {
+            return new Promise((pRes) => {
+                fs.readdir(folderPath, (err1, files) => {
+                    if(err1)
+                        return reject(`Error while reading the endpoints directory: ${err1}`);
+        
+                    files.forEach(file => {
+                        let fileName = file.split(".");
+                        fileName.pop();
+                        fileName = fileName.length > 1 ? fileName.join(".") : fileName[0];
+        
+                        let endpointFilePath = path.resolve(`${folderPath}${file}`);
+        
+                        if(fs.statSync(endpointFilePath).isFile())
+                        {
+                            const EndpointClass = require(endpointFilePath);
+                            /** @type {SubmissionEndpoint} */
+                            let instance = new EndpointClass();
+        
+                            submissionEndpoints.push({
                                 name: fileName,
                                 meta: instance.getMeta(),
                                 absPath: endpointFilePath,
@@ -502,12 +543,13 @@ function init()
         };
 
         let promises = [
-            registerEndpoints(settings.endpoints.get.dirPath),
-            registerEndpoints(settings.endpoints.post.dirPath)
+            registerDataEndpoints(settings.endpoints.get.dirPath),
+            registerSubmissionEndpoints(settings.endpoints.post.dirPath)
         ];
 
+
+        //#MARKER call HTTP server init
         Promise.all(promises).then(() => {
-            //#MARKER call HTTP server init
             initHttpServer();
         }).catch(err => {
             return reject(err);

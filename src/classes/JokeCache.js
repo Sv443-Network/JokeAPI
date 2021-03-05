@@ -136,7 +136,7 @@ class JokeCache {
      */
     static isValidClientIpHash(clientIpHash)
     {
-        return (typeof clientIpHash == "string" && clientIpHash.length == 64 && clientIpHash.match(settings.jokeCaching.ipHashRegex));
+        return (typeof clientIpHash == "string" && clientIpHash.length == 64 && clientIpHash.match(settings.httpServer.ipHashing.hashRegex));
     }
 }
 

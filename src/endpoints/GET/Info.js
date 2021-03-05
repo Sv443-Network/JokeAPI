@@ -1,6 +1,6 @@
 const scl = require("svcorelib");
 const parseJokes = require("../../parseJokes");
-const languages = require("./Languages");
+const languages = require("../../languages");
 const settings = require("../../../settings");
 const translate = require("../../translate");
 
@@ -68,6 +68,7 @@ class Info extends Endpoint {
             responseObj = {
                 "error": false,
                 "version": settings.info.version,
+                "versionInt": settings.info.versionInt,
                 "jokes":
                 {
                     "totalCount": totalJokesCount,
@@ -87,9 +88,18 @@ class Info extends Endpoint {
         }
         else if(format == "xml")
         {
+            let versionIntNames = [ "Major", "Minor", "Patch" ];
+            let versionIntXml = {};
+
+            settings.info.versionInt.forEach((ver, i) => {
+                let vName = versionIntNames[i] || "Other";
+                versionIntXml[vName] = ver;
+            });
+
             responseObj = {
                 "error": false,
                 "version": settings.info.version,
+                "versionInt": versionIntXml,
                 "jokes":
                 {
                     "totalCount": totalJokesCount,

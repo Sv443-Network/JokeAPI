@@ -161,9 +161,10 @@ const settings = {
         },
         /** IP hashing settings */
         ipHashing: {
-            enabled: true,       // hashes all IP addresses. If set to false, JokeAPI is not GDPR compliant anymore!
-            algorithm: "sha256", // the algorithm of the hash - available algorithms depend on the OpenSSL version installed on the machine (can be listed with "openssl list -digest-algorithms")
-            digest: "hex",       // the output format of the hash - can be "base64", "hex" or "latin1"
+            enabled: true,                  // hashes all IP addresses. If set to false, JokeAPI is not GDPR compliant anymore!
+            algorithm: "sha256",            // the algorithm of the hash - available algorithms depend on the OpenSSL version installed on the machine (can be listed with "openssl list -digest-algorithms")
+            digest: "hex",                  // the output format of the hash - can be "base64", "hex" or "latin1"
+            hashRegex: /^[0-9a-fA-F]{64}$/, // regex to validate an IP hash (exactly 64 hexadecimal chars)
         },
         /** Encoding settings */
         encodings: {
@@ -236,8 +237,8 @@ const settings = {
         dirPath: "./data/sql/",    // path to the analytics directory - needs trailing slash
         sqlTableName: "analytics", // name of the SQL table
     },
-    /** General settings for everything related to the SQL database */
-    sql: { // (login credentials are set in the .env file)
+    /** General settings for everything related to the SQL database (login credentials are set in the .env file) */
+    sql: {
         host: "localhost",   // IP address to the DB host - default for local device is "localhost"
         database: "jokeapi", // the name of the DB
         port: 3306,          // the port of the DB - default is 3306
@@ -266,8 +267,11 @@ const settings = {
     jokeCaching: {
         tableName: "joke_cache",                             // table name of the joke cache DB table
         createTableFile: "./data/sql/create_joke_cache.sql", // file that contains SQL code to create the cache table
-        ipHashRegex: /^[0-9a-fA-F]{64}$/,                    // regex to validate an IP hash (hexadecimal, exactly 64 chars)
         expiryHours: 96,                                     // amount of hours after which the entire joke cache of a client is cleared - set to 0 or less to disable (makes JokeAPI GDPR non-compliant!)
+    },
+    /** Legacy features that might be deprecated soon */
+    legacy: {
+        submissionEndpointsPutMethod: true,  // whether or not submission endpoints should also be able to be called with the PUT method
     }
 }
 
