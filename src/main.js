@@ -21,6 +21,7 @@ const languages = require("./languages");
 const translate = require("./translate");
 const meter = require("./meter");
 const jokeCache = require("./jokeCache");
+const parseURL = require("./parseURL");
 
 const col = jsl.colors.fg;
 process.debuggerActive = jsl.inDebugger();
@@ -44,50 +45,54 @@ const initAll = () => {
     let initPromises = [];
     let initStages = [
         {
-            name: "Initializing languages",
+            name: "Languages",
             fn: languages.init
         },
         {
-            name: "Initializing translations",
+            name: "Translations",
             fn: translate.init
         },
         {
-            name: "Initializing joke parser",
+            name: "Joke parser",
             fn: parseJokes.init
         },
         {
-            name: "Initializing lists",
+            name: "Lists",
             fn: lists.init
         },
         {
-            name: "Initializing documentation",
+            name: "Documentation",
             fn: docs.init
         },
         {
-            name: "Initializing authorization module",
+            name: "Authorization module",
             fn: auth.init
         },
         {
-            name: "Initializing HTTP server",
+            name: "URL parser",
+            fn: parseURL.init
+        },
+        {
+            name: "HTTP server",
             fn: httpServer.init
         },
         {
-            name: "Initializing analytics module",
+            name: "Analytics module",
             fn: analytics.init
         },
         {
-            name: "Initializing Joke Cache",
+            name: "Joke Cache",
             fn: jokeCache.init
         },
         {
-            name: "Initializing pm2 meter",
+            name: "Pm2 meter",
             fn: meter.init
         }
     ];
 
     let pb;
     if(!noDbg && !settings.debug.progressBarDisabled)
-        pb = new jsl.ProgressBar(initStages.length, initStages[0].name);
+        pb = new jsl.ProgressBar(initStages.length, `Initializing ${initStages[0].name}`);
 
     initStages.forEach(stage => {
         initPromises.push(stage.fn);

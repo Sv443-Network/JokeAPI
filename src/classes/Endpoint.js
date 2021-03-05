@@ -80,7 +80,7 @@ class Endpoint {
         /** @type {string[]} Positional URL path arguments - is an empty array if not set - override in the subclass' constructor if needed */
         this.positionalArguments = [];
 
-        debug("Endpoint_Base", `Instantiated endpoint at /${pathName}/`);
+        debug("Endpoint", `Instantiated endpoint at /${pathName}/ (method: ${this.meta.usage.method})`);
     }
 
     //#MARKER "normal" methods

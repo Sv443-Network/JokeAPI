@@ -22,7 +22,7 @@ class SubmissionEndpoint extends Endpoint {
     {
         super(pathName, meta);
 
-        debug("SubmissionEndpoint_Base", `Instantiated submission endpoint at /${pathName}/`);
+        debug("SubmissionEndpoint", `Instantiated submission endpoint at /${pathName}/`);
     }
 
     //#MARKER call

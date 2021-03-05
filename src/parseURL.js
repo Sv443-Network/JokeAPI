@@ -8,22 +8,57 @@ const settings = require("../settings");
 
 /**
  * @typedef {Object} ParsedUrl
- * @prop {null} error If not errored, this will be `null`, else it will contain a string with the error message
- * @prop {String} initialURL The requested URL
- * @prop {(Array<String>|null)} pathArray If empty, this will be `null`, else it will be an array of the URL path
- * @prop {(Object|null)} queryParams If empty, this will be `null`, else it will be an object of query parameters
+ * @prop {null|string} error If not errored, this will be `null`, else it will contain a string with the error message
+ * @prop {string} initialURL The requested URL
+ * @prop {string[]|null} pathArray If empty, this will be `null`, else it will be an array of the URL path
+ * @prop {Object|null} queryParams If empty, this will be `null`, else it will be an object of query parameters
  */
 
 /**
  * @typedef {Object} ErroredParsedUrl
- * @prop {String} error If not errored, this will be `null`, else it will contain a string with the error message
- * @prop {String} initialURL The requested URL
+ * @prop {string} error If not errored, this will be `null`, else it will contain a string with the error message
+ * @prop {string} initialURL The requested URL
  */
 
 /**
+ * @typedef {Object} FileFormatsObj
+ * @prop {Object} json
+ * @prop {string} json.mimeType
+ * @prop {Object} xml
+ * @prop {string} xml.mimeType
+ * @prop {Object} yaml
+ * @prop {string} yaml.mimeType
+ * @prop {Object} txt
+ * @prop {string} txt.mimeType
+ */
+
+
+
+/** @type {FileFormatsObj} */
+var fileFormats = {};
+
+/**
+ * Initializes the URL parser module
+ * @returns {Promise} Promise rejects if the file formats file defined at `settings.jokes.fileFormatsPath` couldn't be read
+ */
+function init()
+{
+    return new Promise((pRes, pRej) => {
+        fs.readFile(settings.jokes.fileFormatsPath, (err, data) => {
+            if(err)
+                return pRej(`Couldn't read file formats file: ${err}`);
+
+            fileFormats = JSON.parse(data.toString());
+
+            return pRes();
+        });
+    });
+}
+
+/**
  * Parses the passed URL, returning a fancy object
- * @param {String} url
- * @returns {(ParsedUrl|ErroredParsedUrl)}
+ * @param {string} url
+ * @returns {ParsedUrl|ErroredParsedUrl}
  */
 function parseURL(url)
 {
@@ -86,23 +121,31 @@ function parseURL(url)
     }
 }
 
+/**
+ * Grabs the file format out of a query string object.  
+ * If none is found, defaults to the value set in `settings.jokes.defaultFileFormat.fileFormat`
+ * @param {Object} [qstrObj]
+ * @returns {string}
+ */
 function getFileFormatFromQString(qstrObj)
 {
     if(!jsl.isEmpty(qstrObj.format))
     {
-        let possibleFormats = Object.keys(JSON.parse(fs.readFileSync(settings.jokes.fileFormatsPath).toString()));
+        let possibleFormats = Object.keys(fileFormats);
 
         if(possibleFormats.includes(qstrObj.format))
             return qstrObj.format;
-        else return settings.jokes.defaultFileFormat.fileFormat;
+        else
+            return settings.jokes.defaultFileFormat.fileFormat;
     }
-    else return settings.jokes.defaultFileFormat.fileFormat;
+    else
+        return settings.jokes.defaultFileFormat.fileFormat;
 }
 
 /**
  * Returns the MIME type of the provided file format string (example: "json" -> "application/json")
- * @param {String} fileFormatString 
- * @returns {String}
+ * @param {string} fileFormatString 
+ * @returns {string}
  */
 function getMimeTypeFromFileFormatString(fileFormatString)
 {
@@ -110,9 +153,11 @@ function getMimeTypeFromFileFormatString(fileFormatString)
 
     if(!jsl.isEmpty(allFileTypes[fileFormatString]))
         return allFileTypes[fileFormatString].mimeType;
-    else return settings.jokes.defaultFileFormat.mimeType;
+    else
+        return settings.jokes.defaultFileFormat.mimeType;
 }
 
 module.exports = parseURL;
+module.exports.init = init;
 module.exports.getFileFormatFromQString = getFileFormatFromQString;
 module.exports.getMimeTypeFromFileFormatString = getMimeTypeFromFileFormatString;

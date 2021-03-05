@@ -7,25 +7,29 @@ const tr = require("./translate");
 
 const settings = require("../settings");
 
-var langs;
+/** Filled out when the `init()` function is called. Contains all language codes and language names. */
+var langs = {};
 
 /**
  * Initializes the language module
+ * @returns {Promise} Resolves with the amount of loaded languages
  */
 function init()
 {
     debug("Languages", `Initializing - loading languages from "${settings.languages.langFilePath}"`);
-    return new Promise((resolve, reject) => {
+    return new Promise((pRes, pRej) => {
         fs.readFile(settings.languages.langFilePath, (err, data) => {
             if(err)
-                return reject(err);
-            else
-            {
-                let languages = JSON.parse(data.toString());
-                debug("Languages", `Found ${Object.keys(languages).length} languages`);
-                langs = languages;
-                return resolve(languages);
-            }
+                return pRej(err);
+
+            const languages = JSON.parse(data.toString());
+            const langsAmount = Object.keys(languages).length;
+
+            langs = languages;
+
+            debug("Languages", `Found ${langsAmount} languages`);
+
+            return pRes(langsAmount);
         });
     });
 }
@@ -48,7 +52,7 @@ function isValidLang(langCode, trLang)
     if(typeof langCode !== "string" || langCode.length !== 2)
         return tr(trLang, "langCodeInvalidValue");
 
-    let requested = langs[langCode.toLowerCase()];
+    const requested = langs[langCode.toLowerCase()];
 
     if(typeof requested === "string")
         return true;
@@ -58,18 +62,18 @@ function isValidLang(langCode, trLang)
 
 /**
  * Converts a language name (fuzzy) into an ISO 639-1 or ISO 639-2 compatible lang code
- * @param {String} language
- * @returns {Boolean|String} Returns `false` if no matching language code was found, else returns string with language code
+ * @param {string} language
+ * @returns {soolean|string} Returns `false` if no matching language code was found, else returns string with language code
  */
 function languageToCode(language)
 {
     if(langs == undefined)
         throw new Error("INTERNAL_ERROR: Language module was not correctly initialized (yet)");
 
-    if(typeof language !== "string" || language.length < 1)
-        throw new TypeError("Language is not a string or not two characters in length");
+    if(typeof language !== "string" || language.length < 0)
+        throw new TypeError("Language is not a string or it is empty");
 
-    let searchObj = [];
+    const searchObj = [];
 
     Object.keys(langs).forEach(key => {
         searchObj.push({
@@ -78,10 +82,10 @@ function languageToCode(language)
         });
     });
 
-    let fuzzy = new Fuse(searchObj, {
+    const fuzzy = new Fuse(searchObj, {
         includeScore: true,
         keys: ["code", "lang"],
-        threshold: 0.4
+        threshold: settings.languages.fuzzySearchThreshold
     });
 
     let result = fuzzy.search(language)[0];
@@ -94,16 +98,14 @@ function languageToCode(language)
 
 /**
  * Converts an ISO 639-1 or ISO 639-2 compatible lang code into a language name
- * @param {String} code
- * @returns {Boolean|String} Returns `false` if no matching language was found, else returns string with language name
+ * @param {string} code
+ * @returns {boolean|string} Returns `false` if no matching language was found, else returns string with language name
  */
 function codeToLanguage(code)
 {
     try
     {
-        let jsonObj = JSON.parse(fs.readFileSync(settings.languages.langFilePath).toString());
-
-        return jsonObj[code] || false;
+        return langs[code] || false;
     }
     catch(err)
     {
@@ -114,13 +116,13 @@ function codeToLanguage(code)
 
 /**
  * @typedef {Object} SupLangObj
- * @prop {String} code
- * @prop {String} name
+ * @prop {string} code
+ * @prop {string} name
  */
 
 /**
  * Returns a list of languages that jokes are available from
- * @returns {Array<SupLangObj>}
+ * @returns {SupLangObj[]}
  */
 function jokeLangs()
 {
@@ -143,7 +145,7 @@ function jokeLangs()
 
 /**
  * Returns a list of languages that error messages and maybe other stuff are available as
- * @returns {Array<SupLangObj>}
+ * @returns {SupLangObj[]}
  */
 function systemLangs()
 {
@@ -152,7 +154,7 @@ function systemLangs()
 
 /**
  * Returns all possible language codes
- * @returns {Array<String>}
+ * @returns {string[]}
  */
 function getPossibleCodes()
 {

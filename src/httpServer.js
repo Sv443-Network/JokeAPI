@@ -30,6 +30,9 @@ const SubmissionEndpoint = require("./classes/SubmissionEndpoint");
 scl.unused("types:", RateLimiterRes, Endpoint, SubmissionEndpoint);
 
 
+module.exports.dataEndpoints = [];
+module.exports.submissionEndpoints = [];
+
 // TODO: implement submission endpoints like /submit and /clearData
 
 
@@ -503,6 +506,7 @@ function init()
                         }
                     });
 
+                    module.exports.dataEndpoints = dataEndpoints;
                     return pRes();
                 });
             });
@@ -537,6 +541,7 @@ function init()
                         }
                     });
 
+                    module.exports.submissionEndpoints = submissionEndpoints;
                     return pRes();
                 });
             });

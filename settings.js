@@ -4,12 +4,13 @@ const col = scl.colors.fg;
 const bgc = scl.colors.bg;
 
 /**
- * Global settings for JokeAPI.  
+ * @typedef {Object} Settings Global settings for JokeAPI.
  * (Yes this file is huge but this is intentional to make JokeAPI as dynamic as possible)  
  *   
  * - The exported object `settings` can (and should) not be modified at runtime!  
  * - Developer Documentation: settings nodes are referred to like this: `settings.foo.bar`
  */
+
 const settings = {
     /** Settings regarding debugging */
     debug: {
@@ -257,6 +258,7 @@ const settings = {
         langFilePath: "./data/languages.json",                // file containing all language codes and corresponding language information
         defaultLanguage: "en",                                // default language (two character code, lowercase)
         translationsFile: "./data/translations/general.json", // general translations file
+        fuzzySearchThreshold: 0.4,                            // threshold of the Fuse.js fuzzy search when looking up language codes based on language names (recommended: 0.4)
     },
     /** Unit tests */
     tests: {
@@ -276,4 +278,7 @@ const settings = {
 }
 
 // use Object.freeze() to prevent modifications at runtime:
-module.exports = Object.freeze(settings);
+const frozenSettings = Object.freeze(settings);
+
+/** @type {Settings} */
+module.exports = frozenSettings;

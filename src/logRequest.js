@@ -270,8 +270,10 @@ function initMsg(initTimestamp, initDurationMs, loadingIconState)
 
     let writeLines = lines.join("");
 
-    // clear, then immediately write using stdout directly, to try to remove "jitter" when updating the dashboard
-    console.clear();
+    // clear (if dashboard enabled), then immediately write using stdout directly, to try to remove "jitter" when updating the dashboard
+    if(settings.debug.dashboardEnabled)
+        console.clear();
+
     process.stdout.write(writeLines);
 
     if(settings.debug.dashboardEnabled)

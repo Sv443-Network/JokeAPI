@@ -41,7 +41,7 @@ class FilterComponentEndpoint extends Endpoint {
             });
         });
 
-        debug("FilterComponentEndpoint_Base", `Instantiated filter component endpoint "${filterComponentName}" at /${pathName}/`);
+        debug("FilterComponentEndpoint", `Instantiated filter component endpoint "${filterComponentName}" at /${pathName}/`);
     }
 
     /**

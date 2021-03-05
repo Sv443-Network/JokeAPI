@@ -1,10 +1,6 @@
 const scl = require("svcorelib");
 const path = require("path");
 const fs = require("fs-extra");
-// const parseJokes = require("../parseJokes");
-// const languages = require("../languages");
-// const settings = require("../../settings");
-// const translate = require("../translate");
 
 const Endpoint = require("../../classes/Endpoint");
 

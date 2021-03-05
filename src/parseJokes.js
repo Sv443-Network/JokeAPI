@@ -82,6 +82,9 @@ const tr = require("./translate");
 /** @type {CategoryAliasObj[]} */
 var categoryAliases = [];
 
+/** @type {number} */
+var globalFormatVersion = 0;
+
 
 //#MARKER init
 /**
@@ -255,7 +258,7 @@ function init()
 
             let fmtVer = allJokesObj.getFormatVersion("en");
             module.exports.jokeFormatVersion = fmtVer;
-            this.jokeFormatVersion = fmtVer;
+            globalFormatVersion = fmtVer;
 
 
             debug("JokeParser", `Done parsing all ${parsedJokesAmount} jokes. Errors: ${errors.length === 0 ? jsl.colors.fg.green : jsl.colors.fg.red}${errors.length}${jsl.colors.rst}`);
@@ -326,9 +329,9 @@ function validateSubmission(joke, lang)
         //#SECTION format version
         if(joke.formatVersion != null)
         {
-            if(joke.formatVersion != settings.jokes.jokesFormatVersion || joke.formatVersion != this.jokeFormatVersion)
+            if(joke.formatVersion != settings.jokes.jokesFormatVersion || joke.formatVersion != globalFormatVersion)
             {
-                jokeErrors.push(tr(lang, "parseJokesFormatVersionMismatch", joke.formatVersion, this.jokeFormatVersion));
+                jokeErrors.push(tr(lang, "parseJokesFormatVersionMismatch", joke.formatVersion, globalFormatVersion));
                 validParamsObj.formatVersion = false;
             }
         }
