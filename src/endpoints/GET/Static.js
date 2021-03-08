@@ -1,7 +1,7 @@
 const scl = require("svcorelib");
 
 const httpServer = require("../../httpServer");
-const debug = require("../../verboseLogging");
+const debug = require("../../debug");
 const exists = require("../../exists");
 const Endpoint = require("../../classes/Endpoint");
 

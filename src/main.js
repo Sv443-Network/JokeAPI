@@ -9,7 +9,7 @@ const fs = require("fs-extra");
 const promiseAllSequential = require("promise-all-sequential");
 
 const settings = require("../settings");
-const debug = require("./verboseLogging");
+const debug = require("./debug");
 const parseJokes = require("./parseJokes");
 const httpServer = require("./httpServer");
 const lists = require("./lists");

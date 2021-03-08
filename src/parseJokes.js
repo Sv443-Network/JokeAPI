@@ -4,7 +4,7 @@ const fs = require("fs-extra");
 const jsl = require("svjsl");
 
 const settings = require("../settings");
-const debug = require("./verboseLogging");
+const debug = require("./debug");
 const languages = require("./languages");
 const AllJokes = require("./classes/AllJokes");
 const tr = require("./translate");

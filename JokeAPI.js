@@ -7,7 +7,7 @@
 // ⚠️ Thanks :)
 
 
-const debug = require("./src/verboseLogging");
+const debug = require("./src/debug");
 const wrap = require("node-wrap");
 const jsl = require("svjsl");
 const settings = require("./settings");

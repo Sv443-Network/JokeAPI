@@ -2,7 +2,7 @@ const mysql = require("mysql");
 const { sql } = require("svcorelib");
 const fs = require("fs-extra");
 
-const debug = require("./verboseLogging");
+const debug = require("./debug");
 const JokeCache = require("./classes/JokeCache");
 
 const settings = require("../settings");

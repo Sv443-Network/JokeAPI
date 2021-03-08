@@ -1,7 +1,7 @@
 const fs = require("fs-extra");
 const jsl = require("svjsl");
 
-const debug = require("./verboseLogging")
+const debug = require("./debug")
 const settings = require("../settings");
 
 

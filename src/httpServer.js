@@ -9,7 +9,7 @@ const zlib = require("zlib");
 const semver = require("semver");
 
 const settings = require("../settings");
-const debug = require("./verboseLogging");
+const debug = require("./debug");
 const resolveIP = require("./resolveIP");
 const logger = require("./logger");
 const logRequest = require("./logRequest");

@@ -2,7 +2,7 @@ const { unused } = require("svcorelib");
 
 const _http = require("http");
 
-const debug = require("../verboseLogging");
+const debug = require("../debug");
 const Endpoint = require("./Endpoint");
 
 

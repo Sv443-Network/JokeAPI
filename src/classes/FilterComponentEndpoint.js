@@ -1,4 +1,4 @@
-const debug = require("../verboseLogging");
+const debug = require("../debug");
 const Endpoint = require("./Endpoint");
 
 // const filterComponentsTrFile = require(`../../${settings.jokes.possible.filterComponentTranslationFile}`);

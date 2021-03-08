@@ -4,7 +4,7 @@ const sql = require("mysql");
 const fs = require("fs-extra");
 const logger = require("./logger");
 const settings = require("../settings");
-const debug = require("./verboseLogging");
+const debug = require("./debug");
 jsl.unused(http);
 
 module.exports.connectionInfo = {

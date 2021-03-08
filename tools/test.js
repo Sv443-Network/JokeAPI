@@ -2,12 +2,12 @@
 
 const jsl = require("svjsl");
 const fs = require("fs-extra");
-const cp = require("child_process");
+// const cp = require("child_process");
 const requireUncached = require('require-uncached');
 const { resolve, join } = require("path");
-const { XMLHttpRequest } = require("xmlhttprequest");
+// const { XMLHttpRequest } = require("xmlhttprequest");
 
-const debug = require("../src/verboseLogging");
+const debug = require("../src/debug");
 const settings = require("../settings");
 
 var col = { rst: jsl.colors.rst, ...jsl.colors.fg };

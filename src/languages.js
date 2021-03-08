@@ -2,7 +2,7 @@ const fs = require("fs-extra");
 const jsl = require("svjsl");
 const Fuse = require("fuse.js");
 
-const debug = require("./verboseLogging");
+const debug = require("./debug");
 const tr = require("./translate");
 
 const settings = require("../settings");

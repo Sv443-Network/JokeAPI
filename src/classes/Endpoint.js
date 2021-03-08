@@ -5,7 +5,7 @@ const _http = require("http");
 const convertFileFormat = require("../fileFormatConverter");
 const parseURL = require("../parseURL");
 const { isValidLang } = require("../languages");
-const debug = require("../verboseLogging");
+const debug = require("../debug");
 
 const settings = require("../../settings");
 const endpointsTrFile = require(`../../${settings.endpoints.translationsFile}`);

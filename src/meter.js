@@ -3,7 +3,7 @@
 const io = require("@pm2/io");
 const fs = require("fs-extra");
 
-const debug = require("./verboseLogging");
+const debug = require("./debug");
 const settings = require("../settings");
 
 /**

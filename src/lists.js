@@ -3,7 +3,7 @@
 const jsl = require("svjsl");
 const fs = require("fs-extra");
 const settings = require("../settings");
-const debug = require("./verboseLogging");
+const debug = require("./debug");
 const logger = require("./logger");
 const resolveIP = require("./resolveIP");
 
