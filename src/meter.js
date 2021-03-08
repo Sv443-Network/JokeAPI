@@ -6,6 +6,11 @@ const fs = require("fs-extra");
 const debug = require("./verboseLogging");
 const settings = require("../settings");
 
+/**
+ * @typedef {"req1min"|"req10mins"|"req1hour"|"reqtotal"|"submission"} MeterName
+ */
+
+
 var meters = {
     req1mMeter: null,
     req10mMeter: null,
@@ -98,8 +103,8 @@ function init()
 
 /**
  * Increments a meter's value
- * @param {"req1min"|"req10mins"|"req1hour"|"reqtotal"|"submission"} meterName
- * @param {Number} [addValue] If left empty, the meter will update by `1`
+ * @param {MeterName} meterName
+ * @param {number} [addValue] If left empty, the meter will update by `1`
  */
 function update(meterName, addValue)
 {
@@ -109,7 +114,7 @@ function update(meterName, addValue)
     if(typeof addValue != "number")
         throw new TypeError(`meter.update(): "addValue" has wrong type "${typeof addValue}" - expected "number"`);
 
-    debug("Meter", `Updating meter ${meterName} - adding value ${addValue}`);
+    debug("Meter", `Updating meter "${meterName}" - adding ${addValue}`);
 
     switch(meterName)
     {

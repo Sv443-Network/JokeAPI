@@ -1,5 +1,5 @@
 [<< Home](./home.md#readme)
-# JokeAPI - Documentation Compilation [WIP]
+# JokeAPI - Documentation Compilation
 The JokeAPI documentation is semi-static.  
 It goes through a compilation process that is unique to JokeAPI.  
 This file will teach you all about it.  
