@@ -95,8 +95,8 @@ function init()
                 if(languages.isValidLang(lang) !== true)
                     lang = settings.languages.defaultLanguage;
 
-                debug("HTTP", `Incoming ${req.method} request from "${ip.substring(0, 8)}${localhostIP ? `..." ${scl.colors.fg.blue}(local)${scl.colors.rst} (lang=${lang})` : "...\""} to ${req.url}`);
-                
+                debug("HTTP", `Incoming ${req.method} request from "${ip.substring(0, 8)}${localhostIP ? `..." ${scl.colors.fg.blue}(local)${scl.colors.rst} (lang=${lang})` : "...\""} to ${req.url}`, "green");
+
                 let fileFormat = settings.jokes.defaultFileFormat.fileFormat;
                 if(!scl.isEmpty(parsedURL.queryParams) && !scl.isEmpty(parsedURL.queryParams.format))
                     fileFormat = parseURL.getFileFormatFromQString(parsedURL.queryParams);
@@ -339,7 +339,7 @@ function init()
                         requestedEndpoint = urlPath[0].toLowerCase();
                         
                     let dataInterval = setTimeout(() => {
-                        debug("HTTP", "PUT / POST request timed out");
+                        debug("HTTP", "PUT / POST request timed out", "red");
                         return respondWithErrorPage(res, 400, tr(lang, "requestBodyIsInvalid"));
                     }, settings.httpServer.submissionNoDataTimeout);
 
@@ -470,7 +470,7 @@ function init()
                 }
                 else
                 {
-                    debug("HTTP", `${scl.colors.fg.red}HTTP listener init encountered error: ${settings.httpServer.port}${scl.colors.rst}`);
+                    debug("HTTP", `${scl.colors.fg.red}HTTP listener init encountered error: ${settings.httpServer.port}${scl.colors.rst}`, "red");
                     return reject(err);
                 }
             });

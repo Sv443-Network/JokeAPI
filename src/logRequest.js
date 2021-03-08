@@ -30,8 +30,8 @@ const persistentData = {
 /**
  * Logs a request to the console and to the analytics database
  * @param {RequestType} type Sets the color and logging level
- * @param {string} [additionalInfo] Provides additional information in certain log types
- * @param {AnalyticsData} [analyticsData] Additional analytics data
+ * @param {string|null} [additionalInfo] Provides additional information in certain log types
+ * @param {AnalyticsData|null} [analyticsData] Additional analytics data
  */
 function logRequest(type, additionalInfo, analyticsData)
 {
