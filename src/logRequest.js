@@ -236,10 +236,10 @@ function initMsg(initTimestamp, initDurationMs, loadingIconState)
         lines.push(` ${brBlack}├─${col.rst} Connected to analytics database at ${col.green}${analytics.connectionInfo.info}${col.rst}\n`);
     else
         lines.push(` ${brBlack}├─${col.rst} Analytics database ${settings.analytics.enabled ? col.red : col.yellow}not connected${settings.analytics.enabled ? "" : " (disabled)"}${col.rst}\n`);
-    lines.push(` ${brBlack}├─${col.rst} Joke Cache database ${jokeCache.connectionInfo.connected ? `${col.green}connected` : `${col.red}not connected`}${col.rst}\n`);
+    lines.push(` ${brBlack}├─${col.rst} Joke cache database ${jokeCache.connectionInfo.connected ? `${col.green}connected` : `${col.red}not connected`}${col.rst}\n`);
     lines.push(` ${brBlack}├─${col.rst} HTTP${settings.httpServer.ssl.enabled ? "S" : ""} server is listening at ${col.green}${getLocalURL()}${col.rst} (SSL ${settings.httpServer.ssl.enabled ? `${col.green}enabled${col.rst}` : `${col.yellow}disabled${col.rst}`})\n`);
     lines.push(` ${brBlack}├─${col.rst} Initialization took ${col.green}${initMs}ms${initMs == 69 ? " (nice)" : ""}${col.rst}\n`);
-    lines.push(` ${brBlack}└─${col.rst} ${!settings.debug.dashboardEnabled ? "Initial " : ""}Heap Usage: ${heapColor}${heapPercent}%${col.rst}${maxHeapText}\n`);
+    lines.push(` ${brBlack}└─${col.rst} ${!settings.debug.dashboardEnabled ? "Initial heap" : "Heap"} usage: ${heapColor}${heapPercent}%${col.rst}${maxHeapText}\n`);
 
     let dbIntervalSeconds = settings.debug.dashboardInterval / 1000;
     if(dbIntervalSeconds % 1 != 0)
