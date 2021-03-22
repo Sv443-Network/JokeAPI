@@ -27,7 +27,7 @@ Keep in mind, though, that I will not remove jokes based on opinions as that wou
 1. [Read the Code_of_Conduct.md file](./Code_of_Conduct.md) (TLDR: just behave in a friendly manner).
 2. [Click here](https://github.com/Sv443/JokeAPI/fork) to fork the repository. Afterwards, clone or download it and locate the folder where it is contained.
 3. Make the changes you want to make to the code.
-4. Run the script `npm run all` which will run these four commands:
+4. Run the script `npm run all` which will run these commands:
     - `npm run validate-jokes` to make sure all jokes are formatted correctly.
     - `npm run validate-ids` to verify that all jokes have the correct ID.
     - `npm run lint` to check the code for any warnings or errors.
