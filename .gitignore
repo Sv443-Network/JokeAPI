@@ -23,7 +23,7 @@ docs/documentation.html
 docs/compiled
 
 # Joke submissions:
-data/stray_submissions
+data/stray_submissions/
 data/submissions
 data/submissions/**
 data/submissions/*/**
