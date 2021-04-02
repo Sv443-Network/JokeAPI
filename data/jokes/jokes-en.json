@@ -97,8 +97,8 @@
         {
             "category": "Programming",
             "type": "twopart",
-            "setup": "A web developer walks into a restaurant.",
-            "delivery": "He immediately leaves in disgust as the restaurant was laid out in tables.",
+            "setup": "Why did the web developer walk out of a resturant in disgust?",
+            "delivery": "The seating was laid out in tables.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
