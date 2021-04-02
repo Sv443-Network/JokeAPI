@@ -1,4 +1,4 @@
-<!--- Provide a short, general summary of your changes in the Title above -->
+<!--- ^ Provide a short, general summary of your changes in the Title above ^ -->
 
 ## Description
 <!-- Describe your changes in detail -->
@@ -26,4 +26,4 @@
 - [ ] I ensured that the automated checks that ran on this PR have completed successfully
 - [ ] I added myself to the `package.json` file (optional but highly encouraged :)
 
-**^ Not completing the checklist or ignoring what it says will invalidate your contribution and may even ban you from contributing altogether ^**
+**^ Please complete the checklist to the best of your abilities ^**
