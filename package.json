@@ -99,7 +99,7 @@
     "nyc": "^15.1.0",
     "require-uncached": "^2.0.0",
     "snyk": "^1.511.0",
-    "table": "^6.0.1"
+    "table": "^6.1.0"
   },
   "snyk": true
 }
