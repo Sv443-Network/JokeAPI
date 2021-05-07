@@ -89,7 +89,7 @@
     "svjsl": "^1.9.4",
     "url-parse": "^1.5.1",
     "xmlhttprequest": "^1.8.0",
-    "xss": "^1.0.8"
+    "xss": "^1.0.9"
   },
   "devDependencies": {
     "dependency-cruiser": "^9.23.2",
