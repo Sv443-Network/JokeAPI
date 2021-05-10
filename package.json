@@ -92,7 +92,7 @@
     "xss": "^1.0.9"
   },
   "devDependencies": {
-    "dependency-cruiser": "^9.23.2",
+    "dependency-cruiser": "^10.0.0",
     "eslint": "^7.17.0",
     "lodash": "^4.17.21",
     "madge": "^4.0.1",
