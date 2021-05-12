@@ -85,7 +85,7 @@
     "promise-all-sequential": "^1.0.0",
     "rate-limiter-flexible": "^2.2.2",
     "request-ip": "^2.1.3",
-    "svcorelib": "^1.13.1",
+    "svcorelib": "^1.14.0",
     "svjsl": "^1.9.4",
     "url-parse": "^1.5.1",
     "xmlhttprequest": "^1.8.0",
