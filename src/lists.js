@@ -61,8 +61,12 @@ function init()
                             whitelist: JSON.parse(whitelist),
                             consoleBlacklist: JSON.parse(consoleBlacklist)
                         };
+
                         if(!jsl.isEmpty(process.jokeapi.lists))
+                        {
+                            debug("Lists", "Finished reading and initializing all lists");
                             return resolve(process.jokeapi.lists);
+                        }
                         return reject(`Unexpected error: process.jokeapi.lists is empty (${typeof process.jokeapi.lists})`);
                     }
                     catch(err)

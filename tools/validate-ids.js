@@ -8,7 +8,13 @@ const settings = require("../settings");
 
 const col = { ...jsl.colors.fg, rst: jsl.colors.rst };
 
-const exitWithError = (msg, err) => {
+/**
+ * Exactly what the name suggests
+ * @param {string} msg A short message
+ * @param {string|Error} err The full error string or object
+ */
+function exitWithError(msg, err)
+{
     console.log(`\n\n\x1b[31m\x1b[1m>> ${msg}:\n${err}\n\n\x1b[0m`);
     process.exit(1);
 }

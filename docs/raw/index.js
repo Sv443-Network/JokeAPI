@@ -971,7 +971,7 @@ function submitJoke()
     }
 
     var xhr = new XMLHttpRequest();
-    xhr.open("PUT", settings.submitUrl);
+    xhr.open("POST", settings.submitUrl);
 
     xhr.onreadystatechange = function() {
         if(xhr.readyState == 4)
@@ -1190,7 +1190,7 @@ function restart(token)
     }
 
     var restartXhr = new XMLHttpRequest();
-    restartXhr.open("PUT", settings.baseURL + "/restart");
+    restartXhr.open("POST", settings.baseURL + "/restart");
     restartXhr.onreadystatechange = function() {
         if(restartXhr.readyState == 4)
         {

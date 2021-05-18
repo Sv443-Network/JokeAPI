@@ -16,6 +16,8 @@ const fileFormatConverter = require("./fileFormatConverter");
 
 scl.unused(http, analytics, tr);
 
+/** @typedef {parseJokes.SingleJoke|parseJokes.TwopartJoke} JokeSubmission */
+
 
 /**
  * To be called when a joke is submitted
@@ -38,7 +40,7 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun)
 
         let submittedJoke = JSON.parse(data);
 
-        let langCode = submittedJoke.lang || settings.languages.defaultLanguage;
+        let langCode = (submittedJoke.lang || settings.languages.defaultLanguage).toString().toLowerCase();
 
         if(scl.isEmpty(submittedJoke))
             return httpServer.respondWithError(res, 105, 400, fileFormat, tr(langCode, "requestBodyIsInvalid"), langCode);
@@ -110,6 +112,7 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun)
 
                         return httpServer.pipeString(res, fileFormatConverter.auto(fileFormat, respObj, langCode), parseURL.getMimeTypeFromFileFormatString(fileFormat), 201);
                     }
+
                     return writeJokeToFile(res, fileName, submittedJoke, fileFormat, ip, analyticsObject, langCode);
                 }
                 catch(err)
@@ -133,7 +136,7 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun)
  * Writes a joke to a json file
  * @param {http.ServerResponse} res
  * @param {string} filePath
- * @param {parseJokes.SingleJoke|parseJokes.TwopartJoke} submittedJoke
+ * @param {JokeSubmission} submittedJoke
  * @param {string} fileFormat
  * @param {string} ip
  * @param {(analytics.AnalyticsDocsRequest|analytics.AnalyticsSuccessfulRequest|analytics.AnalyticsRateLimited|analytics.AnalyticsError|analytics.AnalyticsSubmission)} analyticsObject
@@ -171,9 +174,9 @@ function writeJokeToFile(res, filePath, submittedJoke, fileFormat, ip, analytics
 }
 
 /**
- * Ensures that a joke is formatted as expected
- * @param {parseJokes.SingleJoke|parseJokes.TwopartJoke} joke
- * @returns {parseJokes.SingleJoke|parseJokes.TwopartJoke}
+ * Coarse filter that ensures that a joke is formatted as expected
+ * @param {JokeSubmission} joke
+ * @returns {JokeSubmission} Returns the reformatted joke
  */
 function reformatJoke(joke)
 {
@@ -209,6 +212,8 @@ function reformatJoke(joke)
 
     if(joke.lang)
         retJoke.lang = joke.lang;
+
+    retJoke.lang = retJoke.lang.toLowerCase();
 
     if(joke.id)
         retJoke.id = joke.id;
