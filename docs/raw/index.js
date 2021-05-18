@@ -45,7 +45,7 @@ var dIHTML = `
     <li>A hash of your IP address <u>if it gets added to a <i>whitelist</i>.</u> This only happens if you contacted me to get more requests per minute or are partnered with me and have been informed that this is happening</li>
     <li>A hash of your IP address <u>if it gets added to a <i>console blacklist</i>.</u> This (if at all) also only happens if you are partnered with me</li>
     <li>The requested URL, consisting of the URL path, the URL parameters and the URL anchor</li>
-    <li>The payload of joke submissions (using PUT requests on the submission endpoint)</li>
+    <li>The payload of joke submissions (using POST requests on the submission endpoint)</li>
 </ul>
 
 <br><br>
@@ -878,7 +878,7 @@ function submitJoke()
     }
 
     var xhr = new XMLHttpRequest();
-    xhr.open("PUT", settings.submitUrl);
+    xhr.open("POST", settings.submitUrl);
 
     xhr.onreadystatechange = function() {
         if(xhr.readyState == 4)
@@ -1097,7 +1097,7 @@ function restart(token)
     }
 
     var restartXhr = new XMLHttpRequest();
-    restartXhr.open("PUT", settings.baseURL + "/restart");
+    restartXhr.open("POST", settings.baseURL + "/restart");
     restartXhr.onreadystatechange = function() {
         if(restartXhr.readyState == 4)
         {
