@@ -1997,7 +1997,7 @@
             "category": "Programming",
             "type": "twopart",
             "setup": "How do you generate a random string?",
-            "delivery": "Put a Windows user in front of Vim and tell him to exit.",
+            "delivery": "Put a Windows user in front of Vim and tell them to exit.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -4598,7 +4598,7 @@
             "category": "Programming",
             "type": "twopart",
             "setup": "Why was the JavaScript developer sad?",
-            "delivery": "Because he didn't Node how to Express himself!",
+            "delivery": "Because they didn't Node how to Express themself!",
             "flags": {
                 "nsfw": false,
                 "religious": false,
