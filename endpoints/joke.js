@@ -175,7 +175,6 @@ const call = (req, res, url, params, format) => {
 
             if(erroredFlags.length > 0)
                 return isErrored(res, format, tr(langCode, "invalidFlags", flags.join(", "), settings.jokes.possible.flags.join(", ")), langCode);
-                tr(langCode, "invalidFlags", flags.join(", "), settings.jokes.possible.flags.join(", "))
             
             let fFlg = filterJoke.setBlacklistFlags(flags);
             if(!fFlg)

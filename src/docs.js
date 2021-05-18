@@ -26,7 +26,7 @@ function init()
         try
         {
             process.injectionCounter = 0;
-            debug("Docs", "Starting Daemon and recompiling docs files...")
+            debug("Docs", "Starting daemon and recompiling documentation files...")
             startDaemon();
             recompileDocs();
             return resolve();

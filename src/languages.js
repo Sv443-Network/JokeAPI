@@ -22,7 +22,7 @@ function init()
             else
             {
                 let languages = JSON.parse(data.toString());
-                debug("Languages", `Found ${languages.length} languages`);
+                debug("Languages", `Found ${Object.keys(languages).length} languages`);
                 langs = languages;
                 return resolve(languages);
             }
