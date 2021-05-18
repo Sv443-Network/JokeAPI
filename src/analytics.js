@@ -21,11 +21,14 @@ const init = () => {
     return new Promise((resolve, reject) => {
         if(!settings.analytics.enabled)
             return resolve();
+        
+        const dbUser = process.env["DB_USERNAME"];
+        const dbPass = process.env["DB_PASSWORD"];
 
         let sqlConnection = sql.createConnection({
             host: settings.sql.host,
-            user: (process.env["DB_USERNAME"] || ""),
-            password: (process.env["DB_PASSWORD"] || ""),
+            user: (dbUser || ""),
+            password: (dbPass || ""),
             database: settings.sql.database,
             port: settings.sql.port
         });
