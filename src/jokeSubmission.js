@@ -16,6 +16,8 @@ const fileFormatConverter = require("./fileFormatConverter");
 
 jsl.unused(http, analytics, tr);
 
+/** @typedef {parseJokes.SingleJoke|parseJokes.TwopartJoke} JokeSubmission */
+
 
 /**
  * To be called when a joke is submitted
@@ -26,7 +28,8 @@ jsl.unused(http, analytics, tr);
  * @param {(analytics.AnalyticsDocsRequest|analytics.AnalyticsSuccessfulRequest|analytics.AnalyticsRateLimited|analytics.AnalyticsError|analytics.AnalyticsSubmission)} analyticsObject
  * @param {Boolean} dryRun Set to true to not add the joke to the joke file after validating it
  */
-const jokeSubmission = (res, data, fileFormat, ip, analyticsObject, dryRun) => {
+function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun)
+{
     try
     {
         if(typeof dryRun != "boolean")
@@ -37,7 +40,7 @@ const jokeSubmission = (res, data, fileFormat, ip, analyticsObject, dryRun) => {
             
         let submittedJoke = JSON.parse(data);
 
-        let langCode = submittedJoke.lang || settings.languages.defaultLanguage;
+        let langCode = (submittedJoke.lang || settings.languages.defaultLanguage).toString().toLowerCase();
 
         if(jsl.isEmpty(submittedJoke))
             return httpServer.respondWithError(res, 105, 400, fileFormat, tr(langCode, "requestBodyIsInvalid"), langCode);
@@ -94,6 +97,7 @@ const jokeSubmission = (res, data, fileFormat, ip, analyticsObject, dryRun) => {
 
                         return httpServer.pipeString(res, fileFormatConverter.auto(fileFormat, respObj, langCode), parseURL.getMimeTypeFromFileFormatString(fileFormat), 201);
                     }
+
                     return writeJokeToFile(res, fileName, submittedJoke, fileFormat, ip, analyticsObject, langCode);
                 }
                 catch(err)
@@ -117,13 +121,14 @@ const jokeSubmission = (res, data, fileFormat, ip, analyticsObject, dryRun) => {
  * Writes a joke to a json file
  * @param {http.ServerResponse} res
  * @param {String} filePath
- * @param {parseJokes.SingleJoke|parseJokes.TwopartJoke} submittedJoke
+ * @param {JokeSubmission} submittedJoke
  * @param {String} fileFormat
  * @param {String} ip
  * @param {(analytics.AnalyticsDocsRequest|analytics.AnalyticsSuccessfulRequest|analytics.AnalyticsRateLimited|analytics.AnalyticsError|analytics.AnalyticsSubmission)} analyticsObject
  * @param {String} [langCode]
  */
-const writeJokeToFile = (res, filePath, submittedJoke, fileFormat, ip, analyticsObject, langCode) => {
+function writeJokeToFile(res, filePath, submittedJoke, fileFormat, ip, analyticsObject, langCode)
+{
     if(typeof httpServer == "object" && Object.keys(httpServer).length <= 0)
         httpServer = require("./httpServer");
 
@@ -154,9 +159,9 @@ const writeJokeToFile = (res, filePath, submittedJoke, fileFormat, ip, analytics
 }
 
 /**
- * Ensures that a joke is formatted as expected
- * @param {parseJokes.SingleJoke|parseJokes.TwopartJoke} joke
- * @returns {parseJokes.SingleJoke|parseJokes.TwopartJoke}
+ * Coarse filter that ensures that a joke is formatted as expected
+ * @param {JokeSubmission} joke
+ * @returns {JokeSubmission} Returns the reformatted joke
  */
 function reformatJoke(joke)
 {
@@ -192,6 +197,8 @@ function reformatJoke(joke)
 
     if(joke.lang)
         retJoke.lang = joke.lang;
+    
+    retJoke.lang = retJoke.lang.toLowerCase();
     
     if(joke.id)
         retJoke.id = joke.id;
