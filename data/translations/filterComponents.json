@@ -39,28 +39,6 @@
                 "ru": "В этой категории есть рождественские шутки"
             }
         },
-        "formats": {
-            "json": {
-                "en": "JavaScript Object Notation - https://en.wikipedia.org/wiki/JSON",
-                "de": "JavaScript Object Notation - https://de.wikipedia.org/wiki/JSON",
-                "ru": "JavaScript Object Notation - https://ru.wikipedia.org/wiki/JSON"
-            },
-            "xml": {
-                "en": "Extensible Markup Language - https://en.wikipedia.org/wiki/XML",
-                "de": "Extensible Markup Language - https://de.wikipedia.org/wiki/XML",
-                "ru": "Extensible Markup Language - https://ru.wikipedia.org/wiki/XML"
-            },
-            "yaml": {
-                "en": "YAML Ain't Markup Language - https://en.wikipedia.org/wiki/YAML",
-                "de": "YAML Ain't Markup Language - https://de.wikipedia.org/wiki/YAML",
-                "ru": "YAML Ain't Markup Language - https://ru.wikipedia.org/wiki/YAML"
-            },
-            "txt": {
-                "en": "Plain text",
-                "de": "Klartext",
-                "ru": "Простой текст"
-            }
-        },
         "flags": {
             "nsfw": {
                 "en": "These jokes are not safe for work - They contain sexual references",
@@ -91,6 +69,40 @@
                 "en": "These jokes contain explicit language",
                 "de": "Diese Witze enthalten Schimpfwörter",
                 "ru": "Эти анекдоты содержат явные формулировки"
+            }
+        },
+        "formats": {
+            "json": {
+                "en": "JavaScript Object Notation - https://en.wikipedia.org/wiki/JSON",
+                "de": "JavaScript Object Notation - https://de.wikipedia.org/wiki/JSON",
+                "ru": "JavaScript Object Notation - https://ru.wikipedia.org/wiki/JSON"
+            },
+            "xml": {
+                "en": "Extensible Markup Language - https://en.wikipedia.org/wiki/XML",
+                "de": "Extensible Markup Language - https://de.wikipedia.org/wiki/XML",
+                "ru": "Extensible Markup Language - https://ru.wikipedia.org/wiki/XML"
+            },
+            "yaml": {
+                "en": "YAML Ain't Markup Language - https://en.wikipedia.org/wiki/YAML",
+                "de": "YAML Ain't Markup Language - https://de.wikipedia.org/wiki/YAML",
+                "ru": "YAML Ain't Markup Language - https://ru.wikipedia.org/wiki/YAML"
+            },
+            "txt": {
+                "en": "Plain text",
+                "de": "Klartext",
+                "ru": "Простой текст"
+            }
+        },
+        "types": {
+            "single": {
+                "en": "The returned joke is entirely contained within a single string",
+                "de": "Der zurückgegebene Witz ist vollständig in einem einzigen String enthalten",
+                "ru": "Возвращенная шутка полностью содержится в одной строке"
+            },
+            "twopart": {
+                "en": "The returned joke is made up of two strings, which can potentially be separated",
+                "de": "Der zurückgegebene Witz setzt sich aus zwei Strings zusammen, die voneinander getrennt werden können",
+                "ru": "Возвращенная шутка состоит из двух строк, которые потенциально могут быть разделены"
             }
         }
     }
