@@ -672,7 +672,7 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
  * Defaults to 500
  * @param {http.ServerResponse} res 
  * @param {(404|500)} [statusCode=500] HTTP status code - defaults to 500
- * @param {String} [error] Additional error message that gets added to the "API-Error" response header
+ * @param {string} [error] Additional error message that gets added to the "API-Error" response header
  */
 const respondWithErrorPage = (res, statusCode, error) => {
 
@@ -681,12 +681,14 @@ const respondWithErrorPage = (res, statusCode, error) => {
     if(isNaN(statusCode))
     {
         statusCode = 500;
-        error += ((!scl.isEmpty(error) ? " - Ironically, an additional " : "An ") + "error was encountered while sending this error page: \"statusCode is not a number (in: httpServer.respondWithErrorPage)\"");
+        error += ((!scl.isEmpty(error) ? " - Ironically, an additional " : "An ") + "error was encountered while setting up this error page: \"statusCode is not a number (in: httpServer.respondWithErrorPage)\"");
     }
 
     if(!scl.isEmpty(error))
     {
-        res.setHeader("Set-Cookie", `errorInfo=${JSON.stringify({"API-Error-Message": error, "API-Error-StatusCode": statusCode})}`);
+        const cookieStr = `errorInfo=${JSON.stringify({"API-Error-Message": encodeURIComponent(error.toString()), "API-Error-StatusCode": statusCode})}`;
+
+        res.setHeader("Set-Cookie", cookieStr);
         res.setHeader("API-Error", error);
     }
 
@@ -697,9 +699,9 @@ const respondWithErrorPage = (res, statusCode, error) => {
 /**
  * Pipes a string into a HTTP response
  * @param {http.ServerResponse} res The HTTP res object
- * @param {String} text The response body
- * @param {String} mimeType The MIME type to respond with
- * @param {Number} [statusCode=200] The status code to respond with - defaults to 200
+ * @param {string} text The response body
+ * @param {string} mimeType The MIME type to respond with
+ * @param {number} [statusCode=200] The status code to respond with - defaults to 200
  */
 const pipeString = (res, text, mimeType, statusCode = 200) => {
     try

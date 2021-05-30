@@ -48,7 +48,7 @@ function setErrorDisp(code = 500, summary = "Internal Server Error", details = "
     window.errorWrittenToPage = true;
     document.title = ("<!--%#INSERT:NAME#%--> - Error " + code.toString());
     document.getElementById("errCodeDisplay").innerHTML = (code.toString() + " - " + summary);
-    document.getElementById("errDetailDisplay").innerHTML = "Details: " + details;
+    document.getElementById("errDetailDisplay").innerHTML = "Details: " + decodeURIComponent(details);
 
     if(subText)
         document.getElementById("errSubText").innerHTML = subText;
