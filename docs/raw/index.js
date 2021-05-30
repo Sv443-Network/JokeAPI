@@ -793,8 +793,9 @@ function buildURL()
     {
         if(range[0] == range[1] && range[0] >= 0 && range[0] <= maxJokeIdRange)
         {
-            // Use "x" format
-            queryParams.push("idRange=" + range[0]);
+            // added to fix issue #252: https://github.com/Sv443/JokeAPI/issues/252
+            if(maxJokeIdRange > 0 && range.reduce((a, c) => a + c))
+                queryParams.push("idRange=" + range[0]); // Use "x" format
         }
         else if(range[0] != 0 || range[1] != maxJokeIdRange)
         {
