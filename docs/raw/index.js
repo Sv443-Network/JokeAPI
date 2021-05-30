@@ -598,15 +598,14 @@ function reRender(langChanged)
 
 
     //#SECTION id range
-    if(langChanged === true)
+    if(langChanged === true || Object.keys(idRanges).length > 0)
     {
-        console.warn("langchanged")
-
         var langCode = gebid("lcodeSelect").value;
+        var curLangRange = idRanges[langCode];
 
-        if(idRanges[langCode])
+        if(Array.isArray(curLangRange))
         {
-            var maxRange = parseInt(idRanges[langCode][1]);
+            var maxRange = parseInt(curLangRange[1]);
 
             gebid("idRangeInputTo").max = maxRange;
             gebid("idRangeInputTo").value = maxRange;
