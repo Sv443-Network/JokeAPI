@@ -15,10 +15,10 @@ So please carefully read this guide before contributing. Thanks :)
 To submit a joke manually, you can use the form on [this page.](https://v2.jokeapi.dev/#submit)  
 To submit it through code, you can make use of the ["submit" endpoint.](https://v2.jokeapi.dev/#submit-endpoint)  
   
-If you instead want to *edit* a joke, you can find them in the `jokes-xy.json` files in [`data/jokes/`](../data/jokes/)  
-Please then follow the [code contribution section](#submitting-code) as well.  
+If you instead want to edit a joke yourself, you can find them in the `jokes-xy.json` files in [`data/jokes/`](../data/jokes/)  
+To submit your changes, create a pull request. Also make sure to follow the [code contribution instructions.](#submitting-code)  
   
-If you want a joke to be deleted, please submit a new issue [here.](https://github.com/Sv443/JokeAPI/issues/new?assignees=Sv443&labels=%E2%9D%97+reported+joke&template=report-a-joke.md&title=)  
+If you want a joke to be edited or deleted, please submit a new issue [here.](https://github.com/Sv443/JokeAPI/issues/new?assignees=Sv443&labels=reported+joke&template=3_report_a_joke.md&title=)  
 Keep in mind, though, that I will not remove jokes based on opinions as that would defeat the API's main purpose, to provide jokes for everyone's taste.  
 
 <br><br>
