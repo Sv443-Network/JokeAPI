@@ -8,6 +8,7 @@ const { isValidLang } = require("../languages");
 const debug = require("../debug");
 
 const settings = require("../../settings");
+// TODO: load in with fs because require() has a cache
 const endpointsTrFile = require(`../../${settings.endpoints.translationsFile}`);
 
 var httpServer = require("../httpServer"); // needs to be re-loaded sometimes because of circular dependency bullshit
