@@ -80,23 +80,23 @@ const tr = require("./translate");
  */
 
 /** @type {CategoryAliasObj[]} */
-var categoryAliases = [];
+const categoryAliases = [];
 
 /** @type {number} */
-var globalFormatVersion = 0;
+let globalFormatVersion = 0;
 
 
 //#MARKER init
 /**
  * Parses all jokes
- * @returns {Promise<Boolean>}
+ * @returns {Promise<void>} Resolves with no parameters if initialization was successful or rejects with an error message
  */
 function init()
 {
     return new Promise((resolve, reject) => {
         // prepare category aliases
         Object.keys(settings.jokes.possible.categoryAliases).forEach(alias => {
-            let aliasResolved = settings.jokes.possible.categoryAliases[alias];
+            const aliasResolved = settings.jokes.possible.categoryAliases[alias];
 
             if(!settings.jokes.possible.categories.includes(aliasResolved))
                 return reject(`Error while setting up category aliases: The resolved value "${aliasResolved}" of alias "${alias}" is not present in the "settings.jokes.possible.categories" array.`);
@@ -108,11 +108,11 @@ function init()
 
 
         // prepare jokes files
-        let jokesFiles = fs.readdirSync(settings.jokes.jokesFolderPath);
-        let result = [];
+        const jokesFiles = fs.readdirSync(settings.jokes.jokesFolderPath);
+        const result = [];
         let allJokesFilesObj = {};
 
-        let outerPromises = [];
+        const outerPromises = [];
 
         let parsedJokesAmount = 0;
 
