@@ -7,8 +7,8 @@ const promiseSeq = require("promise-all-sequential")
 console.log(`\nValidating jokes-xy.json files in "${settings.jokes.jokesFolderPath}"...\n`);
 
 const initStages = [
-    require("../src/languages").init(),
-    require("../src/translate").init()
+    require("../src/languages").init,
+    require("../src/translate").init
 ];
 
 promiseSeq(initStages).then(async () => {
