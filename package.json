@@ -20,6 +20,7 @@
     "dep-graph-old": "node dev/madge",
     "dep-graph": "depcruise --include-only \"src|tests|tools\" --exclude \"node_modules\" --output-type dot . | dot -T svg > dev/dependencygraph.svg && echo Created dependency graph at \"dev/dependencygraph.svg\"",
     "generate-changelog": "node tools/generate-changelog",
+    "changelog": "npm run generate-changelog",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect"
   },
