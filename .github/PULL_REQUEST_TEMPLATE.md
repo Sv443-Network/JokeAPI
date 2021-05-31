@@ -1,4 +1,4 @@
-<!--- ^ Provide a short, general summary of your changes in the Title above ^ -->
+<!-- ^ Provide a short, general summary of your changes in the Title above ^ -->
 
 ## Description
 <!-- Describe your changes in detail -->
