@@ -7,6 +7,7 @@ const fs = require("fs-extra");
 const path = require("path");
 const zlib = require("zlib");
 const semver = require("semver");
+const portUsed = require("tcp-port-used");
 
 const settings = require("../settings");
 const debug = require("./debug");
@@ -76,7 +77,7 @@ function init()
 
             setTimeout(() => {
                 if(!httpServerInitialized)
-                    return reject(`HTTP server initialization timed out after ${settings.httpServer.startupTimeout} seconds.\nMaybe the port ${settings.httpServer.port} is already occupied or the firewall blocks the connection.\nTry killing the process that's blocking the port or change it in settings.httpServer.port`);
+                    return reject(`HTTP server initialization timed out after ${settings.httpServer.startupTimeout} seconds.\nMaybe the port ${settings.httpServer.port} is already occupied or some kind of firewall or proxy blocks the connection.`);
             }, settings.httpServer.startupTimeout * 1000);
 
             //#SECTION create HTTP server
@@ -554,10 +555,17 @@ function init()
 
 
         //#MARKER call HTTP server init
-        Promise.all(promises).then(() => {
-            initHttpServer();
-        }).catch(err => {
-            return reject(err);
+        portUsed.check(settings.httpServer.port).then(portBusy => {
+            if(!portBusy)
+            {
+                Promise.all(promises).then(() => {
+                    initHttpServer();
+                }).catch(err => {
+                    return reject(err);
+                });
+            }
+            else
+                return reject(`Port ${settings.httpServer.port} is already in use. Either kill the process using it or set the port in "settings.js" to a different value.`);
         });
     });
 }

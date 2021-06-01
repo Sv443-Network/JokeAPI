@@ -89,6 +89,7 @@
     "require-uncached": "^2.0.0",
     "svcorelib": "^1.14.0",
     "svjsl": "^1.9.4",
+    "tcp-port-used": "^1.0.2",
     "url-parse": "^1.5.1",
     "xss": "^1.0.9"
   },
