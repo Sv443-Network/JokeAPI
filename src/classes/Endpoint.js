@@ -57,7 +57,8 @@ class MissingImplementationError extends Error {
  * Base class for all of JokeAPI's endpoints
  * @since 2.4.0 - Implemented because of issue #243
  */
-class Endpoint {
+class Endpoint
+{
     /**
      * Constructs a new object of class Endpoint  
      * This class is intended to be subclassed! Don't use it "raw" like this!
