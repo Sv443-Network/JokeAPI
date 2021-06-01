@@ -15,10 +15,10 @@
             "cs": "Test. Ahoj, světe."
         },
         "messageOfTheDay": {
-            "en": "If you want to stay up to date on the status and future updates of %1 or need some help, consider joining my Discord server: https://sv443.net/discord",
-            "de": "Wenn du über den Status und die zukünftigen Updates von %1 auf dem Laufenden bleiben willst oder Hilfe benötigst, kannst du auf meinen Discord-Server kommen: https://sv443.net/discord",
-            "ru": "Если вы хотите быть в курсе состояния и будущих обновлений %1 или вам нужна помощь, вы можете прийти на мой Discord-сервер: https://sv443.net/discord",
-            "cs": "Pokud chcete zůstat informováni o stavu a budoucích aktualizací %1 nebo potřebujete pomoc, zvažte připojení ke mému Discord serveru : https://sv443.net/discord"
+            "en": "If you want to stay up to date on the status and future updates of %1 or need some help, consider joining my Discord server: https://dc.sv443.net",
+            "de": "Wenn du über den Status und die zukünftigen Updates von %1 auf dem Laufenden bleiben willst oder Hilfe benötigst, kannst du auf meinen Discord-Server kommen: https://dc.sv443.net",
+            "ru": "Если вы хотите быть в курсе состояния и будущих обновлений %1 или вам нужна помощь, вы можете прийти на мой Discord-сервер: https://dc.sv443.net",
+            "cs": "Pokud chcete zůstat informováni o stavu a budoucích aktualizací %1 nebo potřebujete pomoc, zvažte připojení ke mému Discord serveru : https://dc.sv443.net"
         },
         "generalInternalError": {
             "en": "There was an internal error: %1",
@@ -243,10 +243,9 @@
             "cs": "Výchozí jazyk:  %1 [%2]\nJazyk pro vtipy (%3): %4\nSystémové jazyky (%5): %6\n\nMožné jazykové hodnoty:\n%7"
         },
         "infoEndpoint": {
-            "en": "%1 v%2 - Info:\n\nJoke count: %3\nCategories: \"%4\"\nFlags: \"%5\"\nResponse Formats: \"%6\"\nJoke Types: \"%7\"\nSubmission URL: %8\n\nID Ranges:\n%9\n\nJoke Languages (%10): %11\nSystem Languages (%12): %13\n\nAmount of safe jokes:\n%14\n\nMessage of the Day: %15",
-            "de": "%1 v%2 - Info:\n\nAnzahl der Witze: %3\nKategorien: \"%4\"\nMerkmale (Flags): \"%5\"\nAntwort-Dateiformate: \"%6\"\nWitz-Typen: \"%7\"\nEinreichungs-URL: %8\n\nID-Begrenzungen:\n%9\n\nWitz-Sprachen (%10): %11\nSystemsprachen (%12): %13\n\nAnzahl der sicheren Witze:\n%14\n\nNachricht des Tages: %15",
-            "ru": "%1 v%2 - Информация:\n\nКоличество шуток: %3\nКатегории: \"%4\"\nФлаги: \"%5\"\nФорматы ответов: \"%6\"\nТипы шуток: \"%7\"\nАдрес отправки: %8\n\nID Диапазоны:\n%9\n\nЯзыки шуток (%10): %11\nСистемные языки (%12): %13\n\nКоличество безопасных шуток:\n%14\n\nПослание дня: %15",
-            "cs": "%1 v%2 - Informace:\n\nPočet vtipů: %3\nKategorie: \"%4\"\nVlajky: \"%5\"\nFormáty odpovědi: \"%6\"\nDruhy vtipů: \"%7\"\nURL pro odeslání vtipu: \"%8\"\n\nRozsahy ID:\n%9\n\nJazyky pro vtipy (%10): %11\nSystémové jazyky (%12): %13\n\nMnožství bezpečných vtipů:\n%14\n\nZpráva dne: %15"
+            "en": "%1 v%2 - Info:\n\nJoke count: %3\nCategories: \"%4\"\nFlags: \"%5\"\nResponse Formats: \"%6\"\nJoke Types: \"%7\"\nSubmission URL: %8\n\nID Ranges:\n%9\n\nJoke Languages (%10): %11\nSystem Languages (%12): %13\n\nAmount of safe jokes:\n%14\n\nInternal server latency: %15 ms\n\nMessage of the Day: %16",
+            "de": "%1 v%2 - Info:\n\nAnzahl der Witze: %3\nKategorien: \"%4\"\nMerkmale (Flags): \"%5\"\nAntwort-Dateiformate: \"%6\"\nWitz-Typen: \"%7\"\nEinreichungs-URL: %8\n\nID-Begrenzungen:\n%9\n\nWitz-Sprachen (%10): %11\nSystemsprachen (%12): %13\n\nAnzahl der sicheren Witze:\n%14\n\nInterne Latenz des Servers: %15 ms\n\nNachricht des Tages: %16",
+            "ru": "%1 v%2 - Информация:\n\nКоличество шуток: %3\nКатегории: \"%4\"\nФлаги: \"%5\"\nФорматы ответов: \"%6\"\nТипы шуток: \"%7\"\nАдрес отправки: %8\n\nID Диапазоны:\n%9\n\nЯзыки шуток (%10): %11\nСистемные языки (%12): %13\n\nКоличество безопасных шуток:\n%14\n\nВнутренняя задержка сервера: %15 мс\n\nПослание дня: %16"
         },
         "availableFormats": {
             "en": "Available formats are: %1\n\nThese are the format descriptions:\n%2",

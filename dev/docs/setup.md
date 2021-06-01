@@ -4,7 +4,7 @@
 This file will guide you through setting up an instance of JokeAPI.  
 Please make sure you have the required knowledge and technical prerequisites - they can be found [here.](./home.md#readme)  
   
-If you need help during setup, feel free to reach out to me [on Discord.](https://sv443.net/discord)
+If you need help during setup, feel free to reach out to me [on Discord.](https://dc.sv443.net)
 
 <br>
 

@@ -11,7 +11,7 @@ const settings = require("../../settings");
 // TODO: load in with fs because require() has a cache
 const endpointsTrFile = require(`../../${settings.endpoints.translationsFile}`);
 
-var httpServer = require("../httpServer"); // needs to be re-loaded sometimes because of circular dependency bullshit
+let httpServer = require("../httpServer"); // needs to be re-loaded sometimes because of circular dependency bullshit
 
 
 //#MARKER type stuff
@@ -83,6 +83,25 @@ class Endpoint
         this.positionalArguments = [];
 
         debug("Endpoint", `Instantiated endpoint at /${pathName}/ (method: ${this.meta.usage.method})`);
+    }
+
+    //#MARKER call
+    /**
+     * This method is run each time a client requests this endpoint  
+     * Abstract method - to be overwritten!
+     * @abstract ❗️ Abstract method - Override this, else a MissingImplementationError is thrown ❗️
+     * @param {_http.IncomingMessage} req The HTTP server request
+     * @param {_http.ServerResponse} res The HTTP server response
+     * @param {string[]} url URL path array gotten from the URL parser module
+     * @param {Object} params URL query params gotten from the URL parser module
+     * @param {string} format The file format to respond with
+     * @param {httpServer.HttpMetrics} httpMetrics
+     * @throws Throws a MissingImplementationError if this method was not overwritten
+     */
+    call(req, res, url, params, format, httpMetrics)
+    {
+        unused(req, res, url, params, format, httpMetrics);
+        throw new MissingImplementationError(`Method Endpoint.call() is an abstract method that needs to be overridden in a subclass of "Endpoint"`);
     }
 
     //#MARKER "normal" methods
@@ -167,24 +186,6 @@ class Endpoint
     toString()
     {
         return `Endpoint /${this.getPathName()}/ - ${this.getDescription()}`;
-    }
-
-    //#MARKER call
-    /**
-     * This method is run each time a client requests this endpoint  
-     * Abstract method - to be overwritten!
-     * @abstract ❗️ Abstract method - Override this, else a MissingImplementationError is thrown ❗️
-     * @param {_http.IncomingMessage} req The HTTP server request
-     * @param {_http.ServerResponse} res The HTTP server response
-     * @param {string[]} url URL path array gotten from the URL parser module
-     * @param {Object} params URL query params gotten from the URL parser module
-     * @param {string} format The file format to respond with
-     * @throws Throws a MissingImplementationError if this method was not overwritten
-     */
-    call(req, res, url, params, format)
-    {
-        unused(req, res, url, params, format);
-        throw new MissingImplementationError(`Method Endpoint.call() is an abstract method that needs to be overridden in a subclass of "Endpoint"`);
     }
 
     //#MARKER static

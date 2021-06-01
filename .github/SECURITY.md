@@ -7,7 +7,7 @@ Additionally, it uses [Dependabot](https://dependabot.com/) to ensure no depende
 <br>
 
 ## Reporting a Vulnerability
-To report a vulnerability or security issue, please directly contact me via [Email](mailto:contact@sv443.net) or [Discord.](https://sv443.net/discord)  
+To report a vulnerability or security issue, please directly contact me via [Email](mailto:contact@sv443.net) or [Discord.](https://dc.sv443.net)  
 Please do not create a GitHub issue!
 
 <br>

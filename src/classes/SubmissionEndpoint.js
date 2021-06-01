@@ -36,11 +36,12 @@ class SubmissionEndpoint extends Endpoint {
      * @param {Object} params URL query params gotten from the URL parser module
      * @param {string} format The file format to respond with
      * @param {string} data The raw data, as a string
+     * @param {httpServer.HttpMetrics} httpMetrics
      * @throws Throws a MissingImplementationError if this method was not overwritten
      */
-    call(req, res, url, params, format, data)
+    call(req, res, url, params, format, data, httpMetrics)
     {
-        unused(req, res, url, params, format, data);
+        unused(req, res, url, params, format, data, httpMetrics);
         throw new Endpoint.MissingImplementationError(`Method Endpoint.call() is an abstract method that needs to be overridden in a subclass of "SubmissionEndpoint"`);
     }
 }

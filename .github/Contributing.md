@@ -65,4 +65,4 @@ If you want to submit a translation, please follow these steps:
 
 <br><br>
 
-## If you need any help, feel free to contact me through [Discord](https://sv443.net/discord) (fastest way to contact me) or [E-Mail](mailto:contact@sv443.net?subject=Questions%20about%20contributing%20to%20JokeAPI)
+## If you need any help, feel free to contact me through [Discord](https://dc.sv443.net) (fastest way to contact me) or [E-Mail](mailto:contact@sv443.net?subject=Questions%20about%20contributing%20to%20JokeAPI)

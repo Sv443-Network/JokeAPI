@@ -37,8 +37,9 @@ class Info extends Endpoint {
      * @param {string[]} url URL path array gotten from the URL parser module
      * @param {Object} params URL query params gotten from the URL parser module
      * @param {string} format The file format to respond with
+     * @param {import("../../httpServer").HttpMetrics} httpMetrics
      */
-    call(req, res, url, params, format)
+    call(req, res, url, params, format, httpMetrics)
     {
         scl.unused(req, url);
 
@@ -62,6 +63,8 @@ class Info extends Endpoint {
                 to: to
             });
         });
+
+        const now = Date.now();
     
         if(format != "xml")
         {
@@ -83,16 +86,17 @@ class Info extends Endpoint {
                 "jokeLanguages": supportedLangsLength,
                 "systemLanguages": systemLanguagesLength,
                 "info": translate(lang, "messageOfTheDay", settings.info.name),
+                "baseServerLatencyMs": (now - httpMetrics.requestArrival.getTime()),
                 "timestamp": Date.now()
             };
         }
         else if(format == "xml")
         {
-            let versionIntNames = [ "Major", "Minor", "Patch" ];
+            const versionIntNames = [ "Major", "Minor", "Patch" ];
             let versionIntXml = {};
 
             settings.info.versionInt.forEach((ver, i) => {
-                let vName = versionIntNames[i] || "Other";
+                const vName = versionIntNames[i] || "Other";
                 versionIntXml[vName] = ver;
             });
 
@@ -103,17 +107,18 @@ class Info extends Endpoint {
                 "jokes":
                 {
                     "totalCount": totalJokesCount,
-                    "categories": {"category": [settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories]},
-                    "flags": {"flag": settings.jokes.possible.flags},
-                    "types": {"type": settings.jokes.possible.types},
+                    "categories": { "category": [ settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories ] },
+                    "flags": { "flag": settings.jokes.possible.flags },
+                    "types": { "type": settings.jokes.possible.types },
                     "submissionURL": settings.jokes.jokeSubmissionURL,
                     "idRanges": { "idRange": idRangePerLangXml },
                     "safeJokes": { "language": parseJokes.safeJokes }
                 },
-                "formats": {"format": settings.jokes.possible.formats},
+                "formats": { "format": settings.jokes.possible.formats },
                 "jokeLanguages": supportedLangsLength,
                 "systemLanguages": systemLanguagesLength,
                 "info": translate(lang, "messageOfTheDay", settings.info.name),
+                "baseServerLatencyMs": (now - httpMetrics.requestArrival.getTime()),
                 "timestamp": Date.now()
             };
         }

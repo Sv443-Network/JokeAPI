@@ -321,7 +321,7 @@
                 If your project really can't contain any explicit jokes, consider enabling the <a href="#safe-mode">Safe Mode.</a><br>
                 <br>
                 If you know any good jokes and want to add them to <!--%#INSERT:NAME#%-->, please <a href="#submit">click here.</a><br>
-                If you need any help, feel free to <a href="https://sv443.net/discord" target="_blank">join my Discord server.</a><br>
+                If you need any help, feel free to <a href="https://dc.sv443.net" target="_blank">join my Discord server.</a><br>
                 <br>
                 I struggled at explaining some features so consult the provided examples if you don't understand them.<br>
                 
@@ -895,6 +895,7 @@ None. It's a hardware problem.
                 - A list of languages (code and name) <!--%#INSERT:NAME#%--> currently supports<br>
                 - The minimum and maximum values of an ID range per each language<br>
                 - The amount of safe jokes there are per language<br>
+                - The internal server latency in milliseconds (between request arrival and the response being sent)<br>
                 - A string with some information, like a message of the day
                 <br><br>
                 Supported URL parameters:<br>
@@ -1060,7 +1061,9 @@ None. It's a hardware problem.
                 </span>
                 <br><br>
                 This endpoint returns a parameter named "ping" that contains the word "Pong!" and a 13-character UNIX timestamp.<br>
-                It is intended for external uptime monitoring but you can also use it if you want to.
+                Since v2.4.0 it now also shows the internal server latency in milliseconds, between request arrival and the response being sent.<br>
+                <br>
+                This endpoint is intended for external uptime monitoring but you can also use it if you want to to sync time or check for uptime.
                 <br><br>
                 Supported URL parameters:<br>
                 <ul>
@@ -1148,7 +1151,7 @@ None. It's a hardware problem.
     "error": false,
     "message": "Joke submission was successfully saved. It will soon be checked out by the author.",
     "submission": {
-        "formatVersion": 2,
+        "formatVersion": 3,
         "category": "Misc",
         "type": "single",
         "joke": "A horse walks into a bar...",
@@ -1549,7 +1552,7 @@ namespace TestHttpRequest
                     Additionally, I will only be able to provide security updates for a small selection of versions, a list of which you can find <a href="<!--%#INSERT:PROJGITHUBURL#%-->/security/policy#supported-versions" target="_blank">here.</a><br>
                     I am doing my best to ensure security and stability but there's only so much a single developer can do.<br>
                     Please report any issue that may arise to <a href="<!--%#INSERT:PROJGITHUBURL#%-->/issues/new/choose" target="_blank">the GitHub issue tracker</a> and I will try my best to fix it as soon as possible.<br>
-                    If you want to contact me, you can <a href="https://sv443.net/discord" target="_blank">join my Discord server</a> (fastest way to contact me) or send me an E-Mail: <span class="antiBotE" data-enc="Y29udGFjdEBzdjQ0My5uZXQ=">(click to show)</span>
+                    If you want to contact me, you can <a href="https://dc.sv443.net" target="_blank">join my Discord server</a> (fastest way to contact me) or send me an E-Mail: <span class="antiBotE" data-enc="Y29udGFjdEBzdjQ0My5uZXQ=">(click to show)</span>
                 </div>
 
 

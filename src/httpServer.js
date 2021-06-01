@@ -39,6 +39,12 @@ const dataEndpoints = [];
 /** @type {EpObject[]} Submission endpoints */
 const submissionEndpoints = [];
 
+/**
+ * @typedef {object} HttpMetrics
+ * @prop {Date} requestArrival `Date` object set to the time the request arrived at the server
+ */
+
+
 // TODO: implement submission endpoints like /submit and /clearData
 
 
@@ -219,7 +225,15 @@ function setRateLimitedHeaders(res, rlRes)
  */
 function createHttpServer()
 {
-    return http.createServer((req, res) => incomingRequest(req, res));
+    return http.createServer((req, res) => {
+        /** @type {HttpMetrics} */
+        const httpMetrics = {
+            requestArrival: new Date()
+        };
+
+        incomingRequest(req, res, httpMetrics);
+        return;
+    });
 }
 
 /**
@@ -239,9 +253,10 @@ function getLang(parsedURL)
  * This should be called each time a HTTP request is received
  * @param {http.IncomingMessage} req
  * @param {http.ServerResponse} res
+ * @param {HttpMetrics} httpMetrics
  * @returns {void}
  */
-function incomingRequest(req, res)
+function incomingRequest(req, res, httpMetrics)
 {
     const parsedURL = parseURL(req.url);
     const lang = getLang(parsedURL);
@@ -430,7 +445,7 @@ function incomingRequest(req, res)
 
                         foundEndpoint = true;
 
-                        let meta = ep.meta;
+                        const meta = ep.meta;
                         
                         if(!scl.isEmpty(meta) && meta.skipRateLimitCheck === true)
                         {
@@ -442,7 +457,7 @@ function incomingRequest(req, res)
                                         logRequest("success", null, analyticsObject);
                                 }
                                 // actually call the endpoint
-                                return ep.instance.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
+                                return ep.instance.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat, httpMetrics);
                             }
                             catch(err)
                             {
@@ -472,7 +487,7 @@ function incomingRequest(req, res)
                                             logRequest("success", null, analyticsObject);
                                     }
                                         
-                                    return ep.instance.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
+                                    return ep.instance.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat, httpMetrics);
                                 }
                             }
                             catch(err)
@@ -527,7 +542,9 @@ function incomingRequest(req, res)
                     if(!scl.isEmpty(payload))
                         clearTimeout(dataInterval);
 
-                    ep.instance.call(req, res, req.url, parsedURL.queryParams, fileFormat)
+                    /** @type {SubmissionEndpoint} */
+                    const inst = ep.instance;
+                    inst.call(req, res, req.url, parsedURL.queryParams, fileFormat, payload, httpMetrics)
                 });
 
                 // //#MARKER Joke submission
