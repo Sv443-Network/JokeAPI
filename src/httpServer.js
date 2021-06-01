@@ -34,6 +34,11 @@ scl.unused("types:", RateLimiterRes, Endpoint, SubmissionEndpoint);
 module.exports.dataEndpoints = [];
 module.exports.submissionEndpoints = [];
 
+/** @type {EpObject[]} Data endpoints */
+const dataEndpoints = [];
+/** @type {EpObject[]} Submission endpoints */
+const submissionEndpoints = [];
+
 // TODO: implement submission endpoints like /submit and /clearData
 
 
@@ -49,14 +54,8 @@ module.exports.submissionEndpoints = [];
 function init()
 {
     debug("HTTP", "Starting HTTP server...");
+
     return new Promise((resolve, reject) => {
-        /** @type {EpObject[]} Data endpoints */
-        let dataEndpoints = [];
-
-        /** @type {EpObject[]} Submission endpoints */
-        let submissionEndpoints = [];
-
-
         /** Whether or not the HTTP server could be initialized */
         let httpServerInitialized = false;
 
@@ -64,398 +63,13 @@ function init()
          * Initializes the HTTP server - should only be called once
          */
         const initHttpServer = () => {
-            //#SECTION set up rate limiters
-            let rl = new RateLimiterMemory({
-                points: settings.httpServer.rateLimiting,
-                duration: settings.httpServer.timeFrame
-            });
-
-            // let rlPost = new RateLimiterMemory({
-            //     points: settings.jokes.submissions.rateLimiting,
-            //     duration: settings.jokes.submissions.timeFrame
-            // });
-
             setTimeout(() => {
                 if(!httpServerInitialized)
                     return reject(`HTTP server initialization timed out after ${settings.httpServer.startupTimeout} seconds.\nMaybe the port ${settings.httpServer.port} is already occupied or some kind of firewall or proxy blocks the connection.`);
             }, settings.httpServer.startupTimeout * 1000);
 
             //#SECTION create HTTP server
-            let httpServer = http.createServer(async (req, res) => {
-                let parsedURL = parseURL(req.url);
-                let ip = resolveIP(req);
-                let localhostIP = resolveIP.isLocal(ip);
-                let headerAuth = auth.authByHeader(req, res);
-                let analyticsObject = {
-                    ipAddress: ip,
-                    urlPath: parsedURL.pathArray,
-                    urlParameters: parsedURL.queryParams
-                };
-                let lang = parsedURL.queryParams ? parsedURL.queryParams.lang : "invalid-lang-code";
-
-                if(languages.isValidLang(lang) !== true)
-                    lang = settings.languages.defaultLanguage;
-
-                debug("HTTP", `Incoming ${req.method} request from "${ip.substring(0, 8)}${localhostIP ? `..." ${scl.colors.fg.blue}(local)${scl.colors.rst} (lang=${lang})` : "...\""} to ${req.url}`, "green");
-
-                let fileFormat = settings.jokes.defaultFileFormat.fileFormat;
-                if(!scl.isEmpty(parsedURL.queryParams) && !scl.isEmpty(parsedURL.queryParams.format))
-                    fileFormat = parseURL.getFileFormatFromQString(parsedURL.queryParams);
-
-                if(req.url.length > settings.httpServer.maxUrlLength)
-                    return respondWithError(res, 108, 414, fileFormat, tr(lang, "uriTooLong", req.url.length, settings.httpServer.maxUrlLength), lang, req.url.length);
-
-                //#SECTION check lists
-                try
-                {
-                    if(lists.isBlacklisted(ip))
-                    {
-                        logRequest("blacklisted", null, analyticsObject);
-                        return respondWithError(res, 103, 403, fileFormat, tr(lang, "ipBlacklisted", settings.info.author.website), lang);
-                    }
-
-                    debug("HTTP", `Requested URL: ${parsedURL.initialURL}`);
-
-                    if(settings.httpServer.allowCORS)
-                    {
-                        try
-                        {
-                            res.setHeader("Access-Control-Allow-Origin", "*");
-                            res.setHeader("Access-Control-Request-Method", "GET");
-                            res.setHeader("Access-Control-Allow-Methods", "GET, POST, HEAD, OPTIONS, PUT");
-                            res.setHeader("Access-Control-Allow-Headers", "*");
-                        }
-                        catch(err)
-                        {
-                            console.log(`${scl.colors.fg.red}Error while setting up CORS headers: ${err}${scl.colors.rst}`);
-                        }
-                    }
-
-                    res.setHeader("Allow", "GET, POST, HEAD, OPTIONS, PUT");
-
-                    if(settings.httpServer.infoHeaders)
-                        res.setHeader("API-Info", `${settings.info.name} v${settings.info.version} (${settings.info.docsURL})`);
-                }
-                catch(err)
-                {
-                    if(scl.isEmpty(fileFormat))
-                    {
-                        fileFormat = settings.jokes.defaultFileFormat.fileFormat;
-                        if(!scl.isEmpty(parsedURL.queryParams) && !scl.isEmpty(parsedURL.queryParams.format))
-                            fileFormat = parseURL.getFileFormatFromQString(parsedURL.queryParams);
-                    }
-
-                    analytics({
-                        type: "Error",
-                        data: {
-                            errorMessage: `Error while setting up the HTTP response to "${ip.substr(8)}...": ${err}`,
-                            ipAddress: ip,
-                            urlParameters: parsedURL.queryParams,
-                            urlPath: parsedURL.pathArray
-                        }
-                    });
-                    return respondWithError(res, 500, 100, fileFormat, tr(lang, "errSetupHttpResponse", err), lang);
-                }
-
-                meter.update("reqtotal", 1);
-                meter.update("req1min", 1);
-                meter.update("req10min", 1);
-
-                const urlPath = parsedURL.pathArray;
-
-
-                //#SECTION GET
-                if(req.method === "GET")
-                {
-                    //#MARKER GET
-                    if(parsedURL.error === null)
-                    {
-                        let foundEndpoint = false;
-
-                        let requestedEndpoint = "";
-                        // let lowerCaseEndpoints = [];
-                        // endpoints.forEach(ep => lowerCaseEndpoints.push(ep.name.toLowerCase()));
-
-                        if(!scl.isArrayEmpty(urlPath))
-                            requestedEndpoint = urlPath[0].toLowerCase();
-                        else
-                        {
-                            try
-                            {
-                                rl.get(ip).then(rlRes => {
-                                    if(rlRes)
-                                        setRateLimitedHeaders(res, rlRes);
-
-                                    foundEndpoint = true;
-
-                                    if((rlRes && rlRes._remainingPoints < 0) && !lists.isWhitelisted(ip) && !headerAuth.isAuthorized)
-                                    {
-                                        analytics.rateLimited(ip);
-                                        logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
-                                        return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
-                                    }
-                                    else
-                                        return serveDocumentation(req, res);
-                                }).catch(rlRes => {
-                                    if(typeof rlRes.message == "string")
-                                        console.error(`Error while adding point to rate limiter: ${rlRes}`);
-                                    else if(rlRes.remainingPoints <= 0)
-                                    {
-                                        logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
-                                        return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
-                                    }
-                                });
-                            }
-                            catch(err)
-                            {
-                                // setRateLimitedHeaders(res, rlRes);
-                                analytics.rateLimited(ip);
-                                logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
-                                return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
-                            }
-                        }
-
-                        // Disable caching now that the request is not a docs request
-                        if(settings.httpServer.disableCache)
-                        {
-                            res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate, no-transform");
-                            res.setHeader("Pragma", "no-cache");
-                            res.setHeader("Expires", "0");
-                        }
-
-                        // serve favicon:
-                        if(!scl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "favicon.ico")
-                            return pipeFile(res, settings.documentation.faviconPath, "image/x-icon", 200);
-
-                        dataEndpoints.forEach( /** @param {EpObject} ep Endpoint matching request URL */ async (ep) => {
-                            if(ep.pathName == requestedEndpoint)
-                            {
-                                if(ep.meta.usage.method == "GET")
-                                {
-                                    let isAuthorized = headerAuth.isAuthorized;
-                                    let headerToken = headerAuth.token;
-
-                                    // now that the request is not a docs / favicon request, the blacklist is checked and the request is made eligible for rate limiting
-                                    if(!settings.endpoints.ratelimitBlacklist.includes(ep.name) && !isAuthorized)
-                                    {
-                                        try
-                                        {
-                                            await rl.consume(ip, 1);
-                                        }
-                                        catch(err)
-                                        {
-                                            scl.unused(err); // gets handled elsewhere
-                                        }
-                                    }
-                                    
-                                    if(isAuthorized)
-                                    {
-                                        debug("HTTP", `Requester has valid token ${scl.colors.fg.green}${req.headers[settings.auth.tokenHeaderName] || null}${scl.colors.rst}`);
-                                        analytics({
-                                            type: "AuthTokenIncluded",
-                                            data: {
-                                                ipAddress: ip,
-                                                urlParameters: parsedURL.queryParams,
-                                                urlPath: parsedURL.pathArray,
-                                                submission: headerToken
-                                            }
-                                        });
-                                    }
-
-                                    foundEndpoint = true;
-
-                                    let meta = ep.meta;
-                                    
-                                    if(!scl.isEmpty(meta) && meta.skipRateLimitCheck === true)
-                                    {
-                                        try
-                                        {
-                                            if(scl.isEmpty(meta) || (!scl.isEmpty(meta) && meta.noLog !== true))
-                                            {
-                                                if(!lists.isConsoleBlacklisted(ip))
-                                                    logRequest("success", null, analyticsObject);
-                                            }
-                                            // actually call the endpoint
-                                            return ep.instance.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
-                                        }
-                                        catch(err)
-                                        {
-                                            return respondWithError(res, 104, 500, fileFormat, tr(lang, "endpointInternalError", err), lang);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        try
-                                        {
-                                            let rlRes = await rl.get(ip);
-
-                                            if(rlRes)
-                                                setRateLimitedHeaders(res, rlRes);
-
-                                            if((rlRes && rlRes._remainingPoints < 0) && !lists.isWhitelisted(ip) && !isAuthorized)
-                                            {
-                                                logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
-                                                analytics.rateLimited(ip);
-                                                return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
-                                            }
-                                            else
-                                            {
-                                                if(scl.isEmpty(meta) || (!scl.isEmpty(meta) && meta.noLog !== true))
-                                                {
-                                                    if(!lists.isConsoleBlacklisted(ip))
-                                                        logRequest("success", null, analyticsObject);
-                                                }
-                                                    
-                                                return ep.instance.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
-                                            }
-                                        }
-                                        catch(err)
-                                        {
-                                            // setRateLimitedHeaders(res, rlRes);
-                                            logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
-                                            analytics.rateLimited(ip);
-                                            return respondWithError(res, 100, 500, fileFormat, tr(lang, "generalInternalError", err), lang);
-                                        }
-                                    }
-                                }
-                            }
-                        });
-
-                        setTimeout(() => {
-                            if(!foundEndpoint)
-                            {
-                                if(!scl.isEmpty(fileFormat) && req.url.toLowerCase().includes("format"))
-                                    return respondWithError(res, 102, 404, fileFormat, tr(lang, "endpointNotFound", (!scl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/")), lang);
-                                else
-                                    return respondWithErrorPage(res, 404, tr(lang, "endpointNotFound", (!scl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/")));
-                            }
-                        }, 5000);
-                    }
-                }
-                //#SECTION PUT / POST
-                else if(req.method === "POST" || (settings.legacy.submissionEndpointsPutMethod && req.method === "PUT"))
-                {
-                    let requestedEndpoint = "";
-                    if(!scl.isArrayEmpty(urlPath))
-                        requestedEndpoint = urlPath[0].toLowerCase();
-                        
-                    let dataInterval = setTimeout(() => {
-                        debug("HTTP", "PUT / POST request timed out", "red");
-                        return respondWithErrorPage(res, 400, tr(lang, "requestBodyIsInvalid"));
-                    }, settings.httpServer.submissionNoDataTimeout);
-
-
-                    submissionEndpoints.forEach( /** @param {EpObject} ep Endpoint matching request URL */ async (ep) => {
-                        if(ep.pathName == requestedEndpoint && ["POST", "PUT"].includes(ep.meta.usage.method))
-                        {
-                            // let postRateLimited = await rlPost.get(ip);
-
-                            req.on("data", chunk => {
-                                const data = chunk.toString();
-
-                                let payloadLength = byteLength(data);
-                                if(payloadLength > settings.httpServer.maxPayloadSize)
-                                    return respondWithError(res, 107, 413, fileFormat, tr(lang, "payloadTooLarge", payloadLength, settings.httpServer.maxPayloadSize), lang);
-
-                                if(!scl.isEmpty(data))
-                                    clearTimeout(dataInterval);
-
-                                ep.instance.call(req, res, )
-                            });
-
-                            // //#MARKER Joke submission
-                            // let submissionsRateLimited = await rlSubm.get(ip);
-
-                            // if(!scl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "submit" && !(submissionsRateLimited && submissionsRateLimited._remainingPoints <= 0 && !headerAuth.isAuthorized))
-                            // {
-                            //     let data = "";
-                            //     req.on("data", chunk => {
-                            //         data += chunk;
-
-                            //         let payloadLength = byteLength(data);
-                            //         if(payloadLength > settings.httpServer.maxPayloadSize)
-                            //             return respondWithError(res, 107, 413, fileFormat, tr(lang, "payloadTooLarge", payloadLength, settings.httpServer.maxPayloadSize), lang);
-
-                            //         if(!scl.isEmpty(data))
-                            //             clearTimeout(dataInterval);
-
-                            //         let dryRun = (parsedURL.queryParams && parsedURL.queryParams["dry-run"] == true) || false;
-
-                            //         if(lists.isWhitelisted(ip))
-                            //             return jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun);
-
-                            //         if(!dryRun)
-                            //         {
-                            //             rlSubm.consume(ip, 1).then(() => {
-                            //                 return jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun);
-                            //             }).catch(rlRes => {
-                            //                 if(rlRes.remainingPoints <= 0)
-                            //                     return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
-                            //             });
-                            //         }
-                            //         else
-                            //         {
-                            //             rl.consume(ip, 1).then(rlRes => {
-                            //                 if(rlRes)
-                            //                     setRateLimitedHeaders(res, rlRes);
-
-                            //                 return jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun);
-                            //             }).catch(rlRes => {
-                            //                 if(rlRes)
-                            //                     setRateLimitedHeaders(res, rlRes);
-
-                            //                 if(rlRes.remainingPoints <= 0)
-                            //                     return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
-                            //             });
-                            //         }
-                            //     });
-                            // }
-                            // else
-                            // {
-                            //     //#MARKER Restart / invalid PUT / POST
-
-                            //     if(submissionsRateLimited && submissionsRateLimited._remainingPoints <= 0 && !headerAuth.isAuthorized)
-                            //         return respondWithError(res, 110, 429, fileFormat, tr(lang, "rateLimitedShort"), lang);
-
-                            //     let data = "";
-                            //     req.on("data", chunk => {
-                            //         data += chunk;
-
-                            //         if(!scl.isEmpty(data))
-                            //             clearTimeout(dataInterval);
-
-                            //         if(data == process.env.RESTART_TOKEN && parsedURL.pathArray != null && parsedURL.pathArray[0] == "restart")
-                            //         {
-                            //             res.writeHead(200, {"Content-Type": parseURL.getMimeTypeFromFileFormatString(fileFormat)});
-                            //             res.end(convertFileFormat.auto(fileFormat, {
-                            //                 "error": false,
-                            //                 "message": `Restarting ${settings.info.name}`,
-                            //                 "timestamp": Date.now()
-                            //             }, lang));
-                            //             console.log(`\n\n[${logger.getTimestamp(" | ")}]  ${scl.colors.fg.red}IP ${scl.colors.fg.yellow}${ip.substr(0, 8)}[...]${scl.colors.fg.red} sent a restart command\n\n\n${scl.colors.rst}`);
-                            //             process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
-                            //         }
-                            //         else return respondWithErrorPage(res, 400, tr(lang, "invalidSubmissionOrWrongEndpoint", (parsedURL.pathArray != null ? parsedURL.pathArray[0] : "/")));
-                            //     });
-                            // }
-                        }
-                    });
-                }
-                //#SECTION HEAD / OPTIONS
-                else if(req.method === "HEAD" || req.method === "OPTIONS")
-                    serveDocumentation(req, res);
-                //#SECTION invalid method
-                else
-                {
-                    res.writeHead(405, {"Content-Type": parseURL.getMimeTypeFromFileFormatString(fileFormat)});
-                    res.end(convertFileFormat.auto(fileFormat, {
-                        "error": true,
-                        "internalError": false,
-                        "message": `Wrong method "${req.method}" used. Expected "GET", "OPTIONS" or "HEAD"`,
-                        "timestamp": Date.now()
-                    }, lang));
-                }
-            });
+            const httpServer = createHttpServer();
 
             //#MARKER other HTTP stuff
             httpServer.on("error", err => {
@@ -600,17 +214,429 @@ function setRateLimitedHeaders(res, rlRes)
 }
 
 /**
+ * Creates the HTTP server, and makes it call `incomingRequest()` each time a request is received
+ * @returns {http.Server} Returns the HTTP server
+ */
+function createHttpServer()
+{
+    return http.createServer((req, res) => incomingRequest(req, res));
+}
+
+/**
+ * Returns the language by parsing a `ParsedUrl` or `ErroredParsedUrl` object
+ * @param {parseURL.ParsedUrl|parseURL.ErroredParsedUrl}
+ */
+function getLang(parsedURL)
+{
+    const lang = parsedURL.queryParams ? parsedURL.queryParams.lang : "invalid-lang-code";
+
+    if(languages.isValidLang(lang))
+        return lang;
+    return settings.languages.defaultLanguage;
+}
+
+/**
+ * This should be called each time a HTTP request is received
+ * @param {http.IncomingMessage} req
+ * @param {http.ServerResponse} res
+ * @returns {void}
+ */
+function incomingRequest(req, res)
+{
+    const parsedURL = parseURL(req.url);
+    const lang = getLang(parsedURL);
+    const ip = resolveIP(req);
+    const headerAuth = auth.authByHeader(req, res);
+    const localhostIP = resolveIP.isLocal(ip);
+    let analyticsObject = {
+        ipAddress: ip,
+        urlPath: parsedURL.pathArray,
+        urlParameters: parsedURL.queryParams
+    };
+
+    debug("HTTP", `Incoming ${req.method} request from "${ip.substring(0, 8)}${localhostIP ? `..." ${scl.colors.fg.blue}(local)${scl.colors.rst} (lang=${lang})` : "...\""} to ${req.url}`, "green");
+
+    const fileFormat = (!scl.isEmpty(parsedURL.queryParams) && !scl.isEmpty(parsedURL.queryParams.format)) ? parseURL.getFileFormatFromQString(parsedURL.queryParams) : settings.jokes.defaultFileFormat.fileFormat;
+
+    if(req.url.length > settings.httpServer.maxUrlLength)
+        return respondWithError(res, 108, 414, fileFormat, tr(lang, "uriTooLong", req.url.length, settings.httpServer.maxUrlLength), lang, req.url.length);
+
+    //#SECTION check lists
+    try
+    {
+        if(lists.isBlacklisted(ip))
+        {
+            logRequest("blacklisted", null, analyticsObject);
+            return respondWithError(res, 103, 403, fileFormat, tr(lang, "ipBlacklisted", settings.info.author.website), lang);
+        }
+
+        debug("HTTP", `Requested URL: ${parsedURL.initialURL}`);
+
+        if(settings.httpServer.allowCORS)
+        {
+            try
+            {
+                res.setHeader("Access-Control-Allow-Origin", "*");
+                res.setHeader("Access-Control-Request-Method", "GET");
+                res.setHeader("Access-Control-Allow-Methods", "GET, POST, HEAD, OPTIONS, PUT");
+                res.setHeader("Access-Control-Allow-Headers", "*");
+            }
+            catch(err)
+            {
+                console.log(`${scl.colors.fg.red}Error while setting up CORS headers: ${err}${scl.colors.rst}`);
+            }
+        }
+
+        res.setHeader("Allow", "GET, POST, HEAD, OPTIONS, PUT");
+
+        if(settings.httpServer.infoHeaders)
+            res.setHeader("API-Info", `${settings.info.name} v${settings.info.version} (${settings.info.docsURL})`);
+    }
+    catch(err)
+    {
+        let fileFormat2 = fileFormat;
+        if(scl.isEmpty(fileFormat2))
+        {
+            fileFormat2 = settings.jokes.defaultFileFormat.fileFormat;
+            if(!scl.isEmpty(parsedURL.queryParams) && !scl.isEmpty(parsedURL.queryParams.format))
+            fileFormat2 = parseURL.getFileFormatFromQString(parsedURL.queryParams);
+        }
+
+        analytics({
+            type: "Error",
+            data: {
+                errorMessage: `Error while setting up the HTTP response to "${ip.substr(8)}...": ${err}`,
+                ipAddress: ip,
+                urlParameters: parsedURL.queryParams,
+                urlPath: parsedURL.pathArray
+            }
+        });
+        return respondWithError(res, 500, 100, fileFormat2, tr(lang, "errSetupHttpResponse", err), lang);
+    }
+
+    meter.update("reqtotal", 1);
+    meter.update("req1min", 1);
+    meter.update("req10min", 1);
+
+    const urlPath = parsedURL.pathArray;
+
+
+    //#SECTION set up rate limiters
+    let rl = new RateLimiterMemory({
+        points: settings.httpServer.rateLimiting,
+        duration: settings.httpServer.timeFrame
+    });
+
+
+    //#SECTION GET
+    if(req.method === "GET")
+    {
+        //#MARKER GET
+        if(parsedURL.error === null)
+        {
+            let foundEndpoint = false;
+
+            let requestedEndpoint = "";
+            // let lowerCaseEndpoints = [];
+            // endpoints.forEach(ep => lowerCaseEndpoints.push(ep.name.toLowerCase()));
+
+            if(!scl.isArrayEmpty(urlPath))
+                requestedEndpoint = urlPath[0].toLowerCase();
+            else
+            {
+                //#SECTION serve documentation
+                // no URL path is present, so serve the docs
+                try
+                {
+                    rl.get(ip).then(rlRes => {
+                        if(rlRes)
+                            setRateLimitedHeaders(res, rlRes);
+
+                        foundEndpoint = true;
+
+                        if((rlRes && rlRes._remainingPoints < 0) && !lists.isWhitelisted(ip) && !headerAuth.isAuthorized)
+                        {
+                            analytics.rateLimited(ip);
+                            logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
+                            return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
+                        }
+                        else
+                            return serveDocumentation(req, res);
+                    }).catch(rlRes => {
+                        if(typeof rlRes.message == "string")
+                            console.error(`Error while adding point to rate limiter: ${rlRes}`);
+                        else if(rlRes.remainingPoints <= 0)
+                        {
+                            logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
+                            return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
+                        }
+                    });
+                }
+                catch(err)
+                {
+                    // setRateLimitedHeaders(res, rlRes);
+                    analytics.rateLimited(ip);
+                    logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
+                    return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
+                }
+            }
+
+            // Disable caching now that the request is not a docs request
+            if(settings.httpServer.disableCache)
+            {
+                res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate, no-transform");
+                res.setHeader("Pragma", "no-cache");
+                res.setHeader("Expires", "0");
+            }
+
+            // serve favicon:
+            if(!scl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "favicon.ico")
+                return pipeFile(res, settings.documentation.faviconPath, "image/x-icon", 200);
+
+            dataEndpoints.forEach( /** @param {EpObject} ep Endpoint matching request URL */ async (ep) => {
+                if(ep.pathName == requestedEndpoint)
+                {
+                    if(ep.meta.usage.method == "GET")
+                    {
+                        let isAuthorized = headerAuth.isAuthorized;
+                        let headerToken = headerAuth.token;
+
+                        // now that the request is not a docs / favicon request, the blacklist is checked and the request is made eligible for rate limiting
+                        if(!settings.endpoints.ratelimitBlacklist.includes(ep.name) && !isAuthorized)
+                        {
+                            try
+                            {
+                                await rl.consume(ip, 1);
+                            }
+                            catch(err)
+                            {
+                                scl.unused(err); // gets handled elsewhere
+                            }
+                        }
+                        
+                        if(isAuthorized)
+                        {
+                            debug("HTTP", `Requester has valid token ${scl.colors.fg.green}${req.headers[settings.auth.tokenHeaderName] || null}${scl.colors.rst}`);
+                            analytics({
+                                type: "AuthTokenIncluded",
+                                data: {
+                                    ipAddress: ip,
+                                    urlParameters: parsedURL.queryParams,
+                                    urlPath: parsedURL.pathArray,
+                                    submission: headerToken
+                                }
+                            });
+                        }
+
+                        foundEndpoint = true;
+
+                        let meta = ep.meta;
+                        
+                        if(!scl.isEmpty(meta) && meta.skipRateLimitCheck === true)
+                        {
+                            try
+                            {
+                                if(scl.isEmpty(meta) || (!scl.isEmpty(meta) && meta.noLog !== true))
+                                {
+                                    if(!lists.isConsoleBlacklisted(ip))
+                                        logRequest("success", null, analyticsObject);
+                                }
+                                // actually call the endpoint
+                                return ep.instance.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
+                            }
+                            catch(err)
+                            {
+                                return respondWithError(res, 104, 500, fileFormat, tr(lang, "endpointInternalError", err), lang);
+                            }
+                        }
+                        else
+                        {
+                            try
+                            {
+                                let rlRes = await rl.get(ip);
+
+                                if(rlRes)
+                                    setRateLimitedHeaders(res, rlRes);
+
+                                if((rlRes && rlRes._remainingPoints < 0) && !lists.isWhitelisted(ip) && !isAuthorized)
+                                {
+                                    logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
+                                    analytics.rateLimited(ip);
+                                    return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
+                                }
+                                else
+                                {
+                                    if(scl.isEmpty(meta) || (!scl.isEmpty(meta) && meta.noLog !== true))
+                                    {
+                                        if(!lists.isConsoleBlacklisted(ip))
+                                            logRequest("success", null, analyticsObject);
+                                    }
+                                        
+                                    return ep.instance.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat);
+                                }
+                            }
+                            catch(err)
+                            {
+                                // setRateLimitedHeaders(res, rlRes);
+                                logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
+                                analytics.rateLimited(ip);
+                                return respondWithError(res, 100, 500, fileFormat, tr(lang, "generalInternalError", err), lang);
+                            }
+                        }
+                    }
+                }
+            });
+
+            setTimeout(() => {
+                if(!foundEndpoint)
+                {
+                    if(!scl.isEmpty(fileFormat) && req.url.toLowerCase().includes("format"))
+                        return respondWithError(res, 102, 404, fileFormat, tr(lang, "endpointNotFound", (!scl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/")), lang);
+                    else
+                        return respondWithErrorPage(res, 404, tr(lang, "endpointNotFound", (!scl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/")));
+                }
+            }, 5000);
+        }
+    }
+    //#SECTION PUT / POST
+    else if(req.method === "POST" || (settings.legacy.submissionEndpointsPutMethod && req.method === "PUT"))
+    {
+        let requestedEndpoint = "";
+        if(!scl.isArrayEmpty(urlPath))
+            requestedEndpoint = urlPath[0].toLowerCase();
+            
+        let dataInterval = setTimeout(() => {
+            debug("HTTP", "PUT / POST request timed out", "red");
+            return respondWithErrorPage(res, 400, tr(lang, "requestBodyIsInvalid"));
+        }, settings.httpServer.submissionNoDataTimeout);
+
+
+        submissionEndpoints.forEach( /** @param {EpObject} ep Endpoint matching request URL */ async (ep) => {
+            if(ep.pathName == requestedEndpoint && ["POST", "PUT"].includes(ep.meta.usage.method))
+            {
+                // let postRateLimited = await rlPost.get(ip);
+
+                req.on("data", chunk => {
+                    const payload = chunk.toString();
+
+                    /** Size of the payload sent by the client in bytes */
+                    const payloadSize = byteLength(payload);
+                    if(payloadSize > settings.httpServer.maxPayloadSize)
+                        return respondWithError(res, 107, 413, fileFormat, tr(lang, "payloadTooLarge", payloadSize, settings.httpServer.maxPayloadSize), lang);
+
+                    if(!scl.isEmpty(payload))
+                        clearTimeout(dataInterval);
+
+                    ep.instance.call(req, res, req.url, parsedURL.queryParams, fileFormat)
+                });
+
+                // //#MARKER Joke submission
+                // let submissionsRateLimited = await rlSubm.get(ip);
+
+                // if(!scl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "submit" && !(submissionsRateLimited && submissionsRateLimited._remainingPoints <= 0 && !headerAuth.isAuthorized))
+                // {
+                //     let data = "";
+                //     req.on("data", chunk => {
+                //         data += chunk;
+
+                //         let payloadLength = byteLength(data);
+                //         if(payloadLength > settings.httpServer.maxPayloadSize)
+                //             return respondWithError(res, 107, 413, fileFormat, tr(lang, "payloadTooLarge", payloadLength, settings.httpServer.maxPayloadSize), lang);
+
+                //         if(!scl.isEmpty(data))
+                //             clearTimeout(dataInterval);
+
+                //         let dryRun = (parsedURL.queryParams && parsedURL.queryParams["dry-run"] == true) || false;
+
+                //         if(lists.isWhitelisted(ip))
+                //             return jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun);
+
+                //         if(!dryRun)
+                //         {
+                //             rlSubm.consume(ip, 1).then(() => {
+                //                 return jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun);
+                //             }).catch(rlRes => {
+                //                 if(rlRes.remainingPoints <= 0)
+                //                     return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
+                //             });
+                //         }
+                //         else
+                //         {
+                //             rl.consume(ip, 1).then(rlRes => {
+                //                 if(rlRes)
+                //                     setRateLimitedHeaders(res, rlRes);
+
+                //                 return jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun);
+                //             }).catch(rlRes => {
+                //                 if(rlRes)
+                //                     setRateLimitedHeaders(res, rlRes);
+
+                //                 if(rlRes.remainingPoints <= 0)
+                //                     return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
+                //             });
+                //         }
+                //     });
+                // }
+                // else
+                // {
+                //     //#MARKER Restart / invalid PUT / POST
+
+                //     if(submissionsRateLimited && submissionsRateLimited._remainingPoints <= 0 && !headerAuth.isAuthorized)
+                //         return respondWithError(res, 110, 429, fileFormat, tr(lang, "rateLimitedShort"), lang);
+
+                //     let data = "";
+                //     req.on("data", chunk => {
+                //         data += chunk;
+
+                //         if(!scl.isEmpty(data))
+                //             clearTimeout(dataInterval);
+
+                //         if(data == process.env.RESTART_TOKEN && parsedURL.pathArray != null && parsedURL.pathArray[0] == "restart")
+                //         {
+                //             res.writeHead(200, {"Content-Type": parseURL.getMimeType(fileFormat)});
+                //             res.end(convertFileFormat.auto(fileFormat, {
+                //                 "error": false,
+                //                 "message": `Restarting ${settings.info.name}`,
+                //                 "timestamp": Date.now()
+                //             }, lang));
+                //             console.log(`\n\n[${logger.getTimestamp(" | ")}]  ${scl.colors.fg.red}IP ${scl.colors.fg.yellow}${ip.substr(0, 8)}[...]${scl.colors.fg.red} sent a restart command\n\n\n${scl.colors.rst}`);
+                //             process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
+                //         }
+                //         else return respondWithErrorPage(res, 400, tr(lang, "invalidSubmissionOrWrongEndpoint", (parsedURL.pathArray != null ? parsedURL.pathArray[0] : "/")));
+                //     });
+                // }
+            }
+        });
+    }
+    //#SECTION HEAD / OPTIONS
+    else if(req.method === "HEAD" || req.method === "OPTIONS")
+        serveDocumentation(req, res);
+    //#SECTION invalid method
+    else
+    {
+        res.writeHead(405, { "Content-Type": parseURL.getMimeType(fileFormat) });
+        res.end(convertFileFormat.auto(fileFormat, {
+            "error": true,
+            "internalError": false,
+            "message": `Wrong method "${req.method}" used. Expected "GET", "OPTIONS" or "HEAD"`,
+            "timestamp": Date.now()
+        }, lang));
+    }
+}
+
+/**
  * Ends the request with an error. This error gets pulled from the error registry
- * @param {http.ServerResponse} res 
- * @param {Number} errorCode The error code
- * @param {Number} responseCode The HTTP response code to end the request with
- * @param {String} fileFormat The file format to respond with - automatically gets converted to MIME type
- * @param {String} errorMessage Additional error info
- * @param {String} lang Language code of the request
- * @param {...any} args Arguments to replace numbered %-placeholders with. Only use objects that are strings or convertable to them with `.toString()`!
+ * @param {http.ServerResponse} res
+ * @param {number} errorCode The error code
+ * @param {number} responseCode The HTTP response code to end the request with
+ * @param {string} fileFormat The file format to respond with - automatically gets converted to MIME type
+ * @param {string} errorMessage Additional error info
+ * @param {string} lang Language code of the request
+ * @param {import("svcorelib").Stringifiable} args Arguments to replace numbered %-placeholders with. Only use objects that are strings or convertable to them with `.toString()`!
  * @since 2.4.0 API error code of response is now an integer instead of a string
  */
-const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage, lang, ...args) => {
+function respondWithError(res, errorCode, responseCode, fileFormat, errorMessage, lang, ...args)
+{
     try
     {
         errorCode = errorCode.toString();
@@ -666,14 +692,14 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
 
         let converted = convertFileFormat.auto(fileFormat, errObj, lang).toString();
 
-        return pipeString(res, converted, parseURL.getMimeTypeFromFileFormatString(fileFormat), responseCode);
+        return pipeString(res, converted, parseURL.getMimeType(fileFormat), responseCode);
     }
     catch(err)
     {
         let errMsg = `Internal error while sending error message.\nOh, the irony...\n\nPlease contact me (${settings.info.author.website}) and provide this additional info:\n${err}`;
         return pipeString(res, errMsg, "text/plain", responseCode);
     }
-};
+}
 
 /**
  * Responds with an error page (which one is based on the status code).
@@ -682,7 +708,8 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
  * @param {(404|500)} [statusCode=500] HTTP status code - defaults to 500
  * @param {string} [error] Additional error message that gets added to the "API-Error" response header
  */
-const respondWithErrorPage = (res, statusCode, error) => {
+function respondWithErrorPage(res, statusCode, error)
+{
 
     statusCode = parseInt(statusCode);
 
@@ -711,7 +738,8 @@ const respondWithErrorPage = (res, statusCode, error) => {
  * @param {string} mimeType The MIME type to respond with
  * @param {number} [statusCode=200] The status code to respond with - defaults to 200
  */
-const pipeString = (res, text, mimeType, statusCode = 200) => {
+function pipeString(res, text, mimeType, statusCode = 200)
+{
     try
     {
         statusCode = parseInt(statusCode);
@@ -751,7 +779,8 @@ const pipeString = (res, text, mimeType, statusCode = 200) => {
  * @param {String} mimeType The MIME type to respond with
  * @param {Number} [statusCode=200] The status code to respond with - defaults to 200
  */
-const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
+function pipeFile(res, filePath, mimeType, statusCode = 200)
+{
     try
     {
         statusCode = parseInt(statusCode);
@@ -791,7 +820,8 @@ const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
  * @param {http.IncomingMessage} req The HTTP req object
  * @param {http.ServerResponse} res The HTTP res object
  */
-const serveDocumentation = (req, res) => {
+function serveDocumentation(req, res)
+{
     let resolvedURL = parseURL(req.url);
 
     if(!lists.isConsoleBlacklisted(resolveIP(req)))
@@ -836,7 +866,8 @@ const serveDocumentation = (req, res) => {
  * @param {http.IncomingMessage} req The HTTP req object
  * @returns {null|"gzip"|"deflate"|"br"} Returns null if no encodings are supported, else returns the encoding name
  */
-const getAcceptedEncoding = req => {
+function getAcceptedEncoding(req)
+{
     let selectedEncoding = null;
 
     let encodingPriority = [];
@@ -877,7 +908,8 @@ function byteLength(str)
  * @param {null|"gzip"|"deflate"|"br"} encoding
  * @returns {String}
  */
-const getFileExtensionFromEncoding = encoding => {
+function getFileExtensionFromEncoding(encoding)
+{
     switch(encoding)
     {
         case "gzip":

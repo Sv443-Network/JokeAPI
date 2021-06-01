@@ -69,7 +69,7 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun)
                     parameterValidity: validationResult.jokeParams
                 };
 
-                return scl.http.pipeString(res, fileFormatConverter.auto(fileFormat, clientResponse, langCode), parseURL.getMimeTypeFromFileFormatString(fileFormat), 400);
+                return scl.http.pipeString(res, fileFormatConverter.auto(fileFormat, clientResponse, langCode), parseURL.getMimeType(fileFormat), 400);
                 // return httpServer.respondWithError(res, 105, 400, fileFormat, tr(langCode, "submittedJokeFormatInvalid", validationResult.join("\n")), langCode);
             }
             else
@@ -110,7 +110,7 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun)
                             timestamp: Date.now()
                         };
 
-                        return httpServer.pipeString(res, fileFormatConverter.auto(fileFormat, respObj, langCode), parseURL.getMimeTypeFromFileFormatString(fileFormat), 201);
+                        return httpServer.pipeString(res, fileFormatConverter.auto(fileFormat, respObj, langCode), parseURL.getMimeType(fileFormat), 201);
                     }
 
                     return writeJokeToFile(res, fileName, submittedJoke, fileFormat, ip, analyticsObject, langCode);
@@ -166,7 +166,7 @@ function writeJokeToFile(res, filePath, submittedJoke, fileFormat, ip, analytics
             submissionObject.submission = reformattedJoke;
             logRequest("submission", ip, submissionObject);
 
-            return httpServer.pipeString(res, convertFileFormat.auto(fileFormat, responseObj, langCode), parseURL.getMimeTypeFromFileFormatString(fileFormat), 201);
+            return httpServer.pipeString(res, convertFileFormat.auto(fileFormat, responseObj, langCode), parseURL.getMimeType(fileFormat), 201);
         }
         // error while writing to file
         else return httpServer.respondWithError(res, 100, 500, fileFormat, tr(langCode, "errWhileSavingSubmission", err), langCode);

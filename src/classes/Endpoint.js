@@ -235,7 +235,7 @@ class Endpoint
         if(typeof statusCode != "number" || isNaN(statusCode) || statusCode < 100)
             statusCode = 200;
 
-        return http.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format), statusCode);
+        return http.pipeString(res, responseText, parseURL.getMimeType(format), statusCode);
     }
 
     /**
@@ -281,7 +281,7 @@ class Endpoint
         if(typeof statusCode != "number" || isNaN(statusCode) || statusCode < 100)
             statusCode = 200;
 
-        return httpServer.tryServeEncoded(req, res, responseText, parseURL.getMimeTypeFromFileFormatString(format), statusCode);
+        return httpServer.tryServeEncoded(req, res, responseText, parseURL.getMimeType(format), statusCode);
     }
 
     /**

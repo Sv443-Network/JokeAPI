@@ -147,7 +147,7 @@ function getFileFormatFromQString(qstrObj)
  * @param {string} fileFormatString 
  * @returns {string}
  */
-function getMimeTypeFromFileFormatString(fileFormatString)
+function getMimeType(fileFormatString)
 {
     let allFileTypes = JSON.parse(fs.readFileSync(settings.jokes.fileFormatsPath).toString());
 
@@ -160,4 +160,4 @@ function getMimeTypeFromFileFormatString(fileFormatString)
 module.exports = parseURL;
 module.exports.init = init;
 module.exports.getFileFormatFromQString = getFileFormatFromQString;
-module.exports.getMimeTypeFromFileFormatString = getMimeTypeFromFileFormatString;
+module.exports.getMimeType = getMimeType;
