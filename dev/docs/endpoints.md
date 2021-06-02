@@ -43,8 +43,8 @@ Endpoints are located in the folder defined in `settings.endpoints.get.dirPath` 
 <br>
 
 ### Execution:
-On each request, JokeAPI goes through the endpoints folder, removes the `.js` file extensions and checks if the client's URL matches one of the endpoints.  
-On this endpoint, the `call()` function is now called.  
+On each request, JokeAPI goes through the endpoints folder and checks if the client's URL matches one of the endpoints.  
+If it does, the `call()` function is now called on the matching endpoint.  
 This function gets passed a lot of parameters, which are essential in parsing and responding to a client request:
 - `req` - Full client request object (contains all properties of the sent request)
 - `res` - The client response (used to finalize the request and send a response)
