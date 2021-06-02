@@ -72,9 +72,12 @@ This describes the general style of the code.
 <br>
 
 > ### Promise parameter names
-> Promise parameter names (resolve and reject) should be called `pRes` and `pRej`.  
+> Promise parameter names (resolve and reject) should be called `res` and `rej`.  
 > This was introduced to prevent conflicts with the [`path`](https://nodejs.org/api/path.html) module's resolve() function.  
-> 
+>   
+> Note that they should, if possible, be followed by a `return`, to make sure no other code after the Promise execution is run.  
+> In the below example, removing the `return`s could execute both the `rej()` *and* the `res()` functions.  
+>   
 > <details><summary><b>Example (click to view)</b></summary>
 > 
 > ```js
@@ -83,14 +86,14 @@ This describes the general style of the code.
 > 
 > function readFilePromise(filePath)
 > {
->     return new Promise((pRes, pRej) => {
+>     return new Promise((res, rej) => {
 >         filePath = resolve(filePath);
 > 
 >         readFile(filePath, (err, data) => {
 >             if(err)
->                 return pRej(err);
+>                 return rej(err);
 >             
->             return pRes(data.toString());
+>             return res(data.toString());
 >         });
 >     });
 > }
