@@ -20,7 +20,7 @@
 ## Checklist
 - [ ] I have read and followed the [Contributing Guide](https://github.com/Sv443/JokeAPI/blob/master/.github/Contributing.md)
 - [ ] I have read and accept the [Code of Conduct](https://github.com/Sv443/JokeAPI/blob/master/.github/Code_of_Conduct.md) (TLDR: just behave in a friendly manner)
-- [ ] My code follows the general style of this project
+- [ ] My code follows the general style of this project ([explained here](https://github.com/Sv443/JokeAPI/blob/version/2.4.0/dev/docs/code-style.md#readme))
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] I have made corresponding changes to the documentation (if applicable)
 - [ ] I ensured that the automated checks that ran on this PR have completed successfully
