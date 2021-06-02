@@ -128,32 +128,7 @@ This is a list of tags that should always be considered when writing a JSDoc com
 
 <br>
 
-### Import Types:
-If you want to import types that are declared in a package or a local file, you can use the require() syntax in JSDoc too:  
-
-> File: `types.js`
-> ```js
-> /**
->  * @typedef {object} MyCustomType
->  * @prop {string} foo
->  * @prop {number} bar
->  */
-> ```
-  
-> File: `index.js`
-> ```js
-> /**
->  * @param {require("./types.js").MyCustomType} paramFoo Object with `foo` and `bar` props
->  * @param {require("http").Server} paramBar A HTTP server instance
->  */
-> function doSomething(paramFoo, paramBar)
-> {
-> 
-> }
-> ```
-<br>
-
-<details><summary><b>Full example (click to view)</b></summary>
+<details><summary><h3>Full example (click to view)</h3></summary>
 
 ```js
 /**
@@ -237,6 +212,37 @@ console.log(Person.getName(sven)); // "Sven"
 ```
 
 </details>
+
+
+
+<br><br>
+
+
+
+### Import Types:
+If you want to import types that are declared in a package or a local file, you can use the require() syntax in JSDoc too:  
+
+> File: `types.js`
+> ```js
+> /**
+>  * @typedef {object} MyCustomType
+>  * @prop {string} foo
+>  * @prop {number} bar
+>  */
+> ```
+  
+> File: `index.js`
+> ```js
+> /**
+>  * @param {require("./types.js").MyCustomType} paramFoo Object with `foo` and `bar` props
+>  * @param {require("http").Server} paramBar A HTTP server instance
+>  */
+> function doSomething(paramFoo, paramBar)
+> {
+> 
+> }
+> ```
+
 
 <br><br>
 
