@@ -3,7 +3,7 @@ const { unused } = require("svcorelib");
 // const tr = require("../../translate");
 const SubmissionEndpoint = require("../../classes/SubmissionEndpoint");
 const Endpoint = require("../../classes/Endpoint");
-const resolveIp = require("../../resolveIp");
+const resolveIp = require("../../resolveIP");
 
 // const settings = require("../../../settings");
 
