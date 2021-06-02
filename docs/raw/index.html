@@ -148,8 +148,8 @@
                     <li>
                         <b>Joke Caching is finally here!</b><br>
                         No longer will you receive the same joke multiple times in a row.<br>
-                        Since version 2.4.0, <!--%#INSERT:NAME#%--> will now keep track of which jokes you have already requested, preventing them from being served again for a while.<br>
-                        <sub>Collected data is deleted after <!--%#INSERT:CACHINGDATAEXPIRYHOURS#%--> hours of inactivity.</sub>
+                        Since version 2.4.0, <!--%#INSERT:NAME#%--> will now keep track of which jokes you have already requested, preventing them from being served again for a long while.<br>
+                        <sub>Collected data is deleted after <!--%#INSERT:CACHINGDATAEXPIRYHOURS#%--> hours of inactivity, use the <a href="#">clear data endpoint</a> to delete your data on demand.</sub>
                     </li>
                     <li>
                         <b><!--%#INSERT:NAME#%--> now has its own domain!</b><br>
@@ -1180,6 +1180,42 @@ None. It's a hardware problem.
 }
 </div></code>
                                     </details>
+
+
+                                    <br><br><br>
+
+
+                                    <div class="subHeaderContainer"><a href="#clear-data-endpoint" title="Click to link to this header">§</a> <span id="clear-data-endpoint" class="subHeader">Clear Data:</span></div>
+                                    <span class="requestURLwrapper">
+                                        <span class="requestMethodPUT">POST</span>
+                                        <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/clearData</span>
+                                    </span>
+                                    <br><br>
+                                    This endpoint is used to manually delete all the data <!--%#INSERT:NAME#%--> has collected from you.<br>
+                                    You don't need to send anything in the request body, the request itself will trigger a deletion.<br>
+                                    <br>
+                                    <span class="mimica" onclick="privPolMoreInfo()">Click here</span> to view what data <!--%#INSERT:NAME#%--> collects.<br>
+                                    <br>
+                                    Supported URL parameters:<br>
+                                    <ul>
+                                        <li><a class="requestURL" href="#format-param">?format</a></li>
+                                        <li><a class="requestURL" href="#lang">?lang</a></li>
+                                    </ul>
+                                    <br>
+                                    This is how the server's response looks like after deletion:<br>
+                                    <br>
+<code class="prettyprint"><span class="nocode codeheader">Server Response:</span>
+<div class="actualCode">{
+    "error": false,
+    "jokeCache": {
+        "message": "Successfully cleared all 42 entries of the joke cache.",
+        "entriesDeleted": 42
+    },
+    "timestamp": 1622672941547
+}
+</div></code>
+                                    <br>
+
                                     <br><br><br>
 
 
@@ -1671,6 +1707,7 @@ namespace TestHttpRequest
                         <li><a class="noul" onclick="closeNav()" href="#ping-endpoint">Ping</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#endpoints-endpoint">Endpoints</a></li>
                         <li><a class="noul" onclick="closeNav()" href="#submit-endpoint">Submit</a></li>
+                        <li><a class="noul" onclick="closeNav()" href="#clear-data-endpoint">Clear Data</a></li>
                     </ul>
                 </details>
                 <a class="noul" onclick="closeNav()" href="#filtering" title="How you can filter jokes">Filtering Jokes</a>
