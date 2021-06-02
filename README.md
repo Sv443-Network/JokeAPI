@@ -23,6 +23,7 @@
 
 ### Note: due to the different types of humor, JokeAPI contains a wide variety of jokes, of which some are very offensive. They can be filtered out, but use this API at your own risk!
 ### If you want to contribute to JokeAPI (code, jokes or translations), please read the [contributing guide.](./.github/Contributing.md)
+### Want to know how JokeAPI works? The [developer documentation](./dev/docs/home.md#readme) (work in progress) explains it.
 
 <br><br>
 
