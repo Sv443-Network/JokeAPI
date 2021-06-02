@@ -62,8 +62,8 @@ These are the requirements you need to know in order to understand or work with 
 
 <br>
 
-### Required:
-You are **required** to know these things.
+### Important requirements:
+The more of these things you know, the better.
 - JavaScript
     - Extensive knowledge of JS is required as a lot of very complex syntax is used
     - Promise API (including `Promise.all()`)
