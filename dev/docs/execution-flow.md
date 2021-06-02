@@ -4,6 +4,8 @@ This file tells you about what modules JokeAPI executes and in what order and gi
 
 ## Table of Contents:
 1. [Startup](#startup)
+    - [Pre-Initialization](#pre-initialization) <!-- TODO: mention splash texts in here -->
+    - [Initial Execution](#initial-execution) <!-- How main.js is executed (requireUncached, node-wrap, ...) -->
     - [Module Initialization](#module-initialization)
         1. [Languages](#languages-module-initialization)
         2. [Translations](#translations-module-initialization)

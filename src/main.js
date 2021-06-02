@@ -34,7 +34,8 @@ settings.init.exitSignals.forEach(sig => {
 });
 
 //#MARKER init all
-const initAll = () => {
+function initAll()
+{
     let initTimestamp = Date.now();
 
     process.jokeapi = {};
@@ -118,7 +119,7 @@ const initAll = () => {
     }).catch(err => {
         initError("initializing", err);
     });
-};
+}
 
 
 //#MARKER other
@@ -129,7 +130,8 @@ const initAll = () => {
  * @param {String} action 
  * @param {Error} err 
  */
-const initError = (action, err) => {
+function initError(action, err)
+{
     let errMsg = err.stack || err || "(No error message provided)";
     console.log(`\n\n\n${col.red}JokeAPI encountered an error while ${action}:\n${errMsg}\n\n${jsl.colors.rst}`);
     process.exit(1);
@@ -138,7 +140,8 @@ const initError = (action, err) => {
 /**
  * Makes sure all directories exist and creates them if they don't
  */
-const initializeDirs = () => {
+function initializeDirs()
+{
     try
     {
         settings.init.initDirs.forEach(dir => {
@@ -159,7 +162,8 @@ const initializeDirs = () => {
  * Ends all open connections and then shuts down the process with the specified exit code
  * @param {Number} [code=0] Exit code - defaults to 0
  */
-const softExit = code => {
+function softExit(code)
+{
     if(typeof code != "number" || code < 0)
         code = 0;
 

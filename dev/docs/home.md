@@ -1,5 +1,6 @@
 # JokeAPI - Developer Documentation [WIP]
-This documentation is up to date with version: `2.4.0`  
+This documentation is up to date with version [`2.4.0`](../../changelog.md#240)  
+It is under heavy construction, please don't expect much.  
   
 This is a documentation on the internals of JokeAPI.  
 Use it to get to know how the API works and to learn about its quirks.  
