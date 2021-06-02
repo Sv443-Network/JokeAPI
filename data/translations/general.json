@@ -271,12 +271,6 @@
             "ru": "Вам необходимо указать язык в URL-адресе. Пример: /langcode/russian",
             "cs": "V adrese URL musíte zadat jazyk. Příklad: /langcode/czech"
         },
-        "pingPong": {
-            "en": "Pong!",
-            "de": "Pong!",
-            "ru": "Понг!",
-            "cs": "Pong!"
-        },
         "submissionSaved": {
             "en": "Joke submission was successfully saved. It will soon be checked out by the author.",
             "de": "Die Witz-Einreichung wurde erfolgreich gespeichert. Sie wird demnächst vom Autor überprüft.",

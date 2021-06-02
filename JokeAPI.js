@@ -9,7 +9,6 @@
 
 const requireUncached = require("require-uncached");
 const { randomItem, system, colors } = require("svcorelib");
-
 const wrap = require("node-wrap");
 
 const settings = require("./settings");

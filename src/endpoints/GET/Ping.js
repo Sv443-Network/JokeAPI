@@ -1,6 +1,6 @@
 const { unused } = require("svcorelib");
 
-const tr = require("../../translate");
+const main = require("../../main");
 const httpServer = require("../../httpServer");
 const Endpoint = require("../../classes/Endpoint");
 
@@ -50,7 +50,7 @@ class Ping extends Endpoint
 
         const data = {
             "error": false,
-            "ping": tr(lang, "pingPong"),
+            "ping": main.getSplash(lang),
             "baseServerLatencyMs": (now - httpMetrics.requestArrival.getTime()),
             "timestamp": now
         };

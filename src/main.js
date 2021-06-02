@@ -22,6 +22,7 @@ const translate = require("./translate");
 const meter = require("./meter");
 const jokeCache = require("./jokeCache");
 const parseURL = require("./parseURL");
+const randomItem = require("svjsl/src/functions/randomItem");
 
 const col = jsl.colors.fg;
 process.debuggerActive = jsl.inDebugger();
@@ -29,12 +30,26 @@ const noDbg = process.debuggerActive || false;
 
 require("dotenv").config();
 
+
 settings.init.exitSignals.forEach(sig => {
     process.on(sig, () => softExit(0));
 });
 
+
+/**
+ * An object describing all splash texts, sorted under each's language code
+ * @typedef {object} SplashLangObj
+ * @prop {string[]} de
+ * @prop {string[]} en
+ * @prop {string[]} etc
+ */
+
+/** @type {SplashLangObj} */
+let splashes = {};
+let splashDefaultLang = "en";
+
 //#MARKER init all
-function initAll()
+async function initAll()
 {
     let initTimestamp = Date.now();
 
@@ -89,6 +104,8 @@ function initAll()
         }
     ];
 
+    splashes = await loadSplashes();
+
     let pb;
     if(!noDbg && !settings.debug.progressBarDisabled)
         pb = new jsl.ProgressBar(initStages.length, `Initializing ${initStages[0].name}`);
@@ -99,8 +116,9 @@ function initAll()
 
     debug("Init", `Sequentially initializing all ${initStages.length} modules...`);
 
-    promiseAllSequential(initPromises).then((res) => {
-        jsl.unused(res);
+    try
+    {
+        await promiseAllSequential(initPromises);
 
         // //#DEBUG#
         // require("./jokeCache").cache.listEntries("eff8e7ca506627fe15dda5e0e512fcaad70b6d520f37cc76597fdb4f2d83a1a3", "de").then(res => {
@@ -108,7 +126,7 @@ function initAll()
         // }).catch(err => {
         //     console.error(`Err: ${err}`);
         // });
-        // //#DEBUG#
+        // //#DEBUG# (it's a hash of localhost, don't worry)
 
         if(!jsl.isEmpty(pb))
             pb.next("Done.");
@@ -116,9 +134,11 @@ function initAll()
         debug("Init", `Successfully initialized all ${initStages.length} modules. Printing init message:\n`);
 
         logRequest.initMsg(initTimestamp);
-    }).catch(err => {
+    }
+    catch(err)
+    {
         initError("initializing", err);
-    });
+    }
 }
 
 
@@ -170,6 +190,62 @@ function softExit(code)
     analytics.endSqlConnection().then(() => process.exit(code)).catch(() => process.exit(code));
 }
 
+/**
+ * Loads splashes and returns them
+ * @returns {Promise<SplashLangObj>}
+ */
+function loadSplashes()
+{
+    return new Promise((res, rej) => {
+        fs.readFile(settings.languages.splashesFilePath, (err, data) => {
+            if(err)
+                return rej(`Couldn't read file '${settings.languages.splashesFilePath}' due to error: ${err}`);
 
-module.exports = { softExit };
+            const splashesFile = JSON.parse(data.toString());
+
+            splashDefaultLang = splashesFile.defaultLang;
+            // const languages = splashesFile.languages;
+            const splashObjs = splashesFile.splashes;
+
+            /** @type {SplashLangObj} */
+            const splashes = {};
+
+            splashObjs.forEach(splashObj => {
+                Object.keys(splashObj).forEach(/** @type {"en"} */langCode => {
+                    if(!Array.isArray(splashes[langCode]))
+                        splashes[langCode] = [];
+
+                    const splashText = splashObj[langCode];
+                    
+                    splashes[langCode].push(splashText);
+                });
+            });
+
+            if(Object.keys(splashes).length > 0)
+                return res(splashes);
+            else
+                return rej(`No splashes present in file '${settings.languages.splashesFilePath}'`);
+        });
+    });
+}
+
+/**
+ * Returns a random splash of the specified language
+ * @param {string} lang
+ */
+function getSplash(lang)
+{
+    let splash = "missingno";
+    const langSplashes = splashes[lang];
+
+    if(langSplashes && langSplashes.length > 0)
+        splash = randomItem(langSplashes);
+    else
+        splash = randomItem(splashes[splashDefaultLang]);
+
+    return splash;
+}
+
+
+module.exports = { softExit, getSplash };
 initAll();

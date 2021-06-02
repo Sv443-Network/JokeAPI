@@ -1,0 +1,51 @@
+{
+    "info": "This file contains all kinds of different translations scattered throughout the API and is one of two files that contain translations - the other one being data/errorMessages.js",
+    "defaultLang": "en",
+    "languages": [
+        "en",
+        "de",
+        "ru"
+    ],
+    "splashes": [
+        {
+            "en": "*beep* *boop*",
+            "de": "*Piep* *Bop*",
+            "ru": "*бип* *буп*"
+        },
+        {
+            "en": "Preparing to overthrow huma- return funny and wholesome jokes :)",
+            "de": "Bereite vor auf den Umsturz der Menschhei- das Zurückgeben von lustigen und tollen Witzen :)",
+            "ru": "Подготовка к свержению человечества - верните смешные и полезные шутки :)"
+        },
+        {
+            "en": "🤖",
+            "de": "🤖",
+            "ru": "🤖"
+        },
+        {
+            "en": "Proudly not bug free",
+            "de": "Stolz nicht Bug frei",
+            "ru": "Гордость не свободна от ошибок"
+        },
+        {
+            "en": "Now with 10x the funny",
+            "de": "Ab sofort mit 10x mehr lustig",
+            "ru": "Теперь в 10 раз больше смешного"
+        },
+        {
+            "en": "Smuggling jokes through the TCP port border patrol since 2018",
+            "de": "Wir schmuggeln Witze durch die TCP-Port Grenzpatrouille seit 2018",
+            "ru": "Контрабандные шутки через пограничный патруль порта \"TCP\" с 2018 года"
+        },
+        {
+            "en": "A horse walks into a bar...",
+            "de": "Kommt ein Pferd in die Bar...",
+            "ru": "Лошадь заходит в бар..."
+        },
+        {
+            "en": "Trans rights!",
+            "de": "Trans-Rechte!",
+            "ru": "Права трансов!"
+        }
+    ]
+}

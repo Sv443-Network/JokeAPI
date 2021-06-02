@@ -255,10 +255,11 @@ const settings = {
     },
     /** Settings regarding languages */
     languages: {
-        langFilePath: "./data/languages.json",                // file containing all language codes and corresponding language information
-        defaultLanguage: "en",                                // default language (two character code, lowercase)
-        translationsFile: "./data/translations/general.json", // general translations file
-        fuzzySearchThreshold: 0.4,                            // threshold of the Fuse.js fuzzy search when looking up language codes based on language names (recommended: 0.4)
+        langFilePath: "./data/languages.json",                 // file containing all language codes and corresponding language information
+        defaultLanguage: "en",                                 // default language (two character code, lowercase)
+        translationsFile: "./data/translations/general.json",  // general translations file
+        fuzzySearchThreshold: 0.4,                             // threshold of the Fuse.js fuzzy search when looking up language codes based on language names (recommended: 0.4)
+        splashesFilePath: "./data/translations/splashes.json", // where the splash texts of different languages are stored
     },
     /** Unit tests */
     tests: {
