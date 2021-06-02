@@ -128,8 +128,7 @@ This is a list of tags that should always be considered when writing a JSDoc com
 
 <br>
 
-<details>
-<h3><summary>Full example (click to view)</summary></h3>
+<details><summary><b>Full example (click to view)</b></summary>
 
 ```js
 /**
