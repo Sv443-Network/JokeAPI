@@ -86,12 +86,11 @@ function initJokeAPI()
  */
 function applyPadding()
 {
-    if(settings.debug.verboseLogging)
-    {
-        console.log("\n\n");
+    console.log("\n");
 
-        settings.init.exitSignals.forEach(sig => process.on(sig, () => console.log("\n\n")));
-    }
+    settings.init.exitSignals.forEach(sig => {
+        process.on(sig, () => console.log("\n"));
+    });
 }
 
 /**
@@ -100,7 +99,7 @@ function applyPadding()
 function displaySplash()
 {
     const splashes = getAllSplashTexts();
-    console.log(`${colors.fg.yellow}${randomItem(splashes)}${colors.rst}\n`);
+    console.log(`${colors.fg.cyan}${randomItem(splashes)}${colors.rst}\n`);
 }
 
 
