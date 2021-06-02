@@ -30,7 +30,8 @@ function getAllSplashTexts()
         "Removing unfunny jokes...",
         "Downloading documentation font 'Comic Sans MS'...",
         "Smuggling jokes through the TCP port border patrol...",
-        "Trans rights! 🏳️‍⚧️"
+        "A horse walks into a bar...",
+        "Trans rights!"
     ];
     
     // dynamic splashes
@@ -41,7 +42,7 @@ function getAllSplashTexts()
         splashes.push("It is wednesday, my dude");
 
     if((now.getMonth() + 1) === 6)
-        splashes.push("🌈 Happy pride! 🏳️‍🌈");
+        splashes.push("🌈 Happy pride! 🌈");
 
     if(now.getDate() === 31 && (now.getMonth() + 1) === 12)
         splashes.push(`Fuck ${now.getFullYear()}`);
