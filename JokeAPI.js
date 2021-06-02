@@ -39,7 +39,7 @@ function getAllSplashTexts()
     const now = new Date();
     
     if(now.getDay() === 3)
-        splashes.push("It is wednesday, my dude");
+        splashes.push("It is wednesday, my dude 🐸");
 
     if((now.getMonth() + 1) === 6)
         splashes.push("🌈 Happy pride! 🌈");
