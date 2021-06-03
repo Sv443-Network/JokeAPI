@@ -235,7 +235,7 @@ function loadSplashes()
  */
 function getSplash(lang)
 {
-    let splash = "missingno";
+    let splash = "missingno"; // lgtm[js/useless-assignment-to-local]
     const langSplashes = splashes[lang];
 
     if(langSplashes && langSplashes.length > 0)
