@@ -100,7 +100,7 @@
                 </div>
 
                 <!-- #MARKER Information -->
-                <div class="docHeader targetBlink" id="info"><a class="headerAnchorContainer" href="#info" title="Click to link to this header">🔗</a><span class="docHeaderText">Information:</span></div>
+                <div class="docHeader targetBlink" id="info"><a class="headerAnchorContainer" href="#info" title="Click to link to this header">§</a><span class="docHeaderText">Information:</span></div>
 
                 <!--%#INSERT:NAME#%--> is a REST API that serves uniformly and well formatted jokes.<br>
                 It can be used <u>without any API token, membership, registration or payment.</u><br>
@@ -143,7 +143,7 @@
 
 
                 <!-- #MARKER Information -->
-                <div class="docHeader targetBlink" id="news"><a class="headerAnchorContainer" href="#news" title="Click to link to this header">🔗</a><span class="docHeaderText">News:</span></div>
+                <div class="docHeader targetBlink" id="news"><a class="headerAnchorContainer" href="#news" title="Click to link to this header">§</a><span class="docHeaderText">News:</span></div>
                 <ul id="newsList">
                     <li>
                         <b>Joke Caching is finally here!</b><br>
@@ -165,7 +165,7 @@
 
 
                 <!-- #MARKER Try It -->
-                <div class="docHeader targetBlink" id="try-it"><a class="headerAnchorContainer" href="#try-it" title="Click to link to this header">🔗</a><span class="docHeaderText">Try it out here:</span></div>
+                <div class="docHeader targetBlink" id="try-it"><a class="headerAnchorContainer" href="#try-it" title="Click to link to this header">§</a><span class="docHeaderText">Try it out here:</span></div>
                 
                 <div id="tryItContainer" class="highlightedContainer">
                     <table>
@@ -301,7 +301,7 @@
 
 
                 <!-- #MARKER Getting Started -->
-                <div class="docHeader targetBlink" id="getting-started"><a class="headerAnchorContainer" href="#getting-started" title="Click to link to this header">🔗</a><span class="docHeaderText">Getting Started:</span></div>
+                <div class="docHeader targetBlink" id="getting-started"><a class="headerAnchorContainer" href="#getting-started" title="Click to link to this header">§</a><span class="docHeaderText">Getting Started:</span></div>
                 <!--%#INSERT:NAME#%--> doesn't require any API token, authorization or payment to work, although there is a hard limit of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute due to some DoS attacks I have been getting.<br>
                 To start using <!--%#INSERT:NAME#%-->, you can do one of these two things:<br>
                 <ul class="lispacer">
@@ -327,7 +327,7 @@
                 
 
                 <!-- #MARKER Wrappers -->
-                <div class="docHeader targetBlink" id="wrappers"><a class="headerAnchorContainer" href="#wrappers" title="Click to link to this header">🔗</a><span class="docHeaderText">Officially recognized API wrappers:</span></div>
+                <div class="docHeader targetBlink" id="wrappers"><a class="headerAnchorContainer" href="#wrappers" title="Click to link to this header">§</a><span class="docHeaderText">Officially recognized API wrappers:</span></div>
                 A wrapper library translates some API into an interface that is easier to use for a certain language or environment.<br>
                 In the case of RESTful APIs like <!--%#INSERT:NAME#%-->, a wrapper library makes it so you can use your language's features to communicate with the API while the wrapper will do all the HTTP requests for you in the background.<br><br>
                 Disclaimer: I will not take any responsibility for the wrappers, they are community-made and I can't ensure security, validity and compatibility.<br>
@@ -376,7 +376,7 @@
 
 
                 <!-- #MARKER Submit Joke -->
-                <div class="docHeader targetBlink" id="submit"><a class="headerAnchorContainer" href="#submit" title="Click to link to this header">🔗</a><span class="docHeaderText">Submit a Joke:</span></div>
+                <div class="docHeader targetBlink" id="submit"><a class="headerAnchorContainer" href="#submit" title="Click to link to this header">§</a><span class="docHeaderText">Submit a Joke:</span></div>
 
                 <div id="submitContainer" class="highlightedContainer">
                     <div class="submitFlexItem">
@@ -451,7 +451,7 @@
 
 
                 <!-- #MARKER Rate Limiting section-->
-                <div class="docHeader targetBlink" id="rate-limiting"><a class="headerAnchorContainer" href="#rate-limiting" title="Click to link to this header">🔗</a><span class="docHeaderText">Rate Limiting:</span></div>
+                <div class="docHeader targetBlink" id="rate-limiting"><a class="headerAnchorContainer" href="#rate-limiting" title="Click to link to this header">§</a><span class="docHeaderText">Rate Limiting:</span></div>
                 Due to <!--%#INSERT:NAME#%--> being target of DoS attacks in the past, every client has a request budget of <!--%#INSERT:RATELIMITCOUNT#%--> requests they can send per minute.<br>
                 Sending any requests after this limit will make the API temporarily give you a HTTP 429 error until the time runs out.<br>
                 When submitting jokes, your budget is only <!--%#INSERT:SUBMISSIONRATELIMIT#%--> requests per minute.<br>
@@ -484,16 +484,18 @@
 
 
                 <!-- #MARKER URL parameters -->
-                <div class="docHeader targetBlink" id="url-parameters"><a class="headerAnchorContainer" href="#url-parameters" title="Click to link to this header">🔗</a><span class="docHeaderText">URL Parameters:</span></div>
+                <div class="docHeader targetBlink" id="url-parameters"><a class="headerAnchorContainer" href="#url-parameters" title="Click to link to this header">§</a><span class="docHeaderText">URL Parameters:</span></div>
                 URL parameters are like the settings or the configuration of an HTTP request.<br>
                 The parameters need to be prefixed by a single question mark (?) and separate key/value pairs need to be delimited from another by an ampersand (&amp;). Keys are separated from values with an equals sign (=).<br>
                 Example: <mark>https://example.org/some/page<span class="colB">?</span><span class="colY">key1=foo</span><span class="colB">&</span><span class="colY">key2=bar</span><span class="colB">&</span><span class="colY">key3=baz</span> ...</mark> (yellow = key/value pair)<br>
-                
+
                 <!--#SECTION Format-->
                 <div class="subHeaderContainer"><a href="#format-param" title="Click to link to this header">§</a> <span class="subHeader" id="format-param">Format:</span></div>
                 <mark>?format=format</mark><br><br>
                 This parameter is global - it can be used on every single endpoint of <!--%#INSERT:NAME#%--> (excluding the documentation and static content).<br>
                 It is used to change the response format from the default (JSON) to <span class="insFormatsS">(Loading...)</span>, depending on what you need.<br>
+                Note that the underlying layers of <!--%#INSERT:NAME#%--> entirely use JSON. The conversions to the different formats are done on each request, based on the raw JSON, so you might see some minor format quality loss or a very small latency increase if you aren't using JSON.<br>
+                <br>
                 If the format parameter is invalid or not specified at all, the default value of JSON will be used.<br>
                 Available formats are <mark class="insFormats">(Loading...)</mark><br><br>
                 <details><summary>Example 1 (click to view)</summary>
@@ -705,7 +707,7 @@ None. It's a hardware problem.
 
 
                 <!-- #MARKER Safe Mode -->
-                <div class="docHeader targetBlink" id="safe-mode"><a class="headerAnchorContainer" href="#safe-mode" title="Click to link to this header">🔗</a><span class="docHeaderText">Safe Mode:</span></div>
+                <div class="docHeader targetBlink" id="safe-mode"><a class="headerAnchorContainer" href="#safe-mode" title="Click to link to this header">§</a><span class="docHeaderText">Safe Mode:</span></div>
                 Safe Mode was added in version 2.3.0. If enabled, <!--%#INSERT:NAME#%--> will try its best to serve only jokes that are considered safe for everyone.<br>
                 Unsafe jokes are those who can be considered explicit in any way, either through the used language, its references or its <a href="#blacklist-flags">blacklist flags.</a><br>
                 Jokes from the category <mark>Dark</mark> are also generally marked as unsafe.<br>
@@ -729,7 +731,7 @@ None. It's a hardware problem.
 
 
                 <!-- #MARKER Errors -->
-                <div class="docHeader targetBlink" id="errors"><a class="headerAnchorContainer" href="#errors" title="Click to link to this header">🔗</a><span class="docHeaderText">Errors:</span></div>
+                <div class="docHeader targetBlink" id="errors"><a class="headerAnchorContainer" href="#errors" title="Click to link to this header">§</a><span class="docHeaderText">Errors:</span></div>
                 In <!--%#INSERT:NAME#%--> all response data, no matter from which endpoint will have a boolean "error" parameter.<br>
                 Usually, it is set to false, which means there was no error in your request or on the server.<br>
                 If the "error" parameter is set to true though, there was an error and <!--%#INSERT:NAME#%--> will add an "internalError", "message", "causedBy", "additionalInfo" and "timestamp" parameter.<br>
@@ -824,7 +826,7 @@ None. It's a hardware problem.
 
 
                 <!-- #MARKER Troubleshooting -->
-                <div class="docHeader targetBlink" id="troubleshooting"><a class="headerAnchorContainer" href="#troubleshooting" title="Click to link to this header">🔗</a><span class="docHeaderText">Troubleshooting:</span></div>
+                <div class="docHeader targetBlink" id="troubleshooting"><a class="headerAnchorContainer" href="#troubleshooting" title="Click to link to this header">§</a><span class="docHeaderText">Troubleshooting:</span></div>
                 <span class="subHeader">HTTP Error 403:</span>
                 First, please check if you can access all endpoints with your web browser. If not, your IP address has most likely been acting malicious and was permanently blacklisted.<br>
                 If you keep getting HTTP 403 (Forbidden) response codes in your program but not in your browser and have never shown malicious behavior before, the issue is most likely that Cloudflare is blocking your request.<br>
@@ -840,7 +842,7 @@ None. It's a hardware problem.
 
 
                 <!-- #MARKER Endpoints -->
-                <div class="docHeader targetBlink" id="endpoints"><a class="headerAnchorContainer" href="#endpoints" title="Click to link to this header">🔗</a><span class="docHeaderText">Endpoints:</span></div>
+                <div class="docHeader targetBlink" id="endpoints"><a class="headerAnchorContainer" href="#endpoints" title="Click to link to this header">§</a><span class="docHeaderText">Endpoints:</span></div>
                 An endpoint is an access point to send the HTTP requests to and get your response.<br>
                 <!--%#INSERT:NAME#%--> offers these following endpoints:<br><br>
 
@@ -1220,7 +1222,7 @@ None. It's a hardware problem.
 
 
                 <!-- #MARKER Filtering -->
-                <div class="docHeader targetBlink" id="filtering"><a class="headerAnchorContainer" href="#filtering" title="Click to link to this header">🔗</a><span class="docHeaderText">Filtering Jokes:</span></div>
+                <div class="docHeader targetBlink" id="filtering"><a class="headerAnchorContainer" href="#filtering" title="Click to link to this header">§</a><span class="docHeaderText">Filtering Jokes:</span></div>
                 I created <!--%#INSERT:NAME#%--> with the main purpose of it having many versatile filtering options as other APIs didn't offer this amount of customization.<br>
                 In this section you will learn how the filtering works.<br><br>
 
@@ -1238,7 +1240,7 @@ None. It's a hardware problem.
 
 
                 <!-- #MARKER API Tokens -->
-                <div class="docHeader targetBlink" id="api-tokens"><a class="headerAnchorContainer" href="#api-tokens" title="Click to link to this header">🔗</a><span class="docHeaderText">API Tokens:</span></div>
+                <div class="docHeader targetBlink" id="api-tokens"><a class="headerAnchorContainer" href="#api-tokens" title="Click to link to this header">§</a><span class="docHeaderText">API Tokens:</span></div>
                 <!--%#INSERT:NAME#%--> has a way of whitelisting certain clients. This is achieved through an API token.<br>
                 At the moment, you will only receive one of these tokens temporarily if something breaks or if you are a business and need more than <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute.<br>
                 If you do end up receiving a token, using it is as easy as adding an <mark>Authorization</mark> header with the actual token as its value.<br>
@@ -1248,7 +1250,7 @@ None. It's a hardware problem.
 
 
                 <!-- #MARKER Examples -->
-                <div class="docHeader targetBlink" id="examples"><a class="headerAnchorContainer" href="#examples" title="Click to link to this header">🔗</a><span class="docHeaderText">Examples:</span></div>
+                <div class="docHeader targetBlink" id="examples"><a class="headerAnchorContainer" href="#examples" title="Click to link to this header">§</a><span class="docHeaderText">Examples:</span></div>
                 These are some examples in some commonly used languages to show you how you could implement <!--%#INSERT:NAME#%-->:<br><br>
 
                 <!--#SECTION Node-->
@@ -1436,7 +1438,7 @@ namespace TestHttpRequest
 
 
                 <!-- #MARKER Terminology -->
-                <div class="docHeader targetBlink" id="terminology"><a class="headerAnchorContainer" href="#terminology" title="Click to link to this header">🔗</a><span class="docHeaderText">Terminology:</span></div>
+                <div class="docHeader targetBlink" id="terminology"><a class="headerAnchorContainer" href="#terminology" title="Click to link to this header">§</a><span class="docHeaderText">Terminology:</span></div>
                 You might come across some terms in this documentation you don't understand. This section teaches you what those terms mean.<br>
 
                 <!--#SECTION Categories-->
@@ -1522,7 +1524,7 @@ namespace TestHttpRequest
 
 
                 <!-- #MARKER Contributors -->
-                <div class="docHeader targetBlink" id="contributors"><a class="headerAnchorContainer" href="#contributors" title="Click to link to this header">🔗</a><span class="docHeaderText">Contributors:</span></div>
+                <div class="docHeader targetBlink" id="contributors"><a class="headerAnchorContainer" href="#contributors" title="Click to link to this header">§</a><span class="docHeaderText">Contributors:</span></div>
                 The following is a list of people that have directly contributed to <!--%#INSERT:NAME#%-->'s development.<br>
                 I am very grateful for this voluntary effort to improve <!--%#INSERT:NAME#%--> and would like to thank anyone who contributed :)<br>
 
@@ -1535,7 +1537,7 @@ namespace TestHttpRequest
 
 
                 <!-- #MARKER Dependents -->
-                <div class="docHeader targetBlink" id="dependents"><a class="headerAnchorContainer" href="#dependents" title="Click to link to this header">🔗</a><span class="docHeaderText">Dependents:</span></div>
+                <div class="docHeader targetBlink" id="dependents"><a class="headerAnchorContainer" href="#dependents" title="Click to link to this header">§</a><span class="docHeaderText">Dependents:</span></div>
                 These are some of the projects that depend on <!--%#INSERT:NAME#%-->:
                 <ul>
                     <li><a href="https://github.com/ZephyrVentum/dozens-Advices" target="_blank">dozens Advices</a> by <a href="https://github.com/ZephyrVentum" target="_blank">ZephyrVentum</a></li>
@@ -1559,7 +1561,7 @@ namespace TestHttpRequest
 
 
                 <!-- #MARKER Legal Stuff -->
-                <div class="docHeader targetBlink" id="legal"><a class="headerAnchorContainer" href="#legal" title="Click to link to this header">🔗</a><span class="docHeaderText">Legal Stuff:</span></div>
+                <div class="docHeader targetBlink" id="legal"><a class="headerAnchorContainer" href="#legal" title="Click to link to this header">§</a><span class="docHeaderText">Legal Stuff:</span></div>
 
                 <!-- #SECTION License -->
                 <div class="subHeaderContainer"><a href="#license" title="Click to link to this header">§</a> <span class="subHeader" id="license">License:</span></div>
@@ -1593,7 +1595,7 @@ namespace TestHttpRequest
 
 
                 <!-- #MARKER Attributions -->
-                <div class="docHeader targetBlink" id="attributions"><a class="headerAnchorContainer" href="#attributions" title="Click to link to this header">🔗</a><span class="docHeaderText">Attributions:</span></div>
+                <div class="docHeader targetBlink" id="attributions"><a class="headerAnchorContainer" href="#attributions" title="Click to link to this header">§</a><span class="docHeaderText">Attributions:</span></div>
                 These are the attributions to everything made by third parties that <!--%#INSERT:NAME#%--> is based on or needs to function.
 
                 <!-- #SECTION Fonts -->

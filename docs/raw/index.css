@@ -915,7 +915,7 @@ div.sidenavSpacer {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
 }
-
+/* 
 .docHeader .headerAnchorContainer {
     cursor: pointer;
     margin-right: 10px;
@@ -927,6 +927,30 @@ div.sidenavSpacer {
 .docHeader .headerAnchorContainer:hover {
     filter: opacity(100%);
     text-decoration: none !important;
+} */
+
+.docHeader .headerAnchorContainer {
+    position: relative;
+    bottom: 5px;
+    font-size: 0.75em;
+    text-decoration: none;
+    text-underline-offset: initial;
+    padding-right: 10px;
+
+    color: rgba(188, 194, 255, 0.4);
+    transition: color 0.075s linear;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.docHeader .headerAnchorContainer:hover {
+    color: rgba(188, 194, 255, 1.0);
+    text-decoration: inherit;
 }
 
 .headerAnchorContainer {
@@ -989,7 +1013,7 @@ div.sidenavSpacer {
     margin-top: 25px;
     margin-bottom: 8px;
     text-decoration: underline;
-    text-underline-offset: 3px; /* currently only supported in FF70+ and SF12.1+ (see https://caniuse.com/#search=text-underline-offset) */
+    text-underline-offset: 3px;
 }
 
 .subHeaderContainer .subHeader {
@@ -1004,15 +1028,22 @@ div.sidenavSpacer {
 
     color: rgba(188, 194, 255, 0.4);
     transition: color 0.075s linear;
-}
 
-.smallText {
-    font-size: small;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .subHeaderContainer a:hover {
     color: rgba(188, 194, 255, 1.0);
     text-decoration: inherit;
+}
+
+.smallText {
+    font-size: small;
 }
 
 /*#SECTION usage terms */
