@@ -84,21 +84,30 @@ function getAllSplashTexts()
 
     const now = new Date();
     
+    // wednesday
     if(now.getDay() === 3)
         splashes.push("It is wednesday, my dude 🐸");
 
+    // pride month
     if((now.getMonth() + 1) === 6)
         splashes.push("🌈 Happy pride! 🌈");
 
+    // new year's eve
     if(now.getDate() === 31 && (now.getMonth() + 1) === 12)
         splashes.push(`Fuck ${now.getFullYear()}`);
 
+    // pi day
     if(now.getDate() === 14 && (now.getMonth() + 1) === 3)
         splashes.push("🍰");
 
+    // unix time end
     if(now.getDate() <= 19 && (now.getMonth() + 1) === 1 && now.getFullYear() === 2038)
         splashes.push(`ẗ̵̹́h̷̤͌e̸̱̾ ̶̩̓ë̷̖́n̶͉̈́d̵̥̾ ̷̤͆i̵̘̿s̸͚̚ ̴͉̒ṅ̴͕e̸̟͒a̸̭̚r̸͔͊`);
 
+    // JokeAPI's birthday :)
+    if(now.getDate() === 19 && (now.getMonth() + 1) === 3)
+        splashes.push(`Happy Birthday ${settings.info.name} :)`);
+        
     return splashes;
 }
 
