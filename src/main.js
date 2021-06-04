@@ -1,10 +1,10 @@
-// The main coordination file of JokeAPI
-// This file starts all necessary modules like the joke parser, the JokeAPI Documentation page injection and the HTTP listener, etc.
+// This is the entrypoint file of JokeAPI
+// This file starts all necessary modules like the joke parser, the JokeAPI Documentation page injection and the HTTP listener
 
 "use strict";
 
 
-const jsl = require("svjsl");
+const { unused, filesystem, system, colors, ProgressBar } = require("svcorelib");
 const fs = require("fs-extra");
 const promiseAllSequential = require("promise-all-sequential");
 
@@ -24,8 +24,8 @@ const jokeCache = require("./jokeCache");
 const parseURL = require("./parseURL");
 const randomItem = require("svjsl/src/functions/randomItem");
 
-const col = jsl.colors.fg;
-process.debuggerActive = jsl.inDebugger();
+const col = colors.fg;
+process.debuggerActive = system.inDebugger();
 const noDbg = process.debuggerActive || false;
 
 require("dotenv").config();
@@ -49,15 +49,34 @@ let splashes = {};
 let splashDefaultLang = "en";
 
 //#MARKER init all
+/**
+ * Main entrypoint of JokeAPI.  
+ * This function loads in all "modules" and sequentially and asynchronously initializes them.
+ */
 async function initAll()
 {
-    let initTimestamp = Date.now();
+    const initTimestamp = Date.now();
 
     process.jokeapi = {};
-    initializeDirs();
+    // initializeDirs();
 
-    let initPromises = [];
-    let initStages = [
+    try
+    {
+        // ensure the directory structure JokeAPI requires exists (some dirs are in the .gitignore)
+        await filesystem.ensureDirs(settings.init.initDirs);
+    }
+    catch(err)
+    {
+        return initError("creating directory structure", err);
+    }
+
+    const initPromises = [];
+
+    /**
+     * The different stages to JokeAPI's initialization.  
+     * The stages are initialized sequentially, meaning the lowest index will be called first, then the second lowest, and so on.
+     */
+    const initStages = [
         {
             name: "Languages",
             fn: languages.init
@@ -104,20 +123,19 @@ async function initAll()
         }
     ];
 
+    initStages.forEach(stage => initPromises.push(stage.fn));
+
+    // load in splash texts :)
     splashes = await loadSplashes();
 
-    let pb;
-    if(!noDbg && !settings.debug.progressBarDisabled)
-        pb = new jsl.ProgressBar(initStages.length, `Initializing ${initStages[0].name}`);
-
-    initStages.forEach(stage => {
-        initPromises.push(stage.fn);
-    });
+    // create progress bar if the settings and debugger state allow it
+    const pb = (!noDbg && !settings.debug.progressBarDisabled) ? new ProgressBar(initStages.length, `Initializing ${initStages[0].name}`) : undefined;
 
     debug("Init", `Sequentially initializing all ${initStages.length} modules...`);
 
     try
     {
+        // sequentially call all async `fn` properties of the `initStages` array and wait till they're all done
         await promiseAllSequential(initPromises);
 
         // //#DEBUG#
@@ -126,9 +144,9 @@ async function initAll()
         // }).catch(err => {
         //     console.error(`Err: ${err}`);
         // });
-        // //#DEBUG# (it's a hash of localhost, don't worry)
+        // //#DEBUG# (it's just a hash of localhost, don't worry)
 
-        if(!jsl.isEmpty(pb))
+        if(pb)
             pb.next("Done.");
 
         debug("Init", `Successfully initialized all ${initStages.length} modules. Printing init message:\n`);
@@ -152,30 +170,10 @@ async function initAll()
  */
 function initError(action, err)
 {
-    let errMsg = err.stack || err || "(No error message provided)";
-    console.log(`\n\n\n${col.red}JokeAPI encountered an error while ${action}:\n${errMsg}\n\n${jsl.colors.rst}`);
-    process.exit(1);
-}
+    const errMsg = err.stack || err || "(No error message provided)";
 
-/**
- * Makes sure all directories exist and creates them if they don't
- */
-function initializeDirs()
-{
-    try
-    {
-        settings.init.initDirs.forEach(dir => {
-            if(!fs.existsSync(dir))
-            {
-                debug("InitDirs", `Dir "${dir}" doesn't exist, creating it...`);
-                fs.mkdirSync(dir);
-            }
-        });
-    }
-    catch(err)
-    {
-        initError("initializing default directories", err);
-    }
+    console.log(`\n\n\n${col.red}JokeAPI encountered an error while ${action}:\n${errMsg}\n\n${colors.rst}`);
+    process.exit(1);
 }
 
 /**
@@ -184,10 +182,18 @@ function initializeDirs()
  */
 function softExit(code)
 {
-    if(typeof code != "number" || code < 0)
-        code = 0;
+    try
+    {
+        if(typeof code != "number" || code < 0)
+            code = 0;
 
-    analytics.endSqlConnection().then(() => process.exit(code)).catch(() => process.exit(code));
+        analytics.endSqlConnection().then(() => process.exit(code));
+    }
+    catch(err)
+    {
+        unused(err);
+        process.exit(code);
+    }
 }
 
 /**
@@ -199,32 +205,39 @@ function loadSplashes()
     return new Promise((res, rej) => {
         fs.readFile(settings.languages.splashesFilePath, (err, data) => {
             if(err)
-                return rej(`Couldn't read file '${settings.languages.splashesFilePath}' due to error: ${err}`);
+                return rej(`Couldn't read splashes file '${settings.languages.splashesFilePath}' due to error: ${err}`);
 
-            const splashesFile = JSON.parse(data.toString());
+            try
+            {
+                const splashesFile = JSON.parse(data.toString());
 
-            splashDefaultLang = splashesFile.defaultLang;
-            // const languages = splashesFile.languages;
-            const splashObjs = splashesFile.splashes;
+                splashDefaultLang = splashesFile.defaultLang;
+                // const languages = splashesFile.languages;
+                const splashObjs = splashesFile.splashes;
 
-            /** @type {SplashLangObj} */
-            const splashes = {};
+                /** @type {SplashLangObj} */
+                const splashes = {};
 
-            splashObjs.forEach(splashObj => {
-                Object.keys(splashObj).forEach(/** @type {"en"} */langCode => {
-                    if(!Array.isArray(splashes[langCode]))
-                        splashes[langCode] = [];
+                splashObjs.forEach(splashObj => {
+                    Object.keys(splashObj).forEach(/**@type {"en"}*/langCode => {
+                        if(!Array.isArray(splashes[langCode]))
+                            splashes[langCode] = [];
 
-                    const splashText = splashObj[langCode];
-                    
-                    splashes[langCode].push(splashText);
+                        const splashText = splashObj[langCode];
+                        
+                        splashes[langCode].push(splashText);
+                    });
                 });
-            });
 
-            if(Object.keys(splashes).length > 0)
-                return res(splashes);
-            else
-                return rej(`No splashes present in file '${settings.languages.splashesFilePath}'`);
+                if(Object.keys(splashes).length > 0)
+                    return res(splashes);
+                else
+                    return rej(`No splashes present in file '${settings.languages.splashesFilePath}'`);
+            }
+            catch(err)
+            {
+                return rej(`General error while loading splash texts: ${err}`);
+            }
         });
     });
 }
@@ -248,4 +261,7 @@ function getSplash(lang)
 
 
 module.exports = { softExit, getSplash };
+
+
+// run initAll when this script file is executed
 initAll();
