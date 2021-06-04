@@ -56,7 +56,7 @@ function applyPadding()
  */
 function displaySplash()
 {
-    const splashes = getAllSplashTexts();
+    const splashes = getInitSplashTexts();
     console.log(`${colors.fg.cyan}${randomItem(splashes)}${colors.rst}\n`);
 }
 
@@ -65,7 +65,7 @@ function displaySplash()
  * These are different from the ones defined in the file at `settings.languages.splashesFilePath`
  * @returns {string[]}
  */
-function getAllSplashTexts()
+function getInitSplashTexts()
 {
     // base / static splashes
     const splashes = [
@@ -79,18 +79,18 @@ function getAllSplashTexts()
         "A horse walks into a bar...",
         "Trans rights!"
     ];
-    
+
     // dynamic splashes
 
     const now = new Date();
-    
+
     // wednesday
     if(now.getDay() === 3)
         splashes.push("It is wednesday, my dude 🐸");
 
     // pride month
     if((now.getMonth() + 1) === 6)
-        splashes.push("🌈 Happy pride! 🌈");
+        splashes.push("🌈  Happy pride! 🌈");
 
     // new year's eve
     if(now.getDate() === 31 && (now.getMonth() + 1) === 12)
@@ -107,7 +107,7 @@ function getAllSplashTexts()
     // JokeAPI's birthday :)
     if(now.getDate() === 19 && (now.getMonth() + 1) === 3)
         splashes.push(`Happy Birthday ${settings.info.name} :)`);
-        
+
     return splashes;
 }
 
