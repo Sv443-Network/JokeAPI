@@ -15,48 +15,6 @@ const settings = require("./settings");
 
 
 /**
- * Returns all splash texts :)
- * @returns {string[]}
- */
-function getAllSplashTexts()
-{
-    // base / static splashes
-    const splashes = [
-        "Beeping and booping...",
-        `Preparing to overthrow huma- start up ${settings.info.name}`,
-        "🤖",
-        "Eradicating all the bugs...",
-        "Removing unfunny jokes...",
-        "Downloading documentation font 'Comic Sans MS'...",
-        "Smuggling jokes through the TCP port border patrol...",
-        "A horse walks into a bar...",
-        "Trans rights!"
-    ];
-    
-    // dynamic splashes
-
-    const now = new Date();
-    
-    if(now.getDay() === 3)
-        splashes.push("It is wednesday, my dude 🐸");
-
-    if((now.getMonth() + 1) === 6)
-        splashes.push("🌈 Happy pride! 🌈");
-
-    if(now.getDate() === 31 && (now.getMonth() + 1) === 12)
-        splashes.push(`Fuck ${now.getFullYear()}`);
-
-    if(now.getDate() === 14 && (now.getMonth() + 1) === 3)
-        splashes.push("🍰");
-
-    if(now.getDate() <= 19 && (now.getMonth() + 1) === 1 && now.getFullYear() === 2038)
-        splashes.push(`ẗ̵̹́h̷̤͌e̸̱̾ ̶̩̓ë̷̖́n̶͉̈́d̵̥̾ ̷̤͆i̵̘̿s̸͚̚ ̴͉̒ṅ̴͕e̸̟͒a̸̭̚r̸͔͊`);
-
-    return splashes;
-}
-
-
-/**
  * Initializes JokeAPI
  * @returns {void}
  */
@@ -100,6 +58,48 @@ function displaySplash()
 {
     const splashes = getAllSplashTexts();
     console.log(`${colors.fg.cyan}${randomItem(splashes)}${colors.rst}\n`);
+}
+
+/**
+ * Returns all init splash texts.  
+ * These are different from the ones defined in the file at `settings.languages.splashesFilePath`
+ * @returns {string[]}
+ */
+function getAllSplashTexts()
+{
+    // base / static splashes
+    const splashes = [
+        "Beeping and booping...",
+        `Preparing to overthrow huma- start up ${settings.info.name}`,
+        "🤖",
+        "Eradicating all the bugs...",
+        "Removing unfunny jokes...",
+        "Downloading documentation font 'Comic Sans MS'...",
+        "Smuggling jokes through the TCP port border patrol...",
+        "A horse walks into a bar...",
+        "Trans rights!"
+    ];
+    
+    // dynamic splashes
+
+    const now = new Date();
+    
+    if(now.getDay() === 3)
+        splashes.push("It is wednesday, my dude 🐸");
+
+    if((now.getMonth() + 1) === 6)
+        splashes.push("🌈 Happy pride! 🌈");
+
+    if(now.getDate() === 31 && (now.getMonth() + 1) === 12)
+        splashes.push(`Fuck ${now.getFullYear()}`);
+
+    if(now.getDate() === 14 && (now.getMonth() + 1) === 3)
+        splashes.push("🍰");
+
+    if(now.getDate() <= 19 && (now.getMonth() + 1) === 1 && now.getFullYear() === 2038)
+        splashes.push(`ẗ̵̹́h̷̤͌e̸̱̾ ̶̩̓ë̷̖́n̶͉̈́d̵̥̾ ̷̤͆i̵̘̿s̸͚̚ ̴͉̒ṅ̴͕e̸̟͒a̸̭̚r̸͔͊`);
+
+    return splashes;
 }
 
 

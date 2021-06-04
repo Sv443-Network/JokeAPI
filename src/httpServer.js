@@ -86,7 +86,7 @@ function init()
                 if(!err)
                 {
                     httpServerInitialized = true;
-                    debug("HTTP", `${scl.colors.fg.green}HTTP Server successfully listens on port ${settings.httpServer.port}${scl.colors.rst}`);
+                    debug("HTTP", `HTTP Server successfully listens on port ${scl.colors.fg.green}${settings.httpServer.port}${scl.colors.rst}`);
                     return resolve();
                 }
                 else

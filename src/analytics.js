@@ -1,11 +1,12 @@
 const http = require("http");
-const jsl = require("svjsl");
+const { isEmpty, unused, colors } = require("svjsl");
 const sql = require("mysql");
 const fs = require("fs-extra");
 const logger = require("./logger");
 const settings = require("../settings");
 const debug = require("./debug");
-jsl.unused(http);
+
+unused(http);
 
 module.exports.connectionInfo = {
     connected: false,
@@ -41,7 +42,7 @@ const init = () => {
             }
             else
             {
-                debug("SQL", `Successfully connected to database at ${settings.sql.host}:${settings.sql.port}/${settings.sql.database}`);
+                debug("SQL", `Successfully connected to database at ${colors.fg.yellow}${settings.sql.host}:${settings.sql.port}/${settings.sql.database}${colors.rst}`);
 
                 this.sqlConn = sqlConnection;
                 module.exports.sqlConn = sqlConnection;
@@ -91,6 +92,9 @@ const init = () => {
  */
 const endSqlConnection = () => {
     return new Promise((resolve) => {
+        if(!this.sqlConn)
+            return resolve();
+
         this.sqlConn.end(err => {
             if(err)
                 this.sqlConn.destroy();
@@ -107,7 +111,7 @@ const endSqlConnection = () => {
  */
 const sendQuery = (query, insertValues) => {
     return new Promise((resolve, reject) => {
-        if(jsl.isEmpty(this.sqlConn) || (this.sqlConn && this.sqlConn.state != "connected" && this.sqlConn.state != "authenticated"))
+        if(isEmpty(this.sqlConn) || (this.sqlConn && this.sqlConn.state != "connected" && this.sqlConn.state != "authenticated"))
             return reject(`DB connection is not established yet. Current connection state is "${this.sqlConn.state || "disconnected"}"`);
 
         debug("SQL", `Sending query: "${query.replace(/"/g, "'")}" with values "${(typeof insertValues == "object") ? insertValues.map((v) => (v == null ? "NULL" : v)).join(",").replace(/"/g, "'") : "(empty)"}"`);
@@ -208,7 +212,7 @@ const logAnalytics = analyticsDataObject => {
         if(!settings.analytics.enabled)
             return true;
         
-        if(jsl.isEmpty(this.sqlConn) || (this.sqlConn && this.sqlConn.state != "connected" && this.sqlConn.state != "authenticated"))
+        if(isEmpty(this.sqlConn) || (this.sqlConn && this.sqlConn.state != "connected" && this.sqlConn.state != "authenticated"))
         {
             debug("Analytics", `Error while logging some analytics data - SQL connection state is invalid: ${this.sqlConn.state || "disconnected"}`);
             return `DB connection is not established yet. Current connection state is "${this.sqlConn.state || "disconnected"}"`;

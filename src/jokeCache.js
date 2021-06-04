@@ -1,5 +1,5 @@
 const mysql = require("mysql");
-const { sql } = require("svcorelib");
+const { sql, colors } = require("svcorelib");
 const fs = require("fs-extra");
 
 const debug = require("./debug");
@@ -41,7 +41,7 @@ function init()
                 }
                 else
                 {
-                    debug("JokeCache", `Successfully connected to database at ${settings.sql.host}:${settings.sql.port}/${settings.sql.database}`);
+                    debug("JokeCache", `Successfully connected to database at ${colors.fg.yellow}${settings.sql.host}:${settings.sql.port}/${settings.sql.database}${colors.rst}`);
 
                     /** @type {mysql.QueryOptions} */
                     let queryOptions = {
