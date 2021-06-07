@@ -1,8 +1,7 @@
-const scl = require("svcorelib");
+const { isEmpty, unused, filesystem } = require("svcorelib");
 
 const httpServer = require("../../httpServer");
 const debug = require("../../debug");
-const exists = require("../../exists");
 const Endpoint = require("../../classes/Endpoint");
 
 const settings = require("../../../settings");
@@ -38,18 +37,22 @@ class Static extends Endpoint {
      * @param {Object} params URL query params gotten from the URL parser module
      * @param {string} format The file format to respond with
      */
-    call(req, res, url, params, format)
+    async call(req, res, url, params, format)
     {
-        scl.unused(req, url, format);
+        unused(req, url, format);
+
+        /** The identifier of the requested file */
+        const fileID = !isEmpty(url[1]) ? url[1] : fallbackID;
+        /** Fallback identifier when no matching file was found */
+        const fallbackID = "fallback_err_404";
 
         const lang = Endpoint.getLang(params);
 
         let filePath, mimeType, statusCode;
-        let requestedFile = !scl.isEmpty(url[1]) ? url[1] : null;
         let allowEncoding = true;
         let allowRobotIndexing = false; // allow indexing by robots like Googlebot
 
-        switch(requestedFile)
+        switch(fileID)
         {
             case "index.css":
                 filePath = `${settings.documentation.compiledPath}index_injected.css`;
@@ -101,8 +104,8 @@ class Static extends Endpoint {
                 allowEncoding = false;
                 mimeType = "image/svg+xml";
             break;
+            case fallbackID:
             default:
-                requestedFile = "fallback_err_404";
                 filePath = settings.documentation.error404path;
                 statusCode = 404;
                 allowEncoding = false;
@@ -110,41 +113,30 @@ class Static extends Endpoint {
             break;
         }
 
-        let selectedEncoding = null;
+        const selectedEncoding = allowEncoding ? httpServer.getAcceptedEncoding(req) : "identity"; // identity = no encoding (see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding)
 
-        if(allowEncoding)
-            selectedEncoding = httpServer.getAcceptedEncoding(req);
+        const fileExtension = selectedEncoding != "identity" ? `.${httpServer.getFileExtensionFromEncoding(selectedEncoding)}` : "";
 
-        let fileExtension = "";
-
-        if(selectedEncoding != null)
-            fileExtension = `.${httpServer.getFileExtensionFromEncoding(selectedEncoding)}`;
 
         filePath = `${filePath}${fileExtension}`;
 
-        // TODO: replace with scl.filesystem.exists as soon as SCL v1.13 is out (https://github.com/Sv443/SvCoreLib/pull/16)
-        exists(filePath).then(exists => {
-            if(exists)
-            {
-                if(selectedEncoding == null || selectedEncoding == "identity")
-                    selectedEncoding = "identity"; // identity = no encoding (see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding)
+        if(await filesystem.exists(filePath))
+        {
+            debug("Static", `Serving static content "${fileID}" with encoding "${selectedEncoding}"`);
 
-                debug("Static", `Serving static content "${requestedFile}" with encoding "${selectedEncoding}"`);
+            res.setHeader("Content-Encoding", selectedEncoding);
+            res.setHeader("Cache-Control", `max-age=${settings.documentation.staticCacheAge}`);
 
-                res.setHeader("Content-Encoding", selectedEncoding);
-                res.setHeader("Cache-Control", `max-age=${settings.documentation.staticCacheAge}`);
+            if(!allowRobotIndexing)
+                res.setHeader("X-Robots-Tag", "noindex, noimageindex");
 
-                if(!allowRobotIndexing)
-                    res.setHeader("X-Robots-Tag", "noindex, noimageindex");
-
-                return Endpoint.respondWithFile(res, mimeType, lang, filePath, statusCode);
-            }
-            else
-            {
-                debug("Static", `Serving static content "${requestedFile}" without encoding`);
-                return Endpoint.respondWithFile(res, mimeType, lang, filePath, statusCode);
-            }
-        });
+            return Endpoint.respondWithFile(res, mimeType, lang, filePath, statusCode);
+        }
+        else
+        {
+            debug("Static", `Serving static content "${fileID}" without encoding`);
+            return Endpoint.respondWithFile(res, mimeType, lang, filePath, statusCode);
+        }
     }
 }
 

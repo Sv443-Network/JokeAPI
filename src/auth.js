@@ -1,12 +1,10 @@
 const http = require("http");
-const scl = require("svcorelib");
+const { filesystem, unused, FolderDaemon } = require("svcorelib");
 const fs = require("fs-extra");
-
-const exists = require("./exists");
 
 const settings = require("../settings");
 
-scl.unused([http]);
+unused(http);
 
 
 var tokenList;
@@ -17,21 +15,19 @@ var tokenList;
  */
 function init()
 {
-    return new Promise(resolve => {
-        exists(settings.auth.tokenListFile).then(exists => {
-            if(!exists)
-                fs.writeFileSync(settings.auth.tokenListFile, JSON.stringify([], null, 4));
-            
-            refreshTokens();
+    return new Promise(async resolve => {
+        if(!(await filesystem.exists(settings.auth.tokenListFile)))
+            fs.writeFileSync(settings.auth.tokenListFile, JSON.stringify([], null, 4));
 
-            let fd = new scl.FolderDaemon(settings.auth.tokenListFolder, [], false, settings.auth.daemonInterval * 1000)
-            fd.onChanged((err, res) => {
-                if(!err && res.length > 0)
-                    refreshTokens();
-            });
+        refreshTokens();
 
-            return resolve();
+        let fd = new FolderDaemon(settings.auth.tokenListFolder, [], false, settings.auth.daemonInterval * 1000)
+        fd.onChanged((err, res) => {
+            if(!err && res.length > 0)
+                refreshTokens();
         });
+
+        return resolve();
     });
 }
 

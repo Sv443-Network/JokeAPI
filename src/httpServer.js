@@ -1,6 +1,6 @@
 // This module starts the HTTP server, parses the request and calls the requested endpoint
 
-const scl = require("svcorelib");
+const { unused, filesystem, colors, isEmpty, isArrayEmpty } = require("svcorelib");
 const http = require("http");
 const Readable = require("stream").Readable;
 const fs = require("fs-extra");
@@ -24,11 +24,10 @@ const meter = require("./meter");
 const languages = require("./languages");
 const { RateLimiterMemory, RateLimiterRes } = require("rate-limiter-flexible");
 const tr = require("./translate");
-const exists = require("./exists");
 const Endpoint = require("./classes/Endpoint");
 const SubmissionEndpoint = require("./classes/SubmissionEndpoint");
 
-scl.unused("types:", RateLimiterRes, Endpoint, SubmissionEndpoint);
+unused("types:", RateLimiterRes, Endpoint, SubmissionEndpoint);
 
 
 module.exports.dataEndpoints = [];
@@ -89,12 +88,12 @@ function init()
                 if(!err)
                 {
                     httpServerInitialized = true;
-                    debug("HTTP", `HTTP Server successfully listens on port ${scl.colors.fg.green}${settings.httpServer.port}${scl.colors.rst}`);
+                    debug("HTTP", `HTTP Server successfully listens on port ${colors.fg.green}${settings.httpServer.port}${colors.rst}`);
                     return resolve({ initTimeDeduction });
                 }
                 else
                 {
-                    debug("HTTP", `${scl.colors.fg.red}HTTP listener init encountered error: ${settings.httpServer.port}${scl.colors.rst}`, "red");
+                    debug("HTTP", `${colors.fg.red}HTTP listener init encountered error: ${settings.httpServer.port}${colors.rst}`, "red");
                     return reject(err);
                 }
             });
@@ -292,9 +291,9 @@ function incomingRequest(req, res, httpMetrics)
         urlParameters: parsedURL.queryParams
     };
 
-    debug("HTTP", `Incoming ${req.method} request from "${ip.substring(0, 8)}${localhostIP ? `..." ${scl.colors.fg.blue}(local)${scl.colors.rst} (lang=${lang})` : "...\""} to ${req.url}`, "green");
+    debug("HTTP", `Incoming ${req.method} request from "${ip.substring(0, 8)}${localhostIP ? `..." ${colors.fg.blue}(local)${colors.rst} (lang=${lang})` : "...\""} to ${req.url}`, "green");
 
-    const fileFormat = (!scl.isEmpty(parsedURL.queryParams) && !scl.isEmpty(parsedURL.queryParams.format)) ? parseURL.getFileFormatFromQString(parsedURL.queryParams) : settings.jokes.defaultFileFormat.fileFormat;
+    const fileFormat = (!isEmpty(parsedURL.queryParams) && !isEmpty(parsedURL.queryParams.format)) ? parseURL.getFileFormatFromQString(parsedURL.queryParams) : settings.jokes.defaultFileFormat.fileFormat;
 
     if(req.url.length > settings.httpServer.maxUrlLength)
         return respondWithError(res, 108, 414, fileFormat, tr(lang, "uriTooLong", req.url.length, settings.httpServer.maxUrlLength), lang, req.url.length);
@@ -321,7 +320,7 @@ function incomingRequest(req, res, httpMetrics)
             }
             catch(err)
             {
-                console.log(`${scl.colors.fg.red}Error while setting up CORS headers: ${err}${scl.colors.rst}`);
+                console.log(`${colors.fg.red}Error while setting up CORS headers: ${err}${colors.rst}`);
             }
         }
 
@@ -333,10 +332,10 @@ function incomingRequest(req, res, httpMetrics)
     catch(err)
     {
         let fileFormat2 = fileFormat;
-        if(scl.isEmpty(fileFormat2))
+        if(isEmpty(fileFormat2))
         {
             fileFormat2 = settings.jokes.defaultFileFormat.fileFormat;
-            if(!scl.isEmpty(parsedURL.queryParams) && !scl.isEmpty(parsedURL.queryParams.format))
+            if(!isEmpty(parsedURL.queryParams) && !isEmpty(parsedURL.queryParams.format))
             fileFormat2 = parseURL.getFileFormatFromQString(parsedURL.queryParams);
         }
 
@@ -378,7 +377,7 @@ function incomingRequest(req, res, httpMetrics)
             // let lowerCaseEndpoints = [];
             // endpoints.forEach(ep => lowerCaseEndpoints.push(ep.name.toLowerCase()));
 
-            if(!scl.isArrayEmpty(urlPath))
+            if(!isArrayEmpty(urlPath))
                 requestedEndpoint = urlPath[0].toLowerCase();
             else
             {
@@ -428,7 +427,7 @@ function incomingRequest(req, res, httpMetrics)
             }
 
             // serve favicon:
-            if(!scl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "favicon.ico")
+            if(!isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "favicon.ico")
                 return pipeFile(res, settings.documentation.faviconPath, "image/x-icon", 200);
 
             dataEndpoints.forEach( /** @param {EpObject} ep Endpoint matching request URL */ async (ep) => {
@@ -448,13 +447,13 @@ function incomingRequest(req, res, httpMetrics)
                             }
                             catch(err)
                             {
-                                scl.unused(err); // gets handled elsewhere
+                                unused(err); // gets handled elsewhere
                             }
                         }
                         
                         if(isAuthorized)
                         {
-                            debug("HTTP", `Requester has valid token ${scl.colors.fg.green}${req.headers[settings.auth.tokenHeaderName] || null}${scl.colors.rst}`);
+                            debug("HTTP", `Requester has valid token ${colors.fg.green}${req.headers[settings.auth.tokenHeaderName] || null}${colors.rst}`);
                             analytics({
                                 type: "AuthTokenIncluded",
                                 data: {
@@ -470,11 +469,11 @@ function incomingRequest(req, res, httpMetrics)
 
                         const meta = ep.meta;
                         
-                        if(!scl.isEmpty(meta) && meta.skipRateLimitCheck === true)
+                        if(!isEmpty(meta) && meta.skipRateLimitCheck === true)
                         {
                             try
                             {
-                                if(scl.isEmpty(meta) || (!scl.isEmpty(meta) && meta.noLog !== true))
+                                if(isEmpty(meta) || (!isEmpty(meta) && meta.noLog !== true))
                                 {
                                     if(!lists.isConsoleBlacklisted(ip))
                                         logRequest("success", null, analyticsObject);
@@ -504,7 +503,7 @@ function incomingRequest(req, res, httpMetrics)
                                 }
                                 else
                                 {
-                                    if(scl.isEmpty(meta) || (!scl.isEmpty(meta) && meta.noLog !== true))
+                                    if(isEmpty(meta) || (!isEmpty(meta) && meta.noLog !== true))
                                     {
                                         if(!lists.isConsoleBlacklisted(ip))
                                             logRequest("success", null, analyticsObject);
@@ -528,10 +527,10 @@ function incomingRequest(req, res, httpMetrics)
             setTimeout(() => {
                 if(!foundEndpoint)
                 {
-                    if(!scl.isEmpty(fileFormat) && req.url.toLowerCase().includes("format"))
-                        return respondWithError(res, 102, 404, fileFormat, tr(lang, "endpointNotFound", (!scl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/")), lang);
+                    if(!isEmpty(fileFormat) && req.url.toLowerCase().includes("format"))
+                        return respondWithError(res, 102, 404, fileFormat, tr(lang, "endpointNotFound", (!isEmpty(requestedEndpoint) ? requestedEndpoint : "/")), lang);
                     else
-                        return respondWithErrorPage(res, 404, tr(lang, "endpointNotFound", (!scl.isEmpty(requestedEndpoint) ? requestedEndpoint : "/")));
+                        return respondWithErrorPage(res, 404, tr(lang, "endpointNotFound", (!isEmpty(requestedEndpoint) ? requestedEndpoint : "/")));
                 }
             }, 5000);
         }
@@ -540,7 +539,7 @@ function incomingRequest(req, res, httpMetrics)
     else if(req.method === "POST" || (settings.legacy.submissionEndpointsPutMethod && req.method === "PUT"))
     {
         let requestedEndpoint = "";
-        if(!scl.isArrayEmpty(urlPath))
+        if(!isArrayEmpty(urlPath))
             requestedEndpoint = urlPath[0].toLowerCase();
             
         let dataInterval = setTimeout(() => {
@@ -562,7 +561,7 @@ function incomingRequest(req, res, httpMetrics)
                     if(payloadSize > settings.httpServer.maxPayloadSize)
                         return respondWithError(res, 107, 413, fileFormat, tr(lang, "payloadTooLarge", payloadSize, settings.httpServer.maxPayloadSize), lang);
 
-                    if(!scl.isEmpty(payload))
+                    if(!isEmpty(payload))
                         clearTimeout(dataInterval);
 
                     /** @type {SubmissionEndpoint} */
@@ -573,7 +572,7 @@ function incomingRequest(req, res, httpMetrics)
                 // //#MARKER Joke submission
                 // let submissionsRateLimited = await rlSubm.get(ip);
 
-                // if(!scl.isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "submit" && !(submissionsRateLimited && submissionsRateLimited._remainingPoints <= 0 && !headerAuth.isAuthorized))
+                // if(!isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "submit" && !(submissionsRateLimited && submissionsRateLimited._remainingPoints <= 0 && !headerAuth.isAuthorized))
                 // {
                 //     let data = "";
                 //     req.on("data", chunk => {
@@ -583,7 +582,7 @@ function incomingRequest(req, res, httpMetrics)
                 //         if(payloadLength > settings.httpServer.maxPayloadSize)
                 //             return respondWithError(res, 107, 413, fileFormat, tr(lang, "payloadTooLarge", payloadLength, settings.httpServer.maxPayloadSize), lang);
 
-                //         if(!scl.isEmpty(data))
+                //         if(!isEmpty(data))
                 //             clearTimeout(dataInterval);
 
                 //         let dryRun = (parsedURL.queryParams && parsedURL.queryParams["dry-run"] == true) || false;
@@ -628,7 +627,7 @@ function incomingRequest(req, res, httpMetrics)
                 //     req.on("data", chunk => {
                 //         data += chunk;
 
-                //         if(!scl.isEmpty(data))
+                //         if(!isEmpty(data))
                 //             clearTimeout(dataInterval);
 
                 //         if(data == process.env.RESTART_TOKEN && parsedURL.pathArray != null && parsedURL.pathArray[0] == "restart")
@@ -639,7 +638,7 @@ function incomingRequest(req, res, httpMetrics)
                 //                 "message": `Restarting ${settings.info.name}`,
                 //                 "timestamp": Date.now()
                 //             }, lang));
-                //             console.log(`\n\n[${logger.getTimestamp(" | ")}]  ${scl.colors.fg.red}IP ${scl.colors.fg.yellow}${ip.substr(0, 8)}[...]${scl.colors.fg.red} sent a restart command\n\n\n${scl.colors.rst}`);
+                //             console.log(`\n\n[${logger.getTimestamp(" | ")}]  ${colors.fg.red}IP ${colors.fg.yellow}${ip.substr(0, 8)}[...]${colors.fg.red} sent a restart command\n\n\n${colors.rst}`);
                 //             process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
                 //         }
                 //         else return respondWithErrorPage(res, 400, tr(lang, "invalidSubmissionOrWrongEndpoint", (parsedURL.pathArray != null ? parsedURL.pathArray[0] : "/")));
@@ -729,7 +728,7 @@ function respondWithError(res, errorCode, responseCode, fileFormat, errorMessage
             }
         }
 
-        if(!scl.isEmpty(errorMessage))
+        if(!isEmpty(errorMessage))
             errObj.additionalInfo = errorMessage;
 
         let converted = convertFileFormat.auto(fileFormat, errObj, lang).toString();
@@ -758,10 +757,10 @@ function respondWithErrorPage(res, statusCode, error)
     if(isNaN(statusCode))
     {
         statusCode = 500;
-        error += ((!scl.isEmpty(error) ? " - Ironically, an additional " : "An ") + "error was encountered while setting up this error page: \"statusCode is not a number (in: httpServer.respondWithErrorPage)\"");
+        error += ((!isEmpty(error) ? " - Ironically, an additional " : "An ") + "error was encountered while setting up this error page: \"statusCode is not a number (in: httpServer.respondWithErrorPage)\"");
     }
 
-    if(!scl.isEmpty(error))
+    if(!isEmpty(error))
     {
         const cookieStr = `errorInfo=${JSON.stringify({"API-Error-Message": encodeURIComponent(error.toString()), "API-Error-StatusCode": statusCode})}`;
 
@@ -862,9 +861,9 @@ function pipeFile(res, filePath, mimeType, statusCode = 200)
  * @param {http.IncomingMessage} req The HTTP req object
  * @param {http.ServerResponse} res The HTTP res object
  */
-function serveDocumentation(req, res)
+async function serveDocumentation(req, res)
 {
-    let resolvedURL = parseURL(req.url);
+    const resolvedURL = parseURL(req.url);
 
     if(!lists.isConsoleBlacklisted(resolveIP(req)))
     {
@@ -887,19 +886,17 @@ function serveDocumentation(req, res)
     let filePath = `${settings.documentation.compiledPath}documentation.html${fileExtension}`;
     let fallbackPath = `${settings.documentation.compiledPath}documentation.html`;
 
-    exists(filePath).then(exists => {
-        if(exists)
-        {
-            if(selectedEncoding == null)
-                selectedEncoding = "identity"; // identity = no encoding (see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding)
-            
-            res.setHeader("Content-Encoding", selectedEncoding);
+    if(await filesystem.exists(filePath))
+    {
+        if(selectedEncoding == null)
+            selectedEncoding = "identity"; // identity = no encoding (see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding)
+        
+        res.setHeader("Content-Encoding", selectedEncoding);
 
-            return pipeFile(res, filePath, "text/html", 200);
-        }
-        else
-            return pipeFile(res, fallbackPath, "text/html", 200);
-    }); 
+        return pipeFile(res, filePath, "text/html", 200);
+    }
+    else
+        return pipeFile(res, fallbackPath, "text/html", 200);
 }
 
 //#MARKER util
