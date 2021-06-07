@@ -337,7 +337,7 @@
 
                 <br>
 
-                <table id="wrapperTable">
+                <table id="wrapperTable" class="alternatingBgTable">
                     <tr>
                         <th></th>
                         <th>Language</th>
@@ -612,13 +612,45 @@ None. It's a hardware problem.
 
                 <br><br><!--#SECTION Contains-->
                 <div class="subHeaderContainer"><a href="#contains-param" title="Click to link to this header">§</a> <span class="subHeader" id="contains-param">Contains:</span></div>
-                <mark>?contains=string</mark><br><br>
+                <mark>?contains=string|pattern</mark><br><br>
                 This parameter can only be used on the "joke" endpoint.<br>
-                If this parameter is specified, only jokes that contain the value of this parameter will be served (case insensitive).<br>
-                <span class="colY">IMPORTANT:</span> If the value of this parameter contains special characters, it needs to be <a href="https://en.wikipedia.org/wiki/Percent-encoding" target="_blank">percent-encoded</a> according to the <a href="https://tools.ietf.org/html/rfc3986#section-2.1" target="_blank">URI syntax standard</a>, otherwise you might get an error or a wrong response.<br><br>
+                If this parameter is specified, only jokes that contain the value of this parameter will be served (the search is case insensitive).<br>
+                <span class="colY">IMPORTANT:</span> If the value of this parameter contains special characters, it needs to be <a href="https://en.wikipedia.org/wiki/Percent-encoding" target="_blank">percent-encoded</a> according to the <a href="https://tools.ietf.org/html/rfc3986#section-2.1" target="_blank">URI syntax standard</a>, otherwise you might get an error or a wrong response.<br>
+                <br>
+                <br>
+                Since version 2.4.0 you can now use a very simple regex-like pattern syntax to filter jokes even better.<br>
+                This is a list of all special characters that can be used:<br>
+                <table class="alternatingBgTable">
+                    <tr>
+                        <th>Character</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                    </tr>
+                    <tr>
+                        <td><mark>*</mark></td>
+                        <td>Wildcard</td>
+                        <td>This character matches any amount of any character. It is equivalent to <mark>.*</mark> in regular expressions.</td>
+                    </tr>
+                    <tr>
+                        <td><mark>|</mark></td>
+                        <td>Logical&nbsp;OR</td>
+                        <td>This character allows you to chain multiple patterns. The potential jokes only need to match one of the chained patterns to be returned.</td>
+                    </tr>
+                </table>
+                <br>
 
-                <details><summary>Example (click to view)</summary>
-                    URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?contains=C%23</mark> (%23 = pound character / hashtag / # - so the thing searched for here is "C#")<br><br>
+                As exaplained above, this parameter has a special quirk called percent-encoding, which is needed to ensure the string or pattern you're searching for doesn't interfere with the URL's structure.<br>
+                This limitation makes <!--%#INSERT:NAME#%--> unable to tell if certain characters are supposed to be part of the pattern syntax or your actual search values.<br>
+                To address this, all percent-encoded characters are considered part of the <i>value to be searched for</i>, while non-encoded characters will be treated as <i>part of the pattern syntax.</i><br>
+                So to search for a <mark>|</mark> character in a joke you need to percent-encode it, resulting in <mark>%7C</mark>, while you should let Logical OR characters remain as <mark>|</mark> (also see the examples below).<br>
+                <br>
+                Note that to prevent ReDoS attacks the limit for wildcards and pattern repetitions is <!--%#INSERT:SEARCHSTRWILDCARDLIMIT#%-->. Anything above this number will produce an error.<br>
+                <br>
+                <br>
+
+                <details><summary>Simple string match example (click to view)</summary>
+                    URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?contains=C%23</mark> (%23 = pound character / hashtag / # - so the thing searched for here is "C#")<br>
+                    <br>
 <code class="prettyprint"><div class="actualCode">
 {
     "category": "Programming",
@@ -634,7 +666,89 @@ None. It's a hardware problem.
         "explicit": false
     },
     "id": 51,
+    "safe": true,
     "lang": "en"
+}
+</div></code><br>
+                </details>
+
+                <br>
+
+                <details><summary>Wildcard pattern example (click to view)</summary>
+                    URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?contains=*dev*</mark><br>
+                    <br>
+                    This URL would make <!--%#INSERT:NAME#%--> serve only jokes that contain the consecutive characters "dev", somewhere within the joke.<br>
+                    Examples for words that would be matched: "developer", "develop", "device", "development", etc.<br>
+                    <br>
+<code class="prettyprint"><div class="actualCode">
+{
+    "error": false,
+    "category": "Programming",
+    "type": "twopart",
+    "setup": ".NET developers are picky when it comes to food.",
+    "delivery": "They only like chicken NuGet.",
+    "flags": {
+        "nsfw": false,
+        "religious": false,
+        "political": false,
+        "racist": false,
+        "sexist": false,
+        "explicit": false
+    },
+    "id": 49,
+    "safe": true,
+    "lang": "en"
+}
+</div></code><br>
+                </details>
+
+                <br>
+
+                <details><summary>Logical OR pattern example (click to view)</summary>
+                    URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?contains=*develop*|*programm*|*C%23*&amount=2</mark><br>
+                    <br>
+                    This URL would make <!--%#INSERT:NAME#%--> serve only jokes that contain the consecutive characters "develop", "programm" or "C#", somewhere within the joke.<br>
+                    Examples for words that would be matched: "developer", "develop", "development", "programmer", "programming", "C#", etc.<br>
+                    <br>
+<code class="prettyprint"><div class="actualCode">
+{
+    "error": false,
+    "amount": 2,
+    "jokes": [
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "setup": "How can you tell an extroverted programmer?",
+            "delivery": "He looks at YOUR shoes when he's talking.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 17,
+            "safe": true,
+            "lang": "en"
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "Being a self-taught developer is almost the same as being a cut neck chicken because you have no sense of direction in the beginning.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 184,
+            "safe": false,
+            "lang": "en"
+        }
+    ]
 }
 </div></code><br>
                 </details>
@@ -647,7 +761,7 @@ None. It's a hardware problem.
                 If it is used, you will only get jokes that are inside the specified range of IDs.<br>
                 The lower and upper boundary of the ID range needs to be delimited with a minus (-), comma (,) or a plus sign (+).<br>
                 If you only want to get a single joke by its ID, you can also ignore the delimiter and just use the single ID as the value for this parameter.<br>
-                As there are currently <!--%#INSERT:TOTALJOKES#%--> jokes, the ID range can be any range from <mark>0 - <!--%#INSERT:TOTALJOKESZEROINDEXED#%--></mark><br><br>
+                The joke range varies from language to language. To view the maximum range, you can use the <a href="#info-endpoint">info endpoint</a><br><br>
 
                 <details><summary>Example 1 (click to view)</summary>
                     URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?idRange=0-55</mark><br>
@@ -1526,7 +1640,6 @@ namespace TestHttpRequest
                 You can set it using the <a href="#amount-param">?amount</a> URL parameter.<br>
                 Setting the filter to an invalid number will result in the API defaulting to serving a single joke.<br>
                 Setting it to a number larger than <!--%#INSERT:MAXJOKEAMOUNT#%--> will make <!--%#INSERT:NAME#%--> default to the maximum (<!--%#INSERT:MAXJOKEAMOUNT#%-->).<br>
-                If you request more than <!--%#INSERT:JOKEENCODEAMOUNT#%--> jokes, the API will try to serve them encoded with Brotli, Gzip or Deflate, depending on whether or not you set a <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept-Encoding" target="_blank">Accept-Encoding</a> header.<br>
 
 
                 <!-- #MARKER Contributors -->

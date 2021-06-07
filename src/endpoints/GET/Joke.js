@@ -250,10 +250,7 @@ class Joke extends Endpoint {
                 }
             }
 
-            if(jokeAmount > settings.jokes.encodeAmount)
-                return Endpoint.tryRespondEncoded(req, res, format, lang, responseObj, statusCode);
-            else
-                return Endpoint.respond(res, format, lang, responseObj, statusCode);
+            return Endpoint.respond(res, format, lang, responseObj, statusCode);
         }).catch(err => {
             return this.isErrored(res, format, tr(langCode, "errorWhileFinalizing", Array.isArray(err) ? err.join("; ") : err), langCode);
         });

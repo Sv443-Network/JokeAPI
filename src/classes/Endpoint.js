@@ -11,8 +11,6 @@ const settings = require("../../settings");
 // TODO: load in with fs because require() has a cache
 const endpointsTrFile = require(`../../${settings.endpoints.translationsFile}`);
 
-let httpServer = require("../httpServer"); // needs to be re-loaded sometimes because of circular dependency bullshit
-
 
 //#MARKER type stuff
 unused("types:", _http);
@@ -258,31 +256,6 @@ class Endpoint
             statusCode = 200;
 
         return http.pipeFile(res, filePath, mimeType, statusCode);
-    }
-
-    /**
-     * Sends an encoded response to the client - Runs file format auto-conversion, tries to encode, then uses httpServer.pipeString()
-     * @static
-     * @param {_http.IncomingMessage} req
-     * @param {_http.ServerResponse} res
-     * @param {string} format File format
-     * @param {string} lang Language code
-     * @param {Object} data JSON-compatible object - data to send to the client
-     * @param {number} [statusCode] Status code (defaults to 200)
-     */
-    static tryRespondEncoded(req, res, format, lang, data, statusCode)
-    {
-        if(!httpServer || (typeof httpServer == "object" && Object.keys(httpServer).length == 0)) // TODO: improve this - loading 1000 lines on each request is probably not a good idea (around 5x performance impact)
-            httpServer = require("../httpServer");
-
-        const responseText = convertFileFormat.auto(format, data, lang);
-
-        statusCode = parseInt(statusCode);
-
-        if(typeof statusCode != "number" || isNaN(statusCode) || statusCode < 100)
-            statusCode = 200;
-
-        return httpServer.tryServeEncoded(req, res, responseText, parseURL.getMimeType(format), statusCode);
     }
 
     /**

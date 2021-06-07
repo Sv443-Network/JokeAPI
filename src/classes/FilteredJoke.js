@@ -360,11 +360,17 @@ class FilteredJoke
                         });
                     }
 
+                    let isErrored = false;
+
                     // #SECTION iterate over jokes & check for matching parameters
                     jokesArray.forEach(joke => {
                         // IMPORTANT: only use synchronous code in here!
                         // iterate over each joke, reading all set filters and thereby checking if it suits the request
                         // to deny a joke from being served, just return from this callback function
+
+                        // set `isErrored` to true to skip through joke checking
+                        if(isErrored)
+                            return;
 
                         //#SECTION safe mode
                         if(this.getSafeMode() === true) // if safe mode is enabled
@@ -401,6 +407,7 @@ class FilteredJoke
                                 if(blFlags.includes(flKey) && joke.flags[flKey] === true)
                                     flagMatches = true;
                             });
+
                             if(flagMatches) // joke has one or more of the set blacklist flags, joke is invalid
                                 return;
                         }
@@ -417,6 +424,7 @@ class FilteredJoke
                         }
                         catch(err)
                         {
+                            isErrored = true;
                             return reject((err instanceof Error) ? err.message : err);
                         }
                         
@@ -474,20 +482,24 @@ class FilteredJoke
             {
                 // search string contains at least one logical operator character
 
-                const pattern = decodeURIComponent(searchStr.replace(new RegExp(`[${settings.jokes.searchStringOperators.wildcard}]`, "gm"), ".*"));
-                const searchRegex = new RegExp(pattern, "gmi");
+                // create initial pattern
+                const pattern = decodeURIComponent(escapeRegexPattern(searchStr).replace(new RegExp(`[${settings.jokes.searchStringOperators.wildcard}]`, "gm"), ".*"));
+                // isolate the pattern based on the OR operator(s) present
+                const isolatedPattern = `^${pattern.split(settings.jokes.searchStringOperators.orOperator).join(`$|^`)}$`;
+                // create the final regex
+                const searchRegex = new RegExp(isolatedPattern, "gmi");
                 // make sure there's no way in hell a user can ReDoS JokeAPI with exponential-time Regexes / catastrophic backtracking
                 const regexSafe = safeRegex(searchRegex, { limit: settings.jokes.regexRepetitionLimit });
 
                 if(regexSafe === true)
                 {
-                    if(joke.type == "single" && joke.joke.match(searchRegex))
+                    if(joke.type == "single" && joke.joke.replace(/\n/g, " ").match(searchRegex))
                         searchMatches = true;
-                    else if(joke.type == "twopart" && `${joke.setup} ${joke.delivery}`.match(searchRegex))
+                    else if(joke.type == "twopart" && `${joke.setup} ${joke.delivery}`.replace(/\n/g, " ").match(searchRegex))
                         searchMatches = true;
                 }
                 else
-                    throw new Error(tr(lang, "patternIsUnsafe", searchStr));
+                    throw new Error(tr(lang, "patternTooComplex", searchStr, settings.jokes.regexRepetitionLimit));
             }
         }
         else
@@ -634,6 +646,15 @@ class FilteredJoke
             }
         });
     }
+}
+
+/**
+ * Escapes a regex pattern string
+ * @param {string} input
+ */
+function escapeRegexPattern(input)
+{
+    return input.replace(/[-[\]/{}()+?.\\^$]/g, "\\$&");
 }
 
 module.exports = FilteredJoke;

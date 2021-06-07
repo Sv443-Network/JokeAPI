@@ -15,7 +15,7 @@ const settings = {
     /** Settings regarding debugging */
     debug: {
         verboseLogging: true,       // set to true to enable extra debug output
-        dashboardEnabled: true,    // refreshes the init message on interval
+        dashboardEnabled: false,    // refreshes the init message on interval
         dashboardInterval: 1000,    // sets the interval (in ms) at which to refresh the init message (only if dashboard mode is enabled)
         progressBarDisabled: true,  // set to true to disable the progress bar - greatly improves readability of verbose debug output in the startup phase
         onlyLogErrors: true,        // set to true to disable sending any console logs but error messages
@@ -133,13 +133,12 @@ const settings = {
         splitChars: [",", "+", "-"],   // which characters should separate the values of parameters with support for multiple values
         splitCharRegex: /[,+-]/gm,     // which characters should separate the values of parameters with support for multiple values
         maxAmount: 10,                 // the maximum amount of jokes that can be fetched with a single call to the get jokes endpoint
-        encodeAmount: 5,               // if more than this number of jokes is requested, encode them
         /** logical operators for the `?contains` parameter - all of these should be percent-encodable with `encodeURIComponent()` and shouldn't be a [reserved character](https://datatracker.ietf.org/doc/html/rfc3986#section-2.2) */
         searchStringOperators: {
             wildcard: "*",   // wildcard / any-match character
             orOperator: "|", // OR operator to chain "expressions"
         },
-        regexRepetitionLimit: 25, // Mmx limit of repetitions allowed in regexes built based on user input
+        regexRepetitionLimit: 8, // Max limit of repetitions / wildcards allowed in regexes built based on user input
     },
     /** Settings for the `httpServer` module */
     httpServer: {

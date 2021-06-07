@@ -299,11 +299,11 @@ function inject(filePath)
                     "%#INSERT:JOKELANGCOUNT#%":          languages.jokeLangs().length.toString(),
                     "%#INSERT:SYSLANGCOUNT#%":           languages.systemLangs().length.toString(),
                     "%#INSERT:MAXJOKEAMOUNT#%":          settings.jokes.maxAmount.toString(),
-                    "%#INSERT:JOKEENCODEAMOUNT#%":       settings.jokes.encodeAmount.toString(),
                     "%#INSERT:SUBMISSIONRATELIMIT#%":    settings.jokes.submissions.rateLimiting.toString(),
                     "%#INSERT:CATEGORYALIASES#%":        JSON.stringify(settings.jokes.possible.categoryAliases),
                     "%#INSERT:LASTMODIFIEDISO#%":        new Date().toISOString().trim(),
                     "%#INSERT:CACHINGDATAEXPIRYHOURS#%": settings.jokeCaching.expiryHours.toString(),
+                    "%#INSERT:SEARCHSTRWILDCARDLIMIT#%": settings.jokes.regexRepetitionLimit.toString(),
                 };
 
                 const checkMatch = (key, regex) => {
