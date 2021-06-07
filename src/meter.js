@@ -5,6 +5,7 @@ const fs = require("fs-extra");
 
 const debug = require("./debug");
 const settings = require("../settings");
+const { unused } = require("svcorelib");
 
 /**
  * @typedef {"req1min"|"req10mins"|"req1hour"|"reqtotal"|"submission"} MeterName
@@ -113,34 +114,47 @@ function update(meterName, addValue)
         addValue = 1;
 
     addValue = parseInt(addValue);
-        
+
     if(typeof addValue != "number" || isNaN(addValue))
         throw new TypeError(`meter.update(): "addValue" has wrong type "${typeof addValue}" - expected "number"`);
 
     debug("Meter", `Updating pm2 meter "${meterName}" - adding ${addValue}`);
 
-    switch(meterName)
+    let valIncorrect = false;
+
+    try
     {
-        case "req1min":
-            values.m1 += addValue;
-        break;
-        case "req10min":
-            values.m10 += addValue;
-        break;
-        case "req1hour":
-            values.h1 += addValue;
-        break;
-        case "reqtotal":
-            values.tot += addValue;
-            meters.reqtotalMeter.set(values.tot);
-        break;
-        case "submission":
-            values.subms += addValue;
-            meters.submissionMeter.set(values.subms);
-        break;
-        default:
-            throw new TypeError(`meter.update(): "meterName" has incorrect value`);
+        switch(meterName)
+        {
+            case "req1min":
+                values.m1 += addValue;
+            break;
+            case "req10min":
+                values.m10 += addValue;
+            break;
+            case "req1hour":
+                values.h1 += addValue;
+            break;
+            case "reqtotal":
+                values.tot += addValue;
+                meters.reqtotalMeter.set(values.tot);
+            break;
+            case "submission":
+                values.subms += addValue;
+                meters.submissionMeter.set(values.subms);
+            break;
+            default:
+                valIncorrect = true;
+        }
     }
+    catch(err)
+    {
+        // sometimes meters are undefined for some odd reason but since it isn't a fatal error just ignore it
+        unused(err);
+    }
+
+    if(valIncorrect)
+        throw new TypeError(`meter.update(): "meterName" has incorrect value`);
 
     return;
 }

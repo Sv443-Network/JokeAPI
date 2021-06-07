@@ -175,17 +175,19 @@ function init()
 
 
         //#MARKER call HTTP server init
+
+        // check if HTTP server port is busy
         portUsed.check(settings.httpServer.port).then(portBusy => {
             if(!portBusy)
             {
                 Promise.all(promises).then(() => {
-                    initHttpServer();
+                    return initHttpServer();
                 }).catch(err => {
                     return reject(err);
                 });
             }
             else
-                return reject(`Port ${settings.httpServer.port} is already in use. Either kill the process using it or set the port in "settings.js" to a different value.`);
+                return reject(`TCP port ${settings.httpServer.port} is busy. Either kill the process using it or set the port in "settings.js" to a different value.`);
         });
     });
 }
@@ -259,6 +261,10 @@ function getLang(parsedURL)
 function incomingRequest(req, res, httpMetrics)
 {
     const parsedURL = parseURL(req.url);
+
+    if(typeof parsedURL.error === "string")
+        return respondWithError(res, 111, 400, settings.jokes.defaultFileFormat.fileFormat, parsedURL.error, settings.languages.defaultLanguage);
+
     const lang = getLang(parsedURL);
     const ip = resolveIP(req);
     const headerAuth = auth.authByHeader(req, res);
@@ -681,6 +687,8 @@ function respondWithError(res, errorCode, responseCode, fileFormat, errorMessage
             return texts;
         };
 
+        const causedBy = (errFromRegistry.causedBy && Object.keys(errFromRegistry.causedBy).length > 0) ? insArgs(errFromRegistry.causedBy[lang], args) || insArgs(errFromRegistry.causedBy[settings.languages.defaultLanguage], args) : [];
+
         if(fileFormat != "xml")
         {
             errObj = {
@@ -688,7 +696,7 @@ function respondWithError(res, errorCode, responseCode, fileFormat, errorMessage
                 "internalError": errFromRegistry.errorInternal,
                 "code": parseInt(errorCode),
                 "message": insArgs(errFromRegistry.errorMessage[lang], args) || insArgs(errFromRegistry.errorMessage[settings.languages.defaultLanguage], args),
-                "causedBy": insArgs(errFromRegistry.causedBy[lang], args) || insArgs(errFromRegistry.causedBy[settings.languages.defaultLanguage], args),
+                "causedBy": causedBy,
                 "timestamp": Date.now()
             }
         }
@@ -699,7 +707,7 @@ function respondWithError(res, errorCode, responseCode, fileFormat, errorMessage
                 "internalError": errFromRegistry.errorInternal,
                 "code": parseInt(errorCode),
                 "message": insArgs(errFromRegistry.errorMessage[lang], args) || insArgs(errFromRegistry.errorMessage[settings.languages.defaultLanguage], args),
-                "causedBy": {"cause": insArgs(errFromRegistry.causedBy[lang], args) || insArgs(errFromRegistry.causedBy[settings.languages.defaultLanguage], args)},
+                "causedBy": { "cause": causedBy },
                 "timestamp": Date.now()
             }
         }

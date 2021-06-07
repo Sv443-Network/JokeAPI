@@ -123,7 +123,7 @@ const settings = {
             ],
         },
         fileFormatsPath: "./data/fileFormats.json", // path to the file formats file
-        /** Default file format settings */
+        /** default file format settings */
         defaultFileFormat: {
             fileFormat: "json",           // the default file format string
             mimeType: "application/json", // the default file format mime type
@@ -134,10 +134,16 @@ const settings = {
         splitCharRegex: /[,+-]/gm,     // which characters should separate the values of parameters with support for multiple values
         maxAmount: 10,                 // the maximum amount of jokes that can be fetched with a single call to the get jokes endpoint
         encodeAmount: 5,               // if more than this number of jokes is requested, encode them
+        /** logical operators for the `?contains` parameter - all of these should be percent-encodable with `encodeURIComponent()` and shouldn't be a [reserved character](https://datatracker.ietf.org/doc/html/rfc3986#section-2.2) */
+        searchStringOperators: {
+            wildcard: "*",   // wildcard / any-match character
+            orOperator: "|", // OR operator to chain "expressions"
+        },
+        regexRepetitionLimit: 25, // Mmx limit of repetitions allowed in regexes built based on user input
     },
     /** Settings for the `httpServer` module */
     httpServer: {
-        port: 8076,           // http server port
+        port: 8076,           // http server port (TCP)
         allowCORS: true,      // whether or not to allow Cross Origin Resource Sharing (CORS)
         rateLimiting: 120,    // amount of allowed requests per below defined timeframe
         timeFrame: 60,        // timeframe in seconds

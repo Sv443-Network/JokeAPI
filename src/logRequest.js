@@ -175,8 +175,8 @@ function logRequest(type, additionalInfo, analyticsData)
  */
 function initMsg(initTimestamp, initDurationMs, activityIndicatorState)
 {
-    let lines = [];
-    let initMs = initDurationMs ? initDurationMs : Math.round(Date.now() - initTimestamp);
+    const lines = [];
+    const initMs = initDurationMs ? initDurationMs : Math.round(Date.now() - initTimestamp);
 
     const heapStats = v8.getHeapStatistics();
     const hsMax = heapStats.heap_size_limit;
@@ -237,7 +237,7 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState)
     //     lines.push(col.rst);
     // }
 
-    let writeLines = lines.join("");
+    const writeLines = lines.join("");
 
     // clear (if dashboard enabled), then immediately write using stdout directly, to try to remove "jitter" when updating the dashboard
     if(settings.debug.dashboardEnabled)

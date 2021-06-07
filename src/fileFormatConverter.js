@@ -12,13 +12,15 @@ const settings = require("../settings");
 
 /**
  * Converts a JSON object to a string representation of a XML, YAML, plain text or JSON (as fallback) object - based on a passed format string
- * @param {("xml"|"yaml"|"json"|"txt")} format Can be "xml", "yaml" or "txt", everything else will default to JSON
- * @param {Object} jsonInput
- * @param {String} [lang] Needed for converting to "txt"
- * @returns {String} String representation of the converted object
+ * @param {"xml"|"yaml"|"json"|"txt"} format Can be "xml", "yaml" or "txt", everything else will default to JSON
+ * @param {object} jsonInput
+ * @param {string} [lang] Needed for converting to "txt"
+ * @returns {string} String representation of the converted object
  */
-const auto = (format, jsonInput, lang) => {
+function auto(format, jsonInput, lang)
+{
     format = format.toLowerCase();
+
     switch(format)
     {
         case "yaml":
@@ -31,26 +33,29 @@ const auto = (format, jsonInput, lang) => {
         default:
             return JSON.stringify(jsonInput, null, 4);
     }
-};
+}
 
-const toYAML = jsonInput => {
+function toYAML(jsonInput)
+{
     if(jsl.isEmpty(jsonInput))
         return jsonToYaml.stringify({});
     return jsonToYaml.stringify(jsonInput);
-};
+}
 
-const toXML = jsonInput => {
+function toXML(jsonInput)
+{
     if(jsl.isEmpty(jsonInput))
         return jsonToXml.parse("data", {});
     return jsonToXml.parse("data", jsonInput);
-};
+}
 
 /**
  * Converts a JSON object to plain text, according to the set conversion mapping
  * @param {Object} jsonInput 
  * @param {String} lang 
  */
-const toTXT = (jsonInput, lang) => {
+function toTXT(jsonInput, lang)
+{
     let returnText = tr(lang, "noConversionMapping", Object.keys(jsonInput).join(", "), "ERR_NO_CONV_MAPPING @ FFCONV");
 
     if(!jsonInput)
@@ -60,10 +65,12 @@ const toTXT = (jsonInput, lang) => {
     {
         if(jsonInput.error === true)
         {
+            const causes = Array.isArray(jsonInput.causedBy) ? jsonInput.causedBy.join("\n- ") : "[x]";
+
             if(jsonInput.internalError)
-                returnText = tr(lang, "conversionInternalError", (jsonInput.code || 100), jsonInput.message, jsonInput.causedBy.join("\n- "), (jsonInput.additionalInfo ? jsonInput.additionalInfo : "X"));
+                returnText = tr(lang, "conversionInternalError", (jsonInput.code || 100), jsonInput.message, causes, (jsonInput.additionalInfo ? jsonInput.additionalInfo : "[x]"));
             else
-                returnText = tr(lang, "conversionGeneralError", (jsonInput.code || 100), jsonInput.message, jsonInput.causedBy.join("\n- "), (jsonInput.additionalInfo ? jsonInput.additionalInfo : "X"));
+                returnText = tr(lang, "conversionGeneralError", (jsonInput.code || 100), jsonInput.message, causes, (jsonInput.additionalInfo ? jsonInput.additionalInfo : "[x]"));
         }
         else
         {
@@ -186,6 +193,6 @@ const toTXT = (jsonInput, lang) => {
     }
 
     return returnText;
-};
+}
 
 module.exports = { auto, toYAML, toXML, toTXT };

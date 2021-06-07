@@ -61,7 +61,7 @@ class Joke extends Endpoint {
         let statusCode = 200;
 
         const ip = resolveIP(req);
-        let filterJoke = new FilteredJoke(parseJokes.allJokes);
+        const filterJoke = new FilteredJoke(parseJokes.allJokes);
 
 
         //#SECTION category validation

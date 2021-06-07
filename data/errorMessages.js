@@ -254,5 +254,19 @@ module.exports = {
                 `Příliš rychle jste odeslali příliš mnoho žádostí. Limit je ${settings.jokes.submissions.rateLimiting} podání v rámci ${settings.jokes.submissions.timeFrame} ${settings.jokes.submissions.timeFrame == 1 ? "sekunda" : "sekund"}.\nPokud potřebujete poslat více požadavků, počkejte prosím chvilku nebo kontaktujte mě a můžeme se domluvit: ${settings.info.author.website}`
             ]
         }
+    },
+    "111": {
+        "errorInternal": false,
+        "errorMessage": {
+            "en": "Error while parsing the provided URL"
+            // doesn't need translations since the lang parameter can't be pulled from an invalid URL
+        },
+        "causedBy": {
+            "en": [
+                "You used a reserved character (see https://datatracker.ietf.org/doc/html/rfc3986#section-2.2 )",
+                "One of the percent-encoded values is wrong or a percent character wasn't percent-encoded itself"
+                // doesn't need translations since the lang parameter can't be pulled from an invalid URL
+            ]
+        }
     }
 }

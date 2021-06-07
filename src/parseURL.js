@@ -64,13 +64,13 @@ function parseURL(url)
 {
     try
     {
-        let trimFirstSlash = u2 => {
-            if(u2[0] == "")
+        const trimFirstSlash = u2 => {
+            if(u2[0] === "")
                 u2.shift();
             return u2;
         };
 
-        let parsed = urlParse(url);
+        const parsed = urlParse(url);
 
         let qstrObj = {};
         let qstrArr = [];
@@ -90,12 +90,12 @@ function parseURL(url)
             qstrArr.forEach(qstrEntry => {
                 if(qstrEntry.includes("="))
                 {
-                    let splitEntry = qstrEntry.split("=");
+                    const splitEntry = qstrEntry.split("=");
                     qstrObj[decodeURIComponent(splitEntry[0])] = decodeURIComponent(splitEntry[1].toLowerCase());
                 }
                 else
                 {
-                    let valuelessEntry = qstrEntry.trim();
+                    const valuelessEntry = qstrEntry.trim();
                     qstrObj[decodeURIComponent(valuelessEntry)] = true;
                 }
             });
@@ -103,7 +103,7 @@ function parseURL(url)
         else
             qstrObj = null;
 
-        let retObj = {
+        const retObj = {
             error: null,
             initialURL: url,
             pathArray: trimFirstSlash(parsed.pathname.split("/")),

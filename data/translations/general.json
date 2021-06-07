@@ -445,6 +445,11 @@
             "de": "Fehler beim Löschen des Witz-Zwischenspeichers: %1",
             "ru": "Ошибка при очистке кэша шуток: %1",
             "cs": "Chyba při čištění mezipaměti vtipů: %1"
+        },
+        "patternIsUnsafe": {
+            "en": "The provided search pattern \"%1\" is unsafe.",
+            "de": "Das angegebene Such-Muster \"%1\" ist unsicher.",
+            "ru": "Предоставленный шаблон поиска \"%1\" является небезопасным."
         }
     }
 }

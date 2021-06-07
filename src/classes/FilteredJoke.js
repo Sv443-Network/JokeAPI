@@ -3,6 +3,7 @@
 // final getter method returns one or multiple jokes that match all filters
 
 const scl = require("svcorelib");
+const safeRegex = require("safe-regex");
 
 const AllJokes = require("./AllJokes");
 const parseJokes = require("../parseJokes");
@@ -69,7 +70,7 @@ class FilteredJoke
     /**
      * Sets the category / categories a joke can be from
      * @param {JokeCategory|JokeCategory[]} categories 
-     * @returns {Boolean} Returns true if the category / categories were set successfully, else returns false
+     * @returns {boolean} Returns true if the category / categories were set successfully, else returns false
      */
     setAllowedCategories(categories)
     {
@@ -115,7 +116,7 @@ class FilteredJoke
     /**
      * Sets which types the joke(s) can be of
      * @param {"single"|"twopart"} type 
-     * @returns {Boolean} Returns true if the type is valid and could be set, false if not
+     * @returns {boolean} Returns true if the type is valid and could be set, false if not
      */
     setAllowedType(type)
     {
@@ -143,8 +144,8 @@ class FilteredJoke
     //#MARKER search string
     /**
      * Sets a string to serach for in jokes
-     * @param {String} searchString Raw string to search for in the joke - URI components get decoded automatically
-     * @returns {Boolean} Returns true if the search string is a valid string and could be set, false if not
+     * @param {string} searchString Raw string to search for in the joke - URI components get decoded automatically
+     * @returns {boolean} Returns true if the search string is a valid string and could be set, false if not
      */
     setSearchString(searchString)
     {
@@ -156,7 +157,7 @@ class FilteredJoke
         
         try
         {
-            this._searchString = decodeURIComponent(searchString);
+            this._searchString = searchString;
             return true;
         }
         catch(err)
@@ -168,20 +169,21 @@ class FilteredJoke
 
     /**
      * Returns the set search string
-     * @returns {(String|null)} Returns the search string if it is set, else returns null
+     * @param {boolean} [skipDecoding=false] Whether to skip URI decoding
+     * @returns {string|null} Returns the search string if it is set, else returns null
      */
-    getSearchString()
+    getSearchString(skipDecoding = false)
     {
-        return this._searchString;
+        return !skipDecoding ? decodeURIComponent(this._searchString) : this._searchString;
     }
 
     //#MARKER id
     /**
      * The IDs a joke can be of
-     * @param {Number} start
-     * @param {Number} [end] If this is not set, it will default to the same value the param `start` has
-     * @param {String} [lang] Lang code
-     * @returns {Boolean} Returns false if the parameter(s) is/are not of type `number`, else returns true
+     * @param {number} start
+     * @param {number} [end] If this is not set, it will default to the same value the param `start` has
+     * @param {string} [lang] Lang code
+     * @returns {boolean} Returns false if the parameter(s) is/are not of type `number`, else returns true
      */
     setIdRange(start, end = null, lang = null)
     {
@@ -219,8 +221,8 @@ class FilteredJoke
     //#MARKER flags
     /**
      * Sets the blacklist flags
-     * @param {Array<BlacklistFlags>} flags 
-     * @returns {Boolean} Returns true if the flags were set, false if they are invalid
+     * @param {BlacklistFlags[]} flags 
+     * @returns {boolean} Returns true if the flags were set, false if they are invalid
      */
     setBlacklistFlags(flags)
     {
@@ -242,7 +244,7 @@ class FilteredJoke
 
     /**
      * Returns the set blacklist flags
-     * @returns {Array<BlacklistFlags>}
+     * @returns {BlacklistFlags[]}
      */
     getBlacklistFlags()
     {
@@ -252,8 +254,8 @@ class FilteredJoke
     //#MARKER language
     /**
      * Sets the language
-     * @param {String} code 
-     * @returns {Boolean} Returns true if the language was set, false if it is invalid
+     * @param {string} code 
+     * @returns {boolean} Returns true if the language was set, false if it is invalid
      */
     setLanguage(code)
     {
@@ -268,7 +270,7 @@ class FilteredJoke
 
     /**
      * Returns the set language code
-     * @returns {String}
+     * @returns {string}
      */
     getLanguage()
     {
@@ -278,8 +280,8 @@ class FilteredJoke
     //#MARKER safe mode
     /**
      * Sets the safe mode
-     * @param {Boolean} safeModeEnabled 
-     * @returns {Boolean} Returns the new value of the safe mode
+     * @param {boolean} safeModeEnabled 
+     * @returns {boolean} Returns the new value of the safe mode
      */
     setSafeMode(safeModeEnabled)
     {
@@ -293,7 +295,7 @@ class FilteredJoke
 
     /**
      * Returns the value of the safe mode
-     * @returns {Boolean}
+     * @returns {boolean}
      */
     getSafeMode()
     {
@@ -303,8 +305,8 @@ class FilteredJoke
     //#MARKER amount
     /**
      * Sets the amount of jokes
-     * @param {Number} num 
-     * @returns {Boolean|String} Returns true if the amount was set, string containing error if it is invalid
+     * @param {number} num 
+     * @returns {boolean|string} Returns true if the amount was set, string containing error if it is invalid
      */
     setAmount(num)
     {
@@ -319,7 +321,7 @@ class FilteredJoke
 
     /**
      * Returns the set joke amount or `1` if not yet set
-     * @returns {Number}
+     * @returns {number}
      */
     getAmount()
     {
@@ -331,7 +333,7 @@ class FilteredJoke
      * Applies the previously set filters and modifies the `this._filteredJokes` property with the applied filters
      * @private
      * @param {string} ip Client IP hash
-     * @param {String} lang Language code
+     * @param {string} lang Language code
      * @returns {Promise}
      */
     _applyFilters(ip, lang)
@@ -346,14 +348,14 @@ class FilteredJoke
                 
                 let jokesArray = this._allJokes.getJokeArray(lang);
 
-                jokeCache.cache.listEntries(ip, lang).then(idList => {
+                jokeCache.cache.listEntries(ip, lang).then(cacheIdList => {
                     // #SECTION joke cache
                     if(this._idRange == this._initialIdRange)
                     {
                         // joke caching is disabled when using the ID range parameter due to its dynamic, always different nature
                         jokesArray = jokesArray.filter(joke => {
                             // filter out all jokes that are on a client's joke cache list
-                            if(!idList.includes(joke.id))
+                            if(!cacheIdList.includes(joke.id))
                                 return joke;
                         });
                     }
@@ -408,18 +410,15 @@ class FilteredJoke
                             return;
                         
                         //#SECTION search string
-                        let searchMatches = false;
-                        if(!scl.isEmpty(this.getSearchString()))
+                        try
                         {
-                            if(joke.type == "single" && joke.joke.toLowerCase().includes(this.getSearchString()))
-                                searchMatches = true;
-                            else if (joke.type == "twopart" && (joke.setup + joke.delivery).toLowerCase().includes(this.getSearchString()))
-                                searchMatches = true;
+                            if(!this.checkMatchesSearchString(joke, lang)) // if the provided search string doesn't match the joke, the joke is invalid
+                                return;
                         }
-                        else searchMatches = true;
-
-                        if(!searchMatches) // if the provided search string doesn't match the joke, the joke is invalid
-                            return;
+                        catch(err)
+                        {
+                            return reject((err instanceof Error) ? err.message : err);
+                        }
                         
                         //#SECTION language
                         let langCode = this.getLanguage();
@@ -447,13 +446,63 @@ class FilteredJoke
         });
     }
 
+    /**
+     * Checks if a passed joke matches the currently set search string
+     * @param {parseJokes.Joke} joke
+     * @param {string} lang
+     * @returns {boolean}
+     */
+    checkMatchesSearchString(joke, lang)
+    {
+        let searchMatches = false;
+
+        const searchStr = this.getSearchString(true);
+
+        const containsOperator = Object.values(settings.jokes.searchStringOperators).reduce(op => searchStr.includes(op));
+
+        if(!scl.isEmpty(searchStr))
+        {
+            // if the search string doesn't contain a logical operator (issue #289)
+            if(!containsOperator)
+            {
+                if(joke.type == "single" && joke.joke.toLowerCase().includes(searchStr))
+                    searchMatches = true;
+                else if(joke.type == "twopart" && `${joke.setup} ${joke.delivery}`.toLowerCase().includes(searchStr))
+                    searchMatches = true;
+            }
+            else
+            {
+                // search string contains at least one logical operator character
+
+                const pattern = decodeURIComponent(searchStr.replace(new RegExp(`[${settings.jokes.searchStringOperators.wildcard}]`, "gm"), ".*"));
+                const searchRegex = new RegExp(pattern, "gmi");
+                // make sure there's no way in hell a user can ReDoS JokeAPI with exponential-time Regexes / catastrophic backtracking
+                const regexSafe = safeRegex(searchRegex, { limit: settings.jokes.regexRepetitionLimit });
+
+                if(regexSafe === true)
+                {
+                    if(joke.type == "single" && joke.joke.match(searchRegex))
+                        searchMatches = true;
+                    else if(joke.type == "twopart" && `${joke.setup} ${joke.delivery}`.match(searchRegex))
+                        searchMatches = true;
+                }
+                else
+                    throw new Error(tr(lang, "patternIsUnsafe", searchStr));
+            }
+        }
+        else
+            searchMatches = true; // no search string is set, so consider every joke valid
+
+        return searchMatches;
+    }
+
     //#MARKER get joke
     /**
      * Applies all filters and returns the final joke
      * @param {string} ip Client IP hash
      * @param {string} langCode
      * @param {number} [amount=1] The amount of jokes to return
-     * @returns {Promise<Array<parseJokes.SingleJoke|parseJokes.TwopartJoke>>} Returns a promise containing an array, which in turn contains a single or multiple randomly selected joke/s that match/es the previously set filters. If the filters didn't match, rejects promise.
+     * @returns {Promise<parseJokes.Joke[]>} Returns a promise containing an array, which in turn contains a single or multiple randomly selected joke/s that match/es the previously set filters. If the filters didn't match, rejects promise.
      */
     getJokes(ip, langCode, amount = 1)
     {
@@ -495,7 +544,7 @@ class FilteredJoke
                     _selectionAttempts = 0;
 
                 /**
-                 * @param {Array<parseJokes.SingleJoke|parseJokes.TwopartJoke>} jokes 
+                 * @param {Array<parseJokes.Joke[]>} jokes 
                  */
                 let selectRandomJoke = jokes => {
                     let idx = scl.randRange(0, (jokes.length - 1));
@@ -569,16 +618,20 @@ class FilteredJoke
     //#MARKER get all jokes
     /**
      * Applies all filters and returns an array of all jokes that are viable
-     * @returns {Promise<Array<parseJokes.SingleJoke|parseJokes.TwopartJoke>>} Returns a promise containing a single, randomly selected joke that matches the previously set filters. If the filters didn't match, rejects promise.
+     * @returns {Promise<parseJokes.Joke[]>} Returns a promise containing a single, randomly selected joke that matches the previously set filters. If the filters didn't match, rejects promise.
      */
     getAllJokes()
     {
-        return new Promise((resolve, reject) => {
-            this._applyFilters(this._lang || settings.languages.defaultLanguage).then(filteredJokes => {
-                return resolve(filteredJokes);
-            }).catch(err => {
-                return reject(err);
-            });
+        return new Promise(async (res, rej) => {
+            try
+            {
+                const filteredJokes = await this._applyFilters(this._lang || settings.languages.defaultLanguage);
+                return res(filteredJokes);
+            }
+            catch(err)
+            {
+                return rej(err);
+            }
         });
     }
 }

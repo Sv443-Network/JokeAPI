@@ -25,7 +25,11 @@ const tr = require("./translate");
  */
 
 /**
- * @typedef {Object} SingleJoke A joke of type single
+ * @typedef {SingleJoke|TwopartJoke} Joke An internal joke object (not a submission) that matches the "single" or "twopart" format
+ */
+
+/**
+ * @typedef {object} SingleJoke A joke of type single
  * @prop {JokeCategory} category The category of the joke
  * @prop {"single"} type The type of the joke
  * @prop {string} joke The joke itself
@@ -37,10 +41,11 @@ const tr = require("./translate");
  * @prop {boolean} flags.explicit Whether the joke contains explicit language
  * @prop {number} id The ID of the joke
  * @prop {string} lang The language of the joke
+ * @prop {boolean} safe Whether this joke is safe or not
  */
 
 /**
- * @typedef {Object} TwopartJoke A joke of type twopart
+ * @typedef {object} TwopartJoke A joke of type twopart
  * @prop {JokeCategory} category The category of the joke
  * @prop {"twopart"} type The type of the joke
  * @prop {string} setup The setup of the joke
@@ -53,10 +58,11 @@ const tr = require("./translate");
  * @prop {boolean} flags.explicit Whether the joke contains explicit language
  * @prop {number} id The ID of the joke
  * @prop {string} lang The language of the joke
+ * @prop {boolean} safe Whether this joke is safe or not
  */
 
 /**
- * @typedef {Object} JokeSubmissionParams
+ * @typedef {object} JokeSubmissionParams
  * @prop {boolean} formatVersion Version of the joke format
  * @prop {boolean} category The category of the joke
  * @prop {boolean} type The type of the joke
