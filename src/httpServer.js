@@ -177,9 +177,13 @@ function init()
         //#MARKER call HTTP server init
 
         // check if HTTP server port is busy
+        debug("HTTP", `Checking if port ${settings.httpServer.port} is busy (this might take a while)...`);
+
         portUsed.check(settings.httpServer.port).then(portBusy => {
             if(!portBusy)
             {
+                debug("HTTP", `Port ${settings.httpServer.port} is available, continuing with endpoint registration...`);
+
                 Promise.all(promises).then(() => {
                     return initHttpServer();
                 }).catch(err => {
@@ -187,7 +191,10 @@ function init()
                 });
             }
             else
+            {
+                debug("HTTP", `Port ${settings.httpServer.port} is busy`, "red");
                 return reject(`TCP port ${settings.httpServer.port} is busy. Either kill the process using it or set the port in "settings.js" to a different value.`);
+            }
         });
     });
 }
