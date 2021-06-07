@@ -232,7 +232,7 @@ header #docTitle {
 }
 
 #headersidenavopenwrapper {
-    padding-left: 10px;
+    padding-left: 5px;
 }
 
 #docTitle {
@@ -839,10 +839,18 @@ textarea {
     white-space: nowrap;
     font-size: 30px;
     cursor: pointer;
+    padding: 3px 10px;
+
+    transition: color 0.2s ease-out;
+}
+
+#sideNavOpen:hover {
+    color: var(--accent-color-light);
 }
 
 #sideNavOpen::after {
     content: "Menu";
+    padding-left: 5px;
 }
 
 @media (max-width: 750px) {
@@ -1067,6 +1075,24 @@ div.sidenavSpacer {
 #usageTerms > h2 {
     margin-top: 0;
     color: orangered;
+}
+
+h3 {
+    margin: 10px auto;
+}
+
+#percent-encoder-table {
+    display: block;
+    margin-top: 3px;
+}
+
+#percent-encoder-table td {
+    padding-left: 0;
+}
+
+.percent-encoder-input {
+    margin-left: 10px;
+    width: 300px;
 }
 
 #usageTermsInnerLayout {

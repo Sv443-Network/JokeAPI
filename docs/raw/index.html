@@ -617,6 +617,20 @@ None. It's a hardware problem.
                 If this parameter is specified, only jokes that contain the value of this parameter will be served (the search is case insensitive).<br>
                 <span class="colY">IMPORTANT:</span> If the value of this parameter contains special characters, it needs to be <a href="https://en.wikipedia.org/wiki/Percent-encoding" target="_blank">percent-encoded</a> according to the <a href="https://tools.ietf.org/html/rfc3986#section-2.1" target="_blank">URI syntax standard</a>, otherwise you might get an error or a wrong response.<br>
                 <br>
+                <h3>Percent-Encoder:</h3>
+                Input some text and you'll see how it will be percent-encoded:
+                <br>
+                <table id="percent-encoder-table">
+                    <tr>
+                        <td>Input:</td>
+                        <td><input type="text" id="percent-encoder" class="percent-encoder-input"><br></td>
+                    </tr>
+                    <tr>
+                        <td>Output:</td>
+                        <td><input type="text" id="percent-encoder-result" class="percent-encoder-input"><br></td>
+                    </tr>
+                </table>
+                <br>
                 <br>
                 Since version 2.4.0 you can now use a very simple regex-like pattern syntax to filter jokes even better.<br>
                 This is a list of all special characters that can be used:<br>
@@ -644,7 +658,7 @@ None. It's a hardware problem.
                 To address this, all percent-encoded characters are considered part of the <i>value to be searched for</i>, while non-encoded characters will be treated as <i>part of the pattern syntax.</i><br>
                 So to search for a <mark>|</mark> character in a joke you need to percent-encode it, resulting in <mark>%7C</mark>, while you should let Logical OR characters remain as <mark>|</mark> (also see the examples below).<br>
                 <br>
-                Note that to prevent ReDoS attacks the limit for wildcards and pattern repetitions is <!--%#INSERT:SEARCHSTRWILDCARDLIMIT#%-->. Anything above this number will produce an error.<br>
+                Note that to prevent <a href="https://snyk.io/blog/redos-and-catastrophic-backtracking/" target="_blank">ReDoS</a> attacks the limit for wildcards and pattern repetitions is <!--%#INSERT:SEARCHSTRWILDCARDLIMIT#%-->. Anything above this number will produce an error.<br>
                 <br>
                 <br>
 
@@ -761,7 +775,7 @@ None. It's a hardware problem.
                 If it is used, you will only get jokes that are inside the specified range of IDs.<br>
                 The lower and upper boundary of the ID range needs to be delimited with a minus (-), comma (,) or a plus sign (+).<br>
                 If you only want to get a single joke by its ID, you can also ignore the delimiter and just use the single ID as the value for this parameter.<br>
-                The joke range varies from language to language. To view the maximum range, you can use the <a href="#info-endpoint">info endpoint</a><br><br>
+                The joke range varies from language to language. To view the maximum range, you can use the <a href="#info-endpoint">info endpoint.</a><br><br>
 
                 <details><summary>Example 1 (click to view)</summary>
                     URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?idRange=0-55</mark><br>

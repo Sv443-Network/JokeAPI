@@ -391,6 +391,11 @@ function onLoad()
     gebid("lcodeSelect").onchange = function() { reRender(true) };
     gebid("sideNavOpen").onclick = function() { return openNav(); };
 
+    gebid("percent-encoder-result").setAttribute("readonly", "readonly");
+    gebid("percent-encoder").addEventListener("keyup", function() {
+        gebid("percent-encoder-result").value = encodeURIComponent(gebid("percent-encoder").value);
+    });
+
 
     loadCategoryAliases();
     loadContributors();
