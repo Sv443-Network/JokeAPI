@@ -59,6 +59,9 @@ const submissionEndpoints = [];
 
 function init()
 {
+    /** Time that should be deducted from the initialization time (for operations that shouldn't be profiled) */
+    let initTimeDeduction = 0;
+
     debug("HTTP", "Starting HTTP server...");
 
     return new Promise((resolve, reject) => {
@@ -87,7 +90,7 @@ function init()
                 {
                     httpServerInitialized = true;
                     debug("HTTP", `HTTP Server successfully listens on port ${scl.colors.fg.green}${settings.httpServer.port}${scl.colors.rst}`);
-                    return resolve();
+                    return resolve({ initTimeDeduction });
                 }
                 else
                 {
@@ -168,7 +171,7 @@ function init()
             });
         };
 
-        let promises = [
+        const promises = [
             registerDataEndpoints(settings.endpoints.get.dirPath),
             registerSubmissionEndpoints(settings.endpoints.post.dirPath)
         ];
@@ -179,16 +182,23 @@ function init()
         // check if HTTP server port is busy
         debug("HTTP", `Checking if port ${settings.httpServer.port} is busy (this might take a while)...`);
 
-        portUsed.check(settings.httpServer.port).then(portBusy => {
+        const portCheckTS = Date.now();
+        portUsed.check(settings.httpServer.port).then(async portBusy => {
+            initTimeDeduction += (Date.now() - portCheckTS);
+
             if(!portBusy)
             {
-                debug("HTTP", `Port ${settings.httpServer.port} is available, continuing with endpoint registration...`);
+                try
+                {
+                    debug("HTTP", `Port ${settings.httpServer.port} is available, continuing with endpoint registration...`);
 
-                Promise.all(promises).then(() => {
+                    await Promise.all(promises);
                     return initHttpServer();
-                }).catch(err => {
+                }
+                catch(err)
+                {
                     return reject(err);
-                });
+                }
             }
             else
             {

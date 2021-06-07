@@ -162,7 +162,7 @@ function logRequest(type, additionalInfo, analyticsData)
 
     if(scl.isEmpty(process.jokeapi.reqCounter))
         process.jokeapi.reqCounter = 0;
-    
+
     if(!spacerDisabled)
         process.jokeapi.reqCounter++;
 }
@@ -172,11 +172,13 @@ function logRequest(type, additionalInfo, analyticsData)
  * @param {number} initTimestamp The UNIX timestamp of when JokeAPI was initialized
  * @param {number} [initDurationMs] Duration until startup
  * @param {number} [activityIndicatorState] State of the activity indicator - only shown if dashboard mode is active
+ * @param {number} [initTimeDeduction] Time that should be deducted from the init time
  */
-function initMsg(initTimestamp, initDurationMs, activityIndicatorState)
+function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTimeDeduction)
 {
     const lines = [];
     const initMs = initDurationMs ? initDurationMs : Math.round(Date.now() - initTimestamp);
+    const initMsDeducted = initTimeDeduction ? initMs - initTimeDeduction : initMs;
 
     const heapStats = v8.getHeapStatistics();
     const hsMax = heapStats.heap_size_limit;
@@ -200,11 +202,11 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState)
         activityIndicatorState = 0;
 
     const activityIndicator = getActivityIndicator(activityIndicatorState);
-    
+
 
     let maxHeapText = settings.debug.dashboardEnabled ? ` (max: ${maxHeapColor}${persistentData.maxHeapUsage}%${col.rst})` : "";
 
-    lines.push(`\n${activityIndicator}${col.blue}[${logger.getTimestamp(" - ")}] ${col.rst}- ${col.blue}${settings.info.name} v${settings.info.version}${col.rst}\n`);
+    lines.push(`\n${activityIndicator}${col.blue}[${logger.getTimestamp()}] ${col.rst}- ${col.blue}${settings.info.name} v${settings.info.version}${col.rst}\n`);
     lines.push(` ${brBlack}├─${col.rst} Registered and validated ${col.green}${parseJokes.jokeCount}${col.rst} jokes from ${col.green}${languages.jokeLangs().length}${col.rst} languages\n`);
     lines.push(` ${brBlack}├─${col.rst} Found filter components: ${col.green}${settings.jokes.possible.categories.length}${col.rst} categories, ${col.green}${settings.jokes.possible.flags.length}${col.rst} flags, ${col.green}${settings.jokes.possible.formats.length}${col.rst} formats\n`);
     if(analytics.connectionInfo && analytics.connectionInfo.connected)
@@ -213,7 +215,7 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState)
         lines.push(` ${brBlack}├─${col.rst} Analytics database ${settings.analytics.enabled ? col.red : col.yellow}not connected${settings.analytics.enabled ? "" : " (disabled)"}${col.rst}\n`);
     lines.push(` ${brBlack}├─${col.rst} Joke cache database ${jokeCache.connectionInfo.connected ? `${col.green}connected` : `${col.red}not connected`}${col.rst}\n`);
     lines.push(` ${brBlack}├─${col.rst} HTTP${settings.httpServer.ssl.enabled ? "S" : ""} server is listening at ${col.green}${getLocalURL()}${col.rst} (SSL ${settings.httpServer.ssl.enabled ? `${col.green}enabled${col.rst}` : `${col.yellow}disabled${col.rst}`})\n`);
-    lines.push(` ${brBlack}├─${col.rst} Initialization took ${col.green}${initMs}ms${initMs == 69 ? " (nice)" : ""}${col.rst}\n`);
+    lines.push(` ${brBlack}├─${col.rst} Initialization took ${col.green}${initMsDeducted}ms${initMsDeducted == 69 ? " (nice)" : ""}${col.rst}${initMs !== initMsDeducted ? ` (after deduction - total is ${col.yellow}${initMs}ms${col.rst})` : ""}\n`);
     lines.push(` ${brBlack}└─${col.rst} ${!settings.debug.dashboardEnabled ? "Initial heap" : "Heap"} usage: ${heapColor}${heapPercent}%${col.rst}${maxHeapText}\n`);
 
     let dbIntervalSeconds = settings.debug.dashboardInterval / 1000;
@@ -259,7 +261,7 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState)
         setTimeout(() => {
             activityIndicatorState++;
 
-            initMsg(initTimestamp, initMs, activityIndicatorState);
+            initMsg(initTimestamp, initMs, activityIndicatorState, initTimeDeduction);
         }, settings.debug.dashboardInterval);
     }
 }
@@ -326,14 +328,12 @@ function getLocalURL()
  */
 function getHeapColor(percentage)
 {
-    let retColor = col.green;
-
     if(percentage >= 80)
-        retColor = col.red;
+        return col.red;
     else if(percentage >= 60)
-        retColor = col.yellow;
-
-    return retColor;
+        return col.yellow;
+    else
+        return col.green;
 }
 
 /**

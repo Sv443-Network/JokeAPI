@@ -136,7 +136,23 @@ async function initAll()
     try
     {
         // sequentially call all async `fn` properties of the `initStages` array and wait till they're all done
-        await promiseAllSequential(initPromises);
+        const initRes = await promiseAllSequential(initPromises);
+
+        // resolved values can be an object like this:
+        /*
+
+        {
+            initTimeDeduction: number, // amount of milliseconds that should be deducted from the init time
+        }
+
+        */
+
+        /** Time that should be deducted from the init time */
+        const initTimeDeduction = initRes.reduce((acc, r) => {
+            return acc + ((r && typeof r.initTimeDeduction === "number" && !isNaN(r.initTimeDeduction)) ? r.initTimeDeduction : 0);
+        });
+
+        
 
         // //#DEBUG#
         // require("./jokeCache").cache.listEntries("eff8e7ca506627fe15dda5e0e512fcaad70b6d520f37cc76597fdb4f2d83a1a3", "de").then(res => {
@@ -151,7 +167,7 @@ async function initAll()
 
         debug("Init", `Successfully initialized all ${initStages.length} modules. Printing init message:\n`);
 
-        logRequest.initMsg(initTimestamp);
+        logRequest.initMsg(initTimestamp, undefined, undefined, initTimeDeduction);
     }
     catch(err)
     {

@@ -1,17 +1,19 @@
 const fs = require("fs-extra");
-const jsl = require("svjsl");
+const { isEmpty, colors } = require("svcorelib");
+
 const settings = require("../settings");
 
 /**
  * Logs something to a file
- * @param {("error"|"ratelimit"|"fatal")} type The type of log
- * @param {String} content The content of the log
- * @param {Boolean} timestamp Whether or not to include a timestamp
+ * @param {"error"|"ratelimit"|"fatal"} type The type of log
+ * @param {string} content The content of the log
+ * @param {boolean} timestamp Whether or not to include a timestamp
  */
-const logger = (type, content, timestamp) => {
+function logger(type, content, timestamp)
+{
     try
     {
-        timestamp = jsl.isEmpty(timestamp) || typeof timestamp != "boolean" ? true: timestamp;
+        timestamp = isEmpty(timestamp) || typeof timestamp != "boolean" ? true: timestamp;
 
         let errorType = "";
         let errorContent = "";
@@ -46,20 +48,21 @@ const logger = (type, content, timestamp) => {
     }
     catch(err)
     {
-        console.log(`\n\n${jsl.colors.fg.red}Fatal Error while logging!\n${jsl.colors.fg.yellow}${err}${jsl.colors.rst}\n`);
+        console.log(`\n\n${colors.fg.red}Fatal Error while logging!\n${colors.fg.yellow}${err}${colors.rst}\n`);
         process.exit(1);
     }
-};
+}
 
 /**
  * Returns a preformatted timestamp in local time
- * @param {String} [separator] A separator to add between the date and the time - leave empty for " | "
- * @returns {String}
+ * @param {string} [separator] A separator to add between the date and the time - leave empty for ` - `
+ * @returns {string}
  */
-const getTimestamp = (separator) => {
-    let d = new Date();
+function getTimestamp(separator)
+{
+    const d = new Date();
 
-    let dt = {
+    const dt = {
         y: d.getFullYear(),
         m: (d.getMonth() + 1),
         d: d.getDate(),
@@ -68,11 +71,9 @@ const getTimestamp = (separator) => {
         ts: d.getSeconds()
     }
 
-    // Why is there no Date.format() function in JS :(
     return `${dt.y}/${(dt.m < 10 ? "0" : "") + dt.m}/${(dt.d < 10 ? "0" : "") + dt.d}`
-         + `${jsl.isEmpty(separator) ? " | " : separator}`
+         + `${isEmpty(separator) ? " - " : separator}`
          + `${(dt.th < 10 ? "0" : "") + dt.th}:${(dt.tm < 10 ? "0" : "") + dt.tm}:${(dt.ts < 10 ? "0" : "") + dt.ts}`;
-
 }
 
 module.exports = logger;
