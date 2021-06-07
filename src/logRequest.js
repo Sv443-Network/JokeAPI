@@ -18,11 +18,11 @@ const persistentData = {
 
 
 /**
- * @typedef {Object} AnalyticsData
+ * @typedef {object} AnalyticsData
  * @prop {string} ipAddress
  * @prop {string[]} urlPath
- * @prop {Object} urlParameters
- * @prop {Object} [submission] Only has to be used on type = "submission"
+ * @prop {object} urlParameters
+ * @prop {object} [submission] Only has to be used on type = "submission"
  */
 
 /** @typedef {"success"|"docs"|"ratelimited"|"error"|"blacklisted"|"docsrecompiled"|"submission"} RequestType */
@@ -30,8 +30,8 @@ const persistentData = {
 /**
  * Logs a request to the console and to the analytics database
  * @param {RequestType} type Sets the color and logging level
- * @param {string|null} [additionalInfo] Provides additional information in certain log types
- * @param {AnalyticsData|null} [analyticsData] Additional analytics data
+ * @param {string|null|undefined} [additionalInfo] Provides additional information in certain log types
+ * @param {AnalyticsData|null|undefined} [analyticsData] Additional analytics data
  */
 function logRequest(type, additionalInfo, analyticsData)
 {
@@ -169,11 +169,11 @@ function logRequest(type, additionalInfo, analyticsData)
 
 /**
  * Sends an initialization message - called when the initialization is done
- * @param {number} initTimestamp The timestamp of when JokeAPI was initialized
+ * @param {number} initTimestamp The UNIX timestamp of when JokeAPI was initialized
  * @param {number} [initDurationMs] Duration until startup
- * @param {number} [loadingIconState] State of the loading icon - only if dashboard mode is active
+ * @param {number} [activityIndicatorState] State of the activity indicator - only shown if dashboard mode is active
  */
-function initMsg(initTimestamp, initDurationMs, loadingIconState)
+function initMsg(initTimestamp, initDurationMs, activityIndicatorState)
 {
     let lines = [];
     let initMs = initDurationMs ? initDurationMs : Math.round(Date.now() - initTimestamp);
@@ -192,44 +192,13 @@ function initMsg(initTimestamp, initDurationMs, loadingIconState)
     const brBlack = "\x1b[1m\x1b[30m";
 
 
-    // loading icon
-    let loadingIcon = "";
-    if(typeof loadingIconState === "number")
-    {
-        loadingIcon += `${col.blue}`;
-        const statesAmount = 4;
-
-        switch(loadingIconState)
-        {
-            case 0:
-                loadingIcon += "■┬─";
-                break;
-            case 1:
-                loadingIcon += "─■─";
-                break;
-            case 2:
-                loadingIcon += "─┬■";
-                break;
-            case 3:
-                loadingIcon += "─■─";
-                break;
-
-            default:
-                loadingIcon += "???";
-                break;
-        }
-
-        loadingIcon += `${col.rst} `;
-
-        loadingIconState++;
-        if(loadingIconState == statesAmount)
-            loadingIconState = 0;
-    }
+    // activity indicator
+    const activityIndicator = getActivityIndicator(activityIndicatorState);
     
 
     let maxHeapText = settings.debug.dashboardEnabled ? ` (max: ${maxHeapColor}${persistentData.maxHeapUsage}%${col.rst})` : "";
 
-    lines.push(`\n${loadingIcon}${col.blue}[${logger.getTimestamp(" - ")}] ${col.rst}- ${col.blue}${settings.info.name} v${settings.info.version}${col.rst}\n`);
+    lines.push(`\n${activityIndicator}${col.blue}[${logger.getTimestamp(" - ")}] ${col.rst}- ${col.blue}${settings.info.name} v${settings.info.version}${col.rst}\n`);
     lines.push(` ${brBlack}├─${col.rst} Registered and validated ${col.green}${parseJokes.jokeCount}${col.rst} jokes from ${col.green}${languages.jokeLangs().length}${col.rst} languages\n`);
     lines.push(` ${brBlack}├─${col.rst} Found filter components: ${col.green}${settings.jokes.possible.categories.length}${col.rst} categories, ${col.green}${settings.jokes.possible.flags.length}${col.rst} flags, ${col.green}${settings.jokes.possible.formats.length}${col.rst} formats\n`);
     if(analytics.connectionInfo && analytics.connectionInfo.connected)
@@ -278,13 +247,58 @@ function initMsg(initTimestamp, initDurationMs, loadingIconState)
 
     if(settings.debug.dashboardEnabled)
     {
-        if(typeof loadingIconState != "number")
-            loadingIconState = 0;
+        if(typeof activityIndicatorState != "number")
+            activityIndicatorState = 0;
 
         setTimeout(() => {
-            initMsg(initTimestamp, initMs, loadingIconState);
+            initMsg(initTimestamp, initMs, activityIndicatorState);
         }, settings.debug.dashboardInterval);
     }
+}
+
+/**
+ * Returns an activity indicator based on the passed state number. Defaults to question mark(s) if the state is out of range or invalid
+ * @param {number} state 
+ * @returns {string}
+ */
+function getActivityIndicator(state)
+{
+    state = parseInt(state);
+
+    let indicator = "";
+    if(typeof state === "number")
+    {
+        indicator += `${col.blue}`;
+        const statesAmount = 4;
+
+        switch(state)
+        {
+            case 0:
+                indicator += "■┬─";
+                break;
+            case 1:
+            case 3:
+                indicator += "─■─";
+                break;
+            case 2:
+                indicator += "─┬■";
+                break;
+
+            // look at me, I can use expressions in a switch
+            case (isNaN(state) ? state : null):
+            default:
+                indicator += "???";
+                break;
+        }
+
+        indicator += `${col.rst} `;
+
+        state++;
+        if(state == statesAmount)
+            state = 0;
+    }
+
+    return indicator;
 }
 
 /**
