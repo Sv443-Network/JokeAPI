@@ -105,16 +105,19 @@ function init()
  * Increments a meter's value
  * @param {MeterName} meterName
  * @param {number} [addValue] If left empty, the meter will update by `1`
+ * @throws {TypeError} If `addValue` is neither `undefined` nor parseable as a number
  */
 function update(meterName, addValue)
 {
     if(typeof addValue == "undefined")
         addValue = 1;
+
+    addValue = parseInt(addValue);
         
-    if(typeof addValue != "number")
+    if(typeof addValue != "number" || isNaN(addValue))
         throw new TypeError(`meter.update(): "addValue" has wrong type "${typeof addValue}" - expected "number"`);
 
-    debug("Meter", `Updating meter "${meterName}" - adding ${addValue}`);
+    debug("Meter", `Updating pm2 meter "${meterName}" - adding ${addValue}`);
 
     switch(meterName)
     {
