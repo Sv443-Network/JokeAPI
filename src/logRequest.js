@@ -192,7 +192,13 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState)
     const brBlack = "\x1b[1m\x1b[30m";
 
 
-    // activity indicator
+    /** Amount of states the activity indicator has (1-indexed) */
+    const statesAmount = 4;
+
+    // overflow to 0
+    if(activityIndicatorState > (statesAmount - 1))
+        activityIndicatorState = 0;
+
     const activityIndicator = getActivityIndicator(activityIndicatorState);
     
 
@@ -222,11 +228,11 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState)
 
     lines.push("\n");
 
-    lines.push(`Colors: ${col.green}Success ${col.yellow}Warning/Info ${col.red}Error${col.rst}\n`);
+    lines.push(`${col.green}Success ${col.rst}• ${col.yellow}Info/Warning ${col.rst}• ${col.red}Error${col.rst}\n`);
 
     // make it look better when spammed by debug messages immediately after:
     if(settings.debug.verboseLogging)
-        lines.push("\n\n");
+        lines.push("\n");
     
     // if(!settings.debug.onlyLogErrors)
     // {
@@ -251,6 +257,8 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState)
             activityIndicatorState = 0;
 
         setTimeout(() => {
+            activityIndicatorState++;
+
             initMsg(initTimestamp, initMs, activityIndicatorState);
         }, settings.debug.dashboardInterval);
     }
@@ -258,18 +266,25 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState)
 
 /**
  * Returns an activity indicator based on the passed state number. Defaults to question mark(s) if the state is out of range or invalid
- * @param {number} state 
- * @returns {string}
+ * @param {number|undefined} state If empty, defaults to `0`
+ * @returns {string} Returns an empty string if `settings.debug.dashboardEnabled` is set to `false`
  */
 function getActivityIndicator(state)
 {
-    state = parseInt(state);
+    if(!settings.debug.dashboardEnabled)
+        return "";
+
+    if(state === undefined)
+        state = 0;
+    else
+        state = parseInt(state);
+
 
     let indicator = "";
+
     if(typeof state === "number")
     {
         indicator += `${col.blue}`;
-        const statesAmount = 4;
 
         switch(state)
         {
@@ -284,18 +299,12 @@ function getActivityIndicator(state)
                 indicator += "─┬■";
                 break;
 
-            // look at me, I can use expressions in a switch
-            case (isNaN(state) ? state : null):
             default:
                 indicator += "???";
                 break;
         }
 
         indicator += `${col.rst} `;
-
-        state++;
-        if(state == statesAmount)
-            state = 0;
     }
 
     return indicator;
