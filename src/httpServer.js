@@ -102,6 +102,8 @@ function init()
         //#SECTION register endpoints
         const registerDataEndpoints = (folderPath) => {
             return new Promise((pRes) => {
+                debug("HTTP", "Starting registration of data endpoints");
+
                 fs.readdir(folderPath, (err1, files) => {
                     if(err1)
                         return reject(`Error while reading the endpoints directory: ${err1}`);
@@ -137,6 +139,8 @@ function init()
         
         const registerSubmissionEndpoints = (folderPath) => {
             return new Promise((pRes) => {
+                debug("HTTP", "Starting registration of submission endpoints");
+
                 fs.readdir(folderPath, (err1, files) => {
                     if(err1)
                         return reject(`Error while reading the endpoints directory: ${err1}`);
@@ -170,11 +174,6 @@ function init()
             });
         };
 
-        const promises = [
-            registerDataEndpoints(settings.endpoints.get.dirPath),
-            registerSubmissionEndpoints(settings.endpoints.post.dirPath)
-        ];
-
 
         //#MARKER call HTTP server init
 
@@ -190,6 +189,11 @@ function init()
                 try
                 {
                     debug("HTTP", `Port ${settings.httpServer.port} is available, continuing with endpoint registration...`);
+
+                    const promises = [
+                        registerDataEndpoints(settings.endpoints.get.dirPath),
+                        registerSubmissionEndpoints(settings.endpoints.post.dirPath),
+                    ];
 
                     await Promise.all(promises);
                     return initHttpServer();

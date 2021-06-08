@@ -6,6 +6,7 @@ const parseJokes = require("./parseJokes");
 const analytics = require("./analytics");
 const languages = require("./languages");
 const jokeCache = require("./jokeCache");
+const debug = require("./debug");
 
 const settings = require("../settings");
 
@@ -177,13 +178,15 @@ function logRequest(type, additionalInfo, analyticsData)
 function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTimeDeduction)
 {
     const lines = [];
-    const initMs = initDurationMs ? initDurationMs : Math.round(Date.now() - initTimestamp);
+    const initMs = initDurationMs ? initDurationMs : (Date.now() - initTimestamp);
     const initMsDeducted = initTimeDeduction ? initMs - initTimeDeduction : initMs;
 
     const heapStats = v8.getHeapStatistics();
     const hsMax = heapStats.heap_size_limit;
     const hsVal = heapStats.used_heap_size;
     const heapPercent = parseFloat(scl.mapRange(hsVal, 0, hsMax, 0, 100).toFixed(2));
+
+    debug("LogRequest", `Startup metrics: initMs=${initMs} | initTimeDed=${initTimeDeduction} | initMsDed=${initMsDeducted} | initialHeapUsage=${heapPercent}%`);
 
     if(settings.debug.dashboardEnabled && heapPercent > persistentData.maxHeapUsage)
         persistentData.maxHeapUsage = heapPercent;
@@ -192,6 +195,8 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
     const maxHeapColor = settings.debug.dashboardEnabled ? getHeapColor(persistentData.maxHeapUsage) : null;
 
     const brBlack = "\x1b[1m\x1b[30m";
+
+    debug("LogRequest", `Building and printing init message...\n`, "green");
 
 
     /** Amount of states the activity indicator has (1-indexed) */

@@ -165,7 +165,7 @@ async function initAll()
         if(pb)
             pb.next("Done.");
 
-        debug("Init", `Successfully initialized all ${initStages.length} modules. Printing init message:\n`);
+        debug("Init", `Successfully initialized all ${initStages.length} modules.`);
 
         logRequest.initMsg(initTimestamp, undefined, undefined, initTimeDeduction);
     }

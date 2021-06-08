@@ -16,19 +16,38 @@ const languages = require("./languages");
 const path = require("path");
 
 
+/** @typedef {"gzip"|"deflate"|"brotli"} EncodingName Encodings supported by JokeAPI - excludes "identity" */
+/** @typedef {EncodingName|"identity"} AllEncodings All possible encoding values supported by JokeAPI, including "identity" */
+
+
+/** Data that persists throughout the entire execution */
+const persistentData = {
+    /** Tracks how many values are inserted into the docs at compilation */
+    injectionCounter: 0,
+    /** Tracks the timestamp of when the last compilation was started */
+    injectionTimestamp: 0,
+    /** Is used to ensure a Brotli error is only thrown once */
+    brCompErrOnce: false,
+    /** Tracks whether or not a docs compilation is the initial one or one triggered through the daemon */
+    isInitialCompilation: true,
+};
+
 /**
  * Initializes the documentation files
  * @returns {Promise}
  */
 function init()
 {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         try
         {
-            process.injectionCounter = 0;
+            persistentData.injectionCounter = 0;
             debug("Docs", "Starting daemon and recompiling documentation files...")
             startDaemon();
-            recompileDocs();
+
+            // initial compilation of docs
+            await recompileDocs();
+
             return resolve();
         }
         catch(err)
@@ -50,135 +69,121 @@ function startDaemon()
         {
             debug("Daemon", "Noticed changed files");
             logRequest("docsrecompiled");
+            // no need to wait for promise
             recompileDocs();
         }
     });
-
-
-
-
-
-    // old code in case of an emergency:
-
-    // let oldChecksum = "";
-    // let newChecksum = "";
-
-    // const scanDir = () => {
-    //     fs.readdir(settings.documentation.rawDirPath, (err, files) => {
-    //         if(err)
-    //             return console.log(`${scl.colors.fg.red}Daemon got error: ${err}${scl.colors.rst}\n`);
-
-    //         let checksum = "";
-    //         files.forEach((file, i) => {
-    //             checksum += (i != 0 && i < files.length ? "-" : "") + farmhash.hash32(fs.readFileSync(`${settings.documentation.rawDirPath}${file}`)).toString();
-    //         });
-
-    //         newChecksum = checksum;
-    //         if(scl.isEmpty(oldChecksum))
-    //             oldChecksum = checksum;
-            
-    //         if(oldChecksum != newChecksum)
-    //         {
-    //             debug("Daemon", "Noticed changed files");
-    //             logRequest("docsrecompiled");
-    //             recompileDocs();
-    //         }
-
-    //         oldChecksum = checksum;
-    //     });
-    // };
-
-    // if(scl.isEmpty(process.jokeapi.documentation))
-    //     process.jokeapi.documentation = {};
-    // process.jokeapi.documentation.daemonInterval = setInterval(() => scanDir(), settings.documentation.daemonInterval * 1000);
-
-    // scanDir();
 }
 
 /**
  * Recompiles the documentation page
+ * @returns {Promise<undefined|string>} Promise never rejects, it always resolves to undefined if successful or an error string
  */
 function recompileDocs()
 {
-    debug("Docs", "Recompiling docs...");
+    return new Promise(async recompRes => {
+        if(persistentData.isInitialCompilation)
+            debug("Docs", "Starting initial docs compilation...");
+        else
+            debug("Docs", "Recompiling docs...");
 
-    try
-    {
-        let filesToInject = [
-            `${settings.documentation.rawDirPath}index.js`,
-            `${settings.documentation.rawDirPath}index.css`,
-            `${settings.documentation.rawDirPath}index.html`,
-            `${settings.documentation.rawDirPath}errorPage.css`,
-            `${settings.documentation.rawDirPath}errorPage.js`
-        ];
+        try
+        {
+            const filesToInject = [
+                `${settings.documentation.rawDirPath}index.js`,
+                `${settings.documentation.rawDirPath}index.css`,
+                `${settings.documentation.rawDirPath}index.html`,
+                `${settings.documentation.rawDirPath}errorPage.css`,
+                `${settings.documentation.rawDirPath}errorPage.js`
+            ];
 
-        let injectedFileNames = [
-            `${settings.documentation.compiledPath}index_injected.js`,
-            `${settings.documentation.compiledPath}index_injected.css`,
-            `${settings.documentation.compiledPath}documentation.html`,
-            `${settings.documentation.compiledPath}errorPage_injected.css`,
-            `${settings.documentation.compiledPath}errorPage_injected.js`
-        ];
+            const injectedFileNames = [
+                `${settings.documentation.compiledPath}index_injected.js`,
+                `${settings.documentation.compiledPath}index_injected.css`,
+                `${settings.documentation.compiledPath}documentation.html`,
+                `${settings.documentation.compiledPath}errorPage_injected.css`,
+                `${settings.documentation.compiledPath}errorPage_injected.js`
+            ];
 
-        let promises = [];
-        
-        process.injectionCounter = 0;
-        process.injectionTimestamp = Date.now();
+            let promises = [];
+            
+            persistentData.injectionCounter = 0;
+            persistentData.injectionTimestamp = Date.now();
 
-        filesToInject.forEach((fti, i) => {
-            promises.push(new Promise((resolve, reject) => {
-                scl.unused(reject);
-                inject(fti).then((injected, injectionsNum) => {
-                    if(!scl.isEmpty(injectionsNum) && !isNaN(parseInt(injectionsNum)))
-                        process.injectionCounter += parseInt(injectionsNum);
+            filesToInject.forEach((fileToInject, i) => {
+                promises.push(new Promise((resolve, reject) => {
+                    scl.unused(reject);
+                    inject(fileToInject).then((injected, injectionsNum) => {
+                        if(!scl.isEmpty(injectionsNum) && !isNaN(parseInt(injectionsNum)))
+                            persistentData.injectionCounter += parseInt(injectionsNum);
 
-                    process.brCompErrOnce = false;
+                        persistentData.brCompErrOnce = false;
 
-                    if(settings.httpServer.encodings.gzip)
-                        saveEncoded("gzip", injectedFileNames[i], injected).catch(err => scl.unused(err));
-                    if(settings.httpServer.encodings.deflate)
-                        saveEncoded("deflate", injectedFileNames[i], injected).catch(err => scl.unused(err));
-                    if(settings.httpServer.encodings.brotli)
-                    {
-                        saveEncoded("brotli", injectedFileNames[i], injected).catch(err => {
-                            scl.unused(err);
+                        if(settings.httpServer.encodings.gzip)
+                            saveEncoded("gzip", injectedFileNames[i], injected).catch(err => scl.unused(err));
+                        if(settings.httpServer.encodings.deflate)
+                            saveEncoded("deflate", injectedFileNames[i], injected).catch(err => scl.unused(err));
+                        if(settings.httpServer.encodings.brotli)
+                        {
+                            saveEncoded("brotli", injectedFileNames[i], injected).catch(err => {
+                                scl.unused(err);
 
-                            if(!process.brCompErrOnce)
-                            {
-                                process.brCompErrOnce = true;
-                                injectError(`Brotli compression is only supported since Node.js version 11.7.0 - current Node.js version is ${semver.clean(process.version)}`, false);
-                            }
+                                if(!persistentData.brCompErrOnce)
+                                {
+                                    persistentData.brCompErrOnce = true;
+                                    injectError(`Brotli compression is only supported since Node.js version 11.7.0 - current Node.js version is ${semver.clean(process.version)}`, false);
+                                }
+                            });
+                        }
+
+                        fs.writeFile(injectedFileNames[i], injected, err => {
+                            if(err)
+                                injectError(err);
+
+                            return resolve();
                         });
-                    }
-
-                    fs.writeFile(injectedFileNames[i], injected, err => {
-                        if(err)
-                            injectError(err);
-
-                        return resolve();
                     });
-                });
-            }));
-        });
+                }));
+            });
 
-        Promise.all(promises).then(() => {
-            debug("Docs", `Done recompiling docs in ${scl.colors.fg.yellow}${Date.now() - process.injectionTimestamp}ms${scl.colors.rst}, injected ${scl.colors.fg.yellow}${process.injectionCounter}${scl.colors.rst} values`);
-        }).catch(err => {
-            console.log(`Injection error: ${err}`);
-        });
-    }
-    catch(err)
-    {
-        injectError(err);
-    }
+            try
+            {
+                await Promise.allSettled(promises);
+
+                const infoStr = `${scl.colors.fg.yellow}${Date.now() - persistentData.injectionTimestamp}ms${scl.colors.rst}, injected ${scl.colors.fg.yellow}${persistentData.injectionCounter}${scl.colors.rst} values`;
+
+                if(persistentData.isInitialCompilation)
+                {
+                    debug("Docs", `Done with initial docs compilation in ${infoStr}`);
+                    persistentData.isInitialCompilation = false;
+                }
+                else
+                    debug("Docs", `Done with docs recompilation in ${infoStr}`);
+
+                return recompRes();
+            }
+            catch(err)
+            {
+                injectError(err);
+
+                return recompRes(err);
+            }
+        }
+        catch(err)
+        {
+            injectError(err);
+
+            return recompRes(err);
+        }
+    });
 }
 
 /**
  * Asynchronously encodes a string and saves it encoded with the selected encoding
- * @param {("gzip"|"deflate"|"brotli")} encoding The encoding method
- * @param {String} filePath The path to a file to save the encoded string to - respective file extensions will automatically be added
- * @param {String} content The string to encode
- * @returns {Promise<null|String>} Returns a Promise. Resolve contains no parameters, reject contains error message as a string
+ * @param {EncodingName} encoding The encoding method
+ * @param {string} filePath The path to a file to save the encoded string to - respective file extensions will automatically be added
+ * @param {string} content The string to encode
+ * @returns {Promise<undefined, string>} Returns a Promise. Resolve contains no parameters, reject contains error message as a string
  */
 function saveEncoded(encoding, filePath, content)
 {
@@ -236,29 +241,31 @@ function saveEncoded(encoding, filePath, content)
 
 /**
  * Logs an injection error to the console
- * @param {String} err The error message
- * @param {Boolean} [exit=true] Whether or not to exit the process with code 1 - default: true
+ * @param {string} err The error message
+ * @param {boolean} [exit=true] Whether or not to exit the process with code 1 - default: true
  */
 function injectError(err, exit = true)
 {
     console.log(`\n${scl.colors.fg.red}Error while injecting values into docs: ${err}${scl.colors.rst}\n`);
+
     analytics({
         type: "Error",
         data: {
             errorMessage: `Error while injecting into documentation: ${err}`,
-            ipAddress: `N/A`,
+            ipAddress: "",
             urlPath: [],
             urlParameters: {}
         }
-    })
+    });
+
     if(exit)
         process.exit(1);
 }
 
 /**
  * Injects all constants, external files and values into the passed file
- * @param {String} filePath Path to the file to inject things into
- * @returns {Promise<String, Number>} Returns the finished file content as passed argument in a promise
+ * @param {string} filePath Path to the file to inject things into
+ * @returns {Promise<string, string>} Resolves with the finished file content or rejects with an error string
  */
 function inject(filePath)
 {
@@ -275,23 +282,24 @@ function inject(filePath)
                 const contributors = JSON.stringify(packageJSON.contributors);
                 const jokeCount = parseJokes.jokeCount;
 
+                /** Contains key-value pairs of injection / insertion keys and their values */
                 const injections = {
                     "%#INSERT:VERSION#%":                settings.info.version,
                     "%#INSERT:NAME#%":                   settings.info.name.toString(),
                     "%#INSERT:DESC#%":                   settings.info.desc.toString(),
                     "%#INSERT:AUTHORWEBSITEURL#%":       settings.info.author.website.toString(),
                     "%#INSERT:AUTHORGITHUBURL#%":        settings.info.author.github.toString(),
-                    "%#INSERT:CONTRIBUTORS#%":           (!scl.isEmpty(contributors) ? contributors : "{}"),
+                    "%#INSERT:CONTRIBUTORS#%":           (contributors || "{}"),
                     "%#INSERT:CONTRIBUTORGUIDEURL#%":    settings.info.contribGuideUrl.toString(),
                     "%#INSERT:PROJGITHUBURL#%":          settings.info.projGitHub.toString(),
                     "%#INSERT:JOKESUBMISSIONURL#%":      settings.jokes.jokeSubmissionURL.toString(),
                     "%#INSERT:CATEGORYARRAY#%":          JSON.stringify([settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories]),
                     "%#INSERT:FLAGSARRAY#%":             JSON.stringify(settings.jokes.possible.flags),
                     "%#INSERT:FILEFORMATARRAY#%":        JSON.stringify(settings.jokes.possible.formats.map(itm => itm.toUpperCase())),
-                    "%#INSERT:TOTALJOKES#%":             (!scl.isEmpty(jokeCount) ? jokeCount.toString() : 0),
-                    "%#INSERT:TOTALJOKESZEROINDEXED#%":  (!scl.isEmpty(jokeCount) ? (jokeCount - 1).toString() : 0),
+                    "%#INSERT:TOTALJOKES#%":             (jokeCount ? jokeCount.toString() : 0),
+                    "%#INSERT:TOTALJOKESZEROINDEXED#%":  (jokeCount ? (jokeCount - 1).toString() : 0),
                     "%#INSERT:PRIVACYPOLICYURL#%":       settings.info.privacyPolicyUrl.toString(),
-                    "%#INSERT:DOCSURL#%":                (!scl.isEmpty(settings.info.docsURL) ? settings.info.docsURL : "(Error: Documentation URL not defined)"),
+                    "%#INSERT:DOCSURL#%":                (settings.info.docsURL || "(Error: Documentation URL not defined)"),
                     "%#INSERT:RATELIMITCOUNT#%":         settings.httpServer.rateLimiting.toString(),
                     "%#INSERT:FORMATVERSION#%":          settings.jokes.jokesFormatVersion.toString(),
                     "%#INSERT:MAXPAYLOADSIZE#%":         settings.httpServer.maxPayloadSize.toString(),
@@ -308,7 +316,7 @@ function inject(filePath)
 
                 const checkMatch = (key, regex) => {
                     allMatches += ((file.toString().match(regex) || []).length || 0);
-                    let injection = sanitize(injections[key]);
+                    const injection = sanitize(injections[key]);
                     file = file.replace(regex, !scl.isEmpty(injection) ? injection : "Error");
                 };
 
@@ -320,8 +328,8 @@ function inject(filePath)
 
                 if(isNaN(parseInt(allMatches)))
                     allMatches = 0;
-                
-                process.injectionCounter += allMatches;
+
+                persistentData.injectionCounter += allMatches;
                 return resolve(file.toString());
             }
             catch(err)
@@ -334,8 +342,8 @@ function inject(filePath)
 
 /**
  * Sanitizes a string to prevent XSS
- * @param {String} str 
- * @returns {String}
+ * @param {string} str 
+ * @returns {string}
  */
 function sanitize(str)
 {
@@ -344,8 +352,8 @@ function sanitize(str)
 
 /**
  * Removes all line breaks and tab stops from an input string and returns it
- * @param {String} input 
- * @returns {String}
+ * @param {string} input 
+ * @returns {string}
  */
 function minify(input)
 {
