@@ -34,7 +34,7 @@
 # Officially recognized API Wrappers:
 These are JokeAPI's officially recognized API wrappers.  
 Disclaimer: I will not take any responsibility for the wrappers, they are community-made and I can't ensure security, validity and compatibility.  
-Note that I didn't make these wrappers and you should contact the respective authors if you need help.  
+If you need help with these wrappers, you should contact their respective authors.  
   
 - <b><a href="https://github.com/Icelain/jokeapi#readme"><img src="./docs/static/external/golang.svg" width="16" height="16"> jokeapi (Go)</a></b>
 - <b><a href="https://github.com/sahithyandev/sv443-joke-api-js-wrapper#readme"><img src="./docs/static/external/nodejs.svg" width="16" height="16"> sv443-joke-api-js-wrapper (Node.js)</a></b>
