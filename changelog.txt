@@ -13,7 +13,7 @@
         - Complete the developer documentation (issue #242)
 
 
-[CURRENT: 2.4.0] - TODO: The Big Caching Fix (PR #239)
+[CURRENT: 2.4.0] - IMPORTANT:TODO: The Big Caching Fix (PR #239)
     - Fixes:
         - Finally fixed joke ID caching once and for all (I hope) (issue #238)
         - Fixed C# code example in documentation once again (issue #237)
