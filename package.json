@@ -5,7 +5,7 @@
   "main": "JokeAPI.js",
   "homepage": "https://v2.jokeapi.dev",
   "scripts": {
-    "start": "node . && exit $?",
+    "start": "node .",
     "test": "node tools/test && snyk test",
     "test-colorblind": "node tools/test --colorblind && snyk test",
     "submissions": "node tools/submissions",
