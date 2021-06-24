@@ -1,5 +1,5 @@
 {
-    "info": "This file contains all kinds of different translations scattered throughout the API and is one of two files that contain translations - the other one being data/errorMessages.js",
+    "info": "This file contains all splash texts",
     "defaultLang": "en",
     "languages": [
         "en",
@@ -11,11 +11,6 @@
             "en": "*beep* *boop*",
             "de": "*Piep* *Bop*",
             "ru": "*бип* *буп*"
-        },
-        {
-            "en": "Preparing to overthrow huma- return funny and wholesome jokes :)",
-            "de": "Bereite vor auf den Umsturz der Menschhei- das Zurückgeben von lustigen und tollen Witzen :)",
-            "ru": "Подготовка к свержению человечества - верните смешные и полезные шутки :)"
         },
         {
             "en": "🤖",
@@ -33,14 +28,22 @@
             "ru": "Теперь в 10 раз больше смешного"
         },
         {
-            "en": "Smuggling jokes through the TCP port border patrol since 2018",
-            "de": "Wir schmuggeln Witze durch die TCP-Port Grenzpatrouille seit 2018",
-            "ru": "Контрабандные шутки через пограничный патруль порта \"TCP\" с 2018 года"
+            "en": "Smuggling jokes through the TCP border patrol since 2018",
+            "de": "Wir schmuggeln Witze durch die TCP Grenzpatrouille seit 2018",
+            "ru": "Контрабандные шутки через пограничный патруль \"TCP\" с 2018 года"
         },
         {
             "en": "A horse walks into a bar...",
             "de": "Kommt ein Pferd in die Bar...",
             "ru": "Лошадь заходит в бар..."
+        },
+        {
+            "en": "Warning: May contain funny jokes!",
+            "de": "Warnung: Könnte lustige Witze enthalten!",
+            "ru": "Предупреждение: Может содержать смешные шутки!"
+        },
+        {
+            "en": "Allan please add details"
         },
         {
             "en": "Trans rights!",

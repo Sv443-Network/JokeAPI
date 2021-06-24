@@ -312,6 +312,7 @@ function inject(filePath)
                     "%#INSERT:LASTMODIFIEDISO#%":        new Date().toISOString().trim(),
                     "%#INSERT:CACHINGDATAEXPIRYHOURS#%": settings.jokeCaching.expiryHours.toString(),
                     "%#INSERT:SEARCHSTRWILDCARDLIMIT#%": settings.jokes.regexRepetitionLimit.toString(),
+                    "%#INSERT:DEFAULTLANGCODE#%":        settings.languages.defaultLanguage.toString(),
                 };
 
                 const checkMatch = (key, regex) => {

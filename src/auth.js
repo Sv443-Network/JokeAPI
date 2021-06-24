@@ -6,8 +6,22 @@ const settings = require("../settings");
 
 unused(http);
 
+/**
+ * @typedef {object} TokenObj
+ * @prop {string} token
+ * @prop {number|null} maxReqs
+ */
 
-var tokenList;
+/**
+ * @typedef {object} TokenAuthorizationResult
+ * @prop {boolean} isAuthorized
+ * @prop {string} token
+ */
+
+
+/** @type {TokenObj[]} */
+let tokenList = [];
+
 
 /**
  * Initializes the auth module
@@ -56,7 +70,7 @@ function refreshTokens()
 {
     try
     {
-        let tokens = JSON.parse(fs.readFileSync(settings.auth.tokenListFile).toString());
+        const tokens = JSON.parse(fs.readFileSync(settings.auth.tokenListFile).toString());
         tokenList = tokens;
     }
     catch(err)
@@ -67,43 +81,57 @@ function refreshTokens()
 }
 
 /**
- * @typedef {Object} Authorization
- * @prop {Boolean} isAuthorized
- * @prop {String} token
- */
-
-/**
  * Checks if the requester has provided an auth header and if the auth header is valid
  * @param {http.IncomingMessage} req 
  * @param {http.ServerResponse} [res] If not provided, users will not get the `Token-Valid` response header
- * @returns {Authorization}
+ * @returns {TokenAuthorizationResult}
  */
 function authByHeader(req, res)
 {
-    let isAuthorized = false;
-    let requestersToken = "";
-
-    if(req.headers && req.headers[settings.auth.tokenHeaderName])
+    try
     {
-        if(Array.isArray(tokenList) && tokenList.length > 0)
+        let isAuthorized = false;
+        let requestersToken = "";
+
+        const authHeader = req.headers[settings.auth.tokenHeaderName].toString();
+
+        if(req.headers && authHeader)
         {
-            tokenList.forEach(tokenObj => {
-                if(tokenObj.token == req.headers[settings.auth.tokenHeaderName].toString())
-                {
-                    requestersToken = req.headers[settings.auth.tokenHeaderName].toString();
-                    isAuthorized = true;
-                }
-            });
+            if(Array.isArray(tokenList) && tokenList.length > 0)
+            {
+                // skip through if client is already authorized
+                if(isAuthorized)
+                    return;
+
+                tokenList.forEach(tokenObj => {
+                    const { token } = tokenObj;
+
+                    const clientToken = authHeader.toLowerCase().startsWith("bearer ") ? authHeader.substr(7) : authHeader;
+
+                    if(token === clientToken)
+                    {
+                        requestersToken = clientToken;
+                        isAuthorized = true;
+                    }
+                });
+            }
+
+            if(res && typeof res.setHeader === "function")
+                res.setHeader(settings.auth.tokenValidHeader, (isAuthorized ? "1" : "0"));
         }
 
-        if(res && typeof res.setHeader == "function")
-            res.setHeader(settings.auth.tokenValidHeader, (isAuthorized ? "1" : "0"));
+        return {
+            isAuthorized: isAuthorized,
+            token: requestersToken
+        };
     }
-
-    return {
-        isAuthorized: isAuthorized,
-        token: requestersToken
-    };
+    catch(err)
+    {
+        return {
+            isAuthorized: false,
+            token: ""
+        };
+    }
 }
 
 module.exports = { init, authByHeader };

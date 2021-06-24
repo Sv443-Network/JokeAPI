@@ -1,21 +1,24 @@
 "use strict";
 
 var settings = {
-    baseURL: "<!--%#INSERT:DOCSURL#%-->",
+    baseURL: "<%#INSERT:DOCSURL#%>",
     // baseURL: "http://127.0.0.1:8076/", // DEBUG
     jokeEndpoint: "joke",
     anyCategoryName: "Any",
     defaultFormat: "json",
-    submitUrl: "<!--%#INSERT:DOCSURL#%-->/submit",
+    submitUrl: "<%#INSERT:DOCSURL#%>/submit",
+    // pingUrl: "<%#INSERT:DOCSURL#%>/ping", // TODO:
+    pingUrl: "http://127.0.0.1:8076/ping",
     // submitUrl: "http://127.0.0.1:8076/submit", // DEBUG
-    defaultLang: "en",
+    defaultLang: "<%#INSERT:DEFAULTLANGCODE#%>",
     formatVersion: 3,
-    contributorsObject: JSON.parse('<!--%#INSERT:CONTRIBUTORS#%-->'),
-    categoryAliasesObject: JSON.parse('<!--%#INSERT:CATEGORYALIASES#%-->')
+    contributorsObject: JSON.parse('<%#INSERT:CONTRIBUTORS#%>'),
+    categoryAliasesObject: JSON.parse('<%#INSERT:CATEGORYALIASES#%>')
 };
 
 var submission = {};
 
+// make sure base URL doesn't end with a slash
 if(settings.baseURL.endsWith("/"))
 {
     settings.baseURL = settings.baseURL.substr(0, (settings.baseURL.length - 1));
@@ -399,6 +402,9 @@ function onLoad()
 
     loadCategoryAliases();
     loadContributors();
+
+    loadSplash();
+    gebid("splashContainer").addEventListener("click", loadSplash);
 }
 
 /**
@@ -1295,6 +1301,34 @@ function loadContributors()
         ...
     ]
     */
+}
+
+/**
+ * Loads a splash text into the DOM element that displays it
+ */
+async function loadSplash()
+{
+    let splashText;
+
+    const errSplash = "Error while loading splash text. Look, programming isn't easy :(";
+
+    try
+    {
+        const pingRes = await fetch(settings.pingUrl);
+        const pingResJson = await pingRes.json();
+
+        splashText = pingResJson.ping || errSplash;
+    }
+    catch(err)
+    {
+        console.error(`Error while loading splash text. Look, programming isn't easy :(   -   ${err}`);
+        splashText = errSplash;
+    }
+    finally
+    {
+        document.getElementById("splashText").innerText = splashText;
+        document.getElementById("splashText").style.display = "inline-block";
+    }
 }
 
 /**

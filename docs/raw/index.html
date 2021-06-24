@@ -85,17 +85,22 @@
                     <br><br>
                 </noscript>
 
-                <div id="usageTerms">
-                    <h2 style="color: #ff7644;">By using this website and API you are agreeing to the <a href="<!--%#INSERT:PRIVACYPOLICYURL#%-->">privacy policy</a></h2>
-                    <div id="usageTermsInnerLayout">
-                        <span class="itm">
-                            <span class="mimica" onclick="privPolMoreInfo()">(Click here to get more information on what data <!--%#INSERT:NAME#%--> collects)</span>
-                        </span>
-                        <span class="itm">
-                            <span class="mimica" onclick="hideUsageTerms()">
-                                <span class="lText">&#10004;</span> I agree
+
+                <div id="usageTermsContainer">
+                    <div id="usageTerms">
+                        <h2 style="color: #ff7644;">By using this website and API you are agreeing to the <a href="<!--%#INSERT:PRIVACYPOLICYURL#%-->">privacy policy</a></h2>
+                        <h3>You also agree to this website setting functional cookies</h3>
+                        <br>
+                        <div id="usageTermsInnerLayout">
+                            <span class="itm">
+                                <span class="mimica" onclick="privPolMoreInfo()">(What data is collected?)</span>
                             </span>
-                        </span>
+                            <span class="itm">
+                                <span class="mimica" onclick="hideUsageTerms()">
+                                    <span class="lText">&#10004;</span> Don't remind me again
+                                </span>
+                            </span>
+                        </div>
                     </div>
                 </div>
 
@@ -162,7 +167,7 @@
                         <b>Joke Caching is finally here!</b><br>
                         No longer will you receive the same joke multiple times in a row.<br>
                         Since version 2.4.0, <!--%#INSERT:NAME#%--> will now keep track of which jokes you have already requested, preventing them from being served again for a long while.<br>
-                        <sub>Collected data is deleted after <!--%#INSERT:CACHINGDATAEXPIRYHOURS#%--> hours of inactivity, use the <a href="#">clear data endpoint</a> to delete your data on demand.</sub>
+                        <sub>(Collected data is deleted after <!--%#INSERT:CACHINGDATAEXPIRYHOURS#%--> hours of inactivity, use the <a href="#">clear data endpoint</a> to delete your data on demand.)</sub>
                     </li>
                     <li>
                         <b><!--%#INSERT:NAME#%--> now has its own domain!</b><br>
@@ -354,7 +359,7 @@
                     <tr>
                         <th></th>
                         <th>Language</th>
-                        <th>Wrapper</th>
+                        <th>Wrapper&nbsp;Name</th>
                         <th>Author</th>
                     </tr>
                     <tr>
@@ -1390,9 +1395,12 @@ None. It's a hardware problem.
                 <div class="docHeader targetBlink" id="api-tokens"><a class="headerAnchorContainer" href="#api-tokens" title="Click to link to this header">§</a><span class="docHeaderText">API Tokens:</span></div>
                 <!--%#INSERT:NAME#%--> has a way of whitelisting certain clients. This is achieved through an API token.<br>
                 At the moment, you will only receive one of these tokens temporarily if something breaks or if you are a business and need more than <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute.<br>
-                If you do end up receiving a token, using it is as easy as adding an <mark>Authorization</mark> header with the actual token as its value.<br>
-                You will receive a response header called <mark>Token-Valid</mark> which will contain the number 1 if the token is valid.<br>
-                If the token is invalid, the Token-Valid header will be set to 0 and <!--%#INSERT:NAME#%--> will treat your request as if you didn't supply a token in the first place.
+                <br>
+                If you do end up receiving a token, using it is as easy as adding an <mark>Authorization</mark> header with the following value:<br>
+                <mark>Bearer your_token_here</mark><br>
+                <br>
+                After adding the header, you will receive a response header called <mark>Token-Valid</mark> which will contain the number 1 if the token is valid.<br>
+                If the token is invalid, the Token-Valid header will be set to 0 and <!--%#INSERT:NAME#%--> will treat your request as if you didn't supply a token in the first place.<br>
 
 
 
@@ -1900,6 +1908,9 @@ namespace TestHttpRequest
                 <a class="noul" onclick="closeNav()" href="#dependents" title="Projects that use <!--%#INSERT:NAME#%-->">Dependents</a>
                 <a class="noul" onclick="closeNav()" href="#legal" title="All the legal stuff">Legal Stuff</a>
                 <a class="noul bottomspacer" onclick="closeNav()" href="#attributions" title="Attributions to everything made by third parties that <!--%#INSERT:NAME#%--> is based on">Attributions</a>
+            </div>
+            <div id="splashContainer">
+                <span id="splashText"></span>
             </div>
         </div>
     </body>

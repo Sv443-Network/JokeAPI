@@ -1,5 +1,5 @@
 {
-    "info": "This file contains all kinds of different translations scattered throughout the API and is one of two files that contain translations - the other one being data/errorMessages.js",
+    "info": "This file contains all kinds of different translations scattered throughout the API",
     "defaultLang": "en",
     "languages": [
         "en",

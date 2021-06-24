@@ -351,7 +351,7 @@ input#f_customLang {
 }
 
 .alternatingBgTable tr td:not(:first-child) {
-    border: 1px solid #fff;
+    border: 1px solid #777;
     border-style: none none none solid;
 }
 
@@ -657,7 +657,12 @@ footer#copyrightNotice span {
 #wrapperTable tr td {
     text-align: left;
     padding: 2px;
+    padding-left: 6px;
     padding-right: 20px;
+}
+
+#wrapperTable tr:nth-child(2) td {
+    padding-top: 4px;
 }
 
 #wrapperTable tr td.wrappericon {
@@ -746,7 +751,7 @@ textarea {
 #sidenav {
     display: flex;
     flex-direction: column;
-    justify-content: stretch;
+    justify-content: space-between;
 
     height: 100%;
     width: 0;
@@ -768,18 +773,17 @@ textarea {
 
 #sidenav a, .sidenav-mimica {
     flex-grow: 1;
-
     padding: 5px 8px 5px 32px;
     text-decoration: none;
     font-size: 20px;
     color: #a5a5a5;
     display: block;
-    transition: 0.3s;
+    transition: color linear 0.3s;
 }
 
 #sidenav a:hover, .sidenav-mimica:hover {
     cursor: pointer;
-    color: #f1f1f1;
+    color: #fff;
 }
 
 #sidenav details > summary {
@@ -910,7 +914,7 @@ textarea {
 }
 
 #sidenav .closebtn {
-    font-size: 36px;
+    font-size: 48px;
 }
 
 div.sidenavSpacer {
@@ -923,6 +927,28 @@ div.sidenavSpacer {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
 }
+
+#splashContainer {
+    cursor: pointer;
+    text-align: center;
+    margin-top: auto;
+}
+
+#splashText {
+    display: none;
+    margin: 15px 20px;
+    white-space: normal;
+}
+
+#splashContainer #splashText {
+    transition: color linear 0.05s;
+    color: #fff;
+}
+
+#splashContainer:hover #splashText {
+    color: var(--accent-color-light);
+}
+
 /* 
 .docHeader .headerAnchorContainer {
     cursor: pointer;
@@ -1007,7 +1033,7 @@ div.sidenavSpacer {
     border-style: none none solid none;
     padding-bottom: 2px;
     margin-bottom: 10px;
-    margin-top: 70px;
+    margin-top: 55px;
     line-height: initial;
 }
 
@@ -1055,9 +1081,17 @@ div.sidenavSpacer {
 }
 
 /*#SECTION usage terms */
+
+#usageTermsContainer {
+    margin-top: 10px;
+    display: block;
+    text-align: center;
+}
+
 #usageTerms {
     display: none;
     background-color: var(--bg-accent-color);
+    text-align: left;
     border: 2px solid #fff;
     border-radius: 10px;
     padding: 13px;
