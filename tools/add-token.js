@@ -1,4 +1,4 @@
-const jsl = require("svjsl");
+const { unused, isEmpty, generateUUID, colors } = require("svcorelib");
 const fs = require("fs-extra");
 const settings = require("../settings");
 
@@ -12,7 +12,7 @@ try
     }
     catch(err)
     {
-        jsl.unused(err);
+        unused(err);
         amount = 1;
     }
 
@@ -20,13 +20,13 @@ try
 
     for(let i = 0; i < amount; i++)
     {
-        let tok = jsl.generateUUID.custom("xxxxyyyyxxxxyyyy_xxxxyyyyxxxxyyyy_xxxxyyyyxxxxyyyy_xxxxyyyyxxxxyyyy", "0123456789abcdefghijklmnopqrstuvwxyz!?$§%*.~");
+        const tok = generateUUID.alphanumerical("xxxxyyyyxxxxyyyy_xxxxyyyyxxxxyyyy_xxxxyyyyxxxxyyyy_xxxxyyyyxxxxyyyy");
 
         let oldFile = [];
         if(fs.existsSync(settings.auth.tokenListFile))
         {
-            let fCont = fs.readFileSync(settings.auth.tokenListFile).toString();
-            if(!jsl.isEmpty(fCont))
+            const fCont = fs.readFileSync(settings.auth.tokenListFile).toString();
+            if(!isEmpty(fCont))
                 oldFile = JSON.parse(fCont);
             else
                 oldFile = [];
@@ -39,7 +39,7 @@ try
 
         fs.writeFileSync(settings.auth.tokenListFile, JSON.stringify(oldFile, null, 4));
 
-        console.log(`Token ${jsl.colors.fg.green}${tok}${jsl.colors.rst} added to the list of tokens at "${settings.auth.tokenListFile}".`);
+        console.log(`Token ${colors.fg.green}${tok}${colors.rst} added to the list of tokens at "${settings.auth.tokenListFile}".`);
     }
 
     console.log("\n\n");
