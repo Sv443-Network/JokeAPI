@@ -1,51 +1,153 @@
 const { unused, isEmpty, generateUUID, colors } = require("svcorelib");
 const fs = require("fs-extra");
+const clipboard = require("clipboardy");
 const settings = require("../settings");
 
-try
+
+/** @typedef {import("../src/auth").TokenObj} TokenObj */
+
+/**
+ * @typedef {object} CLIArgs
+ * @prop {number} amount The amount of tokens to generate - defaults to `1`
+ * @prop {boolean} noCopy Whether to disable copying the token to clipboard
+ */
+
+
+/**
+ * Runs the add-token script
+ */
+async function addToken()
 {
-    let amount;
+    try
+    {
+        const args = parseArgs();
+
+
+        /** @type {number|null} To be implemented some time to allow fine control of rate limit budget when providing a token. This would maybe pave way for premium / business tier :) - Defaults to `null` */
+        const maxReqs = null;
+
+        {
+            const tokens = generateTokens(args.amount);
+
+            console.log(`┌\n│ Adding token${tokens.length > 1 ? "s" : ""} to the registry file at '${settings.auth.tokenListFile}' ${typeof maxReqs === "number" ? `(request budget = ${maxReqs.toString()})` : "(default request budget)"}:\n│`);
+
+            await saveTokens(tokens, maxReqs);
+
+            process.stdout.write("│\n");
+
+
+            if(!args.noCopy && tokens.length === 1)
+            {
+                try
+                {
+                    await clipboard.write(tokens[0]);
+
+                    process.stdout.write(`│ ${colors.fg.blue}Copied token to clipboard. To disable, use ${colors.fg.rst}npm run add-token -- -nc\n│\n`);
+                }
+                catch(err)
+                {
+                    process.stdout.write(`│ ${colors.fg.yellow}(couldn't copy token to clipboard)${colors.rst}\n│\n`);
+                }
+            }
+        }
+
+
+        console.log(`│ Documentation reference: ${settings.info.docsURL}/#api-tokens`);
+
+
+        process.stdout.write("└\n\n");
+
+        return process.exit(0);
+    }
+    catch(err)
+    {
+        console.error(`\n│ ${colors.fg.red}Error:${colors.rst} ${err.toString()}\n└\n`);
+        return process.exit(1);
+    }
+}
+
+/**
+ * Parses command line arguments
+ * @returns {CLIArgs}
+ */
+function parseArgs()
+{
+    const noCopy = process.argv.map(v => v.toLowerCase()).includes("-nc");
+
+    const amountInvalid = () => {
+        return {
+            noCopy,
+            amount: 1
+        };
+    };
 
     try
     {
-        amount = parseInt(process.argv[2].replace(/[-]/g, ""));
+        const amount = parseInt(process.argv[2].replace(/[-]/g, ""));
+
+        if(isNaN(amount))
+            return amountInvalid();
+
+        return { noCopy, amount };
     }
     catch(err)
     {
         unused(err);
-        amount = 1;
-    }
 
-    console.log("\n");
+        return amountInvalid();
+    }
+}
+
+/**
+ * Generates a certain amount of tokens
+ * @param {number} [amount] How many tokens to generate
+ * @returns {TokenObj[]}
+ */
+function generateTokens(amount)
+{
+    const tokens = [];
 
     for(let i = 0; i < amount; i++)
-    {
-        const tok = generateUUID.alphanumerical("xxxxyyyyxxxxyyyy_xxxxyyyyxxxxyyyy_xxxxyyyyxxxxyyyy_xxxxyyyyxxxxyyyy");
+        tokens.push(generateUUID.alphanumerical("xxxxyyyyxxxxyyyy_xxxxyyyyxxxxyyyy_xxxxyyyyxxxxyyyy_xxxxyyyyxxxxyyyy"));
 
+    return tokens;
+}
+
+/**
+ * Saves a token to the local registry file
+ * @param {TokenObj[]} tokens The tokens to save to the tokens registry file
+ * @param {number|null} maxReqs The request budget of the tokens
+ * @returns {Promise<void>}
+ */
+function saveTokens(tokens, maxReqs)
+{
+    return new Promise(async res => {
         let oldFile = [];
         if(fs.existsSync(settings.auth.tokenListFile))
         {
-            const fCont = fs.readFileSync(settings.auth.tokenListFile).toString();
+            const fCont = (await fs.readFile(settings.auth.tokenListFile)).toString();
             if(!isEmpty(fCont))
                 oldFile = JSON.parse(fCont);
             else
                 oldFile = [];
         }
 
-        oldFile.push({
-            token: tok,
-            maxReqs: null // null = default
+        tokens.forEach((token, i) => {
+            const index = tokens.length > 1 ? `[${i + 1}] ` : "";
+
+            console.log(`├─> ${index}${colors.fg.green}${token}${colors.rst}`);
+
+            oldFile.push({
+                token,
+                maxReqs
+            });
         });
 
-        fs.writeFileSync(settings.auth.tokenListFile, JSON.stringify(oldFile, null, 4));
+        await fs.writeFile(settings.auth.tokenListFile, JSON.stringify(oldFile, null, 4));
 
-        console.log(`Token ${colors.fg.green}${tok}${colors.rst} added to the list of tokens at "${settings.auth.tokenListFile}".`);
-    }
+        return res();
+    });
+}
 
-    console.log("\n\n");
-    return process.exit(0);
-}
-catch(err)
-{
-    return process.exit(1);
-}
+
+addToken();

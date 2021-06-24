@@ -30,7 +30,7 @@
             "console": "integratedTerminal"
         },
         {
-            "program": "${workspaceFolder}/tools/generate-changelog.js",
+            "program": "${workspaceFolder}/tools/add-token.js",
             "name": "Tools/xy",
             "request": "launch",
             "type": "node",
