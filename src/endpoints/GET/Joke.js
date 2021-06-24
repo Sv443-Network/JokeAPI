@@ -4,7 +4,7 @@ const parseJokes = require("../../parseJokes");
 const FilteredJoke = require("../../classes/FilteredJoke");
 const resolveIP = require("../../resolveIP");
 const Endpoint = require("../../classes/Endpoint");
-const languages = require("./Languages");
+const languages = require("../../languages");
 const tr = require("../../translate");
 
 const settings = require("../../../settings");
@@ -54,7 +54,7 @@ class Joke extends Endpoint {
      * @param {Object} params URL query params gotten from the URL parser module
      * @param {string} format The file format to respond with
      */
-    call(req, res, url, params, format)
+    async call(req, res, url, params, format)
     {
         const lang = Endpoint.getLang(params);
 
@@ -109,18 +109,19 @@ class Joke extends Endpoint {
         {
             try
             {
-                langCode = params["lang"].toString();
+                const lCode = params["lang"].toString();
 
-                if(languages.isValidLang(langCode) === true)
-                    filterJoke.setLanguage(langCode);
-                else
-                    return this.isErrored(res, format, tr(langCode, "invalidLangCode", langCode), langCode);
+                if(languages.isValidLang(lCode) === true)
+                    langCode = lCode;
             }
             catch(err)
             {
                 return this.isErrored(res, format, tr(langCode, "invalidLangCodeNoArg"), langCode);
             }
         }
+
+        filterJoke.setLanguage(langCode);
+
 
         //#SECTION safe mode
         if(params && !scl.isEmpty(params["safe-mode"]) && params["safe-mode"] === true)
@@ -220,7 +221,10 @@ class Joke extends Endpoint {
         
 
         //#SECTION get jokes
-        filterJoke.getJokes(ip, langCode, filterJoke.getAmount()).then(jokesArray => {
+        try
+        {
+            const jokesArray = await filterJoke.getJokes(ip, langCode, filterJoke.getAmount());
+
             let responseObj = {};
 
             if(jokeAmount == 1)
@@ -236,7 +240,7 @@ class Joke extends Endpoint {
                 {
                     responseObj = {
                         error: false,
-                        amount: (jokesArray.length || 1),
+                        amount: (jokesArray.length || 0),
                         jokes: jokesArray
                     };
                 }
@@ -244,16 +248,18 @@ class Joke extends Endpoint {
                 {
                     responseObj = {
                         error: false,
-                        amount: (jokesArray.length || 1),
+                        amount: (jokesArray.length || 0),
                         jokes: { "joke": jokesArray }
                     };
                 }
             }
 
             return Endpoint.respond(res, format, lang, responseObj, statusCode);
-        }).catch(err => {
+        }
+        catch(err)
+        {
             return this.isErrored(res, format, tr(langCode, "errorWhileFinalizing", Array.isArray(err) ? err.join("; ") : err), langCode);
-        });
+        }
     }
 
     //#MARKER isErrored

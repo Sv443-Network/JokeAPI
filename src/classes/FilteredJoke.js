@@ -462,50 +462,62 @@ class FilteredJoke
      */
     checkMatchesSearchString(joke, lang)
     {
-        let searchMatches = false;
-
-        const searchStr = this.getSearchString(true);
-
-        const containsOperator = Object.values(settings.jokes.searchStringOperators).reduce(op => searchStr.includes(op));
-
-        if(!scl.isEmpty(searchStr))
+        try
         {
-            // if the search string doesn't contain a logical operator (issue #289)
-            if(!containsOperator)
-            {
-                if(joke.type == "single" && joke.joke.toLowerCase().includes(searchStr))
-                    searchMatches = true;
-                else if(joke.type == "twopart" && `${joke.setup} ${joke.delivery}`.toLowerCase().includes(searchStr))
-                    searchMatches = true;
-            }
-            else
-            {
-                // search string contains at least one logical operator character
+            const searchStr = this.getSearchString(true);
 
-                // create initial pattern
-                const pattern = decodeURIComponent(escapeRegexPattern(searchStr).replace(new RegExp(`[${settings.jokes.searchStringOperators.wildcard}]`, "gm"), ".*"));
-                // isolate the pattern based on the OR operator(s) present
-                const isolatedPattern = `^${pattern.split(settings.jokes.searchStringOperators.orOperator).join(`$|^`)}$`;
-                // create the final regex
-                const searchRegex = new RegExp(isolatedPattern, "gmi");
-                // make sure there's no way in hell a user can ReDoS JokeAPI with exponential-time Regexes / catastrophic backtracking
-                const regexSafe = safeRegex(searchRegex, { limit: settings.jokes.regexRepetitionLimit });
+            if(typeof searchStr !== "string")
+                return true;
 
-                if(regexSafe === true)
+
+            let searchMatches = false;
+
+            const containsOperator = Object.values(settings.jokes.searchStringOperators).reduce(op => searchStr.includes(op));
+
+
+            if(!scl.isEmpty(searchStr))
+            {
+                // if the search string doesn't contain a logical operator (issue #289)
+                if(!containsOperator)
                 {
-                    if(joke.type == "single" && joke.joke.replace(/\n/g, " ").match(searchRegex))
+                    if(joke.type == "single" && joke.joke.toLowerCase().includes(searchStr))
                         searchMatches = true;
-                    else if(joke.type == "twopart" && `${joke.setup} ${joke.delivery}`.replace(/\n/g, " ").match(searchRegex))
+                    else if(joke.type == "twopart" && `${joke.setup} ${joke.delivery}`.toLowerCase().includes(searchStr))
                         searchMatches = true;
                 }
                 else
-                    throw new Error(tr(lang, "patternTooComplex", searchStr, settings.jokes.regexRepetitionLimit));
-            }
-        }
-        else
-            searchMatches = true; // no search string is set, so consider every joke valid
+                {
+                    // search string contains at least one logical operator character
 
-        return searchMatches;
+                    // create initial pattern
+                    const pattern = decodeURIComponent(escapeRegexPattern(searchStr).replace(new RegExp(`[${settings.jokes.searchStringOperators.wildcard}]`, "gm"), ".*"));
+                    // isolate the pattern based on the OR operator(s) present
+                    const isolatedPattern = `^${pattern.split(settings.jokes.searchStringOperators.orOperator).join(`$|^`)}$`;
+                    // create the final regex
+                    const searchRegex = new RegExp(isolatedPattern, "gmi");
+                    // make sure there's no way in hell a user can ReDoS JokeAPI with exponential-time Regexes / catastrophic backtracking
+                    const regexSafe = safeRegex(searchRegex, { limit: settings.jokes.regexRepetitionLimit });
+
+                    if(regexSafe === true)
+                    {
+                        if(joke.type == "single" && joke.joke.replace(/\n/g, " ").match(searchRegex))
+                            searchMatches = true;
+                        else if(joke.type == "twopart" && `${joke.setup} ${joke.delivery}`.replace(/\n/g, " ").match(searchRegex))
+                            searchMatches = true;
+                    }
+                    else
+                        throw new Error(tr(lang, "patternTooComplex", searchStr, settings.jokes.regexRepetitionLimit));
+                }
+            }
+            else
+                searchMatches = true; // no search string is set, so consider every joke valid
+
+            return searchMatches;
+        }
+        catch(err)
+        {
+            return true;
+        }
     }
 
     //#MARKER get joke
