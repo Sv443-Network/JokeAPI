@@ -7,8 +7,7 @@ var settings = {
     anyCategoryName: "Any",
     defaultFormat: "json",
     submitUrl: "<%#INSERT:DOCSURL#%>/submit",
-    // pingUrl: "<%#INSERT:DOCSURL#%>/ping", // TODO:
-    pingUrl: "http://127.0.0.1:8076/ping",
+    pingUrlPath: "/ping",
     // submitUrl: "http://127.0.0.1:8076/submit", // DEBUG
     defaultLang: "<%#INSERT:DEFAULTLANGCODE#%>",
     formatVersion: 3,
@@ -1314,7 +1313,7 @@ async function loadSplash()
 
     try
     {
-        const pingRes = await fetch(settings.pingUrl);
+        const pingRes = await fetch(settings.pingUrlPath);
         const pingResJson = await pingRes.json();
 
         splashText = pingResJson.ping || errSplash;
