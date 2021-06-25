@@ -35,6 +35,7 @@ unused("types:", _http);
  * @typedef {Object} TranslationsObj
  * @prop {TranslatedStrings[]} names Display name translations of this endpoint
  * @prop {TranslatedStrings[]} descriptions Description translations of this endpoint
+ * @prop {string[]} languages The available translation languages
  */
 
 //#MARKER MissingImplementationError
@@ -71,7 +72,7 @@ class Endpoint
         if(typeof meta !== "object")
             throw new TypeError(`Parameter "meta" is not of type object (got "${typeof meta}")`);
         
-        /** @type {TranslationObj} */
+        /** @type {TranslationsObj} */
         this.translations = Endpoint.getTranslations(pathName);
 
         this.pathName = pathName;
@@ -87,14 +88,14 @@ class Endpoint
     /**
      * This method is run each time a client requests this endpoint  
      * Abstract method - to be overwritten!
-     * @abstract ❗️ Abstract method - Override this, else a MissingImplementationError is thrown ❗️
+     * @abstract ❗️ Abstract method - override this, else a `MissingImplementationError` is thrown ❗️
      * @param {_http.IncomingMessage} req The HTTP server request
      * @param {_http.ServerResponse} res The HTTP server response
      * @param {string[]} url URL path array gotten from the URL parser module
      * @param {Object} params URL query params gotten from the URL parser module
      * @param {string} format The file format to respond with
      * @param {httpServer.HttpMetrics} httpMetrics
-     * @throws Throws a MissingImplementationError if this method was not overwritten
+     * @throws Throws a `MissingImplementationError` if this method was not overwritten
      */
     call(req, res, url, params, format, httpMetrics)
     {
@@ -163,6 +164,15 @@ class Endpoint
             throw new Error(`No default language translation found for endpoint "${this.pathName}"`);
 
         return description.text;
+    }
+
+    /**
+     * Returns all translation languages
+     * @returns {string[]}
+     */
+    getTranslationLangs()
+    {
+        return this.translations.languages;
     }
 
     /**
@@ -271,7 +281,8 @@ class Endpoint
         /** @type {TranslationsObj} */
         let translations = {
             names: [],
-            descriptions: []
+            descriptions: [],
+            languages: endpointsTrFile.languages,
         };
 
         // iterate over all endpoints

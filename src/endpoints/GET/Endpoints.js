@@ -5,7 +5,14 @@ const fs = require("fs-extra");
 const Endpoint = require("../../classes/Endpoint");
 
 const settings = require("../../../settings");
+const { isValidLang } = require("../../languages");
 
+
+/**
+ * @typedef {object} EndpointList
+ * @prop {EndpointObj} [en]
+ * @prop {EndpointObj} [de]
+ */
 
 /** 
  * @typedef {Object} EndpointObj
@@ -19,7 +26,8 @@ const settings = require("../../../settings");
 /**
  * Returns a list of all endpoints and their description and usage
  */
-class Endpoints extends Endpoint {
+class Endpoints extends Endpoint
+{
     /**
      * Returns a list of all endpoints and their description and usage
      */
@@ -38,7 +46,8 @@ class Endpoints extends Endpoint {
 
         super("endpoints", meta);
 
-        this.endpoints = this.readEndpoints(settings.languages.defaultLanguage);
+        /** @type {EndpointList} */
+        this.endpoints = this.readEndpoints();
     }
 
     /**
@@ -56,53 +65,46 @@ class Endpoints extends Endpoint {
         const lang = Endpoint.getLang(params);
 
 
-        let responseObj = [];
+        const responseObj = [];
 
-        this.endpoints.forEach(ep => {
+        const epList = (Array.isArray(this.endpoints[lang]) && this.endpoints[lang].length > 0) ? this.endpoints[lang] : this.endpoints[settings.languages.defaultLanguage];
+
+        if(!epList)
+            return "TODO: return error";
+
+        epList.forEach(ep => {
             let epUrl = `${settings.info.docsURL}/${ep.pathName}/`;
 
             if(Array.isArray(ep.positionalArgs) && ep.positionalArgs.length > 0)
                 ep.positionalArgs.forEach(pArg => epUrl += `{${pArg}}/`);
 
-            let epObj = {
+            const epObj = {
                 name: ep.displayName,
                 description: ep.description,
                 usage: {
                     method: ep.meta.usage.method,
-                    url: epUrl
+                    url: epUrl,
+                    supportedParams: (format != "xml" ? ep.meta.usage.supportedParams : { "param": ep.meta.usage.supportedParams }),
                 }
             };
-
-            if(format != "xml")
-                epObj.usage.supportedParams = ep.meta.usage.supportedParams
-            else
-                epObj.usage.supportedParams = {"param": ep.meta.usage.supportedParams}
 
             responseObj.push(epObj);
         });
 
         if(format == "xml")
-            responseObj = {"endpoint": responseObj};
-
+            return Endpoint.respond(res, format, lang, { "endpoint": responseObj });
 
         return Endpoint.respond(res, format, lang, responseObj);
     }
 
     /**
      * Reads endpoints dir, returning a list of all endpoints
-     * @param {string} lang
-     * @returns {EndpointObj[]}
+     * @returns {EndpointList}
      */
-    readEndpoints(lang)
+    readEndpoints()
     {
-        let epList = [
-            {
-                meta: this.meta,
-                pathName: this.pathName,
-                displayName: this.getDisplayName(lang),
-                description: this.getDescription(lang)
-            }
-        ];
+        /** @type {EndpointList} */
+        const epList = {};
 
         const files = fs.readdirSync(settings.endpoints.get.dirPath);
 
@@ -122,18 +124,27 @@ class Endpoints extends Endpoint {
                     /** @type {Endpoint} */
                     let endpointInstance = new EndpointClass();
 
-                    let epMeta = endpointInstance.getMeta();
+                    const trLangs = endpointInstance.getTranslationLangs();
+                    const epMeta = endpointInstance.getMeta();
 
-                    if(epMeta.unlisted !== true)
-                    {
-                        epList.push({
-                            meta: epMeta,
-                            pathName: endpointInstance.getPathName(),
-                            displayName: endpointInstance.getDisplayName(lang),
-                            description: endpointInstance.getDescription(lang),
-                            positionalArgs: endpointInstance.getPositionalArguments()
-                        });
-                    }
+                    trLangs.forEach(lang => {
+                        if(!isValidLang(lang))
+                            return;
+
+                        if(!epList[lang] || !Array.isArray(epList[lang]))
+                            epList[lang] = [];
+
+                        if(epMeta.unlisted !== true)
+                        {
+                            epList[lang].push({
+                                meta: epMeta,
+                                pathName: endpointInstance.getPathName(),
+                                displayName: endpointInstance.getDisplayName(lang),
+                                description: endpointInstance.getDescription(lang),
+                                positionalArgs: endpointInstance.getPositionalArguments()
+                            });
+                        }
+                    });
                 }
             });
 

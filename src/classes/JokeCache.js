@@ -15,7 +15,8 @@ unused("typedefs:", mysql);
  * This class also handles garbage collection (clearing expired entries).
  * @since 2.4.0
  */
-class JokeCache {
+class JokeCache
+{
     /**
      * Creates a new joke cache.
      * @param {mysql.Connection} dbConnection

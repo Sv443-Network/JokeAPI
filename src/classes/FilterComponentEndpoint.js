@@ -7,7 +7,8 @@ const Endpoint = require("./Endpoint");
 /**
  * Base class for all filter component endpoints (/categories/, /flags/, /formats/, etc.)
  */
-class FilterComponentEndpoint extends Endpoint {
+class FilterComponentEndpoint extends Endpoint
+{
     /**
      * Constructs a new object of class JokeComponentEndpoint  
      * This class is intended to be subclassed! Don't use it "raw" like this!

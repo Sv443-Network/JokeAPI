@@ -1,4 +1,4 @@
-const jsl = require("svjsl");
+const { allEqual, unused } = require("svcorelib");
 
 const parseJokes = require("../parseJokes");
 const languages = require("../languages");
@@ -6,7 +6,7 @@ const languages = require("../languages");
 const settings = require("../../settings");
 
 
-jsl.unused(parseJokes); // only used for typedefs
+unused(parseJokes); // only used for typedefs
 
 // expected format:
 /*
@@ -48,15 +48,15 @@ class AllJokes
     {
         this.jokes = {};
         let jokeCount = 0;
-        let formatVersions = [];
-        let jokeCountPerLang = {};
+        const formatVersions = [];
+        const jokeCountPerLang = {};
         this._safeJokes = [];
 
         //#SECTION check validity, get joke count and get format versions
         Object.keys(jokeArray).forEach(key => {
             let lValid = languages.isValidLang(key);
             if(lValid !== true)
-                throw new Error(`Invalid language code in construction of an AllJokes object. Expected valid two character language code - got "${key}": ${lValid}`);
+                throw new TypeError(`Invalid language code in construction of an AllJokes object. Expected valid two character language code - got "${key}": ${lValid}`);
             
             let currentLangSafeJokesCount = 0;
 
@@ -89,11 +89,11 @@ class AllJokes
 
         formatVersions.push(settings.jokes.jokesFormatVersion);
 
-        if(!jsl.allEqual(formatVersions))
+        if(!allEqual(formatVersions))
             throw new Error(`Error: One or more of the jokes-xy.json files contain(s) a wrong formatVersion parameter`);
 
         if(typeof jokeArray != "object" || Array.isArray(jokeArray))
-            throw new Error(`Error while constructing a new AllJokes object: parameter "jokeArray" is invalid`);
+            throw new TypeError(`Error while constructing a new AllJokes object: parameter "jokeArray" is invalid`);
 
         this.jokes = jokeArray;
         this._jokeCount = jokeCount;

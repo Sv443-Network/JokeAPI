@@ -33,25 +33,25 @@
         },
         "example": {
             "name": {
-                "en": "Example",
-                "de": "Beispiel",
-                "ru": "Пример"
+                "en": "🐒 monks",
+                "de": "",
+                "ru": ""
             },
             "desc": {
-                "en": "This is an example endpoint",
-                "de": "Dies ist ein Beispiel-Endpunkt",
-                "ru": "Это пример конечной точки"
+                "en": "",
+                "de": "monekey",
+                "ru": "🥥 comcomut"
             }
         },
         "flags": {
             "name": {
                 "en": "Flags",
-                "de": "Markierungen",
+                "de": "Flags",
                 "ru": "Флаги"
             },
             "desc": {
                 "en": "Lists all available joke blacklist flags and their descriptions",
-                "de": "Listet alle verfügbaren Witz-Markierungen und ihre Beschreibungen auf",
+                "de": "Listet alle verfügbaren Witz-Flags und ihre Beschreibungen auf",
                 "ru": "Перечисляет все доступные флаги черного списка шуток и их описания"
             }
         },
@@ -62,9 +62,9 @@
                 "ru": "Форматы ответов"
             },
             "desc": {
-                "en": "Returns a list of supported response / file formats",
-                "de": "Gibt eine Liste der unterstützten Rückgabe-Formate zurück",
-                "ru": "Возвращает список поддерживаемых форматов ответа"
+                "en": "Returns a list of supported response / file formats and their descriptions",
+                "de": "Gibt eine Liste der unterstützten Rückgabe-Formate und ihre Beschreibungen zurück",
+                "ru": "Возвращает список поддерживаемых форматов ответов / файлов и их описания"
             }
         },
         "types": {
@@ -74,9 +74,9 @@
                 "ru": "Типы шуток"
             },
             "desc": {
-                "en": "Returns a list of supported joke types",
-                "de": "Gibt eine Liste der unterstützten Witz-Typen zurück",
-                "ru": "Возвращает список поддерживаемых типов шуток"
+                "en": "Returns a list of supported joke types and their descriptions",
+                "de": "Gibt eine Liste der unterstützten Witz-Typen und ihre Beschreibungen zurück",
+                "ru": "Возвращает список поддерживаемых типов шуток и их описания"
             }
         },
         "info": {
@@ -134,21 +134,21 @@
                 "ru": "Пинг"
             },
             "desc": {
-                "en": "Used for checking if the API is online or to test connection latency",
-                "de": "Wird verwendet, um zu prüfen, ob die API online ist oder um die Verbindungslatenz zu testen",
-                "ru": "Используется для проверки работоспособности API или для проверки задержек соединения"
+                "en": "Used for checking if the API is online or to test connection and internal server latency",
+                "de": "Wird verwendet, um zu prüfen, ob die API online ist oder um die Verbindungslatenz und die interne Serverlatenz zu testen",
+                "ru": "Используется для проверки наличия API в сети или для тестирования соединения и внутренней задержки сервера"
             }
         },
         "static": {
             "name": {
                 "en": "Static Content",
-                "de": "Statische Inhalte",
-                "ru": "Статическое содержание"
+                "de": "(no need to translate as this endpoint isn't shown on '/endpoints')",
+                "ru": "-"
             },
             "desc": {
                 "en": "This endpoint serves static content which is needed for the documentation page",
-                "de": "Dieser Endpunkt liefert statische Inhalte, die für die Dokumentationsseite benötigt werden",
-                "ru": "Эта конечная точка служит статическому контенту, который необходим для страницы документации"
+                "de": "(no need to translate as this endpoint isn't shown on '/endpoints')",
+                "ru": "-"
             }
         },
         "clearData": {
