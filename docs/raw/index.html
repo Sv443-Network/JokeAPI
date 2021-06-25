@@ -1413,7 +1413,7 @@ None. It's a hardware problem.
 <code class="prettyprint"><span class="nocode codeheader">Node.js:</span>
 <div class="actualCode">const https = require("https"); // Native module, no need to explicitly install
 
-const baseURL = "<!--%#INSERT:DOCSURL#%-->";
+const baseURL = "<%#INSERT:DOCSURL#%>";
 const categories = ["Programming", "Misc", "Pun", "Spooky", "Christmas"];
 const params = [
     "blacklistFlags=nsfw,religious,racist",
@@ -1454,7 +1454,7 @@ https.get(`${baseURL}/joke/${categories.join(",")}?${params.join("&")}`, res => 
                 <!--#SECTION Web-JS-->
                 <details><summary id="example-js" class="big">Web-JavaScript (click to show)</summary>
 <code class="prettyprint"><span class="nocode codeheader">Web-JS:</span>
-<div class="actualCode">var baseURL = "<!--%#INSERT:DOCSURL#%-->";
+<div class="actualCode">var baseURL = "<%#INSERT:DOCSURL#%>";
 var categories = ["Programming", "Misc", "Pun", "Spooky", "Christmas"];
 var params = [
     "blacklistFlags=nsfw,religious,racist",
@@ -1493,8 +1493,8 @@ xhr.send();
 
                 <!--#SECTION C#-->
 
-                <details><summary id="example-cs" class="big">C# (click to show)</summary>
-                <code class="prettyprint"><span class="nocode codeheader">C#:</span>
+                <details><summary id="example-cs" class="big">C# - Simple (click to show)</summary>
+                <code class="prettyprint"><span class="nocode codeheader">C# - Simple:</span>
                 <div class="actualCode">using System;
 using System.Threading.Tasks;
 using System.Net.Http;
@@ -1512,7 +1512,7 @@ namespace JokeAPIExample
         public async static Task<string> GetJoke()
         {
             var client = new HttpClient();
-            var response = await client.GetAsync("https://jokeapi.dev/joke/Any?format=txt&type=single&blacklistFlags=nsfw,racist,sexist&lang=en");
+            var response = await client.GetAsync("<%#INSERT:DOCSURL#%>/joke/Any?format=txt&type=single&blacklistFlags=nsfw,racist,sexist&lang=en");
             var joke = await response.Content.ReadAsStringAsync();
             return joke;
         }
@@ -1527,15 +1527,17 @@ namespace JokeAPIExample
 <div class="actualCode">using System;
 using System.Threading.Tasks;
 using System.Net.Http;
-using Newtonsoft.Json;   // Install with NuGet Package Manager: https://www.nuget.org/packages/Newtonsoft.Json/12.0.3?_src=template
+using Newtonsoft.Json; // Install with NuGet Package Manager: https://www.nuget.org/packages/Newtonsoft.Json/12.0.3?_src=template
 
-namespace TestHttpRequest
+namespace JokeAPIExample
 {
     class Program
     {
         static async Task Main(string[] args)
         {
-            Joke randomJoke = await GetJokeAdvanced();
+            Console.Write("\n");
+
+            Joke randomJoke = await GetJoke();
             if (randomJoke.type == "single")
             {
                 Console.WriteLine(randomJoke.joke);
@@ -1543,18 +1545,23 @@ namespace TestHttpRequest
             else
             {
                 Console.WriteLine(randomJoke.setup);
+                Console.WriteLine("...");
                 System.Threading.Thread.Sleep(3000);
                 Console.WriteLine(randomJoke.delivery);
             }
+
+            Console.Write("\n");
         }
 
-        public async static Task<Joke> GetJokeAdvanced()
+        public async static Task&lt;Joke&gt; GetJoke()
         {
-            const string baseUrl = "https://jokeapi.dev";
-            string[] categories = { "Programming", "Miscellaneous", "Pun", "Spooky", "Christmas" };
+            const string baseUrl = "<%#INSERT:DOCSURL#%>";
+            string[] categories = { "Programming", "Miscellaneous", "Pun" };
             string[] parameters = {
                 "blacklistFlags=nsfw,religious,racist,sexist",
-                "idRange=0-100"
+                "idRange=0-100",
+                "safe-mode",
+                "lang=en"
             };
             string requestUrl = $"{baseUrl}/joke/{string.Join(",", categories)}?{string.Join("&", parameters)}";
             Joke randomJoke;
@@ -1562,7 +1569,7 @@ namespace TestHttpRequest
             using (var httpClient = new HttpClient())
             {
                 var json = await httpClient.GetStringAsync(requestUrl);
-                randomJoke = JsonConvert.DeserializeObject<Joke>(json);
+                randomJoke = JsonConvert.DeserializeObject&lt;Joke&gt;(json);
             }
 
             return randomJoke;
@@ -1575,10 +1582,11 @@ namespace TestHttpRequest
         public string joke { get; set; }
         public string setup { get; set; }
         public string delivery { get; set; }
-        public int id { get; set; }
         public Flags flags { get; set; }
+        public int id { get; set; }
+        public bool safe { get; set; }
+        public string lang { get; set; }
     }
-
 
     public class Flags
     {
@@ -1587,6 +1595,8 @@ namespace TestHttpRequest
         public bool political { get; set; }
         public bool racist { get; set; }
         public bool sexist { get; set; }
+
+        public bool @explicit { get; set; }
     }
 }</div></code>
                 </details><br>
