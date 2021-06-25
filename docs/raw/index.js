@@ -551,7 +551,7 @@ function reRender(langChanged)
     //#SECTION safe mode
     if(gebid("sfe-cb").checked)
     {
-        gebid("sfe-cb-label").innerText = "enabled";
+        gebid("sfe-cb-label").innerText = "Enabled";
 
         if(gebid("cat-cb3").checked) // if dark category checked
         {
@@ -586,7 +586,7 @@ function reRender(langChanged)
     }
     else
     {
-        gebid("sfe-cb-label").innerText = "disabled";
+        gebid("sfe-cb-label").innerText = "Disabled";
 
         gebid("safeModeSelectWrapper").style.borderColor = "initial";
         gebid("categoryWrapper").style.borderColor = "initial";
@@ -947,7 +947,7 @@ function resetTryItForm(confirmation)
     });
 
     gebid("sfe-cb").checked = true;
-    gebid("sfe-cb-label").innerText = "enabled";
+    gebid("sfe-cb-label").innerText = "Enabled";
 
     gebid("cat-radio1").checked = true;
 
