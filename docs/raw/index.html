@@ -1416,7 +1416,8 @@ None. It's a hardware problem.
 const baseURL = "<%#INSERT:DOCSURL#%>";
 const categories = ["Programming", "Misc", "Pun", "Spooky", "Christmas"];
 const params = [
-    "blacklistFlags=nsfw,religious,racist",
+    "safe-mode",
+    "lang=en",
     "idRange=0-100"
 ];
 
@@ -1447,48 +1448,37 @@ https.get(`${baseURL}/joke/${categories.join(",")}?${params.join("&")}`, res => 
         // On error, log to console
         console.error(`Error: ${err}`);
     });
-});
-</div></code>
+});</div></code>
                 </details><br>
 
                 <!--#SECTION Web-JS-->
                 <details><summary id="example-js" class="big">Web-JavaScript (click to show)</summary>
 <code class="prettyprint"><span class="nocode codeheader">Web-JS:</span>
-<div class="actualCode">var baseURL = "<%#INSERT:DOCSURL#%>";
-var categories = ["Programming", "Misc", "Pun", "Spooky", "Christmas"];
-var params = [
-    "blacklistFlags=nsfw,religious,racist",
-    "idRange=0-100"
+<div class="actualCode">const baseURL = "<%#INSERT:DOCSURL#%>";
+const categories = [ "Programming", "Misc", "Pun", "Spooky", "Christmas" ];
+const params = [
+    "safe-mode",
+    "idRange=0-100",
+    "lang=en"
 ];
 
-var xhr = new XMLHttpRequest();
-xhr.open("GET", baseURL + "/joke/" + categories.join(",") + "?" + params.join("&"));
+async function alertJoke()
+{
+    const res = await fetch(`${baseURL}/joke/${categories.join(",")}?${params.join("&")}`);
+    const joke = await res.json();
 
-xhr.onreadystatechange = function() {
-    if(xhr.readyState == 4 && xhr.status < 300) // readyState 4 means request has finished + we only want to parse the joke if the request was successful (status code lower than 300)
+    if(joke.type === "single")
     {
-        var randomJoke = JSON.parse(xhr.responseText);
-
-        if(randomJoke.type == "single")
-        {
-            // If type == "single", the joke only has the "joke" property
-            alert(randomJoke.joke);
-        }
-        else
-        {
-            // If type == "single", the joke only has the "joke" property
-            alert(randomJoke.setup);
-            alert(randomJoke.delivery);
-        }
+        alert(joke.joke);
     }
-    else if(xhr.readyState == 4)
+    else
     {
-        alert("Error while requesting joke.\n\nStatus code: " + xhr.status + "\nServer response: " + xhr.responseText);
+        alert(joke.setup);
+        alert(joke.delivery);
     }
-};
+}
 
-xhr.send();
-</div></code>
+alertJoke();</div></code>
                 </details><br>
 
                 <!--#SECTION C#-->
@@ -1512,13 +1502,12 @@ namespace JokeAPIExample
         public async static Task<string> GetJoke()
         {
             var client = new HttpClient();
-            var response = await client.GetAsync("<%#INSERT:DOCSURL#%>/joke/Any?format=txt&type=single&blacklistFlags=nsfw,racist,sexist&lang=en");
+            var response = await client.GetAsync("<%#INSERT:DOCSURL#%>/joke/Any?safe-mode&format=txt&lang=en");
             var joke = await response.Content.ReadAsStringAsync();
             return joke;
         }
     }
-}
-</div></code>
+}</div></code>
                 </details><br>
 
 
