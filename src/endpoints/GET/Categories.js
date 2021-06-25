@@ -80,9 +80,9 @@ class Categories extends FilterComponentEndpoint {
         {
             responseObj = {
                 "error": false,
-                "categoryAliases": catAliases,
                 "categories": primaryCategories,
                 "descriptions": descriptions,
+                "categoryAliases": catAliases,
                 "timestamp": Date.now()
             };
         }
