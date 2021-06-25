@@ -7,7 +7,7 @@
     --bg-accent-color-darker: #111316;
     --bg-accent-color-sidenav-opened: #4e535c;
     --bg-accent-color-darker-sidenav-opened: #5e646e;
-    --bg-color-sidenav-opened: #616774;
+    --bg-color-sidenav-opened: #616369;
     --header-bg-color: #0b1031;
     --header-bg-color-sidenav-opened: #0b1031;
 
@@ -22,8 +22,8 @@
     --doc-header-font-size: 29px;
     --doc-sub-header-font-size: 22px;
 
-    --sidenav-animation-speed: 0.15s;
-    --sidenav-colorblur-speed: 0.5s;
+    --sidenav-animation-speed: 0.20s;
+    --sidenav-colorblur-speed: 0.15s;
     --targetblink-animation-delay: 0.5s;
 
     --scrollbar-track-color: #222;
@@ -463,7 +463,7 @@ body[data-sidenav="opened"] mark {
 }
 
 body[data-sidenav="closed"] code, body code {
-    font-family: "Cascadia Code", "Inconsolata", "Courier New", "Consolas", monospace;
+    font-family: "Cascadia Code", "Courier New", "Consolas", monospace;
     font-variant-ligatures: none;
     font-size: 15px;
 
@@ -503,7 +503,7 @@ body[data-sidenav="opened"] code {
 }
 
 body code .nocode.codeheader {
-    font-family: "Roboto Mono", monospace;
+    font-family: "Cascadia Code", "Roboto Mono", "Courier New", monospace;
     font-size: 19px;
 
     display: block;
@@ -522,7 +522,7 @@ body code .nocode.codeheader::before {
 }
 
 kbd {
-    font-family: "Cascadia Code", "Inconsolata", "Roboto Mono", "Courier New", monospace;
+    font-family: "Cascadia Code", "Roboto Mono", "Courier New", monospace;
     font-variant-ligatures: none;
     font-size: 13px;
     display: inline-block;
@@ -610,7 +610,7 @@ body[data-sidenav="opened"] .requestURLwrapper {
 
 .requestURL {
     color: #ccc;
-    font-family: "Roboto Mono", "Courier New", monospace;
+    font-family: "Cascadia Code", "Roboto Mono", "Consolas", monospace;
 }
 
 .supportedParamsBox {
