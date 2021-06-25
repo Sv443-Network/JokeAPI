@@ -43,12 +43,19 @@
             "ru": "Предупреждение: Может содержать смешные шутки!"
         },
         {
-            "en": "Allan please add details"
+            "en": "Allan please add details",
+            "de": "Allan please add details",
+            "ru": "Allan please add details"
         },
         {
             "en": "Trans rights!",
             "de": "Trans-Rechte!",
             "ru": "Права трансов!"
+        },
+        {
+            "en": "*insert random splash here*",
+            "de": "*hier zufälligen Splashtext einfügen*",
+            "ru": "*вставьте здесь произвольный текст заставки*"
         }
     ]
 }
