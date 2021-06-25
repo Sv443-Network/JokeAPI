@@ -1,6 +1,6 @@
 const { unused } = require("svcorelib");
 
-// const tr = require("../translate");
+const tr = require("../../translate");
 const Endpoint = require("../../classes/Endpoint");
 const FilterComponentEndpoint = require("../../classes/FilterComponentEndpoint");
 
@@ -62,8 +62,12 @@ class Categories extends FilterComponentEndpoint {
 
         const primaryCategories = [settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories];
         let catAliases = [];
-        /** @type {CategoryDescriptionObj[]} */
-        let catDescriptions = this.getComponentDescriptions(lang);
+        
+        const descriptions = {};
+
+        settings.jokes.possible.categories.forEach(category => {
+            descriptions[category] = tr.getFilterComponentDescription(lang, "categories", category);
+        });
 
         Object.keys(settings.jokes.possible.categoryAliases).forEach(key => {
             catAliases.push({
@@ -76,9 +80,9 @@ class Categories extends FilterComponentEndpoint {
         {
             responseObj = {
                 "error": false,
-                "categories": primaryCategories,
                 "categoryAliases": catAliases,
-                "categoryDescriptions": catDescriptions,
+                "categories": primaryCategories,
+                "descriptions": descriptions,
                 "timestamp": Date.now()
             };
         }
@@ -86,9 +90,9 @@ class Categories extends FilterComponentEndpoint {
         {
             responseObj = {
                 "error": false,
-                "categories": {"category": primaryCategories},
-                "categoryAliases": {"categoryAlias": catAliases},
-                "categoryDescriptions": {"description": catDescriptions},
+                "categories": { "category": primaryCategories },
+                "descriptions": { "description": descriptions },
+                "categoryAliases": { "categoryAlias": catAliases },
                 "timestamp": Date.now()
             };
         }

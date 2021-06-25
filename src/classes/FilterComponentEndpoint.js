@@ -1,9 +1,6 @@
 const debug = require("../debug");
 const Endpoint = require("./Endpoint");
 
-// const filterComponentsTrFile = require(`../../${settings.jokes.possible.filterComponentTranslationFile}`);
-const filterComponentsTrFile = require("../../data/translations/filterComponents.json");
-
 
 /** @typedef {"categories"|"flags"|"formats"|"types"} FilterComponentName */
 
@@ -22,39 +19,7 @@ class FilterComponentEndpoint extends Endpoint {
     {
         super(pathName, meta);
 
-
-        this._componentDescriptions = {};
-
-        let trKeys = Object.keys(filterComponentsTrFile.tr[filterComponentName]);
-
-        trKeys.forEach((trKey, i) => {
-            Object.keys(filterComponentsTrFile.tr[filterComponentName][trKey]).forEach(langCode => {
-                if(i == 0)
-                    this._componentDescriptions[langCode] = [];
-                
-                this._componentDescriptions[langCode].push({
-                    name: trKey,
-                    description: filterComponentsTrFile.tr[filterComponentName][trKey][langCode]
-                })
-            });
-        });
-
         debug("FilterComponentEndpoint", `Instantiated filter component endpoint "${filterComponentName}" at /${pathName}/`);
-    }
-
-    /**
-     * Returns all descriptions of this component
-     * @param {string} lang Language code
-     * @returns {Object|null} Returns `null` if no decsriptions were found
-     */
-    getComponentDescriptions(lang)
-    {
-        const descs = this._componentDescriptions[lang];
-
-        if(!Array.isArray(descs))
-            return null;
-
-        return descs;
     }
 }
 

@@ -1,6 +1,6 @@
 const { unused } = require("svcorelib");
 
-// const tr = require("../translate");
+const tr = require("../../translate");
 const Endpoint = require("../../classes/Endpoint");
 const FilterComponentEndpoint = require("../../classes/FilterComponentEndpoint");
 
@@ -48,14 +48,18 @@ class Formats extends FilterComponentEndpoint {
         let responseObj = {};
 
 
-        let fmtDescriptions = this.getComponentDescriptions(lang);
+        const descriptions = {};
+
+        settings.jokes.possible.formats.forEach(format => {
+            descriptions[format] = tr.getFilterComponentDescription(lang, "formats", format);
+        });
 
         if(format != "xml")
         {
             responseObj = {
                 "error": false,
                 "formats": settings.jokes.possible.formats,
-                "formatDescriptions": fmtDescriptions,
+                "descriptions": descriptions,
                 "timestamp": Date.now()
             };
         }
@@ -63,8 +67,8 @@ class Formats extends FilterComponentEndpoint {
         {
             responseObj = {
                 "error": false,
-                "formats": {"format": settings.jokes.possible.formats},
-                "formatDescriptions": {"description": fmtDescriptions},
+                "formats": { "format": settings.jokes.possible.formats },
+                "descriptions": { "description": descriptions },
                 "timestamp": Date.now()
             };
         }

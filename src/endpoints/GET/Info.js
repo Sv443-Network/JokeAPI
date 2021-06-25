@@ -1,4 +1,6 @@
 const scl = require("svcorelib");
+
+const main = require("../../main");
 const parseJokes = require("../../parseJokes");
 const languages = require("../../languages");
 const settings = require("../../../settings");
@@ -86,13 +88,14 @@ class Info extends Endpoint {
                 "jokeLanguages": supportedLangsLength,
                 "systemLanguages": systemLanguagesLength,
                 "info": translate(lang, "messageOfTheDay", settings.info.name),
+                "splash": main.getSplash(lang),
                 "baseServerLatencyMs": (now - httpMetrics.requestArrival.getTime()),
                 "timestamp": Date.now()
             };
         }
         else if(format == "xml")
         {
-            const versionIntNames = [ "Major", "Minor", "Patch" ];
+            const versionIntNames = [ "major", "minor", "patch" ];
             let versionIntXml = {};
 
             settings.info.versionInt.forEach((ver, i) => {
@@ -118,6 +121,7 @@ class Info extends Endpoint {
                 "jokeLanguages": supportedLangsLength,
                 "systemLanguages": systemLanguagesLength,
                 "info": translate(lang, "messageOfTheDay", settings.info.name),
+                "splash": main.getSplash(lang),
                 "baseServerLatencyMs": (now - httpMetrics.requestArrival.getTime()),
                 "timestamp": Date.now()
             };

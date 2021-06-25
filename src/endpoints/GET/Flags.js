@@ -1,6 +1,6 @@
 const { unused } = require("svcorelib");
 
-// const tr = require("../translate");
+const tr = require("../../translate");
 const Endpoint = require("../../classes/Endpoint");
 const FilterComponentEndpoint = require("../../classes/FilterComponentEndpoint");
 
@@ -48,14 +48,18 @@ class Flags extends FilterComponentEndpoint {
         let responseObj = {};
 
 
-        let flagDescriptions = this.getComponentDescriptions(lang);
+        const descriptions = {};
+
+        settings.jokes.possible.flags.forEach(flag => {
+            descriptions[flag] = tr.getFilterComponentDescription(lang, "flags", flag);
+        });
 
         if(format != "xml")
         {
             responseObj = {
                 "error": false,
                 "flags": settings.jokes.possible.flags,
-                "flagDescriptions": flagDescriptions,
+                "descriptions": descriptions,
                 "timestamp": Date.now()
             };
         }
@@ -63,8 +67,8 @@ class Flags extends FilterComponentEndpoint {
         {
             responseObj = {
                 "error": false,
-                "flags": {"flag": settings.jokes.possible.flags},
-                "flagDescriptions": {"description": flagDescriptions},
+                "flags": { "flag": settings.jokes.possible.flags },
+                "descriptions": { "description": descriptions },
                 "timestamp": Date.now()
             };
         }
