@@ -1406,7 +1406,9 @@ None. It's a hardware problem.
 
                 <!-- #MARKER Examples -->
                 <div class="docHeader targetBlink" id="examples"><a class="headerAnchorContainer" href="#examples" title="Click to link to this header">§</a><span class="docHeaderText">Examples:</span></div>
-                These are some examples in some commonly used languages to show you how you could implement <!--%#INSERT:NAME#%-->:<br><br>
+                These are some examples in some commonly used languages to show you how you could implement <!--%#INSERT:NAME#%-->.<br>
+                If you want to submit an example snippet, please <a href="<%#INSERT:PROJGITHUBURL#%>/issues/new/choose" target="_blank">open an issue.</a><br>
+                <br>
 
                 <!--#SECTION Node-->
                 <details><summary id="example-node" class="big">Node.js (click to show)</summary>
@@ -1448,7 +1450,7 @@ https.get(`${baseURL}/joke/${categories.join(",")}?${params.join("&")}`, res => 
         // On error, log to console
         console.error(`Error: ${err}`);
     });
-});</div></code>
+});</div></code><br>
                 </details><br>
 
                 <!--#SECTION Web-JS-->
@@ -1478,7 +1480,7 @@ async function alertJoke()
     }
 }
 
-alertJoke();</div></code>
+alertJoke();</div></code><br>
                 </details><br>
 
                 <!--#SECTION C#-->
@@ -1507,7 +1509,7 @@ namespace JokeAPIExample
             return joke;
         }
     }
-}</div></code>
+}</div></code><br>
                 </details><br>
 
 
@@ -1587,8 +1589,10 @@ namespace JokeAPIExample
 
         public bool @explicit { get; set; }
     }
-}</div></code>
+}</div></code><br>
                 </details><br>
+                <br>
+
 
 
                 <!-- #MARKER Terminology -->
@@ -1798,6 +1802,7 @@ namespace JokeAPIExample
                     These are the packages <!--%#INSERT:NAME#%--> depends on (excluding dependencies of dependencies and devDependencies):
                     <ul>
                         <li><a href="https://npmjs.com/package/@pm2/io" target="_blank">@pm2/io</a></li>
+                        <li><a href="https://npmjs.com/package/clipboardy" target="_blank">clipboardy</a></li>
                         <li><a href="https://npmjs.com/package/dotenv" target="_blank">dotenv</a></li>
                         <li><a href="https://npmjs.com/package/farmhash" target="_blank">farmhash</a></li>
                         <li><a href="https://npmjs.com/package/fs-extra" target="_blank">fs-extra</a></li>
