@@ -67,6 +67,18 @@
                 "ru": "Возвращает список поддерживаемых форматов ответа"
             }
         },
+        "types": {
+            "name": {
+                "en": "Joke Types",
+                "de": "Witz-Typen",
+                "ru": "Типы шуток"
+            },
+            "desc": {
+                "en": "Returns a list of supported joke types",
+                "de": "Gibt eine Liste der unterstützten Witz-Typen zurück",
+                "ru": "Возвращает список поддерживаемых типов шуток"
+            }
+        },
         "info": {
             "name": {
                 "en": "Information",

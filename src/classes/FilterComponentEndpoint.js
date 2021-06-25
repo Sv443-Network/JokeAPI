@@ -5,9 +5,7 @@ const Endpoint = require("./Endpoint");
 const filterComponentsTrFile = require("../../data/translations/filterComponents.json");
 
 
-/**
- * @typedef {"categories"|"formats"} FilterComponentName
- */
+/** @typedef {"categories"|"flags"|"formats"|"types"} FilterComponentName */
 
 /**
  * Base class for all filter component endpoints (/categories/, /flags/, /formats/, etc.)

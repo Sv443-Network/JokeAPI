@@ -38,7 +38,7 @@ class Endpoints extends Endpoint {
 
         super("endpoints", meta);
 
-        this.endpoints = this.readEndpoints();
+        this.endpoints = this.readEndpoints(settings.languages.defaultLanguage);
     }
 
     /**
