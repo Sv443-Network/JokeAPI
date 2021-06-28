@@ -56,6 +56,20 @@ class ClearData extends SubmissionEndpoint {
         {
             const deletedEntries = await this.clearJokeCache(ip, lang);
 
+
+            let clientDataDeleted = false;
+            try
+            {
+                await this.clearClientData(ip);
+                clientDataDeleted = true;
+            }
+            catch(err)
+            {
+                unused(err);
+                clientDataDeleted = false;
+            }
+
+
             if(deletedEntries == 0)
             {
                 responseObj = {
@@ -64,6 +78,7 @@ class ClearData extends SubmissionEndpoint {
                         "message": tr(lang, "jokeCacheClearNoEntries"),
                         "entriesDeleted": 0
                     },
+                    clientDataDeleted,
                     "timestamp": Date.now()
                 };
             }
@@ -75,6 +90,7 @@ class ClearData extends SubmissionEndpoint {
                         "message": tr(lang, "jokeCacheCleared", deletedEntries.toString()),
                         "cacheEntriesDeleted": deletedEntries
                     },
+                    clientDataDeleted,
                     "timestamp": Date.now()
                 };
             }
@@ -89,11 +105,14 @@ class ClearData extends SubmissionEndpoint {
                     "message": err.toString(),
                     "cacheEntriesDeleted": 0
                 },
+                "clientDataDeleted": false,
                 "timestamp": Date.now()
             }
         }
-
-        return Endpoint.respond(res, format, lang, responseObj, statusCode);
+        finally
+        {
+            Endpoint.respond(res, format, lang, responseObj, statusCode);
+        }
     }
 
     //#MARKER clear methods
@@ -107,12 +126,30 @@ class ClearData extends SubmissionEndpoint {
      */
     clearJokeCache(ip, lang)
     {
-        return new Promise((pRes, pRej) => {
-            jokeCache.cache.clearEntries(ip).then(amt => {
+        return new Promise(async (pRes, pRej) => {
+            try
+            {
+                const amt = await jokeCache.cacheInstance.clearEntries(ip);
                 return pRes(amt);
-            }).catch(err => {
+            }
+            catch(err)
+            {
                 return pRej(tr(lang, "jokeCacheClearError", err.toString()));
-            });
+            }
+        });
+    }
+
+    /**
+     * Clears the client data.  
+     * Resolves void, rejects with an error message
+     * @param {string} ip The IP hash of the client
+     * @returns {Promise<void, string>}
+     */
+    clearClientData(ip)
+    {
+        return new Promise(async (res, rej) => {
+            unused(ip, rej);
+            return res();
         });
     }
 }

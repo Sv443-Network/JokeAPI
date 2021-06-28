@@ -112,7 +112,7 @@ class JokeCache
 
             if(!isValidLang(langCode))
                 throw new TypeError(`Parameter "langCode" is not a valid language code`);
-            
+
             const insValues = [
                 this.table,
                 clientIpHash,

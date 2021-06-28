@@ -8,9 +8,16 @@ const JokeCache = require("./classes/JokeCache");
 const settings = require("../settings");
 
 
+/**
+ * @typedef {object} ConnectionInfo
+ * @prop {boolean} connected
+ * @prop {string} info
+ */
+
 /** @type {JokeCache} Globally usable joke cache instance. Always use this instance to modify the cache! */
-var cache;
-module.exports.cache = cache;
+var cacheInstance;
+module.exports.cacheInstance = cacheInstance;
+/** @type {ConnectionInfo} */
 module.exports.connectionInfo = {};
 
 
@@ -58,9 +65,9 @@ function init()
                                 connected: true,
                                 info: `${settings.sql.host}:${settings.sql.port}/${settings.sql.database}`
                             };
-                            
-                            cache = new JokeCache(dbConnection);
-                            module.exports.cache = cache;
+
+                            cacheInstance = new JokeCache(dbConnection);
+                            module.exports.cacheInstance = cacheInstance;
 
                             return pRes();
                         }
