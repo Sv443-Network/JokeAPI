@@ -17,6 +17,7 @@ dev/madge/
 dependency-graph.html
 test.js
 !tools/test.js
+changelog-data.json
 
 # Docs:
 docs/documentation.html
