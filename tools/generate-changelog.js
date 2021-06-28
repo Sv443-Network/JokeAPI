@@ -181,7 +181,8 @@ function writeMD(
                 /PR #(\d{1,})/g,
                 "[pull request #$1](https://github.com/Sv443/JokeAPI/pull/$1)"
             )
-        + `<br><br><br>\n\nThis file was auto-generated from the source file at [./${options.SOURCE_FILE}](./${options.SOURCE_FILE})`
+        + `<br><br><br>\n\n<div style="text-align: center;" align="center">\n\nThis file was auto-generated from the source file at [./${options.SOURCE_FILE}](./${options.SOURCE_FILE})  \n`
+        + `Thanks to [@sahithyandev](https://github.com/sahithyandev) for this feature :)\n\n</div>`
     );
 
     console.log(`\x1b[32m\x1b[1mGenerated changelog at ./${options.OUTPUT_FILE}\n\x1b[0m`);

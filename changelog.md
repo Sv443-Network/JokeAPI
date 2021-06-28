@@ -43,16 +43,8 @@
 <br><br><br>
 
 ## 2.4.0  
-#### TODO: The Big Caching Fix ([pull request #239](https://github.com/Sv443/JokeAPI/pull/239))
-- Fixes:
-    - Finally fixed joke ID caching once and for all (I hope) ([issue #238](https://github.com/Sv443/JokeAPI/issues/238))
-    - Fixed C# code example in documentation once again ([issue #237](https://github.com/Sv443/JokeAPI/issues/237))
-    - Fixed broken Try-It section result when using format=xml ([issue #232](https://github.com/Sv443/JokeAPI/issues/232))
-    - Replaced deprecated function fs.exists() throughout the API ([issue #230](https://github.com/Sv443/JokeAPI/issues/230))
-- Additions:
-    - Added safe mode toggle to Try-It section ([issue #231](https://github.com/Sv443/JokeAPI/issues/231))
-    - Added easily parseable info about faulty parameters when doing a submission dry run ([issue #209](https://github.com/Sv443/JokeAPI/issues/209))
-    - Added flag and category descriptions ([issue #201](https://github.com/Sv443/JokeAPI/issues/201))
+#### IMPORTANT:TODO: The Big Caching Fix ([pull request #239](https://github.com/Sv443/JokeAPI/pull/239))
+changelog will be added just before the release, until then just look at [pull request #239](https://github.com/Sv443/JokeAPI/pull/239)
 
 
 <br><br><br>
@@ -342,4 +334,9 @@
 
 <br><br><br>
 
-This file was auto-generated from the source file at [./changelog.txt](./changelog.txt)
+<div style="text-align: center;" align="center">
+
+This file was auto-generated from the source file at [./changelog.txt](./changelog.txt)  
+Thanks to [@sahithyandev](https://github.com/sahithyandev) for this feature :)
+
+</div>
