@@ -51,7 +51,7 @@ class Ping extends Endpoint
         const data = {
             "error": false,
             "ping": main.getSplash(lang),
-            "baseServerLatencyMs": (now - httpMetrics.requestArrival.getTime()),
+            "serverLatency": (now - httpMetrics.requestArrival.getTime()),
             "timestamp": now
         };
 

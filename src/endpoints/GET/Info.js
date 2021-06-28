@@ -89,7 +89,7 @@ class Info extends Endpoint {
                 "systemLanguages": systemLanguagesLength,
                 "info": translate(lang, "messageOfTheDay", settings.info.name),
                 "splash": main.getSplash(lang),
-                "baseServerLatencyMs": (now - httpMetrics.requestArrival.getTime()),
+                "serverLatency": (now - httpMetrics.requestArrival.getTime()),
                 "timestamp": Date.now()
             };
         }
@@ -122,7 +122,7 @@ class Info extends Endpoint {
                 "systemLanguages": systemLanguagesLength,
                 "info": translate(lang, "messageOfTheDay", settings.info.name),
                 "splash": main.getSplash(lang),
-                "baseServerLatencyMs": (now - httpMetrics.requestArrival.getTime()),
+                "serverLatency": (now - httpMetrics.requestArrival.getTime()),
                 "timestamp": Date.now()
             };
         }
