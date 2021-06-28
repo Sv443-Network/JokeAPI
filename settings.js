@@ -36,7 +36,7 @@ const settings = {
             github: `https://github.com/${packageJSON.author.name}`, // author github page
         },
         privacyPolicyUrl: "https://sv443.net/privacypolicy/en",
-        contribGuideUrl: "https://github.com/Sv443/JokeAPI/blob/master/.github/Contributing.md",
+        contribGuideUrl: "https://github.com/Sv443/JokeAPI/blob/master/.github/Contributing.md#readme",
     },
     /** Settings for the API wrapping, powered by my package "node-wrap" */
     wrapper: {

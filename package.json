@@ -65,6 +65,13 @@
       "contributions": [
         "Added changelog in Markdown format"
       ]
+    },
+    {
+      "name": "Afarfeel",
+      "url": "https://github.com/Afarfeel",
+      "contributions": [
+        "Added Italian translation"
+      ]
     }
   ],
   "license": "MIT",
