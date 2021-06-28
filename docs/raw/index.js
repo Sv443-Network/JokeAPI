@@ -367,18 +367,7 @@ function onLoad()
 
     gebid("lcodeSelect").value = settings.defaultLang;
 
-    var abElems = document.getElementsByClassName("antiBotE");
-    for(var l = 0; l < abElems.length; l++)
-    {
-        abElems[l].onclick = function()
-        {
-            if(!this.classList.contains("shown"))
-            {
-                this.innerText = atob(this.dataset.enc);
-                this.classList.add("shown");
-            }
-        }
-    }
+    addDecodeListeners();
 
     gebid("lcodeSelect").value = settings.defaultLang;
     gebid("lcodeSelect").onchange = function() { reRender(true) };
@@ -1141,31 +1130,74 @@ function loadContributors()
         var contrElem = document.createElement("div");
         contrElem.classList.add("contributor");
 
-        var name = document.createElement("div");
-        name.classList.add("contributorName");
-        name.innerText = contributor.name;
-        contrElem.appendChild(name);
 
-        if(typeof contributor.email == "string")
-        {
-            var email = document.createElement("a");
-            email.href = "mailto:" + contributor.email + "?subject=JokeAPI%20Contribution";
-            email.innerText = contributor.email;
-            email.classList.add("contributorEmail");
-            email.classList.add("contributorContact");
-            contrElem.appendChild(email);
-        }
+        //#SECTION header
+        var contribHeader = document.createElement("div");
+        contribHeader.classList.add("contributorHeader");
 
+        // name
+        var contribNameElem = document.createElement("div");
+        contribNameElem.classList.add("contributorName");
+        contribNameElem.innerText = contributor.name;
+        contribHeader.appendChild(contribNameElem);
+
+        // links container
+        var contribLinksContainer = document.createElement("div");
+        contribLinksContainer.classList.add("contributorLinksContainer");
+
+        // left parenthesis
+        var contribLinksParensL = document.createElement("span");
+        contribLinksParensL.innerText = "(";
+        contribLinksParensL.classList.add("noselect");
+        contribLinksContainer.appendChild(contribLinksParensL);
+
+        // contributor URL
         if(typeof contributor.url == "string")
         {
             var url = document.createElement("a");
             url.href = contributor.url;
+            url.target = "_blank";
             url.innerText = contributor.url;
             url.classList.add("contributorURL");
             url.classList.add("contributorContact");
-            contrElem.appendChild(url);
+            contribLinksContainer.appendChild(url);
         }
 
+        // contributor mail
+        if(typeof contributor.email == "string")
+        {
+            if(typeof contributor.url == "string")
+            {
+                var bullElem = document.createElement("span");
+                bullElem.innerText = " • ";
+                bullElem.classList.add("contributorBull");
+                bullElem.classList.add("noselect");
+                contribLinksContainer.appendChild(bullElem);
+            }
+
+            var email = document.createElement("span");
+            email.classList.add("antiBotE");
+            email.dataset.enc = btoa(contributor.email);
+            // email.href = "mailto:" + contributor.email + "?subject=About%20your%20JokeAPI%20contribution";
+            // email.innerText = contributor.email;
+            email.innerText = "Click to show E-Mail";
+            email.classList.add("contributorEmail");
+            email.classList.add("contributorContact");
+            contribLinksContainer.appendChild(email);
+        }
+
+        // right parenthesis
+        var contribLinksParensR = document.createElement("span");
+        contribLinksParensR.innerText = ")";
+        contribLinksParensR.classList.add("noselect");
+        contribLinksContainer.appendChild(contribLinksParensR);
+
+        contribHeader.appendChild(contribLinksContainer);
+
+        contrElem.appendChild(contribHeader);
+
+
+        //#SECTION contribution list
         if(Array.isArray(contributor.contributions))
         {
             var contributionList = document.createElement("ul");
@@ -1181,7 +1213,11 @@ function loadContributors()
         container.appendChild(contrElem);
     });
 
+    addDecodeListeners();
+
     /*
+    package.json contributors array format:
+
     [
         {
             "name": "XY",
@@ -1197,6 +1233,27 @@ function loadContributors()
         ...
     ]
     */
+}
+
+function addDecodeListeners()
+{
+    var abElems = document.getElementsByClassName("antiBotE");
+
+    for(var l = 0; l < abElems.length; l++)
+    {
+        if(!abElems[l].classList.contains("addedListener"))
+        {
+            abElems[l].onclick = function()
+            {
+                if(!this.classList.contains("shown"))
+                {
+                    this.innerText = atob(this.dataset.enc);
+                    this.classList.add("shown");
+                }
+            }
+            abElems[l].classList.add("addedListener");
+        }
+    }
 }
 
 /**

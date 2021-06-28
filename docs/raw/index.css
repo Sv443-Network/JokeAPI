@@ -565,6 +565,8 @@ ul.lispacer li {
 
 .antiBotE.shown {
     font-family: "Roboto Mono", "Cascadia Code", "Courier New", monospace;
+    text-decoration: none;
+    cursor: text;
 }
 
 /*#SECTION Endpoints*/
@@ -723,22 +725,38 @@ textarea {
 /* #SECTION contributors */
 
 #contributorsContainer .contributor {
-    margin-top: 30px;
+    margin-top: 35px;
 }
 
 #contributorsContainer .contributor .contributorName {
-    font-size: 115%;
-    font-weight: 125%;
+    font-size: 1em;
+
+    display: inline-block;
+}
+
+.contributorEmail {
+    display: inline-block;
 }
 
 #contributorsContainer .contributor .contributorContact {
     display: inline;
 }
 
-#contributorsContainer .contributor .contributorContact:after {
-    content:"\a";
-    white-space: pre;
+.contributorLinksContainer {
+    font-size: 0.8em;
+
+    margin-left: 10px;
+    display: inline-block;
 }
+
+.contributorContributionsList {
+    font-size: 0.9em;
+}
+
+/* #contributorsContainer .contributor .contributorContact:after {
+    content: "\a";
+    white-space: pre;
+} */
 
 /*#MARKER sidenav*/
 #sidenav {
