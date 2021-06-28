@@ -17,11 +17,11 @@
             "it": "Test. Ciao mondo!"
         },
         "messageOfTheDay": {
-            "en": "If you want to stay up to date on the status and future updates of %1 or need some help, consider joining my Discord server: https://sv443.net/discord",
-            "de": "Wenn du über den Status und die zukünftigen Updates von %1 auf dem Laufenden bleiben willst oder Hilfe benötigst, kannst du auf meinen Discord-Server kommen: https://sv443.net/discord",
-            "ru": "Если вы хотите быть в курсе состояния и будущих обновлений %1 или вам нужна помощь, вы можете прийти на мой Discord-сервер: https://sv443.net/discord",
-            "cs": "Pokud chcete zůstat informováni o stavu a budoucích aktualizací %1 nebo potřebujete pomoc, zvažte připojení ke mému Discord serveru : https://sv443.net/discord",
-            "it": "Se vuoi aggiornamenti sullo stato e migliorie future del %1 oppure hai bisogno di aiuto, considera di unirti al mio server Discord: https://sv443.net/discord"
+            "en": "If you want to stay up to date on the status and future updates of %1 or need some help, consider joining my Discord server: https://dc.sv443.net/",
+            "de": "Wenn du über den Status und die zukünftigen Updates von %1 auf dem Laufenden bleiben willst oder Hilfe benötigst, kannst du auf meinen Discord-Server kommen: https://dc.sv443.net/",
+            "ru": "Если вы хотите быть в курсе состояния и будущих обновлений %1 или вам нужна помощь, вы можете прийти на мой Discord-сервер: https://dc.sv443.net/",
+            "cs": "Pokud chcete zůstat informováni o stavu a budoucích aktualizací %1 nebo potřebujete pomoc, zvažte připojení ke mému Discord serveru: https://dc.sv443.net/",
+            "it": "Se vuoi aggiornamenti sullo stato e migliorie future del %1 oppure hai bisogno di aiuto, considera di unirti al mio server Discord: https://dc.sv443.net/"
         },
         "generalInternalError": {
             "en": "There was an internal error: %1",
@@ -474,8 +474,8 @@
         "parseJokesCantParseJson": {
             "en": "Joke couldn't be parsed as JSON.",
             "de": "Joke konnte nicht als JSON geparst werden.",
-            "ru": "Шутка не может быть разбита на JSON.",,
-            "cs": "Vtip nelze parsovat jako JSON"
+            "ru": "Шутка не может быть разбита на JSON.",
+            "cs": "Vtip nelze parsovat jako JSON",
             "it": "Barzelletta non può essere formattata come JSON"
         },
         "langModuleInitError": {
