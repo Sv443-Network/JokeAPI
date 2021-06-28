@@ -117,11 +117,11 @@ This is a list of tags that should always be considered when writing a JSDoc com
 | `@param` | `@param {number} amount` | Describes the type of a certain function / method parameter |
 | `@returns` | `@returns {boolean}` | Describes the type of the returned value of a function / method |
 | `@since` | `@since 2.4.0` | Describes the version at which this feature was *first* added |
-| `@version` | `@version 2.4.1` | Describes a certain change to a feature and at which version it was introduced |
-| `@throws` | `@throws TypeError` | Describes what kind of error could be thrown by a function / method and when |
+| `@version` | `@version 2.4.1 Changed xy` | Describes a certain change to a feature and at which version it was introduced |
+| `@throws` | `@throws {TypeError} when xy` | Describes what kind of error could be thrown by a function / method and when |
 | `@static` | `@static` | Describes that a [method is static](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static) |
-| `@private` | `@tag xyz` | Describes that a [method is private](https://javascript.info/private-protected-properties-methods) |
-| `@deprecated` | `@deprecated Since v2.1.0` | Describes that a feature was deprecated and should not be used anymore |
+| `@private` | `@private` | Describes that a [method is private](https://javascript.info/private-protected-properties-methods) |
+| `@deprecated` | `@deprecated Since v2.1.0, use xy` | Describes that a feature was deprecated and should not be used anymore |
 | `@author` | `@author Sv443` | Describes who made this feature |
 | `@type` | `@type {number}` | Sets the type of the next variable |
 | `@typedef` | `@typedef {Object} MyCustomType` | Declares a custom type |
