@@ -29,7 +29,7 @@ class ClearData extends SubmissionEndpoint {
             }
         };
 
-        super("clearData", meta);
+        super("cleardata", meta);
     }
 
     /**
