@@ -966,22 +966,21 @@ None. It's a hardware problem.
                         <td>There was a general internal error within <!--%#INSERT:NAME#%-->. You can get more info from the properties in the response text</td>
                     </tr>
                     <tr>
-                        <td class="dr">523</td>
-                        <td>Origin Unreachable</td>
-                        <td>My server is temporarily offline due to maintenance or a dynamic IP update. Please be patient in this case.</td>
+                        <td class="dr">&gt; 500</td>
+                        <td>Server Unreachable</td>
+                        <td>My server is temporarily offline due to maintenance or a dynamic IP update. Please be patient in this case or contact me if the downtime persists</td>
                     </tr>
                 </table>
                 
                 <br>
 
-                <mark>
-                    <span class="col g">Success</span> &bull; <span class="col r">Client Error</span> &bull; <span class="col dr">Server Error</span>
-                </mark>
+                Colors: <span class="col g">Success [2xx]</span> &bull; <span class="col r">Client Error [4xx]</span> &bull; <span class="col dr">Server Error [5xx]</span>
+
 
 
                 <!-- #MARKER Troubleshooting -->
                 <div class="docHeader targetBlink" id="troubleshooting"><a class="headerAnchorContainer" href="#troubleshooting" title="Click to link to this header">§</a><span class="docHeaderText">Troubleshooting:</span></div>
-                <span class="subHeader">HTTP Error 403:</span>
+                <div class="subHeaderContainer"><a href="#error-403" title="Click to link to this header">§</a> <span class="subHeader" id="error-403">HTTP Error 403:</span></div>
                 First, please check if you can access all endpoints with your web browser. If not, your IP address has most likely been acting malicious and was permanently blacklisted.<br>
                 If you keep getting HTTP 403 (Forbidden) response codes in your program but not in your browser and have never shown malicious behavior before, the issue is most likely that Cloudflare is blocking your request.<br>
                 This might be due to inconsistent request data or headers that are often used in malicious requests or cyber attacks (most of the time it's gonna be the fault of the library you are using).<br>
@@ -989,10 +988,12 @@ None. It's a hardware problem.
                 This is the user agent of your browser which you should be able to use in the fix described above:<br>
                 <mark id="insUserAgent">(Something didn't work, please enter "navigator.userAgent" without quotes in your JavaScript console instead)</mark><br><br>
 
-                <span class="subHeader">HTTP Error 429:</span>
+                <div class="subHeaderContainer"><a href="#error-429" title="Click to link to this header">§</a> <span class="subHeader" id="error-429">HTTP Error 429:</span></div>
                 You will get 429 errors occasionally if you exceed the maximum of <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute.<br>
                 In this case, you will need to wait up to one minute to be able to talk to the API again.<br>
-                If you want to index the API or fetch all jokes, are better off going to the <a href="<!--%#INSERT:PROJGITHUBURL#%-->" target="_blank">GitHub repository</a>, where you will find everything you need and you don't need to spam <!--%#INSERT:NAME#%-->.
+                You can find more info on rate limiting <a href="#rate-limiting">in this section.</a><br>
+                <br>
+                If you want to index the API or fetch all jokes, you are better off going to the <a href="<!--%#INSERT:PROJGITHUBURL#%-->" target="_blank">GitHub repository</a>, where you will find everything you need and you don't need to spam <!--%#INSERT:NAME#%-->.<br>
 
 
                 <!-- #MARKER Endpoints -->
@@ -1009,7 +1010,7 @@ None. It's a hardware problem.
                 </span>
                 <br><br>
                 This endpoint is the one you want to call to get a joke.<br>
-                A valid <a href="#categories">joke category</a> or multiple joke categories, delimited with a comma, plus or minus character (, + -) must be provided in the URL.<br>
+                A valid <a href="#categories">joke category</a> or multiple joke categories, delimited with a comma or plus or minus character (, + -), must be provided in the URL.<br>
                 These are all the available categories: <mark class="insCategories">(Loading...)</mark><br>
                 To see how this URL is built with certain parameters set, <a href="#try-it">visit the "Try It" section.</a><br>
                 <details>
@@ -1017,7 +1018,7 @@ None. It's a hardware problem.
                     <span class="requestURLwrapper">
                         <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/joke/Programming,Misc?format=xml&blacklistFlags=nsfw,sexist&type=single&lang=ru&amount=2</span>
                     </span><br><br>
-                    Will give two Russian joke from either the Programming or the Misc category, with the payload <a href="#response-formats">format</a> XML,<br>
+                    Will give two Russian jokes from either the Programming or the Misc category, with the payload <a href="#response-formats">format</a> XML,<br>
                     with the <a href="#joke-type">joke type</a> "single", while also preventing all jokes that are potentially not safe for work and sexist from being served.
                 </details>
                 <br><br>
@@ -1216,7 +1217,7 @@ None. It's a hardware problem.
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/ping</span>
                 </span>
                 <br><br>
-                This endpoint returns a parameter named "ping" that contains the word "Pong!" and a 13-character UNIX timestamp.<br>
+                This endpoint returns a parameter named "ping" that contains a splash text in the provided language and a 13-character UNIX timestamp.<br>
                 Since v2.4.0 it now also shows the internal server latency in milliseconds, between request arrival and the response being sent.<br>
                 <br>
                 This endpoint is intended for external uptime monitoring but you can also use it if you want to to sync time or check for uptime.
@@ -1250,14 +1251,17 @@ None. It's a hardware problem.
                 <!--#SECTION Submit-->
                 <div class="subHeaderContainer"><a href="#submit-endpoint" title="Click to link to this header">§</a> <span id="submit-endpoint" class="subHeader">Submit Joke:</span></div>
                 <span class="requestURLwrapper">
-                    <span class="requestMethodPUT">POST</span>
+                    <span class="requestMethodPOST">POST</span>
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/submit</span>
                 </span>
-                <br><br>
+                <br>
+                <br>
                 This endpoint is used to programatically submit a joke to be reviewed and added to <!--%#INSERT:NAME#%-->'s official jokes.<br>
-                If you instead just want to manually submit a joke, please <a href="#submit">click here.</a><br><br>
-                To ensure backwards compatibility you can use the <mark>PUT</mark> method even though it is discouraged.<br>
-                Using the <mark>PUT</mark> method might be deprecated in the future.<br><br>
+                If you instead just want to manually submit a joke, please <a href="#submit">click here.</a><br>
+                <br>
+                To ensure backwards compatibility you can still use the <mark>PUT</mark> method even though it is highly discouraged.<br>
+                Support for the <mark>PUT</mark> method will be removed in the future.<br>
+                <br>
                 The payload needs to be sent as JSON. Different <a href="#response-formats">formats</a> are not allowed here.<br>
                 The request payload has to follow the same object structure that the jokes are served in when using the "joke" endpoint.<br>
                 <br>
@@ -1274,8 +1278,8 @@ None. It's a hardware problem.
                 This functionality can be used to check if a joke is valid / what is wrong with it without having the joke actually submitted to the API.<br>
                 <br>
                 If the joke is valid and the server accepted the submission, you will get a response with the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201" target="_blank">status code 201.</a><br>
-
                 <br>
+
 <code class="prettyprint"><span class="nocode codeheader">Example Payload:</span>
 <div class="actualCode">{
     "formatVersion": <!--%#INSERT:FORMATVERSION#%-->,
@@ -1343,7 +1347,7 @@ None. It's a hardware problem.
 
                                     <div class="subHeaderContainer"><a href="#clear-data-endpoint" title="Click to link to this header">§</a> <span id="clear-data-endpoint" class="subHeader">Clear Data:</span></div>
                                     <span class="requestURLwrapper">
-                                        <span class="requestMethodPUT">POST</span>
+                                        <span class="requestMethodPOST">POST</span>
                                         <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/cleardata</span>
                                     </span>
                                     <br><br>
@@ -1407,7 +1411,7 @@ None. It's a hardware problem.
 
 
                 <!-- #MARKER Examples -->
-                <div class="docHeader targetBlink" id="examples"><a class="headerAnchorContainer" href="#examples" title="Click to link to this header">§</a><span class="docHeaderText">Examples:</span></div>
+                <div class="docHeader targetBlink" id="examples"><a class="headerAnchorContainer" href="#examples" title="Click to link to this header">§</a><span class="docHeaderText">Code Examples:</span></div>
                 These are some examples in some commonly used languages to show you how you could implement <!--%#INSERT:NAME#%-->.<br>
                 If you want to submit an example snippet, please <a href="<%#INSERT:PROJGITHUBURL#%>/issues/new/choose" target="_blank">open an issue.</a><br>
                 <br>
@@ -1877,7 +1881,7 @@ namespace JokeAPIExample
                 </details>
                 <a class="noul" onclick="closeNav()" href="#filtering" title="How you can filter jokes">Filtering Jokes</a>
                 <a class="noul" onclick="closeNav()" href="#api-tokens" title="All about <!--%#INSERT:NAME#%-->'s API tokens">API Tokens</a>
-                <a class="noul" onclick="closeNav()" href="#examples" title="Some code examples of how to use <!--%#INSERT:NAME#%-->">Examples</a>
+                <a class="noul" onclick="closeNav()" href="#examples" title="Some code examples of how to use <!--%#INSERT:NAME#%-->">Code Examples</a>
                 <div class="sidenavSpacer"></div>
                 <a class="noul" onclick="closeNav()" href="#errors" title="How errors are structured">Errors</a>
                 <a class="noul" onclick="closeNav()" href="#rate-limiting" title="How <!--%#INSERT:NAME#%--> protects itself against DoS attacks">Rate Limiting</a>
