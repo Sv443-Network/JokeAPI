@@ -4,13 +4,12 @@ const col = scl.colors.fg;
 const bgc = scl.colors.bg;
 
 /**
- * @typedef {Object} Settings Global settings for JokeAPI.
- * (Yes this file is huge but this is intentional to make JokeAPI as dynamic as possible)  
+ * Global settings for JokeAPI.  
+ * (Yes this file is huge but this is intentional to make JokeAPI as dynamic but also configurable as possible)  
  *   
  * - The exported object `settings` can (and should) not be modified at runtime!  
  * - Developer Documentation: settings nodes are referred to like this: `settings.foo.bar`
  */
-
 const settings = {
     /** Settings regarding debugging */
     debug: {
@@ -144,11 +143,11 @@ const settings = {
     httpServer: {
         port: 8076,           // http server port (TCP)
         allowCORS: true,      // whether or not to allow Cross Origin Resource Sharing (CORS)
-        rateLimiting: 120,    // amount of allowed requests per below defined timeframe
+        rateLimiting: 100,    // amount of allowed requests per below defined timeframe
         timeFrame: 60,        // timeframe in seconds
         urlPathOffset: 0,     // example: "/jokeapi/info" with an offset of 1 will only start parsing the path beginning at "info"
         maxPayloadSize: 5120, // max size (in bytes) that will be accepted in a POST / PUT request - if payload exceeds this size, it will abort with status 413
-        maxUrlLength: 250,    // max amount of characters of the URL - if the URL is longer than this, the request will abort with status 414
+        maxUrlLength: 255,    // max amount of characters of the URL - if the URL is longer than this, the request will abort with status 414
         disableCache: true,   // whether or not to disable the cache - default: true (setting to false may prevent the users from getting new jokes without explicit cache control headers)
         infoHeaders: true,    // whether or not to add an informational header about JokeAPI to each request
         reverseProxy: true,   // whether or not JokeAPI's requests are passed through a reverse proxy
@@ -282,8 +281,6 @@ const settings = {
     }
 }
 
-// use Object.freeze() to prevent modifications at runtime:
-const frozenSettings = Object.freeze(settings);
+const frozenSettings = Object.freeze(settings); // use Object.freeze() to prevent modifications at runtime
 
-/** @type {Settings} */
 module.exports = frozenSettings;

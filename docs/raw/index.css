@@ -30,7 +30,7 @@
     --scrollbar-thumb-color: rgba(175, 175, 175, .7);
     --scrollbar-webkit-hover-color: rgba(65, 131, 196, .8);
 
-    --line-height: calc(100% + 4px);
+    --line-height: calc(100% + 7px);
 }
 
 @font-face { 
@@ -364,7 +364,7 @@ table tr td.r, span.col.r {
 }
 
 table tr td.dr, span.col.dr {
-    color: #aa2828;
+    color: #d92727;
 }
 
 .colB {
@@ -590,7 +590,7 @@ body[data-sidenav="opened"] .requestURLwrapper {
     transition: background-color ease-out var(--sidenav-colorblur-speed);
 }
 
-.requestMethodGET, .requestMethodPUT {
+.requestMethodGET, .requestMethodPOST {
     display: inline-block;
     margin-right: 10px;
 
@@ -606,7 +606,7 @@ body[data-sidenav="opened"] .requestURLwrapper {
     color: #7cfc00;
 }
 
-.requestMethodPUT {
+.requestMethodPOST {
     color: #6495ed;
 }
 
