@@ -49,7 +49,7 @@
             "de": "Der angegebene URI (%1 Zeichen) überschreitet die Maximallänge von %2 Zeichen.",
             "ru": "Поставляемый URI (%1 символ) превышает максимально допустимую длину %2 символов.",
             "cs": "Zadaná URI (%1 znaků) překračuje maximální povolenou délku %2 znaků.",
-            "it": "L'URI immesso (%1 znaků) eccede la lunghezza massima di %2 caratteri."
+            "it": "L'URI immesso (%1 caratteri) eccede la lunghezza massima di %2 caratteri."
         },
         "ipBlacklisted": {
             "en": "You were blacklisted by the API and cannot send any requests anymore. If you believe this was done in error, please contact me: %1",
