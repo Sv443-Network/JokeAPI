@@ -1,6 +1,6 @@
 // This module starts the HTTP server, parses the request and calls the requested endpoint
 
-const { unused, filesystem, colors, isEmpty, isArrayEmpty } = require("svcorelib");
+const { unused, filesystem, colors, isEmpty, isArrayEmpty, byteLength } = require("svcorelib");
 const http = require("http");
 const Readable = require("stream").Readable;
 const fs = require("fs-extra");
@@ -30,6 +30,9 @@ const SubmissionEndpoint = require("./classes/SubmissionEndpoint");
 unused("types:", RateLimiterRes, Endpoint, SubmissionEndpoint);
 
 
+/** @typedef {import("./docs.js").EncodingName} EncodingName */
+
+
 module.exports.dataEndpoints = [];
 module.exports.submissionEndpoints = [];
 
@@ -56,6 +59,10 @@ const submissionEndpoints = [];
  * @prop {Endpoint} instance An instance of the endpoint subclass. Use this to call the endpoint, execute base class methods, etc.
  */
 
+/**
+ * Initializes the HTTP server
+ * @returns {Promise<object>}
+ */
 function init()
 {
     /** Time that should be deducted from the initialization time (for operations that shouldn't be profiled) */
@@ -907,24 +914,24 @@ async function serveDocumentation(req, res)
 /**
  * Returns the name of the client's accepted encoding with the highest priority
  * @param {http.IncomingMessage} req The HTTP req object
- * @returns {null|"gzip"|"deflate"|"br"} Returns null if no encodings are supported, else returns the encoding name
+ * @returns {EncodingName[]|null} Returns null if no encodings are supported, else returns the encoding name
  */
 function getAcceptedEncoding(req)
 {
-    let selectedEncoding = null;
-
     let encodingPriority = [];
-
     settings.httpServer.encodings.brotli  && encodingPriority.push("br");
     settings.httpServer.encodings.gzip    && encodingPriority.push("gzip");
     settings.httpServer.encodings.deflate && encodingPriority.push("deflate");
 
     encodingPriority = encodingPriority.reverse();
 
-    let acceptedEncodings = [];
-    if(req.headers["accept-encoding"])
-        acceptedEncodings = req.headers["accept-encoding"].split(/\s*[,]\s*/gm);
-    acceptedEncodings = acceptedEncodings.reverse();
+    const acceptedEncodings = getAllClientEncodings(req);
+
+    if(acceptedEncodings === null)
+        return null;
+
+
+    let selectedEncoding = null;
 
     encodingPriority.forEach(encPrio => {
         if(acceptedEncodings.includes(encPrio))
@@ -935,21 +942,37 @@ function getAcceptedEncoding(req)
 }
 
 /**
- * Returns the length of a string in bytes
- * @param {String} str
- * @returns {Number}
+ * Grabs all encodings of a request's "accept-encoding" header and returns them as a string array
+ * @param {http.IncomingMessage} req
+ * @returns {string[]|null}
  */
-function byteLength(str)
+function getAllClientEncodings(req)
 {
-    if(!str)
-        return 0;
-    return Buffer.byteLength(str, "utf8");
+    const acceptEnc = req.headers["accept-encoding"];
+
+    if(acceptEnc && acceptEnc.length > 100) // just to make sure the regex below doesn't ReDoS
+        return null;
+
+    try
+    {
+        /** @type {string[]} */
+        let acceptedEncodings = [];
+        if(acceptEnc)
+            acceptedEncodings = req.headers["accept-encoding"].split(/,/gm);
+
+        return acceptedEncodings.map(e => e.trim());
+    }
+    catch(err)
+    {
+        unused(err);
+        return null;
+    }
 }
 
 /**
  * Returns the file extension for the provided encoding (without dot prefix)
  * @param {null|"gzip"|"deflate"|"br"} encoding
- * @returns {String}
+ * @returns {string}
  */
 function getFileExtensionFromEncoding(encoding)
 {
