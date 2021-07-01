@@ -1,6 +1,9 @@
 name: "Validate JokeAPI"
 
-on: [push] # runs on every push
+on:
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ master ] # runs on every push
 
 
 jobs:
@@ -37,7 +40,7 @@ jobs:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       uses: Ilshidur/action-discord@master
       with:
-        args: '✅ **JokeAPI CI** (on `{{GITHUB_HEAD_REF}}`) was successful (see https://github.com/Sv443/JokeAPI/commit/{{GITHUB_SHA}}/checks)' 
+        args: '✅ **JokeAPI CI** (on `{{GITHUB_HEAD_REF}}`) was successful (see https://github.com/Sv443/JokeAPI/commit/{{GITHUB_SHA}}/checks)'
     - name: Send Discord failure notification # sends a Discord notification
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
