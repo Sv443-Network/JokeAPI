@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
 
     steps:
     - uses: actions/checkout@v1 # checkout latest commit
@@ -40,11 +40,11 @@ jobs:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       uses: Ilshidur/action-discord@master
       with:
-        args: '✅ **JokeAPI CI** (on `{{GITHUB_HEAD_REF}}`) was successful (see https://github.com/Sv443/JokeAPI/commit/{{GITHUB_SHA}}/checks)'
+        args: '✅ **JokeAPI CI** (on `{{GITHUB_HEAD_REF}}`) was successful (see https://github.com/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_SHA}}) - {{GITHUB_RUN_ID}}'
     - name: Send Discord failure notification # sends a Discord notification
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       uses: Ilshidur/action-discord@master
       with:
-        args: '🚫 **JokeAPI CI** (on `{{GITHUB_HEAD_REF}}`) has failed (see https://github.com/Sv443/JokeAPI/commit/{{GITHUB_SHA}}/checks)'
+        args: '🚫 **JokeAPI CI** (on `{{GITHUB_HEAD_REF}}`) has failed (see https://github.com/Sv443/JokeAPI/commit/{{GITHUB_SHA}}/checks) - {{GITHUB_RUN_ID}}'
       if: failure()
