@@ -19,8 +19,7 @@
         },
         {
             "en": "Proudly not bug free",
-            "de": "Stolz nicht Bug frei",
-            "ru": "Гордость не свободна от ошибок"
+            "de": "Stolz nicht bugfrei"
         },
         {
             "en": "Now with 10x the funny",
@@ -43,9 +42,7 @@
             "ru": "Предупреждение: Может содержать смешные шутки!"
         },
         {
-            "en": "Allan please add details",
-            "de": "Allan please add details",
-            "ru": "Allan please add details"
+            "en": "Allan please add details"
         },
         {
             "en": "Trans rights!",
@@ -54,8 +51,11 @@
         },
         {
             "en": "*insert random splash here*",
-            "de": "*hier zufälligen Splashtext einfügen*",
-            "ru": "*вставьте здесь произвольный текст заставки*"
+            "de": "*Hier zufälligen Splashtext einfügen*",
+            "ru": "*Вставьте здесь произвольный текст заставки*"
+        },
+        {
+            "en": "If you're reading this, you've been hax!"
         }
     ]
 }
