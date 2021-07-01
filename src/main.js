@@ -38,13 +38,13 @@ settings.init.exitSignals.forEach(sig => {
 
 /**
  * An object describing all splash texts, sorted under each's language code
- * @typedef {object} SplashLangObj
+ * @typedef {object} SplashesFile
  * @prop {string[]} de
  * @prop {string[]} en
  * @prop {string[]} etc
  */
 
-/** @type {SplashLangObj} */
+/** @type {SplashesFile} */
 let splashes = {};
 let splashDefaultLang = "en";
 
@@ -177,9 +177,9 @@ async function initAll()
  */
 function initError(action, err)
 {
-    const errMsg = err.stack || err || "(No error message provided)";
+    const errMsg = (err instanceof Error ? err.toString() : err) || "(No error message provided)";
 
-    console.log(`\n\n\n${col.red}JokeAPI encountered an error while ${action}:\n${errMsg}\n\n${colors.rst}`);
+    console.log(`\n\n${col.red}JokeAPI encountered an error while ${action}:\n${errMsg.toString()}\n\n${colors.rst}`);
     process.exit(1);
 }
 
@@ -187,14 +187,16 @@ function initError(action, err)
  * Ends all open connections and then shuts down the process with the specified exit code
  * @param {Number} [code=0] Exit code - defaults to 0
  */
-function softExit(code)
+async function softExit(code)
 {
     try
     {
         if(typeof code != "number" || code < 0)
             code = 0;
 
-        analytics.endSqlConnection().then(() => process.exit(code));
+        await analytics.endSqlConnection();
+
+        process.exit(code);
     }
     catch(err)
     {
@@ -205,7 +207,7 @@ function softExit(code)
 
 /**
  * Loads splashes and returns them
- * @returns {Promise<SplashLangObj>}
+ * @returns {Promise<SplashesFile>}
  */
 function loadSplashes()
 {
@@ -222,7 +224,7 @@ function loadSplashes()
                 // const languages = splashesFile.languages;
                 const splashObjs = splashesFile.splashes;
 
-                /** @type {SplashLangObj} */
+                /** @type {SplashesFile} */
                 const splashes = {};
 
                 splashObjs.forEach(splashObj => {
