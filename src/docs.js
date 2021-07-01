@@ -34,7 +34,7 @@ const persistentData = {
 
 /**
  * Initializes the documentation files
- * @returns {Promise}
+ * @returns {Promise<void, string>}
  */
 function init()
 {
@@ -46,7 +46,7 @@ function init()
             startDaemon();
 
             // initial compilation of docs
-            await recompileDocs();
+            await compileDocs();
 
             return resolve();
         }
@@ -70,16 +70,16 @@ function startDaemon()
             debug("Daemon", "Noticed changed files");
             logRequest("docsrecompiled");
             // no need to wait for promise
-            recompileDocs();
+            compileDocs();
         }
     });
 }
 
 /**
- * Recompiles the documentation page
+ * Compiles the documentation page
  * @returns {Promise<undefined|string>} Promise never rejects, it always resolves to undefined if successful or an error string
  */
-function recompileDocs()
+function compileDocs()
 {
     return new Promise(async recompRes => {
         if(persistentData.isInitialCompilation)
@@ -105,8 +105,8 @@ function recompileDocs()
                 `${settings.documentation.compiledPath}errorPage_injected.js`
             ];
 
-            let promises = [];
-            
+            const promises = [];
+
             persistentData.injectionCounter = 0;
             persistentData.injectionTimestamp = Date.now();
 
@@ -150,15 +150,15 @@ function recompileDocs()
             {
                 await Promise.allSettled(promises);
 
-                const infoStr = `${scl.colors.fg.yellow}${Date.now() - persistentData.injectionTimestamp}ms${scl.colors.rst}, injected ${scl.colors.fg.yellow}${persistentData.injectionCounter}${scl.colors.rst} values`;
+                const infoStr = `${scl.colors.fg.yellow}${Date.now() - persistentData.injectionTimestamp}ms${scl.colors.rst} (injected ${scl.colors.fg.yellow}${persistentData.injectionCounter}${scl.colors.rst} values)`;
 
                 if(persistentData.isInitialCompilation)
                 {
-                    debug("Docs", `Done with initial docs compilation in ${infoStr}`);
+                    debug("Docs", `Done with initial docs compilation after ${infoStr}`);
                     persistentData.isInitialCompilation = false;
                 }
                 else
-                    debug("Docs", `Done with docs recompilation in ${infoStr}`);
+                    debug("Docs", `Docs recompiled after ${infoStr}`);
 
                 return recompRes();
             }
@@ -179,11 +179,11 @@ function recompileDocs()
 }
 
 /**
- * Asynchronously encodes a string and saves it encoded with the selected encoding
- * @param {EncodingName} encoding The encoding method
+ * Asynchronously encodes a string and saves it to disk
+ * @param {EncodingName} encoding The encoding name
  * @param {string} filePath The path to a file to save the encoded string to - respective file extensions will automatically be added
- * @param {string} content The string to encode
- * @returns {Promise<undefined, string>} Returns a Promise. Resolve contains no parameters, reject contains error message as a string
+ * @param {string} content The string to encode and save to the file at `filePath`
+ * @returns {Promise<void, string>} Promise resolves void, rejects with an error message
  */
 function saveEncoded(encoding, filePath, content)
 {
@@ -197,10 +197,12 @@ function saveEncoded(encoding, filePath, content)
                         fs.writeFile(`${filePath}.gz`, res, err => {
                             if(!err)
                                 return resolve();
-                            else return reject(err);
+                            else
+                                return reject(err);
                         });
                     }
-                    else return reject(err);
+                    else
+                        return reject(err);
                 });
             break;
             case "deflate":
@@ -210,10 +212,12 @@ function saveEncoded(encoding, filePath, content)
                         fs.writeFile(`${filePath}.zz`, res, err => {
                             if(!err)
                                 return resolve();
-                            else return reject(err);
+                            else
+                                return reject(err);
                         });
                     }
-                    else return reject(err);
+                    else
+                        return reject(err);
                 });
             break;
             case "brotli":
@@ -228,13 +232,15 @@ function saveEncoded(encoding, filePath, content)
                                 else return reject(err);
                             });
                         }
-                        else return reject(err);
+                        else
+                            return reject(err);
                     });
                 }
-                else return reject(`Brotli compression is only supported since Node.js version "v11.7.0" - current Node.js version is "${process.version}"`);
+                else
+                    return reject(`Brotli compression is only supported since Node.js version "v11.7.0" - current Node.js version is "${process.version}"`);
             break;
             default:
-                return reject(`Encoding method "${encoding}" not found - valid methods are: "gzip", "deflate", "brotli"`);
+                return reject(`Encoding "${encoding}" not found - valid methods are: "gzip", "deflate", "brotli"`);
         }
     });
 }
@@ -258,7 +264,7 @@ function injectError(err, exit = true)
         }
     });
 
-    if(exit)
+    if(exit === true)
         process.exit(1);
 }
 
@@ -343,7 +349,7 @@ function inject(filePath)
 
 /**
  * Sanitizes a string to prevent XSS
- * @param {string} str 
+ * @param {string} str
  * @returns {string}
  */
 function sanitize(str)
@@ -353,13 +359,13 @@ function sanitize(str)
 
 /**
  * Removes all line breaks and tab stops from an input string and returns it
- * @param {string} input 
+ * @param {string} input
  * @returns {string}
  */
-function minify(input)
+function trimString(input)
 {
-    return input.toString().replace(/(\n|\r\n|\t)/gm, "");
+    return input.toString().replace(/(\n|\t)/gm, "");
 }
 
 
-module.exports = { init, recompileDocs, minify, sanitize };
+module.exports = { init, compileDocs, trimString, sanitize };

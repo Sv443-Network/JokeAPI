@@ -1,6 +1,6 @@
-// this module converts JSON data into XML or YAML
+// this module converts JSON data into the different file formats (XML, YAML or plain text)
 
-const jsl = require("svjsl");
+const { isEmpty } = require("svcorelib");
 const jsonToYaml = require("json-to-pretty-yaml");
 const jsonToXml = require("js2xmlparser");
 
@@ -10,10 +10,14 @@ const systemLangs = tr.systemLangs;
 
 const settings = require("../settings");
 
+
+/** @typedef {import("svcorelib").JSONCompatible} JSONCompatible */
+
+
 /**
- * Converts a JSON object to a string representation of a XML, YAML, plain text or JSON (as fallback) object - based on a passed format string
+ * Converts a JSON-compatible object to a string representation of a XML, YAML, plain text or JSON object (as fallback) - based on the passed format string
  * @param {"xml"|"yaml"|"json"|"txt"} format Can be "xml", "yaml" or "txt", everything else will default to JSON
- * @param {object} jsonInput
+ * @param {JSONCompatible} jsonInput
  * @param {string} [lang] Needed for converting to "txt"
  * @returns {string} String representation of the converted object
  */
@@ -32,49 +36,50 @@ function auto(format, jsonInput, lang)
         case "json":
         default:
             return JSON.stringify(jsonInput, null, 4);
+            // throw new TypeError(`Error in FileFormatConverter: format "${format}" is invalid`);
     }
 }
 
 function toYAML(jsonInput)
 {
-    if(jsl.isEmpty(jsonInput))
+    if(isEmpty(jsonInput))
         return jsonToYaml.stringify({});
     return jsonToYaml.stringify(jsonInput);
 }
 
 function toXML(jsonInput)
 {
-    if(jsl.isEmpty(jsonInput))
+    if(isEmpty(jsonInput))
         return jsonToXml.parse("data", {});
     return jsonToXml.parse("data", jsonInput);
 }
 
 /**
  * Converts a JSON object to plain text, according to the set conversion mapping
- * @param {Object} jsonInput 
- * @param {String} lang 
+ * @param {object} jsonInput
+ * @param {string} lang
  */
 function toTXT(jsonInput, lang)
 {
     let returnText = tr(lang, "noConversionMapping", Object.keys(jsonInput).join(", "), "ERR_NO_CONV_MAPPING @ FFCONV");
 
-    if(!jsonInput)
+    if(!jsonInput || typeof jsonInput != "object")
         returnText = tr(lang, "cantConvertToPlainText", "ERR_NO_JSON_INPUT @ FFCONV");
-
-    if(jsonInput)
+    else
     {
         if(jsonInput.error === true)
         {
             const causes = Array.isArray(jsonInput.causedBy) ? jsonInput.causedBy.join("\n- ") : "[x]";
 
             if(jsonInput.internalError)
-                returnText = tr(lang, "conversionInternalError", (jsonInput.code || 100), jsonInput.message, causes, (jsonInput.additionalInfo ? jsonInput.additionalInfo : "[x]"));
+                returnText = tr(lang, "conversionInternalError", (jsonInput.code || 100), jsonInput.message, causes, (jsonInput.additionalInfo || "(x)"));
             else
-                returnText = tr(lang, "conversionGeneralError", (jsonInput.code || 100), jsonInput.message, causes, (jsonInput.additionalInfo ? jsonInput.additionalInfo : "[x]"));
+                returnText = tr(lang, "conversionGeneralError", (jsonInput.code || 100), jsonInput.message, causes, (jsonInput.additionalInfo || "(x)"));
         }
         else
         {
-            if((jsonInput.joke || (jsonInput.jokes && Array.isArray(jsonInput.jokes))) || (jsonInput.setup && jsonInput.delivery)) // endpoint: /joke
+            //#SECTION endpoint /joke
+            if((jsonInput.joke || (jsonInput.jokes && Array.isArray(jsonInput.jokes))) || (jsonInput.setup && jsonInput.delivery))
             {
                 if(jsonInput.type == "single")
                     returnText = jsonInput.joke;
@@ -95,7 +100,8 @@ function toTXT(jsonInput, lang)
                 }
             }
 
-            else if(jsonInput.categories) // endpoint: /categories
+            //#SECTION endpoint /categories
+            else if(jsonInput.categories)
             {
                 let categoryAliases = [];
                 let categoryDescriptions = [];
@@ -111,7 +117,8 @@ function toTXT(jsonInput, lang)
                 returnText = tr(lang, "availableCategories", jsonInput.categories.map(c => `- ${c}`).join("\n"), categoryAliases.join("\n"), categoryDescriptions.join("\n"));
             }
 
-            else if(jsonInput.flags) // endpoint: /flags
+            //#SECTION endpoint /flags
+            else if(jsonInput.flags)
             {
                 let flagDescriptions = [];
                 jsonInput.flagDescriptions.forEach(desc => {
@@ -121,13 +128,16 @@ function toTXT(jsonInput, lang)
                 returnText = tr(lang, "availableFlags", jsonInput.flags.join('", "'), flagDescriptions.join("\n"));
             }
 
-            else if(jsonInput.ping) // endpoint: /ping
+            //#SECTION endpoint /ping
+            else if(jsonInput.ping)
                 returnText = `${jsonInput.ping}\n${tr(lang, "timestamp", jsonInput.timestamp)}`;
 
-            else if(jsonInput.code) // endpoint: /langcode
+            //#SECTION endpoint /langcode
+            else if(jsonInput.code)
                 returnText = `${jsonInput.error ? tr(lang, "genericError", jsonInput.message) : tr(lang, "languageCode", jsonInput.code)}`;
 
-            else if(jsonInput.defaultLanguage) // endpoint: /languages
+            //#SECTION endpoint /languages
+            else if(jsonInput.defaultLanguage)
             {
                 let suppLangs = [];
                 languages.jokeLangs().forEach(lang => {
@@ -145,7 +155,8 @@ function toTXT(jsonInput, lang)
                 returnText = tr(lang, "languagesEndpoint", languages.codeToLanguage(jsonInput.defaultLanguage), jsonInput.defaultLanguage, languages.jokeLangs().length, suppLangs.sort().join(", "), sysLangs.length, sysLangs.sort().join(", "), possLangs.sort().join("\n"));
             }
 
-            else if(jsonInput.version) // endpoint: /info
+            //#SECTION endpoint /info
+            else if(jsonInput.version)
             {
                 let suppLangs = [];
                 languages.jokeLangs().forEach(lang => {
@@ -172,7 +183,8 @@ function toTXT(jsonInput, lang)
                                 );
             }
 
-            else if(jsonInput.formats && jsonInput.formatDescriptions) // endpoint: /formats
+            //#SECTION endpoint /formats
+            else if(jsonInput.formats && jsonInput.formatDescriptions)
             {
                 let formatDescriptions = [];
                 jsonInput.formatDescriptions.forEach(desc => {
@@ -182,7 +194,8 @@ function toTXT(jsonInput, lang)
                 returnText = tr(lang, "availableFormats", `"${jsonInput.formats.join('", "')}"`, formatDescriptions.join("\n"));
             }
 
-            else if(Array.isArray(jsonInput) && jsonInput[0].usage && jsonInput[0].usage.method) // endpoint: /endpoints
+            //#SECTION endpoint /endpoints
+            else if(Array.isArray(jsonInput) && jsonInput[0].usage && jsonInput[0].usage.method)
             {
                 returnText = "";
                 jsonInput.forEach(ep => {
