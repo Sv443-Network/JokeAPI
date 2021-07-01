@@ -78,23 +78,23 @@ async function initAll()
      */
     const initStages = [
         {
-            name: "Languages",
+            name: "Languages module",
             fn: languages.init
         },
         {
-            name: "Translations",
+            name: "Translations module",
             fn: translate.init
         },
         {
-            name: "Joke parser",
+            name: "Joke parser module",
             fn: parseJokes.init
         },
         {
-            name: "Lists",
+            name: "Lists module",
             fn: lists.init
         },
         {
-            name: "Documentation",
+            name: "Documentation module",
             fn: docs.init
         },
         {
@@ -102,11 +102,11 @@ async function initAll()
             fn: auth.init
         },
         {
-            name: "URL parser",
+            name: "URL parser module",
             fn: parseURL.init
         },
         {
-            name: "HTTP server",
+            name: "HTTP server module",
             fn: httpServer.init
         },
         {
@@ -114,11 +114,11 @@ async function initAll()
             fn: analytics.init
         },
         {
-            name: "Joke Cache",
+            name: "Joke cache module",
             fn: jokeCache.init
         },
         {
-            name: "Pm2 meter",
+            name: "pm2 meter module",
             fn: meter.init
         }
     ];
@@ -138,7 +138,7 @@ async function initAll()
         // sequentially call all async `fn` properties of the `initStages` array and wait till they're all done
         const initRes = await promiseAllSequential(initPromises);
 
-        // resolved values can be an object like this:
+        // resolved values *can* be an object like this:
         /*
 
         {
@@ -147,23 +147,14 @@ async function initAll()
 
         */
 
-        /** Time that should be deducted from the init time */
+        /** @type {number} Time that should be deducted from the init time */
         const initTimeDeduction = initRes.reduce((acc, r) => {
             return acc + ((r && typeof r.initTimeDeduction === "number" && !isNaN(r.initTimeDeduction)) ? r.initTimeDeduction : 0);
         });
 
-        
-
-        // //#DEBUG#
-        // require("./jokeCache").cache.listEntries("eff8e7ca506627fe15dda5e0e512fcaad70b6d520f37cc76597fdb4f2d83a1a3", "de").then(res => {
-        //     console.log(res);
-        // }).catch(err => {
-        //     console.error(`Err: ${err}`);
-        // });
-        // //#DEBUG# (it's just a hash of localhost, don't worry)
 
         if(pb)
-            pb.next("Done.");
+            pb.next(`Successfully initialized all ${initStages.length} modules`);
 
         debug("Init", `Successfully initialized all ${initStages.length} modules.`);
 
