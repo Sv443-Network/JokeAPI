@@ -7,6 +7,7 @@ const analytics = require("./analytics");
 const languages = require("./languages");
 const jokeCache = require("./jokeCache");
 const debug = require("./debug");
+const { isGdprCompliant } = require("./main");
 
 const settings = require("../settings");
 
@@ -14,7 +15,10 @@ const col = scl.colors.fg;
 
 /** Data that persists until JokeAPI is stopped */
 const persistentData = {
-    maxHeapUsage: 0
+    /** Max amount of heap used, ever (in percent) */
+    maxHeapUsage: 0,
+    /** Amount of requests sent to JokeAPI */
+    reqCounter: 0
 };
 
 
@@ -26,13 +30,13 @@ const persistentData = {
  * @prop {object} [submission] Only has to be used on type = "submission"
  */
 
-/** @typedef {"success"|"docs"|"ratelimited"|"error"|"blacklisted"|"docsrecompiled"|"submission"} RequestType */
+/** @typedef {"success"|"docs"|"ratelimited"|"error"|"blacklisted"|"docsrecompiled"|"submission"} AnalyticsType */
 
 /**
  * Logs a request to the console and to the analytics database
- * @param {RequestType} type Sets the color and logging level
- * @param {string|null|undefined} [additionalInfo] Provides additional information in certain log types
- * @param {AnalyticsData|null|undefined} [analyticsData] Additional analytics data
+ * @param {AnalyticsType} type Determines all kinds of properties, like the color and logging level
+ * @param {string} [additionalInfo] Provide additional information (applies only to certain log types)
+ * @param {AnalyticsData} [analyticsData] Additional analytics data
  */
 function logRequest(type, additionalInfo, analyticsData)
 {
@@ -156,16 +160,16 @@ function logRequest(type, additionalInfo, analyticsData)
     }
 
     if(!settings.logging.disableLogging && !logDisabled)
-        process.stdout.write(`${(process.jokeapi.reqCounter % settings.logging.spacerAfter && !spacerDisabled) == 0 ? " " : ""}${color}${logChar}${col.rst}`);
+        process.stdout.write(`${(persistentData.reqCounter % settings.logging.spacerAfter && !spacerDisabled) == 0 ? " " : ""}${color}${logChar}${col.rst}`);
 
     if(logType != null)
         logger(logType, !scl.isEmpty(additionalInfo) ? additionalInfo : "no additional information provided", true);
 
-    if(scl.isEmpty(process.jokeapi.reqCounter))
-        process.jokeapi.reqCounter = 0;
+    if(scl.isEmpty(persistentData.reqCounter))
+        persistentData.reqCounter = 0;
 
     if(!spacerDisabled)
-        process.jokeapi.reqCounter++;
+        persistentData.reqCounter++;
 }
 
 /**
@@ -235,22 +239,14 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
 
     lines.push("\n");
 
-    lines.push(`${col.green}Success ${col.rst}• ${col.yellow}Info/Warning ${col.rst}• ${col.red}Error${col.rst}\n`);
+    lines.push(`Colors: ${col.green}Success ${col.rst}• ${col.yellow}Info/Warning ${col.rst}• ${col.red}Error${col.rst}\n`);
 
     // make it look better when spammed by debug messages immediately after:
     if(settings.debug.verboseLogging)
         lines.push("\n");
-    
-    // if(!settings.debug.onlyLogErrors)
-    // {
-    //     lines.push(`\n  ${settings.colors.success}${settings.logging.logChar} Success ${settings.colors.docs}${settings.logging.logChar} Docs ${settings.colors.ratelimit}${settings.logging.logChar} RateLimited ${settings.colors.error}${settings.logging.logChar} Error${col.rst}\n`);
-    //     lines.push("\x1b[2m");
-    //     lines.push("└┬───────────────────────────────────────┘\n");
-    //     lines.push(" └─► ");
-    //     lines.push(col.rst);
-    // }
 
     const writeLines = lines.join("");
+
 
     // clear (if dashboard enabled), then immediately write using stdout directly, to try to remove "jitter" when updating the dashboard
     if(settings.debug.dashboardEnabled)
@@ -273,7 +269,7 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
 
 /**
  * Returns an activity indicator based on the passed state number. Defaults to question mark(s) if the state is out of range or invalid
- * @param {number|undefined} state If empty, defaults to `0`
+ * @param {number} [state=0] If empty, defaults to `0`
  * @returns {string} Returns an empty string if `settings.debug.dashboardEnabled` is set to `false`
  */
 function getActivityIndicator(state)
@@ -281,10 +277,10 @@ function getActivityIndicator(state)
     if(!settings.debug.dashboardEnabled)
         return "";
 
-    if(state === undefined)
+    state = parseInt(state);
+
+    if(!state || isNaN(state))
         state = 0;
-    else
-        state = parseInt(state);
 
 
     let indicator = "";
@@ -341,14 +337,6 @@ function getHeapColor(percentage)
         return col.green;
 }
 
-/**
- * Checks if JokeAPI is GDPR compliant
- * @returns {boolean}
- */
-function isGdprCompliant()
-{
-    return !(!settings.httpServer.ipHashing.enabled || settings.jokeCaching.expiryHours <= 0);
-}
 
 module.exports = logRequest;
 module.exports.initMsg = initMsg;
