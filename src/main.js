@@ -268,17 +268,8 @@ function getSplash(lang)
     return splash;
 }
 
-/**
- * Checks if JokeAPI is GDPR compliant
- * @returns {boolean}
- */
-function isGdprCompliant()
-{
-    return !(!settings.httpServer.ipHashing.enabled || settings.jokeCaching.expiryHours <= 0);
-}
 
-
-module.exports = { softExit, getSplash, isGdprCompliant };
+module.exports = { softExit, getSplash };
 
 
 // run initAll when this script file is executed

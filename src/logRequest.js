@@ -7,7 +7,6 @@ const analytics = require("./analytics");
 const languages = require("./languages");
 const jokeCache = require("./jokeCache");
 const debug = require("./debug");
-const { isGdprCompliant } = require("./main");
 
 const settings = require("../settings");
 
@@ -335,6 +334,15 @@ function getHeapColor(percentage)
         return col.yellow;
     else
         return col.green;
+}
+
+/**
+ * Checks if JokeAPI is GDPR compliant
+ * @returns {boolean}
+ */
+function isGdprCompliant()
+{
+    return !(!settings.httpServer.ipHashing.enabled || settings.jokeCaching.expiryHours <= 0);
 }
 
 
