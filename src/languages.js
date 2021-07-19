@@ -1,5 +1,5 @@
 const fs = require("fs-extra");
-const jsl = require("svjsl");
+const { unused } = require("svcorelib");
 const Fuse = require("fuse.js");
 
 const debug = require("./debug");
@@ -109,7 +109,7 @@ function codeToLanguage(code)
     }
     catch(err)
     {
-        jsl.unused(err);
+        unused(err);
         return false;
     }
 }

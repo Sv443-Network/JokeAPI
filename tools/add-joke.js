@@ -1,4 +1,4 @@
-const jsl = require("svjsl");
+const { MenuPrompt, pause, colors } = require("svcorelib");
 const readline = require("readline");
 const settings = require("../settings");
 const fs = require("fs-extra");
@@ -13,7 +13,7 @@ const init = async () => {
 
     if(!process.stdin.isTTY)
     {
-        console.log(`${jsl.colors.fg.red}Error: process doesn't have a stdin to read from${jsl.colors.rst}`);
+        console.log(`${colors.fg.red}Error: process doesn't have a stdin to read from${colors.rst}`);
         process.exit(1);
     }
 
@@ -39,7 +39,7 @@ const init = async () => {
                 return flagIterFinished();
             else
             {
-                jsl.pause(`Is this joke ${allFlags[idx]}? (y/N):`).then(key => {
+                pause(`Is this joke ${allFlags[idx]}? (y/N):`).then(key => {
                     if(key.toLowerCase() == "y")
                         joke["flags"][allFlags[idx]] = true;
                     else joke["flags"][allFlags[idx]] = false;
@@ -74,15 +74,15 @@ const init = async () => {
                     fs.writeFile(fPath, JSON.stringify(jokeFile, null, 4), (err) => {
                         if(err)
                         {
-                            console.log(`${jsl.colors.fg.red}\n${err}${jsl.colors.rst}\n\n`);
+                            console.log(`${colors.fg.red}\n${err}${colors.rst}\n\n`);
                             process.exit(1);
                         }
                         else
                         {
                             console.clear();
-                            console.log(`${jsl.colors.fg.green}\nJoke was successfully added to file "${jokesFileName}":${jsl.colors.rst}\n\n${JSON.stringify(joke, null, 4)}\n\n\n`);
+                            console.log(`${colors.fg.green}\nJoke was successfully added to file "${jokesFileName}":${colors.rst}\n\n${JSON.stringify(joke, null, 4)}\n\n\n`);
 
-                            jsl.pause("Add another joke? (y/N): ").then(key => {
+                            pause("Add another joke? (y/N): ").then(key => {
                                 if(key.toLowerCase() === "y")
                                 {
                                     console.clear();
@@ -98,7 +98,7 @@ const init = async () => {
                 }
                 else
                 {
-                    console.log(`${jsl.colors.fg.red}\n${err}${jsl.colors.rst}\n\n`);
+                    console.log(`${colors.fg.red}\n${err}${colors.rst}\n\n`);
                     process.exit(1);
                 }
             });
@@ -136,7 +136,7 @@ const init = async () => {
 
 const getJokeCategory = () => {
     return new Promise((resolve) => {
-        let catMP = new jsl.MenuPrompt({
+        let catMP = new MenuPrompt({
             retryOnInvalid: true,
             onFinished: res => {
                 resolve(settings.jokes.possible.categories[res[0].optionIndex]);
@@ -160,7 +160,7 @@ const getJokeCategory = () => {
 
 const getJokeType = () => {
     return new Promise((resolve) => {
-        let typeMP = new jsl.MenuPrompt({
+        let typeMP = new MenuPrompt({
             retryOnInvalid: true,
             onFinished: res => {
                 resolve(settings.jokes.possible.types[res[0].optionIndex]);
@@ -202,7 +202,7 @@ function getJokeLang()
                 else
                 {
                     console.clear();
-                    console.log(`\n${jsl.colors.fg.red}Invalid lang code!${jsl.colors.rst}\n\n`);
+                    console.log(`\n${colors.fg.red}Invalid lang code!${colors.rst}\n\n`);
                     return tryGetLang();
                 }
             });

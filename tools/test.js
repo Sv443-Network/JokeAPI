@@ -1,6 +1,6 @@
 /* eslint-disable */ // so that the CI linting process doesn't fail - this will be removed in the final revision
 
-const jsl = require("svjsl");
+const scl = require("svcorelib");
 const fs = require("fs-extra");
 // const cp = require("child_process");
 const requireUncached = require('require-uncached');
@@ -10,7 +10,7 @@ const { resolve, join } = require("path");
 const debug = require("../src/debug");
 const settings = require("../settings");
 
-var col = { rst: jsl.colors.rst, ...jsl.colors.fg };
+var col = { rst: scl.colors.rst, ...scl.colors.fg };
 var runningTests = false;
 
 // const baseURL = `http://127.0.0.1:${settings.httpServer.port}`;
@@ -51,8 +51,8 @@ function runAllTests()
 
     if(process.argv.includes("--colorblind") || process.argv.includes("-cb"))
     {
-        col.green = jsl.colors.fg.cyan;
-        col.red = jsl.colors.fg.magenta;
+        col.green = scl.colors.fg.cyan;
+        col.red = scl.colors.fg.magenta;
     }
 
     let success = true;

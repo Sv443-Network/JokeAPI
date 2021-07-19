@@ -22,7 +22,7 @@ const translate = require("./translate");
 const meter = require("./meter");
 const jokeCache = require("./jokeCache");
 const parseURL = require("./parseURL");
-const randomItem = require("svjsl/src/functions/randomItem");
+const { randomItem } = require("svcorelib");
 
 const col = colors.fg;
 process.debuggerActive = system.inDebugger();

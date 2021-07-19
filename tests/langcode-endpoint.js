@@ -1,5 +1,5 @@
 const { XMLHttpRequest } = require("xmlhttprequest");
-const jsl = require("svjsl");
+const { unused } = require("svcorelib");
 
 const settings = require("../settings");
 
@@ -31,7 +31,7 @@ function run()
         let run = () => new Promise(runResolve => {
             let sendXHR = language => {
                 return new Promise((xhrResolve, xhrReject) => {
-                    jsl.unused(xhrReject);
+                    unused(xhrReject);
                     let xhr = new XMLHttpRequest();
                     xhr.open("GET", `${baseURL}/langcode/${language}`); // < set endpoint here
 

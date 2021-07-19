@@ -1,5 +1,4 @@
 const { XMLHttpRequest } = require("xmlhttprequest");
-// const jsl = require("svjsl");
 const semver = require("semver");
 
 const settings = require("../settings");

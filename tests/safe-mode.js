@@ -1,5 +1,5 @@
 const { XMLHttpRequest } = require("xmlhttprequest");
-const jsl = require("svjsl");
+const { randomItem, unused } = require("svcorelib");
 
 const settings = require("../settings");
 
@@ -40,7 +40,7 @@ function run()
 
                 return new Promise((pRes, pRej) => {
                     let xhr = new XMLHttpRequest();
-                    let langCode = jsl.randomItem(languages);
+                    let langCode = randomItem(languages);
                     xhr.open("GET", `${baseURL}/joke/Any?safe-mode&lang=${langCode}`);
 
                     xhr.onreadystatechange = () => {
@@ -54,7 +54,7 @@ function run()
                             catch(err)
                             {
                                 errors.push(`Couldn't parse API response as JSON: ${err}`);
-                                jsl.unused(err);
+                                unused(err);
                             }
 
                             if(respText.safe === false)
@@ -93,7 +93,7 @@ function run()
                         }
                         catch(err)
                         {
-                            jsl.unused(err);
+                            unused(err);
                         }
 
                         let promises = [];
@@ -103,7 +103,7 @@ function run()
                         Promise.all(promises).then(() => {
                             return xhrResolve();
                         }).catch(err => {
-                            jsl.unused(err);
+                            unused(err);
                             return xhrResolve();
                         });
                     }

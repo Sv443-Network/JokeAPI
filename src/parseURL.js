@@ -1,7 +1,7 @@
 // this module parses the passed URL, returning an object that is uniform and easy to use
 
 const urlParse = require("url-parse");
-const jsl = require("svjsl");
+const { isEmpty } = require("svcorelib");
 const fs = require("fs-extra");
 
 const settings = require("../settings");
@@ -79,9 +79,9 @@ function parseURL(url)
         if(rawQstr && rawQstr.startsWith("?"))
             rawQstr = rawQstr.substr(1);
 
-        if(!jsl.isEmpty(rawQstr) && rawQstr.includes("&"))
+        if(!isEmpty(rawQstr) && rawQstr.includes("&"))
             qstrArr = rawQstr.split("&");
-        else if(!jsl.isEmpty(rawQstr))
+        else if(!isEmpty(rawQstr))
             qstrArr = [rawQstr];
 
 
@@ -129,7 +129,7 @@ function parseURL(url)
  */
 function getFileFormatFromQString(qstrObj)
 {
-    if(!jsl.isEmpty(qstrObj.format))
+    if(!isEmpty(qstrObj.format))
     {
         let possibleFormats = Object.keys(fileFormats);
 
@@ -149,7 +149,7 @@ function getFileFormatFromQString(qstrObj)
  */
 function getMimeType(fileFormatString)
 {
-    if(!jsl.isEmpty(fileFormats[fileFormatString]))
+    if(!isEmpty(fileFormats[fileFormatString]))
         return fileFormats[fileFormatString].mimeType;
     else
         return settings.jokes.defaultFileFormat.mimeType;

@@ -3,10 +3,10 @@
 
 const { resolve, join } = require("path");
 const fs = require("fs-extra");
-const jsl = require("svjsl");
+const { colors } = require("svcorelib");
 const settings = require("../settings");
 
-const col = { ...jsl.colors.fg, rst: jsl.colors.rst };
+const col = { ...colors.fg, rst: colors.rst };
 
 /**
  * Exactly what the name suggests

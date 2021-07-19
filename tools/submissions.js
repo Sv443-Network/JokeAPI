@@ -1,10 +1,13 @@
-const settings = require("../settings");
 const fs = require("fs-extra");
 const { resolve, join } = require("path");
-const jsl = require("svjsl");
+const { unused, readableArray, pause, colors } = require("svcorelib");
+
 const parseJokes = require("../src/parseJokes");
 const jokeSubmission = require("../src/jokeSubmission");
-jsl.unused(parseJokes);
+
+const settings = require("../settings");
+
+unused(parseJokes);
 
 let addedCount = 0;
 let jokesFiles = getAllJokes();
@@ -13,14 +16,14 @@ let jokesFiles = getAllJokes();
 const run = () => {
     let submissions = getSubmissions();
 
-    console.log(`${jsl.colors.fg.cyan}There ${submissions.length == 1 ? "is" : "are"} ${jsl.colors.fg.yellow}${submissions.length}${jsl.colors.fg.cyan} submission${submissions.length == 1 ? "" : "s"}.${jsl.colors.rst}`);
+    console.log(`${colors.fg.cyan}There ${submissions.length == 1 ? "is" : "are"} ${colors.fg.yellow}${submissions.length}${colors.fg.cyan} submission${submissions.length == 1 ? "" : "s"}.${colors.rst}`);
     if(submissions.length === 0)
     {
         console.log("Exiting.");
         return process.exit(0);
     }
 
-    jsl.pause(`Do you want to go through them all now? (Y/n):${jsl.colors.rst}`).then(key => {
+    pause(`Do you want to go through them all now? (Y/n):${colors.rst}`).then(key => {
         if(key.toLowerCase && key.toLowerCase() == "n")
             process.exit(0);
         else
@@ -34,44 +37,44 @@ const run = () => {
 
                 let submission = submissions[idx];
 
-                console.log(`${jsl.colors.fg.yellow}Submission ${idx + 1} / ${submissions.length}${jsl.colors.rst}\n`);
+                console.log(`${colors.fg.yellow}Submission ${idx + 1} / ${submissions.length}${colors.rst}\n`);
 
                 if(submission.formatVersion != settings.jokes.jokesFormatVersion)
-                    console.error(`${jsl.colors.fg.red}Error: Format version is incorrect${jsl.colors.rst}`);
+                    console.error(`${colors.fg.red}Error: Format version is incorrect${colors.rst}`);
                 
-                console.log(`${jsl.colors.fg.yellow}Language:${jsl.colors.rst}  ${submission.lang}`);
+                console.log(`${colors.fg.yellow}Language:${colors.rst}  ${submission.lang}`);
 
                 if(submission.type == "single")
                 {
-                    console.log(`${jsl.colors.fg.yellow}Joke:${jsl.colors.rst}      ${submission.joke}`);
-                    console.log(`${jsl.colors.fg.yellow}Category:${jsl.colors.rst}  ${submission.category}`);
-                    console.log(`${jsl.colors.fg.yellow}Flags:${jsl.colors.rst}     ${getFlags(submission)}`);
+                    console.log(`${colors.fg.yellow}Joke:${colors.rst}      ${submission.joke}`);
+                    console.log(`${colors.fg.yellow}Category:${colors.rst}  ${submission.category}`);
+                    console.log(`${colors.fg.yellow}Flags:${colors.rst}     ${getFlags(submission)}`);
                 }
                 else if(submission.type == "twopart")
                 {
-                    console.log(`${jsl.colors.fg.yellow}Setup:${jsl.colors.rst}     ${submission.setup}`);
-                    console.log(`${jsl.colors.fg.yellow}Delivery:${jsl.colors.rst}  ${submission.delivery}`);
-                    console.log(`${jsl.colors.fg.yellow}Category:${jsl.colors.rst}  ${submission.category}`);
-                    console.log(`${jsl.colors.fg.yellow}Flags:${jsl.colors.rst}     ${getFlags(submission)}`);
+                    console.log(`${colors.fg.yellow}Setup:${colors.rst}     ${submission.setup}`);
+                    console.log(`${colors.fg.yellow}Delivery:${colors.rst}  ${submission.delivery}`);
+                    console.log(`${colors.fg.yellow}Category:${colors.rst}  ${submission.category}`);
+                    console.log(`${colors.fg.yellow}Flags:${colors.rst}     ${getFlags(submission)}`);
                 }
-                else console.error(`${jsl.colors.fg.red}Error: Unsuppoted joke type "${submission.type}"${jsl.colors.rst}`);
+                else console.error(`${colors.fg.red}Error: Unsuppoted joke type "${submission.type}"${colors.rst}`);
 
-                jsl.pause("Do you want to add this joke? (Safe/Unsafe/No):").then(key => {
+                pause("Do you want to add this joke? (Safe/Unsafe/No):").then(key => {
                     let lcKey = key.toLowerCase();
                     if(lcKey === "s")
                     {
                         submissions[idx].safe = true;
                         addJoke(submissions[idx]);
-                        process.stdout.write(`${jsl.colors.fg.green}Adding joke.${jsl.colors.rst}\n\n\n\n`);
+                        process.stdout.write(`${colors.fg.green}Adding joke.${colors.rst}\n\n\n\n`);
                     }
                     else if(lcKey === "u")
                     {
                         submissions[idx].safe = false;
                         addJoke(submissions[idx]);
-                        process.stdout.write(`${jsl.colors.fg.green}Adding joke.${jsl.colors.rst}\n\n\n\n`);
+                        process.stdout.write(`${colors.fg.green}Adding joke.${colors.rst}\n\n\n\n`);
                     }
                     else
-                        process.stdout.write(`${jsl.colors.fg.red}Not adding joke.${jsl.colors.rst}\n\n\n\n`);
+                        process.stdout.write(`${colors.fg.red}Not adding joke.${colors.rst}\n\n\n\n`);
 
                     goThroughSubmission(++idx);
                 });
@@ -144,7 +147,7 @@ const finishAdding = () => {
         fs.writeFileSync(resolve(join(settings.jokes.jokesFolderPath, `jokes-${langCode}.json`)), JSON.stringify(jokesFiles[langCode], null, 4));
     });
 
-    jsl.pause(`Delete all submissions? (Y/n):`).then(val => {
+    pause(`Delete all submissions? (Y/n):`).then(val => {
         if(val.toLowerCase() != "n")
         {
             fs.readdirSync(settings.jokes.jokeSubmissionPath).forEach(folder => {
@@ -152,7 +155,7 @@ const finishAdding = () => {
             });
         }
 
-        console.log(`${jsl.colors.fg.green}Successfully added ${jsl.colors.fg.yellow}${addedCount}${jsl.colors.fg.green} joke${addedCount != 1 ? "s" : ""}${jsl.colors.rst}.\nExiting.\n\n`);
+        console.log(`${colors.fg.green}Successfully added ${colors.fg.yellow}${addedCount}${colors.fg.green} joke${addedCount != 1 ? "s" : ""}${colors.rst}.\nExiting.\n\n`);
         require("./reassign-ids"); // reassign joke IDs
         return;
     });
@@ -174,7 +177,7 @@ const getFlags = joke => {
     if(flags.length == 0)
         return "(none)";
 
-    return jsl.readableArray(flags);
+    return readableArray(flags);
 };
 
 /**
@@ -193,7 +196,7 @@ const getSubmissions = () => {
 
 if(!process.stdin.isTTY)
 {
-    console.log(`${jsl.colors.fg.red}Error: process doesn't have a stdin to read from${jsl.colors.rst}`);
+    console.log(`${colors.fg.red}Error: process doesn't have a stdin to read from${colors.rst}`);
     process.exit(1);
 }
 else run();

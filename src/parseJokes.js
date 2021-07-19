@@ -1,7 +1,7 @@
 // this module parses all the jokes to verify that they are valid and that their structure is not messed up
 
 const fs = require("fs-extra");
-const jsl = require("svjsl");
+const { unused, isEmpty, allEqual, colors } = require("svcorelib");
 
 const settings = require("../settings");
 const debug = require("./debug");
@@ -127,7 +127,7 @@ function init()
                 return;
 
             outerPromises.push(new Promise((resolveOuter, rejectOuter) => {
-                jsl.unused(rejectOuter);
+                unused(rejectOuter);
 
                 let fileNameValid = (fileName) => {
                     if(!fileName.endsWith(".json"))
@@ -149,7 +149,7 @@ function init()
                 let langCode = getLangCode(jf);
 
                 if(!jf.endsWith(".json") || !fileNameValid(jf))
-                    result.push(`${jsl.colors.fg.red}Error: Invalid file "${settings.jokes.jokesFolderPath}${jf}" found. It has to follow this pattern: "jokes-xy.json"`);
+                    result.push(`${colors.fg.red}Error: Invalid file "${settings.jokes.jokesFolderPath}${jf}" found. It has to follow this pattern: "jokes-xy.json"`);
 
 
                 fs.readFile(`${settings.jokes.jokesFolderPath}${jf}`, (err, jokesFile) => {
@@ -172,7 +172,7 @@ function init()
 
                     jokesFile.jokes.forEach((joke, i) => {
                         //#SECTION joke ID
-                        if(!jsl.isEmpty(joke.id) && !isNaN(parseInt(joke.id)))
+                        if(!isEmpty(joke.id) && !isNaN(parseInt(joke.id)))
                             result.push(true);
                         else result.push(`Joke with index/ID ${i} of language "${langCode}" doesn't have an "id" property or it is invalid`);
 
@@ -185,46 +185,46 @@ function init()
                         //#SECTION type and actual joke
                         if(joke.type == "single")
                         {
-                            if(!jsl.isEmpty(joke.joke))
+                            if(!isEmpty(joke.joke))
                                 result.push(true);
                             else result.push(`Joke with index/ID ${i} of language "${langCode}" doesn't have a "joke" property`);
                         }
                         else if(joke.type == "twopart")
                         {
-                            if(!jsl.isEmpty(joke.setup))
+                            if(!isEmpty(joke.setup))
                                 result.push(true);
                             else result.push(`Joke with index/ID ${i} of language "${langCode}" doesn't have a "setup" property`);
 
-                            if(!jsl.isEmpty(joke.delivery))
+                            if(!isEmpty(joke.delivery))
                                 result.push(true);
                             else result.push(`Joke with index/ID ${i} of language "${langCode}" doesn't have a "delivery" property`);
                         }
                         else result.push(`Joke with index/ID ${i} of language "${langCode}" doesn't have a "type" property or it is invalid`);
 
                         //#SECTION flags
-                        if(!jsl.isEmpty(joke.flags))
+                        if(!isEmpty(joke.flags))
                         {
-                            if(!jsl.isEmpty(joke.flags.nsfw) || (joke.flags.nsfw !== false && joke.flags.nsfw !== true))
+                            if(!isEmpty(joke.flags.nsfw) || (joke.flags.nsfw !== false && joke.flags.nsfw !== true))
                                 result.push(true);
                             else result.push(`Joke with index/ID ${i} of language "${langCode}" has an invalid "NSFW" flag`);
 
-                            if(!jsl.isEmpty(joke.flags.racist) || (joke.flags.racist !== false && joke.flags.racist !== true))
+                            if(!isEmpty(joke.flags.racist) || (joke.flags.racist !== false && joke.flags.racist !== true))
                                 result.push(true);
                             else result.push(`Joke with index/ID ${i} of language "${langCode}" has an invalid "racist" flag`);
 
-                            if(!jsl.isEmpty(joke.flags.sexist) || (joke.flags.sexist !== false && joke.flags.sexist !== true))
+                            if(!isEmpty(joke.flags.sexist) || (joke.flags.sexist !== false && joke.flags.sexist !== true))
                                 result.push(true);
                             else result.push(`Joke with index/ID ${i} of language "${langCode}" has an invalid "sexist" flag`);
 
-                            if(!jsl.isEmpty(joke.flags.political) || (joke.flags.political !== false && joke.flags.political !== true))
+                            if(!isEmpty(joke.flags.political) || (joke.flags.political !== false && joke.flags.political !== true))
                                 result.push(true);
                             else result.push(`Joke with index/ID ${i} of language "${langCode}" has an invalid "political" flag`);
 
-                            if(!jsl.isEmpty(joke.flags.religious) || (joke.flags.religious !== false && joke.flags.religious !== true))
+                            if(!isEmpty(joke.flags.religious) || (joke.flags.religious !== false && joke.flags.religious !== true))
                                 result.push(true);
                             else result.push(`Joke with index/ID ${i} of language "${langCode}" has an invalid "religious" flag`);
 
-                            if(!jsl.isEmpty(joke.flags.explicit) || (joke.flags.explicit !== false && joke.flags.explicit !== true))
+                            if(!isEmpty(joke.flags.explicit) || (joke.flags.explicit !== false && joke.flags.explicit !== true))
                                 result.push(true);
                             else result.push(`Joke with index/ID ${i} of language "${langCode}" has an invalid "explicit" flag`);
                         }
@@ -254,7 +254,7 @@ function init()
                 formatVersions.push(allJokesObj.getFormatVersion(lang));
             });
 
-            if(!jsl.allEqual(formatVersions))
+            if(!allEqual(formatVersions))
                 errors.push(`One or more of the jokes files has an invalid format version`);
 
             module.exports.allJokes = allJokesObj;
@@ -267,9 +267,9 @@ function init()
             globalFormatVersion = fmtVer;
 
 
-            debug("JokeParser", `Done parsing all ${parsedJokesAmount} jokes. Errors: ${errors.length === 0 ? jsl.colors.fg.green : jsl.colors.fg.red}${errors.length}${jsl.colors.rst}`);
+            debug("JokeParser", `Done parsing all ${parsedJokesAmount} jokes. Errors: ${errors.length === 0 ? colors.fg.green : colors.fg.red}${errors.length}${colors.rst}`);
 
-            if(jsl.allEqual(result) && result[0] === true && errors.length === 0)
+            if(allEqual(result) && result[0] === true && errors.length === 0)
                 return resolve();
             
             return reject(`Errors:\n- ${errors.join("\n- ")}`);
@@ -350,7 +350,7 @@ function validateSubmission(joke, lang)
         //#SECTION type and actual joke
         if(joke.type == "single")
         {
-            if(jsl.isEmpty(joke.joke))
+            if(isEmpty(joke.joke))
             {
                 jokeErrors.push(tr(lang, "parseJokesSingleNoJokeProperty"));
                 validParamsObj.joke = false;
@@ -358,13 +358,13 @@ function validateSubmission(joke, lang)
         }
         else if(joke.type == "twopart")
         {
-            if(jsl.isEmpty(joke.setup))
+            if(isEmpty(joke.setup))
             {
                 jokeErrors.push(tr(lang, "parseJokesTwopartNoSetupProperty"));
                 validParamsObj.setup = false;
             }
 
-            if(jsl.isEmpty(joke.delivery))
+            if(isEmpty(joke.delivery))
             {
                 jokeErrors.push(tr(lang, "parseJokesTwopartNoDeliveryProperty"));
                 validParamsObj.delivery = false;
@@ -396,39 +396,39 @@ function validateSubmission(joke, lang)
         }
 
         //#SECTION flags
-        if(!jsl.isEmpty(joke.flags))
+        if(!isEmpty(joke.flags))
         {
-            if(jsl.isEmpty(joke.flags.nsfw) || (joke.flags.nsfw !== false && joke.flags.nsfw !== true))
+            if(isEmpty(joke.flags.nsfw) || (joke.flags.nsfw !== false && joke.flags.nsfw !== true))
             {
                 jokeErrors.push(tr(lang, "parseJokesNoFlagNsfw"));
                 validParamsObj.flags.nsfw = false;
             }
 
-            if(jsl.isEmpty(joke.flags.racist) || (joke.flags.racist !== false && joke.flags.racist !== true))
+            if(isEmpty(joke.flags.racist) || (joke.flags.racist !== false && joke.flags.racist !== true))
             {
                 jokeErrors.push(tr(lang, "parseJokesNoFlagRacist"));
                 validParamsObj.flags.racist = false;
             }
             
-            if(jsl.isEmpty(joke.flags.sexist) || (joke.flags.sexist !== false && joke.flags.sexist !== true))
+            if(isEmpty(joke.flags.sexist) || (joke.flags.sexist !== false && joke.flags.sexist !== true))
             {
                 jokeErrors.push(tr(lang, "parseJokesNoFlagSexist"));
                 validParamsObj.flags.sexist = false;
             }
 
-            if(jsl.isEmpty(joke.flags.political) || (joke.flags.political !== false && joke.flags.political !== true))
+            if(isEmpty(joke.flags.political) || (joke.flags.political !== false && joke.flags.political !== true))
             {
                 jokeErrors.push(tr(lang, "parseJokesNoFlagPolitical"));
                 validParamsObj.flags.political = false;
             }
 
-            if(jsl.isEmpty(joke.flags.religious) || (joke.flags.religious !== false && joke.flags.religious !== true))
+            if(isEmpty(joke.flags.religious) || (joke.flags.religious !== false && joke.flags.religious !== true))
             {
                 jokeErrors.push(tr(lang, "parseJokesNoFlagReligious"));
                 validParamsObj.flags.religious = false;
             }
 
-            if(jsl.isEmpty(joke.flags.explicit) || (joke.flags.explicit !== false && joke.flags.explicit !== true))
+            if(isEmpty(joke.flags.explicit) || (joke.flags.explicit !== false && joke.flags.explicit !== true))
             {
                 jokeErrors.push(tr(lang, "parseJokesNoFlagExplicit"));
                 validParamsObj.flags.explicit = false;
@@ -449,7 +449,7 @@ function validateSubmission(joke, lang)
 
         //#SECTION lang
         let noLangProp = false;
-        if(jsl.isEmpty(joke.lang))
+        if(isEmpty(joke.lang))
             noLangProp = true;
         
         let langV = languages.isValidLang(joke.lang, lang);

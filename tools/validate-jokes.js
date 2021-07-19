@@ -1,4 +1,4 @@
-const jsl = require("svjsl");
+const { colors } = require("svcorelib");
 const settings = require("../settings");
 const promiseSeq = require("promise-all-sequential")
 
@@ -15,15 +15,15 @@ promiseSeq(initStages).then(async () => {
     try
     {
         await require("../src/parseJokes").init();
-        console.log(`${jsl.colors.fg.green}All jokes are valid.${jsl.colors.rst}\n`);
+        console.log(`${colors.fg.green}All jokes are valid.${colors.rst}\n`);
         process.exit(0);
     }
     catch(err)
     {
-        console.log(`${jsl.colors.fg.red}Error while validating jokes:${jsl.colors.rst}\n${err}\n`);
+        console.log(`${colors.fg.red}Error while validating jokes:${colors.rst}\n${err}\n`);
         process.exit(1);
     }
 }).catch(err => {
-    console.log(`${jsl.colors.fg.red}Error while initializing:\n${jsl.colors.rst}${err}\n`);
+    console.log(`${colors.fg.red}Error while initializing:\n${colors.rst}${err}\n`);
     process.exit(1);
 });

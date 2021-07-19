@@ -1,5 +1,5 @@
 const http = require("http");
-const { isEmpty, unused, colors } = require("svjsl");
+const { isEmpty, unused, colors } = require("svcorelib");
 const sql = require("mysql");
 const fs = require("fs-extra");
 const logger = require("./logger");

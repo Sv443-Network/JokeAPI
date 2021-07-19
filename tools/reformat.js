@@ -2,7 +2,7 @@
 // run this with the command "npm run reformat"
 
 const fs = require("fs-extra");
-const isEmpty = require("svjsl").isEmpty;
+const { isEmpty } = require("svcorelib");
 
 try
 {
