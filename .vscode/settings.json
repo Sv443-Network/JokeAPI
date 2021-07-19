@@ -69,6 +69,11 @@
         "#B85442"
     ],
 
+    // REQUIRES EXTENSION: esbenp.prettier-vscode
+
+    "prettier.enable": false,
+    "editor.formatOnSave": false,
+
     // JokeAPI-specific:
 
     "files.exclude": {         // hide files so they can't be opened in the IDE
