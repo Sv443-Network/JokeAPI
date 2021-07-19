@@ -35,7 +35,7 @@ const settings = require("../settings");
 
 
 /** @type {FileFormatsObj} */
-var fileFormats = {};
+let fileFormats = {};
 
 /**
  * Initializes the URL parser module
@@ -149,10 +149,8 @@ function getFileFormatFromQString(qstrObj)
  */
 function getMimeType(fileFormatString)
 {
-    let allFileTypes = JSON.parse(fs.readFileSync(settings.jokes.fileFormatsPath).toString());
-
-    if(!jsl.isEmpty(allFileTypes[fileFormatString]))
-        return allFileTypes[fileFormatString].mimeType;
+    if(!jsl.isEmpty(fileFormats[fileFormatString]))
+        return fileFormats[fileFormatString].mimeType;
     else
         return settings.jokes.defaultFileFormat.mimeType;
 }
