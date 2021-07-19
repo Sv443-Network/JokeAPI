@@ -3,7 +3,7 @@
 const scl = require("svcorelib");
 const fs = require("fs-extra");
 // const cp = require("child_process");
-const requireUncached = require('require-uncached');
+const requireUncached = require("require-uncached");
 const { resolve, join } = require("path");
 // const { XMLHttpRequest } = require("xmlhttprequest");
 
