@@ -16,9 +16,19 @@ scl.unused(http);
  */
 function resolveIP(req)
 {
+    /** @type {string|null} Client's IP address */
     let ipaddr = null;
 
-    ipaddr = reqIP.getClientIp(req);
+    try
+    {
+        ipaddr = reqIP.getClientIp(req);
+    }
+    catch(err)
+    {
+        unused(err);
+
+        ipaddr = null;
+    }
 
     if(ipaddr == null)
     {
@@ -43,13 +53,16 @@ function resolveIP(req)
  */
 function isLocal(ip, inputIsHashed = false)
 {
-    let localIPs = ["localhost", "127.0.0.1", "::1"];
+    const localIPs = ["localhost", "127.0.0.1", "::1"];
     let isLocal = false;
 
-    localIPs.forEach(lIP => {
-        if(inputIsHashed && ip.match(lIP))
+    localIPs.forEach(locIP => {
+        if(isLocal) // short circuit
+            return;
+
+        if(inputIsHashed && ip.match(hashIP(locIP)))
             isLocal = true;
-        else if(!inputIsHashed && ip.match(hashIP(lIP)))
+        else if(!inputIsHashed && ip.match(locIP))
             isLocal = true;
     });
 
@@ -63,7 +76,7 @@ function isLocal(ip, inputIsHashed = false)
  */
 function isValidIP(ip)
 {
-    return (net.isIP(ip) > 0);
+    return net.isIP(ip) > 0;
 }
 
 /**
@@ -73,7 +86,7 @@ function isValidIP(ip)
  */
 function hashIP(ip)
 {
-    let hash = crypto.createHash(settings.httpServer.ipHashing.algorithm);
+    const hash = crypto.createHash(settings.httpServer.ipHashing.algorithm);
     hash.update(ip, "utf8");
     return hash.digest(settings.httpServer.ipHashing.digest).toString();
 }
