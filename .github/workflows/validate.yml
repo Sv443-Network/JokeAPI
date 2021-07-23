@@ -41,10 +41,11 @@ jobs:
       uses: Ilshidur/action-discord@master
       with:
         args: '✅ **JokeAPI CI** (on `{{GITHUB_HEAD_REF}}`) was successful (see https://github.com/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}})'
+      if: ${{ github.actor != 'dependabot' }} # don't trigger on dependabot PRs since they don't have access to secrets
     - name: Send Discord failure notification # sends a Discord notification
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       uses: Ilshidur/action-discord@master
       with:
         args: '🚫 **JokeAPI CI** (on `{{GITHUB_HEAD_REF}}`) has failed (see https://github.com/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}})'
-      if: failure()
+      if: ${{ failure() && github.actor != 'dependabot' }} # don't trigger on dependabot PRs since they don't have access to secrets
