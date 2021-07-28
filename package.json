@@ -81,7 +81,7 @@
     "email": "contact@sv443.net"
   },
   "dependencies": {
-    "@pm2/io": "^5.0.0",
+    "@pm2/io": "^4.3.5",
     "clipboardy": "^2.3.0",
     "dotenv": "^10.0.0",
     "farmhash": "^3.1.0",
@@ -98,7 +98,7 @@
     "safe-regex": "^2.1.1",
     "svcorelib": "^1.14.1",
     "tcp-port-used": "^1.0.2",
-    "url-parse": "^1.5.1",
+    "url-parse": "^1.5.2",
     "xmlhttprequest": "^1.8.0",
     "xss": "^1.0.9"
   },
