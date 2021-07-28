@@ -17,7 +17,9 @@ const persistentData = {
     /** Max amount of heap used, ever (in percent) */
     maxHeapUsage: 0,
     /** Amount of requests sent to JokeAPI */
-    reqCounter: 0
+    reqCounter: 0,
+    /** Whether this is the first time the init message is being sent */
+    firstInitMsg: true,
 };
 
 
@@ -189,7 +191,8 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
     const hsVal = heapStats.used_heap_size;
     const heapPercent = parseFloat(scl.mapRange(hsVal, 0, hsMax, 0, 100).toFixed(2));
 
-    debug("LogRequest", `Startup metrics: initMs=${initMs} | initTimeDed=${initTimeDeduction} | initMsDed=${initMsDeducted} | initialHeapUsage=${heapPercent}%`);
+    if(persistentData.firstInitMsg)
+        debug("LogRequest", `Startup metrics: initMs=${initMs} | initTimeDed=${initTimeDeduction} | initMsDed=${initMsDeducted} | initialHeapUsage=${heapPercent}%`);
 
     if(settings.debug.dashboardEnabled && heapPercent > persistentData.maxHeapUsage)
         persistentData.maxHeapUsage = heapPercent;
@@ -199,7 +202,8 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
 
     const brBlack = "\x1b[1m\x1b[30m";
 
-    debug("LogRequest", `Building and printing init message...\n`, "green");
+    if(persistentData.firstInitMsg)
+        debug("LogRequest", `Building and printing init message...\n`, "green");
 
 
     /** Amount of states the activity indicator has (1-indexed) */
@@ -252,6 +256,9 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
         console.clear();
 
     process.stdout.write(writeLines);
+
+    if(persistentData.firstInitMsg)
+        persistentData.firstInitMsg = false;
 
     if(settings.debug.dashboardEnabled)
     {
