@@ -1,4 +1,4 @@
-name: "Validate JokeAPI"
+name: "Validate"
 
 on:
   pull_request:
@@ -7,7 +7,8 @@ on:
 
 
 jobs:
-  Build_and_Test:
+  validate:
+    name: Build and Validate
     runs-on: ubuntu-latest
 
     timeout-minutes: 10
