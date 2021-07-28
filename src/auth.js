@@ -1,10 +1,12 @@
-const http = require("http");
-const { filesystem, unused, FolderDaemon } = require("svcorelib");
+const { filesystem, FolderDaemon } = require("svcorelib");
 const fs = require("fs-extra");
 
 const settings = require("../settings");
 
-unused(http);
+//#MARKER types
+
+/** @typedef {import("http").IncomingMessage} IncomingMessage */
+/** @typedef {import("http").ServerResponse} ServerResponse */
 
 /**
  * @typedef {object} TokenObj
@@ -18,10 +20,12 @@ unused(http);
  * @prop {string} token
  */
 
+//#MARKER semi-globals
 
 /** @type {TokenObj[]} */
 let tokenList = [];
 
+//#MARKER auth
 
 /**
  * Initializes the auth module
@@ -45,24 +49,6 @@ function init()
     });
 }
 
-// prevoius code in case of an emergency (call on interval in init(), after exists() callback)
-// /**
-//  * To be called on interval to check if the tokens should be refreshed
-//  */
-// function daemonInterval()
-// {
-//     let tokenFileRaw = fs.readFileSync(settings.auth.tokenListFile).toString();
-//     let tokenHash = crypto.createHash("md5").update(tokenFileRaw).digest("hex");
-
-//     if(previousDaemonHash == undefined)
-//         return;
-//     else if(previousDaemonHash != tokenHash)
-//     {
-//         previousDaemonHash = tokenHash;
-//         refreshTokens();
-//     }
-// }
-
 /**
  * Refreshes the auth tokens in memory
  */
@@ -82,8 +68,8 @@ function refreshTokens()
 
 /**
  * Checks if the requester has provided an auth header and if the auth header is valid
- * @param {http.IncomingMessage} req 
- * @param {http.ServerResponse} [res] If not provided, users will not get the `Token-Valid` response header
+ * @param {IncomingMessage} req 
+ * @param {ServerResponse} [res] If not provided, users will not get the `Token-Valid` response header
  * @returns {TokenAuthorizationResult}
  */
 function authByHeader(req, res)
