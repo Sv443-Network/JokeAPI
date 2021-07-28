@@ -7,7 +7,7 @@ on:
 
 
 jobs:
-  build:
+  Build_and_Test:
     runs-on: ubuntu-latest
 
     timeout-minutes: 10
