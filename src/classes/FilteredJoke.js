@@ -348,7 +348,8 @@ class FilteredJoke
                 
                 let jokesArray = this._allJokes.getJokeArray(lang);
 
-                jokeCache.cache.listEntries(ip, lang).then(cacheIdList => {
+                // TODO: rewrite with async/await
+                jokeCache.cacheInstance.listEntries(ip, lang).then(cacheIdList => {
                     // #SECTION joke cache
                     if(this._idRange == this._initialIdRange)
                     {
@@ -543,7 +544,7 @@ class FilteredJoke
                 {
                     /** @type {Promise[]} */
                     let promises = [];
-                    filteredJokes.forEach(joke => promises.push(jokeCache.cache.addEntry(ip, joke.id, langCode)));
+                    filteredJokes.forEach(joke => promises.push(jokeCache.cacheInstance.addEntry(ip, joke.id, langCode)));
 
                     Promise.all(promises).then(() => {
                         return; // joke cache checking doesn't need to be waited for

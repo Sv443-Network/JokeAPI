@@ -8,6 +8,7 @@
     "start": "node .",
     "test": "node tools/test && snyk test",
     "test-colorblind": "node tools/test --colorblind && snyk test",
+    "stresstest": "node tools/stresstest",
     "submissions": "node tools/submissions",
     "reformat": "node tools/reformat",
     "reassign-ids": "node tools/reassign-ids",
