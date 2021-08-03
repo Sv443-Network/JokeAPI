@@ -7,7 +7,7 @@
 // ⚠️ Thanks :)
 
 
-const requireUncached = require("require-uncached");
+const importFresh = require("import-fresh");
 const { randomItem, system, colors } = require("svcorelib");
 const wrap = require("node-wrap");
 
@@ -34,7 +34,7 @@ function initJokeAPI()
     {
         // load in main script file, which is the entrypoint to and initializer of everything in JokeAPI
         // requireUncached to make sure JokeAPI always re-fetches this file instead of loading from cache
-        requireUncached(settings.wrapper.mainFilePath);
+        importFresh(settings.wrapper.mainFilePath);
         return;
     }
 }

@@ -3,7 +3,7 @@
 const scl = require("svcorelib");
 const fs = require("fs-extra");
 // const cp = require("child_process");
-const requireUncached = require("require-uncached");
+const importFresh = require("import-fresh");
 const { resolve, join } = require("path");
 // const { XMLHttpRequest } = require("xmlhttprequest");
 
@@ -135,7 +135,7 @@ function getAllTests()
 
         try
         {
-            let testScript = requireUncached(testPath); // the normal require sometimes returns outdated files out of the cache so I need to use an external module
+            let testScript = importFresh(testPath); // the normal require sometimes returns outdated files out of the cache so I need to use an external module
 
             if(typeof testScript.meta == "object" && typeof testScript.run == "function")
             {
