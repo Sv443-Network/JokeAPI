@@ -1,7 +1,7 @@
 // this module parses all the jokes to verify that they are valid and that their structure is not messed up
 
 const fs = require("fs-extra");
-const { unused, isEmpty, allEqual, colors } = require("svcorelib");
+const { unused, isEmpty, allEqual, colors, reserialize } = require("svcorelib");
 
 const settings = require("../settings");
 const debug = require("./debug");
@@ -81,7 +81,7 @@ const tr = require("./translate");
 /**
  * @typedef {Object} ValidationResult
  * @prop {boolean} valid Whether or not this joke's format is valid
- * @prop {string[]} errorStrings (Legacy) Array of error strings
+ * @prop {string[]} errorStrings Array of error strings
  * @prop {JokeSubmissionParams|null} jokeParams An object describing all valid and invalid parameters - If set to `null`, the joke couldn't be parsed (invalid JSON)
  */
 
@@ -116,7 +116,7 @@ function init()
         // prepare jokes files
         const jokesFiles = fs.readdirSync(settings.jokes.jokesFolderPath);
         const result = [];
-        let allJokesFilesObj = {};
+        const allJokesFilesObj = {};
 
         const outerPromises = [];
 
@@ -129,7 +129,7 @@ function init()
             outerPromises.push(new Promise((resolveOuter, rejectOuter) => {
                 unused(rejectOuter);
 
-                let fileNameValid = (fileName) => {
+                const fileNameValid = (fileName) => {
                     if(!fileName.endsWith(".json"))
                         return false;
                     let spl1 = fileName.split(".json")[0];
@@ -138,7 +138,7 @@ function init()
                     return false;
                 };
 
-                let getLangCode = (fileName) => {
+                const getLangCode = (fileName) => {
                     if(!fileName.endsWith(".json"))
                         return false;
                     let spl1 = fileName.split(".json")[0];
@@ -146,7 +146,7 @@ function init()
                         return spl1.split("-")[1].toLowerCase();
                 };
 
-                let langCode = getLangCode(jf);
+                const langCode = getLangCode(jf);
 
                 if(!jf.endsWith(".json") || !fileNameValid(jf))
                     result.push(`${colors.fg.red}Error: Invalid file "${settings.jokes.jokesFolderPath}${jf}" found. It has to follow this pattern: "jokes-xy.json"`);
@@ -240,16 +240,16 @@ function init()
         });
 
         Promise.all(outerPromises).then(() => {
-            let errors = [];
+            const errors = [];
 
             result.forEach(res => {
                 if(typeof res === "string")
                     errors.push(res);
             });
 
-            let allJokesObj = new AllJokes(allJokesFilesObj);
+            const allJokesObj = new AllJokes(allJokesFilesObj);
 
-            let formatVersions = [settings.jokes.jokesFormatVersion];
+            const formatVersions = [settings.jokes.jokesFormatVersion];
             languages.jokeLangs().map(jl => jl.code).sort().forEach(lang => {
                 formatVersions.push(allJokesObj.getFormatVersion(lang));
             });
@@ -262,7 +262,7 @@ function init()
             module.exports.jokeCountPerLang = allJokesObj.getJokeCountPerLang();
             module.exports.safeJokes = allJokesObj.getSafeJokes();
 
-            let fmtVer = allJokesObj.getFormatVersion("en");
+            const fmtVer = allJokesObj.getFormatVersion("en");
             module.exports.jokeFormatVersion = fmtVer;
             globalFormatVersion = fmtVer;
 
@@ -271,7 +271,7 @@ function init()
 
             if(allEqual(result) && result[0] === true && errors.length === 0)
                 return resolve();
-            
+
             return reject(`Errors:\n- ${errors.join("\n- ")}`);
         }).catch(err => {
             return reject(err);
@@ -282,56 +282,74 @@ function init()
 //#MARKER validate single
 /**
  * Validates a joke submission
- * @param {(SingleJoke|TwopartJoke)} joke A joke object of type single or twopart (plus the `formatVersion` prop)
+ * @param {SingleJoke|TwopartJoke|string} joke A joke object of type single or twopart (plus the `formatVersion` prop) - also accepts a stringified object
  * @param {string} lang Language code
  * @returns {ValidationResult}
  * @version 2.4.0 Changed return value (to implement issue #209)
  */
 function validateSubmission(joke, lang)
 {
-    let jokeErrors = [];
-
-    if(languages.isValidLang(lang) !== true)
-        jokeErrors.push(tr(lang, "parseJokesInvalidLanguageCode"));
-
-
-    // reserialize object
-    if(typeof joke == "object")
-            joke = JSON.stringify(joke);
-
-    joke = JSON.parse(joke);
-
-
-    /** @type {JokeSubmissionParams} */
-    let validParamsObj = {
-        formatVersion: true,
-        category: true,
-        type: true
-    };
-
-    if(joke.type == "single")
-        validParamsObj.joke = true;
-    else if(joke.type == "twopart")
-    {
-        validParamsObj.setup = true;
-        validParamsObj.delivery = true;
-    }
-
-    validParamsObj = {
-        ...validParamsObj,
-        flags: {
-            nsfw: true,
-            religious: true,
-            political: true,
-            racist: true,
-            sexist: true
-        },
-        lang: true
-    }
-
+    const jokeErrors = [];
 
     try
     {
+        // if submission is a string, parse and freeze it
+        // if it's an object, reserialize it to lose reference and also freeze it
+        if(typeof joke == "string")
+            joke = Object.freeze(JSON.parse(joke));
+        else if(typeof joke == "object")
+            joke = reserialize(joke, true);
+        else
+            throw new TypeError(`Error while validating submission: Expected 'joke' to be of type object or string but got '${typeof joke}' instead`);
+    }
+    catch(err)
+    {
+        jokeErrors.push(tr(lang, "parseJokesCantParseJson"));
+    }
+
+
+    /**
+     * Returns the parameter validity object needed in the returned object of validateSubmission()
+     * @param {SingleJoke|TwopartJoke} jokeObj
+     * @returns {JokeSubmissionParams}
+     */
+    const getParamValidityObj = (jokeObj) => {
+        let validParamsObj = {
+            formatVersion: true,
+            category: true,
+            type: true
+        };
+    
+        if(jokeObj.type == "single")
+            validParamsObj.joke = true;
+        else if(jokeObj.type == "twopart")
+        {
+            validParamsObj.setup = true;
+            validParamsObj.delivery = true;
+        }
+    
+        validParamsObj = {
+            ...validParamsObj,
+            flags: {
+                nsfw: true,
+                religious: true,
+                political: true,
+                racist: true,
+                sexist: true
+            },
+            lang: true
+        }
+    };
+
+    /** Object resembling a joke submission but all values are booleans describing the validity of that property */
+    const validParamsObj = getParamValidityObj(joke);
+
+    try
+    {
+        //#SECTION lang code
+        if(languages.isValidLang(lang) !== true)
+            jokeErrors.push(tr(lang, "parseJokesInvalidLanguageCode"));
+
         //#SECTION format version
         if(joke.formatVersion != null)
         {
@@ -469,15 +487,11 @@ function validateSubmission(joke, lang)
     }
     catch(err)
     {
-        jokeErrors.push(tr(lang, "parseJokesCantParseJson"));
-        validParamsObj = null;
+        jokeErrors.push(tr(lang, "parseJokesGeneralError", err.toString()));
     }
 
 
-    let valid = true;
-
-    if(jokeErrors.length != 0)
-        valid = false;
+    const valid = jokeErrors.length == 0;
 
     return {
         valid,
@@ -514,4 +528,4 @@ function resolveCategoryAliases(categories)
 }
 
 
-module.exports = { init, validateSubmission, resolveCategoryAlias, resolveCategoryAliases }
+module.exports = { init, validateSubmission, resolveCategoryAlias, resolveCategoryAliases };

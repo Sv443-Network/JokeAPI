@@ -466,10 +466,15 @@
         },
         "parseJokesCantParseJson": {
             "en": "Joke couldn't be parsed as JSON.",
-            "de": "Joke konnte nicht als JSON geparst werden.",
+            "de": "Witz konnte nicht als JSON geparst werden.",
             "ru": "Шутка не может быть разбита на JSON.",
             "cs": "Vtip nelze parsovat jako JSON",
             "it": "Barzelletta non può essere formattata come JSON"
+        },
+        "parseJokesGeneralError": {
+            "en": "General error while parsing joke submission: %1",
+            "de": "Allgemeiner Fehler beim Parsen der Witz-Einreichung: %1",
+            "ru": "Общая ошибка при разборе присланной шутки: %1"
         },
         "langModuleInitError": {
             "en": "Internal error: language module was not correctly initialized.",

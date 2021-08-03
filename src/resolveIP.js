@@ -1,11 +1,11 @@
 const http = require("http");
-const scl = require("svcorelib");
+const { unused } = require("svcorelib");
 const crypto = require("crypto");
 const reqIP = require("request-ip");
 const net = require("net");
 const settings = require("../settings");
 
-scl.unused(http);
+unused(http);
 
 
 
