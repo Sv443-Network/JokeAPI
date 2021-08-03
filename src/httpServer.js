@@ -195,7 +195,7 @@ function init()
             {
                 try
                 {
-                    debug("HTTP", `Port ${settings.httpServer.port} is available, continuing with endpoint registration...`);
+                    debug("HTTP", `${colors.fg.green}Port ${colors.fg.yellow}${settings.httpServer.port} ${colors.fg.green}is available${colors.rst}, continuing with endpoint registration...`);
 
                     const promises = [
                         registerDataEndpoints(settings.endpoints.get.dirPath),
@@ -212,7 +212,7 @@ function init()
             }
             else
             {
-                debug("HTTP", `Port ${settings.httpServer.port} is busy`, "red");
+                debug("HTTP", `Port ${settings.httpServer.port} ${colors.fg.red}is busy${colors.rst}`, "red");
                 return reject(`TCP port ${settings.httpServer.port} is busy. Either kill the process using it or set the port in "settings.js" to a different value.`);
             }
         });

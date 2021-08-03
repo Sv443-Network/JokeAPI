@@ -42,7 +42,7 @@ const init = () => {
             }
             else
             {
-                debug("SQL", `Successfully connected to database at ${colors.fg.yellow}${settings.sql.host}:${settings.sql.port}/${settings.sql.database}${colors.rst}`);
+                debug("SQL", `Successfully connected to database at ${colors.fg.green}${settings.sql.host}:${settings.sql.port}/${settings.sql.database}${colors.rst}`);
 
                 this.sqlConn = sqlConnection;
                 module.exports.sqlConn = sqlConnection;

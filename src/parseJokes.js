@@ -267,7 +267,7 @@ function init()
             globalFormatVersion = fmtVer;
 
 
-            debug("JokeParser", `Done parsing all ${parsedJokesAmount} jokes. Errors: ${errors.length === 0 ? colors.fg.green : colors.fg.red}${errors.length}${colors.rst}`);
+            debug("JokeParser", `Done parsing all ${colors.fg.green}${parsedJokesAmount}${colors.rst} jokes. Errors: ${errors.length === 0 ? colors.fg.green : colors.fg.red}${errors.length}${colors.rst}`);
 
             if(allEqual(result) && result[0] === true && errors.length === 0)
                 return resolve();

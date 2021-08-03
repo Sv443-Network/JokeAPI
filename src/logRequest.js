@@ -192,7 +192,7 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
     const heapPercent = parseFloat(scl.mapRange(hsVal, 0, hsMax, 0, 100).toFixed(2));
 
     if(persistentData.firstInitMsg)
-        debug("LogRequest", `Startup metrics: initMs=${initMs} | initTimeDed=${initTimeDeduction} | initMsDed=${initMsDeducted} | initialHeapUsage=${heapPercent}%`);
+        debug("LogRequest", `${col.green}Startup metrics:${col.rst} initMs=${initMs} | initTimeDed=${initTimeDeduction} | initMsDed=${initMsDeducted} | initialHeapUsage=${heapPercent}%`);
 
     if(settings.debug.dashboardEnabled && heapPercent > persistentData.maxHeapUsage)
         persistentData.maxHeapUsage = heapPercent;

@@ -48,7 +48,7 @@ function init()
                 }
                 else
                 {
-                    debug("JokeCache", `Successfully connected to database at ${colors.fg.yellow}${settings.sql.host}:${settings.sql.port}/${settings.sql.database}${colors.rst}`);
+                    debug("JokeCache", `Successfully connected to database at ${colors.fg.green}${settings.sql.host}:${settings.sql.port}/${settings.sql.database}${colors.rst}`);
 
                     /** @type {mysql.QueryOptions} */
                     let queryOptions = {
