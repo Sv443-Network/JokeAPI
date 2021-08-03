@@ -173,6 +173,7 @@ function logRequest(type, additionalInfo, analyticsData)
         persistentData.reqCounter++;
 }
 
+//#MARKER init message + dashboard
 /**
  * Sends an initialization message - called when the initialization is done
  * @param {number} initTimestamp The UNIX timestamp of when JokeAPI was initialized
@@ -182,6 +183,7 @@ function logRequest(type, additionalInfo, analyticsData)
  */
 function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTimeDeduction)
 {
+    //#SECTION initialize message
     const lines = [];
     const initMs = initDurationMs ? initDurationMs : (Date.now() - initTimestamp);
     const initMsDeducted = initTimeDeduction ? initMs - initTimeDeduction : initMs;
@@ -218,6 +220,8 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
 
     let maxHeapText = settings.debug.dashboardEnabled ? ` (max: ${maxHeapColor}${persistentData.maxHeapUsage}%${col.rst})` : "";
 
+    //#SECTION main message
+    // stats
     lines.push(`\n${activityIndicator}${col.blue}[${logger.getTimestamp()}] ${col.rst}- ${col.blue}${settings.info.name} v${settings.info.version}${col.rst}\n`);
     lines.push(` ${brBlack}├─${col.rst} Registered and validated ${col.green}${parseJokes.jokeCount}${col.rst} jokes from ${col.green}${languages.jokeLangs().length}${col.rst} languages\n`);
     lines.push(` ${brBlack}├─${col.rst} Found filter components: ${col.green}${settings.jokes.possible.categories.length}${col.rst} categories, ${col.green}${settings.jokes.possible.flags.length}${col.rst} flags, ${col.green}${settings.jokes.possible.formats.length}${col.rst} formats\n`);
@@ -226,23 +230,30 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
     else
         lines.push(` ${brBlack}├─${col.rst} Analytics database ${settings.analytics.enabled ? col.red : col.yellow}not connected${settings.analytics.enabled ? "" : " (disabled)"}${col.rst}\n`);
     lines.push(` ${brBlack}├─${col.rst} Joke cache database ${jokeCache.connectionInfo.connected ? `${col.green}connected` : `${col.red}not connected`}${col.rst}\n`);
-    lines.push(` ${brBlack}├─${col.rst} HTTP${settings.httpServer.ssl.enabled ? "S" : ""} server is listening at ${col.green}${getLocalURL()}${col.rst} (SSL ${settings.httpServer.ssl.enabled ? `${col.green}enabled${col.rst}` : `${col.yellow}disabled${col.rst}`})\n`);
-    lines.push(` ${brBlack}├─${col.rst} Initialization took ${col.green}${initMsDeducted}ms${initMsDeducted == 69 ? " (nice)" : ""}${col.rst}${initMs !== initMsDeducted ? ` (after deduction - total is ${col.yellow}${initMs}ms${col.rst})` : ""}\n`);
-    lines.push(` ${brBlack}└─${col.rst} ${!settings.debug.dashboardEnabled ? "Initial heap" : "Heap"} usage: ${heapColor}${heapPercent}%${col.rst}${maxHeapText}\n`);
+    lines.push(` ${brBlack}└─${col.rst} HTTP${settings.httpServer.ssl.enabled ? "S" : ""} server is listening at ${col.green}${getLocalURL()}${col.rst} (SSL ${settings.httpServer.ssl.enabled ? `${col.green}enabled${col.rst}` : `${col.yellow}disabled${col.rst}`})\n`);
+
+    lines.push("\n");
+
+    // #SECTION info
+    lines.push(`  ${col.rst}• Initialization took ${col.green}${initMsDeducted}ms${initMsDeducted == 69 ? " (nice)" : ""}${col.rst}${initMs !== initMsDeducted ? ` (after deduction - total is ${col.yellow}${initMs}ms${col.rst})` : ""}\n`);
+    lines.push(`  ${col.rst}• ${!settings.debug.dashboardEnabled ? "Initial heap" : "Heap"} usage: ${heapColor}${heapPercent}%${col.rst}${maxHeapText}\n`);
+
 
     let dbIntervalSeconds = settings.debug.dashboardInterval / 1000;
     if(dbIntervalSeconds % 1 != 0)
         dbIntervalSeconds = dbIntervalSeconds.toFixed(1);
 
-    lines.push(`${brBlack}${!settings.debug.dashboardEnabled ? "" : `  • Dashboard mode enabled (${dbIntervalSeconds}s interval)\n`}${col.rst}`);
+    lines.push(`${!settings.debug.dashboardEnabled ? "" : `  • ${brBlack}Dashboard mode enabled (${dbIntervalSeconds}s interval)\n`}${col.rst}`);
 
     // GDPR compliance notice
     if(!isGdprCompliant())
-        lines.push(`${col.yellow}  • Not compliant with the GDPR${col.rst}\n`);
+        lines.push(`${col.yellow}  • ${settings.info.name} is not compliant with the GDPR!${col.rst}\n`);
 
     lines.push("\n");
 
-    lines.push(`Colors: ${col.green}Success ${col.rst}• ${col.yellow}Info/Warning ${col.rst}• ${col.red}Error${col.rst}\n`);
+    // lines.push(`${brBlack}[Colors: ${col.green}Success ${col.yellow}Info/Warning ${col.red}Error${brBlack}]${col.rst}\n`);
+
+    //#SECTION finalize
 
     // make it look better when spammed by debug messages immediately after:
     if(settings.debug.verboseLogging)

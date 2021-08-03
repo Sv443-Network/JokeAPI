@@ -19,7 +19,7 @@
     --accent-color-light: #b05ffc;
     --accent-color-sidenav-opened: #a779d3;
 
-    --doc-header-font-size: 29px;
+    --doc-header-font-size: 27px;
     --doc-sub-header-font-size: 22px;
 
     --sidenav-animation-speed: 0.20s;
@@ -53,7 +53,7 @@ body {
     background-color: var(--bg-color);
     color: #fff;
     font-family: "Roboto", "Segoe UI", "Arial", sans-serif;
-    font-size: 17px;
+    font-size: 18px;
     line-height: var(--line-height);
     font-weight: 200;
 
@@ -577,7 +577,7 @@ ul.lispacer li {
     border-radius: 2px;
     background-color: var(--bg-accent-color-darker);
     display: inline-block;
-    font-size: 110%;
+    font-size: 1em;
     padding: 3px;
     padding-left: 10px;
     padding-right: 40px;
@@ -611,6 +611,7 @@ body[data-sidenav="opened"] .requestURLwrapper {
 }
 
 .requestURL {
+    display: inline-block;
     color: #ccc;
     font-family: "Cascadia Code", "Roboto Mono", "Consolas", monospace;
 }

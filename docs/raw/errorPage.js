@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     try
     {
+        // error info is transmitted via cookies cause I couldn't think of a better way
         let errorInfo = JSON.parse(Cookies.get("errorInfo")); // eslint-disable-line no-undef
 
         let statusCode = parseInt(errorInfo["API-Error-StatusCode"]);
@@ -38,10 +39,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
 /**
  * Sets the error display of the page
- * @param {Number} code 
- * @param {String} summary
- * @param {String} details 
- * @param {String} subText
+ * @param {number} code 
+ * @param {string} summary
+ * @param {string} details 
+ * @param {string} subText
  */
 function setErrorDisp(code = 500, summary = "Internal Server Error", details = "No details provided", subText = "")
 {

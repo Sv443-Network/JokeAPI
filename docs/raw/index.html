@@ -24,7 +24,7 @@
         <meta name="description" content="<!--%#INSERT:NAME#%--> is a RESTful API that serves jokes from many categories while also offering a lot of filtering methods">
         <meta name="twitter:card" content="<!--%#INSERT:NAME#%--> is a RESTful API that serves jokes from many categories while also offering a lot of filtering methods">
         <meta name="subject" content="API">
-        <meta name="copyright" content="Sv443 - Licensed under MIT license (https://sv443.net/LICENSE)">
+        <meta name="copyright" content="Sv443 - MIT License (https://sv443.net/LICENSE)">
         <meta name="author" content="Sv443">
         <meta property="og:title" content="<!--%#INSERT:NAME#%-->">
         <meta property="og:url" content="<!--%#INSERT:DOCSURL#%-->">
@@ -167,7 +167,7 @@
                         <b>Joke Caching is finally here!</b><br>
                         No longer will you receive the same joke multiple times in a row.<br>
                         Since version 2.4.0, <!--%#INSERT:NAME#%--> will now keep track of which jokes you have already requested, preventing them from being served again for a long while.<br>
-                        <sub>(Collected data is deleted after <!--%#INSERT:CACHINGDATAEXPIRYHOURS#%--> hours of inactivity, use the <a href="#">clear data endpoint</a> to delete your data on demand.)</sub>
+                        <sub>(Collected data is deleted after <!--%#INSERT:CACHINGDATAEXPIRYHOURS#%--> hours of inactivity, use the <a href="#clear-data-endpoint">clear data endpoint</a> to delete your data on demand.)</sub>
                     </li>
                     <li>
                         <b><!--%#INSERT:NAME#%--> now has its own domain!</b><br>
@@ -659,26 +659,28 @@ None. It's a hardware problem.
                         <th>Character</th>
                         <th>Name</th>
                         <th>Description</th>
+                        <th>Percent-Encoded</th>
                     </tr>
                     <tr>
                         <td><mark>*</mark></td>
                         <td>Wildcard</td>
                         <td>This character matches any amount of any character. It is equivalent to <mark>.*</mark> in regular expressions.</td>
+                        <td><mark>*</mark></td>
                     </tr>
                     <tr>
                         <td><mark>|</mark></td>
                         <td>Logical&nbsp;OR</td>
                         <td>This character allows you to chain multiple patterns. The potential jokes only need to match one of the chained patterns to be returned.</td>
+                        <td><mark>%7C</mark></td>
                     </tr>
                 </table>
                 <br>
 
                 As exaplained above, this parameter has a special quirk called percent-encoding, which is needed to ensure the string or pattern you're searching for doesn't interfere with the URL's structure.<br>
                 This limitation makes <!--%#INSERT:NAME#%--> unable to tell if certain characters are supposed to be part of the pattern syntax or your actual search values.<br>
-                To address this, all percent-encoded characters are considered part of the <i>value to be searched for</i>, while non-encoded characters will be treated as <i>part of the pattern syntax.</i><br>
-                So to search for a <mark>|</mark> character in a joke you need to percent-encode it, resulting in <mark>%7C</mark>, while you should let Logical OR characters remain as <mark>|</mark> (also see the examples below).<br>
+                This is why you will not be able to search for these expression characters in jokes. As a substitute, you can use the wildcard <mark>*</mark> character.<br>
                 <br>
-                Note that to prevent <a href="https://snyk.io/blog/redos-and-catastrophic-backtracking/" target="_blank">ReDoS</a> attacks the limit for wildcards and pattern repetitions is <!--%#INSERT:SEARCHSTRWILDCARDLIMIT#%-->. Anything above this number will produce an error.<br>
+                Note that to prevent <a href="https://snyk.io/blog/redos-and-catastrophic-backtracking/" target="_blank">ReDoS attacks</a> the limit for wildcards and pattern repetitions is <!--%#INSERT:SEARCHSTRWILDCARDLIMIT#%-->. Anything above this number will produce an error.<br>
                 <br>
                 <br>
 
@@ -739,7 +741,8 @@ None. It's a hardware problem.
                 <br>
 
                 <details><summary>Logical OR pattern example (click to view)</summary>
-                    URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?contains=*develop*|*programm*|*C%23*&amount=2</mark><br>
+                    URL: <mark><!--%#INSERT:DOCSURL#%-->/joke/Any?contains=*develop*%7C*programm*%7C*C%23*&amount=2</mark><br>
+                    <sub>(Note that <mark>%7C</mark> is the pipe <mark>|</mark> character, aka logical OR)</sub><br>
                     <br>
                     This URL would make <!--%#INSERT:NAME#%--> serve only jokes that contain the consecutive characters "develop", "programm" or "C#", somewhere within the joke.<br>
                     Examples for words that would be matched: "developer", "develop", "development", "programmer", "programming", "C#", etc.<br>
@@ -1352,7 +1355,7 @@ None. It's a hardware problem.
                                     </span>
                                     <br><br>
                                     This endpoint is used to manually delete all the data <!--%#INSERT:NAME#%--> has collected from you.<br>
-                                    You don't need to send anything in the request body, the request itself will trigger a deletion.<br>
+                                    The request itself will trigger a deletion, any sent data will be ignored.<br>
                                     <br>
                                     <span class="mimica" onclick="privPolMoreInfo()">Click here</span> to view what data <!--%#INSERT:NAME#%--> collects.<br>
                                     <br>
@@ -1731,7 +1734,7 @@ namespace JokeAPIExample
                 <div class="indented">
                     <!--%#INSERT:NAME#%--> is licensed under the MIT License.<br>
                     Before modifying and / or redistributing the source code, please take two minutes to read the license text.<br>
-                    <a href="https://sv443.net/LICENSE" target="_blank">You can view the full license text by clicking here.</a>
+                    <a href="https://github.com/Sv443/JokeAPI/blob/master/LICENSE.txt" target="_blank">You can view the full license text by clicking here.</a>
                 </div>
 
                 <!-- #SECTION Privacy -->
@@ -1835,7 +1838,7 @@ namespace JokeAPIExample
                 <br><br><br><br>
     
                 <footer id="copyrightNotice">
-                    <span>&copy; Copyright 2018-2021 Sv443 - licensed under the <a href="https://sv443.net/LICENSE" target="_blank">MIT license</a></span><br>
+                    <span>&copy; Copyright 2018-2021 Sv443 - licensed under the <a href="https://github.com/Sv443/JokeAPI/blob/master/LICENSE.txt" target="_blank">MIT license</a></span><br>
                     <span>This project is part of the <a href="https://sv443.net/" target="_blank">Sv443 Network</a></span>
                 </footer>
             </main>

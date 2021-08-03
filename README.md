@@ -2,7 +2,7 @@
 
 # [![icon](https://sv443.net/cdn/jokeapi/icon_readme.png)](#readme)<br>JokeAPI
 ### A REST API that serves uniformly and well formatted jokes and offers a great variety of filtering methods and response customization
-[![GitHub](https://img.shields.io/github/license/Sv443/JokeAPI)](https://sv443.net/LICENSE)
+[![GitHub](https://img.shields.io/github/license/Sv443/JokeAPI)](https://github.com/Sv443/JokeAPI/blob/master/LICENSE.txt)
 [![Uptime / 7 Days](https://img.shields.io/uptimerobot/ratio/7/m784261094-bff76b959ebb8fc39f7eb2d0)](https://status.sv443.net/)
 [![Open Issues](https://img.shields.io/github/issues/Sv443/JokeAPI)](https://github.com/Sv443/JokeAPI/issues)
   

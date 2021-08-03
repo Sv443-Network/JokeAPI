@@ -1,17 +1,13 @@
-const http = require("http");
 const { unused } = require("svcorelib");
 const crypto = require("crypto");
 const reqIP = require("request-ip");
 const net = require("net");
 const settings = require("../settings");
 
-unused(http);
-
-
 
 /**
  * Extracts the IP address from a HTTP request object
- * @param {http.ServerResponse} req The HTTP req object
+ * @param {import("http").IncomingMessage} req HTTP request object to resolve the IP of
  * @returns {string}
  */
 function resolveIP(req)
@@ -30,13 +26,15 @@ function resolveIP(req)
         ipaddr = null;
     }
 
-    if(ipaddr == null)
+    // if IP couldn't be extracted, try using the "Cf-Pseudo-IPv4" header, see https://support.cloudflare.com/hc/en-us/articles/229666767-Understanding-and-configuring-Cloudflare-s-IPv6-support#h_877db671-916a-4085-9676-8eb27eaa2a91
+    if(!net.isIP(ipaddr))
     {
         if(req.headers && typeof req.headers["cf-pseudo-ipv4"] == "string" && isValidIP(req.headers["cf-pseudo-ipv4"]))
             ipaddr = req.headers["cf-pseudo-ipv4"];
     }
 
-    if(ipaddr == null)
+    // if "Cf-Pseudo-IPv4" is not present or invalid, use the country of origin as a last effort substitute
+    if(!net.isIP(ipaddr))
     {
         if(req.headers && typeof req.headers["cf_ipcountry"] == "string")
             ipaddr = `unknown_${req.headers["cf_ipcountry"]}`;
@@ -86,7 +84,7 @@ function isValidIP(ip)
  */
 function hashIP(ip)
 {
-    const hash = crypto.createHash(settings.httpServer.ipHashing.algorithm);
+    const hash = crypto.createHash(settings.httpServer.ipHashing.algorithm);+
     hash.update(ip, "utf8");
     return hash.digest(settings.httpServer.ipHashing.digest).toString();
 }

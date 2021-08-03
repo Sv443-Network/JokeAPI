@@ -137,7 +137,7 @@ const settings = {
             wildcard: "*",   // wildcard / any-match character
             orOperator: "|", // OR operator to chain "expressions"
         },
-        regexRepetitionLimit: 8, // Max limit of repetitions / wildcards allowed in regexes built based on user input
+        regexRepetitionLimit: 10, // Max limit of repetitions / wildcards allowed in regexes built based on user input - this is to prevent ReDoS attacks, see https://snyk.io/blog/redos-and-catastrophic-backtracking/
     },
     /** Settings for the `httpServer` module */
     httpServer: {
@@ -174,10 +174,12 @@ const settings = {
         encodings: {
             gzip: true,    // Whether or not Gzip encoding should be enabled for the documentation page
             deflate: true, // Whether or not Deflate encoding should be enabled for the documentation page
-            brotli: true,  // Whether or not Brotli encoding should be enabled for the documentation page
+            brotli: true,  // Whether or not Brotli encoding should be enabled for the documentation page (old Node versions might need this disabled)
         },
-        encodingPriority: [ // The priority of the encodings. Items with a lower array index (further to the left) have the highest priority
-            "brotli", "gzip", "deflate"
+        encodingPriority: [ // The priority of the encodings. Items with a lower array index (further to the top) have the highest priority
+            "brotli",
+            "gzip",
+            "deflate",
         ],
     },
     /** Everything regarding errors */

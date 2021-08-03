@@ -496,7 +496,7 @@ class FilteredJoke
                     const isolatedPattern = `^${pattern.split(settings.jokes.searchStringOperators.orOperator).join(`$|^`)}$`;
                     // create the final regex
                     const searchRegex = new RegExp(isolatedPattern, "gmi");
-                    // make sure there's no way in hell a user can ReDoS JokeAPI with exponential-time Regexes / catastrophic backtracking
+                    // make sure there's no way in hell a user can ReDoS JokeAPI with exponential-time regexes / catastrophic backtracking - see https://snyk.io/blog/redos-and-catastrophic-backtracking/
                     const regexSafe = safeRegex(searchRegex, { limit: settings.jokes.regexRepetitionLimit });
 
                     if(regexSafe === true)
