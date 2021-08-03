@@ -9,6 +9,16 @@ const resolveIP = require("./resolveIP");
 
 
 /**
+ * @typedef {object} ListsObject
+ * @prop {string[]} blacklist IP addresses that are permanently blocked from visiting and using JokeAPI
+ * @prop {string[]} whitelist IP addresses that can bypass rate limiting
+ * @prop {string[]} consoleBlacklist IP addresses that don't send console messages (usually used to reduce spam from uptime measuring services)
+ */
+
+/** @type {ListsObject|undefined} All lists and their values. Set to `undefined` until `init()` finishes. */
+let lists = undefined;
+
+/**
  * Initializes all lists (blacklist, whitelist and console blacklist)
  * @returns {Promise}
  */
@@ -51,31 +61,23 @@ function init()
                         consoleBlacklist = "[\n\t\n]";
 
                     consoleBlacklist = consoleBlacklist.toString();
-                    
-                    //#SECTION put lists in the process object
+
                     try
                     {
-                        if(isEmpty(process.jokeapi))
-                            process.jokeapi = {};
-                        if(isEmpty(process.jokeapi.lists))
-                            process.jokeapi.lists = {};
-                        
-                        process.jokeapi.lists = {
+                        lists = {
                             blacklist: JSON.parse(blacklist),
                             whitelist: JSON.parse(whitelist),
                             consoleBlacklist: JSON.parse(consoleBlacklist)
                         };
 
-                        if(!isEmpty(process.jokeapi.lists))
-                        {
-                            debug("Lists", "Finished reading and initializing all lists");
-                            return resolve(process.jokeapi.lists);
-                        }
-                        return reject(`Unexpected error: process.jokeapi.lists is empty (${typeof process.jokeapi.lists})`);
+                        debug("Lists", "Finished reading and initializing all lists");
+                        module.exports.lists = lists;
+
+                        return resolve(lists);
                     }
                     catch(err)
                     {
-                        return reject(err);
+                        return reject(`Error while initializing lists: ${err}`);
                     }
                 });
             });
@@ -85,23 +87,23 @@ function init()
 
 /**
  * Checks whether a provided IP address is in the blacklist
- * @param {String} ip
- * @returns {Bool} true if blacklisted, false if not
+ * @param {string} ip
+ * @returns {bool} true if blacklisted, false if not
  */
 function isBlacklisted(ip)
 {
-    if(isEmpty(process.jokeapi) || isEmpty(process.jokeapi.lists) || !(process.jokeapi.lists.blacklist instanceof Array))
+    if(isEmpty(lists) || !(lists.blacklist instanceof Array))
     {
         logger("fatal", `Blacklist was not initialized when calling lists.isBlacklisted()`, true);
         throw new Error(`Blacklist was not initialized`);
     }
 
-    if(isEmpty(process.jokeapi.lists.blacklist) || process.jokeapi.lists.blacklist.length == 0)
+    if(isEmpty(lists.blacklist) || lists.blacklist.length == 0)
         return false;
     
     let returnVal = false;
 
-    process.jokeapi.lists.blacklist.forEach(blIP => {
+    lists.blacklist.forEach(blIP => {
         if(!returnVal && (ip == blIP || ip == resolveIP.hashIP(blIP)))
             returnVal = true;
     });
@@ -114,53 +116,55 @@ function isBlacklisted(ip)
 
 /**
  * Checks whether a provided IP address is in the whitelist
- * @param {String} ip
- * @returns {Bool} Returns true if whitelisted, false if not
+ * @param {string} ip
+ * @returns {bool} Returns true if whitelisted, false if not
  * @throws Throws an error if the lists module was not previously initialized
  */
 function isWhitelisted(ip)
 {
     let whitelisted = false;
 
-    if(isEmpty(process.jokeapi) || isEmpty(process.jokeapi.lists) || !(process.jokeapi.lists.whitelist instanceof Array))
+    if(isEmpty(lists) || !(lists.whitelist instanceof Array))
     {
         logger("fatal", `Whitelist was not initialized when calling lists.isWhitelisted()`, true);
         throw new Error(`Whitelist was not initialized`);
     }
 
-    if(isEmpty(process.jokeapi.lists.whitelist) || process.jokeapi.lists.whitelist.length == 0)
+    if(isEmpty(lists.whitelist) || lists.whitelist.length == 0)
         return false;
 
-    process.jokeapi.lists.whitelist.forEach(wlIP => {
+    lists.whitelist.forEach(wlIP => {
         if(!whitelisted && (ip == wlIP || ip == resolveIP.hashIP(wlIP)))
             whitelisted = true;
     });
+
     return whitelisted;
 }
 
 /**
  * Checks whether a provided IP address is in the console blacklist
- * @param {String} ip
- * @returns {Bool} true if console blacklisted, false if not
+ * @param {string} ip
+ * @returns {bool} true if console blacklisted, false if not
  */
 function isConsoleBlacklisted(ip)
 {
-    if(isEmpty(process.jokeapi) || isEmpty(process.jokeapi.lists) || !(process.jokeapi.lists.consoleBlacklist instanceof Array))
+    if(isEmpty(lists) || !(lists.consoleBlacklist instanceof Array))
     {
         logger("fatal", `Console blacklist was not initialized when calling lists.isConsoleBlacklisted()`, true);
         throw new Error(`Console blacklist was not initialized`);
     }
 
-    if(isEmpty(process.jokeapi.lists.consoleBlacklist) || process.jokeapi.lists.consoleBlacklist.length == 0)
+    if(isEmpty(lists.consoleBlacklist) || lists.consoleBlacklist.length == 0)
         return false;
     
     let returnVal = false;
 
-    process.jokeapi.lists.consoleBlacklist.forEach(cblIP => {
+    lists.consoleBlacklist.forEach(cblIP => {
         if(!returnVal && (ip == cblIP || ip == resolveIP.hashIP(cblIP)))
             returnVal = true;
     });
+
     return returnVal;
 }
 
-module.exports = { init, isBlacklisted, isWhitelisted, isConsoleBlacklisted };
+module.exports = { init, isBlacklisted, isWhitelisted, isConsoleBlacklisted, lists };

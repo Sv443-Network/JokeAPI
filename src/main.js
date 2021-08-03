@@ -25,8 +25,12 @@ const parseURL = require("./parseURL");
 const { randomItem } = require("svcorelib");
 
 const col = colors.fg;
-process.debuggerActive = system.inDebugger();
-const noDbg = process.debuggerActive || false;
+
+/** Data that persists until JokeAPI is shut down */
+const persistentData = {
+    /** Whether the process is run in a debugger */
+    debuggerActive: system.inDebugger() || false
+};
 
 require("dotenv").config();
 
@@ -56,9 +60,6 @@ let splashDefaultLang = "en";
 async function initAll()
 {
     const initTimestamp = Date.now();
-
-    process.jokeapi = {};
-    // initializeDirs();
 
     try
     {
@@ -129,7 +130,7 @@ async function initAll()
     splashes = await loadSplashes();
 
     // create progress bar if the settings and debugger state allow it
-    const pb = (!noDbg && !settings.debug.progressBarDisabled) ? new ProgressBar(initStages.length, `Initializing ${initStages[0].name}`) : undefined;
+    const pb = (!persistentData.debuggerActive && !settings.debug.progressBarDisabled) ? new ProgressBar(initStages.length, `Initializing ${initStages[0].name}`) : undefined;
 
     debug("Init", `Sequentially initializing all ${initStages.length} modules...`);
 
@@ -187,11 +188,13 @@ function initError(action, err)
  * Ends all open connections and then shuts down the process with the specified exit code
  * @param {Number} [code=0] Exit code - defaults to 0
  */
-async function softExit(code)
+async function softExit(code = 0)
 {
     try
     {
-        if(typeof code != "number" || code < 0)
+        code = parseInt(code);
+
+        if(isNaN(code) || code < 0)
             code = 0;
 
         await analytics.endSqlConnection();

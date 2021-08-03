@@ -1,6 +1,6 @@
 // this module initializes the blacklist, whitelist and console blacklist
 
-const scl = require("svcorelib");
+const { isEmpty, unused, FolderDaemon, colors } = require("svcorelib");
 // const farmhash = require("farmhash");
 const fs = require("fs-extra");
 const settings = require("../settings");
@@ -62,9 +62,9 @@ function init()
  */
 function startDaemon()
 {
-    let fd = new scl.FolderDaemon(path.resolve(settings.documentation.rawDirPath), [], true, settings.documentation.daemonInterval * 1000);
+    let fd = new FolderDaemon(path.resolve(settings.documentation.rawDirPath), [], true, settings.documentation.daemonInterval * 1000);
     fd.onChanged((error, result) => {
-        scl.unused(result);
+        unused(result);
         if(!error)
         {
             debug("Daemon", "Noticed changed files");
@@ -112,21 +112,21 @@ function compileDocs()
 
             filesToInject.forEach((fileToInject, i) => {
                 promises.push(new Promise((resolve, reject) => {
-                    scl.unused(reject);
+                    unused(reject);
                     inject(fileToInject).then((injected, injectionsNum) => {
-                        if(!scl.isEmpty(injectionsNum) && !isNaN(parseInt(injectionsNum)))
+                        if(!isEmpty(injectionsNum) && !isNaN(parseInt(injectionsNum)))
                             persistentData.injectionCounter += parseInt(injectionsNum);
 
                         persistentData.brCompErrOnce = false;
 
                         if(settings.httpServer.encodings.gzip)
-                            saveEncoded("gzip", injectedFileNames[i], injected).catch(err => scl.unused(err));
+                            saveEncoded("gzip", injectedFileNames[i], injected).catch(err => unused(err));
                         if(settings.httpServer.encodings.deflate)
-                            saveEncoded("deflate", injectedFileNames[i], injected).catch(err => scl.unused(err));
+                            saveEncoded("deflate", injectedFileNames[i], injected).catch(err => unused(err));
                         if(settings.httpServer.encodings.brotli)
                         {
                             saveEncoded("brotli", injectedFileNames[i], injected).catch(err => {
-                                scl.unused(err);
+                                unused(err);
 
                                 if(!persistentData.brCompErrOnce)
                                 {
@@ -150,7 +150,7 @@ function compileDocs()
             {
                 await Promise.allSettled(promises);
 
-                const infoStr = `${scl.colors.fg.yellow}${Date.now() - persistentData.injectionTimestamp}ms${scl.colors.rst} (injected ${scl.colors.fg.yellow}${persistentData.injectionCounter}${scl.colors.rst} values)`;
+                const infoStr = `${colors.fg.yellow}${Date.now() - persistentData.injectionTimestamp}ms${colors.rst} (injected ${colors.fg.yellow}${persistentData.injectionCounter}${colors.rst} values)`;
 
                 if(persistentData.isInitialCompilation)
                 {
@@ -252,7 +252,7 @@ function saveEncoded(encoding, filePath, content)
  */
 function injectError(err, exit = true)
 {
-    console.log(`\n${scl.colors.fg.red}Error while injecting values into docs: ${err}${scl.colors.rst}\n`);
+    console.log(`\n${colors.fg.red}Error while injecting values into docs: ${err}${colors.rst}\n`);
 
     analytics({
         type: "Error",
@@ -324,7 +324,7 @@ function inject(filePath)
                 const checkMatch = (key, regex) => {
                     allMatches += ((file.toString().match(regex) || []).length || 0);
                     const injection = sanitize(injections[key]);
-                    file = file.replace(regex, !scl.isEmpty(injection) ? injection : "Error");
+                    file = file.replace(regex, !isEmpty(injection) ? injection : "Error");
                 };
 
                 let allMatches = 0;
