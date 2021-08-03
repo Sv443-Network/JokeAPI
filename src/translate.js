@@ -1,3 +1,5 @@
+// This module handles general translations (endpoint translations, splashes, etc. are located elsewhere)
+
 const fs = require("fs-extra");
 const { unused } = require("svcorelib");
 
@@ -10,8 +12,8 @@ const settings = require("../settings");
 /** @typedef {import("svcorelib").Stringifiable} Stringifiable */
 
 
-var trFile = {};
-var filterCompTrFile = {};
+let trFile = {};
+let filterCompTrFile = {};
 
 /**
  * Initializes the translation module by caching the translations so they only need to be read from disk once
