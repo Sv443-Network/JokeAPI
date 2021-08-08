@@ -16,7 +16,6 @@ const settings = require("./settings");
 
 /**
  * Initializes JokeAPI
- * @returns {void}
  */
 function initJokeAPI()
 {
@@ -24,16 +23,24 @@ function initJokeAPI()
 
     displaySplash();
 
-    if(!system.inDebugger() && !settings.wrapper.skipWrapping)
+    const inDebugger = system.inDebugger();
+
+    if(!inDebugger && !settings.wrapper.skipWrapping)
     {
         // the debugger and child processes don't get along together so only wrap JokeAPI if the debugger is not active:
         wrap(settings.wrapper.mainFilePath, settings.wrapper.wrapperSettings);
         return;
     }
+    else if(inDebugger)
+    {
+        // debugger sometimes loses track when requiring uncached, so use the default require instead
+        require(settings.wrapper.mainFilePath);
+        return;
+    }
     else
     {
         // load in main script file, which is the entrypoint to and initializer of everything in JokeAPI
-        // requireUncached to make sure JokeAPI always re-fetches this file instead of loading from cache
+        // importFresh to make sure Node always re-fetches this file instead of loading from cache
         importFresh(settings.wrapper.mainFilePath);
         return;
     }

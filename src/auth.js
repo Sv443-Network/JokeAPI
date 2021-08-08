@@ -1,4 +1,5 @@
 const { filesystem, FolderDaemon } = require("svcorelib");
+const { ServerResponse } = require("http");
 const fs = require("fs-extra");
 
 const settings = require("../settings");
@@ -6,7 +7,6 @@ const settings = require("../settings");
 //#MARKER types
 
 /** @typedef {import("http").IncomingMessage} IncomingMessage */
-/** @typedef {import("http").ServerResponse} ServerResponse */
 
 /**
  * @typedef {object} TokenObj
@@ -102,7 +102,7 @@ function authByHeader(req, res)
                 });
             }
 
-            if(res && typeof res.setHeader === "function")
+            if(res instanceof ServerResponse)
                 res.setHeader(settings.auth.tokenValidHeader, (isAuthorized ? "1" : "0"));
         }
 
