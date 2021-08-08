@@ -57,9 +57,7 @@ function isLocal(ip)
         if(isLocal) // short circuit
             return;
 
-        const h = hashIP(locIP);
-
-        if(ip.match(locIP) || ip.match(h))
+        if(ip.match(locIP) || ip.match(hashIP(locIP)))
             isLocal = true;
     });
 
