@@ -46,21 +46,20 @@ function resolveIP(req)
 /**
  * Checks if an IP is local or not (`localhost`, `127.0.0.1`, `::1`, etc.)
  * @param {string} ip
- * @param {boolean} [inputIsHashed=false] If the input IP is hashed, set this to true
  * @returns {boolean}
  */
-function isLocal(ip, inputIsHashed = false)
+function isLocal(ip)
 {
-    const localIPs = ["localhost", "127.0.0.1", "::1"];
+    const localIPs = ["localhost", "127.0.0.1", "::1", "::ffff:127.0.0.1"];
     let isLocal = false;
 
     localIPs.forEach(locIP => {
         if(isLocal) // short circuit
             return;
 
-        if(inputIsHashed && ip.match(hashIP(locIP)))
-            isLocal = true;
-        else if(!inputIsHashed && ip.match(locIP))
+        const h = hashIP(locIP);
+
+        if(ip.match(locIP) || ip.match(h))
             isLocal = true;
     });
 

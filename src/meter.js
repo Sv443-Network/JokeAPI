@@ -3,7 +3,7 @@
 const io = require("@pm2/io");
 const fs = require("fs-extra");
 
-const debug = require("./debug");
+// const debug = require("./debug");
 const settings = require("../settings");
 const { unused } = require("svcorelib");
 
@@ -118,7 +118,7 @@ function update(meterName, addValue)
     if(typeof addValue != "number" || isNaN(addValue))
         throw new TypeError(`meter.update(): "addValue" has wrong type "${typeof addValue}" - expected "number"`);
 
-    debug("Meter", `Updating pm2 meter "${meterName}" - adding ${addValue}`);
+    // debug("Meter", `Updating pm2 meter "${meterName}" - adding ${addValue}`);
 
     let valIncorrect = false;
 

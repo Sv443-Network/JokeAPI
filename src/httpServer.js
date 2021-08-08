@@ -273,7 +273,7 @@ function getLang(parsedURL)
 {
     const lang = parsedURL.queryParams ? parsedURL.queryParams.lang : "invalid-lang-code";
 
-    if(languages.isValidLang(lang))
+    if(languages.isValidLang(lang) === true)
         return lang;
     return settings.languages.defaultLanguage;
 }
@@ -302,7 +302,7 @@ function incomingRequest(req, res, httpMetrics)
         urlParameters: parsedURL.queryParams
     };
 
-    debug("HTTP", `Incoming ${req.method} request from "${ip.substring(0, 8)}${localhostIP ? `..." ${colors.fg.blue}(local)${colors.rst} (lang=${lang})` : "...\""} to ${req.url}`, "green");
+    debug("HTTP", `Incoming ${req.method} request from '${ip.substring(0, 8)}${localhostIP ? `…' ${colors.fg.blue}(local)${colors.rst}` : "…'"} to /${parsedURL.pathArray.join("/")} [${lang}]`, "green");
 
     const fileFormat = (!isEmpty(parsedURL.queryParams) && !isEmpty(parsedURL.queryParams.format)) ? parseURL.getFileFormatFromQString(parsedURL.queryParams) : settings.jokes.defaultFileFormat.fileFormat;
 
@@ -317,8 +317,6 @@ function incomingRequest(req, res, httpMetrics)
             logRequest("blacklisted", null, analyticsObject);
             return respondWithError(res, 103, 403, fileFormat, tr(lang, "ipBlacklisted", settings.info.author.website), lang);
         }
-
-        debug("HTTP", `Requested URL: ${parsedURL.initialURL}`);
 
         if(settings.httpServer.allowCORS)
         {
