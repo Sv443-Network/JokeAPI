@@ -285,4 +285,5 @@ const settings = {
 
 const frozenSettings = Object.freeze(settings); // use Object.freeze() to prevent modifications at runtime
 
+/** @type {Readonly<typeof(settings)>} */
 module.exports = frozenSettings;
