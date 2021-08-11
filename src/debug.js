@@ -24,7 +24,7 @@ function debug(section, message, color)
     if(settings.debug.verboseLogging !== true)
         return;
 
-    let accentColor = col.black;
+    let accentColor = col.rst;
 
     if(accentColors.includes(color))
     {
