@@ -8,9 +8,10 @@ const settings = require("../settings");
 /**
  * Extracts the IP address from a HTTP request object
  * @param {import("http").IncomingMessage} req HTTP request object to resolve the IP of
+ * @param {boolean} [unhashed=false] Used to override the IP hashing setting
  * @returns {string}
  */
-function resolveIP(req)
+function resolveIP(req, unhashed = false)
 {
     /** @type {string|null} Client's IP address */
     let ipaddr = null;
@@ -40,7 +41,7 @@ function resolveIP(req)
             ipaddr = `unknown_${req.headers["cf_ipcountry"]}`;
     }
 
-    return settings.httpServer.ipHashing.enabled ? hashIP(ipaddr) : ipaddr;
+    return (settings.httpServer.ipHashing.enabled && unhashed !== true) ? hashIP(ipaddr) : ipaddr;
 }
 
 /**

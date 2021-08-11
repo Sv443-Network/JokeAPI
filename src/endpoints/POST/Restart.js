@@ -21,7 +21,8 @@ class Restart extends SubmissionEndpoint {
             usage: {
                 method: "POST",
                 supportedParams: []
-            }
+            },
+            unlisted: true,
         };
 
         super("restart", meta);

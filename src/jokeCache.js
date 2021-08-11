@@ -18,7 +18,9 @@ const settings = require("../settings");
 var cacheInstance;
 module.exports.cacheInstance = cacheInstance;
 /** @type {ConnectionInfo} */
-module.exports.connectionInfo = {};
+module.exports.connectionInfo = {
+    connected: false
+};
 
 
 /**
@@ -30,12 +32,13 @@ function init()
     return new Promise((pRes, pRej) => {
         debug("JokeCache", `Initializing...`);
 
-        let dbConnection = mysql.createConnection({
+        const dbConnection = mysql.createConnection({
             host: settings.sql.host,
             user: (process.env["DB_USERNAME"] || ""),
             password: (process.env["DB_PASSWORD"] || ""),
             database: settings.sql.database,
-            port: settings.sql.port
+            port: settings.sql.port,
+            insecureAuth: false,
         });
 
         try
@@ -51,55 +54,56 @@ function init()
                     debug("JokeCache", `Successfully connected to database at ${colors.fg.green}${settings.sql.host}:${settings.sql.port}/${settings.sql.database}${colors.rst}`);
 
                     /** @type {mysql.QueryOptions} */
-                    let queryOptions = {
+                    const queryOptions = {
                         timeout: settings.sql.timeout
                     };
 
                     sql.sendQuery(dbConnection, `SHOW TABLES LIKE "${settings.jokeCaching.tableName}";`, queryOptions)
-                    .then(res => {
-                        if(Array.isArray(res) && res.length >= 1)
-                        {
-                            // connection established, table exists already
-                            debug("JokeCache", `DB table exists already, joke cache init is done`);
-                            module.exports.connectionInfo = {
-                                connected: true,
-                                info: `${settings.sql.host}:${settings.sql.port}/${settings.sql.database}`
-                            };
-
-                            cacheInstance = new JokeCache(dbConnection);
-                            module.exports.cacheInstance = cacheInstance;
-
-                            return pRes();
-                        }
-                        else if(Array.isArray(res) && res.length == 0)
-                        {
-                            // connection established, table doesn't exist
-                            debug("JokeCache", `DB table doesn't exist, creating it...`);
-                            let createAnalyticsTableQuery = fs.readFileSync(settings.jokeCaching.createTableFile).toString();
-                            sql.sendQuery(dbConnection, createAnalyticsTableQuery)
-                            .then(() => {
+                        .then(res => {
+                            if(Array.isArray(res) && res.length >= 1)
+                            {
+                                // connection established, table exists already
+                                debug("JokeCache", `DB table exists already, joke cache init is done`);
                                 module.exports.connectionInfo = {
                                     connected: true,
                                     info: `${settings.sql.host}:${settings.sql.port}/${settings.sql.database}`
                                 };
 
-                                debug("JokeCache", `Successfully created joke caching DB, analytics init is done`);
+                                cacheInstance = new JokeCache(dbConnection);
+                                module.exports.cacheInstance = cacheInstance;
+
                                 return pRes();
-                            }).catch(err => {
-                                debug("JokeCache", `Error while creating DB table: ${err}`);
+                            }
+                            else if(Array.isArray(res) && res.length == 0)
+                            {
+                                // connection established, table doesn't exist
+                                debug("JokeCache", `DB table doesn't exist, creating it...`);
+                                const createAnalyticsTableQuery = fs.readFileSync(settings.jokeCaching.createTableFile).toString();
+
+                                sql.sendQuery(dbConnection, createAnalyticsTableQuery)
+                                    .then(() => {
+                                        module.exports.connectionInfo = {
+                                            connected: true,
+                                            info: `${settings.sql.host}:${settings.sql.port}/${settings.sql.database}`
+                                        };
+
+                                        debug("JokeCache", `Successfully created joke caching DB, analytics init is done`);
+                                        return pRes();
+                                    }).catch(err => {
+                                        debug("JokeCache", `Error while creating DB table: ${err}`);
+                                        return pRej(`${err}\nMaybe the database server isn't running or doesn't allow the connection`);
+                                    });
+                            }
+                            else
+                            {
+                                // connection not established or misc error from query
+                                debug("JokeCache", `Unknown Error while detecting or creating joke caching table in DB: ${err}`);
                                 return pRej(`${err}\nMaybe the database server isn't running or doesn't allow the connection`);
-                            });
-                        }
-                        else
-                        {
-                            // connection not established or misc error from query
-                            debug("JokeCache", `Unknown Error while detecting or creating joke caching table in DB: ${err}`);
-                            return pRej(`${err}\nMaybe the database server isn't running or doesn't allow the connection`);
-                        }
-                    }).catch(err => {
-                        debug("JokeCache", `Error while detecting joke caching table in DB: ${err}`);
-                        return pRej(`Error while initializing joke cache: ${err}\nMaybe the database server isn't running or doesn't allow the connection`);
-                    });
+                            }
+                        }).catch(err => {
+                            debug("JokeCache", `Error while detecting joke caching table in DB: ${err}`);
+                            return pRej(`Error while initializing joke cache: ${err}\nMaybe the database server isn't running or doesn't allow the connection`);
+                        });
                 }
             });
         }
