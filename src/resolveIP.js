@@ -5,6 +5,9 @@ const net = require("net");
 const settings = require("../settings");
 
 
+/** An array of different representations of localhost */
+const localHosts = [ "localhost", "127.0.0.1", "::1", "::ffff:127.0.0.1" ];
+
 /**
  * Extracts the IP address from a HTTP request object
  * @param {import("http").IncomingMessage} req HTTP request object to resolve the IP of
@@ -51,10 +54,9 @@ function resolveIP(req, unhashed = false)
  */
 function isLocal(ip)
 {
-    const localIPs = ["localhost", "127.0.0.1", "::1", "::ffff:127.0.0.1"];
     let isLocal = false;
 
-    localIPs.forEach(locIP => {
+    localHosts.forEach(locIP => {
         if(isLocal) // short circuit
             return;
 
