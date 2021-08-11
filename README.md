@@ -15,7 +15,7 @@
 <br><br>
 
 # [Documentation](https://jokeapi.dev/)
-## [Try it out](https://jokeapi.dev/#try-it) &bull; [Changelog](./changelog.md)
+## [Try it out](https://jokeapi.dev/#try-it) &bull; [Changelog](./changelog.md) &bull; [Discord Server](https://dc.sv443.net/)
 
 
 </div>
