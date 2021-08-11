@@ -1,7 +1,7 @@
 const { unused } = require("svcorelib");
 
 const tr = require("../../translate");
-const languages = require("./Languages");
+const languages = require("../../languages");
 const Endpoint = require("../../classes/Endpoint");
 
 const settings = require("../../../settings");
@@ -58,14 +58,14 @@ class LangCode extends Endpoint {
             });   
         }
 
-        let defaultValDisabled = (params && params.noDefault && params.noDefault == true);
+        const defaultValDisabled = (params && params.noDefault && params.noDefault == true);
 
         let langCode = null;
         // if(!defaultValDisabled)
         //     langCode = settings.languages.defaultLanguage;
-        let language = url[1].toString().toLowerCase();
+        const language = url[1].toString().toLowerCase();
 
-        let ltc = languages.languageToCode(language);
+        const ltc = languages.languageToCode(language);
         langCode = (ltc === false ? (defaultValDisabled ? null : settings.languages.defaultLanguage) : ltc);
 
         if(langCode == null || ltc === false)
