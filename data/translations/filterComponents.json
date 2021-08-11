@@ -20,8 +20,8 @@
             },
             "Dark": {
                 "en": "Dark humor - use with caution!",
-                "de": "Dunkler Humor - mit Vorsicht benutzen!",
-                "ru": "Темный юмор - используйте с осторожностью!"
+                "de": "Schwarzer Humor - mit Vorsicht benutzen!",
+                "ru": "Чёрный юмор - используйте с осторожностью!"
             },
             "Pun": {
                 "en": "This category contains puns / word play jokes",
@@ -47,7 +47,7 @@
             },
             "religious": {
                 "en": "These jokes are targeted at religion(s) or contain religious references",
-                "de": "Diese Witze zielen auf Religion(en) ab oder enthalten religiöse Hinweise",
+                "de": "Diese Witze zielen auf Religion(en) ab oder enthalten religiöse Anspielungen",
                 "ru": "Эти шутки направлены против религия / религий или содержат религиозные ориентиры"
             },
             "political": {
