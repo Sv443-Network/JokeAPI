@@ -300,13 +300,12 @@ class MyClass
 }
 
 module.exports = MyClass; // since classes are in their own files, export the class so it can be imported in other files
+```
 
-
-
-
-
-// *** example usage ***
-
+<br>
+    
+### Example usage:
+```
 let x = new MyClass("example"); // create an instance of the class using the `new` keyword
 
 console.log(x.foo);      // "example"
