@@ -1,6 +1,7 @@
 const http = require("http");
 
-const resolveIP = require("../src/resolveIP");
+const { getClientIp } = require("request-ip");
+const { hashIP } = require("../src/resolveIP");
 const parseURL = require("../src/parseURL");
 
 
@@ -12,8 +13,8 @@ async function run()
     await parseURL.init();
 
     http.createServer((req, res) => {
-        const rawIP = resolveIP(req, true);
-        const hashedIP = resolveIP(req);
+        const rawIP = getClientIp(req);
+        const hashedIP = hashIP(rawIP);
         const url = parseURL(req.url);
 
         let ipInfo = `IP Info:\n`;
