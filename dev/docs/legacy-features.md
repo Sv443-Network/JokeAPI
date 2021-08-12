@@ -27,7 +27,7 @@ This document contains a list of all features that were a part of JokeAPI but ha
 > I didn't really know what to do with the analytics data I have collected.  
 > That's why I disabled the fetaure until I find some tool that can visualize and make sense of the data.  
 >   
-> This feature can be toggled and configured in `settings.analytics.enabled`
+> This feature can be toggled and configured in `settings.analytics`
 
 
 <br><br><br><br>

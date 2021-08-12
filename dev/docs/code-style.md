@@ -220,7 +220,7 @@ console.log(Person.getName(sven)); // "Sven"
 
 
 ### Import Types:
-If you want to import types that are declared in a package or a local file, you can use the require() syntax in JSDoc too:  
+If you want to import types that are declared in a package or a local file, you can use import():  
 
 > File: `types.js`
 > ```js
@@ -234,8 +234,8 @@ If you want to import types that are declared in a package or a local file, you 
 > File: `index.js`
 > ```js
 > /**
->  * @param {require("./types.js").MyCustomType} paramFoo Object with `foo` and `bar` props
->  * @param {require("http").Server} paramBar A HTTP server instance
+>  * @param {import("./types.js").MyCustomType} paramFoo Object with `foo` and `bar` props
+>  * @param {import("http").Server} paramBar A HTTP server instance
 >  */
 > function doSomething(paramFoo, paramBar)
 > {
@@ -300,13 +300,12 @@ class MyClass
 }
 
 module.exports = MyClass; // since classes are in their own files, export the class so it can be imported in other files
+```
 
-
-
-
-
-// *** example usage ***
-
+<br>
+    
+### Example usage:
+```
 let x = new MyClass("example"); // create an instance of the class using the `new` keyword
 
 console.log(x.foo);      // "example"
