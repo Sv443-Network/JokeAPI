@@ -37,6 +37,7 @@ Disclaimer: I will not take any responsibility for the wrappers, they are commun
 If you need help with these wrappers, you should contact their respective authors.  
   
 - <b><a href="https://github.com/Icelain/jokeapi#readme"><img src="./docs/static/external/golang.svg" width="16" height="16"> jokeapi (Go)</a></b>
+- <b><a href="https://github.com/QGIsK/jokeapi-wrapper#readme"><img src="./docs/static/external/nodejs.svg" width="16" height="16"> JokeAPI Client for NodeJS (Node.js)</a></b>
 - <b><a href="https://github.com/sahithyandev/sv443-joke-api-js-wrapper#readme"><img src="./docs/static/external/nodejs.svg" width="16" height="16"> sv443-joke-api-js-wrapper (Node.js)</a></b>
 - <b><a href="https://github.com/thenamesweretakenalready/Sv443s-JokeAPI-Python-Wrapper#readme"><img src="./docs/static/external/python.svg" width="16" height="16"> Sv443s-JokeAPI-Python-Wrapper (Python)</a></b>
 - <b><a href="https://crates.io/crates/jokeapi_rs"><img src="./docs/static/external/rust.svg" width="16" height="16"> jokeapi_rs (Rust)</a></b>
