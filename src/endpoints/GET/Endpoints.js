@@ -35,6 +35,7 @@ class Endpoints extends Endpoint
     {
         /** @type {Endpoint.EndpointMeta} */
         const meta = {
+            docsURL: "https://jokeapi.dev/#endpoints-endpoint",
             usage: {
                 method: "GET",
                 supportedParams: [
@@ -55,7 +56,7 @@ class Endpoints extends Endpoint
      * @param {http.IncomingMessage} req The HTTP server request
      * @param {http.ServerResponse} res The HTTP server response
      * @param {string[]} url URL path array gotten from the URL parser module
-     * @param {Object} params URL query params gotten from the URL parser module
+     * @param {object} params URL query params gotten from the URL parser module
      * @param {string} format The file format to respond with
      */
     call(req, res, url, params, format)
@@ -67,20 +68,22 @@ class Endpoints extends Endpoint
 
         const responseObj = [];
 
+        /** @type {EndpointObj[]} */
         const epList = (Array.isArray(this.endpoints[lang]) && this.endpoints[lang].length > 0) ? this.endpoints[lang] : this.endpoints[settings.languages.defaultLanguage];
 
         if(!epList)
             return "TODO: return error";
 
         epList.forEach(ep => {
-            let epUrl = `${settings.info.docsURL}/${ep.pathName}/`;
+            let epUrl = `${settings.info.docsURL}/${ep.pathName}`;
 
             if(Array.isArray(ep.positionalArgs) && ep.positionalArgs.length > 0)
-                ep.positionalArgs.forEach(pArg => epUrl += `{${pArg}}/`);
+                ep.positionalArgs.forEach(pArg => epUrl += `/{${pArg}}`);
 
             const epObj = {
                 name: ep.displayName,
                 description: ep.description,
+                docsURL: ep.meta.docsURL || null,
                 usage: {
                     method: ep.meta.usage.method,
                     url: epUrl,
@@ -106,52 +109,69 @@ class Endpoints extends Endpoint
         /** @type {EndpointList} */
         const epList = {};
 
-        const files = fs.readdirSync(settings.endpoints.get.dirPath);
+        // add "Endpoints.js" endpoint to the list (would cause recursive imports down the line so it has to be done this way)
+        this.getTranslationLangs().forEach(lang => {
+            if(!epList[lang] || !Array.isArray(epList[lang]))
+                epList[lang] = [];
 
-        if(Array.isArray(files) && files.length > 0)
-        {
-            files.forEach(f => {
-                if(f.endsWith(".js"))
-                {
-                    if(f.toLowerCase() == "endpoints.js")
-                        return;
+            epList[lang].push({
+                meta: this.meta,
+                pathName: this.getPathName(),
+                displayName: this.getDisplayName(lang),
+                description: this.getDescription(lang),
+                positionalArgs: this.getPositionalArguments()
+            });
+        });
 
-                    const absPath = path.resolve(settings.endpoints.get.dirPath, f);
+        const readEndpointsDir = (epDirPath) => {
+            const files = fs.readdirSync(epDirPath);
 
-                    /** @type {Endpoint} */
-                    const EndpointClass = require(absPath);
-
-                    /** @type {Endpoint} */
-                    let endpointInstance = new EndpointClass();
-
-                    const trLangs = endpointInstance.getTranslationLangs();
-                    const epMeta = endpointInstance.getMeta();
-
-                    trLangs.forEach(lang => {
-                        if(!isValidLang(lang))
+            if(Array.isArray(files) && files.length > 0)
+            {
+                files.forEach(f => {
+                    if(f.endsWith(".js"))
+                    {
+                        if(f.toLowerCase() === "endpoints.js") // recursively imports itself so its meta needs to be manually provided above
                             return;
 
-                        if(!epList[lang] || !Array.isArray(epList[lang]))
-                            epList[lang] = [];
+                        const absPath = path.resolve(epDirPath, f);
 
-                        if(epMeta.unlisted !== true)
-                        {
-                            epList[lang].push({
-                                meta: epMeta,
-                                pathName: endpointInstance.getPathName(),
-                                displayName: endpointInstance.getDisplayName(lang),
-                                description: endpointInstance.getDescription(lang),
-                                positionalArgs: endpointInstance.getPositionalArguments()
-                            });
-                        }
-                    });
-                }
-            });
+                        /** @type {Endpoint} */
+                        const EndpointClass = require(absPath);
 
-            return epList;
-        }
-        else
-            return [];
+                        /** @type {Endpoint} */
+                        const endpointInstance = new EndpointClass();
+
+                        const trLangs = endpointInstance.getTranslationLangs();
+                        const epMeta = endpointInstance.getMeta();
+
+                        trLangs.forEach(lang => {
+                            if(!isValidLang(lang))
+                                return;
+
+                            if(!epList[lang] || !Array.isArray(epList[lang]))
+                                epList[lang] = [];
+
+                            if(epMeta.unlisted !== true)
+                            {
+                                epList[lang].push({
+                                    meta: epMeta,
+                                    pathName: endpointInstance.getPathName(),
+                                    displayName: endpointInstance.getDisplayName(lang),
+                                    description: endpointInstance.getDescription(lang),
+                                    positionalArgs: endpointInstance.getPositionalArguments()
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        };
+
+        readEndpointsDir(settings.endpoints.get.dirPath);
+        readEndpointsDir(settings.endpoints.post.dirPath);
+
+        return epList;
     }
 }
 

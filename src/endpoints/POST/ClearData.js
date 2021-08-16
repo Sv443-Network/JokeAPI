@@ -21,6 +21,7 @@ class ClearData extends SubmissionEndpoint
     {
         /** @type {Endpoint.EndpointMeta} */
         const meta = {
+            docsURL: "https://jokeapi.dev/#clear-data-endpoint",
             usage: {
                 method: "POST",
                 supportedParams: [

@@ -18,6 +18,7 @@ class Languages extends Endpoint {
     {
         /** @type {Endpoint.EndpointMeta} */
         const meta = {
+            docsURL: "https://jokeapi.dev/#languages-endpoint",
             usage: {
                 method: "GET",
                 supportedParams: [

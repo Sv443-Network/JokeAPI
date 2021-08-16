@@ -18,6 +18,7 @@ class LangCode extends Endpoint {
     {
         /** @type {Endpoint.EndpointMeta} */
         const meta = {
+            docsURL: "https://jokeapi.dev/#langcode-endpoint",
             usage: {
                 method: "GET",
                 supportedParams: [

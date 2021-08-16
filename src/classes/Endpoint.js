@@ -23,6 +23,7 @@ unused("types:", _http);
 
 /**
  * @typedef {Object} EndpointMeta
+ * @prop {string} docsURL URL to the part of documentation that describes this endpoint
  * @prop {Object} usage How to use this endpoint
  * @prop {string} usage.method HTTP method
  * @prop {string[]} usage.supportedParams An array of supported URL parameters
@@ -40,7 +41,8 @@ unused("types:", _http);
  */
 
 //#MARKER MissingImplementationError
-class MissingImplementationError extends Error {
+class MissingImplementationError extends Error
+{
     constructor(message)
     {
         super(message);

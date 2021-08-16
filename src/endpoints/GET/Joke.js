@@ -23,6 +23,7 @@ class Joke extends Endpoint {
     {
         /** @type {Endpoint.EndpointMeta} */
         const meta = {
+            docsURL: "https://jokeapi.dev/#joke-endpoint",
             usage: {
                 method: "GET",
                 supportedParams: [
