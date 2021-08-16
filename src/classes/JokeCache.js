@@ -1,7 +1,8 @@
 const mysql = require("mysql");
-const { unused, sql } = require("svcorelib");
+const { unused } = require("svcorelib");
 
 const { isValidLang } = require("../languages");
+const { sendQuery } = require("../sql");
 
 const settings = require("../../settings");
 
@@ -26,11 +27,6 @@ class JokeCache
     {
         this.db = dbConnection;
         this.table = typeof tableName == "string" ? tableName : settings.jokeCaching.tableName;
-
-        /** @type {mysql.QueryOptions} */
-        this.queryOptions = {
-            timeout: settings.sql.timeout
-        };
     }
 
     /**
@@ -62,12 +58,12 @@ class JokeCache
                 langCode
             ];
 
-            sql.sendQuery(this.db, `INSERT INTO ?? (ClientIpHash, JokeID, LangCode) VALUES (?, ?, ?);`, this.queryOptions, ...insValues)
-            .then(res => {
-                return pRes(res);
-            }).catch(err => {
-                return pRej(err);
-            });
+            sendQuery(this.db, `INSERT INTO ?? (ClientIpHash, JokeID, LangCode) VALUES (?, ?, ?);`, ...insValues)
+                .then(res => {
+                    return pRes(res);
+                }).catch(err => {
+                    return pRej(err);
+                });
         });
     }
 
@@ -89,12 +85,12 @@ class JokeCache
                 clientIpHash
             ];
 
-
-            sql.sendQuery(this.db, "DELETE FROM ?? WHERE ClientIpHash LIKE ?", this.queryOptions, ...insValues).then(res => {
-                return pRes(res.affectedRows ? res.affectedRows : 0);
-            }).catch(err => {
-                return pRej(err);
-            });
+            sendQuery(this.db, "DELETE FROM ?? WHERE ClientIpHash LIKE ?", ...insValues)
+                .then(res => {
+                    return pRes(res.affectedRows ? res.affectedRows : 0);
+                }).catch(err => {
+                    return pRej(err);
+                });
         });
     }
 
@@ -119,14 +115,14 @@ class JokeCache
                 langCode
             ];
 
-            sql.sendQuery(this.db, `SELECT JokeID FROM ?? WHERE ClientIpHash = ? AND LangCode = ?;`, this.queryOptions, insValues)
-            .then(res => {
-                res = res.map(itm => itm.JokeID).sort();
+            sendQuery(this.db, `SELECT JokeID FROM ?? WHERE ClientIpHash = ? AND LangCode = ?;`, insValues)
+                .then(res => {
+                    res = res.map(itm => itm.JokeID).sort();
 
-                return pRes(res);
-            }).catch(err => {
-                return pRej(err);
-            });
+                    return pRes(res);
+                }).catch(err => {
+                    return pRej(err);
+                });
         });
     }
 

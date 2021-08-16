@@ -12,7 +12,8 @@ const resolveIp = require("../../resolveIP");
 /**
  * Clears all collected data of the client that called this endpoint
  */
-class ClearData extends SubmissionEndpoint {
+class ClearData extends SubmissionEndpoint
+{
     /**
      * Clears all collected data of the client that called this endpoint
      */
@@ -38,7 +39,7 @@ class ClearData extends SubmissionEndpoint {
      * @param {http.IncomingMessage} req The HTTP server request
      * @param {http.ServerResponse} res The HTTP server response
      * @param {string[]} url URL path array gotten from the URL parser module
-     * @param {Object} params URL query params gotten from the URL parser module
+     * @param {object} params URL query params gotten from the URL parser module
      * @param {string} format The file format to respond with
      * @param {string} data The raw data, as a string
      */

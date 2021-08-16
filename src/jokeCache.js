@@ -1,10 +1,11 @@
 const mysql = require("mysql");
-const { sql, colors, reserialize } = require("svcorelib");
+const { colors } = require("svcorelib");
 const fs = require("fs-extra");
 const promiseAllSequential = require("promise-all-sequential");
 
 const debug = require("./debug");
 const JokeCache = require("./classes/JokeCache");
+const { sendQuery } = require("./sql");
 
 const settings = require("../settings");
 
@@ -27,11 +28,6 @@ module.exports.connectionInfo = {
 
 /** @type {mysql.Connection|undefined} Database connection used for joke caching */
 let dbConnection = undefined;
-
-/** @type {mysql.QueryOptions} */
-const queryOptions = {
-    timeout: settings.sql.timeout
-};
 
 
 /**
@@ -93,7 +89,7 @@ function init()
                     debug("JokeCache", `Successfully connected to database at ${colors.fg.green}${settings.sql.host}:${settings.sql.port}/${settings.sql.database}${colors.rst}`);
 
                     // ensure DB tables exist
-                    sql.sendQuery(dbConnection, `SHOW TABLES LIKE "${settings.jokeCaching.tableName}";`, queryOptions)
+                    sendQuery(dbConnection, `SHOW TABLES LIKE "${settings.jokeCaching.tableName}";`)
                         .then(res => {
                             if(Array.isArray(res) && res.length >= 1)
                             {
@@ -108,7 +104,7 @@ function init()
                                 debug("JokeCache", `DB table doesn't exist, creating it...`);
                                 const createAnalyticsTableQuery = fs.readFileSync(settings.jokeCaching.createTableFile).toString();
 
-                                sql.sendQuery(dbConnection, createAnalyticsTableQuery)
+                                sendQuery(dbConnection, createAnalyticsTableQuery)
                                     .then(() => {
                                         debug("JokeCache", `Successfully created joke caching DB`);
                                         return finalize();
@@ -190,33 +186,6 @@ function runGC()
 
         debug("JokeCache/GC", `Cleared ${clearedEntries > 0 ? `${col.green}` : ""}${clearedEntries}${col.rst} entr${clearedEntries === 1 ? "y" : "ies"} in ${Date.now() - startTS}ms`, "green");
         return res();
-    });
-}
-
-/**
- * Sends a formatted SQL query using init()'s DB connection instance
- * @param {string} query
- * @param  {...any} values
- * @returns {Promise<object, string>}
- */
-function sendQuery(query, ...values)
-{
-    if(!dbConnection)
-        throw new Error(`Error while sending query: DB connection isn't established yet`);
-
-    return new Promise((res, rej) => {
-        /** @type {mysql.QueryOptions} */
-        const opts = {
-            ...reserialize(queryOptions),
-            sql: mysql.format(query, values)
-        };
-
-        dbConnection.query(opts, (err, result) => {
-            if(err)
-                return rej(err);
-
-            return res(result);
-        });
     });
 }
 
