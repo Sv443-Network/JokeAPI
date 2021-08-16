@@ -276,6 +276,7 @@ const settings = {
         tableName: "joke_cache",                             // table name of the joke cache DB table
         createTableFile: "./data/sql/create_joke_cache.sql", // file that contains SQL code to create the cache table
         expiryHours: 96,                                     // amount of hours after which the entire joke cache of a client is cleared - set to 0 or less to disable (makes JokeAPI GDPR non-compliant!)
+        gcIntervalMinutes: 60,                               // interval (in minutes) that should run the garbage collector (that cleans up expired DB entries)
     },
     /** Legacy features that might be deprecated soon */
     legacy: {

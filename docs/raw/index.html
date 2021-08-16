@@ -333,7 +333,7 @@
                         You can directly communicate with <!--%#INSERT:NAME#%--> with HTTP requests (XHR) from within your code.<br>
                         Here's a few resources to get you started: (<a href="https://medium.com/better-programming/crash-course-in-http-requests-using-python-59246373a187" target="_blank">Python XHR Crash Course</a>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest" target="_blank">JavaScript XHR Documentation</a>, <a href="https://docs.microsoft.com/en-us/dotnet/api/system.net.http.httpclient?view=netcore-3.1" target="_blank">.NET HttpClient Class Documentation</a>)<br>
                         Once you know how to send HTTP requests, please take a look at <a href="#endpoints">all the endpoints <!--%#INSERT:NAME#%--> has.</a><br>
-                        After you've finished reading that, you can start testing out the different endpoints with a client such as <a href="https://www.getpostman.com/" target="_blank">Postman</a> and look at some examples by <a href="#examples">going to the "Examples" section.</a>
+                        After you've finished reading that, you can start testing out the different endpoints with a client such as <a href="https://www.postman.com/" target="_blank">Postman</a> and look at some examples by <a href="#examples">going to the "Examples" section.</a>
                     </li>
                 </ul>
                 <br>
@@ -512,7 +512,9 @@
                 <!-- #MARKER URL parameters -->
                 <div class="docHeader targetBlink" id="url-parameters"><a class="headerAnchorContainer" href="#url-parameters" title="Click to link to this header">§</a><span class="docHeaderText">URL Parameters:</span></div>
                 URL parameters are like the settings or the configuration of an HTTP request.<br>
-                The parameters need to be prefixed by a single question mark (?) and separate key/value pairs need to be delimited from another by an ampersand (&amp;). Keys are separated from values with an equals sign (=).<br>
+                The parameters need to be prefixed by a single question mark (?) and separate key/value pairs need to be delimited from another by an ampersand (&amp;).<br>
+                Keys are separated from values with an equals sign (=).<br>
+                <br>
                 Example: <mark>https://example.org/some/page<span class="colB">?</span><span class="colY">key1=foo</span><span class="colB">&</span><span class="colY">key2=bar</span><span class="colB">&</span><span class="colY">key3=baz</span> ...</mark> (yellow = key/value pair)<br>
 
                 <!--#SECTION Format-->
@@ -1405,8 +1407,7 @@ None. It's a hardware problem.
                 <!--%#INSERT:NAME#%--> has a way of whitelisting certain clients. This is achieved through an API token.<br>
                 At the moment, you will only receive one of these tokens temporarily if something breaks or if you are a business and need more than <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute.<br>
                 <br>
-                If you do end up receiving a token, using it is as easy as adding an <mark>Authorization</mark> header with the following value:<br>
-                <mark>Bearer your_token_here</mark><br>
+                If you do end up receiving a token, using it is as easy as adding an <mark>Authorization</mark> header with the value <mark>Bearer your_token_here</mark><br>
                 <br>
                 After adding the header, you will receive a response header called <mark>Token-Valid</mark> which will contain the number 1 if the token is valid.<br>
                 If the token is invalid, the Token-Valid header will be set to 0 and <!--%#INSERT:NAME#%--> will treat your request as if you didn't supply a token in the first place.<br>
@@ -1527,7 +1528,7 @@ namespace JokeAPIExample
 <div class="actualCode">using System;
 using System.Threading.Tasks;
 using System.Net.Http;
-using Newtonsoft.Json; // Install with NuGet Package Manager: https://www.nuget.org/packages/Newtonsoft.Json/12.0.3?_src=template
+using Newtonsoft.Json; // Install with NuGet package manager: https://www.nuget.org/packages/Newtonsoft.Json
 
 namespace JokeAPIExample
 {
@@ -1595,8 +1596,7 @@ namespace JokeAPIExample
         public bool political { get; set; }
         public bool racist { get; set; }
         public bool sexist { get; set; }
-
-        public bool @explicit { get; set; }
+        public bool @explicit { get; set; } // use @ since explicit is a reserved keyword
     }
 }</div></code><br>
                 </details><br>

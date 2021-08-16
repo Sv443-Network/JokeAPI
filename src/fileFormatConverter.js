@@ -13,12 +13,13 @@ const settings = require("../settings");
 
 /** @typedef {import("svcorelib").JSONCompatible} JSONCompatible */
 
+/** @typedef {"xml"|"yaml"|"json"|"txt"} FileFormat */
 
 /**
  * Converts a JSON-compatible object to a string representation of a XML, YAML, plain text or JSON object (as fallback) - based on the passed format string
- * @param {"xml"|"yaml"|"json"|"txt"} format Can be "xml", "yaml" or "txt", everything else will default to JSON
+ * @param {FileFormat} format Can be `xml`, `yaml` or `txt`, everything else will default to JSON
  * @param {JSONCompatible} jsonInput
- * @param {string} [lang] Needed for converting to "txt"
+ * @param {string} [lang] Used only for converting to`"txt`
  * @returns {string} String representation of the converted object
  */
 function auto(format, jsonInput, lang)
@@ -40,6 +41,11 @@ function auto(format, jsonInput, lang)
     }
 }
 
+/**
+ * Converts a JSON-compatible object to a YAML representation
+ * @param {JSONCompatible} jsonInput
+ * @returns {string}
+ */
 function toYAML(jsonInput)
 {
     if(isEmpty(jsonInput))
@@ -47,7 +53,12 @@ function toYAML(jsonInput)
     return jsonToYaml.stringify(jsonInput);
 }
 
-function toXML(jsonInput)
+/**
+ * Converts a JSON-compatible object to an XML representation
+ * @param {JSONCompatible} jsonInput
+ * @returns {string}
+ */
+ function toXML(jsonInput)
 {
     if(isEmpty(jsonInput))
         return jsonToXml.parse("data", {});
@@ -55,12 +66,15 @@ function toXML(jsonInput)
 }
 
 /**
- * Converts a JSON object to plain text, according to the set conversion mapping
- * @param {object} jsonInput
- * @param {string} lang
+ * Converts a JSON-compatible object to plain text, according to the set conversion mapping and language
+ * @param {JSONCompatible} jsonInput
+ * @param {string} [lang] Language for translations (defaults to `settings.languages.defaultLanguage`)
  */
 function toTXT(jsonInput, lang)
 {
+    if(!languages.isValidLang(lang))
+        lang = settings.languages.defaultLanguage;
+
     let returnText = tr(lang, "noConversionMapping", Object.keys(jsonInput).join(", "), "ERR_NO_CONV_MAPPING @ FFCONV");
 
     if(!jsonInput || typeof jsonInput != "object")
