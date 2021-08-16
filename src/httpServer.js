@@ -268,10 +268,11 @@ function createHttpServer()
 /**
  * Returns the language by parsing a `ParsedUrl` or `ErroredParsedUrl` object
  * @param {parseURL.ParsedUrl|parseURL.ErroredParsedUrl}
+ * @returns {string} Returns two-character language code. Defaults to `settings.languages.defaultLanguage` if none could be found.
  */
 function getLang(parsedURL)
 {
-    const lang = parsedURL.queryParams ? parsedURL.queryParams.lang : "invalid-lang-code";
+    const lang = parsedURL.queryParams ? parsedURL.queryParams.lang : null;
 
     if(languages.isValidLang(lang) === true)
         return lang;
@@ -594,7 +595,7 @@ function incomingRequest(req, res, httpMetrics)
                             inst.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat, null, httpMetrics);
                         }
                         else
-                            return respondWithError(res, 112, 400, fileFormat, `Endpoint ${ep.name} accepts data but hasn't gotten any`)
+                            return respondWithError(res, 112, 400, fileFormat, `Endpoint ${ep.name} accepts data but hasn't gotten any`, lang);
                     }
                 });
 
