@@ -26,7 +26,8 @@ class ClearData extends SubmissionEndpoint {
                     "format",
                     "lang"
                 ]
-            }
+            },
+            acceptsEmptyBody: true
         };
 
         super("cleardata", meta);

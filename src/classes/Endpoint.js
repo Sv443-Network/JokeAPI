@@ -26,6 +26,7 @@ unused("types:", _http);
  * @prop {Object} usage How to use this endpoint
  * @prop {string} usage.method HTTP method
  * @prop {string[]} usage.supportedParams An array of supported URL parameters
+ * @prop {boolean} [acceptsEmptyBody] Whether the submission endpoint can accept an empty request body
  * @prop {boolean} [unlisted] Makes the `/endpoints/` endpoint ignore this endpoint
  * @prop {boolean} [noLog] Prohibits the `logRequest` module from writing analytics data and from sending a console message
  * @prop {boolean} [skipRateLimitCheck] Prevents the rate limiter from being incremented

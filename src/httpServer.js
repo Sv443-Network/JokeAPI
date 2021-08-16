@@ -551,8 +551,8 @@ function incomingRequest(req, res, httpMetrics)
         if(!isArrayEmpty(urlPath))
             requestedEndpoint = urlPath[0].toLowerCase();
             
-        let dataInterval = setTimeout(() => {
-            debug("HTTP", "PUT / POST request timed out", "red");
+        const dataInterval = setTimeout(() => {
+            debug("HTTP", `${req.method} request timed out`, "red");
             return respondWithErrorPage(res, 400, tr(lang, "requestBodyIsInvalid"));
         }, settings.httpServer.submissionNoDataTimeout);
 
@@ -561,8 +561,11 @@ function incomingRequest(req, res, httpMetrics)
             if(ep.pathName == requestedEndpoint && ["POST", "PUT"].includes(ep.meta.usage.method))
             {
                 // let postRateLimited = await rlPost.get(ip);
+                let dataGotten = false;
 
                 req.on("data", chunk => {
+                    dataGotten = true;
+
                     const payload = chunk.toString();
 
                     /** Size of the payload sent by the client in bytes */
@@ -575,7 +578,24 @@ function incomingRequest(req, res, httpMetrics)
 
                     /** @type {SubmissionEndpoint} */
                     const inst = ep.instance;
-                    inst.call(req, res, req.url, parsedURL.queryParams, fileFormat, payload, httpMetrics)
+                    inst.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat, payload, httpMetrics);
+                });
+
+                req.on("close", () => {
+                    if(!dataGotten)
+                    {
+                        if(ep.meta.acceptsEmptyBody === true)
+                        {
+                            // endpoint accepts empty body and no data was received
+                            clearTimeout(dataInterval);
+
+                            /** @type {SubmissionEndpoint} */
+                            const inst = ep.instance;
+                            inst.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat, null, httpMetrics);
+                        }
+                        else
+                            return respondWithError(res, 112, 400, fileFormat, `Endpoint ${ep.name} accepts data but hasn't gotten any`)
+                    }
                 });
 
                 // //#MARKER Joke submission
