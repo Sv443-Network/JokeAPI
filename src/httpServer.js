@@ -417,7 +417,7 @@ async function incomingRequest(req, res, httpMetrics)
                     {
                         if(typeof err.message == "string")
                             console.error(`Error while adding point to rate limiter: ${err}`);
-                        else if(err.remainingPoints <= 0) // FIXME: remainingPoints not available on Error instance
+                        else if(err.remainingPoints <= 0) // TODO:FIXME: remainingPoints not available on Error instance
                         {
                             logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
                             return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);

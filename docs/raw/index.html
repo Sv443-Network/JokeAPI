@@ -1075,7 +1075,7 @@ None. It's a hardware problem.
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/categories</span>
                 </span>
                 <br><br>
-                This endpoint returns a list / an array of all available <a href="#categories">joke categories</a>, all available <a href="#category-aliases">category aliases</a> and a 13-character UNIX timestamp.
+                This endpoint returns a list / an array of all available <a href="#categories">joke categories</a>, all available <a href="#category-aliases">category aliases</a>, the categories' descriptions and a 13-character UNIX timestamp.
                 <br><br>
                 Supported URL parameters:<br>
                 <ul>
@@ -1092,7 +1092,7 @@ None. It's a hardware problem.
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/langcode/<span class="placeholder">[Language]</span></span>
                 </span>
                 <br><br>
-                This endpoint returns the <a href="https://en.wikipedia.org/wiki/ISO_639-1" target="_blank">ISO 639-1 / Alpha-2</a> language code of a provided language. It is searched with a fuzzy search, so you just have to provide the approximate language name.<br>
+                This endpoint returns the <a href="https://en.wikipedia.org/wiki/ISO_639-1" target="_blank">ISO 639-1</a> / Alpha-2 language code of a provided language. It is searched with a fuzzy search, so you just have to provide the approximate language name.<br>
                 The resulting language code is to be used in <a href="#joke-endpoint">fetching</a> and <a href="#submit-endpoint">submitting</a> jokes in different languages.<br>
                 <br>
                 <details>
@@ -1139,7 +1139,7 @@ None. It's a hardware problem.
                 </span>
                 <br><br>
                 This endpoint returns lists of supported languages in jokes and supported languages in system messages (error messages).<br>
-                Also, it returns a list of possible ISO 639-1 language codes you can use to submit a joke or add a translation.<br>
+                Also, it returns a list of possible <a href="https://en.wikipedia.org/wiki/ISO_639-1" target="_blank">ISO 639-1</a> / Alpha-2 language codes you can use to submit a joke or add a translation.<br>
                 <details>
                     <summary>Example - click to view</summary>
                     <br>
@@ -1188,7 +1188,7 @@ None. It's a hardware problem.
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/flags</span>
                 </span>
                 <br><br>
-                This endpoint returns a list / an array of all available <a href="#blacklist-flags">blacklist flags</a> and a 13-character UNIX timestamp.
+                This endpoint returns a list / an array of all available <a href="#blacklist-flags">blacklist flags</a>, their descriptions and a 13-character UNIX timestamp.
                 <br><br>
                 Supported URL parameters:<br>
                 <ul>
@@ -1205,7 +1205,7 @@ None. It's a hardware problem.
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/formats</span>
                 </span>
                 <br><br>
-                This endpoint returns a list / an array of all available <a href="#response-formats">response formats</a> and a 13-character UNIX timestamp.
+                This endpoint returns a list / an array of all available <a href="#response-formats">response formats</a>, their descriptions and a 13-character UNIX timestamp.
                 <br><br>
                 Supported URL parameters:<br>
                 <ul>
@@ -1222,7 +1222,7 @@ None. It's a hardware problem.
                     <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/types</span>
                 </span>
                 <br><br>
-                This endpoint returns a list / an array of all available <a href="#response-formats">response formats</a> and a 13-character UNIX timestamp.
+                This endpoint returns a list / an array of all available <a href="#joke-type">joke types</a>, their descriptions and a 13-character UNIX timestamp.
                 <br><br>
                 Supported URL parameters:<br>
                 <ul>
@@ -1683,19 +1683,19 @@ namespace JokeAPIExample
 
                 <!--#SECTION Search String-->
                 <div class="subHeaderContainer"><a href="#search-string" title="Click to link to this header">§</a> <span class="subHeader" id="search-string">Search String:</span></div>
-                If the search string filter is used, only jokes that contain the specified string will be returned.<br>
-                You can specify this search string by using the <a href="#contains-param">?contains</a> URL parameter.<br>
-                <span class="colY">IMPORTANT:</span> If the value of this parameter contains special characters, it needs to be <a href="https://tools.ietf.org/html/rfc3986#section-2.1" target="_blank">percent-encoded</a> according to the URI standard (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent" target="_blank">MDN Reference</a>), otherwise you might get an error or a wrong response.<br>
+                If the search string filter is used, only jokes that contain the specified string or match the search expression will be returned.<br>
+                You can specify this search string or expression by using the <a href="#contains-param">?contains</a> URL parameter.<br>
+                <span class="colY">Important:</span> If the value of this parameter contains special characters, it needs to be <a href="https://tools.ietf.org/html/rfc3986#section-2.1" target="_blank">percent-encoded</a> according to the URI standard (<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/encodeURIComponent" target="_blank">MDN Reference</a>), otherwise you might get an error or a wrong response.<br>
 
 
                 <!--#SECTION ID Range-->
                 <div class="subHeaderContainer"><a href="#id-range" title="Click to link to this header">§</a> <span class="subHeader" id="id-range">ID Range:</span></div>
                 If this filter is used, you will only get jokes that are within the provided range of IDs.<br>
-                You don't necessarily need to provide an ID <i>range</i> though, a single ID will work just fine as well.<br>
+                You don't necessarily need to provide an upper limit though, a single ID will work just fine as well.<br>
                 Example: an ID range of 0-9 will mean you will only get one of the first 10 jokes, while an ID range of 5 will mean you will only get the 6th joke.<br>
                 You can set the ID range by using the <a href="#idrange-param">?idRange</a> URL parameter.<br>
-                As there are currently <!--%#INSERT:TOTALJOKES#%--> jokes, the ID range can be anywhere in the range of <mark>0</mark> to <mark><!--%#INSERT:TOTALJOKESZEROINDEXED#%--></mark><br>
-                This range varies from language to language though, so I recommend taking a look at the <a href="#info-endpoint">/info endpoint</a>, which contains all possible ID ranges.<br>
+                The upper limit of the ID range is defined by how many jokes there are for a certain language.<br>
+                You can view the possible ID range per each language by calling the <a href="#info-endpoint">info endpoint</a><br>
 
 
                 <!--#SECTION Amount-->

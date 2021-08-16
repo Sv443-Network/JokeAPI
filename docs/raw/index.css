@@ -372,7 +372,7 @@ table tr td.dr, span.col.dr {
 }
 
 .colY {
-    color: #ffffa9;
+    color: #ffff8a;
 }
 
 details summary {
@@ -1176,7 +1176,7 @@ h3 {
 }
 
 #tryItErrors {
-    color: red;
+    color: #d92727;
 }
 
 .highlightedContainer {

@@ -489,6 +489,8 @@ function reRender(langChanged)
 {
     console.info("Re-rendering try-it form");
 
+    var erroredColor = "#d92727";
+
     var allOk = true;
     /** @type {string[]} */
     var errors = [];
@@ -527,7 +529,7 @@ function reRender(langChanged)
     if(!isValid)
     {
         allOk = false;
-        gebid("categoryWrapper").style.borderColor = "red";
+        gebid("categoryWrapper").style.borderColor = erroredColor;
 
         errors.push("No category selected.");
     }
@@ -555,8 +557,8 @@ function reRender(langChanged)
 
             if(checkedCategories == 1) // if *only* dark category checked
             {
-                gebid("safeModeSelectWrapper").style.borderColor = "red";
-                gebid("categoryWrapper").style.borderColor = "red";
+                gebid("safeModeSelectWrapper").style.borderColor = erroredColor;
+                gebid("categoryWrapper").style.borderColor = erroredColor;
 
                 errors.push("Using the safe mode and category \"Dark\" at the same time.");
 
@@ -586,7 +588,7 @@ function reRender(langChanged)
     if(!gebid("typ-cb1").checked && !gebid("typ-cb2").checked)
     {
         allOk = false;
-        gebid("typeSelectWrapper").style.borderColor = "red";
+        gebid("typeSelectWrapper").style.borderColor = erroredColor;
 
         errors.push("Please select at least one joke type.");
     }  
@@ -630,7 +632,7 @@ function reRender(langChanged)
     if(outOfRange || notNumber || fromValInt > toValInt)
     {
         allOk = false;
-        gebid("idRangeWrapper").style.borderColor = "red";
+        gebid("idRangeWrapper").style.borderColor = erroredColor;
 
         errors.push("Using out of range or invalid ID range (allowed values are 0-" + maxJokeIdRange + " and \"To\" can't be smaller than \"From\")");
     }
@@ -644,7 +646,7 @@ function reRender(langChanged)
     if(jokesAmount > parseInt("<!--%#INSERT:MAXJOKEAMOUNT#%-->") || jokesAmount < 1 || isNaN(jokesAmount))
     {
         allOk = false;
-        gebid("jokeAmountWrapper").style.borderColor = "red";
+        gebid("jokeAmountWrapper").style.borderColor = erroredColor;
 
         errors.push("Using out of range or invalid amount (allowed values are 1-<!--%#INSERT:MAXJOKEAMOUNT#%-->).");
     }
