@@ -69,10 +69,13 @@ class Endpoints extends Endpoint
         const responseObj = [];
 
         /** @type {EndpointObj[]} */
-        const epList = (Array.isArray(this.endpoints[lang]) && this.endpoints[lang].length > 0) ? this.endpoints[lang] : this.endpoints[settings.languages.defaultLanguage];
+        const epList =
+            ( Array.isArray(this.endpoints[lang]) && this.endpoints[lang].length > 0 )
+            ? this.endpoints[lang]
+            : this.endpoints[settings.languages.defaultLanguage];
 
         if(!epList)
-            return "TODO: return error";
+            throw new Error(`Endpoint list wasn't initialized yet`);
 
         epList.forEach(ep => {
             let epUrl = `${settings.info.docsURL}/${ep.pathName}`;
