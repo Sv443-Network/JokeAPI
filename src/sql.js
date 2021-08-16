@@ -19,7 +19,7 @@ const queryOptions = {
  */
 function sendQuery(connection, query, ...values)
 {
-    if(!connection)
+    if(!connection || typeof connection.query !== "function")
         throw new Error(`Error while sending query: DB connection isn't established yet`);
 
     return new Promise((res, rej) => {

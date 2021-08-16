@@ -26,9 +26,6 @@ module.exports.connectionInfo = {
     connected: false
 };
 
-/** @type {mysql.Connection|undefined} Database connection used for joke caching */
-let dbConnection = undefined;
-
 
 /**
  * Initializes the joke cache module and instantiates the `cache` instance.
@@ -39,7 +36,8 @@ function init()
     return new Promise((pRes, pRej) => {
         debug("JokeCache", `Initializing...`);
 
-        dbConnection = mysql.createConnection({
+        /** Database connection used for joke caching */
+        const dbConnection = mysql.createConnection({
             host: settings.sql.host,
             user: (process.env["DB_USERNAME"] || ""),
             password: (process.env["DB_PASSWORD"] || ""),
@@ -50,8 +48,9 @@ function init()
 
         /**
          * Finalizes joke cache setup, then resolves init()'s returned Promise
+         * @param {mysql.Connection} connection
          */
-        const finalize = async () => {
+        const finalize = async (connection) => {
             try
             {
                 module.exports.connectionInfo = {
@@ -59,13 +58,13 @@ function init()
                     info: `${settings.sql.host}:${settings.sql.port}/${settings.sql.database}`
                 };
 
-                cacheInstance = new JokeCache(dbConnection);
+                cacheInstance = new JokeCache(connection);
                 module.exports.cacheInstance = cacheInstance;
 
                 // set up GC
                 // TODO: catch errors
-                setInterval(runGC, 1000 * 60 * settings.jokeCaching.gcIntervalMinutes);
-                await runGC();
+                setInterval(() => runGC(connection), 1000 * 60 * settings.jokeCaching.gcIntervalMinutes);
+                await runGC(connection);
 
                 debug("JokeCache", "Successfully initialized joke cache and garbage collector");
                 return pRes();
@@ -96,7 +95,7 @@ function init()
                                 // connection established, table exists already
                                 debug("JokeCache", `DB table exists already`);
 
-                                return finalize();
+                                return finalize(dbConnection);
                             }
                             else if(Array.isArray(res) && res.length == 0)
                             {
@@ -107,7 +106,7 @@ function init()
                                 sendQuery(dbConnection, createAnalyticsTableQuery)
                                     .then(() => {
                                         debug("JokeCache", `Successfully created joke caching DB`);
-                                        return finalize();
+                                        return finalize(dbConnection);
                                     }).catch(err => {
                                         debug("JokeCache", `Error while creating DB table: ${err}`);
                                         return pRej(`${err}\nMaybe the database server isn't running or doesn't allow the connection`);
@@ -136,8 +135,9 @@ function init()
 
 /**
  * Runs the joke cache garbage collector
+ * @param {mysql.Connection} connection
  */
-function runGC()
+function runGC(connection)
 {
     debug("JokeCache/GC", `Running joke cache garbage collector...`);
 
@@ -147,36 +147,37 @@ function runGC()
 
         const startTS = Date.now();
 
-        if(!dbConnection)
-            throw new Error(`Error while running garbage collector, DB connection isn't established yet`);
-
-        const expiredEntries = await sendQuery("SELECT * FROM ?? WHERE DATE_ADD(`DateTime`, INTERVAL ? HOUR) < CURRENT_TIMESTAMP;", settings.jokeCaching.tableName, settings.jokeCaching.expiryHours);
-
-        /** @type {(() => Promise<any>)[]} */
-        const deletePromises = [];
-
-        expiredEntries.forEach(entry => {
-            const { ClientIpHash, JokeID, LangCode } = entry;
-
-            deletePromises.push(() => new Promise(async (delRes, delRej) => {
-                try
-                {
-                    const result = await sendQuery("DELETE FROM ?? WHERE ClientIpHash = ? AND JokeID = ? AND LangCode = ?;", settings.jokeCaching.tableName, ClientIpHash, JokeID, LangCode);
-
-                    if(result.affectedRows > 0)
-                        clearedEntries += result.affectedRows;
-
-                    return delRes();
-                }
-                catch(err)
-                {
-                    return delRej(err);
-                }
-            }));
-        });
-
         try
         {
+            if(!connection)
+                throw new Error(`Error while running garbage collector, DB connection isn't established yet`);
+
+            const expiredEntries = await sendQuery(connection, "SELECT * FROM ?? WHERE DATE_ADD(`DateTime`, INTERVAL ? HOUR) < CURRENT_TIMESTAMP;", settings.jokeCaching.tableName, settings.jokeCaching.expiryHours);
+
+            /** @type {(() => Promise<any>)[]} */
+            const deletePromises = [];
+
+            expiredEntries.forEach(entry => {
+                const { ClientIpHash, JokeID, LangCode } = entry;
+
+                deletePromises.push(() => new Promise(async (delRes, delRej) => {
+                    try
+                    {
+                        const result = await sendQuery(connection, "DELETE FROM ?? WHERE ClientIpHash = ? AND JokeID = ? AND LangCode = ?;", settings.jokeCaching.tableName, ClientIpHash, JokeID, LangCode);
+
+                        if(result.affectedRows > 0)
+                            clearedEntries += result.affectedRows;
+
+                        return delRes();
+                    }
+                    catch(err)
+                    {
+                        return delRej(err);
+                    }
+                }));
+            });
+
+
             await promiseAllSequential(deletePromises);
         }
         catch(err)

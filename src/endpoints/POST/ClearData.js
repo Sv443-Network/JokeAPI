@@ -59,28 +59,15 @@ class ClearData extends SubmissionEndpoint
             const deletedEntries = await this.clearJokeCache(ip, lang);
 
 
-            let clientDataDeleted = false;
-            try
-            {
-                await this.clearClientData(ip);
-                clientDataDeleted = true;
-            }
-            catch(err)
-            {
-                unused(err);
-                clientDataDeleted = false;
-            }
-
-
             if(deletedEntries == 0)
             {
                 responseObj = {
                     "error": false,
                     "jokeCache": {
                         "message": tr(lang, "jokeCacheClearNoEntries"),
+                        "entriesFound": false,
                         "entriesDeleted": 0
                     },
-                    clientDataDeleted,
                     "timestamp": Date.now()
                 };
             }
@@ -90,9 +77,9 @@ class ClearData extends SubmissionEndpoint
                     "error": false,
                     "jokeCache": {
                         "message": tr(lang, "jokeCacheCleared", deletedEntries.toString()),
+                        "entriesFound": true,
                         "cacheEntriesDeleted": deletedEntries
                     },
-                    clientDataDeleted,
                     "timestamp": Date.now()
                 };
             }
@@ -105,9 +92,9 @@ class ClearData extends SubmissionEndpoint
                 "error": true,
                 "jokeCache": {
                     "message": err.toString(),
+                    "entriesFound": false,
                     "cacheEntriesDeleted": 0
                 },
-                "clientDataDeleted": false,
                 "timestamp": Date.now()
             }
         }
@@ -138,20 +125,6 @@ class ClearData extends SubmissionEndpoint
             {
                 return pRej(tr(lang, "jokeCacheClearError", err.toString()));
             }
-        });
-    }
-
-    /**
-     * Clears the client data.  
-     * Resolves void, rejects with an error message
-     * @param {string} ip The IP hash of the client
-     * @returns {Promise<void, string>}
-     */
-    clearClientData(ip)
-    {
-        return new Promise(async (res, rej) => {
-            unused(ip, rej);
-            return res();
         });
     }
 }

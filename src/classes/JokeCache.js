@@ -87,7 +87,7 @@ class JokeCache
 
             sendQuery(this.db, "DELETE FROM ?? WHERE ClientIpHash LIKE ?", ...insValues)
                 .then(res => {
-                    return pRes(res.affectedRows ? res.affectedRows : 0);
+                    return pRes((res && typeof res.affectedRows === "number") ? res.affectedRows : 0);
                 }).catch(err => {
                     return pRej(err);
                 });
