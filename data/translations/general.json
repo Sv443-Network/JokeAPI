@@ -527,6 +527,11 @@
             "ru": "Ошибка при очистке кэша шуток: %1",
             "cs": "Chyba při čištění mezipaměti vtipů: %1"
         },
+        "jokeCacheUpdateError": {
+            "en": "Error while updating joke cache: %1",
+            "de": "Fehler beim Aktualisieren des Witz-Zwischenspeichers: %1",
+            "ru": "Ошибка при обновлении кэша шуток: %1"
+        },
         "patternTooComplex": {
             "en": "The provided search pattern \"%1\" is too complex. A maximum of %2 wildcards / pattern repetitions are allowed.",
             "de": "Das angegebene Suchmuster \"%1\" ist zu komplex. Es sind maximal %2 Platzhalter / Musterwiederholungen erlaubt.",

@@ -2,9 +2,11 @@ const scl = require("svcorelib");
 
 const parseJokes = require("../../parseJokes");
 const FilteredJoke = require("../../classes/FilteredJoke");
+const JokeCache = require("../../classes/JokeCache");
 const resolveIP = require("../../resolveIP");
 const Endpoint = require("../../classes/Endpoint");
 const languages = require("../../languages");
+const jokeCache = require("../../jokeCache");
 const tr = require("../../translate");
 
 const settings = require("../../../settings");
@@ -254,6 +256,42 @@ class Joke extends Endpoint {
                     };
                 }
             }
+
+            //#SECTION joke caching
+
+            try
+            {
+                const clientIpHash = JokeCache.isValidClientIpHash(ip) ? ip : resolveIP.hashIP(ip);
+
+                if(jokesArray.length > 1)
+                {
+                    // ?amount param is > 1
+
+                    /** @type {JokeCache.CacheEntry[]} */
+                    const cacheEntries = [];
+
+                    jokesArray.forEach(joke => {
+                        cacheEntries.push({
+                            clientIpHash,
+                            jokeID: joke.id,
+                            langCode
+                        });
+                    });
+
+                    await jokeCache.cacheInstance.addEntries(cacheEntries);
+                }
+                else
+                {
+                    // ?amount param is = 1
+                    await jokeCache.cacheInstance.addEntry(clientIpHash, jokesArray[0].id, langCode);
+                }
+            }
+            catch(err)
+            {
+                return this.isErrored(res, format, tr(langCode, "jokeCacheUpdateError", err.toString()), langCode);
+            }
+
+            //#SECTION finalize
 
             return Endpoint.respond(res, format, lang, responseObj, statusCode);
         }

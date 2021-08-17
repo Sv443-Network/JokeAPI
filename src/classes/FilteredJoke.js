@@ -9,7 +9,7 @@ const AllJokes = require("./AllJokes");
 const parseJokes = require("../parseJokes");
 const languages = require("../languages");
 const tr = require("../translate");
-const jokeCache = require("../jokeCache");
+// const jokeCache = require("../jokeCache");
 
 const settings = require("../../settings");
 
@@ -348,18 +348,18 @@ class FilteredJoke
                 
                 let jokesArray = this._allJokes.getJokeArray(lang);
 
-                // TODO: rewrite with async/await
-                jokeCache.cacheInstance.listEntries(ip, lang).then(cacheIdList => {
+                // TODO: #319 rewrite with async/await
+                // jokeCache.cacheInstance.listEntries(ip, lang).then(cacheIdList => {
                     // #SECTION joke cache
-                    if(this._idRange == this._initialIdRange)
-                    {
-                        // joke caching is disabled when using the ID range parameter due to its dynamic, always different nature
-                        jokesArray = jokesArray.filter(joke => {
-                            // filter out all jokes that are on a client's joke cache list
-                            if(!cacheIdList.includes(joke.id))
-                                return joke;
-                        });
-                    }
+                    // if(this._idRange == this._initialIdRange)
+                    // {
+                    //     // joke caching is disabled when using the ID range parameter due to its dynamic, always different nature
+                    //     jokesArray = jokesArray.filter(joke => {
+                    //         // filter out all jokes that are on a client's joke cache list
+                    //         if(!cacheIdList.includes(joke.id))
+                    //             return joke;
+                    //     });
+                    // }
 
                     let isErrored = false;
 
@@ -441,7 +441,7 @@ class FilteredJoke
 
                         //#SECTION done
                         this._filteredJokes.push(joke); // joke is valid, push it to the array that gets passed in the resolve() just below
-                    });
+                    // });
 
                     return resolve(this._filteredJokes);
                 }).catch(err => {
@@ -523,7 +523,7 @@ class FilteredJoke
 
     //#MARKER get joke
     /**
-     * Applies all filters and returns the final joke
+     * Applies all filters and returns the final joke(s)
      * @param {string} ip Client IP hash
      * @param {string} langCode
      * @param {number} [amount=1] The amount of jokes to return
@@ -540,20 +540,6 @@ class FilteredJoke
             let multiSelectLastIDs = [];
 
             this._applyFilters(ip, this._lang || settings.languages.defaultLanguage).then(filteredJokes => {
-                if(Array.isArray(filteredJokes))
-                {
-                    /** @type {Promise[]} */
-                    let promises = [];
-                    filteredJokes.forEach(joke => promises.push(jokeCache.cacheInstance.addEntry(ip, joke.id, langCode)));
-
-                    Promise.all(promises).then(() => {
-                        return; // joke cache checking doesn't need to be waited for
-                    }).catch(err => {
-                        scl.unused(err);
-                        return; // joke cache checking doesn't necessarily *need* to succeed
-                    });
-                }
-
                 if(filteredJokes.length == 0 || typeof filteredJokes != "object")
                 {
                     if(this._errors && this._errors.length > 0)
@@ -571,10 +557,11 @@ class FilteredJoke
                 /**
                  * @param {Array<parseJokes.Joke[]>} jokes 
                  */
-                let selectRandomJoke = jokes => {
-                    let idx = scl.randRange(0, (jokes.length - 1));
-                    let selectedJoke = jokes[idx];
+                const selectRandomJoke = jokes => {
+                    const idx = scl.randRange(0, (jokes.length - 1));
+                    const selectedJoke = jokes[idx];
 
+                    // TODO: remove lastIDs check (previous version of joke caching)
                     if(jokes.length > settings.jokes.lastIDsMaxLength && _lastIDs.includes(selectedJoke.id))
                     {
                         if(_selectionAttempts > settings.jokes.jokeRandomizationAttempts)
