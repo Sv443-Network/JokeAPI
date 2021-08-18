@@ -536,6 +536,11 @@
             "en": "The provided search pattern \"%1\" is too complex. A maximum of %2 wildcards / pattern repetitions are allowed.",
             "de": "Das angegebene Suchmuster \"%1\" ist zu komplex. Es sind maximal %2 Platzhalter / Musterwiederholungen erlaubt.",
             "ru": "Предоставленный шаблон поиска \"%1\" слишком сложен. Допускается не более %2 подстановочных знаков / повторений шаблона."
+        },
+        "endpointNoData": {
+            "en": "Endpoint \"%1\" accepts data but hasn't received any",
+            "de": "Endpunkt \"%1\" akzeptiert Daten, hat aber keine erhalten",
+            "ru": "Конечная точка \"%1\" принимает данные, но не получила их"
         }
     }
 }

@@ -40,6 +40,17 @@ const dataEndpoints = [];
 /** @type {EpObject[]} Submission endpoints */
 const submissionEndpoints = [];
 
+// rate limiters
+const rl = new RateLimiterMemory({
+    points: settings.httpServer.rateLimiting,
+    duration: settings.httpServer.timeFrame
+});
+
+const rlSubm = new RateLimiterMemory({
+    points: settings.jokes.submissions.rateLimiting,
+    duration: settings.jokes.submissions.timeFrame
+});
+
 //#MARKER types
 
 /** @typedef {import("./docs.js").EncodingName} EncodingName */
@@ -369,13 +380,6 @@ async function incomingRequest(req, res, httpMetrics)
     const urlPath = parsedURL.pathArray;
 
 
-    //#SECTION set up rate limiters
-    const rl = new RateLimiterMemory({
-        points: settings.httpServer.rateLimiting,
-        duration: settings.httpServer.timeFrame
-    });
-
-
     //#SECTION GET
     if(req.method === "GET")
     {
@@ -585,40 +589,65 @@ async function incomingRequest(req, res, httpMetrics)
                 // let postRateLimited = await rlPost.get(ip);
                 let dataGotten = false;
 
-                req.on("data", chunk => {
-                    dataGotten = true;
+                try
+                {
+                    let rlRes = await rlSubm.get(ip);
 
-                    const payload = chunk.toString();
-
-                    /** Size of the payload sent by the client in bytes */
-                    const payloadSize = byteLength(payload);
-                    if(payloadSize > settings.httpServer.maxPayloadSize)
-                        return respondWithError(res, 107, 413, fileFormat, tr(lang, "payloadTooLarge", payloadSize, settings.httpServer.maxPayloadSize), lang);
-
-                    if(!isEmpty(payload))
-                        clearTimeout(dataInterval);
-
-                    /** @type {SubmissionEndpoint} */
-                    const inst = ep.instance;
-                    inst.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat, payload, httpMetrics);
-                });
-
-                req.on("close", () => {
-                    if(!dataGotten)
+                    if(rlRes._remainingPoints > 0 || lists.isWhitelisted(ip) || headerAuth.isAuthorized)
                     {
-                        if(ep.meta.acceptsEmptyBody === true)
+                        try
                         {
-                            // endpoint accepts empty body and no data was received
-                            clearTimeout(dataInterval);
+                            rlRes = await rlSubm.consume(ip, 1);
+
+                            setRateLimitedHeaders(res, rlRes);
+                        }
+                        catch(errRlRes)
+                        {
+                            if(errRlRes.remainingPoints <= 0)
+                                return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
+                        }
+
+                        req.on("data", chunk => {
+                            dataGotten = true;
+
+                            const payload = chunk.toString();
+
+                            /** Size of the payload sent by the client in bytes */
+                            const payloadSize = byteLength(payload);
+                            if(payloadSize > settings.httpServer.maxPayloadSize)
+                                return respondWithError(res, 107, 413, fileFormat, tr(lang, "payloadTooLarge", payloadSize, settings.httpServer.maxPayloadSize), lang);
+
+                            if(!isEmpty(payload))
+                                clearTimeout(dataInterval);
 
                             /** @type {SubmissionEndpoint} */
                             const inst = ep.instance;
-                            inst.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat, null, httpMetrics);
-                        }
-                        else
-                            return respondWithError(res, 112, 400, fileFormat, `Endpoint ${ep.name} accepts data but hasn't gotten any`, lang);
+                            inst.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat, payload, httpMetrics);
+                        });
                     }
-                });
+
+                    req.on("close", () => {
+                        if(!dataGotten)
+                        {
+                            if(ep.meta.acceptsEmptyBody === true)
+                            {
+                                // endpoint accepts empty body and no data was received
+                                clearTimeout(dataInterval);
+
+                                /** @type {SubmissionEndpoint} */
+                                const inst = ep.instance;
+                                inst.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat, null, httpMetrics);
+                            }
+                            else
+                                return respondWithError(res, 112, 400, fileFormat, tr(lang, "endpointNoData", ep.name), lang);
+                        }
+                    });
+                }
+                catch(errRlRes)
+                {
+                    if(errRlRes.remainingPoints <= 0)
+                        return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
+                }
 
                 // {
                 //     //#MARKER Restart / invalid PUT / POST

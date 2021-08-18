@@ -1,12 +1,12 @@
 const { unused } = require("svcorelib");
-const { RateLimiterMemory } = require("rate-limiter-flexible");
 
-const tr = require("../../translate");
+// const tr = require("../../translate");
 const SubmissionEndpoint = require("../../classes/SubmissionEndpoint");
 const Endpoint = require("../../classes/Endpoint");
 const resolveIp = require("../../resolveIP");
+const jokeSubmission = require("../../jokeSubmission");
 
-const settings = require("../../../settings");
+// const settings = require("../../../settings");
 
 
 /**
@@ -31,12 +31,6 @@ class JokeSubmission extends SubmissionEndpoint
         };
 
         super("submit", meta);
-
-        // set up rate limiting
-        this.rlSubm = new RateLimiterMemory({
-            points: settings.jokes.submissions.rateLimiting,
-            duration: settings.jokes.submissions.timeFrame
-        });
     }
 
     /**
@@ -44,7 +38,7 @@ class JokeSubmission extends SubmissionEndpoint
      * @param {http.IncomingMessage} req The HTTP server request
      * @param {http.ServerResponse} res The HTTP server response
      * @param {string[]} url URL path array gotten from the URL parser module
-     * @param {Object} params URL query params gotten from the URL parser module
+     * @param {object} params URL query params gotten from the URL parser module
      * @param {string} format The file format to respond with
      * @param {string} data The raw data, as a string
      */
@@ -55,14 +49,20 @@ class JokeSubmission extends SubmissionEndpoint
         const lang = Endpoint.getLang(params);
         const ip = resolveIp(req);
 
-        let statusCode = 200;
-        let responseObj = {};
+        const dryRun = params["dry-run"] === true;
 
+        /** @type {import("../../analytics").AnalyticsSubmission} */
+        const analyticsObject = {
+            type: "JokeSubmission",
+            data: {
+                ipAddress: ip,
+                urlParameters: params,
+                urlPath: url,
+                submission: data
+            }
+        };
 
-        const rateLimited = await this.rlSubm.get(ip);
-
-
-        return Endpoint.respond(res, format, lang, responseObj, statusCode);
+        return jokeSubmission(res, data, format, ip, analyticsObject, dryRun, lang);
     }
 }
 
