@@ -198,7 +198,7 @@ class JokeCache
                 langCode
             ];
 
-            sendQuery(this.dbConnection, `SELECT JokeID FROM ?? WHERE ClientIpHash = ? AND LangCode = ?;`, insValues)
+            sendQuery(this.dbConnection, `SELECT JokeID FROM ?? WHERE ClientIpHash = ? AND LangCode = ?;`, ...insValues)
                 .then(res => {
                     res = res.map(itm => itm.JokeID).sort();
 

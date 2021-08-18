@@ -92,7 +92,7 @@ function init()
                     debug("JokeCache", `Successfully connected to database at ${colors.fg.green}${settings.sql.host}:${settings.sql.port}/${settings.sql.database}${colors.rst}`);
 
                     // ensure DB tables exist
-                    sendQuery(dbConnection, `SHOW TABLES LIKE "${settings.jokeCaching.tableName}";`)
+                    sendQuery(dbConnection, `SHOW TABLES LIKE ?;`, settings.jokeCaching.tableName)
                         .then(res => {
                             if(Array.isArray(res) && res.length >= 1)
                             {
