@@ -72,9 +72,9 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun, lang
                     code: 105,
                     message: tr(lang, "submissionMalformedJoke"),
                     causedBy: validationResult.errorStrings,
-                    timestamp: 1612822945543,
                     additionalInfo: "",
-                    parameterValidity: validationResult.jokeParams
+                    parametersValid: validationResult.jokeParams,
+                    timestamp: Date.now(),
                 };
 
                 return scl.http.pipeString(res, fileFormatConverter.auto(fileFormat, clientResponse, lang), parseURL.getMimeType(fileFormat), 400);
@@ -115,7 +115,8 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun, lang
                         const respObj = {
                             error: false,
                             message: tr(lang, "dryRunSuccessful", parseJokes.jokeFormatVersion, submission.formatVersion),
-                            timestamp: Date.now()
+                            parametersValid: validationResult.jokeParams,
+                            timestamp: Date.now(),
                         };
 
                         return httpServer.pipeString(res, fileFormatConverter.auto(fileFormat, respObj, lang), parseURL.getMimeType(fileFormat), 201);

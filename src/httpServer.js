@@ -570,20 +570,22 @@ async function incomingRequest(req, res, httpMetrics)
                 return respondWithError(res, 102, 404, fileFormat, tr(lang, "endpointNotFound", (!isEmpty(requestedEndpoint) ? requestedEndpoint : "/")), lang);
         }
     }
-    //#SECTION PUT / POST
+    //#SECTION POST
     else if(req.method === "POST" || (settings.legacy.submissionEndpointsPutMethod && req.method === "PUT"))
     {
         let requestedEndpoint = "";
         if(!isArrayEmpty(urlPath))
             requestedEndpoint = urlPath[0].toLowerCase();
-            
-        const dataInterval = setTimeout(() => {
+
+        // timeout
+        const dataTimeout = setTimeout(() => {
             debug("HTTP", `${req.method} request timed out`, "red");
             return respondWithErrorPage(res, 400, tr(lang, "requestBodyIsInvalid"));
         }, settings.httpServer.submissionNoDataTimeout);
 
 
-        submissionEndpoints.forEach( /** @param {EpObject} ep Endpoint matching request URL */ async (ep) => {
+        for(/** @type {EpObject} */ const ep of submissionEndpoints)
+        {
             if(ep.pathName == requestedEndpoint && ["POST", "PUT"].includes(ep.meta.usage.method))
             {
                 // let postRateLimited = await rlPost.get(ip);
@@ -593,7 +595,7 @@ async function incomingRequest(req, res, httpMetrics)
                 {
                     let rlRes = await rlSubm.get(ip);
 
-                    if(rlRes._remainingPoints > 0 || lists.isWhitelisted(ip) || headerAuth.isAuthorized)
+                    if(rlRes === null || rlRes.remainingPoints > 0 || lists.isWhitelisted(ip) || headerAuth.isAuthorized)
                     {
                         try
                         {
@@ -607,18 +609,17 @@ async function incomingRequest(req, res, httpMetrics)
                                 return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
                         }
 
-                        req.on("data", chunk => {
+                        req.on("data", data => {
                             dataGotten = true;
 
-                            const payload = chunk.toString();
+                            const payload = data.toString();
 
                             /** Size of the payload sent by the client in bytes */
                             const payloadSize = byteLength(payload);
                             if(payloadSize > settings.httpServer.maxPayloadSize)
                                 return respondWithError(res, 107, 413, fileFormat, tr(lang, "payloadTooLarge", payloadSize, settings.httpServer.maxPayloadSize), lang);
 
-                            if(!isEmpty(payload))
-                                clearTimeout(dataInterval);
+                            clearTimeout(dataTimeout);
 
                             /** @type {SubmissionEndpoint} */
                             const inst = ep.instance;
@@ -632,7 +633,7 @@ async function incomingRequest(req, res, httpMetrics)
                             if(ep.meta.acceptsEmptyBody === true)
                             {
                                 // endpoint accepts empty body and no data was received
-                                clearTimeout(dataInterval);
+                                clearTimeout(dataTimeout);
 
                                 /** @type {SubmissionEndpoint} */
                                 const inst = ep.instance;
@@ -677,7 +678,7 @@ async function incomingRequest(req, res, httpMetrics)
                 //     });
                 // }
             }
-        });
+        }
     }
     //#SECTION HEAD / OPTIONS
     else if(req.method === "HEAD" || req.method === "OPTIONS")
@@ -795,8 +796,11 @@ function respondWithErrorPage(res, statusCode, error)
     {
         const cookieStr = `errorInfo=${JSON.stringify({"API-Error-Message": encodeURIComponent(error.toString()), "API-Error-StatusCode": statusCode})}`;
 
-        res.setHeader("Set-Cookie", cookieStr);
-        res.setHeader("API-Error", error);
+        if(!res.headersSent)
+        {
+            res.setHeader("Set-Cookie", cookieStr);
+            res.setHeader("API-Error", error);
+        }
     }
 
     return pipeFile(res, settings.documentation.errorPagePath, "text/html", statusCode);

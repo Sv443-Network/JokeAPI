@@ -295,9 +295,9 @@ function validateSubmission(joke, lang)
     {
         // if submission is a string, parse and freeze it
         // if it's an object, reserialize it to lose reference and also freeze it
-        if(typeof joke == "string")
+        if(typeof joke === "string")
             joke = Object.freeze(JSON.parse(joke));
-        else if(typeof joke == "object")
+        else if(typeof joke === "object")
             joke = reserialize(joke, true);
         else
             throw new TypeError(`Error while validating submission: Expected 'joke' to be of type object or string but got '${typeof joke}' instead`);
@@ -320,12 +320,17 @@ function validateSubmission(joke, lang)
             type: true
         };
     
-        if(jokeObj.type == "single")
-            validParamsObj.joke = true;
-        else if(jokeObj.type == "twopart")
+        if(jokeObj.type === "twopart")
         {
             validParamsObj.setup = true;
             validParamsObj.delivery = true;
+        }
+        else if(jokeObj.type === "single")
+            validParamsObj.joke = true;
+        else
+        {
+            validParamsObj.type = false;
+            validParamsObj.joke = false;
         }
     
         validParamsObj = {
@@ -339,6 +344,8 @@ function validateSubmission(joke, lang)
             },
             lang: true
         }
+
+        return validParamsObj;
     };
 
     /** Object resembling a joke submission but all values are booleans describing the validity of that property */
@@ -388,12 +395,13 @@ function validateSubmission(joke, lang)
                 validParamsObj.delivery = false;
             }
         }
-        else jokeErrors.push(tr(lang, "parseJokesNoTypeProperty"));
+        else
+            jokeErrors.push(tr(lang, "parseJokesNoTypeProperty"));
 
         //#SECTION joke category
         let jokeCat = resolveCategoryAlias(joke.category);
 
-        if(joke.category == null)
+        if(!jokeCat)
         {
             jokeErrors.push(tr(lang, "parseJokesNoCategoryProperty"));
             validParamsObj.category = false;
@@ -469,17 +477,18 @@ function validateSubmission(joke, lang)
         let noLangProp = false;
         if(isEmpty(joke.lang))
             noLangProp = true;
-        
-        let langV = languages.isValidLang(joke.lang, lang);
-        if(typeof langV === "string")
-        {
-            jokeErrors.push(tr(lang, "parseJokesLangPropertyInvalid", langV));
-            validParamsObj.lang = false;
-        }
-        else if(langV !== true)
-            noLangProp = false;
 
-        if(noLangProp)
+        if(!noLangProp)
+        {
+            const langV = languages.isValidLang(joke.lang, lang);
+
+            if(typeof langV === "string")
+            {
+                jokeErrors.push(tr(lang, "parseJokesLangPropertyInvalid", langV));
+                validParamsObj.lang = false;
+            }
+        }
+        else
         {
             jokeErrors.push(tr(lang, "parseJokesNoLangProperty"));
             validParamsObj.lang = false;
@@ -508,6 +517,9 @@ function validateSubmission(joke, lang)
  */
 function resolveCategoryAlias(category)
 {
+    if(typeof category !== "string")
+        return undefined;
+
     let cat = category;
     categoryAliases.forEach(catAlias => {
         if(category.toLowerCase() == catAlias.alias.toLowerCase())
