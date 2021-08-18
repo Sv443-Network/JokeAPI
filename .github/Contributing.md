@@ -17,8 +17,8 @@ So please carefully read this guide before contributing. Thanks :)
 
 ## Submitting or editing jokes:
 
-To submit a joke manually, you can use the form on [this page.](https://v2.jokeapi.dev/#submit)  
-To submit it through code, you can make use of the ["submit" endpoint.](https://v2.jokeapi.dev/#submit-endpoint)
+To submit a joke manually, you can use the form on [this page.](https://jokeapi.dev/#submit)  
+To submit it through code, you can make use of the ["submit" endpoint.](https://jokeapi.dev/#submit-endpoint)
 
 If you instead want to edit a joke yourself, you can find them in the `jokes-xy.json` files in [`data/jokes/`](../data/jokes/)  
 To submit your changes, create a pull request. Also make sure to follow the [code contribution instructions.](#submitting-code)
@@ -63,11 +63,11 @@ If you want to submit a translation, please follow these steps:
 2. Edit the following files, replicating the style of the other translations:
     - Coded error messages that are bound to an API error number in the file [`data/errorMessages.js`](../data/errorMessages.js)
     - General translations scattered throughout the API in the file [`data/translations/general.json`](../data/translations/general.json)
-    - General endpoint translations in the file [`data/translations/endpoints.json`](../data/translations/endpoints.json)
+    - Endpoint translations in the file [`data/translations/endpoints.json`](../data/translations/endpoints.json)
     - Filter Component translations in the file [`data/translations/filterComponents.json`](../data/translations/filterComponents.json)
     - Splash texts in the file [`data/translations/splashes.json`](../data/translations/splashes.json)
 3. Add yourself to the `contributors` object in the [`package.json`](../package.json) file :)
-    > As a contribution message, you should use `Added {Language} translations`
+    > As a contribution message, you should use `Added {Language} translation`
 
 <br><br>
 
