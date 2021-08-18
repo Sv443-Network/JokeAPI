@@ -4,12 +4,13 @@ const { colors } = require("svcorelib");
 
 const { isValidLang } = require("../languages");
 const { sendQuery } = require("../sql");
+const { isValidIpHash } = require("../resolveIP");
 const debug = require("../debug");
 
 const settings = require("../../settings");
 
-
 const col = colors.fg;
+
 
 //#MARKER types
 
@@ -67,7 +68,7 @@ class JokeCache
         debug("JokeCache", `Adding 1 entry to the joke cache - client: '${clientIpHash.substr(0, 16)}…'`);
 
         return new Promise((pRes, pRej) => {
-            if(!JokeCache.isValidClientIpHash(clientIpHash))
+            if(!isValidIpHash(clientIpHash))
                 throw new TypeError(`Parameter "clientIpHash" is not a string or not a valid IP hash`);
             
             if(typeof jokeID != "number")
@@ -108,7 +109,7 @@ class JokeCache
         return new Promise((res, rej) => {
             // map entries onto a different format (from object array to 2D array)
             const entries = cacheEntries.map(entry => {
-                if(!JokeCache.isValidClientIpHash(entry.clientIpHash))
+                if(!isValidIpHash(entry.clientIpHash))
                     throw new TypeError(`Parameter "clientIpHash" is not a string or not a valid IP hash`);
                 
                 if(typeof jokeID != "number")
@@ -158,7 +159,7 @@ class JokeCache
     clearEntries(clientIpHash)
     {
         return new Promise((pRes, pRej) => {
-            if(!JokeCache.isValidClientIpHash(clientIpHash))
+            if(!isValidIpHash(clientIpHash))
                 throw new TypeError(`Provided client IP hash is invalid.`);
 
 
@@ -185,7 +186,7 @@ class JokeCache
     listEntries(clientIpHash, langCode)
     {
         return new Promise((pRes, pRej) => {
-            if(!JokeCache.isValidClientIpHash(clientIpHash))
+            if(!isValidIpHash(clientIpHash))
                 throw new TypeError(`Parameter "clientIpHash" is not a string or not a valid IP hash`);
 
             if(!isValidLang(langCode))
@@ -262,16 +263,6 @@ class JokeCache
             debug("JokeCache/GC", `Cleared ${clearedEntries > 0 ? `${col.green}` : ""}${clearedEntries}${col.rst} entr${clearedEntries === 1 ? "y" : "ies"} in ${Date.now() - startTS}ms`, "green");
             return res();
         });
-    }
-
-    /**
-     * Checks if a provided client IP hash is valid.
-     * @param {string} clientIpHash
-     * @returns {boolean}
-     */
-    static isValidClientIpHash(clientIpHash)
-    {
-        return (typeof clientIpHash == "string" && clientIpHash.length == 64 && clientIpHash.match(settings.httpServer.ipHashing.hashRegex));
     }
 }
 

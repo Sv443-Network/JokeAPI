@@ -89,7 +89,22 @@ function hashIP(ip)
     return hash.digest(settings.httpServer.ipHashing.digest).toString();
 }
 
+/**
+ * Checks if a provided IP hash is valid
+ * @param {string} clientIpHash
+ * @returns {boolean}
+ */
+function isValidIpHash(clientIpHash)
+{
+    return (
+        typeof clientIpHash === "string"
+        && clientIpHash.length === 64
+        && clientIpHash.match(settings.httpServer.ipHashing.hashRegex)
+    );
+}
+
 module.exports = resolveIP;
 module.exports.isValidIP = isValidIP;
-module.exports.hashIP = hashIP;
 module.exports.isLocal = isLocal;
+module.exports.hashIP = hashIP;
+module.exports.isValidIpHash = isValidIpHash;

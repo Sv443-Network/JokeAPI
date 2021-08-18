@@ -9,11 +9,13 @@ const AllJokes = require("./AllJokes");
 const parseJokes = require("../parseJokes");
 const languages = require("../languages");
 const tr = require("../translate");
-// const jokeCache = require("../jokeCache");
+const { isValidIpHash } = require("../resolveIP");
+const jokeCache = require("../jokeCache");
 
 const settings = require("../../settings");
 
 
+/** @typedef {import("../parseJokes").SingleJoke|import("../parseJokes").TwopartJoke} JokeObj */
 /** @typedef {"nsfw"|"racist"|"sexist"|"religious"|"political"|"explicit"} BlacklistFlags */
 /** @typedef {"Any"|"Programming"|"Miscellaneous"|"Dark"} JokeCategory */
 
@@ -36,7 +38,8 @@ class FilteredJoke
             throw new Error(`Error while constructing new FilteredJoke object: parameter "allJokes" is empty`);
 
         this._allJokes = allJokes;
-        this._filteredJokes = null;
+        /** @type {JokeObj[]} */
+        this._filteredJokes = [];
 
         let idRangePerLang = {};
 
@@ -52,6 +55,7 @@ class FilteredJoke
         this._allowedTypes = [...settings.jokes.possible.types];
         this._searchString = null;
         this._idRange = [0, (parseJokes.jokeCountPerLang[settings.languages.defaultLanguage] - 1)];
+        this._idRangeModified = false;
         this._initialIdRange = [0, (parseJokes.jokeCountPerLang[settings.languages.defaultLanguage] - 1)];
         this._idRangePerLang = idRangePerLang;
         this._flags = [];
@@ -189,7 +193,7 @@ class FilteredJoke
     {
         if(scl.isEmpty(end))
             end = start;
-        
+
         if(scl.isEmpty(lang))
             lang = this.getLanguage() || settings.languages.defaultLanguage;
 
@@ -204,7 +208,8 @@ class FilteredJoke
             this._errors.push("The \"idRange\" parameter values are out of range");
             return false;
         }
-        
+
+        this._idRangeModified = true;
         this._idRange = [start, end];
         return true;
     }
@@ -334,13 +339,16 @@ class FilteredJoke
      * @private
      * @param {string} ip Client IP hash
      * @param {string} lang Language code
-     * @returns {Promise}
+     * @returns {Promise<JokeObj[], string>} Resolves with an array of jokes that have been filtered or rejects with an error message
      */
     _applyFilters(ip, lang)
     {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             try
             {
+                if(!isValidIpHash(ip))
+                    throw new TypeError(`Error while applying joke filters: client IP is not a valid IP hash`);
+
                 this._filteredJokes = [];
 
                 if(!lang)
@@ -348,100 +356,102 @@ class FilteredJoke
                 
                 let jokesArray = this._allJokes.getJokeArray(lang);
 
-                // TODO: #319 rewrite with async/await
-                // jokeCache.cacheInstance.listEntries(ip, lang).then(cacheIdList => {
-                    // #SECTION joke cache
-                    // if(this._idRange == this._initialIdRange)
-                    // {
-                    //     // joke caching is disabled when using the ID range parameter due to its dynamic, always different nature
-                    //     jokesArray = jokesArray.filter(joke => {
-                    //         // filter out all jokes that are on a client's joke cache list
-                    //         if(!cacheIdList.includes(joke.id))
-                    //             return joke;
-                    //     });
-                    // }
+                // TODO: #319
 
-                    let isErrored = false;
+                //#SECTION joke cache
+                /** @type {number[]} */
+                const cacheEntries = await jokeCache.cacheInstance.listEntries(ip, lang);
 
-                    // #SECTION iterate over jokes & check for matching parameters
-                    jokesArray.forEach(joke => {
-                        // IMPORTANT: only use synchronous code in here!
-                        // iterate over each joke, reading all set filters and thereby checking if it suits the request
-                        // to deny a joke from being served, just return from this callback function
+                // joke caching is disabled when using the ID range parameter
+                if(!this._idRangeModified)
+                {
+                    jokesArray = jokesArray.filter(joke => {
+                        // filter out all jokes that are on a client's joke cache list
+                        if(!cacheEntries.includes(joke.id))
+                            return joke;
+                    });
+                }
 
-                        // set `isErrored` to true to skip through joke checking
-                        if(isErrored)
-                            return;
+                let isErrored = false;
 
-                        //#SECTION safe mode
-                        if(this.getSafeMode() === true) // if safe mode is enabled
-                        {
-                            if(joke.safe !== true) // if joke is not safe, it's invalid
-                                return;
-                            
-                            if(joke.category == "Dark") // if joke is in category "Dark", it's invalid
-                                return;
-                        }
-                        
+                // #SECTION iterate over jokes & check for matching parameters
+                jokesArray.forEach(joke => {
+                    // IMPORTANT: only use synchronous code in here or refactor to use for of loop!
+                    // iterate over each joke, reading all set filters and thereby checking if it suits the request
+                    // to deny a joke from being served, just return from this callback function
 
-                        //#SECTION id range
-                        let idRange = this.getIdRange(lang);
-                        if(joke.id < idRange[0] || joke.id > idRange[1]) // if the joke is not in the specified ID range, it's invalid
-                            return;
+                    // short circuit if an error was encountered
+                    if(isErrored)
+                        return;
 
-                        //#SECTION categories
-                        let cats = this.getAllowedCategories().map(c => c.toLowerCase());
-
-                        if((typeof cats == "object" && !cats.includes(settings.jokes.possible.anyCategoryName.toLowerCase()))
-                        || (typeof cats == "string" && cats != settings.jokes.possible.anyCategoryName.toLowerCase()))
-                        {
-                            if(!cats.includes(joke.category.toLowerCase())) // if possible categories don't contain the requested category, joke is invalid
-                                return;
-                        }
-
-                        //#SECTION flags
-                        let blFlags = this.getBlacklistFlags();
-                        if(!scl.isEmpty(blFlags))
-                        {
-                            let flagMatches = false;
-                            Object.keys(joke.flags).forEach(flKey => {
-                                if(blFlags.includes(flKey) && joke.flags[flKey] === true)
-                                    flagMatches = true;
-                            });
-
-                            if(flagMatches) // joke has one or more of the set blacklist flags, joke is invalid
-                                return;
-                        }
-                        
-                        //#SECTION type
-                        if(!this.getAllowedTypes().includes(joke.type)) // if joke type doesn't match the requested type(s), joke is invalid
+                    //#SECTION safe mode
+                    if(this.getSafeMode() === true) // if safe mode is enabled
+                    {
+                        if(joke.safe !== true) // if joke is not safe, it's invalid
                             return;
                         
-                        //#SECTION search string
-                        try
-                        {
-                            if(!this.checkMatchesSearchString(joke, lang)) // if the provided search string doesn't match the joke, the joke is invalid
-                                return;
-                        }
-                        catch(err)
-                        {
-                            isErrored = true;
-                            return reject((err instanceof Error) ? err.message : err);
-                        }
-                        
-                        //#SECTION language
-                        let langCode = this.getLanguage();
-                        if(languages.isValidLang(langCode) !== true)
-                            return; // invalid lang code, joke is invalid
-                        if(joke.lang.toLowerCase() != langCode.toLowerCase())
-                            return; // lang code doesn't match so joke is invalid
-                        
-                        // Note: amount param is used in getJokes()
+                        if(joke.category == "Dark") // if joke is in category "Dark", it's invalid
+                            return;
+                    }
+                    
+
+                    //#SECTION id range
+                    let idRange = this.getIdRange(lang);
+                    if(joke.id < idRange[0] || joke.id > idRange[1]) // if the joke is not in the specified ID range, it's invalid
+                        return;
+
+                    //#SECTION categories
+                    let cats = this.getAllowedCategories().map(c => c.toLowerCase());
+
+                    if((typeof cats == "object" && !cats.includes(settings.jokes.possible.anyCategoryName.toLowerCase()))
+                    || (typeof cats == "string" && cats != settings.jokes.possible.anyCategoryName.toLowerCase()))
+                    {
+                        if(!cats.includes(joke.category.toLowerCase())) // if possible categories don't contain the requested category, joke is invalid
+                            return;
+                    }
+
+                    //#SECTION flags
+                    let blFlags = this.getBlacklistFlags();
+                    if(!scl.isEmpty(blFlags))
+                    {
+                        let flagMatches = false;
+                        Object.keys(joke.flags).forEach(flKey => {
+                            if(blFlags.includes(flKey) && joke.flags[flKey] === true)
+                                flagMatches = true;
+                        });
+
+                        if(flagMatches) // joke has one or more of the set blacklist flags, joke is invalid
+                            return;
+                    }
+                    
+                    //#SECTION type
+                    if(!this.getAllowedTypes().includes(joke.type)) // if joke type doesn't match the requested type(s), joke is invalid
+                        return;
+                    
+                    //#SECTION search string
+                    try
+                    {
+                        if(!this.checkMatchesSearchString(joke, lang)) // if the provided search string doesn't match the joke, the joke is invalid
+                            return;
+                    }
+                    catch(err)
+                    {
+                        isErrored = true;
+                        return reject((err instanceof Error) ? err.message : err);
+                    }
+                    
+                    //#SECTION language
+                    let langCode = this.getLanguage();
+                    if(languages.isValidLang(langCode) !== true)
+                        return; // invalid lang code, joke is invalid
+                    if(joke.lang.toLowerCase() != langCode.toLowerCase())
+                        return; // lang code doesn't match so joke is invalid
+                    
+                    // Note: amount param is used in getJokes()
 
 
-                        //#SECTION done
-                        this._filteredJokes.push(joke); // joke is valid, push it to the array that gets passed in the resolve() just below
-                    // });
+                    //#SECTION done
+                    this._filteredJokes.push(joke); // joke is valid, push it to the array that gets passed in the resolve() just below
 
                     return resolve(this._filteredJokes);
                 }).catch(err => {

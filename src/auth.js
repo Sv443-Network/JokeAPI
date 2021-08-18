@@ -79,9 +79,9 @@ function authByHeader(req, res)
         let isAuthorized = false;
         let requestersToken = "";
 
-        const authHeader = req.headers[settings.auth.tokenHeaderName].toString();
+        const authHeader = (req.headers && req.headers[settings.auth.tokenHeaderName]) ? req.headers[settings.auth.tokenHeaderName].toString() : null;
 
-        if(req.headers && authHeader)
+        if(req.headers && typeof authHeader === "string")
         {
             if(Array.isArray(tokenList) && tokenList.length > 0)
             {

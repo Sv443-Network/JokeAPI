@@ -2,7 +2,6 @@ const scl = require("svcorelib");
 
 const parseJokes = require("../../parseJokes");
 const FilteredJoke = require("../../classes/FilteredJoke");
-const JokeCache = require("../../classes/JokeCache");
 const resolveIP = require("../../resolveIP");
 const Endpoint = require("../../classes/Endpoint");
 const languages = require("../../languages");
@@ -261,7 +260,7 @@ class Joke extends Endpoint {
 
             try
             {
-                const clientIpHash = JokeCache.isValidClientIpHash(ip) ? ip : resolveIP.hashIP(ip);
+                const clientIpHash = resolveIP.isValidIpHash(ip) ? ip : resolveIP.hashIP(ip);
 
                 if(jokesArray.length > 1)
                 {
