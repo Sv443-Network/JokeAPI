@@ -1,10 +1,13 @@
-const { unused } = require("svcorelib");
+const { unused, colors } = require("svcorelib");
 
 const SubmissionEndpoint = require("../../classes/SubmissionEndpoint");
 const Endpoint = require("../../classes/Endpoint");
-const resolveIp = require("../../resolveIP");
+const resolveIP = require("../../resolveIP");
+const { getTimestamp } = require("../../logger");
 
-// const settings = require("../../../settings");
+const settings = require("../../../settings");
+
+const col = colors.fg;
 
 
 /**
@@ -39,19 +42,45 @@ class Restart extends SubmissionEndpoint {
      */
     async call(req, res, url, params, format, data)
     {
-        unused(url, data);
+        unused(url);
 
         const lang = Endpoint.getLang(params);
-        const ip = resolveIp(req);
-
-        let statusCode = 200;
-        let responseObj = {};
+        const ip = resolveIP(req);
 
 
-        unused(ip, "TODO:");
-        
+        const respondUnauthorized = () => {
+            const responseObj = {
+                "error": true,
+                "message": "No, I don't think I will",
+                "timestamp": Date.now(),
+            };
 
-        return Endpoint.respond(res, format, lang, responseObj, statusCode);
+            return Endpoint.respond(res, format, lang, responseObj, 200);
+        };
+
+        try
+        {
+            if(data.trim() === process.env.RESTART_TOKEN.trim())
+            {
+                const responseObj = {
+                    "error": false,
+                    "message": `Restarting ${settings.info.name}`,
+                    "timestamp": Date.now()
+                };
+
+                console.log(`\n\n[${getTimestamp(" | ")}]  ${col.red}IP ${col.yellow}${ip}${col.red} sent a restart command\n\n\n${col.rst}`);
+
+                Endpoint.respond(res, format, lang, responseObj, 200);
+
+                setTimeout(() => process.exit(2), 1000);
+            }
+            else
+                return respondUnauthorized();
+        }
+        catch(err)
+        {
+            return respondUnauthorized();
+        }
     }
 }
 
