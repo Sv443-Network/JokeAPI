@@ -7,6 +7,9 @@ const SubmissionEndpoint = require("../classes/SubmissionEndpoint");
 // const settings = require("../../../settings");
 
 
+/** @typedef {import("http").IncomingMessage} IncomingMessage */
+/** @typedef {import("http").ServerResponse} ServerResponse */
+
 /**
  * Template for POST / submission endpoints. These accept data.
  */
@@ -32,10 +35,10 @@ class TEMPLATE extends SubmissionEndpoint {
 
     /**
      * This method is run each time a client requests this endpoint
-     * @param {http.IncomingMessage} req The HTTP server request
-     * @param {http.ServerResponse} res The HTTP server response
+     * @param {IncomingMessage} req The HTTP server request
+     * @param {ServerResponse} res The HTTP server response
      * @param {string[]} url URL path array gotten from the URL parser module
-     * @param {Object} params URL query params gotten from the URL parser module
+     * @param {object} params URL query params gotten from the URL parser module
      * @param {string} format The file format to respond with
      * @param {string} data The raw data, as a string
      */

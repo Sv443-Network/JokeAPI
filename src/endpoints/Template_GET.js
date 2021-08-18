@@ -6,6 +6,9 @@ const Endpoint = require("../classes/Endpoint");
 // const settings = require("../../../settings");
 
 
+/** @typedef {import("http").IncomingMessage} IncomingMessage */
+/** @typedef {import("http").ServerResponse} ServerResponse */
+
 /**
  * Template for GET endpoints. These do not accept any data, they only return it.
  */
@@ -31,10 +34,10 @@ class TEMPLATE extends Endpoint {
 
     /**
      * This method is run each time a client requests this endpoint
-     * @param {http.IncomingMessage} req The HTTP server request
-     * @param {http.ServerResponse} res The HTTP server response
+     * @param {IncomingMessage} req The HTTP server request
+     * @param {ServerResponse} res The HTTP server response
      * @param {string[]} url URL path array gotten from the URL parser module
-     * @param {Object} params URL query params gotten from the URL parser module
+     * @param {object} params URL query params gotten from the URL parser module
      * @param {string} format The file format to respond with
      */
     call(req, res, url, params, format)
