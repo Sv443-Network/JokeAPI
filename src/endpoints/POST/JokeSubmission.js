@@ -58,7 +58,7 @@ class JokeSubmission extends SubmissionEndpoint
                 ipAddress: ip,
                 urlParameters: params,
                 urlPath: url,
-                submission: data
+                submission: data.toString()
             }
         };
 

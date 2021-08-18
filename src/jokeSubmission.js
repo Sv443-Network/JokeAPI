@@ -39,7 +39,7 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun, lang
 
     try
     {
-        if(typeof dryRun !== "boolean")
+        if(dryRun !== true)
             dryRun = false;
 
         // TODO: fix this circular dependency monstrosity
@@ -84,12 +84,12 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun, lang
             {
                 // joke is valid, find file name and then write to file
 
-                let sanitizedIP = ip.replace(settings.httpServer.ipSanitization.regex, settings.httpServer.ipSanitization.replaceChar).substring(0, 8);
-                let curUnix = Date.now();
-                let fileName = `${settings.jokes.jokeSubmissionPath}${submissionLang}/submission_${sanitizedIP}_0_${curUnix}.json`;
+                const sanitizedIP = ip.replace(settings.httpServer.ipSanitization.regex, settings.httpServer.ipSanitization.replaceChar).substring(0, 16);
+                const curTS = Date.now();
+                let fileName = `${settings.jokes.jokeSubmissionPath}${submissionLang}/submission_${sanitizedIP}_0_${curTS}.json`;
 
                 let iter = 0;
-                let findNextNum = currentNum => {
+                const findNextNum = currentNum => {
                     iter++;
                     if(iter >= settings.httpServer.rateLimiting)
                     {
@@ -97,7 +97,7 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun, lang
                         return httpServer.respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame));
                     }
 
-                    if(fs.existsSync(`${settings.jokes.jokeSubmissionPath}submission_${sanitizedIP}_${currentNum}_${curUnix}.json`))
+                    if(fs.existsSync(`${settings.jokes.jokeSubmissionPath}submission_${sanitizedIP}_${currentNum}_${curTS}.json`))
                         return findNextNum(currentNum + 1);
                     else return currentNum;
                 };
@@ -105,7 +105,7 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun, lang
                 fs.ensureDirSync(`${settings.jokes.jokeSubmissionPath}${submissionLang}`);
 
                 if(fs.existsSync(`${settings.jokes.jokeSubmissionPath}${fileName}`))
-                    fileName = `${settings.jokes.jokeSubmissionPath}${submissionLang}/submission_${sanitizedIP}_${findNextNum()}_${curUnix}.json`;
+                    fileName = `${settings.jokes.jokeSubmissionPath}${submissionLang}/submission_${sanitizedIP}_${findNextNum()}_${curTS}.json`;
 
                 try
                 {
@@ -152,16 +152,17 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun, lang
  */
 function writeJokeToFile(res, filePath, submittedJoke, fileFormat, ip, analyticsObject, langCode)
 {
-    if(typeof httpServer == "object" && Object.keys(httpServer).length <= 0)
+    // TODO: fix this monstrosity
+    if(typeof httpServer === "object" && Object.keys(httpServer).length <= 0)
         httpServer = require("./httpServer");
 
-    let reformattedJoke = reformatJoke(submittedJoke);
+    const reformattedJoke = reformatJoke(submittedJoke);
 
     fs.writeFile(filePath, JSON.stringify(reformattedJoke, null, 4), err => {
         if(!err)
         {
             // successfully wrote to file
-            let responseObj = {
+            const responseObj = {
                 "error": false,
                 "message": tr(langCode, "submissionSaved"),
                 "submission": reformattedJoke,
@@ -170,7 +171,7 @@ function writeJokeToFile(res, filePath, submittedJoke, fileFormat, ip, analytics
 
             meter.update("submission", 1);
 
-            let submissionObject = analyticsObject;
+            const submissionObject = analyticsObject;
             submissionObject.submission = reformattedJoke;
             logRequest("submission", ip, submissionObject);
 
@@ -182,7 +183,7 @@ function writeJokeToFile(res, filePath, submittedJoke, fileFormat, ip, analytics
 }
 
 /**
- * Coarse filter that ensures that a joke is formatted as expected
+ * Coarse filter that ensures that a joke is formatted as expected - doesn't add missing properties though!
  * @param {JokeSubmission} joke
  * @returns {JokeSubmission} Returns the reformatted joke
  */
@@ -199,11 +200,11 @@ function reformatJoke(joke)
         type: joke.type
     };
 
-    if(joke.type == "single")
+    if(joke.type === "single")
     {
         retJoke.joke = joke.joke;
     }
-    else if(joke.type == "twopart")
+    else if(joke.type === "twopart")
     {
         retJoke.setup = joke.setup;
         retJoke.delivery = joke.delivery;
