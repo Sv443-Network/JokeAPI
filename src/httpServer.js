@@ -649,34 +649,6 @@ async function incomingRequest(req, res, httpMetrics)
                     if(errRlRes.remainingPoints <= 0)
                         return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
                 }
-
-                // {
-                //     //#MARKER Restart / invalid PUT / POST
-
-                //     if(submissionsRateLimited && submissionsRateLimited._remainingPoints <= 0 && !headerAuth.isAuthorized)
-                //         return respondWithError(res, 110, 429, fileFormat, tr(lang, "rateLimitedShort"), lang);
-
-                //     let data = "";
-                //     req.on("data", chunk => {
-                //         data += chunk;
-
-                //         if(!isEmpty(data))
-                //             clearTimeout(dataInterval);
-
-                //         if(data == process.env.RESTART_TOKEN && parsedURL.pathArray != null && parsedURL.pathArray[0] == "restart")
-                //         {
-                //             res.writeHead(200, {"Content-Type": parseURL.getMimeType(fileFormat)});
-                //             res.end(convertFileFormat.auto(fileFormat, {
-                //                 "error": false,
-                //                 "message": `Restarting ${settings.info.name}`,
-                //                 "timestamp": Date.now()
-                //             }, lang));
-                //             console.log(`\n\n[${logger.getTimestamp(" | ")}]  ${colors.fg.red}IP ${colors.fg.yellow}${ip.substr(0, 8)}[...]${colors.fg.red} sent a restart command\n\n\n${colors.rst}`);
-                //             process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
-                //         }
-                //         else return respondWithErrorPage(res, 400, tr(lang, "invalidSubmissionOrWrongEndpoint", (parsedURL.pathArray != null ? parsedURL.pathArray[0] : "/")));
-                //     });
-                // }
             }
         }
     }

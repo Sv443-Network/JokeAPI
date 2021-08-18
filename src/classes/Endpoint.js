@@ -8,6 +8,7 @@ const { isValidLang } = require("../languages");
 const debug = require("../debug");
 
 const settings = require("../../settings");
+
 // TODO: load in with fs because require() has a cache
 const endpointsTrFile = require(`../../${settings.endpoints.translationsFile}`);
 
@@ -15,16 +16,18 @@ const endpointsTrFile = require(`../../${settings.endpoints.translationsFile}`);
 //#MARKER type stuff
 unused("types:", _http);
 
+/** @typedef {import("svcorelib").JSONCompatible} JSONCompatible */
+
 /**
- * @typedef {Object} TranslatedStrings
+ * @typedef {object} TranslatedStrings
  * @prop {string} lang Language code
  * @prop {string} text Translated text
  */
 
 /**
- * @typedef {Object} EndpointMeta
+ * @typedef {object} EndpointMeta
  * @prop {string} docsURL URL to the part of documentation that describes this endpoint
- * @prop {Object} usage How to use this endpoint
+ * @prop {object} usage How to use this endpoint
  * @prop {string} usage.method HTTP method
  * @prop {string[]} usage.supportedParams An array of supported URL parameters
  * @prop {boolean} [acceptsEmptyBody] Whether the submission endpoint can accept an empty request body
@@ -34,7 +37,7 @@ unused("types:", _http);
  */
 
 /**
- * @typedef {Object} TranslationsObj
+ * @typedef {object} TranslationsObj
  * @prop {TranslatedStrings[]} names Display name translations of this endpoint
  * @prop {TranslatedStrings[]} descriptions Description translations of this endpoint
  * @prop {string[]} languages The available translation languages
@@ -219,7 +222,7 @@ class Endpoint
      * @param {_http.ServerResponse} res
      * @param {string} format File format
      * @param {string} lang Language code
-     * @param {Object} data JSON-compatible object - data to send to the client
+     * @param {JSONCompatible} data JSON-compatible object - data to send to the client
      * @param {number} [statusCode] Status code (defaults to 200)
      */
     static respond(res, format, lang, data, statusCode)
