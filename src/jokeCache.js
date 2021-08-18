@@ -1,7 +1,6 @@
 const mysql = require("mysql");
 const { colors } = require("svcorelib");
 const fs = require("fs-extra");
-const promiseAllSequential = require("promise-all-sequential");
 
 const debug = require("./debug");
 const JokeCache = require("./classes/JokeCache");
@@ -9,14 +8,16 @@ const { sendQuery } = require("./sql");
 
 const settings = require("../settings");
 
-const col = colors.fg;
 
+//#MARKER types
 
 /**
  * @typedef {object} ConnectionInfo
  * @prop {boolean} connected
  * @prop {string} info
  */
+
+//#MARKER other
 
 /** @type {JokeCache} Globally usable joke cache instance. Always use this instance to modify the cache! */
 let cacheInstance;
@@ -26,6 +27,7 @@ module.exports.connectionInfo = {
     connected: false
 };
 
+//#MARKER init
 
 /**
  * Initializes the joke cache module and instantiates the `cache` instance.
@@ -35,6 +37,8 @@ function init()
 {
     return new Promise((pRes, pRej) => {
         debug("JokeCache", `Initializing...`);
+
+        //#SECTION setup DB connection
 
         /** Database connection used for joke caching */
         const dbConnection = mysql.createConnection({
@@ -46,6 +50,7 @@ function init()
             insecureAuth: false,
         });
 
+        //#SECTION finalize
         /**
          * Finalizes joke cache setup, then resolves init()'s returned Promise
          * @param {mysql.Connection} connection
@@ -61,17 +66,8 @@ function init()
                 cacheInstance = new JokeCache(connection);
                 module.exports.cacheInstance = cacheInstance;
 
-                // set up GC
-                try
-                {
-                    setInterval(() => runGC(connection), 1000 * 60 * settings.jokeCaching.gcIntervalMinutes);
-                }
-                catch(err)
-                {
-                    debug("JokeCache", `${col.red}Error while running garbage collector on interval: ${col.rst}${err}`, "red");
-                }
-
-                await runGC(connection);
+                // initial GC run
+                await cacheInstance.runGC(connection);
 
                 debug("JokeCache", "Successfully initialized joke cache and garbage collector");
                 return pRes();
@@ -82,6 +78,7 @@ function init()
             }
         };
 
+        //#SECTION establish DB connection, ensure table exists
         try
         {
             dbConnection.connect(async (err) => {
@@ -140,61 +137,4 @@ function init()
     });
 }
 
-/**
- * Runs the joke cache garbage collector
- * @param {mysql.Connection} connection
- */
-function runGC(connection)
-{
-    debug("JokeCache/GC", `Running joke cache garbage collector...`);
-
-    return new Promise(async (res, rej) => {
-        /** Amount of entries that were cleared from the joke cache */
-        let clearedEntries = 0;
-
-        const startTS = Date.now();
-
-        try
-        {
-            if(!connection)
-                throw new Error(`Error while running garbage collector, DB connection isn't established yet`);
-
-            const expiredEntries = await sendQuery(connection, "SELECT * FROM ?? WHERE DATE_ADD(`DateTime`, INTERVAL ? HOUR) < CURRENT_TIMESTAMP;", settings.jokeCaching.tableName, settings.jokeCaching.expiryHours);
-
-            /** @type {(() => Promise<any>)[]} */
-            const deletePromises = [];
-
-            expiredEntries.forEach(entry => {
-                const { ClientIpHash, JokeID, LangCode } = entry;
-
-                deletePromises.push(() => new Promise(async (delRes, delRej) => {
-                    try
-                    {
-                        const result = await sendQuery(connection, "DELETE FROM ?? WHERE ClientIpHash = ? AND JokeID = ? AND LangCode = ?;", settings.jokeCaching.tableName, ClientIpHash, JokeID, LangCode);
-
-                        if(result.affectedRows > 0)
-                            clearedEntries += result.affectedRows;
-
-                        return delRes();
-                    }
-                    catch(err)
-                    {
-                        return delRej(err);
-                    }
-                }));
-            });
-
-
-            await promiseAllSequential(deletePromises);
-        }
-        catch(err)
-        {
-            return rej(err);
-        }
-
-        debug("JokeCache/GC", `Cleared ${clearedEntries > 0 ? `${col.green}` : ""}${clearedEntries}${col.rst} entr${clearedEntries === 1 ? "y" : "ies"} in ${Date.now() - startTS}ms`, "green");
-        return res();
-    });
-}
-
-module.exports.init = init;
+module.exports = { init };

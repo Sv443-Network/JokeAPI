@@ -1,4 +1,6 @@
 const mysql = require("mysql");
+const promiseAllSequential = require("promise-all-sequential");
+const { colors } = require("svcorelib");
 
 const { isValidLang } = require("../languages");
 const { sendQuery } = require("../sql");
@@ -7,6 +9,9 @@ const debug = require("../debug");
 const settings = require("../../settings");
 
 
+const col = colors.fg;
+
+//#MARKER types
 
 /**
  * @typedef {object} CacheEntry An object representing an entry of the joke cache
@@ -15,28 +20,43 @@ const settings = require("../../settings");
  * @prop {string} langCode Language code of the joke to cache
  */
 
+//#MARKER class
+
 /**
  * This class is in direct contact to the SQL DB.  
  * It can add to or read from the joke cache in the database table.  
- * It also handles garbage collection (deleting outdated entries)  
  * This class also handles garbage collection (clearing expired entries).
  * @since 2.4.0
  */
 class JokeCache
 {
     /**
-     * Creates a new joke cache.
+     * Creates a new joke cache instance.  
+     *   
+     * Also sets up garbage collection to run on interval.  
+     * Note: GC isn't run when constructing!
      * @param {mysql.Connection} dbConnection
-     * @param {string|undefined} [tableName] If not provided, defaults to `settings.jokeCaching.tableName`
      */
-    constructor(dbConnection, tableName)
+    constructor(dbConnection)
     {
-        this.db = dbConnection;
-        this.table = typeof tableName == "string" ? tableName : settings.jokeCaching.tableName;
+        /** @type {mysql.Connection} DB connection */
+        this.dbConnection = dbConnection;
+        this.tableName = settings.jokeCaching.tableName;
+
+        // set up automatic GC
+        try
+        {
+            setInterval(() => this.runGC(), 1000 * 60 * settings.jokeCaching.gcIntervalMinutes);
+        }
+        catch(err)
+        {
+            debug("JokeCache", `${col.red}Error while running garbage collector on interval: ${col.rst}${err}`, "red");
+        }
     }
 
     /**
-     * Adds an entry to the provided client's joke cache.
+     * Adds an entry to the provided client's joke cache.  
+     * Use `addEntries()` for multiple entries, it is more efficient.
      * @param {string} clientIpHash 64-character IP hash of the client
      * @param {number} jokeID ID of the joke to cache
      * @param {string} langCode Language code of the joke to cache
@@ -60,13 +80,13 @@ class JokeCache
                 throw new TypeError(`Parameter "langCode" is not a valid language code`);
 
             const insValues = [
-                this.table,
+                this.tableName,
                 clientIpHash,
                 jokeID,
                 langCode
             ];
 
-            sendQuery(this.db, `INSERT INTO ?? (ClientIpHash, JokeID, LangCode) VALUES (?, ?, ?);`, ...insValues)
+            sendQuery(this.dbConnection, `INSERT INTO ?? (ClientIpHash, JokeID, LangCode) VALUES (?, ?, ?);`, ...insValues)
                 .then(res => {
                     return pRes(res);
                 }).catch(err => {
@@ -76,7 +96,8 @@ class JokeCache
     }
 
     /**
-     * Adds multiple entries to the provided clients' joke caches.
+     * Adds multiple entries to the provided clients' joke caches.  
+     * This is more efficient than running `addEntry()` multiple times.
      * @param {CacheEntry[]} cacheEntries An array of joke cache entries
      * @returns {Promise<object, string>}
      */
@@ -85,20 +106,26 @@ class JokeCache
         debug("JokeCache", `Adding ${cacheEntries.length} entries to the joke cache`);
 
         return new Promise((res, rej) => {
-            const entries = cacheEntries.map(e => {
-                if(!JokeCache.isValidClientIpHash(e.clientIpHash))
+            // map entries onto a different format (from object array to 2D array)
+            const entries = cacheEntries.map(entry => {
+                if(!JokeCache.isValidClientIpHash(entry.clientIpHash))
                     throw new TypeError(`Parameter "clientIpHash" is not a string or not a valid IP hash`);
                 
                 if(typeof jokeID != "number")
-                    e.jokeID = parseInt(e.jokeID);
+                    entry.jokeID = parseInt(entry.jokeID);
                 
-                if(e.jokeID < 0)
+                if(entry.jokeID < 0)
                     throw new TypeError(`Parameter "jokeID" is less than 0 (there are no negative joke IDs you dummy dum dum)`);
                 
-                if(!isValidLang(e.langCode))
+                if(!isValidLang(entry.langCode))
                     throw new TypeError(`Parameter "langCode" is not a valid language code`);
 
-                return [ e.clientIpHash, e.jokeID, e.langCode ];
+                // order needs to correspond to the query below
+                return [
+                    entry.clientIpHash,
+                    entry.jokeID,
+                    entry.langCode
+                ];
             });
 
             let sqlValues = "";
@@ -106,13 +133,14 @@ class JokeCache
             entries.forEach((entry, idx) => {
                 let valPart = "(?, ?, ?)";
 
-                if(idx != entries.length - 1)
+                if(idx !== (entries.length - 1))
                     valPart += ", ";
 
                 sqlValues += mysql.format(valPart, entry);
             });
 
-            sendQuery(this.db, `INSERT INTO ?? (ClientIpHash, JokeID, LangCode) VALUES ${sqlValues};`, settings.jokeCaching.tableName)
+            // sqlValues is formatted above so formatting again would break the query
+            sendQuery(this.dbConnection, `INSERT INTO ?? (ClientIpHash, JokeID, LangCode) VALUES ${sqlValues};`, this.tableName)
                 .then(result => {
                     return res(result);
                 }).catch(err => {
@@ -135,11 +163,11 @@ class JokeCache
 
 
             const insValues = [
-                this.table,
+                this.tableName,
                 clientIpHash
             ];
 
-            sendQuery(this.db, "DELETE FROM ?? WHERE ClientIpHash LIKE ?", ...insValues)
+            sendQuery(this.dbConnection, "DELETE FROM ?? WHERE ClientIpHash LIKE ?", ...insValues)
                 .then(res => {
                     return pRes((res && typeof res.affectedRows === "number") ? res.affectedRows : 0);
                 }).catch(err => {
@@ -164,12 +192,12 @@ class JokeCache
                 throw new TypeError(`Parameter "langCode" is not a valid language code`);
 
             const insValues = [
-                this.table,
+                this.tableName,
                 clientIpHash,
                 langCode
             ];
 
-            sendQuery(this.db, `SELECT JokeID FROM ?? WHERE ClientIpHash = ? AND LangCode = ?;`, insValues)
+            sendQuery(this.dbConnection, `SELECT JokeID FROM ?? WHERE ClientIpHash = ? AND LangCode = ?;`, insValues)
                 .then(res => {
                     res = res.map(itm => itm.JokeID).sort();
 
@@ -177,6 +205,62 @@ class JokeCache
                 }).catch(err => {
                     return pRej(err);
                 });
+        });
+    }
+
+    /**
+     * Runs the joke cache garbage collector
+     */
+    runGC()
+    {
+        debug("JokeCache/GC", `Running joke cache garbage collector...`);
+
+        return new Promise(async (res, rej) => {
+            /** Amount of entries that were cleared from the joke cache */
+            let clearedEntries = 0;
+
+            const startTS = Date.now();
+
+            try
+            {
+                if(!this.dbConnection)
+                    throw new Error(`Error while running garbage collector, DB connection isn't established yet`);
+
+                const expiredEntries = await sendQuery(this.dbConnection, "SELECT * FROM ?? WHERE DATE_ADD(`DateTime`, INTERVAL ? HOUR) < CURRENT_TIMESTAMP;", this.tableName, settings.jokeCaching.expiryHours);
+
+                /** @type {(() => Promise<any>)[]} */
+                const deletePromises = [];
+
+                expiredEntries.forEach(entry => {
+                    const { ClientIpHash, JokeID, LangCode } = entry;
+
+                    deletePromises.push(() => new Promise(async (delRes, delRej) => {
+                        try
+                        {
+                            const result = await sendQuery(this.dbConnection, "DELETE FROM ?? WHERE ClientIpHash = ? AND JokeID = ? AND LangCode = ?;", this.tableName, ClientIpHash, JokeID, LangCode);
+
+                            if(result.affectedRows > 0)
+                                clearedEntries += result.affectedRows;
+
+                            return delRes();
+                        }
+                        catch(err)
+                        {
+                            return delRej(err);
+                        }
+                    }));
+                });
+
+
+                await promiseAllSequential(deletePromises);
+            }
+            catch(err)
+            {
+                return rej(err);
+            }
+
+            debug("JokeCache/GC", `Cleared ${clearedEntries > 0 ? `${col.green}` : ""}${clearedEntries}${col.rst} entr${clearedEntries === 1 ? "y" : "ies"} in ${Date.now() - startTS}ms`, "green");
+            return res();
         });
     }
 
