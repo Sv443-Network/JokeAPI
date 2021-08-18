@@ -25,7 +25,7 @@ const col = colors.fg;
 /**
  * This class is in direct contact to the SQL DB.  
  * It can add to or read from the joke cache in the database table.  
- * This class also handles garbage collection (clearing expired entries).
+ * This class also handles automatic garbage collection (clearing expired entries).
  * @since 2.4.0
  */
 class JokeCache
@@ -34,7 +34,7 @@ class JokeCache
      * Creates a new joke cache instance.  
      *   
      * Also sets up garbage collection to run on interval.  
-     * Note: GC isn't run when constructing!
+     * Note: GC isn't run when constructing, only on interval!
      * @param {mysql.Connection} dbConnection
      */
     constructor(dbConnection)
