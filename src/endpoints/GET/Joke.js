@@ -266,18 +266,9 @@ class Joke extends Endpoint {
                 {
                     // ?amount param is > 1
 
-                    /** @type {JokeCache.CacheEntry[]} */
-                    const cacheEntries = [];
+                    const cacheIDs = jokesArray.map(joke => joke.id);
 
-                    jokesArray.forEach(joke => {
-                        cacheEntries.push({
-                            clientIpHash,
-                            jokeID: joke.id,
-                            langCode
-                        });
-                    });
-
-                    await jokeCache.cacheInstance.addEntries(cacheEntries);
+                    await jokeCache.cacheInstance.addEntries(clientIpHash, cacheIDs, langCode);
                 }
                 else
                 {

@@ -1,6 +1,6 @@
 const mysql = require("mysql");
 const promiseAllSequential = require("promise-all-sequential");
-const { colors } = require("svcorelib");
+const { colors, allOfType } = require("svcorelib");
 
 const { isValidLang } = require("../languages");
 const { sendQuery } = require("../sql");
@@ -99,45 +99,41 @@ class JokeCache
     /**
      * Adds multiple entries to the provided clients' joke caches.  
      * This is more efficient than running `addEntry()` multiple times.
-     * @param {CacheEntry[]} cacheEntries An array of joke cache entries
+     * @param {string} clientIpHash 64-character IP hash of the client
+     * @param {number[]} jokeIDs An array of joke IDs
+     * @param {string} langCode Language code of the joke to cache
      * @returns {Promise<object, string>}
      */
-    addEntries(cacheEntries)
+    addEntries(clientIpHash, jokeIDs, langCode)
     {
-        debug("JokeCache", `Adding ${cacheEntries.length} entries to the joke cache`);
+        debug("JokeCache", `Adding ${jokeIDs.length} entries to the joke cache - client: '${clientIpHash.substr(0, 16)}…'`);
 
         return new Promise((res, rej) => {
-            // map entries onto a different format (from object array to 2D array)
-            const entries = cacheEntries.map(entry => {
-                if(!isValidIpHash(entry.clientIpHash))
-                    throw new TypeError(`Parameter "clientIpHash" is not a string or not a valid IP hash`);
-                
-                if(typeof jokeID != "number")
-                    entry.jokeID = parseInt(entry.jokeID);
-                
-                if(entry.jokeID < 0)
-                    throw new TypeError(`Parameter "jokeID" is less than 0 (there are no negative joke IDs you dummy dum dum)`);
-                
-                if(!isValidLang(entry.langCode))
-                    throw new TypeError(`Parameter "langCode" is not a valid language code`);
+            if(!isValidIpHash(clientIpHash))
+                throw new TypeError(`Parameter "clientIpHash" is not a string or not a valid IP hash`);
 
-                // order needs to correspond to the query below
-                return [
-                    entry.clientIpHash,
-                    entry.jokeID,
-                    entry.langCode
-                ];
+            if(!isValidLang(langCode))
+                throw new TypeError(`Parameter "langCode" is not a valid language code`);
+
+            jokeIDs = jokeIDs.map(id => parseInt(id));
+
+            jokeIDs.forEach(id => {
+                if(id < 0)
+                    throw new TypeError(`Parameter "jokeID" is less than 0 (there are no negative joke IDs you dummy dum dum)`);
+
+                if(isNaN(id))
+                    throw new TypeError(`Parameter "jokeID" couldn't be parsed as a number`);
             });
 
             let sqlValues = "";
 
-            entries.forEach((entry, idx) => {
+            jokeIDs.forEach((jokeID, idx) => {
                 let valPart = "(?, ?, ?)";
 
-                if(idx !== (entries.length - 1))
+                if(idx !== (jokeIDs.length - 1))
                     valPart += ", ";
 
-                sqlValues += mysql.format(valPart, entry);
+                sqlValues += mysql.format(valPart, [ clientIpHash, jokeID, langCode ]);
             });
 
             // sqlValues is formatted above so formatting again would break the query
