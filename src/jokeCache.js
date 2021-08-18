@@ -67,8 +67,15 @@ function init()
                 module.exports.cacheInstance = cacheInstance;
 
                 // set up GC
-                // TODO: catch errors
-                setInterval(runGC, 1000 * 60 * settings.jokeCaching.gcIntervalMinutes);
+                try
+                {
+                    setInterval(runGC, 1000 * 60 * settings.jokeCaching.gcIntervalMinutes);
+                }
+                catch(err)
+                {
+                    debug("JokeCache", `${col.red}Error while running garbage collector on interval: ${col.rst}${err}`, "red");
+                }
+
                 await runGC();
 
                 debug("JokeCache", "Successfully initialized joke cache and garbage collector");
