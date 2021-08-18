@@ -30,8 +30,7 @@ const SubmissionEndpoint = require("./classes/SubmissionEndpoint");
 unused("types:", RateLimiterRes, Endpoint, SubmissionEndpoint);
 
 
-/** @typedef {import("./docs.js").EncodingName} EncodingName */
-
+//#MARKER globals
 
 module.exports.dataEndpoints = [];
 module.exports.submissionEndpoints = [];
@@ -41,14 +40,14 @@ const dataEndpoints = [];
 /** @type {EpObject[]} Submission endpoints */
 const submissionEndpoints = [];
 
+//#MARKER types
+
+/** @typedef {import("./docs.js").EncodingName} EncodingName */
+
 /**
  * @typedef {object} HttpMetrics
  * @prop {Date} requestArrival `Date` object set to the time the request arrived at the server
  */
-
-
-// TODO: implement submission endpoints like /submit and /clearData
-
 
 /**
  * @typedef {Object} EpObject A cached endpoint
@@ -58,6 +57,8 @@ const submissionEndpoints = [];
  * @prop {string} pathName Path at which to call this endpoint
  * @prop {Endpoint} instance An instance of the endpoint subclass. Use this to call the endpoint, execute base class methods, etc.
  */
+
+//#MARKER init
 
 /**
  * Initializes the HTTP server
