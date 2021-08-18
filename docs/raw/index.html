@@ -1266,12 +1266,12 @@ None. It's a hardware problem.
                 </span>
                 <br>
                 <br>
-                This endpoint returns a list / an array of all available endpoints, their usage (method, url and supported parameters) and a short description each.<br>
-                Note: the <mark>lang</mark> parameter will not work here.<br>
+                This endpoint returns a list / an array of all available endpoints, their usage (method, url and supported parameters) and a short description for each.<br>
                 <br>
                 Supported URL parameters:<br>
                 <ul>
                     <li><a class="requestURL" href="#response-formats">?format</a></li>
+                    <li><a class="requestURL" href="#lang">?lang</a></li>
                 </ul>
                 <br><br>
 
@@ -1290,7 +1290,7 @@ None. It's a hardware problem.
                 To ensure backwards compatibility you can still use the <mark>PUT</mark> method even though it is highly discouraged.<br>
                 Support for the <mark>PUT</mark> method will be removed in the future.<br>
                 <br>
-                The payload needs to be sent as JSON. Different <a href="#response-formats">formats</a> are not allowed here.<br>
+                The payload needs to be sent as JSON. Different <a href="#response-formats">formats</a> are not supported here.<br>
                 The request payload has to follow the same object structure that the jokes are served in when using the "joke" endpoint.<br>
                 <br>
                 Make sure to add a "formatVersion" property, though, which just contains the current joke format version (<!--%#INSERT:FORMATVERSION#%-->).<br>
@@ -1300,12 +1300,13 @@ None. It's a hardware problem.
                 If the <a href="#joke-type">joke type</a> is set to "single", the properties "setup" and "delivery" will need to be omitted and the joke is to be put in the "joke" property.<br>
                 If the <a href="#joke-type">joke type</a> is set to "twopart", the "joke" property is to be replaced with the properties "setup" and "delivery".<br>
                 The <a href="#blacklist-flags">"flags"</a> property needs to be an object that contains the boolean properties "nsfw", "religious", "political", "racist", "sexist" and "explicit". These need to be set accordingly.<br>
+                The property <a href="#lang">"lang"</a> specifies the language of the joke. This is different to the <a href="#lang">?lang</a> URL parameter, which specifies the language of the server's response.<br>
                 The joke ID doesn't need to be provided as it will be automatically assigned to the joke.<br>
                 <br>
-                This endpoint has a unique URL parameter; <a href="#dryrun-param">?dry-run</a>, which if present will make the API respond just like the usual "submit" endpoint except the joke isn't actually saved to the API.<br>
+                This endpoint has a unique URL parameter <a href="#dryrun-param">?dry-run</a>, which if present will make the API respond just like the usual "submit" endpoint except the joke isn't actually saved to the API.<br>
                 This functionality can be used to check if a joke is valid / what is wrong with it without having the joke actually submitted to the API.<br>
                 <br>
-                If the joke is valid and the server accepted the submission, you will get a response with the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201" target="_blank">status code 201.</a><br>
+                If the joke is valid and the server accepted the submission, you will get a response with the status code 201.<br>
                 <br>
 
 <code class="prettyprint"><span class="nocode codeheader">Example Payload:</span>
@@ -1330,10 +1331,11 @@ None. It's a hardware problem.
                 Supported URL parameters:<br>
                 <ul>
                     <li><a class="requestURL" href="#dryrun-param">?dry-run</a></li>
+                    <li><a class="requestURL" href="#lang">?lang</a></li>
                 </ul>
                 <br><br>
 
-                <details><summary>Click here to see how the server responds to a joke submission</summary>
+                <details><summary>Click here to see how the server responds to a joke submission</summary> <!-- TODO: add parameter validity object -->
 <code class="prettyprint"><span class="nocode codeheader">Server Response:</span>
 <div class="actualCode">{
     "error": false,

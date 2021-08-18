@@ -370,7 +370,7 @@ async function incomingRequest(req, res, httpMetrics)
 
 
     //#SECTION set up rate limiters
-    let rl = new RateLimiterMemory({
+    const rl = new RateLimiterMemory({
         points: settings.httpServer.rateLimiting,
         duration: settings.httpServer.timeFrame
     });
@@ -620,54 +620,6 @@ async function incomingRequest(req, res, httpMetrics)
                     }
                 });
 
-                // //#MARKER Joke submission
-                // let submissionsRateLimited = await rlSubm.get(ip);
-
-                // if(!isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "submit" && !(submissionsRateLimited && submissionsRateLimited._remainingPoints <= 0 && !headerAuth.isAuthorized))
-                // {
-                //     let data = "";
-                //     req.on("data", chunk => {
-                //         data += chunk;
-
-                //         let payloadLength = byteLength(data);
-                //         if(payloadLength > settings.httpServer.maxPayloadSize)
-                //             return respondWithError(res, 107, 413, fileFormat, tr(lang, "payloadTooLarge", payloadLength, settings.httpServer.maxPayloadSize), lang);
-
-                //         if(!isEmpty(data))
-                //             clearTimeout(dataInterval);
-
-                //         let dryRun = (parsedURL.queryParams && parsedURL.queryParams["dry-run"] == true) || false;
-
-                //         if(lists.isWhitelisted(ip))
-                //             return jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun);
-
-                //         if(!dryRun)
-                //         {
-                //             rlSubm.consume(ip, 1).then(() => {
-                //                 return jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun);
-                //             }).catch(rlRes => {
-                //                 if(rlRes.remainingPoints <= 0)
-                //                     return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
-                //             });
-                //         }
-                //         else
-                //         {
-                //             rl.consume(ip, 1).then(rlRes => {
-                //                 if(rlRes)
-                //                     setRateLimitedHeaders(res, rlRes);
-
-                //                 return jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun);
-                //             }).catch(rlRes => {
-                //                 if(rlRes)
-                //                     setRateLimitedHeaders(res, rlRes);
-
-                //                 if(rlRes.remainingPoints <= 0)
-                //                     return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
-                //             });
-                //         }
-                //     });
-                // }
-                // else
                 // {
                 //     //#MARKER Restart / invalid PUT / POST
 

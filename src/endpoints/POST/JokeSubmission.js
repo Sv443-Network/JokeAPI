@@ -1,17 +1,19 @@
 const { unused } = require("svcorelib");
+const { RateLimiterMemory } = require("rate-limiter-flexible");
 
-// const tr = require("../../translate");
+const tr = require("../../translate");
 const SubmissionEndpoint = require("../../classes/SubmissionEndpoint");
 const Endpoint = require("../../classes/Endpoint");
 const resolveIp = require("../../resolveIP");
 
-// const settings = require("../../../settings");
+const settings = require("../../../settings");
 
 
 /**
  * Accepts a joke object to be submitted to the API
  */
-class JokeSubmission extends SubmissionEndpoint {
+class JokeSubmission extends SubmissionEndpoint
+{
     /**
      * Accepts a joke object to be submitted to the API
      */
@@ -22,11 +24,19 @@ class JokeSubmission extends SubmissionEndpoint {
             docsURL: "https://jokeapi.dev/#submit-endpoint",
             usage: {
                 method: "POST",
-                supportedParams: []
+                supportedParams: [
+                    "lang"
+                ]
             }
         };
 
         super("submit", meta);
+
+        // set up rate limiting
+        this.rlSubm = new RateLimiterMemory({
+            points: settings.jokes.submissions.rateLimiting,
+            duration: settings.jokes.submissions.timeFrame
+        });
     }
 
     /**
@@ -49,7 +59,7 @@ class JokeSubmission extends SubmissionEndpoint {
         let responseObj = {};
 
 
-        unused(ip, "TODO:");
+        const rateLimited = await this.rlSubm.get(ip);
 
 
         return Endpoint.respond(res, format, lang, responseObj, statusCode);
@@ -57,3 +67,53 @@ class JokeSubmission extends SubmissionEndpoint {
 }
 
 module.exports = JokeSubmission;
+
+
+// #MARKER legacy submission code
+
+// let submissionsRateLimited = await rlSubm.get(ip);
+
+// if(!isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "submit" && !(submissionsRateLimited && submissionsRateLimited._remainingPoints <= 0 && !headerAuth.isAuthorized))
+// {
+//     let data = "";
+//     req.on("data", chunk => {
+//         data += chunk;
+
+//         let payloadLength = byteLength(data);
+//         if(payloadLength > settings.httpServer.maxPayloadSize)
+//             return respondWithError(res, 107, 413, fileFormat, tr(lang, "payloadTooLarge", payloadLength, settings.httpServer.maxPayloadSize), lang);
+
+//         if(!isEmpty(data))
+//             clearTimeout(dataInterval);
+
+//         let dryRun = (parsedURL.queryParams && parsedURL.queryParams["dry-run"] == true) || false;
+
+//         if(lists.isWhitelisted(ip))
+//             return jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun);
+
+//         if(!dryRun)
+//         {
+//             rlSubm.consume(ip, 1).then(() => {
+//                 return jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun);
+//             }).catch(rlRes => {
+//                 if(rlRes.remainingPoints <= 0)
+//                     return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
+//             });
+//         }
+//         else
+//         {
+//             rl.consume(ip, 1).then(rlRes => {
+//                 if(rlRes)
+//                     setRateLimitedHeaders(res, rlRes);
+
+//                 return jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun);
+//             }).catch(rlRes => {
+//                 if(rlRes)
+//                     setRateLimitedHeaders(res, rlRes);
+
+//                 if(rlRes.remainingPoints <= 0)
+//                     return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
+//             });
+//         }
+//     });
+// }
