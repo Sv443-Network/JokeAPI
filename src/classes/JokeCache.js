@@ -1,7 +1,8 @@
 const mysql = require("mysql");
 const promiseAllSequential = require("promise-all-sequential");
-const { colors, allOfType } = require("svcorelib");
+const { colors, unused } = require("svcorelib");
 
+const parseJokes = require("../parseJokes");
 const { isValidLang } = require("../languages");
 const { sendQuery } = require("../sql");
 const { isValidIpHash } = require("../resolveIP");
@@ -21,7 +22,7 @@ const col = colors.fg;
  * @prop {string} langCode Language code of the joke to cache
  */
 
-//#MARKER class
+//#MARKER class def + constructor
 
 /**
  * This class is in direct contact to the SQL DB.  
@@ -55,6 +56,43 @@ class JokeCache
         }
     }
 
+    //#MARKER other methods
+
+    /**
+     * Determines whether joke caching is available for a certain joke language
+     * @param {string} langCode
+     * @returns {boolean}
+     */
+    allowCaching(langCode)
+    {
+        try
+        {
+            const jokesAmount = parseJokes.jokeCountPerLang[langCode];
+            return (jokesAmount >= settings.jokeCaching.jokePoolMinAmount);
+        }
+        catch(err)
+        {
+            unused(err);
+            return false;
+        }
+    }
+
+    /**
+     * Returns the size of the joke pool of a certain language
+     * @param {string} langCode
+     * @returns {number}
+     */
+    getJokePoolSize(langCode)
+    {
+        const jokesAmount = parseJokes.jokeCountPerLang[langCode];
+        const minPoolSize = settings.jokeCaching.jokePoolMinAmount;
+        const optimalSize = settings.jokeCaching.jokePoolOptimalAmount;
+
+        // TODO: linearly decrease pool size for languages with < `settings.jokeCaching.jokePoolOptimalAmount` jokes
+    }
+
+    //#MARKER cache stuff
+
     /**
      * Adds an entry to the provided client's joke cache.  
      * Use `addEntries()` for multiple entries, it is more efficient.
@@ -68,6 +106,9 @@ class JokeCache
         debug("JokeCache", `Adding 1 entry to the joke cache - client: '${clientIpHash.substr(0, 16)}…'`);
 
         return new Promise((pRes, pRej) => {
+            if(!this.allowCaching(langCode))
+                return pRes();
+
             if(!isValidIpHash(clientIpHash))
                 throw new TypeError(`Parameter "clientIpHash" is not a string or not a valid IP hash`);
             
@@ -97,7 +138,7 @@ class JokeCache
     }
 
     /**
-     * Adds multiple entries to the provided clients' joke caches.  
+     * Adds multiple entries to the provided clients' joke cache.  
      * This is more efficient than running `addEntry()` multiple times.
      * @param {string} clientIpHash 64-character IP hash of the client
      * @param {number[]} jokeIDs An array of joke IDs
@@ -109,6 +150,9 @@ class JokeCache
         debug("JokeCache", `Adding ${jokeIDs.length} entries to the joke cache - client: '${clientIpHash.substr(0, 16)}…'`);
 
         return new Promise((res, rej) => {
+            if(!this.allowCaching(langCode))
+                return res();
+
             if(!isValidIpHash(clientIpHash))
                 throw new TypeError(`Parameter "clientIpHash" is not a string or not a valid IP hash`);
 
@@ -158,7 +202,6 @@ class JokeCache
             if(!isValidIpHash(clientIpHash))
                 throw new TypeError(`Provided client IP hash is invalid.`);
 
-
             const insValues = [
                 this.tableName,
                 clientIpHash
@@ -174,6 +217,81 @@ class JokeCache
     }
 
     /**
+     * Clears the oldest entr(y/ies) of the joke cache
+     * @param {string} clientIpHash 64-character IP hash of the client
+     * @param {string} langCode Language code of the joke to cache
+     * @param {number} [amount=1] The amount of entries that should be removed from the cache - defaults to 1
+     * @returns {Promise<number, string>} Resolves with the number of entries cleared or rejects with an error message
+     */
+    clearOldEntries(clientIpHash, langCode, amount = 1)
+    {
+        return new Promise(async (res, rej) => {
+            if(!this.allowCaching(langCode))
+                return res(0);
+
+            if(!isValidIpHash(clientIpHash))
+                throw new TypeError(`Provided client IP hash is invalid.`);
+
+            if(!isValidLang(langCode))
+                throw new TypeError(`Parameter "langCode" is not a valid language code`);
+
+
+            amount = parseInt(amount);
+
+            if(isNaN(amount) || amount < 1)
+                amount = 1;
+
+            try
+            {
+                if(settings.jokeCaching.jokePoolMinAmount < settings.jokes.maxAmount)
+                    throw new Error(`Internal Error: min pool joke amount can't be smaller than max value of ?amount parameter`);
+
+                const jokePoolSize = this.getJokePoolSize(langCode);
+
+
+                const cacheEntriesAmount = 0;
+                const cacheThreshold = 0;
+
+                // TODO:
+                if(cacheEntriesAmount > cacheThreshold)
+                {
+                    const insValuesGet = [
+                        this.tableName,
+                        clientIpHash,
+                        langCode,
+                        amount
+                    ];
+
+                    const rowsToDelete = await sendQuery(this.dbConnection, "SELECT * FROM ?? WHERE ClientIpHash = ? AND LangCode = ? ORDER BY `DateTime` ASC, JokeID ASC LIMIT ?;", ...insValuesGet);
+
+                    /** @type {number[]} */
+                    const idsToDelete = rowsToDelete.map(row => row["JokeID"]);
+
+                    const sqlJokeIdList = mysql.format(`(${idsToDelete.join(", ")})`);
+
+
+                    const insValuesDel = [
+                        this.tableName,
+                        clientIpHash,
+                        langCode
+                    ];
+
+                    const deleteResult = await sendQuery(this.dbConnection, `DELETE FROM ?? WHERE ClientIpHash = ? AND LangCode = ? AND JokeID IN ${sqlJokeIdList};`, ...insValuesDel);
+
+
+                    return res(deleteResult ? deleteResult.affectedRows : 0);
+                }
+                else
+                    return res(0);
+            }
+            catch(err)
+            {
+                return rej(`Error while clearing old joke cache entries: ${err}`);
+            }
+        });
+    }
+
+    /**
      * Queries the DB for a list of all joke IDs the client has in their joke cache.
      * @param {string} clientIpHash 64-character IP hash of the client
      * @param {string} langCode Language code of the joke to cache
@@ -182,6 +300,9 @@ class JokeCache
     listEntries(clientIpHash, langCode)
     {
         return new Promise((pRes, pRej) => {
+            if(!this.allowCaching(langCode))
+                return pRes([]);
+
             if(!isValidIpHash(clientIpHash))
                 throw new TypeError(`Parameter "clientIpHash" is not a string or not a valid IP hash`);
 

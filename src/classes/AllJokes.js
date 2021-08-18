@@ -6,7 +6,7 @@ const languages = require("../languages");
 const settings = require("../../settings");
 
 
-unused(parseJokes); // only used for typedefs
+unused("typedefs", parseJokes);
 
 // expected format:
 /*
@@ -27,15 +27,15 @@ unused(parseJokes); // only used for typedefs
 */
 
 /**
- * @typedef {Object} CountPerLangObj
- * @prop {Number} [en]
- * @prop {Number} [de]
+ * @typedef {object} CountPerLangObj
+ * @prop {number} [en]
+ * @prop {number} [de]
  */
 
 /**
- * @typedef {Object} SafeJokesPerLangObj
- * @prop {String} lang lang code
- * @prop {Number} count amount of safe jokes
+ * @typedef {object} SafeJokesPerLangObj
+ * @prop {string} lang lang code
+ * @prop {number} count amount of safe jokes
  */
 
 class AllJokes

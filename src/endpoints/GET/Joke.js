@@ -275,15 +275,19 @@ class Joke extends Endpoint {
                     // ?amount param is = 1
                     await jokeCache.cacheInstance.addEntry(clientIpHash, jokesArray[0].id, langCode);
                 }
+
+
+                // clear oldest entr(y/ies) of the cache
+                await jokeCache.cacheInstance.clearOldEntries(clientIpHash, langCode, jokesArray.length);
+
+
+                // respond
+                return Endpoint.respond(res, format, lang, responseObj, statusCode);
             }
             catch(err)
             {
                 return this.isErrored(res, format, tr(langCode, "jokeCacheUpdateError", err.toString()), langCode);
             }
-
-            //#SECTION finalize
-
-            return Endpoint.respond(res, format, lang, responseObj, statusCode);
         }
         catch(err)
         {
