@@ -73,7 +73,7 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun, lang
                     message: tr(lang, "submissionMalformedJoke"),
                     causedBy: validationResult.errorStrings,
                     additionalInfo: "",
-                    parametersValid: validationResult.jokeParams,
+                    validProperties: validationResult.jokeParams,
                     timestamp: Date.now(),
                 };
 
@@ -115,14 +115,15 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun, lang
                         const respObj = {
                             error: false,
                             message: tr(lang, "dryRunSuccessful", parseJokes.jokeFormatVersion, submission.formatVersion),
-                            parametersValid: validationResult.jokeParams,
+                            submission,
+                            validProperties: validationResult.jokeParams,
                             timestamp: Date.now(),
                         };
 
                         return httpServer.pipeString(res, fileFormatConverter.auto(fileFormat, respObj, lang), parseURL.getMimeType(fileFormat), 201);
                     }
 
-                    return writeJokeToFile(res, fileName, submission, fileFormat, ip, analyticsObject, lang);
+                    return writeJokeToFile(res, fileName, submission, fileFormat, ip, analyticsObject, lang, validationResult);
                 }
                 catch(err)
                 {
@@ -150,8 +151,9 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun, lang
  * @param {string} ip
  * @param {(analytics.AnalyticsDocsRequest|analytics.AnalyticsSuccessfulRequest|analytics.AnalyticsRateLimited|analytics.AnalyticsError|analytics.AnalyticsSubmission)} analyticsObject
  * @param {string} [langCode]
+ * @param {parseJokes.ValidationResult} validationResult
  */
-function writeJokeToFile(res, filePath, submittedJoke, fileFormat, ip, analyticsObject, langCode)
+function writeJokeToFile(res, filePath, submittedJoke, fileFormat, ip, analyticsObject, langCode, validationResult)
 {
     // TODO: fix this monstrosity
     if(typeof httpServer === "object" && Object.keys(httpServer).length <= 0)
@@ -164,10 +166,11 @@ function writeJokeToFile(res, filePath, submittedJoke, fileFormat, ip, analytics
         {
             // successfully wrote to file
             const responseObj = {
-                "error": false,
-                "message": tr(langCode, "submissionSaved"),
-                "submission": reformattedJoke,
-                "timestamp": Date.now()
+                error: false,
+                message: tr(langCode, "submissionSaved"),
+                submission: reformattedJoke,
+                validProperties: validationResult.jokeParams,
+                timestamp: Date.now(),
             };
 
             meter.update("submission", 1);
@@ -228,7 +231,8 @@ function reformatJoke(joke)
     if(joke.id)
         retJoke.id = joke.id;
 
-    retJoke.safe = joke.safe || false;
+    if(joke.safe)
+        retJoke.safe = joke.safe || false;
 
     return retJoke;
 }

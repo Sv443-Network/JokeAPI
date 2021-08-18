@@ -52,7 +52,7 @@ class JokeSubmission extends SubmissionEndpoint
         const lang = Endpoint.getLang(params);
         const ip = resolveIp(req);
 
-        const dryRun = params["dry-run"] === true;
+        const dryRun = (params && params["dry-run"] === true);
 
         /** @type {import("../../analytics").AnalyticsSubmission} */
         const analyticsObject = {
