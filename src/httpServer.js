@@ -268,10 +268,11 @@ function createHttpServer()
 /**
  * Returns the language by parsing a `ParsedUrl` or `ErroredParsedUrl` object
  * @param {parseURL.ParsedUrl|parseURL.ErroredParsedUrl}
+ * @returns {string} Returns two-character language code. Defaults to `settings.languages.defaultLanguage` if none could be found.
  */
 function getLang(parsedURL)
 {
-    const lang = parsedURL.queryParams ? parsedURL.queryParams.lang : "invalid-lang-code";
+    const lang = parsedURL.queryParams ? parsedURL.queryParams.lang : null;
 
     if(languages.isValidLang(lang) === true)
         return lang;
@@ -285,7 +286,7 @@ function getLang(parsedURL)
  * @param {HttpMetrics} httpMetrics
  * @returns {void}
  */
-function incomingRequest(req, res, httpMetrics)
+async function incomingRequest(req, res, httpMetrics)
 {
     const parsedURL = parseURL(req.url);
 
@@ -394,7 +395,10 @@ function incomingRequest(req, res, httpMetrics)
                 // no URL path is present, so serve the docs
                 try
                 {
-                    rl.get(ip).then(rlRes => {
+                    try
+                    {
+                        const rlRes = await rl.get(ip);
+
                         if(rlRes)
                             setRateLimitedHeaders(res, rlRes);
 
@@ -408,15 +412,17 @@ function incomingRequest(req, res, httpMetrics)
                         }
                         else
                             return serveDocumentation(req, res);
-                    }).catch(rlRes => {
-                        if(typeof rlRes.message == "string")
-                            console.error(`Error while adding point to rate limiter: ${rlRes}`);
-                        else if(rlRes.remainingPoints <= 0)
+                    }
+                    catch(err)
+                    {
+                        if(typeof err.message == "string")
+                            console.error(`Error while adding point to rate limiter: ${err}`);
+                        else if(err.remainingPoints <= 0) // TODO:FIXME: remainingPoints not available on Error instance
                         {
                             logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
                             return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
                         }
-                    });
+                    }
                 }
                 catch(err)
                 {
@@ -439,109 +445,124 @@ function incomingRequest(req, res, httpMetrics)
             if(!isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "favicon.ico")
                 return pipeFile(res, settings.documentation.faviconPath, "image/x-icon", 200);
 
-            dataEndpoints.forEach( /** @param {EpObject} ep Endpoint matching request URL */ async (ep) => {
-                if(ep.pathName == requestedEndpoint)
+            /**
+             * Attempts to find a matching endpoint
+             */
+            const findEndpoint = () => new Promise(async (pRes, pRej) => {
+                for(/** @type {EpObject} */ const ep of dataEndpoints)
                 {
-                    if(ep.meta.usage.method == "GET")
+                    if(ep.pathName == requestedEndpoint)
                     {
-                        let isAuthorized = headerAuth.isAuthorized;
-                        let headerToken = headerAuth.token;
-
-                        // now that the request is not a docs / favicon request, the blacklist is checked and the request is made eligible for rate limiting
-                        if(!settings.endpoints.ratelimitBlacklist.includes(ep.name) && !isAuthorized)
+                        if(ep.meta.usage.method == "GET")
                         {
-                            try
-                            {
-                                await rl.consume(ip, 1);
-                            }
-                            catch(err)
-                            {
-                                unused(err); // gets handled elsewhere
-                            }
-                        }
-                        
-                        if(isAuthorized)
-                        {
-                            debug("HTTP", `Requester has valid token ${colors.fg.green}${headerAuth.token.substr(0, 16)}${colors.rst} …`);
-                            analytics({
-                                type: "AuthTokenIncluded",
-                                data: {
-                                    ipAddress: ip,
-                                    urlParameters: parsedURL.queryParams,
-                                    urlPath: parsedURL.pathArray,
-                                    submission: headerToken
-                                }
-                            });
-                        }
+                            let isAuthorized = headerAuth.isAuthorized;
+                            let headerToken = headerAuth.token;
 
-                        foundEndpoint = true;
-
-                        const meta = ep.meta;
-                        
-                        if(!isEmpty(meta) && meta.skipRateLimitCheck === true)
-                        {
-                            try
+                            // now that the request is not a docs / favicon request, the blacklist is checked and the request is made eligible for rate limiting
+                            if(!settings.endpoints.ratelimitBlacklist.includes(ep.name) && !isAuthorized)
                             {
-                                if(isEmpty(meta) || (!isEmpty(meta) && meta.noLog !== true))
+                                try
                                 {
-                                    if(!lists.isConsoleBlacklisted(ip))
-                                        logRequest("success", null, analyticsObject);
+                                    await rl.consume(ip, 1);
                                 }
-                                // actually call the endpoint
-                                return ep.instance.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat, httpMetrics);
-                            }
-                            catch(err)
-                            {
-                                return respondWithError(res, 104, 500, fileFormat, tr(lang, "endpointInternalError", err), lang);
-                            }
-                        }
-                        else
-                        {
-                            try
-                            {
-                                let rlRes = await rl.get(ip);
-
-                                if(rlRes)
-                                    setRateLimitedHeaders(res, rlRes);
-
-                                if((rlRes && rlRes._remainingPoints < 0) && !lists.isWhitelisted(ip) && !isAuthorized)
+                                catch(err)
                                 {
-                                    logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
-                                    analytics.rateLimited(ip);
-                                    return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
+                                    unused(err); // gets handled elsewhere
                                 }
-                                else
+                            }
+                            
+                            if(isAuthorized)
+                            {
+                                debug("HTTP", `Requester has valid token ${colors.fg.green}${headerAuth.token.substr(0, 16)}${colors.rst} …`);
+                                analytics({
+                                    type: "AuthTokenIncluded",
+                                    data: {
+                                        ipAddress: ip,
+                                        urlParameters: parsedURL.queryParams,
+                                        urlPath: parsedURL.pathArray,
+                                        submission: headerToken
+                                    }
+                                });
+                            }
+
+                            foundEndpoint = true;
+
+                            const meta = ep.meta;
+                            
+                            if(!isEmpty(meta) && meta.skipRateLimitCheck === true)
+                            {
+                                try
                                 {
                                     if(isEmpty(meta) || (!isEmpty(meta) && meta.noLog !== true))
                                     {
                                         if(!lists.isConsoleBlacklisted(ip))
                                             logRequest("success", null, analyticsObject);
                                     }
-                                        
-                                    return ep.instance.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat, httpMetrics);
+                                    // actually call the endpoint
+                                    ep.instance.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat, httpMetrics);
+                                    return pRes();
+                                }
+                                catch(err)
+                                {
+                                    return respondWithError(res, 104, 500, fileFormat, tr(lang, "endpointInternalError", err), lang);
                                 }
                             }
-                            catch(err)
+                            else
                             {
-                                // setRateLimitedHeaders(res, rlRes);
-                                logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
-                                analytics.rateLimited(ip);
-                                return respondWithError(res, 100, 500, fileFormat, tr(lang, "generalInternalError", err), lang);
+                                try
+                                {
+                                    const rlRes = await rl.get(ip);
+
+                                    if(rlRes)
+                                        setRateLimitedHeaders(res, rlRes);
+
+                                    if((rlRes && rlRes._remainingPoints < 0) && !lists.isWhitelisted(ip) && !isAuthorized)
+                                    {
+                                        logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
+                                        analytics.rateLimited(ip);
+                                        return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
+                                    }
+                                    else
+                                    {
+                                        if(isEmpty(meta) || (!isEmpty(meta) && meta.noLog !== true))
+                                        {
+                                            if(!lists.isConsoleBlacklisted(ip))
+                                                logRequest("success", null, analyticsObject);
+                                        }
+
+                                        ep.instance.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat, httpMetrics);
+                                        return pRes();
+                                    }
+                                }
+                                catch(err)
+                                {
+                                    // setRateLimitedHeaders(res, rlRes);
+                                    logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
+                                    analytics.rateLimited(ip);
+                                    return respondWithError(res, 100, 500, fileFormat, tr(lang, "generalInternalError", err), lang);
+                                }
                             }
                         }
                     }
                 }
+
+                if(!foundEndpoint)
+                    return pRej();
             });
 
-            setTimeout(() => {
-                if(!foundEndpoint)
-                {
-                    if(!isEmpty(fileFormat) && req.url.toLowerCase().includes("format"))
-                        return respondWithError(res, 102, 404, fileFormat, tr(lang, "endpointNotFound", (!isEmpty(requestedEndpoint) ? requestedEndpoint : "/")), lang);
-                    else
-                        return respondWithErrorPage(res, 404, tr(lang, "endpointNotFound", (!isEmpty(requestedEndpoint) ? requestedEndpoint : "/")));
-                }
-            }, 5000);
+
+            try
+            {
+                await findEndpoint();
+            }
+            catch(err)
+            {
+                unused(err);
+                foundEndpoint = false;
+            }
+
+            if(!foundEndpoint)
+                return respondWithError(res, 102, 404, fileFormat, tr(lang, "endpointNotFound", (!isEmpty(requestedEndpoint) ? requestedEndpoint : "/")), lang);
         }
     }
     //#SECTION PUT / POST
@@ -551,8 +572,8 @@ function incomingRequest(req, res, httpMetrics)
         if(!isArrayEmpty(urlPath))
             requestedEndpoint = urlPath[0].toLowerCase();
             
-        let dataInterval = setTimeout(() => {
-            debug("HTTP", "PUT / POST request timed out", "red");
+        const dataInterval = setTimeout(() => {
+            debug("HTTP", `${req.method} request timed out`, "red");
             return respondWithErrorPage(res, 400, tr(lang, "requestBodyIsInvalid"));
         }, settings.httpServer.submissionNoDataTimeout);
 
@@ -561,8 +582,11 @@ function incomingRequest(req, res, httpMetrics)
             if(ep.pathName == requestedEndpoint && ["POST", "PUT"].includes(ep.meta.usage.method))
             {
                 // let postRateLimited = await rlPost.get(ip);
+                let dataGotten = false;
 
                 req.on("data", chunk => {
+                    dataGotten = true;
+
                     const payload = chunk.toString();
 
                     /** Size of the payload sent by the client in bytes */
@@ -575,7 +599,24 @@ function incomingRequest(req, res, httpMetrics)
 
                     /** @type {SubmissionEndpoint} */
                     const inst = ep.instance;
-                    inst.call(req, res, req.url, parsedURL.queryParams, fileFormat, payload, httpMetrics)
+                    inst.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat, payload, httpMetrics);
+                });
+
+                req.on("close", () => {
+                    if(!dataGotten)
+                    {
+                        if(ep.meta.acceptsEmptyBody === true)
+                        {
+                            // endpoint accepts empty body and no data was received
+                            clearTimeout(dataInterval);
+
+                            /** @type {SubmissionEndpoint} */
+                            const inst = ep.instance;
+                            inst.call(req, res, parsedURL.pathArray, parsedURL.queryParams, fileFormat, null, httpMetrics);
+                        }
+                        else
+                            return respondWithError(res, 112, 400, fileFormat, `Endpoint ${ep.name} accepts data but hasn't gotten any`, lang);
+                    }
                 });
 
                 // //#MARKER Joke submission
@@ -755,12 +796,11 @@ function respondWithError(res, errorCode, responseCode, fileFormat, errorMessage
  * Responds with an error page (which one is based on the status code).
  * Defaults to 500
  * @param {http.ServerResponse} res 
- * @param {(404|500)} [statusCode=500] HTTP status code - defaults to 500
+ * @param {404|500} [statusCode=500] HTTP status code - defaults to 500
  * @param {string} [error] Additional error message that gets added to the "API-Error" response header
  */
 function respondWithErrorPage(res, statusCode, error)
 {
-
     statusCode = parseInt(statusCode);
 
     if(isNaN(statusCode))
@@ -829,7 +869,7 @@ function pipeString(res, text, mimeType, statusCode = 200)
  * @param {String} mimeType The MIME type to respond with
  * @param {Number} [statusCode=200] The status code to respond with - defaults to 200
  */
-function pipeFile(res, filePath, mimeType, statusCode = 200)
+async function pipeFile(res, filePath, mimeType, statusCode = 200)
 {
     try
     {
@@ -842,7 +882,7 @@ function pipeFile(res, filePath, mimeType, statusCode = 200)
         return respondWithErrorPage(res, 500, `Encountered internal server error while piping file: wrong type for status code.`);
     }
 
-    if(!fs.existsSync(filePath))
+    if(!(await filesystem.exists(filePath)))
         return respondWithErrorPage(res, 404, `Internal error: file at "${filePath}" not found.`);
 
     try
@@ -855,7 +895,7 @@ function pipeFile(res, filePath, mimeType, statusCode = 200)
             });
         }
 
-        let readStream = fs.createReadStream(filePath);
+        const readStream = fs.createReadStream(filePath);
         readStream.pipe(res);
     }
     catch(err)

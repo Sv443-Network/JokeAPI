@@ -1,10 +1,11 @@
 const mysql = require("mysql");
-const { sql, colors, reserialize } = require("svcorelib");
+const { colors } = require("svcorelib");
 const fs = require("fs-extra");
 const promiseAllSequential = require("promise-all-sequential");
 
 const debug = require("./debug");
 const JokeCache = require("./classes/JokeCache");
+const { sendQuery } = require("./sql");
 
 const settings = require("../settings");
 
@@ -25,14 +26,6 @@ module.exports.connectionInfo = {
     connected: false
 };
 
-/** @type {mysql.Connection|undefined} Database connection used for joke caching */
-let dbConnection = undefined;
-
-/** @type {mysql.QueryOptions} */
-const queryOptions = {
-    timeout: settings.sql.timeout
-};
-
 
 /**
  * Initializes the joke cache module and instantiates the `cache` instance.
@@ -43,7 +36,8 @@ function init()
     return new Promise((pRes, pRej) => {
         debug("JokeCache", `Initializing...`);
 
-        dbConnection = mysql.createConnection({
+        /** Database connection used for joke caching */
+        const dbConnection = mysql.createConnection({
             host: settings.sql.host,
             user: (process.env["DB_USERNAME"] || ""),
             password: (process.env["DB_PASSWORD"] || ""),
@@ -54,8 +48,9 @@ function init()
 
         /**
          * Finalizes joke cache setup, then resolves init()'s returned Promise
+         * @param {mysql.Connection} connection
          */
-        const finalize = async () => {
+        const finalize = async (connection) => {
             try
             {
                 module.exports.connectionInfo = {
@@ -63,20 +58,20 @@ function init()
                     info: `${settings.sql.host}:${settings.sql.port}/${settings.sql.database}`
                 };
 
-                cacheInstance = new JokeCache(dbConnection);
+                cacheInstance = new JokeCache(connection);
                 module.exports.cacheInstance = cacheInstance;
 
                 // set up GC
                 try
                 {
-                    setInterval(runGC, 1000 * 60 * settings.jokeCaching.gcIntervalMinutes);
+                    setInterval(() => runGC(connection), 1000 * 60 * settings.jokeCaching.gcIntervalMinutes);
                 }
                 catch(err)
                 {
                     debug("JokeCache", `${col.red}Error while running garbage collector on interval: ${col.rst}${err}`, "red");
                 }
 
-                await runGC();
+                await runGC(connection);
 
                 debug("JokeCache", "Successfully initialized joke cache and garbage collector");
                 return pRes();
@@ -100,14 +95,14 @@ function init()
                     debug("JokeCache", `Successfully connected to database at ${colors.fg.green}${settings.sql.host}:${settings.sql.port}/${settings.sql.database}${colors.rst}`);
 
                     // ensure DB tables exist
-                    sql.sendQuery(dbConnection, `SHOW TABLES LIKE "${settings.jokeCaching.tableName}";`, queryOptions)
+                    sendQuery(dbConnection, `SHOW TABLES LIKE "${settings.jokeCaching.tableName}";`)
                         .then(res => {
                             if(Array.isArray(res) && res.length >= 1)
                             {
                                 // connection established, table exists already
                                 debug("JokeCache", `DB table exists already`);
 
-                                return finalize();
+                                return finalize(dbConnection);
                             }
                             else if(Array.isArray(res) && res.length == 0)
                             {
@@ -115,10 +110,10 @@ function init()
                                 debug("JokeCache", `DB table doesn't exist, creating it...`);
                                 const createAnalyticsTableQuery = fs.readFileSync(settings.jokeCaching.createTableFile).toString();
 
-                                sql.sendQuery(dbConnection, createAnalyticsTableQuery)
+                                sendQuery(dbConnection, createAnalyticsTableQuery)
                                     .then(() => {
                                         debug("JokeCache", `Successfully created joke caching DB`);
-                                        return finalize();
+                                        return finalize(dbConnection);
                                     }).catch(err => {
                                         debug("JokeCache", `Error while creating DB table: ${err}`);
                                         return pRej(`${err}\nMaybe the database server isn't running or doesn't allow the connection`);
@@ -147,8 +142,9 @@ function init()
 
 /**
  * Runs the joke cache garbage collector
+ * @param {mysql.Connection} connection
  */
-function runGC()
+function runGC(connection)
 {
     debug("JokeCache/GC", `Running joke cache garbage collector...`);
 
@@ -158,36 +154,37 @@ function runGC()
 
         const startTS = Date.now();
 
-        if(!dbConnection)
-            throw new Error(`Error while running garbage collector, DB connection isn't established yet`);
-
-        const expiredEntries = await sendQuery("SELECT * FROM ?? WHERE DATE_ADD(`DateTime`, INTERVAL ? HOUR) < CURRENT_TIMESTAMP;", settings.jokeCaching.tableName, settings.jokeCaching.expiryHours);
-
-        /** @type {(() => Promise<any>)[]} */
-        const deletePromises = [];
-
-        expiredEntries.forEach(entry => {
-            const { ClientIpHash, JokeID, LangCode } = entry;
-
-            deletePromises.push(() => new Promise(async (delRes, delRej) => {
-                try
-                {
-                    const result = await sendQuery("DELETE FROM ?? WHERE ClientIpHash = ? AND JokeID = ? AND LangCode = ?;", settings.jokeCaching.tableName, ClientIpHash, JokeID, LangCode);
-
-                    if(result.affectedRows > 0)
-                        clearedEntries += result.affectedRows;
-
-                    return delRes();
-                }
-                catch(err)
-                {
-                    return delRej(err);
-                }
-            }));
-        });
-
         try
         {
+            if(!connection)
+                throw new Error(`Error while running garbage collector, DB connection isn't established yet`);
+
+            const expiredEntries = await sendQuery(connection, "SELECT * FROM ?? WHERE DATE_ADD(`DateTime`, INTERVAL ? HOUR) < CURRENT_TIMESTAMP;", settings.jokeCaching.tableName, settings.jokeCaching.expiryHours);
+
+            /** @type {(() => Promise<any>)[]} */
+            const deletePromises = [];
+
+            expiredEntries.forEach(entry => {
+                const { ClientIpHash, JokeID, LangCode } = entry;
+
+                deletePromises.push(() => new Promise(async (delRes, delRej) => {
+                    try
+                    {
+                        const result = await sendQuery(connection, "DELETE FROM ?? WHERE ClientIpHash = ? AND JokeID = ? AND LangCode = ?;", settings.jokeCaching.tableName, ClientIpHash, JokeID, LangCode);
+
+                        if(result.affectedRows > 0)
+                            clearedEntries += result.affectedRows;
+
+                        return delRes();
+                    }
+                    catch(err)
+                    {
+                        return delRej(err);
+                    }
+                }));
+            });
+
+
             await promiseAllSequential(deletePromises);
         }
         catch(err)
@@ -197,33 +194,6 @@ function runGC()
 
         debug("JokeCache/GC", `Cleared ${clearedEntries > 0 ? `${col.green}` : ""}${clearedEntries}${col.rst} entr${clearedEntries === 1 ? "y" : "ies"} in ${Date.now() - startTS}ms`, "green");
         return res();
-    });
-}
-
-/**
- * Sends a formatted SQL query using init()'s DB connection instance
- * @param {string} query
- * @param  {...any} values
- * @returns {Promise<object, string>}
- */
-function sendQuery(query, ...values)
-{
-    if(!dbConnection)
-        throw new Error(`Error while sending query: DB connection isn't established yet`);
-
-    return new Promise((res, rej) => {
-        /** @type {mysql.QueryOptions} */
-        const opts = {
-            ...reserialize(queryOptions),
-            sql: mysql.format(query, values)
-        };
-
-        dbConnection.query(opts, (err, result) => {
-            if(err)
-                return rej(err);
-
-            return res(result);
-        });
     });
 }
 

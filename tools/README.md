@@ -9,7 +9,7 @@ Here's a summary:
 | [add-joke.js](./add-joke.js) | `npm run add-joke` | An interactive CLI prompt that adds a joke | - |
 | [add-token.js](./add-token.js) | `npm run add-token [amount]` | Generates an [API token](https://jokeapi.dev/#api-tokens) to be used to gain unlimited access to the API | `-nc` to disable auto-copy of token |
 | [generate-changelog.js](./generate-changelog.js) | `npm run changelog` | Turns the [`changelog.txt`](../changelog.txt) file into a markdown file ([`changelog.md`](../changelog.md)) | - |
-| [ip-info.js](./ip-info.js) | `npm run ip-info` | Starts a server on `127.0.0.1:8074` that just returns information about each request's IP | - |
+| [ip-info.js](./ip-info.js) | `npm run ip-info` | Starts a server on `127.0.0.1:8074` that just returns information about each request's IP | `-c` to enable color cycle |
 | [reassign-ids.js](./reassign-ids.js) | `npm run reassign-ids` | Goes through each joke file and reassigns IDs to each one, consecutively | - |
 | [reformat.js](./reformat.js) | `npm run reformat` | Used to migrate old joke file formats to the latest one | - |
 | [stresstest.js](./stresstest.js) | `npm run stresstest` | Sends lots of requests to JokeAPI (has to run in another process) to stresstest it | - |

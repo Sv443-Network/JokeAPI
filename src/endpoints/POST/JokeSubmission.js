@@ -19,6 +19,7 @@ class JokeSubmission extends SubmissionEndpoint {
     {
         /** @type {Endpoint.EndpointMeta} */
         const meta = {
+            docsURL: "https://jokeapi.dev/#submit-endpoint",
             usage: {
                 method: "POST",
                 supportedParams: []

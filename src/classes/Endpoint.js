@@ -23,9 +23,11 @@ unused("types:", _http);
 
 /**
  * @typedef {Object} EndpointMeta
+ * @prop {string} docsURL URL to the part of documentation that describes this endpoint
  * @prop {Object} usage How to use this endpoint
  * @prop {string} usage.method HTTP method
  * @prop {string[]} usage.supportedParams An array of supported URL parameters
+ * @prop {boolean} [acceptsEmptyBody] Whether the submission endpoint can accept an empty request body
  * @prop {boolean} [unlisted] Makes the `/endpoints/` endpoint ignore this endpoint
  * @prop {boolean} [noLog] Prohibits the `logRequest` module from writing analytics data and from sending a console message
  * @prop {boolean} [skipRateLimitCheck] Prevents the rate limiter from being incremented
@@ -39,7 +41,8 @@ unused("types:", _http);
  */
 
 //#MARKER MissingImplementationError
-class MissingImplementationError extends Error {
+class MissingImplementationError extends Error
+{
     constructor(message)
     {
         super(message);

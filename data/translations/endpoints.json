@@ -139,7 +139,19 @@
                 "ru": "-"
             }
         },
-        "clearData": {
+        "submit": {
+            "name": {
+                "en": "Submit Joke",
+                "de": "Witz Einreichen",
+                "ru": "Отправить шутку"
+            },
+            "desc": {
+                "en": "Use this endpoint to submit a new joke to be added to the API",
+                "de": "Benutze diesen Endpunkt, um einen neuen Witz zur API hinzuzufügen",
+                "ru": "Используйте эту конечную точку, чтобы отправить новую шутку для добавления в API"
+            }
+        },
+        "cleardata": {
             "name": {
                 "en": "Clear Data",
                 "de": "Daten Löschen",
@@ -148,7 +160,7 @@
             "desc": {
                 "en": "This endpoint clears all collected data of the client that called it",
                 "de": "Dieser Endpunkt löscht alle gesammelten Daten des Clients, der ihn aufgerufen hat",
-                "ru": "Эта конечная точка удаляет все собранные данные с вызвавшего ее клиента"
+                "ru": "Эта конечная точка очищает все собранные данные вызвавшего ее клиента"
             }
         }
     }

@@ -18,6 +18,7 @@ class Formats extends FilterComponentEndpoint {
     {
         /** @type {Endpoint.EndpointMeta} */
         const meta = {
+            docsURL: "https://jokeapi.dev/#formats-endpoint",
             usage: {
                 method: "GET",
                 supportedParams: [

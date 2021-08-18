@@ -30,6 +30,7 @@ class Categories extends FilterComponentEndpoint {
     {
         /** @type {Endpoint.EndpointMeta} */
         const meta = {
+            docsURL: "https://jokeapi.dev/#categories-endpoint",
             usage: {
                 method: "GET",
                 supportedParams: [

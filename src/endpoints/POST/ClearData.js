@@ -12,7 +12,8 @@ const resolveIp = require("../../resolveIP");
 /**
  * Clears all collected data of the client that called this endpoint
  */
-class ClearData extends SubmissionEndpoint {
+class ClearData extends SubmissionEndpoint
+{
     /**
      * Clears all collected data of the client that called this endpoint
      */
@@ -20,13 +21,15 @@ class ClearData extends SubmissionEndpoint {
     {
         /** @type {Endpoint.EndpointMeta} */
         const meta = {
+            docsURL: "https://jokeapi.dev/#clear-data-endpoint",
             usage: {
                 method: "POST",
                 supportedParams: [
                     "format",
                     "lang"
                 ]
-            }
+            },
+            acceptsEmptyBody: true
         };
 
         super("cleardata", meta);
@@ -37,7 +40,7 @@ class ClearData extends SubmissionEndpoint {
      * @param {http.IncomingMessage} req The HTTP server request
      * @param {http.ServerResponse} res The HTTP server response
      * @param {string[]} url URL path array gotten from the URL parser module
-     * @param {Object} params URL query params gotten from the URL parser module
+     * @param {object} params URL query params gotten from the URL parser module
      * @param {string} format The file format to respond with
      * @param {string} data The raw data, as a string
      */
@@ -57,28 +60,15 @@ class ClearData extends SubmissionEndpoint {
             const deletedEntries = await this.clearJokeCache(ip, lang);
 
 
-            let clientDataDeleted = false;
-            try
-            {
-                await this.clearClientData(ip);
-                clientDataDeleted = true;
-            }
-            catch(err)
-            {
-                unused(err);
-                clientDataDeleted = false;
-            }
-
-
             if(deletedEntries == 0)
             {
                 responseObj = {
                     "error": false,
                     "jokeCache": {
                         "message": tr(lang, "jokeCacheClearNoEntries"),
+                        "entriesFound": false,
                         "entriesDeleted": 0
                     },
-                    clientDataDeleted,
                     "timestamp": Date.now()
                 };
             }
@@ -88,9 +78,9 @@ class ClearData extends SubmissionEndpoint {
                     "error": false,
                     "jokeCache": {
                         "message": tr(lang, "jokeCacheCleared", deletedEntries.toString()),
+                        "entriesFound": true,
                         "cacheEntriesDeleted": deletedEntries
                     },
-                    clientDataDeleted,
                     "timestamp": Date.now()
                 };
             }
@@ -103,9 +93,9 @@ class ClearData extends SubmissionEndpoint {
                 "error": true,
                 "jokeCache": {
                     "message": err.toString(),
+                    "entriesFound": false,
                     "cacheEntriesDeleted": 0
                 },
-                "clientDataDeleted": false,
                 "timestamp": Date.now()
             }
         }
@@ -136,20 +126,6 @@ class ClearData extends SubmissionEndpoint {
             {
                 return pRej(tr(lang, "jokeCacheClearError", err.toString()));
             }
-        });
-    }
-
-    /**
-     * Clears the client data.  
-     * Resolves void, rejects with an error message
-     * @param {string} ip The IP hash of the client
-     * @returns {Promise<void, string>}
-     */
-    clearClientData(ip)
-    {
-        return new Promise(async (res, rej) => {
-            unused(ip, rej);
-            return res();
         });
     }
 }

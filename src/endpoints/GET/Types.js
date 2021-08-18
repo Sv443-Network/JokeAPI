@@ -17,6 +17,7 @@ class Types extends Endpoint {
     {
         /** @type {Endpoint.EndpointMeta} */
         const meta = {
+            docsURL: "https://jokeapi.dev/#types-endpoint",
             usage: {
                 method: "GET",
                 supportedParams: [

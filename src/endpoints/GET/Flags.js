@@ -18,6 +18,7 @@ class Flags extends FilterComponentEndpoint {
     {
         /** @type {Endpoint.EndpointMeta} */
         const meta = {
+            docsURL: "https://jokeapi.dev/#flags-endpoint",
             usage: {
                 method: "GET",
                 supportedParams: [

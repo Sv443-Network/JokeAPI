@@ -1,12 +1,19 @@
 const mysql = require("mysql");
-const { unused, sql } = require("svcorelib");
 
 const { isValidLang } = require("../languages");
+const { sendQuery } = require("../sql");
+const debug = require("../debug");
 
 const settings = require("../../settings");
 
 
-unused("typedefs:", mysql);
+
+/**
+ * @typedef {object} CacheEntry An object representing an entry of the joke cache
+ * @prop {string} clientIpHash 64-character IP hash of the client
+ * @prop {number} jokeID ID of the joke to cache
+ * @prop {string} langCode Language code of the joke to cache
+ */
 
 /**
  * This class is in direct contact to the SQL DB.  
@@ -26,11 +33,6 @@ class JokeCache
     {
         this.db = dbConnection;
         this.table = typeof tableName == "string" ? tableName : settings.jokeCaching.tableName;
-
-        /** @type {mysql.QueryOptions} */
-        this.queryOptions = {
-            timeout: settings.sql.timeout
-        };
     }
 
     /**
@@ -38,10 +40,12 @@ class JokeCache
      * @param {string} clientIpHash 64-character IP hash of the client
      * @param {number} jokeID ID of the joke to cache
      * @param {string} langCode Language code of the joke to cache
-     * @returns {Promise}
+     * @returns {Promise<object, string>}
      */
     addEntry(clientIpHash, jokeID, langCode)
     {
+        debug("JokeCache", `Adding 1 entry to the joke cache - client: '${clientIpHash.substr(0, 16)}…'`);
+
         return new Promise((pRes, pRej) => {
             if(!JokeCache.isValidClientIpHash(clientIpHash))
                 throw new TypeError(`Parameter "clientIpHash" is not a string or not a valid IP hash`);
@@ -62,12 +66,58 @@ class JokeCache
                 langCode
             ];
 
-            sql.sendQuery(this.db, `INSERT INTO ?? (ClientIpHash, JokeID, LangCode) VALUES (?, ?, ?);`, this.queryOptions, ...insValues)
-            .then(res => {
-                return pRes(res);
-            }).catch(err => {
-                return pRej(err);
+            sendQuery(this.db, `INSERT INTO ?? (ClientIpHash, JokeID, LangCode) VALUES (?, ?, ?);`, ...insValues)
+                .then(res => {
+                    return pRes(res);
+                }).catch(err => {
+                    return pRej(err);
+                });
+        });
+    }
+
+    /**
+     * Adds multiple entries to the provided clients' joke caches.
+     * @param {CacheEntry[]} cacheEntries An array of joke cache entries
+     * @returns {Promise<object, string>}
+     */
+    addEntries(cacheEntries)
+    {
+        debug("JokeCache", `Adding ${cacheEntries.length} entries to the joke cache`);
+
+        return new Promise((res, rej) => {
+            const entries = cacheEntries.map(e => {
+                if(!JokeCache.isValidClientIpHash(e.clientIpHash))
+                    throw new TypeError(`Parameter "clientIpHash" is not a string or not a valid IP hash`);
+                
+                if(typeof jokeID != "number")
+                    e.jokeID = parseInt(e.jokeID);
+                
+                if(e.jokeID < 0)
+                    throw new TypeError(`Parameter "jokeID" is less than 0 (there are no negative joke IDs you dummy dum dum)`);
+                
+                if(!isValidLang(e.langCode))
+                    throw new TypeError(`Parameter "langCode" is not a valid language code`);
+
+                return [ e.clientIpHash, e.jokeID, e.langCode ];
             });
+
+            let sqlValues = "";
+
+            entries.forEach((entry, idx) => {
+                let valPart = "(?, ?, ?)";
+
+                if(idx != entries.length - 1)
+                    valPart += ", ";
+
+                sqlValues += mysql.format(valPart, entry);
+            });
+
+            sendQuery(this.db, `INSERT INTO ?? (ClientIpHash, JokeID, LangCode) VALUES ${sqlValues};`, settings.jokeCaching.tableName)
+                .then(result => {
+                    return res(result);
+                }).catch(err => {
+                    return rej(`Err: ${err}`);
+                });
         });
     }
 
@@ -89,12 +139,12 @@ class JokeCache
                 clientIpHash
             ];
 
-
-            sql.sendQuery(this.db, "DELETE FROM ?? WHERE ClientIpHash LIKE ?", this.queryOptions, ...insValues).then(res => {
-                return pRes(res.affectedRows ? res.affectedRows : 0);
-            }).catch(err => {
-                return pRej(err);
-            });
+            sendQuery(this.db, "DELETE FROM ?? WHERE ClientIpHash LIKE ?", ...insValues)
+                .then(res => {
+                    return pRes((res && typeof res.affectedRows === "number") ? res.affectedRows : 0);
+                }).catch(err => {
+                    return pRej(err);
+                });
         });
     }
 
@@ -119,20 +169,20 @@ class JokeCache
                 langCode
             ];
 
-            sql.sendQuery(this.db, `SELECT JokeID FROM ?? WHERE ClientIpHash = ? AND LangCode = ?;`, this.queryOptions, insValues)
-            .then(res => {
-                res = res.map(itm => itm.JokeID).sort();
+            sendQuery(this.db, `SELECT JokeID FROM ?? WHERE ClientIpHash = ? AND LangCode = ?;`, insValues)
+                .then(res => {
+                    res = res.map(itm => itm.JokeID).sort();
 
-                return pRes(res);
-            }).catch(err => {
-                return pRej(err);
-            });
+                    return pRes(res);
+                }).catch(err => {
+                    return pRej(err);
+                });
         });
     }
 
     /**
      * Checks if a provided client IP hash is valid.
-     * @param {string} clientIpHash 
+     * @param {string} clientIpHash
      * @returns {boolean}
      */
     static isValidClientIpHash(clientIpHash)

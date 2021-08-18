@@ -1,4 +1,5 @@
-<div align="center" style="text-align:center">
+<!-- hi, hope you are having a great day :) -->
+<div align="center" style="text-align: center;">
 
 # [![icon](https://sv443.net/cdn/jokeapi/icon_readme.png)](#readme)<br>JokeAPI
 ### A REST API that serves uniformly and well formatted jokes and offers a great variety of filtering methods and response customization
@@ -19,10 +20,10 @@
 
 <br>
 
-[Internal Documentation](./dev/docs/index.md#readme) &bull; [Contributing Guide](./.github/Contributing.md#readme)
-
+[Internal Documentation](./dev/docs/index.md#readme) &bull; [Contributing Guide](./.github/Contributing.md#readme) &bull; [Discord Server](https://dc.sv443.net/)
 
 </div>
+
 <br><br>
 
 ### Note: due to the different types of humor, JokeAPI contains a wide variety of jokes, of which some are very offensive. They can be filtered out, but use this API at your own risk!
@@ -37,6 +38,7 @@ Disclaimer: I will not take any responsibility for the wrappers, they are commun
 If you need help with these wrappers, you should contact their respective authors.  
   
 - <b><a href="https://github.com/Icelain/jokeapi#readme"><img src="./docs/static/external/golang.svg" width="16" height="16"> jokeapi (Go)</a></b>
+- <b><a href="https://github.com/QGIsK/jokeapi-wrapper#readme"><img src="./docs/static/external/nodejs.svg" width="16" height="16"> JokeAPI Client for NodeJS (Node.js)</a></b>
 - <b><a href="https://github.com/sahithyandev/sv443-joke-api-js-wrapper#readme"><img src="./docs/static/external/nodejs.svg" width="16" height="16"> sv443-joke-api-js-wrapper (Node.js)</a></b>
 - <b><a href="https://github.com/thenamesweretakenalready/Sv443s-JokeAPI-Python-Wrapper#readme"><img src="./docs/static/external/python.svg" width="16" height="16"> Sv443s-JokeAPI-Python-Wrapper (Python)</a></b>
 - <b><a href="https://crates.io/crates/jokeapi_rs"><img src="./docs/static/external/rust.svg" width="16" height="16"> jokeapi_rs (Rust)</a></b>
@@ -81,8 +83,8 @@ Old list-style dependents:
 - [JokeAPI_ComputerCraft](https://github.com/Sv443/JokeAPI_ComputerCraft) by [Sv443](https://github.com/Sv443)
 -->
 
-
 <br><br>
+
 <div align="center" style="text-align:center">
 
 Made with ❤️ by [Sv443](https://github.com/Sv443)  

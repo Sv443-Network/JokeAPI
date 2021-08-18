@@ -20,6 +20,7 @@ class Info extends Endpoint {
     {
         /** @type {Endpoint.EndpointMeta} */
         const meta = {
+            docsURL: "https://jokeapi.dev/#info-endpoint",
             usage: {
                 method: "GET",
                 supportedParams: [

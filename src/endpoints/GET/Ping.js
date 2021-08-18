@@ -19,6 +19,7 @@ class Ping extends Endpoint
     {
         /** @type {Endpoint.EndpointMeta} */
         const meta = {
+            docsURL: "https://jokeapi.dev/#ping-endpoint",
             usage: {
                 method: "GET",
                 supportedParams: [
