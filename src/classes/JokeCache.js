@@ -36,7 +36,8 @@ class JokeCache
      * Creates a new joke cache instance.  
      *   
      * Also sets up garbage collection to run on interval.  
-     * Note: GC isn't run when constructing, only on interval!
+     * Note: GC isn't run when constructing, only on interval!  
+     * Run it manually with `JokeCache.runGC()` if needed
      * @param {mysql.Connection} dbConnection
      */
     constructor(dbConnection)
@@ -67,8 +68,8 @@ class JokeCache
     {
         try
         {
-            const jokesAmount = parseJokes.jokeCountPerLang[langCode];
-            return (jokesAmount >= settings.jokeCaching.jokePoolMinAmount);
+            const jokesAmount = parseJokes.jokeCountPerLang[langCode] || 0;
+            return (jokesAmount >= (settings.jokes.maxAmount * settings.jokeCaching.poolSizeDivisor));
         }
         catch(err)
         {
@@ -80,15 +81,17 @@ class JokeCache
     /**
      * Returns the size of the joke pool of a certain language
      * @param {string} langCode
-     * @returns {number}
+     * @returns {number} Returns the size of the joke pool - returns 0 if the language can't have a joke pool (too few jokes)
      */
     getJokePoolSize(langCode)
     {
-        const jokesAmount = parseJokes.jokeCountPerLang[langCode];
-        const minPoolSize = settings.jokeCaching.jokePoolMinAmount;
-        const optimalSize = settings.jokeCaching.jokePoolOptimalAmount;
-
-        // TODO: linearly decrease pool size for languages with < `settings.jokeCaching.jokePoolOptimalAmount` jokes
+        // TODO: test this
+        const jokesAmount = parseJokes.jokeCountPerLang[langCode] || 0;
+        
+        if(jokesAmount < (settings.jokes.maxAmount * settings.jokeCaching.poolSizeDivisor))
+            return 0;
+        else
+            return Math.floor(jokesAmount / settings.jokeCaching.poolSizeDivisor);
     }
 
     //#MARKER cache stuff
@@ -243,50 +246,62 @@ class JokeCache
 
             try
             {
-                if(settings.jokeCaching.jokePoolMinAmount < settings.jokes.maxAmount)
-                    throw new Error(`Internal Error: min pool joke amount can't be smaller than max value of ?amount parameter`);
-
                 const jokePoolSize = this.getJokePoolSize(langCode);
 
+                /** The amount of jokes needed in the cache to enable clearing old entries */
+                const clearCacheThreshold = parseJokes.jokeCountPerLang[langCode] - jokePoolSize;
 
-                const cacheEntriesAmount = 0;
-                const cacheThreshold = 0;
 
-                // TODO:
-                if(cacheEntriesAmount > cacheThreshold)
+                try
                 {
-                    const insValuesGet = [
-                        this.tableName,
-                        clientIpHash,
-                        langCode,
-                        amount
-                    ];
-
-                    const rowsToDelete = await sendQuery(this.dbConnection, "SELECT * FROM ?? WHERE ClientIpHash = ? AND LangCode = ? ORDER BY `DateTime` ASC, JokeID ASC LIMIT ?;", ...insValuesGet);
-
-                    /** @type {number[]} */
-                    const idsToDelete = rowsToDelete.map(row => row["JokeID"]);
-
-                    const sqlJokeIdList = mysql.format(`(${idsToDelete.join(", ")})`);
-
-
-                    const insValuesDel = [
+                    const insValuesAmt = [
                         this.tableName,
                         clientIpHash,
                         langCode
                     ];
 
-                    const deleteResult = await sendQuery(this.dbConnection, `DELETE FROM ?? WHERE ClientIpHash = ? AND LangCode = ? AND JokeID IN ${sqlJokeIdList};`, ...insValuesDel);
+                    /** @type {number} */
+                    const cacheEntriesAmount = (await sendQuery(this.dbConnection, "SELECT * FROM ?? WHERE ClientIpHash = ? AND LangCode = ?;", ...insValuesAmt)).length || 0;
+
+                    if(cacheEntriesAmount > clearCacheThreshold)
+                    {
+                        const insValuesGet = [
+                            this.tableName,
+                            clientIpHash,
+                            langCode,
+                            amount
+                        ];
+
+                        const rowsToDelete = await sendQuery(this.dbConnection, "SELECT * FROM ?? WHERE ClientIpHash = ? AND LangCode = ? ORDER BY `DateTime` ASC, JokeID ASC LIMIT ?;", ...insValuesGet);
+
+                        /** @type {number[]} */
+                        const idsToDelete = rowsToDelete.map(row => row["JokeID"]);
+
+                        const sqlJokeIdList = mysql.format(`(${idsToDelete.join(", ")})`);
 
 
-                    return res(deleteResult ? deleteResult.affectedRows : 0);
+                        const insValuesDel = [
+                            this.tableName,
+                            clientIpHash,
+                            langCode
+                        ];
+
+                        const deleteResult = await sendQuery(this.dbConnection, `DELETE FROM ?? WHERE ClientIpHash = ? AND LangCode = ? AND JokeID IN ${sqlJokeIdList};`, ...insValuesDel);
+
+
+                        return res(deleteResult ? deleteResult.affectedRows : 0);
+                    }
+                    else
+                        return res(0);
                 }
-                else
-                    return res(0);
+                catch(err)
+                {
+                    return rej(`Error while clearing joke cache entries: ${err}`);
+                }
             }
             catch(err)
             {
-                return rej(`Error while clearing old joke cache entries: ${err}`);
+                return rej(`General error while clearing old joke cache entries: ${err}`);
             }
         });
     }

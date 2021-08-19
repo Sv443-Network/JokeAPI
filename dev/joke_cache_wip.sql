@@ -1,13 +1,16 @@
 # Select all
 SELECT * FROM jokeapi.joke_cache;
 
+# Select all by language
+SELECT * FROM jokeapi.joke_cache WHERE LangCode = "de";
+
 # Add entry
 INSERT INTO jokeapi.joke_cache (
 	ClientIpHash, JokeID, LangCode
 ) VALUES (
 	"3e48ef9d22e096da6838540fb846999890462c8a32730a4f7a5eaee6945315f7",
-    9,
-    "en"
+    23,
+    "de"
 );
 
 # Add expired entry
@@ -30,7 +33,12 @@ DELETE FROM jokeapi.joke_cache WHERE DATE_ADD(`DateTime`, INTERVAL 96 HOUR) < CU
 UPDATE jokeapi.joke_cache SET `DateTime` = FROM_UNIXTIME(1628181409);
 
 # Get all cache entries by client and langcode, sort by oldest first, with limit
-SELECT * FROM jokeapi.joke_cache WHERE ClientIpHash = "3e48ef9d22e096da6838540fb846999890462c8a32730a4f7a5eaee6945315f7" AND LangCode = "en" ORDER BY `DateTime` ASC LIMIT 10;
+SELECT * FROM jokeapi.joke_cache WHERE ClientIpHash = "3e48ef9d22e096da6838540fb846999890462c8a32730a4f7a5eaee6945315f7" AND LangCode = "de" ORDER BY `DateTime` ASC, JokeID ASC LIMIT 10;
 
 # Delete all entries by client and langcode with matching joke ID
 DELETE FROM jokeapi.joke_cache WHERE ClientIpHash = "3e48ef9d22e096da6838540fb846999890462c8a32730a4f7a5eaee6945315f7" AND LangCode = "en" AND JokeID IN (1, 2, 3);
+
+
+
+# Other
+SELECT * FROM jokeapi.joke_cache WHERE ClientIpHash = "3e48ef9d22e096da6838540fb846999890462c8a32730a4f7a5eaee6945315f7" AND LangCode = "de" ORDER BY `DateTime` ASC, JokeID ASC

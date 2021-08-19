@@ -264,17 +264,12 @@ class Joke extends Endpoint {
 
                 if(jokesArray.length > 1)
                 {
-                    // ?amount param is > 1
-
                     const cacheIDs = jokesArray.map(joke => joke.id);
 
                     await jokeCache.cacheInstance.addEntries(clientIpHash, cacheIDs, langCode);
                 }
                 else
-                {
-                    // ?amount param is = 1
                     await jokeCache.cacheInstance.addEntry(clientIpHash, jokesArray[0].id, langCode);
-                }
 
 
                 // clear oldest entr(y/ies) of the cache
