@@ -1,5 +1,5 @@
 {
-    "info": "This file contains all splash texts",
+    "info": "This file contains all splash texts - to submit your own splash texts please see this guide: https://github.com/Sv443/JokeAPI/blob/master/.github/Contributing.md#submitting-translations",
     "defaultLang": "en",
     "languages": [
         "en",
@@ -11,11 +11,6 @@
             "en": "*beep* *boop*",
             "de": "*Piep* *Bop*",
             "ru": "*бип* *буп*"
-        },
-        {
-            "en": "🤖",
-            "de": "🤖",
-            "ru": "🤖"
         },
         {
             "en": "Proudly not bug free",
