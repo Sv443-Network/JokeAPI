@@ -43,8 +43,37 @@
 <br><br><br>
 
 ## 2.4.0  
-#### IMPORTANT:TODO: The Big Caching Fix ([pull request #239](https://github.com/Sv443/JokeAPI/pull/239))
-changelog will be added just before the release, until then just look at [pull request #239](https://github.com/Sv443/JokeAPI/pull/239)
+#### The Big Caching Fix ([pull request #239](https://github.com/Sv443/JokeAPI/pull/239))
+- Additions:
+    - **Highly Requested:** Added new joke caching system (so the same joke can't get served multiple times) ([issue #238](https://github.com/Sv443/JokeAPI/issues/238) or [see project board](https://github.com/Sv443/JokeAPI/projects/3))
+    - Documentation stuff:
+        - Added error messages to Try-It section in docs ([issue #244](https://github.com/Sv443/JokeAPI/issues/244))
+        - Added safe mode toggle to Try-It section ([issue #231](https://github.com/Sv443/JokeAPI/issues/231))
+        - Added new wrapper library "QGIsK/jokeapi-wrapper" ([issue #318](https://github.com/Sv443/JokeAPI/issues/318))
+    - Added Italian translation by @Afarfeel ([issue #303](https://github.com/Sv443/JokeAPI/issues/303), [issue #304](https://github.com/Sv443/JokeAPI/issues/304))
+    - Added easily parseable info about faulty parameters when doing a submission or dry run ([issue #209](https://github.com/Sv443/JokeAPI/issues/209))
+    - Added wildcard and OR operators to `?contains` param ([issue #289](https://github.com/Sv443/JokeAPI/issues/289))
+    - Added joke filter component descriptions ([issue #201](https://github.com/Sv443/JokeAPI/issues/201))
+- Fixes:
+    - Updated / improved some jokes ([issue #259](https://github.com/Sv443/JokeAPI/issues/259), [issue #265](https://github.com/Sv443/JokeAPI/issues/265), [issue #287](https://github.com/Sv443/JokeAPI/issues/287))
+    - Fixed outdated links on RapidAPI ([issue #269](https://github.com/Sv443/JokeAPI/issues/269))
+    - Changed auth token syntax ([issue #293](https://github.com/Sv443/JokeAPI/issues/293))
+    - Documentation stuff:
+        - Fixed attributions ([issue #277](https://github.com/Sv443/JokeAPI/issues/277))
+        - ID range URL param showed up when language only has one joke ([issue #252](https://github.com/Sv443/JokeAPI/issues/252))
+        - ID range in Try-It section wasn't being set to the correct values ([issue #254](https://github.com/Sv443/JokeAPI/issues/254))
+        - Updated Cascadia Code font ([issue #245](https://github.com/Sv443/JokeAPI/issues/245))
+        - Fixed broken Try-It section result when using `format=xml` ([issue #232](https://github.com/Sv443/JokeAPI/issues/232))
+        - Fixed C# code example in documentation once again ([issue #237](https://github.com/Sv443/JokeAPI/issues/237))
+        - Error page's header value wasn't sanitized ([issue #286](https://github.com/Sv443/JokeAPI/issues/286))
+    - Fixed renamed package `require-uncached` (now `import-fresh`)
+    - 404 requests now don't wait for a timeout anymore ([issue #314](https://github.com/Sv443/JokeAPI/issues/314))
+- Internal Stuff:
+    - Refactored endpoints ([issue #243](https://github.com/Sv443/JokeAPI/issues/243))
+    - Replaced deprecated function [`fs.exists()`](https://nodejs.org/api/fs.html#fs_fs_exists_path_callback) throughout the API ([issue #230](https://github.com/Sv443/JokeAPI/issues/230))
+    - Language subfolders of submissions didn't have consistent case ([issue #257](https://github.com/Sv443/JokeAPI/issues/257))
+    - Implemented and fixed FolderDaemon ([issue #241](https://github.com/Sv443/JokeAPI/issues/241))
+    - Switched from LGTM to CodeQL for code analysis ([issue #290](https://github.com/Sv443/JokeAPI/issues/290))
 
 
 <br><br><br>
