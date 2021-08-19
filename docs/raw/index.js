@@ -12,7 +12,11 @@ var settings = {
     defaultLang: "<%#INSERT:DEFAULTLANGCODE#%>",
     formatVersion: 3,
     contributorsObject: JSON.parse('<%#INSERT:CONTRIBUTORS#%>'),
-    categoryAliasesObject: JSON.parse('<%#INSERT:CATEGORYALIASES#%>')
+    categoryAliasesObject: JSON.parse('<%#INSERT:CATEGORYALIASES#%>'),
+    splashes: JSON.parse(atob("<%#INSERT:SPLASHESOBJ#%>")),
+    lastSplashIdx: -1,       // so the same splash isn't returned twice
+    splashRedirectCount: 15, // how many times clicking the splash is needed to redirect to the splashes file
+    splashClickAmount: 0     // keeps track of how many times the splash is clicked
 };
 
 var submission = {};
@@ -392,7 +396,13 @@ function onLoad()
     loadContributors();
 
     loadSplash();
-    gebid("splashContainer").addEventListener("click", loadSplash);
+    gebid("splashContainer").addEventListener("click", () => {
+        settings.splashClickAmount++;
+        if(settings.splashClickAmount === settings.splashRedirectCount)
+            window.open("<%#INSERT:PROJGITHUBURL#%>/blob/master/data/translations/splashes.json");
+        else
+            loadSplash();
+    });
 }
 
 /**
@@ -1366,16 +1376,24 @@ function addDecodeListeners()
  */
 async function loadSplash()
 {
-    let splashText;
-
+    const splashes = settings.splashes[settings.defaultLang];
     const errSplash = "Error while loading splash text. Look, programming isn't easy :(";
+
+    let splashText = "";
 
     try
     {
-        const pingRes = await fetch(settings.pingUrlPath);
-        const pingResJson = await pingRes.json();
+        const getSplashIdx = () => {
+            const idx = Math.floor(Math.random() * splashes.length);
 
-        splashText = pingResJson.ping || errSplash;
+            if(idx === settings.lastSplashIdx)
+                return getSplashIdx();
+
+            settings.lastSplashIdx = idx;
+            return idx;
+        };
+
+        splashText = splashes[getSplashIdx()];
     }
     catch(err)
     {

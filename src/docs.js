@@ -1,19 +1,20 @@
 // this module initializes the blacklist, whitelist and console blacklist
 
 const { isEmpty, unused, FolderDaemon, colors } = require("svcorelib");
-// const farmhash = require("farmhash");
 const fs = require("fs-extra");
-const settings = require("../settings");
+const zlib = require("zlib");
+const xss = require("xss");
+const semver = require("semver");
+const path = require("path");
+
 const debug = require("./debug");
 const packageJSON = require("../package.json");
 const parseJokes = require("./parseJokes");
 const logRequest = require("./logRequest");
-const zlib = require("zlib");
-const xss = require("xss");
-const semver = require("semver");
 const analytics = require("./analytics");
 const languages = require("./languages");
-const path = require("path");
+
+const settings = require("../settings");
 
 
 /** @typedef {"gzip"|"deflate"|"brotli"} EncodingName Encodings supported by JokeAPI - excludes "identity" */
@@ -287,6 +288,7 @@ function inject(filePath)
                 //#SECTION INSERTs
                 const contributors = JSON.stringify(packageJSON.contributors);
                 const jokeCount = parseJokes.jokeCount;
+                const splashesObj = require("./main").splashes;
 
                 /** Contains key-value pairs of injection / insertion keys and their values */
                 const injections = {
@@ -319,12 +321,13 @@ function inject(filePath)
                     "%#INSERT:CACHINGDATAEXPIRYHOURS#%": settings.jokeCaching.expiryHours.toString(),
                     "%#INSERT:SEARCHSTRWILDCARDLIMIT#%": settings.jokes.regexRepetitionLimit.toString(),
                     "%#INSERT:DEFAULTLANGCODE#%":        settings.languages.defaultLanguage.toString(),
+                    "%#INSERT:SPLASHESOBJ#%":            Buffer(JSON.stringify(splashesObj)).toString("base64"),
                 };
 
                 const checkMatch = (key, regex) => {
                     allMatches += ((file.toString().match(regex) || []).length || 0);
                     const injection = sanitize(injections[key]);
-                    file = file.replace(regex, !isEmpty(injection) ? injection : "Error");
+                    file = file.replace(regex, !isEmpty(injection) ? injection : "<Error>");
                 };
 
                 let allMatches = 0;

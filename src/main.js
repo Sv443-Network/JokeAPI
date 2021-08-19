@@ -4,7 +4,7 @@
 "use strict";
 
 
-const { unused, filesystem, system, colors, ProgressBar } = require("svcorelib");
+const { unused, filesystem, system, colors, ProgressBar, reserialize } = require("svcorelib");
 const fs = require("fs-extra");
 const promiseAllSequential = require("promise-all-sequential");
 
@@ -50,6 +50,8 @@ settings.init.exitSignals.forEach(sig => {
 
 /** @type {SplashesFile} */
 let splashes = {};
+module.exports.splashes = splashes;
+
 let splashDefaultLang = "en";
 
 //#MARKER init all
@@ -128,6 +130,7 @@ async function initAll()
 
     // load in splash texts :)
     splashes = await loadSplashes();
+    module.exports.splashes = reserialize(splashes);
 
     // create progress bar if the settings and debugger state allow it
     const pb = (!persistentData.debuggerActive && !settings.debug.progressBarDisabled) ? new ProgressBar(initStages.length, `Initializing ${initStages[0].name}`) : undefined;
