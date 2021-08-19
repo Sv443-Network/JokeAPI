@@ -5,6 +5,9 @@
 
 const fs = require("fs-extra");
 const semver = require("semver");
+const { colors } = require("svcorelib");
+
+const col = colors.fg;
 
 const options = {
     SOURCE_FILE: "changelog.txt",
@@ -37,12 +40,14 @@ function extractVersionArray(versionLines = []) {
     //  ]
     // }
 
-    return Object.entries(versionsObj).map(
+    const versionArray = Object.entries(versionsObj).map(
         ([versionTitle, versionEntries]) => ({
             versionTitle,
             versionEntries,
         })
     );
+
+    return versionArray;
 }
 
 function extractData() {
@@ -59,9 +64,6 @@ function extractData() {
 
     jsonData.versions = extractVersionArray(versionData);
 
-    if (process.argv.includes("--generate-json")) {
-        fs.writeFileSync(options.DATA_FILE, JSON.stringify(jsonData, null, 4));
-    }
     return jsonData;
 }
 
@@ -184,14 +186,21 @@ function writeMD(
         + `<br><br><br>\n\n<div style="text-align: center;" align="center">\n\nThis file was auto-generated from the source file at [./${options.SOURCE_FILE}](./${options.SOURCE_FILE})  \n`
         + `Thanks to [@sahithyandev](https://github.com/sahithyandev) for this feature :)\n\n</div>`
     );
-
-    console.log(`\x1b[32m\x1b[1mGenerated changelog at ./${options.OUTPUT_FILE}\n\x1b[0m`);
 }
 
 function generateMD() {
     const data = extractData();
 
     writeMD(data);
+
+    if (process.argv.includes("--generate-json") || process.argv.includes("-j")) {
+        console.log(`${col.blue}Writing JSON data to ./${options.DATA_FILE}${col.rst}`);
+        fs.writeFileSync(options.DATA_FILE, JSON.stringify(data, null, 4));
+    }
+
+    console.log(`\n${col.green}Generated changelog at ./${options.OUTPUT_FILE}\n${col.rst}`);
+
+    process.exit(0);
 }
 
 generateMD();
