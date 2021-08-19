@@ -14,6 +14,8 @@ const colorCycle = process.argv.includes("--color-cycle") || process.argv.includ
 
 const port = 8074;
 
+const padding = "    ";
+
 
 async function run()
 {
@@ -38,12 +40,12 @@ async function run()
             col = colors[colorIdx];
         }
 
-        let ipInfo = `> IP Info:\n`;
-        ipInfo += `    URL:     /${url.pathArray.join("/")}\n`
-        ipInfo += `    Method:  ${req.method}\n`;
-        ipInfo += `    Raw IP:  ${rawIP}\n`;
-        ipInfo += `    Hashed:  ${hashedIP}\n`;
-        ipInfo += `    Time:    ${Date.now()}`
+        let ipInfo = `> IP Info: \n`;
+        ipInfo += `${padding}URL:     /${url.pathArray.join("/")} \n`
+        ipInfo += `${padding}Method:  ${req.method} \n`;
+        ipInfo += `${padding}Raw IP:  ${rawIP} \n`;
+        ipInfo += `${padding}Hashed:  ${hashedIP} \n`;
+        ipInfo += `${padding}Time:    ${Date.now()} \n`
 
         console.log(`${col}${ipInfo}${scl.colors.rst}\n`);
 
