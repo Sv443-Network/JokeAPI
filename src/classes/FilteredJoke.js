@@ -5,7 +5,6 @@
 const scl = require("svcorelib");
 const safeRegex = require("safe-regex");
 
-const AllJokes = require("./AllJokes");
 const parseJokes = require("../parseJokes");
 const languages = require("../languages");
 const tr = require("../translate");
@@ -18,11 +17,9 @@ const settings = require("../../settings");
 /** @typedef {import("../parseJokes").SingleJoke|import("../parseJokes").TwopartJoke} JokeObj */
 /** @typedef {"nsfw"|"racist"|"sexist"|"religious"|"political"|"explicit"} BlacklistFlags */
 /** @typedef {"Any"|"Programming"|"Miscellaneous"|"Dark"} JokeCategory */
+/** @typedef {import("./AllJokes")} AllJokes */
 
 
-scl.unused(AllJokes);
-
-var _lastIDs = [];
 var _selectionAttempts = 0;
 
 class FilteredJoke
@@ -63,9 +60,6 @@ class FilteredJoke
         this._lang = settings.languages.defaultLanguage;
         this._amount = 1;
         this._safeMode = false;
-
-        if(!_lastIDs || !Array.isArray(_lastIDs))
-            _lastIDs = [];
 
         return this;
     }
@@ -356,8 +350,6 @@ class FilteredJoke
                 
                 let jokesArray = this._allJokes.getJokeArray(lang);
 
-                // TODO: #319
-
                 //#SECTION joke cache
                 /** @type {number[]} */
                 const cacheEntries = await jokeCache.cacheInstance.listEntries(ip, lang);
@@ -547,7 +539,7 @@ class FilteredJoke
         
         return new Promise((resolve, reject) => {
             let retJokes = [];
-            let multiSelectLastIDs = [];
+            // let multiSelectLastIDs = [];
 
             this._applyFilters(ip, this._lang || settings.languages.defaultLanguage).then(filteredJokes => {
                 if(filteredJokes.length == 0 || typeof filteredJokes != "object")
@@ -557,70 +549,69 @@ class FilteredJoke
                     else
                         return reject(tr(this.getLanguage(), "foundNoMatchingJokes"));
                 }
-                
-                if(!_lastIDs || !Array.isArray(_lastIDs))
-                    _lastIDs = [];
-                
+
                 if(typeof _selectionAttempts != "number")
                     _selectionAttempts = 0;
 
-                /**
-                 * @param {Array<parseJokes.Joke[]>} jokes 
-                 */
-                const selectRandomJoke = jokes => {
-                    const idx = scl.randRange(0, (jokes.length - 1));
-                    const selectedJoke = jokes[idx];
+                // /**
+                //  * @param {Array<parseJokes.Joke[]>} jokes 
+                //  */
+                // const selectRandomJoke = jokes => {
+                //     const idx = scl.randRange(0, (jokes.length - 1));
+                //     const selectedJoke = jokes[idx];
 
-                    // TODO: remove lastIDs check (previous version of joke caching)
-                    if(jokes.length > settings.jokes.lastIDsMaxLength && _lastIDs.includes(selectedJoke.id))
-                    {
-                        if(_selectionAttempts > settings.jokes.jokeRandomizationAttempts)
-                            return reject();
+                //     // TODO: remove lastIDs check (previous version of joke caching)
+                //     if(jokes.length > settings.jokes.lastIDsMaxLength && _lastIDs.includes(selectedJoke.id))
+                //     {
+                //         if(_selectionAttempts > settings.jokes.jokeRandomizationAttempts)
+                //             return reject();
 
-                        _selectionAttempts++;
+                //         _selectionAttempts++;
 
-                        jokes.splice(idx, 1); // remove joke that is already contained in _lastIDs
+                //         jokes.splice(idx, 1); // remove joke that is already contained in _lastIDs
 
-                        return selectRandomJoke(jokes);
-                    }
-                    else
-                    {
-                        _lastIDs.push(selectedJoke.id);
+                //         return selectRandomJoke(jokes);
+                //     }
+                //     else
+                //     {
+                //         _lastIDs.push(selectedJoke.id);
 
-                        if(_lastIDs.length > settings.jokes.lastIDsMaxLength)
-                            _lastIDs.shift();
+                //         if(_lastIDs.length > settings.jokes.lastIDsMaxLength)
+                //             _lastIDs.shift();
 
-                        _selectionAttempts = 0;
+                //         _selectionAttempts = 0;
 
-                        if(!multiSelectLastIDs.includes(selectedJoke.id))
-                        {
-                            multiSelectLastIDs.push(selectedJoke.id);
-                            return selectedJoke;
-                        }
-                        else
-                        {
-                            if(_selectionAttempts > settings.jokes.jokeRandomizationAttempts)
-                                return reject();
+                //         if(!multiSelectLastIDs.includes(selectedJoke.id))
+                //         {
+                //             multiSelectLastIDs.push(selectedJoke.id);
+                //             return selectedJoke;
+                //         }
+                //         else
+                //         {
+                //             if(_selectionAttempts > settings.jokes.jokeRandomizationAttempts)
+                //                 return reject();
 
-                            _selectionAttempts++;
+                //             _selectionAttempts++;
 
-                            jokes.splice(idx, 1); // remove joke that is already contained in _lastIDs
+                //             jokes.splice(idx, 1); // remove joke that is already contained in _lastIDs
 
-                            return selectRandomJoke(jokes);
-                        }
-                    }
-                };
+                //             return selectRandomJoke(jokes);
+                //         }
+                //     }
+                // };
 
                 if(amount < filteredJokes.length)
                 {
                     for(let i = 0; i < amount; i++)
                     {
-                        let rJoke = selectRandomJoke(filteredJokes);
+                        // let rJoke = selectRandomJoke(filteredJokes);
+                        const rJoke = scl.randomItem(filteredJokes);
                         if(rJoke != null)
                             retJokes.push(rJoke);
                     }
                 }
-                else retJokes = filteredJokes;
+                else
+                    retJokes = filteredJokes;
                 
                 // Sort jokes by ID
                 // retJokes.sort((a, b) => {

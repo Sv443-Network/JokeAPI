@@ -10,8 +10,6 @@ const debug = require("../debug");
 
 const settings = require("../../settings");
 
-const endpointsTrFile = getEndpointsTranslationFile();
-
 
 //#MARKER type stuff
 unused("types:", IncomingMessage);
@@ -282,6 +280,8 @@ class Endpoint
      */
     static getTranslations(pathName)
     {
+        const endpointsTrFile = getEndpointsTranslationFile();
+
         /** @type {TranslationsObj} */
         const translations = {
             names: [],

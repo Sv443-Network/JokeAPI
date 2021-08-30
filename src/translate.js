@@ -155,7 +155,7 @@ function initEndpointTranslations()
     return new Promise(async (res, rej) => {
         try
         {
-            endpointsTrFile = await fs.readFile(settings.endpoints.translationsFile);
+            endpointsTrFile = JSON.parse((await fs.readFile(settings.endpoints.translationsFile)).toString());
 
             return res();
         }
