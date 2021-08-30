@@ -1,6 +1,6 @@
 const { isEmpty, unused, filesystem } = require("svcorelib");
 
-const httpServer = require("../../httpServer");
+const { getAcceptedEncoding, getFileExtensionFromEncoding } = require("../../httpCommon");
 const debug = require("../../debug");
 const Endpoint = require("../../classes/Endpoint");
 
@@ -113,9 +113,9 @@ class Static extends Endpoint {
             break;
         }
 
-        const selectedEncoding = allowEncoding ? httpServer.getAcceptedEncoding(req) : "identity"; // identity = no encoding (see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding)
+        const selectedEncoding = allowEncoding ? getAcceptedEncoding(req) : "identity"; // identity = no encoding (see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding)
 
-        const fileExtension = selectedEncoding != "identity" ? `.${httpServer.getFileExtensionFromEncoding(selectedEncoding)}` : "";
+        const fileExtension = selectedEncoding != "identity" ? `.${getFileExtensionFromEncoding(selectedEncoding)}` : "";
 
 
         filePath = `${filePath}${fileExtension}`;

@@ -13,6 +13,7 @@ const parseJokes = require("./parseJokes");
 const logRequest = require("./logRequest");
 const analytics = require("./analytics");
 const languages = require("./languages");
+const { getAllSplashes } = require("./splashes");
 
 const settings = require("../settings");
 
@@ -288,7 +289,6 @@ function inject(filePath)
                 //#SECTION INSERTs
                 const contributors = JSON.stringify(packageJSON.contributors);
                 const jokeCount = parseJokes.jokeCount;
-                const splashesObj = require("./main").splashes;
 
                 /** Contains key-value pairs of injection / insertion keys and their values */
                 const injections = {
@@ -321,7 +321,7 @@ function inject(filePath)
                     "%#INSERT:CACHINGDATAEXPIRYHOURS#%": settings.jokeCaching.expiryHours.toString(),
                     "%#INSERT:SEARCHSTRWILDCARDLIMIT#%": settings.jokes.regexRepetitionLimit.toString(),
                     "%#INSERT:DEFAULTLANGCODE#%":        settings.languages.defaultLanguage.toString(),
-                    "%#INSERT:SPLASHESOBJ#%":            Buffer(JSON.stringify(splashesObj)).toString("base64"),
+                    "%#INSERT:SPLASHESOBJ#%":            Buffer.from(JSON.stringify(getAllSplashes()), "utf8").toString("base64"),
                 };
 
                 const checkMatch = (key, regex) => {

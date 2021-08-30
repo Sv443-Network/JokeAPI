@@ -1,10 +1,10 @@
 const scl = require("svcorelib");
 
-const main = require("../../main");
 const parseJokes = require("../../parseJokes");
 const languages = require("../../languages");
 const settings = require("../../../settings");
 const translate = require("../../translate");
+const { getSplash } = require("../../splashes");
 
 const Endpoint = require("../../classes/Endpoint");
 
@@ -89,7 +89,7 @@ class Info extends Endpoint {
                 "jokeLanguages": supportedLangsLength,
                 "systemLanguages": systemLanguagesLength,
                 "info": translate(lang, "messageOfTheDay", settings.info.name),
-                "splash": main.getSplash(lang),
+                "splash": getSplash(lang),
                 "serverLatency": (now - httpMetrics.requestArrival.getTime()),
                 "timestamp": Date.now()
             };
@@ -122,7 +122,7 @@ class Info extends Endpoint {
                 "jokeLanguages": supportedLangsLength,
                 "systemLanguages": systemLanguagesLength,
                 "info": translate(lang, "messageOfTheDay", settings.info.name),
-                "splash": main.getSplash(lang),
+                "splash": getSplash(lang),
                 "serverLatency": (now - httpMetrics.requestArrival.getTime()),
                 "timestamp": Date.now()
             };

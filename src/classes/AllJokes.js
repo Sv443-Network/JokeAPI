@@ -1,12 +1,12 @@
-const { allEqual, unused } = require("svcorelib");
+const { allEqual } = require("svcorelib");
 
-const parseJokes = require("../parseJokes");
 const languages = require("../languages");
 
 const settings = require("../../settings");
 
+/** @typedef {import("../parseJokes").SingleJoke} SingleJoke */
+/** @typedef {import("../parseJokes").TwopartJoke} TwopartJoke */
 
-unused("typedefs", parseJokes);
 
 // expected format:
 /*
@@ -106,7 +106,7 @@ class AllJokes
     /**
      * Returns an array of all jokes of the specified language
      * @param {String} [langCode="en"] Two character language code
-     * @returns {Array<parseJokes.SingleJoke|parseJokes.TwopartJoke>}
+     * @returns {Array<SingleJoke|TwopartJoke>}
      */
     getJokeArray(langCode)
     {

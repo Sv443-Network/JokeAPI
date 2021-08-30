@@ -4,11 +4,9 @@
 "use strict";
 
 
-const { unused, filesystem, system, colors, ProgressBar, reserialize } = require("svcorelib");
-const fs = require("fs-extra");
+const { unused, filesystem, system, colors, ProgressBar } = require("svcorelib");
 const promiseAllSequential = require("promise-all-sequential");
 
-const settings = require("../settings");
 const debug = require("./debug");
 const parseJokes = require("./parseJokes");
 const httpServer = require("./httpServer");
@@ -22,7 +20,9 @@ const translate = require("./translate");
 const meter = require("./meter");
 const jokeCache = require("./jokeCache");
 const parseURL = require("./parseURL");
-const { randomItem } = require("svcorelib");
+const splashes = require("./splashes");
+
+const settings = require("../settings");
 
 const col = colors.fg;
 
@@ -39,20 +39,6 @@ settings.init.exitSignals.forEach(sig => {
     process.on(sig, () => softExit(0));
 });
 
-
-/**
- * An object describing all splash texts, sorted under each's language code
- * @typedef {object} SplashesFile
- * @prop {string[]} de
- * @prop {string[]} en
- * @prop {string[]} etc
- */
-
-/** @type {SplashesFile} */
-let splashes = {};
-module.exports.splashes = splashes;
-
-let splashDefaultLang = "en";
 
 //#MARKER init all
 /**
@@ -77,7 +63,7 @@ async function initAll()
 
     /**
      * The different stages to JokeAPI's initialization.  
-     * The stages are initialized sequentially, meaning the lowest index will be called first, then the second lowest, and so on.
+     * The stages are initialized sequentially, meaning the first item (index 0) will be initialized first, after it has finished the second item, and so on.
      */
     const initStages = [
         {
@@ -87,6 +73,10 @@ async function initAll()
         {
             name: "Translations module",
             fn: translate.init
+        },
+        {
+            name: "Splashes module",
+            fn: splashes.init
         },
         {
             name: "Joke parser module",
@@ -127,10 +117,6 @@ async function initAll()
     ];
 
     initStages.forEach(stage => initPromises.push(stage.fn));
-
-    // load in splash texts :)
-    splashes = await loadSplashes();
-    module.exports.splashes = reserialize(splashes);
 
     // create progress bar if the settings and debugger state allow it
     const pb = (!persistentData.debuggerActive && !settings.debug.progressBarDisabled) ? new ProgressBar(initStages.length, `Initializing ${initStages[0].name}`) : undefined;
@@ -210,73 +196,6 @@ async function softExit(code = 0)
         process.exit(code);
     }
 }
-
-/**
- * Loads splashes and returns them
- * @returns {Promise<SplashesFile>}
- */
-function loadSplashes()
-{
-    return new Promise((res, rej) => {
-        fs.readFile(settings.languages.splashesFilePath, (err, data) => {
-            if(err)
-                return rej(`Couldn't read splashes file '${settings.languages.splashesFilePath}' due to error: ${err}`);
-
-            try
-            {
-                const splashesFile = JSON.parse(data.toString());
-
-                splashDefaultLang = splashesFile.defaultLang;
-                // const languages = splashesFile.languages;
-                const splashObjs = splashesFile.splashes;
-
-                /** @type {SplashesFile} */
-                const splashes = {};
-
-                splashObjs.forEach(splashObj => {
-                    Object.keys(splashObj).forEach(/**@type {"en"}*/langCode => {
-                        if(!Array.isArray(splashes[langCode]))
-                            splashes[langCode] = [];
-
-                        const splashText = splashObj[langCode];
-                        
-                        splashes[langCode].push(splashText);
-                    });
-                });
-
-                if(Object.keys(splashes).length > 0)
-                    return res(splashes);
-                else
-                    return rej(`No splashes present in file '${settings.languages.splashesFilePath}'`);
-            }
-            catch(err)
-            {
-                return rej(`General error while loading splash texts: ${err}`);
-            }
-        });
-    });
-}
-
-/**
- * Returns a random splash of the specified language
- * @param {string} lang
- */
-function getSplash(lang)
-{
-    let splash = "missingno"; // lgtm[js/useless-assignment-to-local]
-    const langSplashes = splashes[lang];
-
-    if(langSplashes && langSplashes.length > 0)
-        splash = randomItem(langSplashes);
-    else
-        splash = randomItem(splashes[splashDefaultLang]);
-
-    return splash;
-}
-
-
-module.exports = { softExit, getSplash };
-
 
 // run initAll when this script file is executed
 initAll();

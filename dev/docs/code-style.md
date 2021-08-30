@@ -61,7 +61,7 @@ This describes the general style of the code.
 > const { allOfType } = require("svcorelib");
 > 
 > const Endpoint = require("./src/classes/Endpoint");
-> const httpServer = require("./src/httpServer");
+> const httpCommon = require("./src/httpCommon");
 > 
 > const settings = require("./settings");
 > ```
