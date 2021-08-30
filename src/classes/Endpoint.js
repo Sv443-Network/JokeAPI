@@ -5,12 +5,12 @@ const _http = require("http");
 const convertFileFormat = require("../fileFormatConverter");
 const parseURL = require("../parseURL");
 const { isValidLang } = require("../languages");
+const { getEndpointsTranslationFile } = require("../translate");
 const debug = require("../debug");
 
 const settings = require("../../settings");
 
-// TODO: load in with fs because require() has a cache
-const endpointsTrFile = require(`../../${settings.endpoints.translationsFile}`);
+const endpointsTrFile = getEndpointsTranslationFile();
 
 
 //#MARKER type stuff
@@ -282,8 +282,6 @@ class Endpoint
      */
     static getTranslations(pathName)
     {
-        // const endpointsTrFile = require("../data/translations/endpoints.json");
-
         /** @type {TranslationsObj} */
         let translations = {
             names: [],

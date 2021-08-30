@@ -10,10 +10,12 @@ const settings = require("../settings");
 
 /** @typedef {import("./classes/FilterComponentEndpoint").FilterComponentName} FilterComponentName */
 /** @typedef {import("svcorelib").Stringifiable} Stringifiable */
+/** @typedef {import("../data/translations/endpoints.json")} EndpointsTrFile */
 
 
 let trFile = {};
 let filterCompTrFile = {};
+let endpointsTrFile = {};
 
 /**
  * Initializes the translation module by caching the translations so they only need to be read from disk once
@@ -35,6 +37,10 @@ function init()
             filterCompTrFile = JSON.parse(filterCompFileCont.toString());
 
             debug("Translate", `Found ${Object.keys(filterCompTrFile.tr).length} filter component translations`);
+
+            await initEndpointTranslations();
+
+            debug("Translate", "Initialized endpoint translations");
 
             return pRes();
         }
@@ -140,7 +146,37 @@ function systemLangs()
     return trFile.languages;
 }
 
+/**
+ * Initializes the endpoint translations
+ * @returns {Promise<void, string>}
+ */
+function initEndpointTranslations()
+{
+    return new Promise(async (res, rej) => {
+        try
+        {
+            endpointsTrFile = await fs.readFile(settings.endpoints.translationsFile);
+
+            return res();
+        }
+        catch(err)
+        {
+            return rej(`Error while initializing endpoint translations: ${err}`);
+        }
+    });
+}
+
+/**
+ * Returns the contents of the endpoints translation file
+ * @returns {EndpointsTrFile}
+ */
+function getEndpointsTranslationFile()
+{
+    return endpointsTrFile;
+}
+
 module.exports = translate;
 module.exports.init = init;
 module.exports.systemLangs = systemLangs;
 module.exports.getFilterComponentDescription = getFilterComponentDescription;
+module.exports.getEndpointsTranslationFile = getEndpointsTranslationFile;
