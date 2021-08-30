@@ -553,53 +553,6 @@ class FilteredJoke
                 if(typeof _selectionAttempts != "number")
                     _selectionAttempts = 0;
 
-                // /**
-                //  * @param {Array<parseJokes.Joke[]>} jokes 
-                //  */
-                // const selectRandomJoke = jokes => {
-                //     const idx = scl.randRange(0, (jokes.length - 1));
-                //     const selectedJoke = jokes[idx];
-
-                //     // TODO: remove lastIDs check (previous version of joke caching)
-                //     if(jokes.length > settings.jokes.lastIDsMaxLength && _lastIDs.includes(selectedJoke.id))
-                //     {
-                //         if(_selectionAttempts > settings.jokes.jokeRandomizationAttempts)
-                //             return reject();
-
-                //         _selectionAttempts++;
-
-                //         jokes.splice(idx, 1); // remove joke that is already contained in _lastIDs
-
-                //         return selectRandomJoke(jokes);
-                //     }
-                //     else
-                //     {
-                //         _lastIDs.push(selectedJoke.id);
-
-                //         if(_lastIDs.length > settings.jokes.lastIDsMaxLength)
-                //             _lastIDs.shift();
-
-                //         _selectionAttempts = 0;
-
-                //         if(!multiSelectLastIDs.includes(selectedJoke.id))
-                //         {
-                //             multiSelectLastIDs.push(selectedJoke.id);
-                //             return selectedJoke;
-                //         }
-                //         else
-                //         {
-                //             if(_selectionAttempts > settings.jokes.jokeRandomizationAttempts)
-                //                 return reject();
-
-                //             _selectionAttempts++;
-
-                //             jokes.splice(idx, 1); // remove joke that is already contained in _lastIDs
-
-                //             return selectRandomJoke(jokes);
-                //         }
-                //     }
-                // };
-
                 if(amount < filteredJokes.length)
                 {
                     for(let i = 0; i < amount; i++)

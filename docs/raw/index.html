@@ -1221,7 +1221,7 @@ None. It's a hardware problem.
                 <br><br>
 
 
-                <!--#SECTION TODO: Types-->
+                <!--#SECTION Types-->
                 <div class="subHeaderContainer"><a href="types-endpoint" title="Click to link to this header">§</a> <span id="types-endpoint" class="subHeader">Types:</span></div>
                 <span class="requestURLwrapper">
                     <span class="requestMethodGET">GET</span>
@@ -1337,7 +1337,7 @@ None. It's a hardware problem.
                 </ul>
                 <br><br>
 
-                <details><summary>Click here to see how the server responds to a joke submission</summary> <!-- TODO: add parameter validity object -->
+                <details><summary>Click here to see how the server responds to a normal joke submission</summary>
 <code class="prettyprint"><span class="nocode codeheader">Server Response:</span>
 <div class="actualCode">{
     "error": false,
@@ -1357,45 +1357,70 @@ None. It's a hardware problem.
         },
         "lang": "en"
     },
-    "timestamp": 1579685839560
+    "timestamp": 1630357696604
 }
 </div></code>
                 </details>
                 <br><br>
                 
-                <details><summary>Click here to see how the server responds to a submission dry run</summary>
+                <details><summary>Click here to see how the server responds to a submission dry run with an invalid submission</summary>
 <code class="prettyprint"><span class="nocode codeheader">Server Response:</span>
 <div class="actualCode">{
-    "error": false,
-    "message": "Dry Run complete! No errors were found.",
-    "timestamp": 1604627398681
+    "error": true,
+    "internalError": false,
+    "code": 105,
+    "message": "Malformed Joke",
+    "causedBy": [
+        "Joke doesn't have the \"explicit\" flag or it is invalid."
+    ],
+    "additionalInfo": "",
+    "validProperties": {
+        "formatVersion": true,
+        "category": true,
+        "type": true,
+        "joke": true,
+        "flags": {
+            "nsfw": true,
+            "religious": true,
+            "political": true,
+            "racist": true,
+            "sexist": true,
+            "explicit": false
+        },
+        "lang": true
+    },
+    "timestamp": 1630357696604
 }
 </div></code>
-                                    </details>
+                <br>
+                As you can see, you will get a <mark>validProperties</mark> object, which tells you exactly which property is invalid (the "explicit" flag in this case).<br>
+                This object will also be present if your submission is formatted correctly.<br>
+
+                </details>
 
 
-                                    <br><br><br>
+                <br><br><br>
 
 
-                                    <div class="subHeaderContainer"><a href="#clear-data-endpoint" title="Click to link to this header">§</a> <span id="clear-data-endpoint" class="subHeader">Clear Data:</span></div>
-                                    <span class="requestURLwrapper">
-                                        <span class="requestMethodPOST">POST</span>
-                                        <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/cleardata</span>
-                                    </span>
-                                    <br><br>
-                                    This endpoint is used to manually delete all the data <!--%#INSERT:NAME#%--> has collected from you.<br>
-                                    The request itself will trigger a deletion, any sent data will be ignored.<br>
-                                    <br>
-                                    <span class="mimica" onclick="privPolMoreInfo()">Click here</span> to view what data <!--%#INSERT:NAME#%--> collects.<br>
-                                    <br>
-                                    Supported URL parameters:<br>
-                                    <ul>
-                                        <li><a class="requestURL" href="#format-param">?format</a></li>
-                                        <li><a class="requestURL" href="#lang">?lang</a></li>
-                                    </ul>
-                                    <br>
-                                    This is how the server's response looks like after deletion:<br>
-                                    <br>
+                <div class="subHeaderContainer"><a href="#clear-data-endpoint" title="Click to link to this header">§</a> <span id="clear-data-endpoint" class="subHeader">Clear Data:</span></div>
+                <span class="requestURLwrapper">
+                    <span class="requestMethodPOST">POST</span>
+                    <span class="requestURL"><!--%#INSERT:DOCSURL#%-->/cleardata</span>
+                </span>
+                <br><br>
+                This endpoint is used to manually delete all the data <!--%#INSERT:NAME#%--> has collected from you.<br>
+                The request itself will trigger a deletion, any sent data will be ignored.<br>
+                <br>
+                <span class="mimica" onclick="privPolMoreInfo()">Click here</span> to view what data <!--%#INSERT:NAME#%--> collects.<br>
+                <br>
+                Supported URL parameters:<br>
+                <ul>
+                    <li><a class="requestURL" href="#format-param">?format</a></li>
+                    <li><a class="requestURL" href="#lang">?lang</a></li>
+                </ul>
+                <br>
+                This is how the server's response looks like after deletion:<br>
+                <br>
 <code class="prettyprint"><span class="nocode codeheader">Server Response:</span>
 <div class="actualCode">{
     "error": false,
@@ -1406,9 +1431,9 @@ None. It's a hardware problem.
     "timestamp": 1622672941547
 }
 </div></code>
-                                    <br>
+                <br>
 
-                                    <br><br><br>
+                <br><br><br>
 
 
                 <!-- #MARKER Filtering -->
