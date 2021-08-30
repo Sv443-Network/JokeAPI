@@ -1,6 +1,6 @@
 const { unused, http, allOfType } = require("svcorelib");
 const { resolve } = require("path");
-const _http = require("http");
+const { IncomingMessage, ServerResponse } = require("http");
 
 const convertFileFormat = require("../fileFormatConverter");
 const parseURL = require("../parseURL");
@@ -14,7 +14,7 @@ const endpointsTrFile = getEndpointsTranslationFile();
 
 
 //#MARKER type stuff
-unused("types:", _http);
+unused("types:", IncomingMessage);
 
 /** @typedef {import("svcorelib").JSONCompatible} JSONCompatible */
 
@@ -95,8 +95,8 @@ class Endpoint
      * This method is run each time a client requests this endpoint  
      * Abstract method - to be overwritten!
      * @abstract ❗️ Abstract method - override this, else a `MissingImplementationError` is thrown ❗️
-     * @param {_http.IncomingMessage} req The HTTP server request
-     * @param {_http.ServerResponse} res The HTTP server response
+     * @param {IncomingMessage} req The HTTP server request
+     * @param {ServerResponse} res The HTTP server response
      * @param {string[]} url URL path array gotten from the URL parser module
      * @param {Object} params URL query params gotten from the URL parser module
      * @param {string} format The file format to respond with
@@ -219,7 +219,7 @@ class Endpoint
      * Static method that sends a response to the client.  
      * Runs file format auto-conversion, then pipes data to the client using `httpServer.pipeString()`
      * @static
-     * @param {_http.ServerResponse} res
+     * @param {ServerResponse} res
      * @param {string} format File format
      * @param {string} lang Language code
      * @param {JSONCompatible} data JSON-compatible object - data to send to the client
@@ -227,7 +227,7 @@ class Endpoint
      */
     static respond(res, format, lang, data, statusCode)
     {
-        if(!(res instanceof _http.ServerResponse))
+        if(!(res instanceof ServerResponse))
             throw new TypeError(`Parameter "res" is not an instance of "http.ServerResponse"`);
 
         if(typeof format !== "string")
@@ -256,7 +256,7 @@ class Endpoint
     /**
      * Sends a file to the client
      * @static
-     * @param {_http.ServerResponse} res
+     * @param {ServerResponse} res
      * @param {string} mimeType MIME type
      * @param {string} lang Language code
      * @param {string} filePath Path to the file
@@ -276,14 +276,14 @@ class Endpoint
 
     /**
      * Returns the translations object of the specified endpoint  
-     * @param {string} pathName At which path this endpoint will be called
+     * @param {string} pathName The path of this endpoint (same as `pathName` parameter in Endpoint constructor)
      * @throws TypeError if the pathName is invalid
      * @returns {TranslationsObj}
      */
     static getTranslations(pathName)
     {
         /** @type {TranslationsObj} */
-        let translations = {
+        const translations = {
             names: [],
             descriptions: [],
             languages: endpointsTrFile.languages,
