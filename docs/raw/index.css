@@ -208,6 +208,8 @@ header .headeritem {
 
 header .headeritem.m {
     flex-grow: 1;
+    padding-top: 7px;
+    padding-bottom: 7px;
     text-align: center;
 }
 
@@ -249,12 +251,17 @@ header #docTitle {
 
 @media (max-width: 750px) {
     header #docTitle {
-        font-size: 20px;
         white-space: normal;
     }
 
     .mobileHide {
         display: none;
+    }
+}
+
+@media (max-width: 450px) {
+    header .headeritem.l {
+        flex-shrink: 2;
     }
 }
 
@@ -790,19 +797,24 @@ textarea {
     line-height: initial;
 }
 
-#sidenav a, .sidenav-mimica {
+#sidenav a, .sidenav-mimica, #sidenav .mimica {
     flex-grow: 1;
     padding: 5px 8px 5px 32px;
     text-decoration: none;
     font-size: 20px;
     color: #a5a5a5;
     display: block;
-    transition: color linear 0.3s;
+    transition: color 0.2s ease-out;
 }
 
-#sidenav a:hover, .sidenav-mimica:hover {
+#sidenav a:not(.closebtn):hover, .sidenav-mimica:hover, #sidenav .mimica:hover {
     cursor: pointer;
     color: #fff;
+}
+
+#sidenav a.closebtn:hover {
+    cursor: pointer;
+    color: var(--accent-color-light);
 }
 
 #sidenav details > summary {
