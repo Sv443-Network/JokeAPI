@@ -1,4 +1,4 @@
-// TODO: (v2.4.1) rewrite this entire thing 
+// TODO(v2.4.1) rewrite this entire thing
 
 
 const fs = require("fs-extra");
@@ -44,7 +44,7 @@ const run = () => {
 
                 if(submission.formatVersion != settings.jokes.jokesFormatVersion)
                     console.error(`${colors.fg.red}Error: Format version is incorrect${colors.rst}`);
-                
+
                 console.log(`${colors.fg.yellow}Language:${colors.rst}  ${submission.lang}`);
 
                 if(submission.type == "single")
@@ -121,7 +121,7 @@ function getAllJokes()
 
 /**
  * Adds a joke to the `jokesFile` object
- * @param {Object} joke 
+ * @param {Object} joke
  */
 const addJoke = joke => {
     let fJoke = JSON.parse(JSON.stringify(joke)); // reserialize because call by reference :(
@@ -166,7 +166,7 @@ const finishAdding = () => {
 
 /**
  * Returns the flags of a joke as a string
- * @param {Object} joke 
+ * @param {Object} joke
  * @returns {String}
  */
 const getFlags = joke => {

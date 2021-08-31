@@ -14,8 +14,10 @@ const col = colors.fg;
 
 
 /** TODO:
- * Using joke filters means the cache and pool size aren't valid anymore and should be recalculated
- * Alternatively, cache entries in the database should be deleted prior to each request
+ * - Using joke filters means the cache and pool size aren't in sync anymore and should be recalculated
+ * - Alternatively, cache entries in the database should be deleted prior to each request instead of fixed pool size after each request
+ *   This would theoretically allow languages with less jokes to also make use of caching, although the minimum should even be highered to something like 25 or even as high as 40
+ *   This is to not impact joke selection randomness too much
  */
 
 

@@ -1,0 +1,30 @@
+## Testing for v2.4.0:
+
+- [ ] Documentation
+    - [ ] Try-It section
+    - [ ] Look over everything once
+- [ ] Endpoints (including each's supported URL parameters)
+    - [ ] GET
+        - [ ] /categories
+        - [ ] /endpoints
+        - [ ] /flags
+        - [ ] /formats
+        - [ ] /info
+        - [x] /joke
+        - [ ] /langcode
+        - [ ] /languages
+        - [ ] /ping
+        - [ ] /static
+        - [ ] /types
+    - [ ] POST
+        - [ ] /cleardata
+        - [ ] /submit
+        - [ ] /restart
+- [ ] Joke Caching
+    - [ ] Creation of DB entries
+    - [ ] Deletion of DB entries
+    - [ ] Garbage Collection
+- [ ] General Stuff
+    - [ ] Everything in code marked with `TODO`
+    - [ ] Rate Limiting
+    - [ ] Response conversion (file formats)
