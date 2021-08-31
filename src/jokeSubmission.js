@@ -2,6 +2,7 @@ const scl = require("svcorelib");
 const fs = require("fs-extra");
 const http = require("http");
 const { resolve, join } = require("path");
+const sanitizeFileName = require("sanitize-filename");
 
 const parseJokes = require("./parseJokes");
 const logRequest = require("./logRequest");
@@ -135,7 +136,7 @@ function getSubmissionFilePath(res, fileFormat, lang, ip, submissionLang, analyt
     const curTS = Date.now();
     const sanitizedIP = ip.replace(settings.httpServer.ipSanitization.regex, settings.httpServer.ipSanitization.replaceChar).substring(0, 16);
 
-    let filePath = join(settings.jokes.jokeSubmissionPath, submissionLang, `/submission_${sanitizedIP}_0_${curTS}.json`);
+    let filePath = join(settings.jokes.jokeSubmissionPath, submissionLang, `/${sanitizeFileName(`submission_${sanitizedIP}_0_${curTS}.json`)}`);
 
     let iter = 0;
     const findNextNum = currentNum => {
