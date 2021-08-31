@@ -66,6 +66,7 @@
         - Fixed broken Try-It section result when using `format=xml` ([issue #232](https://github.com/Sv443/JokeAPI/issues/232))
         - Fixed C# code example in documentation once again ([issue #237](https://github.com/Sv443/JokeAPI/issues/237))
         - Error page's header value wasn't sanitized ([issue #286](https://github.com/Sv443/JokeAPI/issues/286))
+        - Added new "Response Header" section that lists JokeAPI's various response headers
     - Fixed renamed package `require-uncached` (now `import-fresh`)
     - 404 requests now don't wait for a timeout anymore ([issue #314](https://github.com/Sv443/JokeAPI/issues/314))
 - Internal Stuff:
@@ -76,6 +77,7 @@
     - Implemented and fixed SCL's FolderDaemon ([issue #241](https://github.com/Sv443/JokeAPI/issues/241))
     - Switched from LGTM to CodeQL for code analysis ([issue #290](https://github.com/Sv443/JokeAPI/issues/290))
     - Fixed all kinds of inconsistencies in the code
+    - Patched all kinds of security vulnerabilities by updating dependencies
 
 
 <br><br><br>
