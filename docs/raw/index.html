@@ -1528,10 +1528,16 @@ None. It's a hardware problem.
                         <td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding" target="_blank" rel="noopener noreferrer">MDN</a></td>
                     </tr>
                     <tr>
-                        <td><marK>TODO: rate limit headers</marK></td>
-                        <td><marK class="nowrap">Syntax</marK></td>
-                        <td>Description</td>
-                        <td><a href="ReferenceLink" target="_blank" rel="noopener noreferrer">MDN</a></td>
+                        <td>
+                            <marK>Retry-After</marK><br>
+                            <marK>RateLimit-Limit</marK><br>
+                            <marK>RateLimit-Remaining</marK><br>
+                            <marK>RateLimit-Reset</marK>
+                        </td>
+                        <td><a href="#rate-limiting">See Rate Limiting</a></td>
+                        <td><!--%#INSERT:NAME#%--> has to protect itself against <a href="https://en.wikipedia.org/wiki/Denial-of-service_attack" target="_blank" rel="noopener noreferrer">Denial of Service (DoS / DDoS) attacks</a>, so it makes use of <a href="https://en.wikipedia.org/wiki/Rate_limiting" target="_blank" rel="noopener noreferrer">Rate Limiting.</a><br>
+                            These headers tell you all about your current request budget. See <a href="#rate-limiting">the Rate Limiting section</a> for more details.</td>
+                        <td><a href="https://tools.ietf.org/id/draft-polli-ratelimit-headers-00.html#this-proposal" target="_blank" rel="noopener noreferrer">IETF</a></td>
                     </tr>
                     <!-- Template:
                     <tr>
