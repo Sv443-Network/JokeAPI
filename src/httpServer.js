@@ -126,20 +126,20 @@ function init()
                 fs.readdir(folderPath, (err1, files) => {
                     if(err1)
                         return reject(`Error while reading the endpoints directory: ${err1}`);
-        
+
                     files.forEach(file => {
                         let fileName = file.split(".");
                         fileName.pop();
                         fileName = fileName.length > 1 ? fileName.join(".") : fileName[0];
-        
+
                         let endpointFilePath = path.resolve(`${folderPath}${file}`);
-        
+
                         if(fs.statSync(endpointFilePath).isFile())
                         {
                             const EndpointClass = require(endpointFilePath);
                             /** @type {Endpoint} */
                             let instance = new EndpointClass();
-        
+
                             dataEndpoints.push({
                                 name: fileName,
                                 meta: instance.getMeta(),
@@ -155,7 +155,7 @@ function init()
                 });
             });
         };
-        
+
         const registerSubmissionEndpoints = (folderPath) => {
             return new Promise((pRes) => {
                 debug("HTTP", "Starting registration of submission endpoints");
@@ -163,20 +163,20 @@ function init()
                 fs.readdir(folderPath, (err1, files) => {
                     if(err1)
                         return reject(`Error while reading the endpoints directory: ${err1}`);
-        
+
                     files.forEach(file => {
                         let fileName = file.split(".");
                         fileName.pop();
                         fileName = fileName.length > 1 ? fileName.join(".") : fileName[0];
-        
+
                         let endpointFilePath = path.resolve(`${folderPath}${file}`);
-        
+
                         if(fs.statSync(endpointFilePath).isFile())
                         {
                             const EndpointClass = require(endpointFilePath);
                             /** @type {SubmissionEndpoint} */
                             let instance = new EndpointClass();
-        
+
                             submissionEndpoints.push({
                                 name: fileName,
                                 meta: instance.getMeta(),
@@ -235,8 +235,8 @@ function init()
 //#MARKER error stuff
 /**
  * Sets necessary headers on a `res` object so the client knows their rate limiting numbers
- * @param {http.ServerResponse} res 
- * @param {RateLimiterRes} rlRes 
+ * @param {http.ServerResponse} res
+ * @param {RateLimiterRes} rlRes
  */
 function setRateLimitedHeaders(res, rlRes)
 {
@@ -338,7 +338,7 @@ async function incomingRequest(req, res, httpMetrics)
             {
                 res.setHeader("Access-Control-Allow-Origin", "*");
                 res.setHeader("Access-Control-Request-Method", "GET");
-                res.setHeader("Access-Control-Allow-Methods", "GET, POST, HEAD, OPTIONS, PUT");
+                res.setHeader("Access-Control-Allow-Methods", "GET, POST, HEAD, OPTIONS");
                 res.setHeader("Access-Control-Allow-Headers", "*");
             }
             catch(err)
@@ -347,7 +347,7 @@ async function incomingRequest(req, res, httpMetrics)
             }
         }
 
-        res.setHeader("Allow", "GET, POST, HEAD, OPTIONS, PUT");
+        res.setHeader("Allow", "GET, POST, HEAD, OPTIONS");
 
         if(settings.httpServer.infoHeaders)
             res.setHeader("API-Info", `${settings.info.name} v${settings.info.version} (${settings.info.docsURL})`);
@@ -478,7 +478,7 @@ async function incomingRequest(req, res, httpMetrics)
                                     unused(err); // gets handled elsewhere
                                 }
                             }
-                            
+
                             if(isAuthorized)
                             {
                                 debug("HTTP", `Requester has valid token ${colors.fg.green}${headerAuth.token.substr(0, 16)}${colors.rst} …`);
@@ -496,7 +496,7 @@ async function incomingRequest(req, res, httpMetrics)
                             foundEndpoint = true;
 
                             const meta = ep.meta;
-                            
+
                             if(!isEmpty(meta) && meta.skipRateLimitCheck === true)
                             {
                                 try
@@ -706,7 +706,7 @@ async function serveDocumentation(req, res)
     {
         if(selectedEncoding == null)
             selectedEncoding = "identity"; // identity = no encoding (see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding)
-        
+
         res.setHeader("Content-Encoding", selectedEncoding);
 
         return pipeFile(res, filePath, "text/html", 200);
