@@ -101,7 +101,7 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun, lang
                         return pipeString(res, fileFormatConverter.auto(fileFormat, respObj, lang), parseURL.getMimeType(fileFormat), 201);
                     }
 
-                    return writeJokeToFile(res, filePath, submission, fileFormat, ip, analyticsObject, lang);
+                    return writeJokeToFile(res, filePath, submission, fileFormat, ip, analyticsObject, validationResult, lang);
                 }
                 catch(err)
                 {
@@ -169,9 +169,10 @@ function getSubmissionFilePath(res, fileFormat, lang, ip, submissionLang, analyt
  * @param {string} fileFormat
  * @param {string} ip
  * @param {(analytics.AnalyticsDocsRequest|analytics.AnalyticsSuccessfulRequest|analytics.AnalyticsRateLimited|analytics.AnalyticsError|analytics.AnalyticsSubmission)} analyticsObject
+ * @param {parseJokes.ValidationResult} validationResult
  * @param {string} [langCode]
  */
-function writeJokeToFile(res, filePath, submittedJoke, fileFormat, ip, analyticsObject, langCode)
+function writeJokeToFile(res, filePath, submittedJoke, fileFormat, ip, analyticsObject, validationResult, langCode)
 {
     const reformattedJoke = reformatJoke(submittedJoke);
 
@@ -183,7 +184,7 @@ function writeJokeToFile(res, filePath, submittedJoke, fileFormat, ip, analytics
                 error: false,
                 message: tr(langCode, "submissionSaved"),
                 submission: reformattedJoke,
-                // validProperties: validationResult.jokeParams,
+                validProperties: validationResult.jokeParams,
                 timestamp: Date.now(),
             };
 

@@ -61,11 +61,18 @@ class JokeCache
 
     /**
      * Determines whether joke caching is available for a certain joke language
+     * @static
      * @param {string} langCode
      * @returns {boolean}
      */
-    allowCaching(langCode)
+    static allowCaching(langCode)
     {
+        if(!parseJokes.jokeCountPerLang)
+            throw new Error(`Error: ParseJokes module wasn't initialized yet`);
+
+        if(!parseJokes.jokeCountPerLang[langCode])
+            return false;
+
         try
         {
             const jokesAmount = parseJokes.jokeCountPerLang[langCode] || 0;
@@ -80,12 +87,12 @@ class JokeCache
 
     /**
      * Returns the size of the joke pool of a certain language
+     * @static
      * @param {string} langCode
      * @returns {number} Returns the size of the joke pool - returns 0 if the language can't have a joke pool (too few jokes)
      */
-    getJokePoolSize(langCode)
+    static getJokePoolSize(langCode)
     {
-        // TODO: test this
         const jokesAmount = parseJokes.jokeCountPerLang[langCode] || 0;
         
         if(jokesAmount < (settings.jokes.maxAmount * settings.jokeCaching.poolSizeDivisor))
@@ -109,7 +116,7 @@ class JokeCache
         debug("JokeCache", `Adding 1 entry to the joke cache of client '${clientIpHash.substr(0, 16)}…'`);
 
         return new Promise((pRes, pRej) => {
-            if(!this.allowCaching(langCode))
+            if(!JokeCache.allowCaching(langCode))
                 return pRes();
 
             if(!isValidIpHash(clientIpHash))
@@ -153,7 +160,7 @@ class JokeCache
         debug("JokeCache", `Adding ${jokeIDs.length} entries to the joke cache of client '${clientIpHash.substr(0, 16)}…'`);
 
         return new Promise((res, rej) => {
-            if(!this.allowCaching(langCode))
+            if(!JokeCache.allowCaching(langCode))
                 return res();
 
             if(!isValidIpHash(clientIpHash))
@@ -229,7 +236,7 @@ class JokeCache
     clearOldEntries(clientIpHash, langCode, amount = 1)
     {
         return new Promise(async (res, rej) => {
-            if(!this.allowCaching(langCode))
+            if(!JokeCache.allowCaching(langCode))
                 return res(0);
 
             if(!isValidIpHash(clientIpHash))
@@ -246,9 +253,9 @@ class JokeCache
 
             try
             {
-                const jokePoolSize = this.getJokePoolSize(langCode);
+                const jokePoolSize = JokeCache.getJokePoolSize(langCode);
 
-                /** The amount of jokes needed in the cache to enable clearing old entries */
+                /** The amount of jokes needed in the cache to enable clearing old entries - due to the divisor defined in the settings, this can vary so it needs to be calculated like this */
                 const clearCacheThreshold = parseJokes.jokeCountPerLang[langCode] - jokePoolSize;
 
 
@@ -315,7 +322,7 @@ class JokeCache
     listEntries(clientIpHash, langCode)
     {
         return new Promise((pRes, pRej) => {
-            if(!this.allowCaching(langCode))
+            if(!JokeCache.allowCaching(langCode))
                 return pRes([]);
 
             if(!isValidIpHash(clientIpHash))

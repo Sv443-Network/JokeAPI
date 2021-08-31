@@ -322,6 +322,7 @@ function inject(filePath)
                     "%#INSERT:SEARCHSTRWILDCARDLIMIT#%": settings.jokes.regexRepetitionLimit.toString(),
                     "%#INSERT:DEFAULTLANGCODE#%":        settings.languages.defaultLanguage.toString(),
                     "%#INSERT:SPLASHESOBJ#%":            Buffer.from(JSON.stringify(getAllSplashes()), "utf8").toString("base64"),
+                    "%#INSERT:CACHEMINJOKESAMOUNT#%":    (settings.jokes.maxAmount * settings.jokeCaching.poolSizeDivisor).toString(),
                 };
 
                 const checkMatch = (key, regex) => {
