@@ -2,7 +2,7 @@ const scl = require("svcorelib");
 const fs = require("fs-extra");
 const http = require("http");
 const { resolve, join } = require("path");
-const sanitizeFileName = require("sanitize-filename");
+const sanitizePath = require("sanitize-filename");
 
 const parseJokes = require("./parseJokes");
 const logRequest = require("./logRequest");
@@ -136,7 +136,7 @@ function getSubmissionFilePath(res, fileFormat, lang, ip, submissionLang, analyt
     const curTS = Date.now();
     const sanitizedIP = ip.replace(settings.httpServer.ipSanitization.regex, settings.httpServer.ipSanitization.replaceChar).substring(0, 16);
 
-    let filePath = join(settings.jokes.jokeSubmissionPath, submissionLang, `/${sanitizeFileName(`submission_${sanitizedIP}_0_${curTS}.json`)}`);
+    let filePath = join(settings.jokes.jokeSubmissionPath, submissionLang, `/${sanitizePath(`submission_${sanitizedIP}_0_${curTS}.json`)}`);
 
     let iter = 0;
     const findNextNum = currentNum => {
@@ -147,7 +147,7 @@ function getSubmissionFilePath(res, fileFormat, lang, ip, submissionLang, analyt
             return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame));
         }
 
-        if(fs.existsSync(join(settings.jokes.jokeSubmissionPath, `submission_${sanitizedIP}_${currentNum}_${curTS}.json`)))
+        if(fs.existsSync(join(settings.jokes.jokeSubmissionPath, sanitizePath(`submission_${sanitizedIP}_${currentNum}_${curTS}.json`))))
             return findNextNum(currentNum + 1);
         else
             return currentNum;
@@ -156,7 +156,7 @@ function getSubmissionFilePath(res, fileFormat, lang, ip, submissionLang, analyt
     fs.ensureDirSync(join(settings.jokes.jokeSubmissionPath, submissionLang));
 
     if(fs.existsSync(join(settings.jokes.jokeSubmissionPath, filePath)))
-        filePath = join(settings.jokes.jokeSubmissionPath, submissionLang, `/submission_${sanitizedIP}_${findNextNum()}_${curTS}.json`);
+        filePath = join(settings.jokes.jokeSubmissionPath, submissionLang, `/${sanitizePath(`submission_${sanitizedIP}_${findNextNum()}_${curTS}.json`)}`);
 
     // convert to absolute path
     return resolve(filePath);
