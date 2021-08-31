@@ -1,13 +1,14 @@
 {
+    // REQUIRES EXTENSION: fabiospampinato.vscode-highlight
     "highlight.regexFlags": "g",
-    "highlight.regexes": { // REQUIRES EXTENSION: fabiospampinato.vscode-highlight
-        "(((jsl|scl)\\.)?unused\\([a-zA-Z_,\\[\\]\\s\\-\":.]+\\);*)": [ // jsl.unused([some_var, some_other_var]); or scl.unused(xy);
+    "highlight.regexes": {
+        "(((jsl|scl)\\.)?unused\\((\\d|\\w|[_,\\[\\]\\s\\-\":.])+\\);?)": [ // jsl.unused([foo, bar]); or scl.unused(foo) or unused(foo, bar);
             {
                 "backgroundColor": "rgba(0, 0, 0, 0.2)",
                 "color": "#f88"
             }
         ],
-        "(TODO:?)": [ // TODO: or TODO but not todo
+        "(TODO(\\((\\s|\\d|\\w|[,.-_+*&])+\\))?:?)": [ // TODO: or TODO or TODO(xy): but not todo
             {
                 "backgroundColor": "#cd5",
                 "color": "#000",
@@ -42,31 +43,24 @@
                 "color": "#fff"
             }
         ],
-        "(<!--%#INSERT:[a-zA-Z0-9\\-]+#%-->|<!--%#INJECT:[a-zA-Z0-9\\-]+#%-->)": [ // <!--%#INSERT:TEST#%--> / <!--%#INJECT:TEST#%-->
+        "(<(!--)?%#(INSERT|INJECT):[a-zA-Z0-9\\-_]+#%(--)?>)": [ // <!--%#INSERT:TEST#%--> / <!--%#INJECT:TEST#%--> or shorthand: <%#INSERT:TEST#%> / <%#INJECT:TEST#%>
             {
                 "color": "orange",
                 "fontStyle": "italic",
                 "outline": "1px solid orange"
             }
-        ],
-        "(<%#INSERT:[a-zA-Z0-9\\-]+#%>|<%#INJECT:[a-zA-Z0-9\\-]+#%>)": [ // <%#INSERT:TEST#%> / <%#INJECT:TEST#%>
-            {
-                "color": "orange",
-                "fontStyle": "italic",
-                "outline": "1px solid orange"
-            }
-        ],
+        ]
     },
-    "npm-scripts.showStartNotification": false,
 
     // REQUIRES EXTENSION: coenraads.bracket-pair-colorizer-2
     "bracket-pair-colorizer-2.colors": [
+        "#996DCF",
         "#0F6A8F",
-        "#659061",
         "#41BCA3",
+        "#659061",
         "#EDD553",
         "#E09563",
-        "#B85442"
+        "#F05443"
     ],
 
     // REQUIRES EXTENSION: esbenp.prettier-vscode
@@ -78,6 +72,9 @@
 
     "files.exclude": {         // hide files so they can't be opened in the IDE
         "docs/compiled": true, // to prevent accidentally changing the compiled documentation to only have it be overridden after the next compile
-        "dev/madge": true,     // the files don't need to be modified, they only serve as a distraction
-    }
+        "dev/madge": true,     // legacy dependency graph - these files don't need to be modified, they only serve as a distraction
+        ".env": true,          // environment variables - to prevent leaking them accidentally - to edit the file instead use the command "code .env"
+    },
+
+    "npm-scripts.showStartNotification": false,
 }
