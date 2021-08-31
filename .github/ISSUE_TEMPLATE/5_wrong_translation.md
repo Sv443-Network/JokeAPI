@@ -7,8 +7,10 @@ assignees: Sv443
 
 ---
 
+<!-- ^ please provide a short, general summary in the title above ^ -->
+
 ## Language code of the translation(s):
-<!-- Add the two character language code of the translation(s) here. If you are unsure, please use this for reference: https://jokeapi.dev/languages?format=txt -->
+<!-- Add the two character language code of the translation(s) here. If you are unsure, you can look it up here: https://jokeapi.dev/languages?format=txt -->
 **`xy`**
 
 
@@ -34,4 +36,5 @@ A horse runs into a bar...
 <br><br>
 
 ## Checklist:
+<!-- You can check these options after you have submitted your issue or by putting an "x" between the brackets -->
 - [ ] I have verified that the fixed translation I provided is (to my knowledge) correct

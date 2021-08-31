@@ -7,10 +7,12 @@ assignees: Sv443
 
 ---
 
+<!-- ^ please provide a short, general summary in the title above ^ -->
+
 <!--
     If this issue is approved, your project will be added to these dependent lists:
     - https://jokeapi.dev/#dependents
-    - https://github.com/Sv443/JokeAPI#readme    (scroll down all the way)
+    - https://github.com/Sv443/JokeAPI#readme    (scroll down)
 -->
 
 ## Link to the project:
@@ -22,7 +24,7 @@ https://github.com/example/My_Project
 
 <br><br>
 
-## Link to my personal website / GitHub page (optional):
+## Link to your personal website / GitHub page (optional):
 <!-- Add a single URL to your website or GitHub page (or something similar) here -->
 ```
 https://github.com/example
@@ -47,6 +49,7 @@ https://github.com/example
 <br><br>
 
 ## Checklist:
+<!-- You can check these options after you have submitted your issue or by putting an "x" between the brackets -->
 - [ ] I have added my project's name to the title of this issue
 - [ ] I have filled out at least the first URL (second one is optional)
 - [ ] I have specified whether or not my project is explicit
