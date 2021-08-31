@@ -197,7 +197,7 @@ function getJokeLang()
 
                 ans = ans.toString().toLowerCase();
 
-                if(languages.isValidLang(ans) === true)
+                if(languages.isValidLang(ans))
                     return resolve(ans);
                 else
                 {

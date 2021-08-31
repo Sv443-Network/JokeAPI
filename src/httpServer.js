@@ -286,9 +286,10 @@ function getLang(parsedURL)
 {
     const lang = parsedURL.queryParams ? parsedURL.queryParams.lang : null;
 
-    if(languages.isValidLang(lang) === true)
+    if(languages.isValidLang(lang))
         return lang;
-    return settings.languages.defaultLanguage;
+    else
+        return settings.languages.defaultLanguage;
 }
 
 /**

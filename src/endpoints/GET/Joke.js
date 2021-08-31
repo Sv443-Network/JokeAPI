@@ -113,7 +113,7 @@ class Joke extends Endpoint {
             {
                 const lCode = params["lang"].toString();
 
-                if(languages.isValidLang(lCode) === true)
+                if(languages.isValidLang(lCode))
                     langCode = lCode;
             }
             catch(err)

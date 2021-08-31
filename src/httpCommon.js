@@ -35,7 +35,7 @@ function respondWithError(res, errorCode, responseCode, fileFormat, errorMessage
         if(errFromRegistry == undefined)
             throw new Error(`Couldn't find errorMessages module or Node is using an outdated, cached version`);
 
-        if(!lang || languages.isValidLang(lang) !== true)
+        if(!lang || !languages.isValidLang(lang))
             lang = settings.languages.defaultLanguage;
 
         let insArgs = (texts, insertions) => {

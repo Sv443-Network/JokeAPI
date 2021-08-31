@@ -133,7 +133,7 @@ function init()
                     if(!fileName.endsWith(".json"))
                         return false;
                     let spl1 = fileName.split(".json")[0];
-                    if(spl1.includes("-") && languages.isValidLang(spl1.split("-")[1]) === true && spl1.split("-")[0] == "jokes")
+                    if(spl1.includes("-") && languages.isValidLang(spl1.split("-")[1]) && spl1.split("-")[0] == "jokes")
                         return true;
                     return false;
                 };
@@ -142,7 +142,7 @@ function init()
                     if(!fileName.endsWith(".json"))
                         return false;
                     let spl1 = fileName.split(".json")[0];
-                    if(spl1.includes("-") && languages.isValidLang(spl1.split("-")[1]) === true)
+                    if(spl1.includes("-") && languages.isValidLang(spl1.split("-")[1]))
                         return spl1.split("-")[1].toLowerCase();
                 };
 
@@ -354,7 +354,7 @@ function validateSubmission(joke, lang)
     try
     {
         //#SECTION lang code
-        if(languages.isValidLang(lang) !== true)
+        if(!languages.isValidLang(lang))
             jokeErrors.push(tr(lang, "parseJokesInvalidLanguageCode"));
 
         //#SECTION format version
@@ -480,13 +480,13 @@ function validateSubmission(joke, lang)
 
         if(!noLangProp)
         {
-            const langV = languages.isValidLang(joke.lang, lang);
-
-            if(typeof langV === "string")
+            if(!languages.isValidLang(joke.lang, lang))
             {
-                jokeErrors.push(tr(lang, "parseJokesLangPropertyInvalid", langV));
+                jokeErrors.push(tr(lang, "parseJokesLangPropertyInvalid"));
                 validParamsObj.lang = false;
             }
+
+            // else language is present and valid, so continue
         }
         else
         {

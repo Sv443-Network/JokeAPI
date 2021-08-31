@@ -458,11 +458,11 @@
             "it": "La barzelletta non ha proprietà \"lang\" opppure è vuota o della tipologia errata."
         },
         "parseJokesLangPropertyInvalid": {
-            "en": "Property \"lang\" is invalid: %1",
-            "de": "Eigenschaft \"lang\" ist ungültig: %1",
-            "ru": "Собственность \"lang\" недействительна: %1",
-            "cs": "Vlastnost \"lang\" je neplatná: %1",
-            "it": "La proprietà \"lang\" non è valida: %1"
+            "en": "Property \"lang\" is invalid",
+            "de": "Eigenschaft \"lang\" ist ungültig",
+            "ru": "Собственность \"lang\" недействительна",
+            "cs": "Vlastnost \"lang\" je neplatná",
+            "it": "La proprietà \"lang\" non è valida"
         },
         "parseJokesCantParseJson": {
             "en": "Joke couldn't be parsed as JSON.",

@@ -258,7 +258,7 @@ class FilteredJoke
      */
     setLanguage(code)
     {
-        if(languages.isValidLang(code) === true)
+        if(languages.isValidLang(code))
         {
             this._lang = code;
             return true;
@@ -434,7 +434,7 @@ class FilteredJoke
                     
                     //#SECTION language
                     let langCode = this.getLanguage();
-                    if(languages.isValidLang(langCode) !== true)
+                    if(!languages.isValidLang(langCode))
                         return; // invalid lang code, joke is invalid
                     if(joke.lang.toLowerCase() != langCode.toLowerCase())
                         return; // lang code doesn't match so joke is invalid
