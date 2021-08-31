@@ -70,10 +70,12 @@
     - 404 requests now don't wait for a timeout anymore ([issue #314](https://github.com/Sv443/JokeAPI/issues/314))
 - Internal Stuff:
     - Refactored endpoints ([issue #243](https://github.com/Sv443/JokeAPI/issues/243))
+    - Refactored a big part of the other code to remove unstable circular dependencies and generally just bad code
     - Replaced deprecated function [`fs.exists()`](https://nodejs.org/api/fs.html#fs_fs_exists_path_callback) throughout the API ([issue #230](https://github.com/Sv443/JokeAPI/issues/230))
-    - Language subfolders of submissions didn't have consistent case ([issue #257](https://github.com/Sv443/JokeAPI/issues/257))
-    - Implemented and fixed FolderDaemon ([issue #241](https://github.com/Sv443/JokeAPI/issues/241))
+    - Language subfolders of submissions now have consistent case ([issue #257](https://github.com/Sv443/JokeAPI/issues/257))
+    - Implemented and fixed SCL's FolderDaemon ([issue #241](https://github.com/Sv443/JokeAPI/issues/241))
     - Switched from LGTM to CodeQL for code analysis ([issue #290](https://github.com/Sv443/JokeAPI/issues/290))
+    - Fixed all kinds of inconsistencies in the code
 
 
 <br><br><br>
