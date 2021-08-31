@@ -167,6 +167,7 @@
                         <b>Joke Caching is finally here!</b><br>
                         No longer will you receive the same joke multiple times in a row.<br>
                         Since version 2.4.0, <!--%#INSERT:NAME#%--> will now keep track of which jokes you have already requested, preventing them from being served again for a long while.<br>
+                        Note that only joke languages with at least <!--%#INSERT:CACHEMINJOKESAMOUNT#%--> jokes are eligible for caching.<br>
                         <sub>(Collected data is deleted after <!--%#INSERT:CACHINGDATAEXPIRYHOURS#%--> hours of inactivity, use the <a href="#clear-data-endpoint">clear data endpoint</a> to delete your data on demand.)</sub>
                     </li>
                     <li>
@@ -1305,10 +1306,13 @@ None. It's a hardware problem.
                 <br>
                 This endpoint has a unique URL parameter <a href="#dryrun-param">?dry-run</a>, which if present will make the API respond just like the usual "submit" endpoint except the joke isn't actually saved to the API.<br>
                 This functionality can be used to check if a joke is valid / what is wrong with it without having the joke actually submitted to the API.<br>
+                Note that the rate limiting of <!--%#INSERT:SUBMISSIONRATELIMIT#%--> requests also applies to a dry run.<br>
                 <br>
                 If the joke is valid and the server accepted the submission, you will get a response with the status code 201.<br>
+                This endpoint has a different rate limiting budget than all other endpoints, which is <!--%#INSERT:SUBMISSIONRATELIMIT#%--> requests per minute.<br>
                 <br>
-                Since v2.4.0 you will always receive a "validProperties" object, which describes which of the properties of the joke you submitted are valid and which aren't.<br>
+                Since v2.4.0 you will always receive a "validProperties" object (dry run or not), which describes which of the properties of the joke you submitted are valid and which aren't.<br>
+                <br>
                 <br>
 
 <code class="prettyprint"><span class="nocode codeheader">Example Payload:</span>
