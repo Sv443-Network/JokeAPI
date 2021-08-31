@@ -13,6 +13,12 @@ const settings = require("../../settings");
 const col = colors.fg;
 
 
+/** TODO:
+ * Using joke filters means the cache and pool size aren't valid anymore and should be recalculated
+ * Alternatively, cache entries in the database should be deleted prior to each request
+ */
+
+
 //#MARKER types
 
 /**
@@ -25,18 +31,18 @@ const col = colors.fg;
 //#MARKER class def + constructor
 
 /**
- * This class is in direct contact to the SQL DB.  
- * It can add to or read from the joke cache in the database table.  
+ * This class is in direct contact to the SQL DB.
+ * It can add to or read from the joke cache in the database table.
  * This class also handles automatic garbage collection (clearing expired entries).
  * @since 2.4.0
  */
 class JokeCache
 {
     /**
-     * Creates a new joke cache instance.  
-     *   
-     * Also sets up garbage collection to run on interval.  
-     * Note: GC isn't run when constructing, only on interval!  
+     * Creates a new joke cache instance.
+     *
+     * Also sets up garbage collection to run on interval.
+     * Note: GC isn't run when constructing, only on interval!
      * Run it manually with `JokeCache.runGC()` if needed
      * @param {mysql.Connection} dbConnection
      */
@@ -94,7 +100,7 @@ class JokeCache
     static getJokePoolSize(langCode)
     {
         const jokesAmount = parseJokes.jokeCountPerLang[langCode] || 0;
-        
+
         if(jokesAmount < (settings.jokes.maxAmount * settings.jokeCaching.poolSizeDivisor))
             return 0;
         else
@@ -104,7 +110,7 @@ class JokeCache
     //#MARKER cache stuff
 
     /**
-     * Adds an entry to the provided client's joke cache.  
+     * Adds an entry to the provided client's joke cache.
      * Use `addEntries()` for multiple entries, it is more efficient.
      * @param {string} clientIpHash 64-character IP hash of the client
      * @param {number} jokeID ID of the joke to cache
@@ -121,13 +127,13 @@ class JokeCache
 
             if(!isValidIpHash(clientIpHash))
                 throw new TypeError(`Parameter "clientIpHash" is not a string or not a valid IP hash`);
-            
+
             if(typeof jokeID != "number")
                 jokeID = parseInt(jokeID);
-            
+
             if(jokeID < 0)
                 throw new TypeError(`Parameter "jokeID" is less than 0 (there are no negative joke IDs you dummy dum dum)`);
-            
+
             if(!isValidLang(langCode))
                 throw new TypeError(`Parameter "langCode" is not a valid language code`);
 
@@ -148,7 +154,7 @@ class JokeCache
     }
 
     /**
-     * Adds multiple entries to the provided clients' joke cache.  
+     * Adds multiple entries to the provided clients' joke cache.
      * This is more efficient than running `addEntry()` multiple times.
      * @param {string} clientIpHash 64-character IP hash of the client
      * @param {number[]} jokeIDs An array of joke IDs
