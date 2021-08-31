@@ -185,7 +185,7 @@
 
                 <!-- #MARKER Try It -->
                 <div class="docHeader targetBlink" id="try-it"><a class="headerAnchorContainer" href="#try-it" title="Click to link to this header">§</a><span class="docHeaderText">Try it out here:</span></div>
-                
+
                 <div id="tryItContainer" class="highlightedContainer">
                     <table>
                         <tr>
@@ -345,7 +345,7 @@
                 If you need any help, feel free to <a href="https://dc.sv443.net" target="_blank" rel="noopener noreferrer">join my Discord server.</a><br>
                 <br>
                 I struggled at explaining some features so consult the provided examples if you don't understand them.<br>
-                
+
 
                 <!-- #MARKER Wrappers -->
                 <div class="docHeader targetBlink" id="wrappers"><a class="headerAnchorContainer" href="#wrappers" title="Click to link to this header">§</a><span class="docHeaderText">Officially recognized API wrappers:</span></div>
@@ -466,9 +466,9 @@
                                 </td>
                             </tr>
                         </table>
-        
+
                         <br>
-        
+
                         <div class="centered">
                             <button id="submitBtn">Submit &gt;</button>
                         </div>
@@ -868,7 +868,7 @@ None. It's a hardware problem.
                 A successful dry run will have its <mark>error</mark> property set to false.<br>
                 It will also have a <mark>message</mark> property with a short status message and a <mark>timestamp</mark> property with a 13-character UNIX timestamp.<br>
 
-                
+
 
 
 
@@ -923,7 +923,7 @@ None. It's a hardware problem.
     "timestamp": 1579170794412
 }
 </div></code><br>
-                
+
                 <div class="subHeaderContainer"><a href="#status-codes" title="Click to link to this header">§</a> <span class="subHeader" id="status-codes">Status Codes:</span></div>
                 <table id="statusCodeTable" class="alternatingBgTable">
                     <!-- Use CSS classes g (green), r (red) and dr (dark red) on the td's to color status codes -->
@@ -983,7 +983,7 @@ None. It's a hardware problem.
                         <td>My server is temporarily offline due to maintenance or a dynamic IP update. Please be patient in this case or contact me if the downtime persists</td>
                     </tr>
                 </table>
-                
+
                 <br>
 
                 Colors: <span class="col g">Success [2xx]</span> &bull; <span class="col r">Client Error [4xx]</span> &bull; <span class="col dr">Server Error [5xx]</span>
@@ -1366,7 +1366,7 @@ None. It's a hardware problem.
 </div></code>
                 </details>
                 <br><br>
-                
+
                 <details><summary>Click here to see how the server responds to a submission dry run with an invalid submission</summary>
 <code class="prettyprint"><span class="nocode codeheader">Server Response:</span>
 <div class="actualCode">{
@@ -1458,15 +1458,97 @@ None. It's a hardware problem.
 
 
 
-                <!-- #MARKER API Tokens -->
-                <div class="docHeader targetBlink" id="api-tokens"><a class="headerAnchorContainer" href="#api-tokens" title="Click to link to this header">§</a><span class="docHeaderText">API Tokens:</span></div>
-                <!--%#INSERT:NAME#%--> has a way of whitelisting certain clients. This is achieved through an API token.<br>
-                At the moment, you will only receive one of these tokens temporarily if something breaks or if you are a business and need more than <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute.<br>
+                <!-- #MARKER Response Headers section-->
+                <div class="docHeader targetBlink" id="headers"><a class="headerAnchorContainer" href="#headers" title="Click to link to this header">§</a><span class="docHeaderText">Response Headers:</span></div>
+                Know that the header names can arrive in all lowercase sometimes, this is a quirk of <!--%#INSERT:NAME#%-->'s HTTP backend but it should not be an issue (see <a href="https://datatracker.ietf.org/doc/html/rfc7230#section-3.2" target="_blank" rel="noopener noreferrer">rfc7230 3.2</a>).<br>
                 <br>
-                If you do end up receiving a token, using it is as easy as adding an <mark>Authorization</mark> header with the value <mark>Bearer your_token_here</mark><br>
+                <!--%#INSERT:NAME#%--> strives to be conforming to all kinds of HTTP and API standards, although it has had a rough start.<br>
+                These are important so that your HTTP client can interact correctly with <!--%#INSERT:NAME#%--> and allows you to make more of the API.<br>
+                That's why you will get the following response headers, which you and your HTTP library can and should make use of:<br>
                 <br>
-                After adding the header, you will receive a response header called <mark>Token-Valid</mark> which will contain the number 1 if the token is valid.<br>
-                If the token is invalid, the Token-Valid header will be set to 0 and <!--%#INSERT:NAME#%--> will treat your request as if you didn't supply a token in the first place.<br>
+                <table class="alternatingBgTable">
+                    <tr>
+                        <th>Header Name</th>
+                        <th>Syntax</th>
+                        <th>Description</th>
+                        <th>Reference</th>
+                    </tr>
+                    <tr>
+                        <td><marK>Date</marK></td>
+                        <td><marK class="nowrap">&lt;day_name&gt;, &lt;day&gt; &lt;month&gt; &lt;year&gt; &lt;hour&gt;:&lt;minute&gt;:&lt;second&gt; GMT</marK></td>
+                        <td>Contains the date and time at which the message was originated.</td>
+                        <td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Date" target="_blank" rel="noopener noreferrer">MDN</a></td>
+                    </tr>
+                    <tr>
+                        <td><marK>Content-Type</marK></td>
+                        <td><marK class="nowrap">&lt;mime_type&gt;; charset=UTF-8</marK></td>
+                        <td>Indicates the <a href="https://developer.mozilla.org/en-US/docs/Glossary/MIME_type" target="_blank" rel="noopener noreferrer">Media Type (MIME)</a> and character encoding of the response.</td>
+                        <td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type" target="_blank" rel="noopener noreferrer">MDN</a></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <marK class="nowrap">Access-Control-Allow-Origin</marK><br>
+                            <marK class="nowrap">Access-Control-Allow-Headers</marK><br>
+                            <marK class="nowrap">Access-Control-Allow-Methods</marK><br>
+                            <marK class="nowrap">Access-Control-Request-Method</marK>
+                        </td>
+                        <td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#the_http_response_headers" target="_blank" rel="noopener noreferrer">See MDN</a></td>
+                        <td>
+                            Cross-Origin-Resource-Sharing forbids websites to load content from <!--%#INSERT:NAME#%--> as nothing indicates the data is intended for that website.<br>
+                            <!--%#INSERT:NAME#%--> employs a CORS policy that allows everyone to access its resources.<br>
+                            It also shows you which methods you can use to interact with <!--%#INSERT:NAME#%-->.
+                        </td>
+                        <td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank" rel="noopener noreferrer">MDN</a></td>
+                    </tr>
+                    <tr>
+                        <td><marK>Strict-Transport-Security</marK></td>
+                        <td><marK class="nowrap">max-age=&lt;amount-of-seconds&gt;</marK></td>
+                        <td><!--%#INSERT:NAME#%--> makes use of the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security" target="_blank" rel="noopener noreferrer">Strict Transport Security (HSTS)</a> technology to make JokeAPI very secure.</td>
+                        <td><a href="ReferenceLink" target="_blank" rel="noopener noreferrer">MDN</a></td>
+                    </tr>
+                    <tr>
+                        <td><marK>API-Info</marK></td>
+                        <td><marK class="nowrap">JokeAPI v&lt;semver_version&gt; (&lt;docs_url&gt;)</marK></td>
+                        <td>Description</td>
+                        <td><a href="ReferenceLink" target="_blank" rel="noopener noreferrer">MDN</a></td>
+                    </tr>
+                    <tr>
+                        <td><marK>Content-Security-Policy</marK></td>
+                        <td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP#examples_common_use_cases" target="_blank" rel="noopener noreferrer">See MDN</a></td>
+                        <td>Protects <!--%#INSERT:NAME#%--> against certain types of attacks like <a href="https://developer.mozilla.org/en-US/docs/Glossary/Cross-site_scripting" target="_blank" rel="noopener noreferrer">Cross Site Scripting (XSS)</a></td>
+                        <td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP" target="_blank" rel="noopener noreferrer">MDN</a></td>
+                    </tr>
+                    <tr>
+                        <td><marK>Content-Encoding</marK></td>
+                        <td><marK class="nowrap">&lt;encoding_name&gt;</marK></td>
+                        <td>
+                            <!--%#INSERT:NAME#%-->'s static and semi-static files like this documentation and other static content is sent encoded, speeding up the connection with the API a lot.<br>
+                            Supported encodings are: <mark>brotli (br), gzip, deflate compress</mark> and without encoding, <mark>identity</mark>
+                        </td>
+                        <td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding" target="_blank" rel="noopener noreferrer">MDN</a></td>
+                    </tr>
+                    <tr>
+                        <td><marK>TODO: rate limit headers</marK></td>
+                        <td><marK class="nowrap">ExampleOrSyntax</marK></td>
+                        <td>Description</td>
+                        <td><a href="ReferenceLink" target="_blank" rel="noopener noreferrer">MDN</a></td>
+                    </tr>
+                    <!-- Template:
+                    <tr>
+                        <td><marK>Name</marK></td>
+                        <td><marK class="nowrap">ExampleOrSyntax</marK></td>
+                        <td>Description</td>
+                        <td><a href="ReferenceLink" target="_blank" rel="noopener noreferrer">MDN</a></td>
+                    </tr>
+                    -->
+                    <!-- Other templates:
+
+                        &lt;&gt;
+
+                        <a href="reference_link" target="_blank" rel="noopener noreferrer">Text</a>
+
+                     -->
+                </table>
 
 
 
@@ -1657,6 +1739,18 @@ namespace JokeAPIExample
 }</div></code><br>
                 </details><br>
                 <br>
+
+
+
+                <!-- #MARKER API Tokens -->
+                <div class="docHeader targetBlink" id="api-tokens"><a class="headerAnchorContainer" href="#api-tokens" title="Click to link to this header">§</a><span class="docHeaderText">API Tokens:</span></div>
+                <!--%#INSERT:NAME#%--> has a way of whitelisting certain clients. This is achieved through an API token.<br>
+                At the moment, you will only receive one of these tokens temporarily if something breaks or if you are a business and need more than <!--%#INSERT:RATELIMITCOUNT#%--> requests per minute.<br>
+                <br>
+                If you do end up receiving a token, using it is as easy as adding an <mark>Authorization</mark> header with the value <mark>Bearer your_token_here</mark><br>
+                <br>
+                After adding the header, you will receive a response header called <mark>Token-Valid</mark> which will contain the number 1 if the token is valid.<br>
+                If the token is invalid, the Token-Valid header will be set to 0 and <!--%#INSERT:NAME#%--> will treat your request as if you didn't supply a token in the first place.<br>
 
 
 
@@ -1892,7 +1986,7 @@ namespace JokeAPIExample
                     </ul>
                 </div>
                 <br><br><br><br>
-    
+
                 <footer id="copyrightNotice">
                     <span>&copy; Copyright 2018-2021 Sv443 - licensed under the <a href="https://github.com/Sv443/JokeAPI/blob/master/LICENSE.txt" target="_blank" rel="noopener noreferrer">MIT license</a></span><br>
                     <span>This project is part of the <a href="https://sv443.net/" target="_blank" rel="noopener noreferrer">Sv443 Network</a></span>
@@ -1939,8 +2033,9 @@ namespace JokeAPIExample
                     </ul>
                 </details>
                 <a class="noul" onclick="closeNav()" href="#filtering" title="How you can filter jokes">Filtering Jokes</a>
-                <a class="noul" onclick="closeNav()" href="#api-tokens" title="All about <!--%#INSERT:NAME#%-->'s API tokens">API Tokens</a>
+                <a class="noul" onclick="closeNav()" href="#headers" title="A list of response headers <!--%#INSERT:NAME#%--> will give you and what they mean">Response Headers</a>
                 <a class="noul" onclick="closeNav()" href="#examples" title="Some code examples of how to use <!--%#INSERT:NAME#%-->">Code Examples</a>
+                <a class="noul" onclick="closeNav()" href="#api-tokens" title="All about <!--%#INSERT:NAME#%-->'s API tokens">API Tokens</a>
                 <div class="sidenavSpacer"></div>
                 <a class="noul" onclick="closeNav()" href="#errors" title="How errors are structured">Errors</a>
                 <a class="noul" onclick="closeNav()" href="#rate-limiting" title="How <!--%#INSERT:NAME#%--> protects itself against DoS attacks">Rate Limiting</a>
@@ -1948,7 +2043,7 @@ namespace JokeAPIExample
                 <div class="sidenavSpacer"></div>
                 <!-- <details>
                     <summary>
-                        <span class="sidenav-mimica">Examples</span> 
+                        <span class="sidenav-mimica">Examples</span>
                     </summary>
 
                     <ul>
@@ -1959,7 +2054,7 @@ namespace JokeAPIExample
                 </details> -->
                 <details>
                     <summary>
-                        <span class="sidenav-mimica" title="What certain terms from this documentation mean">Terminology</span> 
+                        <span class="sidenav-mimica" title="What certain terms from this documentation mean">Terminology</span>
                     </summary>
 
                     <ul>

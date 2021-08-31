@@ -33,7 +33,7 @@
     --line-height: calc(100% + 7px);
 }
 
-@font-face { 
+@font-face {
     font-family: "Cascadia Code";
     src: url("./cascadia-code.ttf"); /* URL can't have the "./static/" path since this CSS file is already loaded from "./static/" */
 }
@@ -103,7 +103,7 @@ a:not(.noul):hover, .mimica:not(.noul):hover {
 
 .blackshadow {
     text-shadow:
-        -1px -1px 0 #000,  
+        -1px -1px 0 #000,
          1px -1px 0 #000,
         -1px  1px 0 #000,
          1px  1px 0 #000;
@@ -111,7 +111,7 @@ a:not(.noul):hover, .mimica:not(.noul):hover {
 
 .whiteshadow {
     text-shadow:
-        -1px -1px 0 #fff,  
+        -1px -1px 0 #fff,
          1px -1px 0 #fff,
         -1px  1px 0 #fff,
          1px  1px 0 #fff;
@@ -288,6 +288,10 @@ label {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+.nowrap {
+    white-space: nowrap;
 }
 
 .centered {
@@ -516,7 +520,7 @@ body code .nocode.codeheader {
     display: block;
     padding-top: 6px;
     padding-bottom: 4px;
-    
+
     border: 3px solid var(--accent-color);
     border-style: none none solid none;
 }
@@ -980,7 +984,7 @@ div.sidenavSpacer {
     color: var(--accent-color-light);
 }
 
-/* 
+/*
 .docHeader .headerAnchorContainer {
     cursor: pointer;
     margin-right: 10px;
