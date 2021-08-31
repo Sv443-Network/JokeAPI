@@ -143,8 +143,8 @@ const settings = {
     httpServer: {
         port: 8076,           // http server port (TCP)
         allowCORS: true,      // whether or not to allow Cross Origin Resource Sharing (CORS)
-        rateLimiting: 100,    // amount of allowed requests per below defined timeframe
-        timeFrame: 60,        // timeframe in seconds
+        rateLimiting: 2,    // amount of allowed requests per below defined timeframe
+        timeFrame: 60,        // timeframe of rate limiting in seconds
         urlPathOffset: 0,     // example: "/jokeapi/info" with an offset of 1 will only start parsing the path beginning at "info"
         maxPayloadSize: 5120, // max size (in bytes) that will be accepted in a POST / PUT request - if payload exceeds this size, it will abort with status 413
         maxUrlLength: 255,    // max amount of characters of the URL - if the URL is longer than this, the request will abort with status 414

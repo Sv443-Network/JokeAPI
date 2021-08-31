@@ -47,10 +47,10 @@ function isValidLang(langCode, trLang)
         trLang = settings.languages.defaultLanguage;
 
     if(langs == undefined)
-        return tr(trLang, "langModuleInitError");
+        return false;
 
     if(typeof langCode !== "string" || langCode.length !== 2)
-        return tr(trLang, "langCodeInvalidValue");
+        return false;
 
     const requested = langs[langCode.toLowerCase()];
 

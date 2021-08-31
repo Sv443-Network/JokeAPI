@@ -421,7 +421,6 @@ async function incomingRequest(req, res, httpMetrics)
                     }
                     catch(err)
                     {
-                        // TODO: test this
                         if(typeof err.message === "string")
                             console.error(`Error while adding point to rate limiter: ${err}`);
                         else if(err.remainingPoints <= 0)
@@ -429,6 +428,8 @@ async function incomingRequest(req, res, httpMetrics)
                             logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
                             return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame), lang);
                         }
+                        else
+                            return logger("fatal", `General error while serving documentation or setting up rate limiting for the documentation: ${err}`, true);
                     }
                 }
                 catch(err)

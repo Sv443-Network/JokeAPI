@@ -1,6 +1,7 @@
 const scl = require("svcorelib");
 const fs = require("fs-extra");
 const http = require("http");
+const { resolve, join } = require("path");
 
 const parseJokes = require("./parseJokes");
 const logRequest = require("./logRequest");
@@ -20,6 +21,8 @@ const settings = require("../settings");
 scl.unused(http, analytics, tr);
 
 /** @typedef {parseJokes.SingleJoke|parseJokes.TwopartJoke} JokeSubmission */
+/** @typedef {import("./fileFormatConverter").FileFormat} FileFormat */
+/** @typedef {import("./analytics").AnalyticsSubmission} AnalyticsSubmission */
 
 
 /**
@@ -34,8 +37,6 @@ scl.unused(http, analytics, tr);
  */
 function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun, lang)
 {
-    // TODO: ensure language stuff in here works
-
     if(!isValidLang(lang))
         lang = settings.languages.defaultLanguage;
 
@@ -80,31 +81,9 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun, lang
             }
             else
             {
-                // joke is valid, find file name and then write to file
+                // joke is valid, find file path and then write to file
 
-                const sanitizedIP = ip.replace(settings.httpServer.ipSanitization.regex, settings.httpServer.ipSanitization.replaceChar).substring(0, 16);
-                const curTS = Date.now();
-                let fileName = `${settings.jokes.jokeSubmissionPath}${submissionLang}/submission_${sanitizedIP}_0_${curTS}.json`;
-
-                let iter = 0;
-                const findNextNum = currentNum => {
-                    iter++;
-                    if(iter >= settings.httpServer.rateLimiting)
-                    {
-                        logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
-                        return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame));
-                    }
-
-                    if(fs.existsSync(`${settings.jokes.jokeSubmissionPath}submission_${sanitizedIP}_${currentNum}_${curTS}.json`))
-                        return findNextNum(currentNum + 1);
-                    else
-                        return currentNum;
-                };
-
-                fs.ensureDirSync(`${settings.jokes.jokeSubmissionPath}${submissionLang}`);
-
-                if(fs.existsSync(`${settings.jokes.jokeSubmissionPath}${fileName}`))
-                    fileName = `${settings.jokes.jokeSubmissionPath}${submissionLang}/submission_${sanitizedIP}_${findNextNum()}_${curTS}.json`;
+                const filePath = getSubmissionFilePath(res, fileFormat, lang, ip, submissionLang, analyticsObject);
 
                 try
                 {
@@ -122,7 +101,7 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun, lang
                         return pipeString(res, fileFormatConverter.auto(fileFormat, respObj, lang), parseURL.getMimeType(fileFormat), 201);
                     }
 
-                    return writeJokeToFile(res, fileName, submission, fileFormat, ip, analyticsObject, lang);
+                    return writeJokeToFile(res, filePath, submission, fileFormat, ip, analyticsObject, lang);
                 }
                 catch(err)
                 {
@@ -139,6 +118,47 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun, lang
     {
         return respondWithError(res, 105, 400, fileFormat, tr(lang, "invalidJSON", err), lang);
     }
+}
+
+/**
+ * Builds a file path for a joke submission and returns it
+ * @param {http.ServerResponse} res 
+ * @param {FileFormat} fileFormat 
+ * @param {string} lang 
+ * @param {string} ip 
+ * @param {string} submissionLang 
+ * @param {AnalyticsSubmission} analyticsObject 
+ * @returns {string}
+ */
+function getSubmissionFilePath(res, fileFormat, lang, ip, submissionLang, analyticsObject)
+{
+    const curTS = Date.now();
+    const sanitizedIP = ip.replace(settings.httpServer.ipSanitization.regex, settings.httpServer.ipSanitization.replaceChar).substring(0, 16);
+
+    let filePath = join(settings.jokes.jokeSubmissionPath, submissionLang, `/submission_${sanitizedIP}_0_${curTS}.json`);
+
+    let iter = 0;
+    const findNextNum = currentNum => {
+        iter++;
+        if(iter >= settings.httpServer.rateLimiting)
+        {
+            logRequest("ratelimited", `IP: ${ip}`, analyticsObject);
+            return respondWithError(res, 101, 429, fileFormat, tr(lang, "rateLimited", settings.httpServer.rateLimiting, settings.httpServer.timeFrame));
+        }
+
+        if(fs.existsSync(join(settings.jokes.jokeSubmissionPath, `submission_${sanitizedIP}_${currentNum}_${curTS}.json`)))
+            return findNextNum(currentNum + 1);
+        else
+            return currentNum;
+    };
+
+    fs.ensureDirSync(join(settings.jokes.jokeSubmissionPath, submissionLang));
+
+    if(fs.existsSync(join(settings.jokes.jokeSubmissionPath, filePath)))
+        filePath = join(settings.jokes.jokeSubmissionPath, submissionLang, `/submission_${sanitizedIP}_${findNextNum()}_${curTS}.json`);
+
+    // convert to absolute path
+    return resolve(filePath);
 }
 
 /**
