@@ -1,11 +1,15 @@
-// 🔹 JokeAPI by Sv443 🔹
-//
-// GitHub:    https://github.com/Sv443/JokeAPI
-// API Docs:  https://jokeapi.dev/
-// ️
-// ⚠️ Please read the LICENSE.txt file before modifying or redistributing JokeAPI.
-// ⚠️ Thanks :)
-
+/**
+ * @name JokeAPI
+ * @author Sv443
+ * @license MIT - https://sv443.net/LICENSE
+ * 
+ * Repository:     https://github.com/Sv443/JokeAPI
+ * Documentation:  https://jokeapi.dev/
+ * ️
+ * ⚠️ Please read the LICENSE.txt file before modifying or redistributing any code
+ * Thanks and have fun cringing at my code :)
+ */
+"use-strict";
 
 const importFresh = require("import-fresh");
 const { randomItem, system, colors } = require("svcorelib");
@@ -15,7 +19,7 @@ const settings = require("./settings");
 
 
 /**
- * Initializes JokeAPI
+ * Initializes JokeAPI by wrapping, requiring or importing fresh, depending on settings and debugger environment
  */
 function initJokeAPI()
 {

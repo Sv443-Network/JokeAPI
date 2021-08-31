@@ -67,22 +67,6 @@ If you need help with these wrappers, you should contact their respective author
 
 [Submit an issue](https://github.com/Sv443/JokeAPI/issues/new/choose) and select `Dependent` to get your project added here
 
-<!--
-Old list-style dependents:
-- [dozens Advices](https://github.com/ZephyrVentum/dozens-Advices) by [ZephyrVentum](https://github.com/ZephyrVentum)
-- [Shadow-bot](https://github.com/QGIsK/Shadow-bot) by [QGIsK](https://github.com/QGIsK)
-- [Jokepy](https://github.com/aksty/Jokepy) by [aksty](https://github.com/aksty)
-- [Dark1](https://github.com/whiteadi/Dark1) by [whiteadi](https://github.com/whiteadi)
-- [Prejudice Networks](https://github.com/LiamTownsley/Prejudice-Networks) by [Liam Townsley](https://github.com/LiamTownsley)
-- [https://irshad.ml/humour.html](https://irshad.ml/humour.html) by [draco-malfoy](https://github.com/draco-malfoy)
-- [Random Joke Generator with Flutter](https://github.com/variousnabil/Random-Joke-Generator-with-Flutter) by [variousnabil](https://github.com/variousnabil)
-- [comma](https://thatcopy.pw/comma) by [ThatCopy](https://github.com/ThatCopy)
-- [Joke Teller](https://github.com/AlHood77/Joke_Teller) by [AlHood77](https://github.com/AlHood77)
-- [Jokes plugin for Craft CMS 3.x](https://github.com/remcoov/jokes) by [remcoov](https://github.com/remcoov)
-- [PoshBot.Joker](https://github.com/ToastIT-dev/PoshBot.Joker) by [ToastIT-dev](https://github.com/ToastIT-dev)
-- [JokeAPI_ComputerCraft](https://github.com/Sv443/JokeAPI_ComputerCraft) by [Sv443](https://github.com/Sv443)
--->
-
 <br><br>
 
 <div align="center" style="text-align:center">
