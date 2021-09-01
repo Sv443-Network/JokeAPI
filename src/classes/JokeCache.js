@@ -14,21 +14,12 @@ const col = colors.fg;
 
 
 /** TODO:
- * - Using joke filters means the cache and pool size aren't in sync anymore and should be recalculated
- * - Alternatively, cache entries in the database should be deleted prior to each request instead of fixed pool size after each request
- *   This would theoretically allow languages with less jokes to also make use of caching, although the minimum should even be highered to something like 25 or even as high as 40
- *   This is to not impact joke selection randomness too much
+ * Using joke filters means the pool size and joke amount aren't in sync anymore
+ * To fix this, cache entries in the database should be deleted prior to each request instead of fixed pool size after each request
+ * This would theoretically allow languages with less jokes to also make use of caching
+ * Although the minimum should even be highered to something like 25 or even as high as 40, to not impact joke selection randomness too much
  */
 
-
-//#MARKER types
-
-/**
- * @typedef {object} CacheEntry An object representing an entry of the joke cache
- * @prop {string} clientIpHash 64-character IP hash of the client
- * @prop {number} jokeID ID of the joke to cache
- * @prop {string} langCode Language code of the joke to cache
- */
 
 //#MARKER class def + constructor
 
@@ -55,14 +46,17 @@ class JokeCache
         this.tableName = settings.jokeCaching.tableName;
 
         // set up automatic GC
-        try
-        {
-            setInterval(() => this.runGC(), 1000 * 60 * settings.jokeCaching.gcIntervalMinutes);
-        }
-        catch(err)
-        {
-            debug("JokeCache", `${col.red}Error while running garbage collector on interval: ${col.rst}${err}`, "red");
-        }
+
+        setInterval(() => {
+            try
+            {
+                this.runGC();
+            }
+            catch(err)
+            {
+                debug("JokeCache", `${col.red}Error while running garbage collector on interval: ${col.rst}${err}`, "red");
+            }
+        }, 1000 * 60 * settings.jokeCaching.gcIntervalMinutes);
     }
 
     //#MARKER other methods
