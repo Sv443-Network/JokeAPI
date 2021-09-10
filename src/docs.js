@@ -156,7 +156,7 @@ function compileDocs()
 
                 if(persistentData.isInitialCompilation)
                 {
-                    debug("Docs", `Done with initial docs compilation after ${infoStr}`);
+                    debug("Docs", `Done with initial docs compilation after ${infoStr}`, "green");
                     persistentData.isInitialCompilation = false;
                 }
                 else

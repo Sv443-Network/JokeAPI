@@ -67,9 +67,13 @@ class Endpoint
      * This class is intended to be subclassed! Don't use it "raw" like this!
      * @param {string} pathName At which path this endpoint will be called
      * @param {EndpointMeta} meta Meta information about this endpoint
+     * @param {boolean} [disableDebugMessage=false] Whether to disable the debug message (if a sub-class reimplements it)
      */
-    constructor(pathName, meta)
+    constructor(pathName, meta, disableDebugMessage)
     {
+        if(disableDebugMessage !== true)
+            disableDebugMessage = false;
+
         if(typeof pathName !== "string")
             throw new TypeError(`Parameter "pathName" is not of type string (got "${typeof pathName}")`);
 
@@ -85,7 +89,8 @@ class Endpoint
         /** @type {string[]} Positional URL path arguments - is an empty array if not set - override in the subclass' constructor if needed */
         this.positionalArguments = [];
 
-        debug("Endpoint", `Instantiated endpoint at /${pathName}/ (method: ${this.meta.usage.method})`);
+        if(!disableDebugMessage)
+            debug("Endpoint", `Instantiated endpoint at /${pathName}/ (method: ${this.meta.usage.method})`);
     }
 
     //#MARKER call

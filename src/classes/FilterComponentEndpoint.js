@@ -18,9 +18,9 @@ class FilterComponentEndpoint extends Endpoint
      */
     constructor(filterComponentName, pathName, meta)
     {
-        super(pathName, meta);
+        super(pathName, meta, true);
 
-        debug("FilterComponentEndpoint", `Instantiated filter component endpoint "${filterComponentName}" at /${pathName}/`);
+        debug("FilterComponentEndpoint", `Instantiated filter component endpoint "${filterComponentName}" at /${pathName}/ (method: ${this.meta.usage.method})`);
     }
 }
 

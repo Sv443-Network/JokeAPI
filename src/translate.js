@@ -13,8 +13,11 @@ const settings = require("../settings");
 /** @typedef {import("../data/translations/endpoints.json")} EndpointsTrFile */
 
 
+/** @type {import("../data/translations/general.json")} */
 let trFile = {};
+/** @type {import("../data/translations/filterComponents.json")} */
 let filterCompTrFile = {};
+/** @type {import("../data/translations/endpoints.json")} */
 let endpointsTrFile = {};
 
 /**
@@ -28,15 +31,16 @@ function init()
         try
         {
             const generalFileCont = await fs.readFile(settings.languages.translationsFile);
+
             trFile = JSON.parse(generalFileCont.toString());
 
-            debug("Translate", `Found ${Object.keys(trFile.tr).length} general translations`);
+            debug("Translate", `Registered ${Object.keys(trFile.tr).length} general translation nodes`, "green");
 
 
             const filterCompFileCont = await fs.readFile(settings.jokes.possible.filterComponentTranslationFile);
             filterCompTrFile = JSON.parse(filterCompFileCont.toString());
 
-            debug("Translate", `Found ${Object.keys(filterCompTrFile.tr).length} filter component translations`);
+            debug("Translate", `Registered translations for ${Object.keys(filterCompTrFile.tr).length} filter components`, "green");
 
             await initEndpointTranslations();
 

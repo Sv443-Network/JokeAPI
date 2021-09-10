@@ -26,6 +26,18 @@ const settings = require("../settings");
 
 const col = colors.fg;
 
+/**
+ * @typedef {object} InitStage
+ * @prop {string} name
+ * @prop {Promise<(void | InitStageResult), (Error | string)>} fn
+ */
+
+/**
+ * @typedef {object} InitStageResult
+ * @prop {number} initTimeDeduction Amount of milliseconds to deduct from measured initialization time
+ */
+
+
 /** Data that persists until JokeAPI is shut down */
 const persistentData = {
     /** Whether the process is run in a debugger */
@@ -64,6 +76,7 @@ async function initAll()
     /**
      * The different stages to JokeAPI's initialization.  
      * The stages are initialized sequentially, meaning the first item (index 0) will be initialized first, after it has finished the second item, and so on.
+     * @type {InitStage[]}
      */
     const initStages = [
         {
@@ -126,6 +139,7 @@ async function initAll()
     try
     {
         // sequentially call all async `fn` properties of the `initStages` array and wait till they're all done
+        /** @type {InitStageResult[]} */
         const initRes = await promiseAllSequential(initPromises);
 
         // resolved values *can* be an object like this:
@@ -146,7 +160,7 @@ async function initAll()
         if(pb)
             pb.next(`Successfully initialized all ${initStages.length} modules`);
 
-        debug("Init", `Successfully initialized all ${initStages.length} modules.`);
+        debug("Init", `${col.green}Successfully initialized all ${initStages.length} modules${col.rst}`, "green");
 
         logRequest.initMsg(initTimestamp, undefined, undefined, initTimeDeduction);
     }

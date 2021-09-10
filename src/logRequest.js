@@ -177,8 +177,8 @@ function logRequest(type, additionalInfo, analyticsData)
 /**
  * Sends an initialization message - called when the initialization is done
  * @param {number} initTimestamp The UNIX timestamp of when JokeAPI was initialized
- * @param {number} [initDurationMs] Duration until startup
- * @param {number} [activityIndicatorState] State of the activity indicator - only shown if dashboard mode is active
+ * @param {number} [initDurationMs] Duration until startup - leave undefined when calling from main!
+ * @param {number} [activityIndicatorState] State of the activity indicator - only shown if dashboard mode is active - leave undefined when calling from main!
  * @param {number} [initTimeDeduction] Time that should be deducted from the init time
  */
 function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTimeDeduction)
@@ -194,7 +194,7 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
     const heapPercent = parseFloat(scl.mapRange(hsVal, 0, hsMax, 0, 100).toFixed(2));
 
     if(persistentData.firstInitMsg)
-        debug("LogRequest", `${col.green}Startup metrics:${col.rst} initMs=${initMs} | initTimeDed=${initTimeDeduction} | initMsDed=${initMsDeducted} | initialHeapUsage=${heapPercent}%`);
+        debug("LogRequest", `${col.cyan}Startup metrics:${col.rst} initMs=${initMs} | initTimeDed=${initTimeDeduction} | initMsDed=${initMsDeducted} | initialHeapUsage=${heapPercent}%`);
 
     if(settings.debug.dashboardEnabled && heapPercent > persistentData.maxHeapUsage)
         persistentData.maxHeapUsage = heapPercent;

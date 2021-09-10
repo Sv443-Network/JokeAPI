@@ -21,9 +21,9 @@ class SubmissionEndpoint extends Endpoint
      */
     constructor(pathName, meta)
     {
-        super(pathName, meta);
+        super(pathName, meta, true);
 
-        debug("SubmissionEndpoint", `Instantiated submission endpoint at /${pathName}/`);
+        debug("SubmissionEndpoint", `Instantiated submission endpoint at /${pathName}/ (method: ${this.meta.usage.method})`);
     }
 
     //#MARKER call

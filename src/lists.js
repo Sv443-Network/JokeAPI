@@ -70,7 +70,7 @@ function init()
                             consoleBlacklist: JSON.parse(consoleBlacklist)
                         };
 
-                        debug("Lists", "Finished reading and initializing all lists");
+                        debug("Lists", "Finished initializing all lists", "green");
                         module.exports.lists = lists;
 
                         return resolve(lists);
