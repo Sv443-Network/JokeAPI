@@ -366,6 +366,11 @@ input#f_customLang {
     border-style: none none none solid;
 }
 
+.alternatingBgTable tr > td {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
 table tr td.g, span.col.g {
     color: #65b365;
 }

@@ -1447,7 +1447,7 @@ None. It's a hardware problem.
                 I created <!--%#INSERT:NAME#%--> with the main purpose of it having many versatile filtering options as other APIs didn't offer this amount of customization.<br>
                 In this section you will learn how the filtering works.<br><br>
 
-                There are six different filtering methods in <!--%#INSERT:NAME#%-->:<br>
+                There are the following filtering methods in <!--%#INSERT:NAME#%-->:<br>
                 <ul>
                     <li><a href="#categories">Joke Category</a></li>
                     <li><a href="#blacklist-flags">Blacklist Flags</a></li>
@@ -1456,73 +1456,72 @@ None. It's a hardware problem.
                     <li><a href="#search-string">Search String</a></li>
                     <li><a href="#id-range">ID Range</a></li>
                     <li><a href="#lang">Language</a></li>
+                    <li><a href="#safe-mode">Safe Mode</a></li>
                 </ul>
 
 
 
                 <!-- #MARKER Response Headers section-->
                 <div class="docHeader targetBlink" id="headers"><a class="headerAnchorContainer" href="#headers" title="Click to link to this header">§</a><span class="docHeaderText">Response Headers:</span></div>
-                Know that the header names can arrive in all lowercase sometimes, this is a quirk of <!--%#INSERT:NAME#%-->'s HTTP backend but it should not be an issue (see <a href="https://datatracker.ietf.org/doc/html/rfc7230#section-3.2" target="_blank" rel="noopener noreferrer">rfc7230 3.2</a>).<br>
-                <br>
                 <!--%#INSERT:NAME#%--> strives to be conforming to all kinds of HTTP and API standards, although it has had a rough start.<br>
                 These are important so that your HTTP client can interact correctly with <!--%#INSERT:NAME#%--> and allows you to make more of the API.<br>
                 That's why you will get the following response headers, which you and your HTTP library can and should make use of:<br>
                 <br>
                 <table class="alternatingBgTable">
                     <tr>
-                        <th>Header Name</th>
+                        <th>Header Name(s)</th>
                         <th>Syntax</th>
                         <th>Description</th>
                         <th>Reference</th>
                     </tr>
                     <tr>
-                        <td><marK>Date</marK></td>
-                        <td><marK class="nowrap">&lt;day_name&gt;, &lt;day&gt; &lt;month&gt; &lt;year&gt; &lt;hour&gt;:&lt;minute&gt;:&lt;second&gt; GMT</marK></td>
+                        <td><mark>Date</mark></td>
+                        <td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Date#syntax" target="_blank" rel="noopener noreferrer">See MDN</a></td>
                         <td>Contains the date and time at which the message was originated.</td>
                         <td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Date" target="_blank" rel="noopener noreferrer">MDN</a></td>
                     </tr>
                     <tr>
-                        <td><marK>Content-Type</marK></td>
-                        <td><marK class="nowrap">&lt;mime_type&gt;; charset=UTF-8</marK></td>
+                        <td><mark>Content-Type</mark></td>
+                        <td><mark class="nowrap">&lt;mime_type&gt;; charset=UTF-8</mark></td>
                         <td>Indicates the <a href="https://developer.mozilla.org/en-US/docs/Glossary/MIME_type" target="_blank" rel="noopener noreferrer">Media Type (MIME)</a> and character encoding of the response.</td>
                         <td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type" target="_blank" rel="noopener noreferrer">MDN</a></td>
                     </tr>
                     <tr>
                         <td>
-                            <marK class="nowrap">Access-Control-Allow-Origin</marK><br>
-                            <marK class="nowrap">Access-Control-Allow-Headers</marK><br>
-                            <marK class="nowrap">Access-Control-Allow-Methods</marK><br>
-                            <marK class="nowrap">Access-Control-Request-Method</marK>
+                            <mark class="nowrap">Access-Control-Allow-Origin</mark><br>
+                            <mark class="nowrap">Access-Control-Allow-Headers</mark><br>
+                            <mark class="nowrap">Access-Control-Allow-Methods</mark><br>
+                            <mark class="nowrap">Access-Control-Request-Method</mark>
                         </td>
                         <td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS#the_http_response_headers" target="_blank" rel="noopener noreferrer">See MDN</a></td>
                         <td>
                             Cross-Origin-Resource-Sharing forbids websites to load content from <!--%#INSERT:NAME#%--> as nothing indicates the data is intended for that website.<br>
                             <!--%#INSERT:NAME#%--> employs a CORS policy that allows everyone to access its resources.<br>
-                            It also shows you which methods you can use to interact with <!--%#INSERT:NAME#%-->.
+                            These headers also show you which methods and headers you can use to interact with <!--%#INSERT:NAME#%-->.
                         </td>
                         <td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS" target="_blank" rel="noopener noreferrer">MDN</a></td>
                     </tr>
                     <tr>
-                        <td><marK>Strict-Transport-Security</marK></td>
-                        <td><marK class="nowrap">max-age=&lt;amount-of-seconds&gt;</marK></td>
+                        <td><mark>Strict-Transport-Security</mark></td>
+                        <td><mark class="nowrap">max-age=&lt;amount-of-seconds&gt;</mark></td>
                         <td><!--%#INSERT:NAME#%--> makes use of the <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security" target="_blank" rel="noopener noreferrer">Strict Transport Security (HSTS)</a> technology to make JokeAPI very secure.</td>
                         <td><a href="ReferenceLink" target="_blank" rel="noopener noreferrer">MDN</a></td>
                     </tr>
                     <tr>
-                        <td><marK>API-Info</marK></td>
-                        <td><marK class="nowrap">JokeAPI v&lt;semver_version&gt; (&lt;docs_url&gt;)</marK></td>
-                        <td>Description</td>
+                        <td><mark>API-Info</mark></td>
+                        <td><mark class="nowrap">JokeAPI v&lt;version&gt; (&lt;docs_url&gt;)</mark></td>
+                        <td>Shows <!--%#INSERT:NAME#%-->'s version in <a href="https://semver.org/" target="_blank" rel="noopener noreferrer">semver</a> format, and the URL to this documentation.</td>
                         <td><a href="ReferenceLink" target="_blank" rel="noopener noreferrer">MDN</a></td>
                     </tr>
                     <tr>
-                        <td><marK>Content-Security-Policy</marK></td>
+                        <td><mark>Content-Security-Policy</mark></td>
                         <td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP#examples_common_use_cases" target="_blank" rel="noopener noreferrer">See MDN</a></td>
-                        <td>Protects <!--%#INSERT:NAME#%--> against certain types of attacks like <a href="https://developer.mozilla.org/en-US/docs/Glossary/Cross-site_scripting" target="_blank" rel="noopener noreferrer">Cross Site Scripting (XSS)</a></td>
+                        <td>Protects <!--%#INSERT:NAME#%--> against certain types of attacks like <a href="https://developer.mozilla.org/en-US/docs/Glossary/Cross-site_scripting" target="_blank" rel="noopener noreferrer">Cross Site Scripting (XSS).</a></td>
                         <td><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP" target="_blank" rel="noopener noreferrer">MDN</a></td>
                     </tr>
                     <tr>
-                        <td><marK>Content-Encoding</marK></td>
-                        <td><marK class="nowrap">&lt;encoding_name&gt;</marK></td>
+                        <td><mark>Content-Encoding</mark></td>
+                        <td><mark class="nowrap">&lt;encoding_name&gt;</mark></td>
                         <td>
                             <!--%#INSERT:NAME#%-->'s static and semi-static files like this documentation and other static content is sent encoded, speeding up the connection with the API a lot.<br>
                             Supported encodings are: <mark>brotli (br), gzip, deflate compress</mark> and without encoding, <mark>identity</mark>
@@ -1531,10 +1530,10 @@ None. It's a hardware problem.
                     </tr>
                     <tr>
                         <td>
-                            <marK>Retry-After</marK><br>
-                            <marK>RateLimit-Limit</marK><br>
-                            <marK>RateLimit-Remaining</marK><br>
-                            <marK>RateLimit-Reset</marK>
+                            <mark>Retry-After</mark><br>
+                            <mark>RateLimit-Limit</mark><br>
+                            <mark>RateLimit-Remaining</mark><br>
+                            <mark>RateLimit-Reset</mark>
                         </td>
                         <td><a href="#rate-limiting">See Rate Limiting</a></td>
                         <td><!--%#INSERT:NAME#%--> has to protect itself against <a href="https://en.wikipedia.org/wiki/Denial-of-service_attack" target="_blank" rel="noopener noreferrer">Denial of Service (DoS / DDoS) attacks</a>, so it makes use of <a href="https://en.wikipedia.org/wiki/Rate_limiting" target="_blank" rel="noopener noreferrer">Rate Limiting.</a><br>
@@ -1543,8 +1542,8 @@ None. It's a hardware problem.
                     </tr>
                     <!-- Template:
                     <tr>
-                        <td><marK>Name</marK></td>
-                        <td><marK class="nowrap">Syntax</marK></td>
+                        <td><mark>Name</mark></td>
+                        <td><mark class="nowrap">Syntax</mark></td>
                         <td>Description</td>
                         <td><a href="ReferenceLink" target="_blank" rel="noopener noreferrer">MDN</a></td>
                     </tr>
@@ -1557,6 +1556,12 @@ None. It's a hardware problem.
 
                      -->
                 </table>
+
+                <br>
+
+                Know that the header names can arrive in all lowercase sometimes, this is a quirk of <!--%#INSERT:NAME#%-->'s HTTP backend but it should not be an issue (see <a href="https://datatracker.ietf.org/doc/html/rfc7230#section-3.2" target="_blank" rel="noopener noreferrer">rfc7230 3.2</a>).
+
+                <br><br>
 
 
 

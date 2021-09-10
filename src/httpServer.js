@@ -317,7 +317,7 @@ async function incomingRequest(req, res, httpMetrics)
         urlParameters: parsedURL.queryParams
     };
 
-    debug("HTTP", `Incoming ${req.method} request from '${ip.substring(0, 16)}${localhostIP ? `…' ${colors.fg.blue}(local)${colors.rst}` : "…'"} to /${parsedURL.pathArray.join("/")} [${lang}]`, "green");
+    debug("HTTP", `Incoming ${req.method} request from '${ip.substring(0, 16)}${localhostIP ? `…' ${colors.fg.blue}(local)${colors.rst}` : "…'"} to /${parsedURL.pathArray.join("/")} [${lang}]`, "cyan");
 
     const fileFormat = (!isEmpty(parsedURL.queryParams) && !isEmpty(parsedURL.queryParams.format)) ? parseURL.getFileFormatFromQString(parsedURL.queryParams) : settings.jokes.defaultFileFormat.fileFormat;
 

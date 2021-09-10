@@ -160,7 +160,7 @@ function compileDocs()
                     persistentData.isInitialCompilation = false;
                 }
                 else
-                    debug("Docs", `Docs recompiled after ${infoStr}`);
+                    debug("Docs", `Docs recompiled after ${infoStr}`, "green");
 
                 return recompRes();
             }
