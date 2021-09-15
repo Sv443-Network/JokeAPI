@@ -4,7 +4,7 @@
 "use strict";
 
 
-const { unused, filesystem, system, colors, ProgressBar } = require("svcorelib");
+const { filesystem, system, colors, ProgressBar } = require("svcorelib");
 const promiseAllSequential = require("promise-all-sequential");
 
 const debug = require("./debug");
@@ -142,15 +142,6 @@ async function initAll()
         /** @type {InitStageResult[]} */
         const initRes = await promiseAllSequential(initPromises);
 
-        // resolved values *can* be an object like this:
-        /*
-
-        {
-            initTimeDeduction: number, // amount of milliseconds that should be deducted from the init time
-        }
-
-        */
-
         /** @type {number} Time that should be deducted from the init time */
         const initTimeDeduction = initRes.reduce((acc, r) => {
             return acc + ((r && typeof r.initTimeDeduction === "number" && !isNaN(r.initTimeDeduction)) ? r.initTimeDeduction : 0);
@@ -177,7 +168,7 @@ async function initAll()
  * This function gets called when JokeAPI encounters an error while initializing.
  * Because the initialization phase is such a delicate and important process, JokeAPI shuts down if an error is encountered.
  * @param {String} action 
- * @param {Error} err 
+ * @param {Error|string} err 
  */
 function initError(action, err)
 {
@@ -206,7 +197,7 @@ async function softExit(code = 0)
     }
     catch(err)
     {
-        unused(err);
+        console.error(`Error in softExit: ${err}`);
         process.exit(code);
     }
 }
