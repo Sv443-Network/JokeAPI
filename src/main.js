@@ -28,8 +28,8 @@ const col = colors.fg;
 
 /**
  * @typedef {object} InitStage
- * @prop {string} name
- * @prop {Promise<(void | InitStageResult), (Error | string)>} fn
+ * @prop {string} name Name of this stage
+ * @prop {Promise<(void | InitStageResult), (Error | string)>} fn Promise that initializes the module / runs this stage
  */
 
 /**
@@ -81,51 +81,51 @@ async function initAll()
     const initStages = [
         {
             name: "Languages module",
-            fn: languages.init
+            fn: languages.init,
         },
         {
             name: "Translations module",
-            fn: translate.init
+            fn: translate.init,
         },
         {
             name: "Splashes module",
-            fn: splashes.init
+            fn: splashes.init,
         },
         {
             name: "Joke parser module",
-            fn: parseJokes.init
+            fn: parseJokes.init,
         },
         {
             name: "Lists module",
-            fn: lists.init
+            fn: lists.init,
         },
         {
             name: "Documentation module",
-            fn: docs.init
+            fn: docs.init,
         },
         {
             name: "Authorization module",
-            fn: auth.init
+            fn: auth.init,
         },
         {
             name: "URL parser module",
-            fn: parseURL.init
+            fn: parseURL.init,
         },
         {
             name: "HTTP server module",
-            fn: httpServer.init
+            fn: httpServer.init,
         },
         {
             name: "Analytics module",
-            fn: analytics.init
+            fn: analytics.init,
         },
         {
             name: "Joke cache module",
-            fn: jokeCache.init
+            fn: jokeCache.init,
         },
         {
             name: "pm2 meter module",
-            fn: meter.init
+            fn: meter.init,
         }
     ];
 
@@ -167,7 +167,7 @@ async function initAll()
 /**
  * This function gets called when JokeAPI encounters an error while initializing.
  * Because the initialization phase is such a delicate and important process, JokeAPI shuts down if an error is encountered.
- * @param {String} action 
+ * @param {string} action 
  * @param {Error|string} err 
  */
 function initError(action, err)
@@ -180,7 +180,7 @@ function initError(action, err)
 
 /**
  * Ends all open connections and then shuts down the process with the specified exit code
- * @param {Number} [code=0] Exit code - defaults to 0
+ * @param {number} [code=0] Exit code - defaults to 0
  */
 async function softExit(code = 0)
 {
