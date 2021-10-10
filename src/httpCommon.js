@@ -111,7 +111,9 @@ function respondWithErrorPage(res, statusCode, error)
 
     if(!isEmpty(error))
     {
-        const cookieStr = `errorInfo=${JSON.stringify({"API-Error-Message": encodeURIComponent(error.toString()), "API-Error-StatusCode": statusCode})}`;
+        const errInfo = Buffer.from(JSON.stringify({"API-Error-Message": encodeURIComponent(error.toString()), "API-Error-StatusCode": statusCode})).toString("base64");
+        // const cookieStr = `errorInfo=${errInfo}; Expires=${new Date().toUTCString()}`;
+        const cookieStr = `errorInfo=${errInfo}`;
 
         if(!res.headersSent)
         {

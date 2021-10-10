@@ -141,7 +141,7 @@ const settings = {
     },
     /** Settings for the `httpServer` module */
     httpServer: {
-        port: 8075,           // http server port (TCP)
+        port: 8076,           // http server port (TCP)
         allowCORS: true,      // whether or not to allow Cross Origin Resource Sharing (CORS)
         rateLimiting: 100,    // amount of allowed requests per below defined timeframe
         timeFrame: 60,        // timeframe of rate limiting in seconds

@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
     try
     {
         // error info is transmitted via cookies cause I couldn't think of a better way
-        let errorInfo = JSON.parse(Cookies.get("errorInfo")); // eslint-disable-line no-undef
+        let errorInfo = JSON.parse(atob(Cookies.get("errorInfo"))); // eslint-disable-line no-undef
 
         let statusCode = parseInt(errorInfo["API-Error-StatusCode"]);
         let errorReasonMsg = "";
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
             break;
             case 500: default:
                 errorReasonMsg = "Internal Server Error";
-                errorSubtext = "<!--%#INSERT:NAME#%--> encountered an unexpected internal error.<br>If this error persists and error details were provided on this page, please <a href=\"<!--%#INSERT:AUTHORWEBSITEURL#%-->\">contact me</a> with the error details and I will try to fix it and/or help you.<br>Alternatively, <a href=\"<!--%#INSERT:DOCSURL#%-->\">visit the documentation by clicking here</a>.";
+                errorSubtext = "<!--%#INSERT:NAME#%--> encountered an unexpected internal error.<br>If this error persists and error details were provided on this page, please <a href=\"<!--%#INSERT:AUTHORWEBSITEURL#%-->\">contact me</a> with the error details and I will try to help you.<br>Alternatively, <a href=\"<!--%#INSERT:DOCSURL#%-->\">visit the documentation by clicking here</a>.";
             break;
         }
 
