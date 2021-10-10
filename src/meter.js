@@ -7,20 +7,24 @@ const fs = require("fs-extra");
 const settings = require("../settings");
 const { unused } = require("svcorelib");
 
-/**
- * @typedef {"req1min"|"req10mins"|"req1hour"|"reqtotal"|"submission"} MeterName
- */
+/** @typedef {"req1min"|"req10mins"|"req1hour"|"reqtotal"|"submission"} MeterName */
+/** @typedef {import("@pm2/io/build/main/utils/metrics/gauge").default} Gauge */
 
 
-var meters = {
+const meters = {
+    /** @type {Gauge} */
     req1mMeter: null,
+    /** @type {Gauge} */
     req10mMeter: null,
+    /** @type {Gauge} */
     req1hMeter: null,
+    /** @type {Gauge} */
     reqtotalMeter: null,
+    /** @type {Gauge} */
     submissionMeter: null
 }
 
-var values = {
+const values = {
     /** Requests per 1 minute */
     m1: 0,
     /** Requests per 10 minutes */
@@ -35,7 +39,7 @@ var values = {
 
 /**
  * Initializes the meter module
- * @returns {Promise}
+ * @returns {Promise<void, (Error | string)>}
  */
 function init()
 {
@@ -105,18 +109,15 @@ function init()
 /**
  * Increments a meter's value
  * @param {MeterName} meterName
- * @param {number} [addValue] If left empty, the meter will update by `1`
- * @throws {TypeError} If `addValue` is neither `undefined` nor parseable as a number
+ * @param {number} [addValue] If empty, less than 1 or not a number, defaults to 1
+ * @throws TypeError if `meterName` is invalid
  */
-function update(meterName, addValue)
+function update(meterName, addValue = 1)
 {
-    if(typeof addValue == "undefined")
-        addValue = 1;
-
     addValue = parseInt(addValue);
 
-    if(typeof addValue != "number" || isNaN(addValue))
-        throw new TypeError(`meter.update(): "addValue" has wrong type "${typeof addValue}" - expected "number"`);
+    if(isNaN(addValue) || addValue < 1)
+        addValue = 1;
 
     // debug("Meter", `Updating pm2 meter "${meterName}" - adding ${addValue}`);
 
@@ -149,7 +150,7 @@ function update(meterName, addValue)
     }
     catch(err)
     {
-        // sometimes meters are undefined for some odd reason but since it isn't a fatal error just ignore it
+        // sometimes meters are undefined for some odd reason but since monitoring isn't a vital feature ignore it
         unused(err);
     }
 

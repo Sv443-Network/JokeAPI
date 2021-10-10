@@ -21,7 +21,7 @@ const settings = {
     },
     /** General information about JokeAPI */
     info: {
-        name: "JokeAPI",                                // the name of JokeAPI (I don't like the name, I may change it at a later time - I'm indecisive, leave me alone)
+        name: "JokeAPI-ST",                             // the name of JokeAPI (I don't like the name, I may change it at a later time - I'm indecisive, leave me alone)
         desc: packageJSON.description,                  // the description of JokeAPI
         projGitHub: "https://github.com/Sv443/JokeAPI", // URL to the project's GitHub page
         version: packageJSON.version,                   // the version as a string
@@ -141,7 +141,7 @@ const settings = {
     },
     /** Settings for the `httpServer` module */
     httpServer: {
-        port: 8076,           // http server port (TCP)
+        port: 8075,           // http server port (TCP)
         allowCORS: true,      // whether or not to allow Cross Origin Resource Sharing (CORS)
         rateLimiting: 100,    // amount of allowed requests per below defined timeframe
         timeFrame: 60,        // timeframe of rate limiting in seconds
