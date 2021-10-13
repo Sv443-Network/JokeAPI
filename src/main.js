@@ -24,6 +24,8 @@ const splashes = require("./splashes");
 
 const settings = require("../settings");
 
+require("dotenv").config();
+
 const col = colors.fg;
 
 /**
@@ -40,16 +42,11 @@ const col = colors.fg;
 
 /** Data that persists until JokeAPI is shut down */
 const persistentData = {
-    /** Whether the process is run in a debugger */
-    debuggerActive: system.inDebugger() || false
+    /** Whether the process runs in a debugger */
+    debuggerActive: system.inDebugger() === true,
 };
 
-require("dotenv").config();
-
-
-settings.init.exitSignals.forEach(sig => {
-    process.on(sig, () => softExit(0));
-});
+settings.init.exitSignals.forEach(sig => process.on(sig, () => softExit(0)));
 
 
 //#MARKER init all
