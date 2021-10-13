@@ -3,12 +3,13 @@
 
 # [![icon](https://sv443.net/cdn/jokeapi/icon_readme.png)](#readme)<br>JokeAPI
 ### A REST API that serves uniformly and well formatted jokes and offers a great variety of filtering methods and response customization
-[![MIT License](https://img.shields.io/github/license/Sv443/JokeAPI)](https://github.com/Sv443/JokeAPI/blob/master/LICENSE.txt)
 [![Uptime / 7d](https://img.shields.io/uptimerobot/ratio/7/m784261094-bff76b959ebb8fc39f7eb2d0)](https://status.sv443.net/)
-[![Open Issues](https://img.shields.io/github/issues/Sv443/JokeAPI)](https://github.com/Sv443/JokeAPI/issues)
+[![Open issues](https://img.shields.io/github/issues/Sv443/JokeAPI)](https://github.com/Sv443/JokeAPI/issues)
+[![Support me](https://img.shields.io/badge/-Support%20me-555555?logo=GitHub%20Sponsors)](https://github.com/sponsors/Sv443)
   
 [![Discord](https://img.shields.io/discord/565933531214118942)](https://discord.gg/aBH4uRG)
-[![GitHub stars](https://img.shields.io/github/stars/Sv443/JokeAPI?style=social)](https://github.com/Sv443/JokeAPI/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/Sv443/JokeAPI)](https://github.com/Sv443/JokeAPI/stargazers)
+[![MIT License](https://img.shields.io/github/license/Sv443/JokeAPI)](https://github.com/Sv443/JokeAPI/blob/master/LICENSE.txt)
 
 <br><br>
 
