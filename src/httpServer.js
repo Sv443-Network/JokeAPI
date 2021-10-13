@@ -29,8 +29,12 @@ const settings = require("../settings");
 
 unused("types:", RateLimiterRes, Endpoint, SubmissionEndpoint);
 
+/** @typedef {import("./types/docs").EncodingName} EncodingName */
+/** @typedef {import("./types/http").HttpMetrics} HttpMetrics */
+/** @typedef {import("./types/http").EpObject} EpObject */
 
-//#MARKER globals
+
+//#MARKER "globals"
 
 module.exports.dataEndpoints = [];
 module.exports.submissionEndpoints = [];
@@ -51,23 +55,6 @@ const rlSubm = new RateLimiterMemory({
     duration: settings.jokes.submissions.timeFrame
 });
 
-//#MARKER types
-
-/** @typedef {import("./docs.js").EncodingName} EncodingName */
-
-/**
- * @typedef {object} HttpMetrics
- * @prop {Date} requestArrival `Date` object set to the time the request arrived at the server
- */
-
-/**
- * @typedef {Object} EpObject A cached endpoint
- * @prop {string} name File name
- * @prop {Endpoint.EndpointMeta} meta Meta object
- * @prop {string} absPath Absolute path to endpoint class
- * @prop {string} pathName Path at which to call this endpoint
- * @prop {Endpoint} instance An instance of the endpoint subclass. Use this to call the endpoint, execute base class methods, etc.
- */
 
 //#MARKER init
 

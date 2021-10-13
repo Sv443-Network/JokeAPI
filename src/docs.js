@@ -18,8 +18,7 @@ const { getAllSplashes } = require("./splashes");
 const settings = require("../settings");
 
 
-/** @typedef {"gzip"|"deflate"|"brotli"} EncodingName Encodings supported by JokeAPI - excludes "identity" */
-/** @typedef {EncodingName|"identity"} AllEncodings All possible encoding values supported by JokeAPI, including "identity" */
+/** @typedef {import("./types/docs").EncodingName} EncodingName */
 
 
 /** Data that persists throughout the entire execution */

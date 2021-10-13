@@ -12,6 +12,9 @@ const languages = require("./languages");
 
 const settings = require("../settings");
 
+/** @typedef {import("svcorelib").Stringifiable} Stringifiable */
+/** @typedef {import("./types/docs").EncodingName} EncodingName */
+
 
 /**
  * Ends the request with an error. This error gets pulled from the error registry
@@ -21,7 +24,7 @@ const settings = require("../settings");
  * @param {string} fileFormat The file format to respond with - automatically gets converted to MIME type
  * @param {string} errorMessage Additional error info
  * @param {string} lang Language code of the request
- * @param {import("svcorelib").Stringifiable} args Arguments to replace numbered %-placeholders with. Only use objects that are strings or convertable to them with `.toString()`!
+ * @param {Stringifiable} args Arguments to replace numbered %-placeholders with. Only use objects that are strings or convertable to them with `.toString()`!
  * @since 2.4.0 API error code of response is now an integer instead of a string
  */
 function respondWithError(res, errorCode, responseCode, fileFormat, errorMessage, lang, ...args)
@@ -29,7 +32,7 @@ function respondWithError(res, errorCode, responseCode, fileFormat, errorMessage
     try
     {
         errorCode = errorCode.toString();
-        let errFromRegistry = require("../data/errorMessages")[errorCode];
+        const errFromRegistry = require("../data/errorMessages")[errorCode];
         let errObj = {};
 
         if(errFromRegistry == undefined)
@@ -81,7 +84,7 @@ function respondWithError(res, errorCode, responseCode, fileFormat, errorMessage
         if(!isEmpty(errorMessage))
             errObj.additionalInfo = errorMessage;
 
-        let converted = convertFileFormat.auto(fileFormat, errObj, lang).toString();
+        const converted = convertFileFormat.auto(fileFormat, errObj, lang).toString();
 
         return pipeString(res, converted, parseURL.getMimeType(fileFormat), responseCode);
     }
@@ -147,7 +150,7 @@ function pipeString(res, text, mimeType, statusCode = 200)
         return;
     }
 
-    let s = new Readable();
+    const s = new Readable();
     s._read = () => {};
     s.push(text);
     s.push(null);
@@ -169,9 +172,9 @@ function pipeString(res, text, mimeType, statusCode = 200)
 /**
  * Pipes a file into a HTTP response
  * @param {http.ServerResponse} res The HTTP res object
- * @param {String} filePath Path to the file to respond with - relative to the project root directory
- * @param {String} mimeType The MIME type to respond with
- * @param {Number} [statusCode=200] The status code to respond with - defaults to 200
+ * @param {string} filePath Path to the file to respond with - relative to the project root directory
+ * @param {string} mimeType The MIME type to respond with
+ * @param {number} [statusCode=200] The status code to respond with - defaults to 200
  */
 async function pipeFile(res, filePath, mimeType, statusCode = 200)
 {
@@ -268,7 +271,7 @@ function getAllClientEncodings(req)
 
 /**
  * Returns the file extension for the provided encoding (without dot prefix)
- * @param {null|"gzip"|"deflate"|"br"} encoding
+ * @param {null|EncodingName} encoding
  * @returns {string}
  */
 function getFileExtensionFromEncoding(encoding)
@@ -291,8 +294,8 @@ function getFileExtensionFromEncoding(encoding)
  * Tries to serve data with an encoding supported by the client, else just serves the raw data
  * @param {http.IncomingMessage} req The HTTP req object
  * @param {http.ServerResponse} res The HTTP res object
- * @param {String} data The data to send to the client
- * @param {String} mimeType The MIME type to respond with
+ * @param {string} data The data to send to the client
+ * @param {string} mimeType The MIME type to respond with
  * @param {number} statusCode HTTP response code
  */
 function tryServeEncoded(req, res, data, mimeType, statusCode)

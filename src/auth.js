@@ -7,18 +7,8 @@ const settings = require("../settings");
 //#MARKER types
 
 /** @typedef {import("http").IncomingMessage} IncomingMessage */
-
-/**
- * @typedef {object} TokenObj
- * @prop {string} token
- * @prop {number|null} maxReqs
- */
-
-/**
- * @typedef {object} TokenAuthorizationResult
- * @prop {boolean} isAuthorized
- * @prop {string} token
- */
+/** @typedef {import("./types/auth").TokenObj} TokenObj */
+/** @typedef {import("./types/auth").TokenAuthorizationResult} TokenAuthorizationResult */
 
 //#MARKER semi-globals
 
@@ -29,7 +19,7 @@ let tokenList = [];
 
 /**
  * Initializes the auth module
- * @returns {Promise}
+ * @returns {Promise<void>}
  */
 function init()
 {
