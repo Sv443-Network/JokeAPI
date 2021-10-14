@@ -18,6 +18,7 @@ const { exit } = process;
 /** @typedef {import("./types").AllSubmissions} AllSubmissions */
 /** @typedef {import("./types").Submission} Submission */
 /** @typedef {import("./types").ParsedFileName} ParsedFileName */
+/** @typedef {import("./types").ReadSubmissionsResult} ReadSubmissionsResult */
 /** @typedef {import("../src/types/jokes").JokeSubmission} JokeSubmission */
 /** @typedef {import("../src/types/jokes").JokeFlags} JokeFlags */
 /** @typedef {import("../src/types/languages").LangCodes} LangCodes */
@@ -37,13 +38,10 @@ async function run()
 
     /** @type {LangCodes} */
     const langCodes = await getLangCodes();
-    const submissions = await readSubmissions(langCodes);
-
-    const subAmt = Object.keys(submissions).length;
-
+    const { submissions, amount } = await readSubmissions(langCodes);
 
     const { proceed } = await prompt({
-        message: `There are ${subAmt} submissions. Go through them now?`,
+        message: `There are ${amount} submissions of ${Object.keys(submissions).length} languages. Go through them now?`,
         type: "confirm",
         name: "proceed"
     });
@@ -56,6 +54,7 @@ async function run()
         exit(0);
     }
 }
+
 
 //#SECTION prompts
 
@@ -195,7 +194,7 @@ function getLangCodes()
 /**
  * Reads all submissions and resolves with them
  * @param {LangCodes} langCodes
- * @returns {Promise<(AllSubmissions|null), Error>} Resolves null if no submissions were found
+ * @returns {Promise<ReadSubmissionsResult, Error>}
  */
 function readSubmissions(langCodes)
 {
@@ -213,6 +212,8 @@ function readSubmissions(langCodes)
             /** @type {Promise<void>[]} */
             const readPromises = [];
 
+            let amount = 0;
+
             folders.forEach(langCode => {
                 langCode = langCode.toString();
 
@@ -225,13 +226,18 @@ function readSubmissions(langCodes)
                     if(subm.length > 0)
                         allSubmissions[langCode] = subm;
 
+                    amount += subm.length;
+
                     return res();
                 }));
             });
 
             await Promise.all(readPromises);
 
-            return res(allSubmissions);
+            return res({
+                submissions: allSubmissions,
+                amount
+            });
         }
         catch(err)
         {

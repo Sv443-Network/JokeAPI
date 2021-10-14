@@ -35,3 +35,8 @@ export interface ParsedFileName {
     /** Index that gets incremented if a file name is duplicate (default = 0) */
     index: number;
 }
+
+export interface ReadSubmissionsResult {
+    submissions: AllSubmissions;
+    amount: number;
+}
