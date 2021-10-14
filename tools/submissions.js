@@ -1,199 +1,155 @@
-const settings = require("../settings");
-const fs = require("fs-extra");
+const { readdir, readFile } = require("fs-extra");
 const { resolve, join } = require("path");
-const jsl = require("svjsl");
-const parseJokes = require("../src/parseJokes");
-const jokeSubmission = require("../src/jokeSubmission");
-jsl.unused(parseJokes);
+const { colors, Errors } = require("svcorelib");
 
-let addedCount = 0;
-let jokesFiles = getAllJokes();
+// const parseJokes = require("../src/parseJokes");
+// const jokeSubmission = require("../src/jokeSubmission");
+
+const settings = require("../settings");
+
+const col = colors.fg;
 
 
-const run = () => {
-    let submissions = getSubmissions();
+/** @typedef {import("./types").AllSubmissions} AllSubmissions */
+/** @typedef {import("./types").Submission} Submission */
+/** @typedef {import("../src/types/languages").LangCodes} LangCodes */
 
-    console.log(`${jsl.colors.fg.cyan}There ${submissions.length == 1 ? "is" : "are"} ${jsl.colors.fg.yellow}${submissions.length}${jsl.colors.fg.cyan} submission${submissions.length == 1 ? "" : "s"}.${jsl.colors.rst}`);
-    if(submissions.length === 0)
-    {
-        console.log("Exiting.");
-        return process.exit(0);
-    }
 
-    jsl.pause(`Do you want to go through them all now? (Y/n):${jsl.colors.rst}`).then(key => {
-        if(key.toLowerCase && key.toLowerCase() == "n")
-            process.exit(0);
-        else
-        {
-            console.clear();
-
-            let goThroughSubmission = (idx) => {
-
-                if(!submissions[idx])
-                    return finishAdding();
-
-                let submission = submissions[idx];
-
-                console.log(`${jsl.colors.fg.yellow}Submission ${idx + 1} / ${submissions.length}${jsl.colors.rst}\n`);
-
-                if(submission.formatVersion != settings.jokes.jokesFormatVersion)
-                    console.error(`${jsl.colors.fg.red}Error: Format version is incorrect${jsl.colors.rst}`);
-                
-                console.log(`${jsl.colors.fg.yellow}Language:${jsl.colors.rst}  ${submission.lang}`);
-
-                if(submission.type == "single")
-                {
-                    console.log(`${jsl.colors.fg.yellow}Joke:${jsl.colors.rst}      ${submission.joke}`);
-                    console.log(`${jsl.colors.fg.yellow}Category:${jsl.colors.rst}  ${submission.category}`);
-                    console.log(`${jsl.colors.fg.yellow}Flags:${jsl.colors.rst}     ${getFlags(submission)}`);
-                }
-                else if(submission.type == "twopart")
-                {
-                    console.log(`${jsl.colors.fg.yellow}Setup:${jsl.colors.rst}     ${submission.setup}`);
-                    console.log(`${jsl.colors.fg.yellow}Delivery:${jsl.colors.rst}  ${submission.delivery}`);
-                    console.log(`${jsl.colors.fg.yellow}Category:${jsl.colors.rst}  ${submission.category}`);
-                    console.log(`${jsl.colors.fg.yellow}Flags:${jsl.colors.rst}     ${getFlags(submission)}`);
-                }
-                else console.error(`${jsl.colors.fg.red}Error: Unsuppoted joke type "${submission.type}"${jsl.colors.rst}`);
-
-                jsl.pause("Do you want to add this joke? (Safe/Unsafe/No):").then(key => {
-                    let lcKey = key.toLowerCase();
-                    if(lcKey === "s")
-                    {
-                        submissions[idx].safe = true;
-                        addJoke(submissions[idx]);
-                        process.stdout.write(`${jsl.colors.fg.green}Adding joke.${jsl.colors.rst}\n\n\n\n`);
-                    }
-                    else if(lcKey === "u")
-                    {
-                        submissions[idx].safe = false;
-                        addJoke(submissions[idx]);
-                        process.stdout.write(`${jsl.colors.fg.green}Adding joke.${jsl.colors.rst}\n\n\n\n`);
-                    }
-                    else
-                        process.stdout.write(`${jsl.colors.fg.red}Not adding joke.${jsl.colors.rst}\n\n\n\n`);
-
-                    goThroughSubmission(++idx);
-                });
-            };
-
-            goThroughSubmission(0);
-        }
-    }).catch(err => {
-        console.error(`Error: ${err}`);
-        process.exit(1);
-    });
-};
-
-/**
- * @typedef {Object} AllJokesObj
- * @prop {Object} [en]
- * @prop {Object} en.info
- * @prop {String} en.info.formatVersion
- * @prop {Array<parseJokes.SingleJoke>|Array<parseJokes.TwopartJoke>} en.jokes
- */
-
-/**
- * Reads the jokes files and returns it as an object
- * @returns {AllJokesObj}
- */
-function getAllJokes()
+async function run()
 {
-    let retObj = {};
-    fs.readdirSync(settings.jokes.jokesFolderPath).forEach(jokesFile => {
-        if(jokesFile.startsWith("template"))
-            return;
+    /** @type {LangCodes} */
+    const langCodes = await getLangCodes();
+    const submissions = await readSubmissions(langCodes);
 
-        let langCode = jokesFile.split("-")[1].substr(0, 2);
-        let filePath = resolve(join(settings.jokes.jokesFolderPath, jokesFile));
+    // TODO:
+    console.log(submissions);
+}
 
-        retObj[langCode] = JSON.parse(fs.readFileSync(filePath).toString());
+//#SECTION prompts
+
+
+
+//#SECTION internal stuff
+
+/**
+ * Reads all possible language codes and resolves with them
+ * @returns {Promise<LangCodes[], Error>}
+ */
+function getLangCodes()
+{
+    return new Promise(async (res, rej) => {
+        try
+        {
+            const file = await readFile(resolve(settings.languages.langFilePath));
+            const parsed = JSON.parse(file.toString());
+
+            return res(Object.keys(parsed));
+        }
+        catch(err)
+        {
+            return rej(new Error(`Error while reading language codes: ${err}`));
+        }
     });
-
-    return retObj;
 }
 
 /**
- * Adds a joke to the `jokesFile` object
- * @param {Object} joke 
+ * Reads all submissions and resolves with them
+ * @param {LangCodes} langCodes
+ * @returns {Promise<(AllSubmissions|null), Error>} Resolves null if no submissions were found
  */
-const addJoke = joke => {
-    let fJoke = JSON.parse(JSON.stringify(joke)); // reserialize because call by reference :(
+function readSubmissions(langCodes)
+{
+    /** @type {AllSubmissions} */
+    const allSubmissions = {};
 
-    delete fJoke.formatVersion;
-    delete fJoke.lang;
-
-    // jokesFile.jokes.push(fJoke);
-    if(!jokesFiles[joke.lang])
-        jokesFiles[joke.lang] = JSON.parse(fs.readFileSync(resolve(join(settings.jokes.jokesFolderPath, settings.jokes.jokesTemplateFile))).toString());
-
-    Object.keys(jokesFiles).forEach(langCode => {
-        if(joke.lang == langCode)
+    return new Promise(async (res, rej) => {
+        try
         {
-            jokesFiles[langCode].jokes.push(jokeSubmission.reformatJoke(fJoke));
-            addedCount++;
-        }
-    });
-};
+            const folders = await readdir(resolve(settings.jokes.jokeSubmissionPath));
 
-/**
- * Writes the `jokesFiles` object to the jokes file
- */
-const finishAdding = () => {
-    Object.keys(jokesFiles).forEach(langCode => {
-        fs.writeFileSync(resolve(join(settings.jokes.jokesFolderPath, `jokes-${langCode}.json`)), JSON.stringify(jokesFiles[langCode], null, 4));
-    });
+            if(folders.length < 1)
+                return res(null);
 
-    jsl.pause(`Delete all submissions? (Y/n):`).then(val => {
-        if(val.toLowerCase() != "n")
-        {
-            fs.readdirSync(settings.jokes.jokeSubmissionPath).forEach(folder => {
-                fs.removeSync(join(settings.jokes.jokeSubmissionPath, folder));
+            /** @type {Promise<void>[]} */
+            const readPromises = [];
+
+            folders.forEach(langCode => {
+                langCode = langCode.toString();
+
+                if(!langCodes.includes(langCode)) // ignore folders that don't match
+                    return;
+
+                readPromises.push(new Promise(async res => {
+                    const subm = await getSubmissions(langCode);
+
+                    if(subm.length > 0)
+                        allSubmissions[langCode] = subm;
+
+                    return res();
+                }));
             });
+
+            await Promise.all(readPromises);
+
+            return res(allSubmissions);
         }
-
-        console.log(`${jsl.colors.fg.green}Successfully added ${jsl.colors.fg.yellow}${addedCount}${jsl.colors.fg.green} joke${addedCount != 1 ? "s" : ""}${jsl.colors.rst}.\nExiting.\n\n`);
-        require("./reassign-ids"); // reassign joke IDs
-        return;
+        catch(err)
+        {
+            return rej(new Error(`Error while reading submissions: ${err}`));
+        }
     });
-};
-
-/**
- * Returns the flags of a joke as a string
- * @param {Object} joke 
- * @returns {String}
- */
-const getFlags = joke => {
-    let flags = [];
-
-    Object.keys(joke.flags).forEach(key => {
-        if(joke.flags[key] === true)
-            flags.push(key);
-    });
-
-    if(flags.length == 0)
-        return "(none)";
-
-    return jsl.readableArray(flags);
-};
-
-/**
- * Reads all joke submission files and returns them as an array of objects
- * @returns {Array<Object>}
- */
-const getSubmissions = () => {
-    let submissions = [];
-    fs.readdirSync(settings.jokes.jokeSubmissionPath).forEach(lang => {
-        fs.readdirSync(resolve(join(settings.jokes.jokeSubmissionPath, lang))).forEach(file => {
-            submissions.push(JSON.parse(fs.readFileSync(resolve(`${settings.jokes.jokeSubmissionPath}/${lang}/${file}`)).toString()));
-        });
-    });
-    return submissions;
-};
-
-if(!process.stdin.isTTY)
-{
-    console.log(`${jsl.colors.fg.red}Error: process doesn't have a stdin to read from${jsl.colors.rst}`);
-    process.exit(1);
 }
-else run();
+
+/**
+ * Reads all submissions of the specified language
+ * @param {LangCodes} langCode 
+ * @returns {Promise<Submission[], Error>}
+ */
+function getSubmissions(langCode)
+{
+    return new Promise(async (res, rej) => {
+        /** @type {Submission[]} */
+        const submissions = [];
+
+        try
+        {
+            const submissionsFolder = join(settings.jokes.jokeSubmissionPath, langCode);
+            const files = await readdir(submissionsFolder);
+
+            for await(const fileName of files)
+            {
+                const file = await readFile(join(submissionsFolder, fileName));
+                const joke = JSON.parse(file);
+
+                // TODO: ensure submission validity with parseJokes.validateSingle()
+                // TODO: populate props
+
+                submissions.push({
+                    ipHash: "test",
+                    joke,
+                    timestamp: NaN,
+                });
+            }
+
+            return res(submissions);
+        }
+        catch(err)
+        {
+            return rej(new Error(`Error while reading submissions of language '${langCode}': ${err}`));
+        }
+    });
+}
+
+
+try
+{
+    if(!process.stdin.isTTY)
+        throw new Errors.NoStdinError("The process doesn't have an stdin channel to read input from");
+    else run();
+}
+catch(err)
+{
+    console.error(`${col.red}${err.message}${col.rst}\n${err.stack}\n`);
+
+    process.exit(0);
+}
