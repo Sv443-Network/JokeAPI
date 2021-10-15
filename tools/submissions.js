@@ -132,7 +132,7 @@ function actSubmission(sub)
             /** @type {null|Submission} The submission to be added to the local jokes */
             let finalSub = null;
 
-            const key = await getKey(`\n${col.blue}Choose action:${col.rst} Accept ${col.green}[S]${col.rst}afe • Accept ${col.yellow}[U]${col.rst}nsafe • ${col.magenta}[E]${col.rst}dit • ${col.red}[D]${col.rst}elete`);
+            const key = await getKey(`\n${col.blue}Choose action:${col.rst} Accept ${col.green}[S]${col.rst}afe • Accept ${col.magenta}[U]${col.rst}nsafe • ${col.yellow}[E]${col.rst}dit • ${col.red}[D]${col.rst}elete`);
 
             let safe = false;
 
