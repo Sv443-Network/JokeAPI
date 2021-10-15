@@ -1,16 +1,25 @@
 const { readdir, readFile } = require("fs-extra");
 const { resolve, join } = require("path");
-const { colors, Errors, unused } = require("svcorelib");
+const { colors, Errors, unused, reserialize } = require("svcorelib");
 const prompt = require("prompts");
+const promiseAllSeq = require("promise-all-sequential");
 
 const languages = require("../src/languages");
 const parseJokes = require("../src/parseJokes");
 // const jokeSubmission = require("../src/jokeSubmission");
 
 const settings = require("../settings");
+const { isEmpty } = require("lodash");
 
 const col = colors.fg;
 const { exit } = process;
+
+/** @type {LastEditedSubmission} */
+let lastSubmissionType;
+/** @type {number} */
+let currentSub;
+/** @type {boolean} */
+let lastKeyInvalid = false;
 
 
 //#SECTION types & init
@@ -19,9 +28,11 @@ const { exit } = process;
 /** @typedef {import("./types").Submission} Submission */
 /** @typedef {import("./types").ParsedFileName} ParsedFileName */
 /** @typedef {import("./types").ReadSubmissionsResult} ReadSubmissionsResult */
+/** @typedef {import("./types").LastEditedSubmission} LastEditedSubmission */
+/** @typedef {import("./types").KeypressResult} KeypressResult */
 /** @typedef {import("../src/types/jokes").JokeSubmission} JokeSubmission */
 /** @typedef {import("../src/types/jokes").JokeFlags} JokeFlags */
-/** @typedef {import("../src/types/languages").LangCodes} LangCodes */
+/** @typedef {import("../src/types/languages").LangCode} LangCodes */
 
 
 async function run()
@@ -35,6 +46,9 @@ async function run()
     {
         throw new Error(`Error while initializing dependency modules: ${err}`);
     }
+
+    lastSubmissionType = undefined;
+    currentSub = 1;
 
     /** @type {LangCodes} */
     const langCodes = await getLangCodes();
@@ -66,38 +80,101 @@ async function promptSubmissions(allSubmissions)
 {
     const langs = Object.keys(allSubmissions);
 
-    let currentSub = 1;
-
     for await(const lang of langs)
     {
         /** @type {Submission[]} */
         const submissions = allSubmissions[lang];
-        console.log(`\n------------\nLanguage: ${lang}\n------------\n`);
 
-        for await(const sub of submissions)
+        // /** @type {(() => Promise)[]} */
+        const proms = submissions.map((sub) => (() => actSubmission(sub)));
+
+        await promiseAllSeq(proms);
+    }
+
+    return finishPrompts();
+}
+
+/**
+ * Prompts the user to act on a submission
+ * @param {Submission} sub
+ * @returns {Promise<void, Error>}
+ */
+function actSubmission(sub)
+{
+    return new Promise(async (res, rej) => {
+        try
         {
-            printSubmission(sub, lang, currentSub);
-            currentSub++;
+            console.clear();
+
+            let lastSubmText = "";
+            switch(lastSubmissionType)
+            {
+            case "accepted_safe":
+                lastSubmText = `(Last submission was accepted ${col.green}safe${col.rst})`;
+                break;
+            case "accepted_unsafe":
+                lastSubmText = `(Last submission was accepted ${col.yellow}unsafe${col.rst})`;
+                break;
+            case "edited":
+                lastSubmText = `(Last submission was ${col.magenta}edited${col.rst})`;
+                break;
+            case "deleted":
+                lastSubmText = `(Last submission was ${col.red}deleted${col.rst})`;
+                break;
+            }
+
+            const last = !lastKeyInvalid ? (lastSubmissionType ? lastSubmText : "") : `${col.red}Invalid key - try again${col.rst}`;
+
+            console.log(`${last}\n\n------------\nLanguage: ${sub.lang}\n------------\n`);
+
+            printSubmission(sub, currentSub);
 
             /** @type {null|Submission} The submission to be added to the local jokes */
             let finalSub = null;
 
-            const { correct } = await prompt({
-                message: "Is this joke correct?",
-                type: "confirm",
-                name: "correct",
-            });
+            const key = await getKey(`\n${col.blue}Choose action:${col.rst} Accept ${col.green}[S]${col.rst}afe • Accept ${col.yellow}[U]${col.rst}nsafe • ${col.magenta}[E]${col.rst}dit • ${col.red}[D]${col.rst}elete`);
 
-            if(!correct)
+            let safe = false;
+
+            switch(key.name)
+            {
+            case "s": // add safe
+                safe = true;
+                lastSubmissionType = "accepted_safe";
+                finalSub = reserialize(sub);
+                break;
+            case "u": // add unsafe
+                lastSubmissionType = "accepted_unsafe";
+                finalSub = reserialize(sub);
+                break;
+            case "e": // edit
+                lastSubmissionType = "edited";
                 finalSub = await editSubmission(sub);
-            else
-                finalSub = sub;
+                break;
+            case "d": // delete
+                lastSubmissionType = "deleted";
+                return res();
+            default: // invalid key
+                lastKeyInvalid = true;
+                return await actSubmission(sub);
+            }
 
-            await addSubmission(finalSub);
+            if(finalSub)
+                finalSub.joke.safe = safe;
+
+            currentSub++;
+
+            // if not deleted in editSubmission()
+            if(finalSub !== null)
+                await addSubmission(finalSub);
+
+            return res();
         }
-    }
-
-    return finishPrompts();
+        catch(err)
+        {
+            return rej(new Error(`Error while choosing action for submission #${currentSub}: ${err}`));
+        }
+    });
 }
 
 /**
@@ -108,10 +185,168 @@ async function promptSubmissions(allSubmissions)
 function editSubmission(sub)
 {
     return new Promise(async (res, rej) => {
+        /** @type {Submission} */
+        const editedSub = reserialize(sub);
+
         try
         {
+            // TODO: display joke
+
+            const jokeChoices = sub.joke.type === "single" ? [
+                {
+                    title: `Joke (${editedSub.joke.joke})`,
+                    value: "joke",
+                },
+            ] : [
+                {
+                    title: `Setup (${editedSub.joke.setup})`,
+                    value: "setup",
+                },
+                {
+                    title: `Delivery (${editedSub.joke.delivery})`,
+                    value: "delivery",
+                },
+            ];
+
+            const choices = [
+                {
+                    title: `Category (${editedSub.joke.category})`,
+                    value: "category",
+                },
+                {
+                    title: `Type (${editedSub.joke.type})`,
+                    value: "type",
+                },
+                ...jokeChoices,
+                {
+                    title: `Flags (${extractFlags(editedSub.joke)})`,
+                    value: "flags",
+                },
+                {
+                    title: `Safe (${editedSub.joke.safe})`,
+                    value: "safe",
+                },
+                {
+                    title: `${col.green}[Done]${col.rst}`,
+                    value: "done",
+                },
+                {
+                    title: `${col.red}[Delete]${col.rst}`,
+                    value: "delete",
+                },
+            ];
+
+            process.stdout.write("\n");
+
+            const { action } = await prompt({
+                message: "Edit property",
+                type: "select",
+                name: "action",
+                choices,
+            });
+
             // TODO:
-            return res();
+            switch(action)
+            {
+            case "category":
+            {
+                const catChoices = settings.jokes.possible.categories.map(cat => ({ title: cat, value: cat }));
+
+                const { category } = await prompt({
+                    type: "select",
+                    message: `Select new category`,
+                    name: "category",
+                    choices: catChoices,
+                    initial: settings.jokes.possible.categories.indexOf("Misc"),
+                });
+
+                editedSub.joke.category = category;
+                break;
+            }
+            case "joke":
+            case "setup":
+            case "delivery":
+                editedSub.joke[action] = (await prompt({
+                    type: "text",
+                    message: `Enter new value for ${action}`,
+                    name: "val",
+                    validate: (val) => !isEmpty(val),
+                })).val;
+                break;
+            case "type":
+                editedSub.joke.type = (await prompt({
+                    type: "select",
+                    message: "Select a new joke type",
+                    choices: [
+                        { title: "Single", value: "single" },
+                        { title: "Two Part", value: "twopart" },
+                    ],
+                    name: "val",
+                })).val;
+                break;
+            case "flags":
+                {
+                const flagKeys = Object.keys(editedSub.joke.flags);
+                const flagChoices = [];
+
+                flagKeys.forEach(key => {
+                    flagChoices.push({
+                        title: key,
+                        selected: editedSub.joke.flags[key] === true,
+                    });
+                });
+
+                const { newFlags } = await prompt({
+                    type: "multiselect",
+                    message: "Edit joke flags",
+                    choices: flagChoices,
+                    name: "newFlags",
+                    instructions: false,
+                    hint: "- arrow-keys to move, space to toggle, return to submit",
+                });
+
+                Object.keys(editedSub.joke.flags).forEach(key => {
+                    editedSub.joke.flags[key] = false;
+                });
+
+                newFlags.forEach(setFlagIdx => {
+                    const key = flagKeys[setFlagIdx];
+                    editedSub.joke.flags[key] = true;
+                });
+
+                break;
+            }
+            case "safe":
+                editedSub.joke.safe = (await prompt({
+                    type: "confirm",
+                    message: "Is this joke safe?",
+                    initial: false,
+                    name: "del",
+                })).del;
+                break;
+            case "done":
+                return res(Object.freeze(editedSub));
+            case "delete":
+            {
+                const { del } = await prompt({
+                    type: "confirm",
+                    message: "Delete this submission?",
+                    name: "del",
+                });
+
+                if(del)
+                {
+                    lastSubmissionType = "deleted";
+                    return res(null);
+                }
+
+                break;
+            }
+            default:
+                return res(Object.freeze(editedSub));
+            }
+
+            return res(await editSubmission(editedSub));
         }
         catch(err)
         {
@@ -122,21 +357,28 @@ function editSubmission(sub)
 
 /**
  * Prints a submission to the console
- * @param {Submission} submission
- * @param {LangCodes} lang
+ * @param {Submission} sub
  * @param {number} index Current index of the submission
  */
-function printSubmission(submission, lang, index)
+function printSubmission(sub, index)
 {
     const lines = [
-        `Submission #${index} [${lang}]:`,
-        `  Category: ${submission.joke.category}`,
-        `  Type: ${submission.joke.type}`,
-        `  Flags: ${extractFlags(submission.joke)}`,
-
+        `Submission #${index} by ${sub.client}:`,
+        `  Category: ${sub.joke.category}`,
+        `  Type:     ${sub.joke.type}`,
+        `  Flags:    ${extractFlags(sub.joke)}`,
+        ``,
     ];
 
-    process.stdout.write(`${lines.join("\n")}\n`);
+    if(sub.joke.type === "single")
+        lines.push(sub.joke.joke);
+    if(sub.joke.type === "twopart")
+    {
+        lines.push(sub.joke.setup);
+        lines.push(sub.joke.delivery);
+    }
+
+    process.stdout.write(`${lines.join("\n")}\n\n`);
 }
 
 /**
@@ -165,6 +407,56 @@ function finishPrompts()
     console.log("<FINISH>");
 
     exit(0);
+}
+
+/**
+ * Waits for the user to press a key, then returns it
+ * @param {string} [prompt]
+ * @returns {Promise<KeypressResult, Error>}
+ */
+function getKey(prompt)
+{
+    return new Promise(async (res, rej) => {
+        if(typeof prompt === "string")
+            prompt = `${prompt.trimRight()} `;
+
+        try
+        {
+            const onKey = (ch, key) => {
+                if(key && key.ctrl && ["c", "d"].includes(key.name))
+                    process.exit(0);
+
+                process.stdin.setRawMode(false);
+                process.stdin.pause();
+
+                process.stdin.removeListener("keypress", onKey);
+
+                if(typeof prompt === "string")
+                    process.stdout.write("\n");
+
+                return res({
+                    name: key.name || ch || "",
+                    ctrl: key.ctrl || false,
+                    meta: key.meta || false,
+                    shift: key.shift || false,
+                    sequence: key.sequence || undefined,
+                    code: key.code || undefined,
+                });
+            };
+            
+            process.stdin.setRawMode(true);
+            process.stdin.on("keypress", onKey);
+
+            if(typeof prompt === "string")
+                process.stdout.write(prompt);
+        
+            process.stdin.resume();
+        }
+        catch(err)
+        {
+            return rej(new Error(`Error while getting key: ${err}`));
+        }
+    });
 }
 
 
@@ -248,10 +540,10 @@ function readSubmissions(langCodes)
 
 /**
  * Reads all submissions of the specified language
- * @param {LangCodes} langCode 
+ * @param {LangCodes} lang 
  * @returns {Promise<Submission[], Error>}
  */
-function getSubmissions(langCode)
+function getSubmissions(lang)
 {
     return new Promise(async (res, rej) => {
         /** @type {Submission[]} */
@@ -259,7 +551,7 @@ function getSubmissions(langCode)
 
         try
         {
-            const submissionsFolder = join(settings.jokes.jokeSubmissionPath, langCode);
+            const submissionsFolder = join(settings.jokes.jokeSubmissionPath, lang);
             const files = await readdir(submissionsFolder);
 
             for await(const fileName of files)
@@ -268,7 +560,7 @@ function getSubmissions(langCode)
                 /** @type {JokeSubmission} */
                 const joke = JSON.parse(file);
 
-                const valRes = parseJokes.validateSingle(joke, langCode);
+                const valRes = parseJokes.validateSingle(joke, lang);
                 let errors = null;
 
                 if(Array.isArray(valRes))
@@ -278,14 +570,14 @@ function getSubmissions(langCode)
 
                 unused(index);
 
-                submissions.push({ client, joke, timestamp, errors });
+                submissions.push({ client, joke, timestamp, errors, lang });
             }
 
             return res(submissions);
         }
         catch(err)
         {
-            return rej(new Error(`Error while reading submissions of language '${langCode}': ${err}`));
+            return rej(new Error(`Error while reading submissions of language '${lang}': ${err}`));
         }
     });
 }
@@ -316,8 +608,9 @@ function parseFileName(fileName)
 /**
  * Adds a submission to the local jokes
  * @param {Submission} sub
+ * @param {boolean} [safe=false]
  */
-function addSubmission(sub)
+function addSubmission(sub, safe = false)
 {
     return new Promise(async (res, rej) => {
         try

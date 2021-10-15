@@ -87,6 +87,7 @@
     "http-ratelimit": "^0.2.3",
     "js2xmlparser": "^4.0.1",
     "json-to-pretty-yaml": "^1.2.2",
+    "keypress": "^0.2.1",
     "mysql": "^2.18.1",
     "node-wrap": "^0.2.0",
     "promise-all-sequential": "^1.0.0",
