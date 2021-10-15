@@ -190,8 +190,6 @@ function editSubmission(sub)
 
         try
         {
-            // TODO: display joke
-
             const jokeChoices = sub.joke.type === "single" ? [
                 {
                     title: `Joke (${editedSub.joke.joke})`,
@@ -236,6 +234,8 @@ function editSubmission(sub)
                 },
             ];
 
+            // TODO: display joke
+
             process.stdout.write("\n");
 
             const { action } = await prompt({
@@ -245,7 +245,6 @@ function editSubmission(sub)
                 choices,
             });
 
-            // TODO:
             switch(action)
             {
             case "category":
