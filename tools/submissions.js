@@ -6,7 +6,7 @@ const promiseAllSeq = require("promise-all-sequential");
 
 const languages = require("../src/languages");
 const parseJokes = require("../src/parseJokes");
-// const jokeSubmission = require("../src/jokeSubmission");
+const { reformatJoke } = require("../src/jokeSubmission");
 
 const settings = require("../settings");
 const { isEmpty } = require("lodash");
@@ -54,8 +54,10 @@ async function run()
     const langCodes = await getLangCodes();
     const { submissions, amount } = await readSubmissions(langCodes);
 
+    const langCount = Object.keys(submissions).length;
+
     const { proceed } = await prompt({
-        message: `There are ${amount} submissions of ${Object.keys(submissions).length} languages. Go through them now?`,
+        message: `There are ${amount} submissions of ${langCount} language${langCount > 1 ? "s" : ""}. Go through them now?`,
         type: "confirm",
         name: "proceed"
     });
@@ -162,7 +164,8 @@ function actSubmission(sub)
             if(finalSub)
                 finalSub.joke.safe = safe;
 
-            currentSub++;
+            if(lastSubmissionType !== "invalid")
+                currentSub++;
 
             // if not deleted in editSubmission()
             if(finalSub !== null)
@@ -187,6 +190,27 @@ function editSubmission(sub)
     return new Promise(async (res, rej) => {
         /** @type {Submission} */
         const editedSub = reserialize(sub);
+
+        /** @param {Submission} finalSub */
+        const trySubmit = async (finalSub) => {
+            const validateRes = parseJokes.validateSingle(finalSub.joke, finalSub.lang);
+            const allErrors = Array.isArray(validateRes) ? validateRes : [];
+
+            if(typeof finalSub.joke.safe !== "boolean")
+                allErrors.push("Property 'safe' is not of type boolean");
+
+            if(allErrors.length > 0)
+            {
+                console.log(`${col.red}Joke is invalid:${col.rst}`);
+                console.log(`- ${allErrors.join("\n- ")}\n`);
+
+                await getKey("Press any key to try again.");
+
+                return res(editSubmission(finalSub));
+            }
+            else
+                return res(Object.freeze(finalSub));
+        };
 
         try
         {
@@ -225,8 +249,8 @@ function editSubmission(sub)
                     value: "safe",
                 },
                 {
-                    title: `${col.green}[Done]${col.rst}`,
-                    value: "done",
+                    title: `${col.green}[Submit]${col.rst}`,
+                    value: "submit",
                 },
                 {
                     title: `${col.red}[Delete]${col.rst}`,
@@ -238,14 +262,15 @@ function editSubmission(sub)
 
             process.stdout.write("\n");
 
-            const { action } = await prompt({
+            const { editProperty } = await prompt({
                 message: "Edit property",
                 type: "select",
-                name: "action",
+                name: "editProperty",
+                hint: "- Use arrow-keys. Return to select. Esc or Ctrl+C to submit.",
                 choices,
             });
 
-            switch(action)
+            switch(editProperty)
             {
             case "category":
             {
@@ -265,11 +290,11 @@ function editSubmission(sub)
             case "joke":
             case "setup":
             case "delivery":
-                editedSub.joke[action] = (await prompt({
+                editedSub.joke[editProperty] = (await prompt({
                     type: "text",
-                    message: `Enter new value for ${action}`,
+                    message: `Enter new value for '${editProperty}' property`,
                     name: "val",
-                    validate: (val) => !isEmpty(val),
+                    validate: (val) => (!isEmpty(val) && val.length >= settings.jokes.submissions.minLength),
                 })).val;
                 break;
             case "type":
@@ -280,8 +305,8 @@ function editSubmission(sub)
                         { title: "Single", value: "single" },
                         { title: "Two Part", value: "twopart" },
                     ],
-                    name: "val",
-                })).val;
+                    name: "type",
+                })).type;
                 break;
             case "flags":
                 {
@@ -320,11 +345,11 @@ function editSubmission(sub)
                     type: "confirm",
                     message: "Is this joke safe?",
                     initial: false,
-                    name: "del",
-                })).del;
+                    name: "safe",
+                })).safe;
                 break;
-            case "done":
-                return res(Object.freeze(editedSub));
+            case "submit":
+                return trySubmit(editedSub);
             case "delete":
             {
                 const { del } = await prompt({
@@ -342,7 +367,7 @@ function editSubmission(sub)
                 break;
             }
             default:
-                return res(Object.freeze(editedSub));
+                return trySubmit(editedSub);
             }
 
             return res(await editSubmission(editedSub));
@@ -607,14 +632,14 @@ function parseFileName(fileName)
 /**
  * Adds a submission to the local jokes
  * @param {Submission} sub
- * @param {boolean} [safe=false]
  */
-function addSubmission(sub, safe = false)
+function addSubmission(sub)
 {
     return new Promise(async (res, rej) => {
         try
         {
             // TODO:
+            unused(sub);
 
             return res();
         }
@@ -632,7 +657,8 @@ try
 {
     if(!process.stdin.isTTY)
         throw new Errors.NoStdinError("The process doesn't have an stdin channel to read input from");
-    else run();
+    else
+        run();
 }
 catch(err)
 {
