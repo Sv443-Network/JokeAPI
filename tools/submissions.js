@@ -169,7 +169,7 @@ function actSubmission(sub)
 
             // if not deleted in editSubmission()
             if(finalSub !== null)
-                await addSubmission(finalSub);
+                await saveSubmission(finalSub);
 
             return res();
         }
@@ -434,7 +434,7 @@ function finishPrompts()
 }
 
 /**
- * Waits for the user to press a key, then returns it
+ * Waits for the user to press a key, then resolves with it
  * @param {string} [prompt]
  * @returns {Promise<KeypressResult, Error>}
  */
@@ -442,7 +442,7 @@ function getKey(prompt)
 {
     return new Promise(async (res, rej) => {
         if(typeof prompt === "string")
-            prompt = `${prompt.trimRight()} `;
+            prompt = isEmpty(prompt) ? null : `${prompt.trimRight()} `;
 
         try
         {
@@ -455,8 +455,7 @@ function getKey(prompt)
 
                 process.stdin.removeListener("keypress", onKey);
 
-                if(typeof prompt === "string")
-                    process.stdout.write("\n");
+                prompt && process.stdout.write("\n");
 
                 return res({
                     name: key.name || ch || "",
@@ -471,8 +470,7 @@ function getKey(prompt)
             process.stdin.setRawMode(true);
             process.stdin.on("keypress", onKey);
 
-            if(typeof prompt === "string")
-                process.stdout.write(prompt);
+            prompt && process.stdout.write(prompt);
         
             process.stdin.resume();
         }
@@ -630,16 +628,18 @@ function parseFileName(fileName)
 }
 
 /**
- * Adds a submission to the local jokes
+ * Saves a submission to the local jokes
  * @param {Submission} sub
  */
-function addSubmission(sub)
+function saveSubmission(sub)
 {
     return new Promise(async (res, rej) => {
         try
         {
+            const joke = reformatJoke(sub.joke);
+
             // TODO:
-            unused(sub);
+            unused(joke);
 
             return res();
         }

@@ -159,7 +159,8 @@ function writeJokeToFile(res, filePath, submittedJoke, fileFormat, ip, analytics
 }
 
 /**
- * Coarse filter that ensures that a joke is formatted as expected
+ * Coarse filter that ensures that a joke is formatted as expected.  
+ * This doesn't do any validation and omits missing properties!
  * @param {JokeSubmission} joke
  * @returns {JokeSubmission} Returns the reformatted joke
  */
