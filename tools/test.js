@@ -49,7 +49,7 @@ function runAllTests()
 {
     runningTests = true;
 
-    if(process.argv.includes("--colorblind") || process.argv.includes("-cb"))
+    if(process.argv.includes("--colorblind") || process.argv.includes("-c"))
     {
         col.green = jsl.colors.fg.cyan;
         col.red = jsl.colors.fg.magenta;
