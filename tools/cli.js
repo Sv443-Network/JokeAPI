@@ -9,82 +9,93 @@ const settings = require("../settings");
 const { exit } = process;
 const col = colors.fg;
 
+const argv = prepareCLI();
+
 
 //#SECTION run
 
 async function run()
 {
-    const argv = prepareCLI();
-    const command = argv._[0];
-
-    let file = "";
-    let action = null;
-
-    // TODO: (v2.4) remove comments below
-    switch(command)
+    try
     {
-    case "start": case "run":
-        file = "../JokeAPI.js";
-        break;
-    case "submissions": case "sub": case "s":
-        action = "Joke submissions";
-        file = "./submissions.js";
-        break;
-    case "add-joke": case "add": case "j":
-        action = "Add joke";
-        file = "./add-joke.js";
-        break;
-    case "reassign-ids": case "re-id": case "r":
-        action = "Reassign IDs";
-        file = "./reassign-ids.js";
-        break;
-    case "add-token": case "token": case "t":
-        action = "Add API token";
-        file = "./add-token.js";
-        break;
-    case "validate-ids": case "vi":
-        action = "Validate IDs";
-        file = "./validate-ids.js";
-        break;
-    case "validate-jokes": case "vj":
-        action = "Validate jokes";
-        file = "./validate-jokes.js";
-        break;
-    case "generate-changelog": case "gen-cl": case "c":
-        action = "Generate changelog";
-        file = "./generate-changelog.js";
-        break;
-    // case "stresstest": case "str":
-    //     action = "Stress test";
-    //     file = "./stresstest.js";
-    //     break;
-    case "test":
-        action = "Unit tests";
-        file = "./test.js";
-        break;
-    // case "ip-info": case "ip":
-    //     action = "IP info";
-    //     file = "./ip-info.js";
-    case undefined: case null: case "":
-        return yargs.showHelp();
-    default:
-        console.log(`Unrecognized command '${command}'\nUse 'jokeapi -h' to see a list of commands`);
-        return;
+        const command = argv._[0];
+
+        let file, action;
+
+        // TODO: (v2.4) remove comments below
+        switch(command)
+        {
+        case "start": case "run":
+            file = "../JokeAPI.js";
+            break;
+        case "submissions": case "sub": case "s":
+            action = "Joke submissions";
+            file = "./submissions.js";
+            break;
+        case "add-joke": case "add": case "j":
+            action = "Add joke";
+            file = "./add-joke.js";
+            break;
+        case "reassign-ids": case "re-id": case "r":
+            action = "Reassign IDs";
+            file = "./reassign-ids.js";
+            break;
+        case "add-token": case "token": case "t":
+            action = "Add API token";
+            file = "./add-token.js";
+            break;
+        case "validate-ids": case "vi":
+            action = "Validate IDs";
+            file = "./validate-ids.js";
+            break;
+        case "validate-jokes": case "vj":
+            action = "Validate jokes";
+            file = "./validate-jokes.js";
+            break;
+        case "generate-changelog": case "gen-cl": case "c":
+            action = "Generate changelog";
+            // file = "./generate-changelog.js";
+            break;
+        // case "stresstest": case "str":
+        //     action = "Stress test";
+        //     file = "./stresstest.js";
+        //     break;
+        case "test":
+            action = "Unit tests";
+            file = "./test.js";
+            break;
+        // case "ip-info": case "ip":
+        //     action = "IP info";
+        //     file = "./ip-info.js";
+        case undefined: case null: case "":
+            console.log(`${settings.info.name} CLI v${settings.info.version}\n`);
+            return yargs.showHelp();
+        default:
+            return warn(`Unrecognized command '${command}'\nUse '${argv.$0} -h' to see a list of commands`);
+        }
+
+        if(!file)
+            throw new Error(`Command '${command}' (${action.toLowerCase()}) didn't yield an executable file`);
+
+        action && console.log(`${settings.info.name} CLI - ${action}`);
+
+        return importFresh(file);
     }
-
-    action && console.log(`${settings.info.name} CLI - ${action}`);
-
-    return importFresh(file);
+    catch(err)
+    {
+        return error(err);
+    }
 }
 
 /**
  * Prepares the CLI so it can show help
- * @returns {yargs.Argv}
+ * @returns {yargs.Argv<*>}
  */
 function prepareCLI()
 {
     //#SECTION general
     yargs.scriptName("jokeapi")
+        .usage("Usage: $0 <command>")
         .version(`${settings.info.name} v${settings.info.version} - ${settings.info.projGitHub}`)
         .help()
             .alias("h", "help");
@@ -160,7 +171,24 @@ try
 }
 catch(err)
 {
-    console.error(`${col.red}${err.message}${col.rst}\n${err.stack}\n`);
+    return error(err);
+}
 
-    exit(0);
+/**
+ * @param {Error} err
+ */
+function error(err)
+{
+    console.error(`${col.red}${settings.info.name} CLI - ${err.name}:${col.rst}\n${err.stack}\n`);
+    exit(1);
+}
+
+/**
+ * @param {string} warning
+ * @param {string} [type]
+ */
+function warn(warning, type = "Warning")
+{
+    console.log(`${col.yellow}${settings.info.name} CLI - ${type}:${col.rst}\n${warning}\n`);
+    exit(1);
 }
