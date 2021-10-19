@@ -21,7 +21,8 @@
     "dep-graph": "depcruise --include-only \"^src|^endpoints|^tests|^tools\" --output-type dot . | dot -T svg > dev/dependencygraph.svg && echo Created dependency graph at \"dev/dependencygraph.svg\"",
     "generate-changelog": "node tools/generate-changelog",
     "snyk-protect": "snyk protect",
-    "prepare": "npm run snyk-protect"
+    "prepare": "npm run snyk-protect",
+    "link": "npm link"
   },
   "bin": {
     "jokeapi": "tools/cli.js"
