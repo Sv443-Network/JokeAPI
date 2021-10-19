@@ -25,7 +25,8 @@
     "link": "npm link"
   },
   "bin": {
-    "jokeapi": "tools/cli.js"
+    "jokeapi": "tools/cli.js",
+    "japi": "tools/cli.js"
   },
   "repository": {
     "type": "git",

@@ -54,7 +54,7 @@ async function run()
             break;
         case "generate-changelog": case "gen-cl": case "c":
             action = "Generate changelog";
-            // file = "./generate-changelog.js";
+            file = "./generate-changelog.js";
             break;
         // case "stresstest": case "str":
         //     action = "Stress test";
@@ -78,6 +78,8 @@ async function run()
             throw new Error(`Command '${command}' (${action.toLowerCase()}) didn't yield an executable file`);
 
         action && console.log(`${settings.info.name} CLI - ${action}`);
+
+        // TODO: pwd / cwd is not set correctly when called from a folder that's not JokeAPI's root
 
         return importFresh(file);
     }
@@ -136,13 +138,13 @@ function prepareCLI()
         });
     });
 
-    yargs.command([ "ip-info", "ip" ], "Starts a server at '127.0.0.1:8074' that just prints information about each request's IP", cmd => {
-        cmd.option("color-cycle", {
-            alias: "c",
-            describe: "Cycles the color of the output after each request (to make spotting a new request easier)",
-            type: "boolean"
-        });
-    });
+    // yargs.command([ "ip-info", "ip" ], "Starts a server at '127.0.0.1:8074' that just prints information about each request's IP", cmd => {
+    //     cmd.option("color-cycle", {
+    //         alias: "c",
+    //         describe: "Cycles the color of the output after each request (to make spotting a new request easier)",
+    //         type: "boolean"
+    //     });
+    // });
 
     // yargs.command([ "stresstest", "str" ], `Sends lots of requests to ${settings.info.name} to stresstest it (requires the API to run in another process on the same machine)`);
 
