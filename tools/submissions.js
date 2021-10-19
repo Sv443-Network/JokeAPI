@@ -3,7 +3,6 @@ const { resolve, join } = require("path");
 const { colors, Errors, unused, reserialize, filesystem } = require("svcorelib");
 const prompt = require("prompts");
 const promiseAllSeq = require("promise-all-sequential");
-const keypress = require("keypress");
 
 const languages = require("../src/languages");
 const parseJokes = require("../src/parseJokes");
@@ -40,8 +39,6 @@ let lastKeyInvalid = false;
 
 async function run()
 {
-    keypress(process.stdin);
-
     try
     {
         await languages.init();
@@ -268,12 +265,8 @@ function editSubmission(sub)
                 },
             ];
 
-            process.stdout.write("\n\n");
+            process.stdout.write("\n");
             
-            printSubmission(sub);
-
-            process.stdout.write("\n\n");
-
             const { editProperty } = await prompt({
                 message: "Edit property",
                 type: "select",
@@ -463,10 +456,10 @@ function getKey(prompt)
                 if(key && key.ctrl && ["c", "d"].includes(key.name))
                     process.exit(0);
 
-                process.stdin.setRawMode(false);
                 process.stdin.pause();
-
                 process.stdin.removeListener("keypress", onKey);
+
+                process.stdin.setRawMode(false);
 
                 prompt && process.stdout.write("\n");
 
@@ -655,8 +648,8 @@ function saveSubmission(sub)
             const { lang } = sub;
             const joke = reformatJoke(sub.joke);
 
-            const jokeFilePath = join(settings.jokes.jokeSubmissionPath, `jokes-${lang}.json`);
-            const templatePath = join(settings.jokes.jokeSubmissionPath, settings.jokes.jokesTemplateFile);
+            const jokeFilePath = join(settings.jokes.jokesFolderPath, `jokes-${lang}.json`);
+            const templatePath = join(settings.jokes.jokesFolderPath, settings.jokes.jokesTemplateFile);
 
             if(!(await filesystem.exists(jokeFilePath)))
                 await copyFile(templatePath, jokeFilePath);
@@ -674,6 +667,8 @@ function saveSubmission(sub)
 
             currentJokesFile.jokes = currentJokes;
 
+
+            // TODO: id is null for some reason
 
             await writeFile(jokeFilePath, JSON.stringify(currentJokesFile, undefined, 4));
 

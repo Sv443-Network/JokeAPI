@@ -64,7 +64,7 @@ const settings = {
             timeFrame: 60,                              // time frame of submission rate limiter (in seconds)
             rateLimiting: 5,                            // how many requests per timeframe should be allowed
             invalidCharRegex: /(?![\u0000-\u0fff])./gm, // eslint-disable-line no-control-regex
-            minLength: 8,                               // minimum amount of characters needed in joke submissions (per property)
+            minLength: 2,                               // minimum amount of characters needed in joke submissions (per property)
         },
         jokesTemplateFile: "template.json",  // relative to "jokes.jokesFolderPath"
         possible: {
