@@ -12,9 +12,12 @@ export interface JokeFlags {
     racist: boolean;
     religious: boolean;
     political: boolean;
+    sexist: boolean;
     explicit: boolean;
 }
 
+
+//#SECTION base interfaces
 
 /** Base interface for all kinds of jokes, internal or submission */
 declare interface JokeBase {
@@ -35,7 +38,7 @@ declare interface SubmissionBase extends JokeBase {
 }
 
 
-//#SECTION base joke
+//#SECTION internal jokes
 
 /** An internal joke of type `single` */
 export interface SingleJoke extends InternalJokeBase {
@@ -52,6 +55,14 @@ export interface TwopartJoke extends InternalJokeBase {
 
 /** An internal joke of any type */
 export type Joke = SingleJoke | TwopartJoke;
+
+/** Represents an internal joke file */
+export interface JokesFile {
+    info: {
+        formatVersion: number;
+    }
+    jokes: Joke[];
+}
 
 
 //#SECTION submissions

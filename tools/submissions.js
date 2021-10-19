@@ -1,8 +1,9 @@
-const { readdir, readFile } = require("fs-extra");
+const { readdir, readFile, writeFile, copyFile, rm } = require("fs-extra");
 const { resolve, join } = require("path");
-const { colors, Errors, unused, reserialize } = require("svcorelib");
+const { colors, Errors, unused, reserialize, filesystem } = require("svcorelib");
 const prompt = require("prompts");
 const promiseAllSeq = require("promise-all-sequential");
+const keypress = require("keypress");
 
 const languages = require("../src/languages");
 const parseJokes = require("../src/parseJokes");
@@ -14,6 +15,21 @@ const { isEmpty } = require("lodash");
 const col = colors.fg;
 const { exit } = process;
 
+
+//#MARKER types & init
+
+/** @typedef {import("./types").AllSubmissions} AllSubmissions */
+/** @typedef {import("./types").Submission} Submission */
+/** @typedef {import("./types").ParsedFileName} ParsedFileName */
+/** @typedef {import("./types").ReadSubmissionsResult} ReadSubmissionsResult */
+/** @typedef {import("./types").LastEditedSubmission} LastEditedSubmission */
+/** @typedef {import("./types").Keypress} Keypress */
+/** @typedef {import("../src/types/jokes").JokeSubmission} JokeSubmission */
+/** @typedef {import("../src/types/jokes").JokeFlags} JokeFlags */
+/** @typedef {import("../src/types/jokes").JokesFile} JokesFile */
+/** @typedef {import("../src/types/languages").LangCode} LangCodes */
+
+
 /** @type {LastEditedSubmission} */
 let lastSubmissionType;
 /** @type {number} */
@@ -22,24 +38,14 @@ let currentSub;
 let lastKeyInvalid = false;
 
 
-//#SECTION types & init
-
-/** @typedef {import("./types").AllSubmissions} AllSubmissions */
-/** @typedef {import("./types").Submission} Submission */
-/** @typedef {import("./types").ParsedFileName} ParsedFileName */
-/** @typedef {import("./types").ReadSubmissionsResult} ReadSubmissionsResult */
-/** @typedef {import("./types").LastEditedSubmission} LastEditedSubmission */
-/** @typedef {import("./types").KeypressResult} KeypressResult */
-/** @typedef {import("../src/types/jokes").JokeSubmission} JokeSubmission */
-/** @typedef {import("../src/types/jokes").JokeFlags} JokeFlags */
-/** @typedef {import("../src/types/languages").LangCode} LangCodes */
-
-
 async function run()
 {
+    keypress(process.stdin);
+
     try
     {
         await languages.init();
+
         await parseJokes.init();
     }
     catch(err)
@@ -72,7 +78,7 @@ async function run()
 }
 
 
-//#SECTION prompts
+//#MARKER prompts
 
 /**
  * Goes through all submissions, prompting about what to do with them
@@ -95,6 +101,8 @@ async function promptSubmissions(allSubmissions)
 
     return finishPrompts();
 }
+
+//#SECTION act on submission
 
 /**
  * Prompts the user to act on a submission
@@ -129,7 +137,7 @@ function actSubmission(sub)
 
             console.log(`${last}\n\n------------\nLanguage: ${sub.lang}\n------------\n`);
 
-            printSubmission(sub, currentSub);
+            printSubmission(sub);
 
             /** @type {null|Submission} The submission to be added to the local jokes */
             let finalSub = null;
@@ -179,6 +187,8 @@ function actSubmission(sub)
         }
     });
 }
+
+//#SECTION edit submission
 
 /**
  * Gets called to edit a submission
@@ -258,9 +268,11 @@ function editSubmission(sub)
                 },
             ];
 
-            // TODO: display joke
+            process.stdout.write("\n\n");
+            
+            printSubmission(sub);
 
-            process.stdout.write("\n");
+            process.stdout.write("\n\n");
 
             const { editProperty } = await prompt({
                 message: "Edit property",
@@ -379,15 +391,16 @@ function editSubmission(sub)
     });
 }
 
+//#SECTION print submission
+
 /**
  * Prints a submission to the console
  * @param {Submission} sub
- * @param {number} index Current index of the submission
  */
-function printSubmission(sub, index)
+function printSubmission(sub)
 {
     const lines = [
-        `Submission #${index} by ${sub.client}:`,
+        `Submission #${currentSub} by ${sub.client}:`,
         `  Category: ${sub.joke.category}`,
         `  Type:     ${sub.joke.type}`,
         `  Flags:    ${extractFlags(sub.joke)}`,
@@ -436,7 +449,7 @@ function finishPrompts()
 /**
  * Waits for the user to press a key, then resolves with it
  * @param {string} [prompt]
- * @returns {Promise<KeypressResult, Error>}
+ * @returns {Promise<Keypress, Error>}
  */
 function getKey(prompt)
 {
@@ -482,7 +495,7 @@ function getKey(prompt)
 }
 
 
-//#SECTION internal stuff
+//#MARKER internal stuff
 
 /**
  * Reads all possible language codes and resolves with them
@@ -578,7 +591,9 @@ function getSubmissions(lang)
 
             for await(const fileName of files)
             {
-                const file = await readFile(join(submissionsFolder, fileName));
+                const path = join(submissionsFolder, fileName);
+
+                const file = await readFile(path);
                 /** @type {JokeSubmission} */
                 const joke = JSON.parse(file);
 
@@ -592,7 +607,7 @@ function getSubmissions(lang)
 
                 unused(index);
 
-                submissions.push({ client, joke, timestamp, errors, lang });
+                submissions.push({ client, joke, timestamp, errors, lang, path });
             }
 
             return res(submissions);
@@ -636,10 +651,34 @@ function saveSubmission(sub)
     return new Promise(async (res, rej) => {
         try
         {
+            // TODO: test this
+            const { lang } = sub;
             const joke = reformatJoke(sub.joke);
 
-            // TODO:
-            unused(joke);
+            const jokeFilePath = join(settings.jokes.jokeSubmissionPath, `jokes-${lang}.json`);
+            const templatePath = join(settings.jokes.jokeSubmissionPath, settings.jokes.jokesTemplateFile);
+
+            if(!(await filesystem.exists(jokeFilePath)))
+                await copyFile(templatePath, jokeFilePath);
+
+
+            /** @type {JokesFile} */
+            const currentJokesFile = JSON.parse((await readFile(jokeFilePath)).toString());
+            const currentJokes = reserialize(currentJokesFile.jokes);
+
+            const lastId = [currentJokes.length - 1].id;
+
+            joke.id = lastId + 1;
+
+            currentJokes.push(joke);
+
+            currentJokesFile.jokes = currentJokes;
+
+
+            await writeFile(jokeFilePath, JSON.stringify(currentJokesFile, undefined, 4));
+
+            await rm(sub.path);
+
 
             return res();
         }

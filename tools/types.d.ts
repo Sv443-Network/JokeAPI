@@ -16,6 +16,8 @@ export interface Submission {
     timestamp: number;
     errors: null | string[];
     lang: LangCode;
+    /** Absolute path to the joke submission */
+    path: string;
 }
 
 /**
@@ -44,7 +46,7 @@ export interface ReadSubmissionsResult {
 
 export type LastEditedSubmission = "accepted_safe" | "accepted_unsafe" | "edited" | "deleted";
 
-export interface KeypressResult {
+export interface Keypress {
     name: string;
     ctrl: boolean;
     meta: boolean;
