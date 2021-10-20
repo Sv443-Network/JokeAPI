@@ -6,8 +6,6 @@ try
 {
     let amount;
 
-    console.log(process.argv);
-
     try
     {
         amount = parseInt(
