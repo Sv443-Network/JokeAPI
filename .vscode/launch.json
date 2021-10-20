@@ -7,7 +7,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Debug JokeAPI",
+            "name": "JokeAPI",
             "skipFiles": [
                 "<node_internals>/**"
             ],

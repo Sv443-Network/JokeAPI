@@ -6,9 +6,10 @@
 
 const jsl = require("svjsl");
 const fs = require("fs-extra");
+const promiseAllSequential = require("promise-all-sequential");
 require("dotenv").config();
 
-const settings = require("../settings");
+const env = require("./env");
 const debug = require("./verboseLogging");
 const parseJokes = require("./parseJokes");
 const httpServer = require("./httpServer");
@@ -20,7 +21,7 @@ const auth = require("./auth");
 const languages = require("./languages");
 const translate = require("./translate");
 const meter = require("./meter");
-const promiseAllSequential = require("promise-all-sequential");
+const settings = require("../settings");
 
 const col = jsl.colors.fg;
 process.debuggerActive = jsl.inDebugger();
@@ -32,6 +33,8 @@ settings.init.exitSignals.forEach(sig => {
 
 //#MARKER init all
 const initAll = () => {
+    env.init();
+
     let initTimestamp = new Date().getTime();
 
     console.log(`Initializing ${settings.info.name}...\n`);

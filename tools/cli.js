@@ -3,56 +3,82 @@
 const yargs = require("yargs");
 const importFresh = require("import-fresh");
 const { colors, Errors } = require("svcorelib");
+const { resolve } = require("path");
+const dotenv = require("dotenv");
 
 const settings = require("../settings");
 
 const { exit } = process;
 const col = colors.fg;
 
-const argv = prepareCLI();
+
+/** Absolute path to JokeAPI's root directory */
+const rootDir = resolve(__dirname, "../"); // if this file is moved, make sure to change this accordingly
 
 
 //#SECTION run
 
 async function run()
-{
+{    
     try
     {
-        const command = argv._[0];
+        // ensure cwd is correct if the binary is called in a global context
+        process.chdir(rootDir);
+
+        dotenv.config();
+
+        const argv = prepareCLI();
+
+
+        /** @type {string|null} */
+        const command = argv && argv._ ? argv._[0] : null;
 
         let file, action;
 
         // TODO: (v2.4) remove comments below
         switch(command)
         {
-        case "start": case "run":
+        case "start":
+        case "run":
             file = "../JokeAPI.js";
             break;
-        case "submissions": case "sub": case "s":
+        case "submissions":
+        case "sub":
+        case "s":
             action = "Joke submissions";
             file = "./submissions.js";
             break;
-        case "add-joke": case "add": case "j":
+        case "add-joke":
+        case "add":
+        case "j":
             action = "Add joke";
             file = "./add-joke.js";
             break;
-        case "reassign-ids": case "re-id": case "r":
+        case "reassign-ids":
+        case "re-id":
+        case "r":
             action = "Reassign IDs";
             file = "./reassign-ids.js";
             break;
-        case "add-token": case "token": case "t":
+        case "add-token":
+        case "token":
+        case "t":
             action = "Add API token";
             file = "./add-token.js";
             break;
-        case "validate-ids": case "vi":
+        case "validate-ids":
+        case "vi":
             action = "Validate IDs";
             file = "./validate-ids.js";
             break;
-        case "validate-jokes": case "vj":
+        case "validate-jokes":
+        case "vj":
             action = "Validate jokes";
             file = "./validate-jokes.js";
             break;
-        case "generate-changelog": case "gen-cl": case "c":
+        case "generate-changelog":
+        case "gen-cl":
+        case "c":
             action = "Generate changelog";
             file = "./generate-changelog.js";
             break;
@@ -67,7 +93,9 @@ async function run()
         // case "ip-info": case "ip":
         //     action = "IP info";
         //     file = "./ip-info.js";
-        case undefined: case null: case "":
+        case undefined:
+        case null:
+        case "":
             console.log(`${settings.info.name} CLI v${settings.info.version}\n`);
             return yargs.showHelp();
         default:
@@ -78,8 +106,6 @@ async function run()
             throw new Error(`Command '${command}' (${action.toLowerCase()}) didn't yield an executable file`);
 
         action && console.log(`${settings.info.name} CLI - ${action}`);
-
-        // TODO: pwd / cwd is not set correctly when called from a folder that's not JokeAPI's root
 
         return importFresh(file);
     }
@@ -99,6 +125,7 @@ function prepareCLI()
     yargs.scriptName("jokeapi")
         .usage("Usage: $0 <command>")
         .version(`${settings.info.name} v${settings.info.version} - ${settings.info.projGitHub}`)
+            .alias("v", "version")
         .help()
             .alias("h", "help");
 

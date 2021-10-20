@@ -1,7 +1,18 @@
-const packageJSON = require("./package.json");
 const jsl = require("svjsl");
+
+const packageJSON = require("./package.json");
+const { getProp } = require("./src/env");
+
 const col = jsl.colors.fg;
 const bgc = jsl.colors.bg;
+
+
+/*
+ * Notes:
+ * - to change environment-dependent properties that use getProp(), go to './src/env.js'
+ * - to change the environment, set the `NODE_ENV` environment variable (in the '.dotenv' file)
+ */
+
 
 const settings = {
     debug: {
@@ -10,12 +21,12 @@ const settings = {
         onlyLogErrors: true,        // set to true to disable sending any console logs but error messages
     },
     info: {
-        name: "JokeAPI",                                // the name of JokeAPI
+        name: getProp("name"),                      // the name of JokeAPI
         desc: packageJSON.description,                  // the description of JokeAPI
         projGitHub: "https://github.com/Sv443/JokeAPI", // URL to the project's GitHub page
         version: packageJSON.version,                   // the version as a string
         versionInt: packageJSON.version.split("."),     // the version as a number array
-        docsURL: packageJSON.homepage,                  // the URL to the documentation of JokeAPI
+        docsURL: getProp("baseUrl"),                    // the URL to the documentation of JokeAPI
         author: {
             name: packageJSON.author.name,   // author name
             email: packageJSON.author.email, // author email
@@ -27,7 +38,7 @@ const settings = {
     },
     wrapper: {
         mainFilePath: "./src/main.js",          // main script file
-        skipWrapping: true,                    // whether or not to skip the wrapping through node-wrap
+        skipWrapping: true,                     // whether or not to skip the wrapping through node-wrap
         wrapperSettings: {
             console: true,                      // whether Node-Wrap should log to the console
             crashTimeout: 2000,                 // timeout (in ms) until the process should be restarted after a crash
@@ -56,10 +67,10 @@ const settings = {
         blacklistLoggingEnabled: true, // whether or not to log the character when an IP is on the blacklist
     },
     jokes: {
-        jokesFormatVersion: 3,                               // current joke format version
-        jokesFolderPath: "./data/jokes/",                    // path to the jokes folder - needs trailing slash
-        jokeSubmissionURL: `${packageJSON.homepage}#submit`, // joke submission url
-        jokeSubmissionPath: "./data/submissions/",           // path to a directory where joke submissions should be saved to - needs trailing slash
+        jokesFormatVersion: 3,                             // current joke format version
+        jokesFolderPath: "./data/jokes/",                  // path to the jokes folder - needs trailing slash
+        jokeSubmissionURL: `${getProp("baseUrl")}#submit`, // joke submission url
+        jokeSubmissionPath: "./data/submissions/",         // path to a directory where joke submissions should be saved to - needs trailing slash
         submissions: {
             timeFrame: 60,                              // time frame of submission rate limiter (in seconds)
             rateLimiting: 5,                            // how many requests per timeframe should be allowed
@@ -109,28 +120,24 @@ const settings = {
         },
         lastIDsMaxLength: 15,          // the maximum amount of joke IDs that get saved to the blacklist-array
         jokeRandomizationAttempts: 25, // after how many attempts of selecting a random joke to stop trying
-        splitChars: [",", "+", "-"],   // which characters should separate the values of parameters with support for multiple values
+        splitChars: [ ",", "+", "-" ], // which characters should separate the values of parameters with support for multiple values
         splitCharRegex: /[,+-]/gm,     // which characters should separate the values of parameters with support for multiple values
         maxAmount: 10,                 // the maximum amount of jokes that can be fetched with a single call to the get jokes endpoint
         encodeAmount: 5,               // if more than this number of jokes is requested, encode them
     },
     httpServer: {
-        port: 8076,           // http server port
-        allowCORS: true,      // whether or not to allow Cross Origin Resource Sharing
-        rateLimiting: 120,    // amount of allowed requests per below defined timeframe
-        timeFrame: 60,        // timeframe in seconds
-        urlPathOffset: 0,     // example: "/jokeapi/info" with an offset of 1 will only start parsing the path beginning at "info" - an Apache reverse proxy will do this automatically though
-        maxPayloadSize: 5120, // max size (in bytes) that will be accepted in a PUT request - if payload exceeds this size, it will abort with status 413
-        maxUrlLength: 250,    // max amount of characters of the URL - if the URL is longer than this, the request will abort with status 414
-        disableCache: true,   // whether or not to disable the cache - default: true (setting to false may prevent the users from getting new jokes)
-        infoHeaders: true,    // whether or not to add an informational header about JokeAPI to each request
-        reverseProxy: true,   // whether or not JokeAPI gets its requests from a reverse proxy
-        startupTimeout: 30,   // in seconds, timeout after which startup fails if the HTTP server couldn't start up (blocked port, etc.)
-        ssl: {
-            enabled: false,                // whether SSL is enabled
-            certFile: "./.ssl/cert-xy.pem" // to be implemented (issue #185)
-        },
-        ipSanitization: {     // used to sanitize IP addresses so they can be used in file paths
+        port: getProp("httpPort"), // http server port
+        allowCORS: true,           // whether or not to allow Cross Origin Resource Sharing
+        rateLimiting: 120,         // amount of allowed requests per below defined timeframe
+        timeFrame: 60,             // timeframe in seconds
+        urlPathOffset: 0,          // example: "/jokeapi/info" with an offset of 1 will only start parsing the path beginning at "info" - an Apache reverse proxy will do this automatically though
+        maxPayloadSize: 5120,      // max size (in bytes) that will be accepted in a PUT request - if payload exceeds this size, it will abort with status 413
+        maxUrlLength: 250,         // max amount of characters of the URL - if the URL is longer than this, the request will abort with status 414
+        disableCache: true,        // whether or not to disable the cache - default: true (setting to false may prevent the users from getting new jokes)
+        infoHeaders: true,         // whether or not to add an informational header about JokeAPI to each request
+        reverseProxy: true,        // whether or not JokeAPI gets its requests from a reverse proxy
+        startupTimeout: 30,        // in seconds, timeout after which startup fails if the HTTP server couldn't start up (blocked port, etc.)
+        ipSanitization: {          // used to sanitize IP addresses so they can be used in file paths
             regex: /[^A-Za-z0-9\-_./]|^COM[0-9]([/.]|$)|^LPT[0-9]([/.]|$)|^PRN([/.]|$)|^CLOCK\$([/.]|$)|^AUX([/.]|$)|^NUL([/.]|$)|^CON([/.]|$)/gm,
             replaceChar: "#", // what character to use instead of illegal characters
         },
