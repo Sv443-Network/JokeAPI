@@ -1,3 +1,11 @@
+/**
+ * Enjoy this over-engineered pile of garbage that is actually pretty cool
+ * 
+ * @author Sv443
+ * @since 2.3.2
+ * @ref #340 - https://github.com/Sv443/JokeAPI/issues/340
+ */
+
 const { readdir, readFile, writeFile, copyFile, rm, rmdir } = require("fs-extra");
 const { resolve, join } = require("path");
 const { colors, Errors, reserialize, filesystem, isEmpty } = require("svcorelib");
@@ -36,7 +44,20 @@ let currentSub;
 /** @type {boolean} */
 let lastKeyInvalid = false;
 
+const stats = {
+    /** How many submissions were acted upon */
+    submissionsActAmt: 0,
+    /** How many submissions were saved */
+    savedSubmissions: 0,
+    /** How many submissions were deleted / discarded */
+    deletedSubmissions: 0,
+    /** How many submissions were edited */
+    editedSubmissions: 0,
+};
 
+/**
+ * Entrypoint of this tool
+ */
 async function run()
 {
     try
@@ -58,6 +79,12 @@ async function run()
     /** @type {LangCodes} */
     const langCodes = await getLangCodes();
     const { submissions, amount } = await readSubmissions(langCodes);
+
+    if(amount < 1)
+    {
+        console.log("\nFound no submissions to go through. Exiting.\n");
+        exit(0);
+    }
 
     const langCount = Object.keys(submissions).length;
 
@@ -92,7 +119,7 @@ async function promptSubmissions(allSubmissions)
         /** @type {Submission[]} */
         const submissions = allSubmissions[lang];
 
-        // /** @type {(() => Promise)[]} */
+        /** @type {(() => Promise)[]} */
         const proms = submissions.map((sub) => (() => actSubmission(sub)));
 
         await promiseAllSeq(proms);
@@ -220,10 +247,13 @@ function editSubmission(sub)
 
                 await getKey("Press any key to try again.");
 
-                return res(editSubmission(finalSub));
+                return res(editSubmission(finalSub)); // async recursion, who doesn't love it
             }
             else
+            {
+                stats.editedSubmissions++;
                 return res(Object.freeze(finalSub));
+            }
         };
 
         try
@@ -374,7 +404,9 @@ function editSubmission(sub)
                 if(del)
                 {
                     lastSubmissionType = "deleted";
+
                     await deleteSubmission(sub);
+
                     return res(null);
                 }
 
@@ -405,7 +437,8 @@ function deleteSubmission(sub)
         {
             await rm(sub.path);
 
-            await cleanupDir(sub);
+            stats.submissionsActAmt++;
+            stats.deletedSubmissions++;
 
             return res();
         }
@@ -490,9 +523,18 @@ function extractFlags(joke)
  */
 function finishPrompts()
 {
-    console.log("\nFinished going through submissions. Exiting.\n");
+    console.log("\nFinished going through submissions.\n");
 
-    // TODO: display stats
+    const statLines = [
+        `Stats:`,
+        `  Submissions acted upon: ${stats.submissionsActAmt}`,
+        `  Submissions edited:     ${stats.editedSubmissions}`,
+        `  Submissions deleted:    ${stats.deletedSubmissions}`,
+    ];
+
+    console.log(statLines.join("\n"));
+
+    console.log(`\nExiting.\n`);
 
     exit(0);
 }
@@ -584,13 +626,18 @@ function readSubmissions(langCodes)
         {
             const folders = await readdir(resolve(settings.jokes.jokeSubmissionPath));
 
+            let amount = 0;
+
             if(folders.length < 1)
-                return res(null);
+            {
+                return res({
+                    submissions: [],
+                    amount,
+                });
+            }
 
             /** @type {Promise<void>[]} */
             const readPromises = [];
-
-            let amount = 0;
 
             folders.forEach(langCode => {
                 langCode = langCode.toString();
@@ -598,7 +645,7 @@ function readSubmissions(langCodes)
                 if(!langCodes.includes(langCode)) // ignore folders that aren't valid
                     return;
 
-                readPromises.push(new Promise(async res => {
+                readPromises.push(new Promise(async readRes => {
                     const subm = await getSubmissions(langCode);
 
                     if(subm.length > 0)
@@ -606,7 +653,7 @@ function readSubmissions(langCodes)
 
                     amount += subm.length;
 
-                    return res();
+                    return readRes();
                 }));
             });
 
@@ -614,7 +661,7 @@ function readSubmissions(langCodes)
 
             return res({
                 submissions: allSubmissions,
-                amount
+                amount,
             });
         }
         catch(err)
@@ -700,6 +747,9 @@ function saveSubmission(sub)
     return new Promise(async (res, rej) => {
         try
         {
+            stats.savedSubmissions++;
+            stats.submissionsActAmt++;
+
             const { lang } = sub;
             const joke = reformatJoke(sub.joke);
 
