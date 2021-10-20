@@ -1,6 +1,6 @@
 {
   "name": "@sv443/jokeapi",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "A REST API that serves jokes from many categories while also offering a lot of filtering methods",
   "main": "JokeAPI.js",
   "homepage": "https://v2.jokeapi.dev",
@@ -86,7 +86,7 @@
   "dependencies": {
     "@pm2/io": "^5.0.0",
     "dotenv": "^10.0.0",
-    "farmhash": "^3.1.0",
+    "farmhash": "^3.2.1",
     "fs-extra": "^10.0.0",
     "fuse.js": "^6.4.1",
     "http-ratelimit": "^0.2.3",
@@ -113,7 +113,7 @@
     "lodash": "^4.17.21",
     "madge": "^4.0.1",
     "nyc": "^15.1.0",
-    "snyk": "^1.667.0",
+    "snyk": "^1.742.0",
     "table": "^6.0.1"
   },
   "snyk": true
