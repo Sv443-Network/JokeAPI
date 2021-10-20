@@ -1,15 +1,15 @@
-const { readdir, readFile, writeFile, copyFile, rm } = require("fs-extra");
+const { readdir, readFile, writeFile, copyFile, rm, rmdir } = require("fs-extra");
 const { resolve, join } = require("path");
-const { colors, Errors, unused, reserialize, filesystem } = require("svcorelib");
+const { colors, Errors, reserialize, filesystem, isEmpty } = require("svcorelib");
 const prompt = require("prompts");
 const promiseAllSeq = require("promise-all-sequential");
 
 const languages = require("../src/languages");
+const translate = require("../src/translate");
 const parseJokes = require("../src/parseJokes");
 const { reformatJoke } = require("../src/jokeSubmission");
 
 const settings = require("../settings");
-const { isEmpty } = require("lodash");
 
 const col = colors.fg;
 const { exit } = process;
@@ -42,6 +42,8 @@ async function run()
     try
     {
         await languages.init();
+
+        await translate.init();
 
         await parseJokes.init();
     }
@@ -94,6 +96,10 @@ async function promptSubmissions(allSubmissions)
         const proms = submissions.map((sub) => (() => actSubmission(sub)));
 
         await promiseAllSeq(proms);
+
+        const langSubfolderPath = resolve(settings.jokes.jokeSubmissionPath, lang);
+
+        await cleanupDir(langSubfolderPath);
     }
 
     return finishPrompts();
@@ -160,6 +166,7 @@ function actSubmission(sub)
                 break;
             case "d": // delete
                 lastSubmissionType = "deleted";
+                await deleteSubmission(sub);
                 return res();
             default: // invalid key
                 lastKeyInvalid = true;
@@ -299,6 +306,7 @@ function editSubmission(sub)
                     type: "text",
                     message: `Enter new value for '${editProperty}' property`,
                     name: "val",
+                    initial: editedSub.joke[editProperty] || "",
                     validate: (val) => (!isEmpty(val) && val.length >= settings.jokes.submissions.minLength),
                 })).val;
                 break;
@@ -366,6 +374,7 @@ function editSubmission(sub)
                 if(del)
                 {
                     lastSubmissionType = "deleted";
+                    await deleteSubmission(sub);
                     return res(null);
                 }
 
@@ -380,6 +389,53 @@ function editSubmission(sub)
         catch(err)
         {
             return rej(new Error(`Error while editing submission: ${err}`));
+        }
+    });
+}
+
+/**
+ * Deletes/discards a submission
+ * @param {Submission} sub
+ * @returns {Promise<void, Error>}
+ */
+function deleteSubmission(sub)
+{
+    return new Promise(async (res, rej) => {
+        try
+        {
+            await rm(sub.path);
+
+            await cleanupDir(sub);
+
+            return res();
+        }
+        catch(err)
+        {
+            return rej(new Error(`Error while deleting submission at path '${sub.path}': ${err}`));
+        }
+    });
+}
+
+/**
+ * Cleans up the submission directories if they're empty
+ * @param {string} path Path to the submission language subfolder
+ * @returns {Promise<void, Error>}
+ */
+function cleanupDir(path)
+{
+    return new Promise(async (res, rej) => {
+        try
+        {
+            const subDirFiles = await readdir(path);
+
+            if(subDirFiles.length === 0)
+                await rmdir(path);
+
+            return res();
+        }
+        catch(err)
+        {
+            return rej(new Error(`Error while cleaning up directories: ${err}`));
         }
     });
 }
@@ -434,7 +490,9 @@ function extractFlags(joke)
  */
 function finishPrompts()
 {
-    console.log("<FINISH>");
+    console.log("\nFinished going through submissions. Exiting.\n");
+
+    // TODO: display stats
 
     exit(0);
 }
@@ -584,7 +642,7 @@ function getSubmissions(lang)
 
             for await(const fileName of files)
             {
-                const path = join(submissionsFolder, fileName);
+                const path = resolve(submissionsFolder, fileName);
 
                 const file = await readFile(path);
                 /** @type {JokeSubmission} */
@@ -596,9 +654,7 @@ function getSubmissions(lang)
                 if(Array.isArray(valRes))
                     errors = valRes;
 
-                const { client, timestamp, index } = parseFileName(fileName);
-
-                unused(index);
+                const { client, timestamp } = parseFileName(fileName);
 
                 submissions.push({ client, joke, timestamp, errors, lang, path });
             }
@@ -644,7 +700,6 @@ function saveSubmission(sub)
     return new Promise(async (res, rej) => {
         try
         {
-            // TODO: test this
             const { lang } = sub;
             const joke = reformatJoke(sub.joke);
 
@@ -657,18 +712,20 @@ function saveSubmission(sub)
 
             /** @type {JokesFile} */
             const currentJokesFile = JSON.parse((await readFile(jokeFilePath)).toString());
+            /** @type {any} */
             const currentJokes = reserialize(currentJokesFile.jokes);
 
-            const lastId = [currentJokes.length - 1].id;
+            const lastId = currentJokes[currentJokes.length - 1].id;
 
+            // ensure props match and strip extraneous props
             joke.id = lastId + 1;
+            joke.lang && delete joke.lang;
+            joke.formatVersion && delete joke.formatVersion;
 
             currentJokes.push(joke);
 
             currentJokesFile.jokes = currentJokes;
 
-
-            // TODO: id is null for some reason
 
             await writeFile(jokeFilePath, JSON.stringify(currentJokesFile, undefined, 4));
 
