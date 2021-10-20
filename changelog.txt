@@ -1,6 +1,6 @@
 =====================
   JokeAPI Changelog
-  - Version 2.3.1 -
+  - Version 2.3.2 -
 =====================
 
 
@@ -11,7 +11,14 @@
     - Serve docs with nginx to speed up page load times (issue #118)
 
 
-[CURRENT: 2.3.1] - The Safe Mode Hotfix, because bugs exist for some reason (PR #214)
+[CURRENT: 2.3.2] - Spooky seasonal update 2021
+    - Added new jokes (especially from the "Spooky" category, for Halloween)
+    - Rewrote the submission script to make it much more streamlined (issue #340)
+    - Added a global CLI interface (issue #344)
+    - API now adjusts environment-dependent settings automatically (issue #343)
+
+
+[2.3.1] - The Safe Mode Hotfix, because bugs exist for some reason (PR #214)
     - Fixed bug "API Error 500 - Cannot read property 'msBeforeNext' of null" (issue #212)
     - Fixed bug where API responded with Error 106 when using format=txt on endpoint /joke (issue #218)
     - Re-flagged joke 79 (issue #220)

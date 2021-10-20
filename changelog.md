@@ -1,4 +1,4 @@
-# JokeAPI Changelog (Version 2.3.1)
+# JokeAPI Changelog (Version 2.3.2)
 
 <br><br><br>
 
@@ -11,7 +11,16 @@
 
 <br><br><br>
 
-## [CURRENT: 2.3.1] - The Safe Mode Hotfix, because bugs exist for some reason ([pull request #214](https://github.com/Sv443/JokeAPI/pull/214))
+## [CURRENT: 2.3.2] - Spooky seasonal update 2021
+- Added new jokes (especially from the "Spooky" category, for Halloween)
+- Rewrote the submission script to make it much more streamlined ([issue #340](https://github.com/Sv443/JokeAPI/issues/340))
+- Added a global CLI interface ([issue #344](https://github.com/Sv443/JokeAPI/issues/344))
+- API now adjusts environment-dependent settings automatically ([issue #343](https://github.com/Sv443/JokeAPI/issues/343))
+
+
+<br><br><br>
+
+## [2.3.1] - The Safe Mode Hotfix, because bugs exist for some reason ([pull request #214](https://github.com/Sv443/JokeAPI/pull/214))
 - Fixed bug "API Error 500 - Cannot read property 'msBeforeNext' of null" ([issue #212](https://github.com/Sv443/JokeAPI/issues/212))
 - Fixed bug where API responded with Error 106 when using format=txt on endpoint /joke ([issue #218](https://github.com/Sv443/JokeAPI/issues/218))
 - Re-flagged joke 79 ([issue #220](https://github.com/Sv443/JokeAPI/issues/220))

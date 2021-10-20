@@ -77,8 +77,7 @@ async function run()
             file = "./validate-jokes.js";
             break;
         case "generate-changelog":
-        case "gen-cl":
-        case "c":
+        case "cl":
             action = "Generate changelog";
             file = "./generate-changelog.js";
             break;
@@ -157,7 +156,7 @@ function prepareCLI()
 
     yargs.command([ "validate-jokes", "vj" ], "Goes through each joke file and checks the validity of each joke and whether they can all be loaded to memory");
 
-    yargs.command([ "generate-changelog", "gen-cl", "c" ], "Turns the changelog.txt file into a markdown file (changelog.md)", cmd => {
+    yargs.command([ "generate-changelog", "cl" ], "Turns the changelog.txt file into a markdown file (changelog.md)", cmd => {
         cmd.option("generate-json", {
             alias: "j",
             describe: "Use this argument to generate a changelog-data.json file in addition to the markdown file",
