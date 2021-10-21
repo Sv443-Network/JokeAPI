@@ -49,19 +49,18 @@ async function run()
             file = "./submissions.js";
             break;
         case "add-joke":
-        case "add":
+        case "aj":
         case "j":
             action = "Add joke";
             file = "./add-joke.js";
             break;
         case "reassign-ids":
-        case "re-id":
-        case "r":
+        case "ri":
             action = "Reassign IDs";
             file = "./reassign-ids.js";
             break;
         case "add-token":
-        case "token":
+        case "at":
         case "t":
             action = "Add API token";
             file = "./add-token.js";
@@ -134,11 +133,11 @@ function prepareCLI()
 
     yargs.command([ "submissions", "sub", "s" ], "Goes through all joke submissions, prompting to edit, add or delete them");
 
-    yargs.command([ "add-joke", "add", "j" ], "Runs an interactive prompt that adds a joke");
+    yargs.command([ "add-joke", "aj", "j" ], "Runs an interactive prompt that adds a joke");
 
-    yargs.command([ "reassign-ids", "re-id", "r" ], "Goes through each joke file and reassigns IDs to each one, consecutively");
+    yargs.command([ "reassign-ids", "ri", "r" ], "Goes through each joke file and reassigns IDs to each one, consecutively");
 
-    yargs.command([ "add-token [amount]", "token", "t" ], "Generates one or multiple API tokens to be used to gain unlimited access to the API", cmd => {
+    yargs.command([ "add-token [amount]", "at", "t" ], "Generates one or multiple API tokens to be used to gain unlimited access to the API", cmd => {
         cmd.positional("amount", {
             describe: "Specifies the amount of tokens to generate - min is 1, max is 10",
             type: "number",
