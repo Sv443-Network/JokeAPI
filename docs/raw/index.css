@@ -397,6 +397,7 @@ mark {
     display: inline-block;
     padding: 1px;
     font-family: "Cascadia Code", "Roboto Mono", "Courier New", monospace;
+    font-weight: normal;
     font-variant-ligatures: none;
     color: #ccc;
     transition: background-color ease-out var(--sidenav-colorblur-speed);
@@ -462,6 +463,7 @@ body[data-sidenav="opened"] mark {
 
 body[data-sidenav="closed"] code, body code {
     font-family: "Cascadia Code", "Inconsolata", "Courier New", "Consolas", monospace;
+    font-weight: normal;
     font-variant-ligatures: none;
     font-size: 15px;
 
@@ -521,6 +523,7 @@ body code .nocode.codeheader::before {
 
 kbd {
     font-family: "Cascadia Code", "Inconsolata", "Roboto Mono", "Courier New", monospace;
+    font-weight: normal;
     font-variant-ligatures: none;
     font-size: 13px;
     display: inline-block;
@@ -565,6 +568,7 @@ ul.lispacer li {
 
 .antiBotE.shown {
     font-family: "Roboto Mono", "Cascadia Code", "Courier New", monospace;
+    font-weight: normal;
 }
 
 /*#SECTION Endpoints*/
