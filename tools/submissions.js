@@ -182,29 +182,30 @@ function actSubmission(sub)
                 safe = true;
                 lastSubmissionType = "accepted_safe";
                 finalSub = reserialize(sub);
+                currentSub++;
                 break;
             case "u": // add unsafe
                 lastSubmissionType = "accepted_unsafe";
                 finalSub = reserialize(sub);
+                currentSub++;
                 break;
             case "e": // edit
                 lastSubmissionType = "edited";
                 finalSub = await editSubmission(sub);
+                currentSub++;
                 break;
             case "d": // delete
                 lastSubmissionType = "deleted";
                 await deleteSubmission(sub);
+                currentSub++;
                 return res();
             default: // invalid key
                 lastKeyInvalid = true;
                 return await actSubmission(sub);
             }
 
-            if(finalSub)
+            if(finalSub && lastSubmissionType != "edited")
                 finalSub.joke.safe = safe;
-
-            if(lastSubmissionType !== "invalid")
-                currentSub++;
 
             // if not deleted in editSubmission()
             if(finalSub !== null)
@@ -234,6 +235,9 @@ function editSubmission(sub)
 
         /** @param {Submission} finalSub */
         const trySubmit = async (finalSub) => {
+            if(typeof finalSub.joke.lang !== "string")
+                finalSub.joke.lang = finalSub.lang;
+
             const validateRes = parseJokes.validateSingle(finalSub.joke, finalSub.lang);
             const allErrors = Array.isArray(validateRes) ? validateRes : [];
 
@@ -501,9 +505,9 @@ function printSubmission(sub)
 }
 
 /**
- * Extracts flags of a joke submission, returning a string
+ * Extracts flags of a joke submission, returning a string representation
  * @param {JokeSubmission} joke
- * @returns {string} Returns "(none)" if no flags are set
+ * @returns {string} Returns flags delimited with `, ` or "none" if no flags are set
  */
 function extractFlags(joke)
 {
@@ -515,7 +519,7 @@ function extractFlags(joke)
             flags.push(key);
     });
 
-    return flags.length > 0 ? flags.join(", ") : "(none)";
+    return flags.length > 0 ? flags.join(", ") : "none";
 }
 
 /**
