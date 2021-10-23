@@ -48,6 +48,10 @@ async function run()
             action = "Joke submissions";
             file = "./submissions.js";
             break;
+        case "info":
+        case "i":
+            file = "./info.js";
+            break;
         case "add-joke":
         case "aj":
         case "j":
