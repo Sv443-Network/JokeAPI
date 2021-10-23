@@ -199,8 +199,9 @@ function reformatJoke(joke)
 
     if(joke.lang)
         retJoke.lang = joke.lang;
-    
-    retJoke.lang = retJoke.lang.toLowerCase();
+
+    if(typeof retJoke.lang === "string")
+        retJoke.lang = retJoke.lang.toLowerCase();
     
     if(joke.id)
         retJoke.id = joke.id;
