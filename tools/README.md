@@ -18,3 +18,4 @@ To get command-specific help and show the command's arguments, run `jokeapi -h <
 | Command | Description |
 | :-- | :-- |
 | `jokeapi start` | Starts JokeAPI (equivalent to running `npm start` or `node .`) |
+| `jokeapi info` | Prints information about JokeAPI, like the /info endpoint |

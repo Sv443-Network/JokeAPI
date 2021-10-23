@@ -131,6 +131,8 @@ function prepareCLI()
     // TODO: (v2.4) remove comments below
     yargs.command([ "start", "run" ], `Starts ${settings.info.name} (equivalent to 'npm start')`);
 
+    yargs.command([ "info", "i" ], `Prints information about ${settings.info.name}, like the /info endpoint`);
+
     yargs.command([ "submissions", "sub", "s" ], "Goes through all joke submissions, prompting to edit, add or delete them");
 
     yargs.command([ "add-joke", "aj", "j" ], "Runs an interactive prompt that adds a joke");
