@@ -67,7 +67,7 @@ const logRequest = (type, additionalInfo, analyticsData) => {
         break;
         case "ratelimited":
             color = settings.colors.ratelimit;
-            logType = "ratelimit";
+            // logType = "ratelimit";
 
             if(!jsl.isEmpty(analyticsData))
             {
