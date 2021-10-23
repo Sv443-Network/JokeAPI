@@ -68,7 +68,7 @@ function translate(lang, id, ...args)
         });
     }
 
-    debug("Translate", `Translating "${id}" into ${lang} - result: ${translation}`);
+    // debug("Translate", `Translating "${id}" into ${lang} - result: ${translation}`);
 
     return translation;
 }
