@@ -88,7 +88,7 @@ const settings = {
                 "Spooky",
                 "Christmas"
             ],
-            categoryAliases: { // aliases of categories. Alias at key gets resolved to category at value. Value has to be present in the "categories" array above - case insensitive / readable names
+            categoryAliases: { // aliases of categories. Alias at key gets resolved to category at value. Value has to be present in the "categories" array above - case sensitive / readable names
                 "Miscellaneous": "Misc",
                 "Coding": "Programming",
                 "Development": "Programming",
