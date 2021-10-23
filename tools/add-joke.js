@@ -1,215 +1,244 @@
-const jsl = require("svjsl");
-const readline = require("readline");
-const settings = require("../settings");
-const fs = require("fs-extra");
-const { join } = require("path");
+const prompt = require("prompts");
+const { colors, Errors } = require("svcorelib");
 
-const jokeSubmission = require("../src/jokeSubmission");
 const languages = require("../src/languages");
 
+// const settings = require("../settings");
+const { validateSingle } = require("../src/parseJokes");
 
-const init = async () => {
-    let joke = {};
+const col = colors.fg;
+const { exit } = process;
 
-    if(!process.stdin.isTTY)
-    {
-        console.log(`${jsl.colors.fg.red}Error: process doesn't have a stdin to read from${jsl.colors.rst}`);
-        process.exit(1);
-    }
 
-    process.stdin.setRawMode(true);
+/** @typedef {import("tsdef").NullableProps} NullableProps */
+/** @typedef {import("./types").AddJoke} AddJoke */
+/** @typedef {import("../src/types/jokes").Joke} Joke */
+/** @typedef {import("../src/types/jokes").JokeSubmission} JokeSubmission */
 
-    await languages.init();
 
-    joke["category"] = await getJokeCategory();
-    joke["type"] = await getJokeType();
-    let jokeLang = await getJokeLang();
-
-    let rl = readline.createInterface(process.stdin, process.stdout);
-    rl.pause();
-
-    let contFlags = () => {
-        process.stdout.write("\n");
-
-        joke["flags"] = {};
-        let allFlags = settings.jokes.possible.flags;
-
-        let flagIteration = idx => {
-            if(idx >= allFlags.length)
-                return flagIterFinished();
-            else
-            {
-                jsl.pause(`Is this joke ${allFlags[idx]}? (y/N):`).then(key => {
-                    if(key.toLowerCase() == "y")
-                        joke["flags"][allFlags[idx]] = true;
-                    else joke["flags"][allFlags[idx]] = false;
-
-                    return flagIteration(++idx);
-                }).catch(err => {
-                    console.error(`Error: ${err}`);
-                    return process.exit(1);
-                });
-            }
-        };
-        
-        let jokesFileName = `jokes-${jokeLang}.json`;
-
-        let flagIterFinished = () => {
-            let fPath = join(settings.jokes.jokesFolderPath, jokesFileName);
-
-            if(!fs.existsSync(fPath))
-                fs.copySync(join(settings.jokes.jokesFolderPath, settings.jokes.jokesTemplateFile), fPath);
-
-            fs.readFile(fPath, (err, res) => {
-                if(!err)
-                {
-                    let jokeFile = JSON.parse(res.toString());
-
-                    joke = jokeSubmission.reformatJoke(joke);
-
-                    joke["id"] = jokeFile.jokes.length || 0;
-
-                    jokeFile.jokes.push(joke);
-
-                    fs.writeFile(fPath, JSON.stringify(jokeFile, null, 4), (err) => {
-                        if(err)
-                        {
-                            console.log(`${jsl.colors.fg.red}\n${err}${jsl.colors.rst}\n\n`);
-                            process.exit(1);
-                        }
-                        else
-                        {
-                            console.clear();
-                            console.log(`${jsl.colors.fg.green}\nJoke was successfully added to file "${jokesFileName}":${jsl.colors.rst}\n\n${JSON.stringify(joke, null, 4)}\n\n\n`);
-
-                            jsl.pause("Add another joke? (y/N): ").then(key => {
-                                if(key.toLowerCase() === "y")
-                                {
-                                    console.clear();
-                                    return init();
-                                }
-                                else return process.exit(0);
-                            }).catch(err => {
-                                console.error(`Error: ${err}`);
-                                return process.exit(1);
-                            });
-                        }
-                    });
-                }
-                else
-                {
-                    console.log(`${jsl.colors.fg.red}\n${err}${jsl.colors.rst}\n\n`);
-                    process.exit(1);
-                }
-            });
-        }
-
-        return flagIteration(0);
-    };
-
-    console.log(`Use "\\n" for a line break. Special characters like double quotes do not need to be escaped.\n`);
-
-    if(joke["type"] != "twopart")
-    {
-        rl.resume();
-        rl.question("Enter Joke: ", jokeText => {
-            rl.pause();
-            joke["joke"] = jokeText.replace(/\\n/gm, "\n");
-
-            return contFlags();
-        });
-    }
-    else
-    {
-        rl.resume();
-        rl.question("Enter Joke Setup: ", jokeSetup => {
-            rl.question("Enter Joke Delivery: ", jokeDelivery => {
-                rl.pause();
-                joke["setup"] = jokeSetup.replace(/\\n/gm, "\n");
-                joke["delivery"] = jokeDelivery.replace(/\\n/gm, "\n");
-
-                return contFlags();
-            });
-        });
-    }
-};
-
-const getJokeCategory = () => {
-    return new Promise((resolve) => {
-        let catMP = new jsl.MenuPrompt({
-            retryOnInvalid: true,
-            onFinished: res => {
-                resolve(settings.jokes.possible.categories[res[0].optionIndex]);
-            },
-            autoSubmit: true
-        });
-        let catOptions = [];
-        settings.jokes.possible.categories.forEach((cat, i) => {
-            catOptions.push({
-                key: (i + 1),
-                description: cat
-            });
-        });
-        catMP.addMenu({
-            title: "Choose Category",
-            options: catOptions
-        });
-        catMP.open();
-    });
-};
-
-const getJokeType = () => {
-    return new Promise((resolve) => {
-        let typeMP = new jsl.MenuPrompt({
-            retryOnInvalid: true,
-            onFinished: res => {
-                resolve(settings.jokes.possible.types[res[0].optionIndex]);
-            },
-            autoSubmit: true
-        });
-        let typeOptions = [];
-        settings.jokes.possible.types.forEach((type, i) => {
-            typeOptions.push({
-                key: (i + 1),
-                description: type
-            });
-        });
-        typeMP.addMenu({
-            title: "Choose Joke Type",
-            options: typeOptions
-        });
-        typeMP.open();
-    });
-};
-
-function getJokeLang()
+async function run()
 {
-    return new Promise(resolve => {
-        let langRL = readline.createInterface(process.stdin, process.stdout);
+    try
+    {
+        await init();
 
-        let tryGetLang = () => {
-            langRL.resume();
-            langRL.question("Enter two-character language code (en): ", ans => {
-                langRL.pause();
+        const joke = await promptJoke();
 
-                if(!ans)
-                    ans = settings.languages.defaultLanguage;
+        // await saveJoke(joke);
+    }
+    catch(err)
+    {
+        exitError(err);
+    }
+}
 
-                ans = ans.toString().toLowerCase();
+/**
+ * Initializes the add-joke script
+ * @returns {Promise<void, Error>}
+ */
+function init()
+{
+    return new Promise(async (res, rej) => {
+        try
+        {
+            languages.init();
 
-                if(languages.isValidLang(ans) === true)
-                    return resolve(ans);
-                else
-                {
-                    console.clear();
-                    console.log(`\n${jsl.colors.fg.red}Invalid lang code!${jsl.colors.rst}\n\n`);
-                    return tryGetLang();
-                }
-            });
+            return res();
         }
-
-        return tryGetLang();
+        catch(err)
+        {
+            const e = new Error(`Couldn't initialize: ${err.message}`).stack += err.stack;
+            return rej(e);
+        }
     });
 }
 
-init();
+/**
+ * Prompts the user to enter all joke properties
+ * @param {Joke} currentJoke
+ * @returns {Promise<Joke, Error>}
+ */
+function promptJoke(currentJoke)
+{
+    return new Promise(async (res, rej) => {
+        try
+        {
+            if(!currentJoke)
+                currentJoke = createEmptyJoke();
+
+            /**
+             * Makes a title for the prompt below
+             * @param {string} propName Name of the property (case sensitive)
+             * @param {string} curProp The current value of the property to display
+             * @returns {string}
+             */
+            const makeTitle = (propName, curProp) => {
+                const validationRes = validateSingle(currentJoke);
+                const valid = !Array.isArray(validationRes);
+                const titleCol = valid ? col.red : "";
+
+                return `${titleCol}${propName} (${col.rst}${curProp}${titleCol})${col.rst}`;
+            };
+
+            const jokeChoices = currentJoke.type === "single" ? [
+                {
+                    title: makeTitle("Joke", currentJoke.joke),
+                    value: "joke",
+                },
+            ] : [
+                {
+                    title: makeTitle("Setup", currentJoke.setup),
+                    value: "setup",
+                },
+                {
+                    title: makeTitle("Delivery", currentJoke.delivery),
+                    value: "delivery",
+                },
+            ];
+
+            const choices = [
+                {
+                    title: makeTitle("Category", currentJoke.category),
+                    value: "category",
+                },
+                {
+                    title: makeTitle("Type", currentJoke.type),
+                    value: "type",
+                },
+                ...jokeChoices,
+                {
+                    title: makeTitle("Flags", extractFlags(currentJoke.joke)),
+                    value: "flags",
+                },
+                {
+                    title: makeTitle("Safe", currentJoke.safe),
+                    value: "safe",
+                },
+                {
+                    title: `${col.green}[Submit]${col.rst}`,
+                    value: "submit",
+                },
+                {
+                    title: `${col.red}[Exit]${col.rst}`,
+                    value: "exit",
+                },
+            ];
+
+            process.stdout.write("\n");
+
+            const { editProperty } = await prompt({
+                message: "Edit property",
+                type: "select",
+                name: "editProperty",
+                hint: "- Use arrow-keys. Return to select. Esc or Ctrl+C to submit.",
+                choices,
+            });
+
+            switch(editProperty)
+            {
+            case "category":
+
+                break;
+            case "type":
+
+                break;
+            case "joke":
+
+                break;
+            case "setup":
+
+                break;
+            case "delivery":
+
+                break;
+            case "flags":
+
+                break;
+            case "safe":
+
+                break;
+            case "submit":
+                return res();
+            case "exit":
+                exit(0);
+                break;
+            default:
+                return exitError(new Error(`Selected invalid option '${editProperty}'`));
+            }
+
+            // TODO:
+        }
+        catch(err)
+        {
+            const e = new Error(`Error while prompting for joke: ${err.message}`).stack += err.stack;
+            return rej(e);
+        }
+    });
+}
+
+/**
+ * Extracts flags of a joke submission, returning a string representation
+ * @param {JokeSubmission} joke
+ * @returns {string} Returns flags delimited with `, ` or "none" if no flags are set
+ */
+function extractFlags(joke)
+{
+    /** @type {JokeFlags[]} */
+    const flags = [];
+
+    Object.keys(joke.flags).forEach(key => {
+        if(joke.flags[key] === true)
+            flags.push(key);
+    });
+
+    return flags.length > 0 ? flags.join(", ") : "none";
+}
+
+/**
+ * Returns a joke where everything is set to a default but empty value
+ * @returns {NullableProps<AddJoke>}
+ */
+function createEmptyJoke()
+{
+    return {
+        category: null,
+        type: "single",
+        joke: null,
+        flags: {
+            nsfw: false,
+            religious: false,
+            political: false,
+            racist: false,
+            sexist: false,
+            explicit: false,
+        },
+        lang: "en",
+        safe: false,
+    };
+}
+
+
+//#SECTION on execute
+
+try
+{
+    if(!process.stdin.isTTY)
+        throw new Errors.NoStdinError("The process doesn't have an stdin channel to read input from");
+    else
+        run();
+}
+catch(err)
+{
+    exitError(err);
+}
+
+/**
+ * Prints an error and instantly queues exit with status 1 (all async tasks are immediately canceled)
+ * @param {Error} err
+ */
+function exitError(err)
+{
+    console.error(`${col.red}${err instanceof Error ? `${err.message}${col.rst}\n${err.stack}` : err.toString().replace(/\n/, `${col.rst}\n`)}${col.rst}\n`);
+
+    exit(1);
+}

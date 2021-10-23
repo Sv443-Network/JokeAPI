@@ -1,8 +1,8 @@
-import { JokeSubmission } from "../src/types/jokes";
+import { Joke, JokeSubmission } from "../src/types/jokes";
 import { LangCode } from "../src/types/languages";
 
 
-//#SECTION submissions
+//#MARKER submissions
 
 /**
  * A single joke submission
@@ -54,3 +54,11 @@ export interface Keypress {
     sequence?: string;
     code?: string;
 }
+
+//#MARKER add-joke
+
+export type AddJoke = Joke & { lang: LangCode, safe: boolean };
+
+export type NullableObj<T> = {
+    [P in keyof T]: (T[P] | null);
+};

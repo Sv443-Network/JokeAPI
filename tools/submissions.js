@@ -809,5 +809,5 @@ catch(err)
 {
     console.error(`${col.red}${err.message}${col.rst}\n${err.stack}\n`);
 
-    exit(0);
+    exit(1);
 }
