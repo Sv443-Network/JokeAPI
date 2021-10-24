@@ -2,6 +2,7 @@
 
 const fs = require("fs-extra");
 const jsl = require("svjsl");
+const { Errors } = require("svcorelib");
 
 const settings = require("../settings");
 const debug = require("./verboseLogging");
@@ -408,4 +409,19 @@ function resolveCategoryAliases(categories)
     return categories.map(cat => resolveCategoryAlias(cat));
 }
 
-module.exports = { init, validateSingle, resolveCategoryAlias, resolveCategoryAliases }
+class ValidationError extends Errors.SCLError
+{
+    constructor(message, ...params)
+    {
+        super(message, ...params);
+        this.name = "Validation Error";
+
+        if(Error.captureStackTrace)
+            Error.captureStackTrace(this, ValidationError);
+
+        /** @type {string[]} */
+        this.invalidProps = [];
+    }
+}
+
+module.exports = { ValidationError, init, validateSingle, resolveCategoryAlias, resolveCategoryAliases }
