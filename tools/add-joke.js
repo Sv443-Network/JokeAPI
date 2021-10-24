@@ -83,7 +83,15 @@ async function run()
     }
     catch(err)
     {
-        exitError(err);
+        if(err instanceof ValidationError)
+        {
+            console.log("err msg:  ", err.message);
+            console.log("err props:", err.invalidProps);
+            console.log("err date: ", err.date);
+            console.log(`err stack:\n${err.stack}`);
+        }
+        else
+            exitError(err);
     }
 }
 
@@ -166,7 +174,7 @@ function promptJoke(currentJoke)
                 },
                 ...jokeChoices,
                 {
-                    title: makeTitle("Flags", extractFlags(currentJoke.joke)),
+                    title: makeTitle("Flags", extractFlags(currentJoke)),
                     value: "flags",
                 },
                 {
@@ -217,7 +225,7 @@ function promptJoke(currentJoke)
 
                 break;
             case "submit":
-                return res();
+                return res(currentJoke);
             case "exit":
                 exit(0);
                 break;
@@ -254,9 +262,15 @@ function addJoke(joke)
             // - validate joke, throw custom ValidationError to enable custom catching behavior
             // - write joke to joke file
 
-            await writeFile();
+            //#DEBUG showing off how ValidationError works:
+            const invalidProps = [ "category", "joke" ];
+            const valErr = new ValidationError(`Joke has ${invalidProps.length} invalid properties`);
+            valErr.invalidProps = invalidProps;
+            return rej(valErr);
 
-            return res();
+            // await writeFile();
+
+            // return res();
         }
         catch(err)
         {
@@ -326,4 +340,19 @@ function blankLine(amount = 1)
         lfChars += "\n";
 
     process.stdout.write(lfChars);
+}
+
+class ValidationError extends Errors.SCLError
+{
+    constructor(message, ...params)
+    {
+        super(message, ...params);
+        this.name = "Validation Error";
+
+        if(Error.captureStackTrace)
+            Error.captureStackTrace(this, ValidationError);
+
+        /** @type {string[]} */
+        this.invalidProps = [];
+    }
 }
