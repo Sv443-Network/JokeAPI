@@ -2,13 +2,22 @@ const prompt = require("prompts");
 const { colors, Errors } = require("svcorelib");
 
 const languages = require("../src/languages");
+const { init: trInit  } = require("../src/translate");
 
 // const settings = require("../settings");
 const { validateSingle } = require("../src/parseJokes");
+const { writeFile } = require("fs-extra");
 
 const col = colors.fg;
 const { exit } = process;
 
+/** Global data that persists until the process exits */
+const data = {
+    /** Whether the init() function has been called yet */
+    initialized: false,
+};
+
+//#SECTION types
 
 /** @typedef {import("tsdef").NullableProps} NullableProps */
 /** @typedef {import("./types").AddJoke} AddJoke */
@@ -16,15 +25,61 @@ const { exit } = process;
 /** @typedef {import("../src/types/jokes").JokeSubmission} JokeSubmission */
 
 
+//#MARKER init
+
+//#SECTION on execute
+
+try
+{
+    if(!process.stdin.isTTY)
+        throw new Errors.NoStdinError("The process doesn't have an stdin channel to read input from");
+    else
+        run();
+}
+catch(err)
+{
+    exitError(err);
+}
+
+/**
+ * Prints an error and instantly queues exit with status 1 (all async tasks are immediately canceled)
+ * @param {Error} err
+ */
+function exitError(err)
+{
+    console.error(`${col.red}${err instanceof Error ? `${err.message}${col.rst}\n${err.stack}` : err.toString().replace(/\n/, `${col.rst}\n`)}${col.rst}\n`);
+
+    exit(1);
+}
+
 async function run()
 {
     try
     {
-        await init();
+        if(!data.initialized)
+            await init();
+
+        data.initialized = true;
 
         const joke = await promptJoke();
 
-        // await saveJoke(joke);
+        await addJoke(joke);
+
+        blankLine();
+
+        const { another } = await prompt({
+            type: "confirm",
+            message: "Add another joke?",
+            name: "another",
+            initial: false,
+        });
+
+        if(another)
+            return run();
+
+        blankLine();
+
+        exit(0);
     }
     catch(err)
     {
@@ -41,7 +96,9 @@ function init()
     return new Promise(async (res, rej) => {
         try
         {
-            languages.init();
+            await languages.init();
+
+            await trInit();
 
             return res();
         }
@@ -52,6 +109,8 @@ function init()
         }
     });
 }
+
+//#MARKER prompts
 
 /**
  * Prompts the user to enter all joke properties
@@ -176,6 +235,39 @@ function promptJoke(currentJoke)
     });
 }
 
+//#MARKER other
+
+/**
+ * Adds a joke to its language file
+ * @param {AddJoke} joke
+ * @returns {Promise<void, (Error | ValidationError)>}
+ */
+function addJoke(joke)
+{
+    return new Promise(async (res, rej) => {
+        try
+        {
+            const { lang } = joke;
+
+            // TODO:
+            // - give ID to joke
+            // - validate joke, throw custom ValidationError to enable custom catching behavior
+            // - write joke to joke file
+
+            await writeFile();
+
+            return res();
+        }
+        catch(err)
+        {
+            const e = new Error(`Couldn't add joke: ${err.message}`).stack += err.stack;
+            return rej(e);
+        }
+    });
+}
+
+//#SECTION prompt deps
+
 /**
  * Extracts flags of a joke submission, returning a string representation
  * @param {JokeSubmission} joke
@@ -193,6 +285,8 @@ function extractFlags(joke)
 
     return flags.length > 0 ? flags.join(", ") : "none";
 }
+
+//#SECTION other deps
 
 /**
  * Returns a joke where everything is set to a default but empty value
@@ -217,28 +311,19 @@ function createEmptyJoke()
     };
 }
 
-
-//#SECTION on execute
-
-try
-{
-    if(!process.stdin.isTTY)
-        throw new Errors.NoStdinError("The process doesn't have an stdin channel to read input from");
-    else
-        run();
-}
-catch(err)
-{
-    exitError(err);
-}
-
 /**
- * Prints an error and instantly queues exit with status 1 (all async tasks are immediately canceled)
- * @param {Error} err
+ * Inserts a blank line (or more if `amount` is set)
+ * @param {number} [amount=1]
  */
-function exitError(err)
+function blankLine(amount = 1)
 {
-    console.error(`${col.red}${err instanceof Error ? `${err.message}${col.rst}\n${err.stack}` : err.toString().replace(/\n/, `${col.rst}\n`)}${col.rst}\n`);
+    if(typeof amount !== "number")
+        throw new TypeError(`Parameter 'amount' is ${isNaN(amount) ? "NaN" : "not of type number"}`);
 
-    exit(1);
+    let lfChars = "";
+
+    for(let u = 0; u < amount; u++)
+        lfChars += "\n";
+
+    process.stdout.write(lfChars);
 }

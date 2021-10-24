@@ -30,7 +30,7 @@
             "console": "integratedTerminal"
         },
         {
-            "program": "${workspaceFolder}/tools/submissions.js",
+            "program": "${workspaceFolder}/tools/add-joke.js",
             "name": "Tools/xy",
             "request": "launch",
             "type": "node",

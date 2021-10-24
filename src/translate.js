@@ -5,7 +5,9 @@ const debug = require("./verboseLogging")
 const settings = require("../settings");
 
 
-var trFile = {};
+/** Whether this module was initialized */
+let initialized = false;
+let trFile = {};
 
 /**
  * Initializes the translation module by caching the translations so they only need to be read from disk once
@@ -22,6 +24,7 @@ function init()
             {
                 trFile = JSON.parse(res.toString());
                 debug("Translate", `Found ${Object.keys(trFile.tr).length} translations`);
+                initialized = true;
                 return resolve();
             }
         });
@@ -37,6 +40,9 @@ function init()
  */
 function translate(lang, id, ...args)
 {
+    if(!initialized)
+        throw new Error("translate module isnt't initialized");
+
     if(!lang)
         lang = settings.languages.defaultLanguage;
 
