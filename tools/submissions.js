@@ -356,7 +356,7 @@ function editSubmission(sub)
                 })).type;
                 break;
             case "flags":
-                {
+            {
                 const flagKeys = Object.keys(editedSub.joke.flags);
                 const flagChoices = [];
 
