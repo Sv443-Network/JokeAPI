@@ -1,12 +1,12 @@
 const prompt = require("prompts");
-const { colors, Errors } = require("svcorelib");
+const { colors, Errors, isEmpty } = require("svcorelib");
+const { writeFile } = require("fs-extra");
 
 const languages = require("../src/languages");
 const { init: trInit  } = require("../src/translate");
-
-// const settings = require("../settings");
 const { validateSingle, ValidationError } = require("../src/parseJokes");
-const { writeFile } = require("fs-extra");
+
+const settings = require("../settings");
 
 const col = colors.fg;
 const { exit } = process;
@@ -204,25 +204,81 @@ function promptJoke(currentJoke)
             switch(editProperty)
             {
             case "category":
+            {
+                const catChoices = settings.jokes.possible.categories.map(cat => ({ title: cat, value: cat }));
 
+                const { category } = await prompt({
+                    type: "select",
+                    message: `Select new category`,
+                    name: "category",
+                    choices: catChoices,
+                    initial: settings.jokes.possible.categories.indexOf("Misc"),
+                });
+
+                currentJoke.category = category;
+                break;
+            }
+            case "joke":
+            case "setup":
+            case "delivery":
+                currentJoke[editProperty] = (await prompt({
+                    type: "text",
+                    message: `Enter value for '${editProperty}' property`,
+                    name: "val",
+                    initial: currentJoke[editProperty] || "",
+                    validate: (val) => (!isEmpty(val) && val.length >= settings.jokes.submissions.minLength),
+                })).val;
                 break;
             case "type":
-
-                break;
-            case "joke":
-
-                break;
-            case "setup":
-
-                break;
-            case "delivery":
-
+                currentJoke.type = (await prompt({
+                    type: "select",
+                    message: "Select a joke type",
+                    choices: [
+                        { title: "Single", value: "single" },
+                        { title: "Two Part", value: "twopart" },
+                    ],
+                    name: "type",
+                })).type;
                 break;
             case "flags":
+            {
+                const flagKeys = Object.keys(currentJoke.flags);
+                const flagChoices = [];
+
+                flagKeys.forEach(key => {
+                    flagChoices.push({
+                        title: key,
+                        selected: currentJoke.flags[key] === true,
+                    });
+                });
+
+                const { newFlags } = await prompt({
+                    type: "multiselect",
+                    message: "Edit joke flags",
+                    choices: flagChoices,
+                    name: "newFlags",
+                    instructions: false,
+                    hint: "- arrow-keys to move, space to toggle, return to submit",
+                });
+
+                Object.keys(currentJoke.flags).forEach(key => {
+                    currentJoke.flags[key] = false;
+                });
+
+                newFlags.forEach(setFlagIdx => {
+                    const key = flagKeys[setFlagIdx];
+                    currentJoke.flags[key] = true;
+                });
 
                 break;
+            }
             case "safe":
-
+                currentJoke.safe = (await prompt({
+                    type: "confirm",
+                    message: "Is this joke safe?",
+                    initial: false,
+                    name: "safe",
+                })).safe;
                 break;
             case "submit":
                 return res(currentJoke);
@@ -233,7 +289,7 @@ function promptJoke(currentJoke)
                 return exitError(new Error(`Selected invalid option '${editProperty}'`));
             }
 
-            // TODO:
+            return res(await promptJoke(currentJoke));
         }
         catch(err)
         {
