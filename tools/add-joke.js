@@ -1,10 +1,13 @@
 const prompt = require("prompts");
-const { colors, Errors, isEmpty } = require("svcorelib");
-const { writeFile } = require("fs-extra");
+const { colors, Errors, isEmpty, filesystem, reserialize } = require("svcorelib");
+const { writeFile, copyFile, readFile } = require("fs-extra");
+const { join } = require("path");
 
 const languages = require("../src/languages");
-const { init: trInit  } = require("../src/translate");
-const { validateSingle, ValidationError } = require("../src/parseJokes");
+const translate = require("../src/translate");
+const parseJokes = require("../src/parseJokes");
+const { validateSingle, ValidationError } = parseJokes;
+const { reformatJoke } = require("../src/jokeSubmission");
 
 const settings = require("../settings");
 
@@ -92,15 +95,7 @@ async function run()
     }
     catch(err)
     {
-        if(err instanceof ValidationError)
-        {
-            console.log("err msg:  ", err.message);
-            console.log("err props:", err.invalidProps);
-            console.log("err date: ", err.date);
-            console.log(`err stack:\n${err.stack}`);
-        }
-        else
-            exitError(err);
+        exitError(err);
     }
 }
 
@@ -115,7 +110,9 @@ function init()
         {
             await languages.init();
 
-            await trInit();
+            await translate.init();
+
+            await parseJokes.init();
 
             return res();
         }
@@ -153,7 +150,16 @@ function promptJoke(currentJoke)
                 const valid = !Array.isArray(validationRes);
                 const titleCol = valid ? col.red : "";
 
-                return `${titleCol}${propName} (${col.rst}${curProp}${titleCol})${col.rst}`;
+                const truncateLength = 64;
+                
+                if(typeof curProp === "string" && curProp.length > truncateLength)
+                    curProp = `${curProp.substr(0, truncateLength)}…`;
+
+                const boolDeco = typeof curProp === "boolean" ? (curProp === true ? ` ${col.green}✔ ` : ` ${col.red}✘ `) : "";
+
+                const propCol = curProp != null ? col.blue : col.red;
+
+                return `${titleCol}${propName}${col.rst} ${titleCol}(${col.rst}${propCol}${curProp}${col.rst}${boolDeco}${titleCol || col.rst})${col.rst}`;
             };
 
             const jokeChoices = currentJoke.type === "single" ? [
@@ -187,6 +193,10 @@ function promptJoke(currentJoke)
                     value: "flags",
                 },
                 {
+                    title: makeTitle("Language", currentJoke.lang),
+                    value: "lang",
+                },
+                {
                     title: makeTitle("Safe", currentJoke.safe),
                     value: "safe",
                 },
@@ -203,7 +213,7 @@ function promptJoke(currentJoke)
             process.stdout.write("\n");
 
             const { editProperty } = await prompt({
-                message: "Edit property",
+                message: "Edit new joke's properties",
                 type: "select",
                 name: "editProperty",
                 hint: "- Use arrow-keys. Return to select. Esc or Ctrl+C to submit.",
@@ -281,6 +291,15 @@ function promptJoke(currentJoke)
 
                 break;
             }
+            case "lang":
+                currentJoke.lang = (await prompt({
+                    type: "text",
+                    message: "Enter joke language",
+                    initial: currentJoke.lang,
+                    name: "lang",
+                    validate: ((val) => languages.isValidLang(val, "en") === true),
+                })).lang;
+                break;
             case "safe":
                 currentJoke.safe = (await prompt({
                     type: "confirm",
@@ -292,8 +311,17 @@ function promptJoke(currentJoke)
             case "submit":
                 return res(currentJoke);
             case "exit":
-                exit(0);
+            {
+                const { confirmExit } = await prompt({
+                    type: "confirm",
+                    message: "Do you really want to exit?",
+                    name: "confirmExit",
+                    initial: true,
+                });
+
+                confirmExit && exit(0);
                 break;
+            }
             default:
                 return exitError(new Error(`Selected invalid option '${editProperty}'`));
             }
@@ -320,7 +348,31 @@ function addJoke(joke)
     return new Promise(async (res, rej) => {
         try
         {
+            const initialJoke = reserialize(joke);
             const { lang } = joke;
+
+            joke = reformatJoke(joke);
+
+            const jokeFilePath = join(settings.jokes.jokesFolderPath, `jokes-${lang}.json`);
+            const templatePath = join(settings.jokes.jokesFolderPath, settings.jokes.jokesTemplateFile);
+
+            if(!(await filesystem.exists(jokeFilePath)))
+                await copyFile(templatePath, jokeFilePath);
+
+
+            /** @type {JokesFile} */
+            const currentJokesFile = JSON.parse((await readFile(jokeFilePath)).toString());
+            /** @type {any} */
+            const currentJokes = reserialize(currentJokesFile.jokes);
+
+            const lastId = currentJokes[currentJokes.length - 1].id;
+
+            const validationRes = validateSingle(joke, lang);
+
+            // ensure props match and strip extraneous props
+            joke.id = lastId + 1;
+            joke.lang && delete joke.lang;
+            joke.formatVersion && delete joke.formatVersion;
 
             // TODO:
             // - give ID to joke
@@ -332,11 +384,19 @@ function addJoke(joke)
 
             if(errored)
             {
-                const invalidProps = [ "category", "joke" ];
-                const err = new ValidationError(`Joke has ${invalidProps.length} invalid properties`);
-                err.invalidProps = invalidProps;
+                console.error(`\n${col.red}Joke is invalid:${col.rst}\n  - ${validationRes.join("\n  - ")}\n`);
 
-                return rej(err);
+                const { retry } = await prompt({
+                    type: "confirm",
+                    message: "Do you want to retry?",
+                    name: "retry",
+                    initial: true,
+                });
+
+                if(retry)
+                    return promptJoke(initialJoke);
+
+                exit(0);
             }
             else
             {
@@ -347,7 +407,7 @@ function addJoke(joke)
         }
         catch(err)
         {
-            const e = new Error(`Couldn't add joke: ${err.message}`).stack += err.stack;
+            const e = new Error(`Couldn't save joke: ${err.message}`).stack += err.stack;
             return rej(e);
         }
     });
@@ -382,9 +442,10 @@ function extractFlags(joke)
 function createEmptyJoke()
 {
     return {
-        category: null,
+        formatVersion: 3,
+        category: undefined,
         type: "single",
-        joke: null,
+        joke: undefined,
         flags: {
             nsfw: false,
             religious: false,
