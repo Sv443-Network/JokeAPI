@@ -47,7 +47,16 @@ catch(err)
  */
 function exitError(err)
 {
-    console.error(`${col.red}${err instanceof Error ? `${err.message}${col.rst}\n${err.stack}` : err.toString().replace(/\n/, `${col.rst}\n`)}${col.rst}\n`);
+    if(!(err instanceof Error))
+    {
+        console.error(`\n${col.red}${err.toString()}${col.rst}\n`);
+        exit(1);
+    }
+
+    const stackLines = err.stack.toString().split(/\n/g);
+    stackLines.shift();
+    const stackStr = stackLines.join("\n");
+    console.error(`\n${col.red}${err.message.match(/(E|e)rror/) ? "" : "Error: "}${err.message}${col.rst}\n${stackStr}\n`);
 
     exit(1);
 }
