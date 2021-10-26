@@ -413,19 +413,4 @@ function resolveCategoryAliases(categories)
     return categories.map(cat => resolveCategoryAlias(cat));
 }
 
-class ValidationError extends Errors.SCLError
-{
-    constructor(message, ...params)
-    {
-        super(message, ...params);
-        this.name = "Validation Error";
-
-        if(Error.captureStackTrace)
-            Error.captureStackTrace(this, ValidationError);
-
-        /** @type {string[]} */
-        this.errors = [];
-    }
-}
-
-module.exports = { ValidationError, init, validateSingle, resolveCategoryAlias, resolveCategoryAliases }
+module.exports = { init, validateSingle, resolveCategoryAlias, resolveCategoryAliases }

@@ -6,7 +6,7 @@ const { join } = require("path");
 const languages = require("../src/languages");
 const translate = require("../src/translate");
 const parseJokes = require("../src/parseJokes");
-const { validateSingle, ValidationError } = parseJokes;
+const { validateSingle } = parseJokes;
 const { reformatJoke } = require("../src/jokeSubmission");
 
 const settings = require("../settings");
@@ -146,10 +146,6 @@ function promptJoke(currentJoke)
              * @returns {string}
              */
             const makeTitle = (propName, curProp) => {
-                const validationRes = validateSingle(currentJoke);
-                const valid = !Array.isArray(validationRes);
-                const titleCol = valid ? col.red : "";
-
                 const truncateLength = 64;
                 
                 if(typeof curProp === "string" && curProp.length > truncateLength)
@@ -157,9 +153,9 @@ function promptJoke(currentJoke)
 
                 const boolDeco = typeof curProp === "boolean" ? (curProp === true ? ` ${col.green}✔ ` : ` ${col.red}✘ `) : "";
 
-                const propCol = curProp != null ? col.blue : col.red;
+                const propCol = curProp != null ? col.green : col.magenta;
 
-                return `${titleCol}${propName}${col.rst} ${titleCol}(${col.rst}${propCol}${curProp}${col.rst}${boolDeco}${titleCol || col.rst})${col.rst}`;
+                return `${propName}${col.rst} ${propCol}(${col.rst}${curProp}${col.rst}${boolDeco}${propCol})${col.rst}`;
             };
 
             const jokeChoices = currentJoke.type === "single" ? [
@@ -304,7 +300,7 @@ function promptJoke(currentJoke)
                 currentJoke.safe = (await prompt({
                     type: "confirm",
                     message: "Is this joke safe?",
-                    initial: false,
+                    initial: true,
                     name: "safe",
                 })).safe;
                 break;
@@ -341,7 +337,7 @@ function promptJoke(currentJoke)
 /**
  * Adds a joke to its language file
  * @param {AddJoke} joke
- * @returns {Promise<void, (Error | ValidationError)>} if instance of ValidationError, some properties about validation results are added
+ * @returns {Promise<void, (Error)>}
  */
 function addJoke(joke)
 {
@@ -350,8 +346,6 @@ function addJoke(joke)
         {
             const initialJoke = reserialize(joke);
             const { lang } = joke;
-
-            joke = reformatJoke(joke);
 
             const jokeFilePath = join(settings.jokes.jokesFolderPath, `jokes-${lang}.json`);
             const templatePath = join(settings.jokes.jokesFolderPath, settings.jokes.jokesTemplateFile);
@@ -374,15 +368,9 @@ function addJoke(joke)
             joke.lang && delete joke.lang;
             joke.formatVersion && delete joke.formatVersion;
 
-            // TODO:
-            // - give ID to joke
-            // - validate joke, throw custom ValidationError to enable custom catching behavior
-            // - write joke to joke file
+            joke = reformatJoke(joke);
 
-            //#DEBUG showing off how ValidationError works:
-            let errored = true;
-
-            if(errored)
+            if(Array.isArray(validationRes))
             {
                 console.error(`\n${col.red}Joke is invalid:${col.rst}\n  - ${validationRes.join("\n  - ")}\n`);
 
@@ -400,7 +388,11 @@ function addJoke(joke)
             }
             else
             {
-                await writeFile(`TODO:jokes-${lang}.json`, );
+                currentJokes.push(joke);
+
+                currentJokesFile.jokes = currentJokes;
+
+                await writeFile(jokeFilePath, JSON.stringify(currentJokesFile, undefined, 4));
 
                 return res();
             }
