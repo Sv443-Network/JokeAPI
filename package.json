@@ -109,7 +109,7 @@
   },
   "devDependencies": {
     "dependency-cruiser": "^10.0.6",
-    "eslint": "^8.0.1",
+    "eslint": "^8.1.0",
     "lodash": "^4.17.21",
     "madge": "^4.0.1",
     "nyc": "^15.1.0",
