@@ -24,6 +24,7 @@ const data = {
 
 /** @typedef {import("tsdef").NullableProps} NullableProps */
 /** @typedef {import("./types").AddJoke} AddJoke */
+/** @typedef {import("./types").Keypress} Keypress */
 /** @typedef {import("../src/types/jokes").Joke} Joke */
 /** @typedef {import("../src/types/jokes").JokeSubmission} JokeSubmission */
 
@@ -64,7 +65,11 @@ function exitError(err)
     exit(1);
 }
 
-async function run()
+/**
+ * Runs this tool
+ * @param {AddJoke} [incompleteJoke]
+ */
+async function run(incompleteJoke = undefined)
 {
     try
     {
@@ -73,7 +78,7 @@ async function run()
 
         data.initialized = true;
 
-        const joke = await promptJoke();
+        const joke = await promptJoke(incompleteJoke);
 
         await addJoke(joke);
 
@@ -457,7 +462,7 @@ function createEmptyJoke()
  */
 function blankLine(amount = 1)
 {
-    if(typeof amount !== "number")
+    if(typeof amount !== "number" || isNaN(amount))
         throw new TypeError(`Parameter 'amount' is ${isNaN(amount) ? "NaN" : "not of type number"}`);
 
     let lfChars = "";

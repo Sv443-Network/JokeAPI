@@ -2,7 +2,6 @@
 
 const fs = require("fs-extra");
 const jsl = require("svjsl");
-const { Errors } = require("svcorelib");
 
 const settings = require("../settings");
 const debug = require("./verboseLogging");
@@ -378,7 +377,7 @@ function validateSingle(joke, lang)
     }
     catch(err)
     {
-        jokeErrors.push(tr(lang, "parseJokesCantParseJson"));
+        jokeErrors.push(tr(lang, "parseJokesCantParse", err.toString()));
     }
 
     if(jsl.isEmpty(jokeErrors))
@@ -396,6 +395,9 @@ function resolveCategoryAlias(category)
 {
     let cat = category;
     categoryAliases.forEach(catAlias => {
+        if(typeof category !== "string")
+            throw new TypeError(`Can't resolve category alias because '${category}' is not of type string`);
+
         if(category.toLowerCase() == catAlias.alias.toLowerCase())
             cat = catAlias.value;
     });

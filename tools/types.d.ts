@@ -57,7 +57,7 @@ export interface Keypress {
 
 //#MARKER add-joke
 
-export type AddJoke = Joke & { lang: LangCode, safe: boolean };
+export type AddJoke = Joke & { formatVersion: number, lang: LangCode, safe: boolean };
 
 export type NullableObj<T> = {
     [P in keyof T]: (T[P] | null);
