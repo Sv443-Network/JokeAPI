@@ -11,9 +11,10 @@
 
 <br><br><br>
 
-## [CURRENT: 2.3.2] - Spooky seasonal update 2021
-- Added new jokes (especially from the "Spooky" category, for Halloween)
+## [CURRENT: 2.3.2] - Joke update
+- Added new jokes
 - Rewrote the submission script to make it much more streamlined ([issue #340](https://github.com/Sv443/JokeAPI/issues/340))
+- Rewrote the add-joke script so it's easier for me to use
 - Added a global CLI interface ([issue #344](https://github.com/Sv443/JokeAPI/issues/344))
 - API now adjusts environment-dependent settings automatically ([issue #343](https://github.com/Sv443/JokeAPI/issues/343))
 
