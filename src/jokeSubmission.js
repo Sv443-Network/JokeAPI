@@ -202,12 +202,12 @@ function reformatJoke(joke)
 
     if(typeof retJoke.lang === "string")
         retJoke.lang = retJoke.lang.toLowerCase();
-    
+
+    retJoke.safe = joke.safe || false;
+        
     if(joke.id)
         retJoke.id = joke.id;
 
-    retJoke.safe = joke.safe || false;
-    
     return retJoke;
 }
 
