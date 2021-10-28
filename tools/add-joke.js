@@ -92,7 +92,10 @@ async function run(incompleteJoke = undefined)
         });
 
         if(another)
+        {
+            blankLine(2);
             return run();
+        }
 
         blankLine();
 
