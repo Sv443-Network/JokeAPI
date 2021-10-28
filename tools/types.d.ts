@@ -62,3 +62,11 @@ export type AddJoke = Joke & { formatVersion: number, lang: LangCode, safe: bool
 export type NullableObj<T> = {
     [P in keyof T]: (T[P] | null);
 };
+
+//#MARKER info
+
+export interface SubmissionCountResult
+{
+    submCount: number;
+    submLangs: LangCode[];
+}
