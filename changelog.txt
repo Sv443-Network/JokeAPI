@@ -15,6 +15,7 @@
     - Added new jokes
     - Rewrote the submission script to make it much more streamlined (issue #340)
     - Rewrote the add-joke script so it's easier for me to use
+    - Added a new info script to make working with JokeAPI easier for me
     - Added a global CLI interface (issue #344)
     - API now adjusts environment-dependent settings automatically (issue #343)
 
