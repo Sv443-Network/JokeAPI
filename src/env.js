@@ -1,5 +1,9 @@
 const dotenv = require("dotenv");
 
+const { colors } = require("svcorelib");
+
+const col = colors.fg;
+
 /** @typedef {import("svcorelib").JSONCompatible} JSONCompatible*/
 /** @typedef {import("./types/env").Env} Env */
 /** @typedef {import("./types/env").EnvDependentProp} EnvDependentProp */
@@ -36,26 +40,34 @@ function init()
 
 /**
  * Normalizes the deployment environment passed as the env var `NODE_ENV` and returns it
+ * @param {boolean} [colored=false] Set to `true` to color in the predefined env colors
  * @returns {Env}
  */
-function getEnv()
+function getEnv(colored = false)
 {
     if(!initialized)
         init();
 
     if(!process.env)
-        return "stage";
+        throw new Error("no process environment found, please make sure a NODE_ENV variable is defined");
 
     const nodeEnv = process.env.NODE_ENV ? process.env.NODE_ENV.toLowerCase() : null;
 
+
+    /** @type {Env} */
+    let env = "stage";
+
     switch(nodeEnv)
     {
-        case "prod":
-        case "production":
-            return "prod";
+    case "prod":
+    case "production":
+        env = "prod";
+        break;
     }
 
-    return "stage";
+    const envCol = env === "prod" ? col.green : col.cyan;
+
+    return colored === true ? `${envCol}${env}${col.rst}` : env;
 }
 
 /**

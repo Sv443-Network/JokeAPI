@@ -1,7 +1,7 @@
 const { Errors, colors, allOfType } = require("svcorelib");
 const { join, resolve } = require("path");
 
-const { getEnv } = require("../src/env");
+const { getEnv, getProp } = require("../src/env");
 const parseJokes = require("../src/parseJokes");
 
 const languages = require("../src/languages");
@@ -13,6 +13,7 @@ const col = colors.fg;
 const { exit } = process;
 
 
+/** @typedef {import("svcorelib").Stringifiable} Stringifiable */
 /** @typedef {import("./types").SubmissionCountResult} SubmissionCountResult */
 
 
@@ -34,27 +35,47 @@ async function run()
             exit(1);
         }
 
-        const { jokes, subm } = await getInfo("submissions");
+        /**
+         * Decorates an array value with colors and other stuff
+         * @param {Stringifiable[]} val
+         */
+        const n = val => {
+            const ln = val.length;
 
-        /** Decorates a value with colors and other stuff */
-        const v = val => {
-            const valCol = typeof val === "number" ? (val > 0 ? col.green : col.yellow) : "";
-            const counter = Array.isArray(val) ? `${val.length === 0 ? `${col.yellow}(` : `(${col.green}`}${val.length}${val.length !== 0 ? col.rst : ""})${col.rst} ` : "";
-            const value = Array.isArray(val) && allOfType(val, "string") ? val.join(`${col.rst}, ${valCol}`) : val;
-
-            return `${counter}${valCol}${value}${col.rst}`;
+            const lhs = `(${ln > 0 ? "" : col.yellow}${val.length}${col.rst})`;
+            const rhs = `${col.green}${val.join(`${col.rst}, ${col.green}`)}${col.rst}`;
+            return `${lhs}:  ${rhs}`;
         };
 
+        /**
+         * Decorates a value with colors and other stuff
+         * @param {number|string} val
+         */
+        const v = val => {
+            const valCol = typeof val === "number" ? (val > 0 ? col.green : col.yellow) : col.green;
+            const value = Array.isArray(val) && allOfType(val, "string") ? val.join(`${col.rst}, ${valCol}`) : val;
+
+            return `      ${valCol}${value}${col.rst}`;
+        };
+
+
+        const { jokes, subm, http } = await getInfo("submissions");
+
+        /** The lines that get printed to the console to display JokeAPI's info */
         const lines = [
-            `${settings.info.name} v${settings.info.version} [${getEnv()}] - Info`,
+            `${col.blue}${settings.info.name}${col.rst} v${settings.info.version} [${getEnv(true)}] - Info`,
             ``,
             `${col.blue}Jokes:${col.rst}`,
-            `  Total amount:   ${v(jokes.totalAmt)}`,
-            `  Joke languages: ${v(jokes.languages)}`,
+            `  Total amount:  ${v(jokes.totalAmt)}`,
+            `  Joke languages ${n(jokes.languages)}`,
             ``,
             `${col.blue}Submissions:${col.rst}`,
-            `  Amount:    ${v(subm.amount)}`,
-            `  Languages: ${v(subm.languages)}`,
+            `  Amount:   ${v(subm.amount)}`,
+            `  Languages ${n(subm.languages)}`,
+            ``,
+            `${col.blue}HTTP Server:${col.rst}`,
+            `  Port:    ${v(http.port)}`,
+            `  BaseURL: ${v(http.baseUrl)}`,
         ];
 
         process.stdout.write(`\n${lines.join("\n")}\n\n`);
@@ -79,7 +100,6 @@ async function getInfo()
 
     const { submCount, submLangs } = await getSubmissionCount();
 
-    // TODO:
     return {
         jokes: {
             totalAmt: allJokes._jokeCount,
@@ -88,6 +108,10 @@ async function getInfo()
         subm: {
             amount: submCount,
             languages: submLangs,
+        },
+        http: {
+            port: getProp("httpPort"),
+            baseUrl: getProp("baseUrl"),
         },
         // ...
     }
