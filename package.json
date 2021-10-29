@@ -83,6 +83,10 @@
     "url": "https://github.com/Sv443/JokeAPI/issues/new/choose",
     "email": "contact@sv443.net"
   },
+  "engines": {
+    "node": "^11.7.0",
+    "npm": "^7.0.0"
+  },
   "dependencies": {
     "@pm2/io": "^5.0.0",
     "dotenv": "^10.0.0",
