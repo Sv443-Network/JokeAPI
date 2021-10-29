@@ -158,16 +158,18 @@ function getSubmissionInfo()
 
 //#SECTION on execute
 
-try
-{
-    if(!process.stdin.isTTY)
-        throw new Errors.NoStdinError("The process doesn't have an stdin channel to read input from");
-    else
-        run();
-}
-catch(err)
-{
-    console.error(`${col.red}${err.message}${col.rst}\n${err.stack}\n`);
+(() => {
+    try
+    {
+        if(!process.stdin.isTTY)
+            throw new Errors.NoStdinError("The process doesn't have an stdin channel to read input from");
+        else
+            run();
+    }
+    catch(err)
+    {
+        console.error(`${col.red}${err.message}${col.rst}\n${err.stack}\n`);
 
-    exit(0);
-}
+        exit(0);
+    }
+})();
