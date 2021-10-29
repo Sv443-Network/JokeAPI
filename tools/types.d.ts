@@ -65,7 +65,7 @@ export type NullableObj<T> = {
 
 //#MARKER info
 
-export interface SubmissionCountResult
+export interface SubmissionInfoResult
 {
     submCount: number;
     submLangs: LangCode[];

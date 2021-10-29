@@ -14,7 +14,8 @@ const { exit } = process;
 
 
 /** @typedef {import("svcorelib").Stringifiable} Stringifiable */
-/** @typedef {import("./types").SubmissionCountResult} SubmissionCountResult */
+/** @typedef {import("./types").SubmissionInfoResult} SubmissionInfoResult */
+/** @typedef {import("../src/types/languages").LangCode} LangCode */
 
 
 async function run()
@@ -96,19 +97,23 @@ async function getInfo()
 {
     const { allJokes } = parseJokes;
 
+    /** @type {LangCode[]} */
     const jokeLangs = Object.keys(allJokes.getJokeCountPerLang());
 
-    const { submCount, submLangs } = await getSubmissionCount();
+    const { submCount, submLangs } = await getSubmissionInfo();
 
     return {
+        /** Internal jokes */
         jokes: {
             totalAmt: allJokes._jokeCount,
             languages: jokeLangs,
         },
+        /** Joke submissions */
         subm: {
             amount: submCount,
             languages: submLangs,
         },
+        /** HTTP server */
         http: {
             port: getProp("httpPort"),
             baseUrl: getProp("baseUrl"),
@@ -118,10 +123,10 @@ async function getInfo()
 }
 
 /**
- * Resolves with the amount of submissions JokeAPI has saved locally
- * @returns {Promise<SubmissionCountResult, Error>}
+ * Resolves with some info about the submissions JokeAPI has received
+ * @returns {Promise<SubmissionInfoResult, Error>}
  */
-function getSubmissionCount()
+function getSubmissionInfo()
 {
     return new Promise(async (res, rej) => {
         try
