@@ -18,6 +18,8 @@ const tr = require("./translate");
 
 /** @type {CategoryAlias[]} */
 var categoryAliases = [];
+/** @type {number|undefined} */
+let jokeFormatVersion;
 
 
 /**
@@ -191,7 +193,7 @@ function init()
 
             let fmtVer = allJokesObj.getFormatVersion("en");
             module.exports.jokeFormatVersion = fmtVer;
-            this.jokeFormatVersion = fmtVer;
+            jokeFormatVersion = fmtVer;
 
 
             debug("JokeParser", `Done parsing all ${parsedJokesAmount} jokes. Errors: ${errors.length === 0 ? jsl.colors.fg.green : jsl.colors.fg.red}${errors.length}${jsl.colors.rst}`);
@@ -298,9 +300,9 @@ function validateSingle(joke, lang)
         //#MARKER format version
         if(joke.formatVersion != null)
         {
-            if(joke.formatVersion != settings.jokes.jokesFormatVersion || joke.formatVersion != this.jokeFormatVersion)
+            if(joke.formatVersion != settings.jokes.jokesFormatVersion || joke.formatVersion != jokeFormatVersion)
             {
-                jokeErrors.push(tr(lang, "parseJokesFormatVersionMismatch", joke.formatVersion, this.jokeFormatVersion));
+                jokeErrors.push(tr(lang, "parseJokesFormatVersionMismatch", joke.formatVersion, jokeFormatVersion));
                 // jokeObj.formatVersion = false; // TODO: version 2.3.2: repeat this for everything below
             }
         }
@@ -323,15 +325,17 @@ function validateSingle(joke, lang)
         else jokeErrors.push(tr(lang, "parseJokesNoTypeProperty"));
 
         //#MARKER joke category
-        let jokeCat = resolveCategoryAlias(joke.category);
+        let jokeCat = typeof joke.category === "string" ? resolveCategoryAlias(joke.category) : joke.category;
 
         if(joke.category == null)
             jokeErrors.push(tr(lang, "parseJokesNoCategoryProperty"));
+        else if(typeof jokeCat !== "string")
+            jokeErrors.push(tr(lang, "parseJokesInvalidCategory"));
         else
         {
             let categoryValid = false;
             settings.jokes.possible.categories.forEach(cat => {
-                if(jokeCat.toLowerCase() == cat.toLowerCase())
+                if(jokeCat.toLowerCase() === cat.toLowerCase())
                     categoryValid = true;
             });
             if(!categoryValid)
@@ -373,7 +377,7 @@ function validateSingle(joke, lang)
     }
     catch(err)
     {
-        jokeErrors.push(tr(lang, "parseJokesCantParseJson"));
+        jokeErrors.push(tr(lang, "parseJokesCantParse", err.toString()));
     }
 
     if(jsl.isEmpty(jokeErrors))
@@ -391,6 +395,9 @@ function resolveCategoryAlias(category)
 {
     let cat = category;
     categoryAliases.forEach(catAlias => {
+        if(typeof category !== "string")
+            throw new TypeError(`Can't resolve category alias because '${category}' is not of type string`);
+
         if(category.toLowerCase() == catAlias.alias.toLowerCase())
             cat = catAlias.value;
     });

@@ -471,12 +471,10 @@
             "cs": "Vlastnost \"lang\" je neplatná: %1",
             "it": "La proprietà \"lang\" non è valida: %1"
         },
-        "parseJokesCantParseJson": {
-            "en": "Joke couldn't be parsed as JSON.",
-            "de": "Joke konnte nicht als JSON geparst werden.",
-            "ru": "Шутка не может быть разбита на JSON.",
-            "cs": "Vtip nelze parsovat jako JSON",
-            "it": "Barzelletta non può essere formattata come JSON"
+        "parseJokesCantParse": {
+            "en": "Joke couldn't be parsed: %1",
+            "de": "Joke konnte nicht geparst werden: %1",
+            "ru": "Шутка не может быть разбита: %1"
         },
         "langModuleInitError": {
             "en": "Internal error: language module was not correctly initialized.",

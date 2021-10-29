@@ -7,7 +7,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Debug JokeAPI",
+            "name": "JokeAPI",
             "skipFiles": [
                 "<node_internals>/**"
             ],
@@ -30,7 +30,7 @@
             "console": "integratedTerminal"
         },
         {
-            "program": "${workspaceFolder}/tools/submissions.js",
+            "program": "${workspaceFolder}/tools/info.js",
             "name": "Tools/xy",
             "request": "launch",
             "type": "node",
@@ -40,7 +40,20 @@
             "args": [
                 "--trace-deprecation"
             ],
-            "console": "externalTerminal"
+            "console": "integratedTerminal"
+        },
+        {
+            "program": "${workspaceFolder}/tools/cli.js",
+            "name": "CLI",
+            "request": "launch",
+            "type": "node",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "args": [
+                "--trace-deprecation"
+            ],
+            "console": "integratedTerminal"
         }
     ],
     "debug.javascript.usePreview": true

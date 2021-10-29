@@ -30,6 +30,7 @@ data/submissions/*/*.json
 
 # Auth Tokens:
 data/tokens.json
+data/auth/tokens.json
 
 # Other potentially sensitive information:
 data/lists/*.json

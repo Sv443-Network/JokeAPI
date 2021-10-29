@@ -8,13 +8,21 @@ try
 
     try
     {
-        amount = parseInt(process.argv[2].replace(/[-]/g, ""));
+        amount = parseInt(
+            process.argv.find(arg => arg.match(/^-{0,2}\d+$/))
+            .replace(/[-]/g, "")
+        );
     }
     catch(err)
     {
         jsl.unused(err);
-        amount = 1;
+        amount = NaN;
     }
+
+    if(isNaN(amount) || amount < 1)
+        amount = 1;
+    
+    amount = Math.min(amount, 10);
 
     console.log("\n");
 
@@ -42,7 +50,7 @@ try
         console.log(`Token ${jsl.colors.fg.green}${tok}${jsl.colors.rst} added to the list of tokens at "${settings.auth.tokenListFile}".`);
     }
 
-    console.log("\n\n");
+    console.log("\n");
     return process.exit(0);
 }
 catch(err)

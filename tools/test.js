@@ -3,7 +3,7 @@
 const jsl = require("svjsl");
 const fs = require("fs-extra");
 const cp = require("child_process");
-const requireUncached = require('require-uncached');
+const requireUncached = require('import-fresh');
 const { resolve, join } = require("path");
 const { XMLHttpRequest } = require("xmlhttprequest");
 
@@ -49,7 +49,7 @@ function runAllTests()
 {
     runningTests = true;
 
-    if(process.argv.includes("--colorblind") || process.argv.includes("-cb"))
+    if(process.argv.includes("--colorblind") || process.argv.includes("-c"))
     {
         col.green = jsl.colors.fg.cyan;
         col.red = jsl.colors.fg.magenta;

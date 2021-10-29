@@ -1,5 +1,6 @@
 {
     "info": {
+        "disclaimer": "A lot of the jokes below are racist, sexist and explicit in other ways. Proceed at your own risk!",
         "formatVersion": 3
     },
     "jokes": [
@@ -4784,6 +4785,194 @@
             },
             "safe": true,
             "id": 303
+        },
+        {
+            "category": "Misc",
+            "type": "single",
+            "joke": "I visited my friend at his new house. He told me to make myself at home. So I threw him out. I hate having visitors.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 304
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "Documentation is like sex:\nWhen it's good, it's very good.\nWhen it's bad, it's better than nothing...",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": false,
+            "id": 305
+        },
+        {
+            "category": "Misc",
+            "type": "single",
+            "joke": "Yo mama is so old, she knew Burger King while he was still a prince.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 306
+        },
+        {
+            "category": "Misc",
+            "type": "single",
+            "joke": "I went to the zoo the other day. There was only a dog in it – it was a shihtzu.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": true
+            },
+            "safe": false,
+            "id": 307
+        },
+        {
+            "category": "Misc",
+            "type": "twopart",
+            "setup": "What's the difference between England and a tea bag?",
+            "delivery": "The tea bag stays in the cup longer.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 308
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "What's the difference between a phone and a black person?",
+            "delivery": "A phone is actually useful.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": true,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": false,
+            "id": 309
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "What's yellow and can't swim?",
+            "delivery": "A bus full of children.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": false,
+            "id": 310
+        },
+        {
+            "category": "Spooky",
+            "type": "twopart",
+            "setup": "What happened to the cannibal who showed up late to Halloween dinner?",
+            "delivery": "They gave him the cold shoulder.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": false,
+            "id": 311
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Do you know what killed the man who had a two ton pumpkin fall on him?",
+            "delivery": "He was squashed.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 312
+        },
+        {
+            "category": "Spooky",
+            "type": "twopart",
+            "setup": "I'm not saying my son is ugly...",
+            "delivery": "But on Halloween he went to tell the neighbors to turn down their TV and they gave him some candy.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 313
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "What happened to the man who got behind on payments to his exorcist?",
+            "delivery": "He got repossessed.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 314
+        },
+        {
+            "category": "Spooky",
+            "type": "twopart",
+            "setup": "Why did the ghost go to the bar?",
+            "delivery": "To get sheet faced.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": true
+            },
+            "safe": false,
+            "id": 315
         }
     ]
 }
