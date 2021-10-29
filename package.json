@@ -84,8 +84,8 @@
     "email": "contact@sv443.net"
   },
   "engines": {
-    "node": "^11.7.0",
-    "npm": "^7.0.0"
+    "node": ">=11.7.0",
+    "npm": ">=7.0.0"
   },
   "dependencies": {
     "@pm2/io": "^5.0.0",
