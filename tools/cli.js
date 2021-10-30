@@ -35,7 +35,6 @@ async function run()
 
         let file, action;
 
-        // TODO: (v2.4) remove comments below
         switch(command)
         {
         case "start":
@@ -84,17 +83,19 @@ async function run()
             action = "Generate changelog";
             file = "./generate-changelog.js";
             break;
-        // case "stresstest": case "str":
-        //     action = "Stress test";
-        //     file = "./stresstest.js";
-        //     break;
+        case "stresstest": case "str":
+            action = "Stress test";
+            file = "./stresstest.js";
+            break;
         case "test":
             action = "Unit tests";
             file = "./test.js";
             break;
-        // case "ip-info": case "ip":
-        //     action = "IP info";
-        //     file = "./ip-info.js";
+        case "ip-info":
+        case "ip":
+            action = "IP info";
+            file = "./ip-info.js";
+            break;
         case undefined:
         case null:
         case "":
@@ -132,7 +133,6 @@ function prepareCLI()
             .alias("h", "help");
 
     //#SECTION commands
-    // TODO: (v2.4) remove comments below
     yargs.command([ "start", "run" ], `Starts ${settings.info.name} (equivalent to 'npm start')`);
 
     yargs.command([ "info", "i" ], `Prints information about ${settings.info.name}, like the /info endpoint`);
@@ -150,11 +150,11 @@ function prepareCLI()
             default: 1
         });
 
-        // cmd.option("no-copy", {
-        //     alias: "nc",
-        //     describe: "Disables auto-copying the token to the clipboard (if amount = 1)",
-        //     type: "boolean"
-        // });
+        cmd.option("no-copy", {
+            alias: "nc",
+            describe: "Disables auto-copying the token to the clipboard (if amount = 1)",
+            type: "boolean"
+        });
     });
 
     yargs.command([ "validate-ids", "vi" ], "Goes through each joke file and makes sure the IDs are correct (no duplicates or skipped IDs & correct order)");
@@ -169,15 +169,15 @@ function prepareCLI()
         });
     });
 
-    // yargs.command([ "ip-info", "ip" ], "Starts a server at '127.0.0.1:8074' that just prints information about each request's IP", cmd => {
-    //     cmd.option("color-cycle", {
-    //         alias: "c",
-    //         describe: "Cycles the color of the output after each request (to make spotting a new request easier)",
-    //         type: "boolean"
-    //     });
-    // });
+    yargs.command([ "ip-info", "ip" ], "Starts a server at '127.0.0.1:8074' that just prints information about each request's IP", cmd => {
+        cmd.option("color-cycle", {
+            alias: "c",
+            describe: "Cycles the color of the output after each request (to make spotting a new request easier)",
+            type: "boolean"
+        });
+    });
 
-    // yargs.command([ "stresstest", "str" ], `Sends lots of requests to ${settings.info.name} to stresstest it (requires the API to run in another process on the same machine)`);
+    yargs.command([ "stresstest", "str" ], `Sends lots of requests to ${settings.info.name} to stresstest it (requires the API to run in another process on the same machine)`);
 
     yargs.command("test", `Runs ${settings.info.name}'s unit tests`, cmd => {
         cmd.option("colorblind", {

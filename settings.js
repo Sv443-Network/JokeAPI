@@ -1,3 +1,5 @@
+const { getProp } = require("./src/env");
+
 const packageJSON = require("./package.json");
 const scl = require("svcorelib");
 const col = scl.colors.fg;

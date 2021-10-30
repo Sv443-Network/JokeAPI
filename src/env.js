@@ -27,7 +27,7 @@ let initialized = false;
 
 
 /**
- * Initializes the deployment environment module
+ * Initializes the environment module
  */
 function init()
 {
@@ -39,7 +39,7 @@ function init()
 }
 
 /**
- * Normalizes the deployment environment passed as the env var `NODE_ENV` and returns it
+ * Normalizes the environment passed as the env var `NODE_ENV` and returns it
  * @param {boolean} [colored=false] Set to `true` to color in the predefined env colors
  * @returns {Env}
  */
