@@ -10,80 +10,17 @@ const AllJokes = require("./classes/AllJokes");
 const tr = require("./translate");
 
 
-//#MARKER types - TODO: move into .d.ts file
-/**
- * @typedef {object} CategoryAliasObj
- * @prop {string} alias Name of the alias
- * @prop {string} value The value this alias resolves to
- */
+//#MARKER types
 
-/**
- * @typedef {"Misc"|"Programming"|"Dark"|"Pun"|"Spooky"|"Christmas"} JokeCategory Resolved category name (not an alias)
- */
-/**
- * @typedef {"Miscellaneous"|"Coding"|"Development"|"Halloween"} JokeCategoryAlias Category name aliases
- */
+/** @typedef {import("./types/jokes").Joke} Joke */
+/** @typedef {import("./types/jokes").JokeCategory} JokeCategory */
+/** @typedef {import("./types/jokes").JokeCategoryAlias} JokeCategoryAlias */
+/** @typedef {import("./types/parseJokes").CategoryAliasObj} CategoryAliasObj */
+/** @typedef {import("./types/parseJokes").ValidationResult} ValidationResult */
+/** @typedef {import("./types/parseJokes").JokeSubmissionParams} JokeSubmissionParams */
 
-/**
- * @typedef {SingleJoke|TwopartJoke} Joke An internal joke object (not a submission) that matches the "single" or "twopart" format
- */
 
-/**
- * @typedef {object} SingleJoke A joke of type single
- * @prop {JokeCategory} category The category of the joke
- * @prop {"single"} type The type of the joke
- * @prop {string} joke The joke itself
- * @prop {Object} flags
- * @prop {boolean} flags.nsfw Whether the joke is NSFW or not
- * @prop {boolean} flags.racist Whether the joke is racist or not
- * @prop {boolean} flags.religious Whether the joke is religiously offensive or not
- * @prop {boolean} flags.political Whether the joke is politically offensive or not
- * @prop {boolean} flags.explicit Whether the joke contains explicit language
- * @prop {number} id The ID of the joke
- * @prop {string} lang The language of the joke
- * @prop {boolean} safe Whether this joke is safe or not
- */
-
-/**
- * @typedef {object} TwopartJoke A joke of type twopart
- * @prop {JokeCategory} category The category of the joke
- * @prop {"twopart"} type The type of the joke
- * @prop {string} setup The setup of the joke
- * @prop {string} delivery The delivery of the joke
- * @prop {Object} flags
- * @prop {boolean} flags.nsfw Whether the joke is NSFW or not
- * @prop {boolean} flags.racist Whether the joke is racist or not
- * @prop {boolean} flags.religious Whether the joke is religiously offensive or not
- * @prop {boolean} flags.political Whether the joke is politically offensive or not
- * @prop {boolean} flags.explicit Whether the joke contains explicit language
- * @prop {number} id The ID of the joke
- * @prop {string} lang The language of the joke
- * @prop {boolean} safe Whether this joke is safe or not
- */
-
-/**
- * @typedef {object} JokeSubmissionParams
- * @prop {boolean} formatVersion Version of the joke format
- * @prop {boolean} category The category of the joke
- * @prop {boolean} type The type of the joke
- * @prop {boolean} [joke] The actual joke [when type=single]
- * @prop {boolean} [setup] The setup of the joke [when type=twopart]
- * @prop {boolean} [delivery] The delivery of the joke [when type=twopart]
- * @prop {Object} flags
- * @prop {boolean} flags.nsfw Whether the joke is NSFW or not
- * @prop {boolean} flags.racist Whether the joke is racist or not
- * @prop {boolean} flags.religious Whether the joke is religiously offensive or not
- * @prop {boolean} flags.political Whether the joke is politically offensive or not
- * @prop {boolean} flags.explicit Whether the joke contains explicit language
- * @prop {boolean} lang The language of the joke
- */
-
-/**
- * @typedef {Object} ValidationResult
- * @prop {boolean} valid Whether or not this joke's format is valid
- * @prop {string[]} errorStrings Array of error strings
- * @prop {JokeSubmissionParams|null} jokeParams An object describing all valid and invalid parameters - If set to `null`, the joke couldn't be parsed (invalid JSON)
- */
+//#MARKER init
 
 /** @type {CategoryAliasObj[]} */
 const categoryAliases = [];
@@ -91,8 +28,6 @@ const categoryAliases = [];
 /** @type {number} */
 let globalFormatVersion = 0;
 
-
-//#MARKER init
 /**
  * Parses all jokes
  * @returns {Promise<void>} Resolves with no parameters if initialization was successful or rejects with an error message
@@ -282,7 +217,7 @@ function init()
 //#MARKER validate single
 /**
  * Validates a joke submission
- * @param {SingleJoke|TwopartJoke|string} joke A joke object of type single or twopart (plus the `formatVersion` prop) - also accepts a stringified object
+ * @param {Joke|string} joke A joke object of type single or twopart (plus the `formatVersion` prop) - also accepts a stringified object
  * @param {string} lang Language code
  * @returns {ValidationResult}
  * @version 2.4.0 Changed return value (to implement issue #209)
@@ -310,7 +245,7 @@ function validateSubmission(joke, lang)
 
     /**
      * Returns the parameter validity object needed in the returned object of validateSubmission()
-     * @param {SingleJoke|TwopartJoke} jokeObj
+     * @param {Joke} jokeObj
      * @returns {JokeSubmissionParams}
      */
     const getParamValidityObj = (jokeObj) => {

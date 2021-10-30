@@ -6,6 +6,9 @@ export type JokeType = "single" | "twopart";
 /** All joke categories (excluding aliases) */
 export type JokeCategory = "Misc" | "Programming" | "Dark" | "Pun" | "Spooky" | "Christmas";
 
+/** All joke category aliases */
+export type JokeCategoryAlias = "Miscellaneous" | "Coding" | "Development" | "Halloween";
+
 /** All blacklist flags */
 export interface JokeFlags {
     nsfw: boolean;
