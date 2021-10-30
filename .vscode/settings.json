@@ -77,4 +77,6 @@
     },
 
     "npm-scripts.showStartNotification": false,
+
+    "deno.enable": false, // so deno server doesn't start up and crash
 }

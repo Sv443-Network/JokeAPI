@@ -1,0 +1,6 @@
+{
+    "compilerOptions": {
+        // for importing types from JSON files:
+        "resolveJsonModule": true
+    }
+}

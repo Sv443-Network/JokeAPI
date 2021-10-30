@@ -10,11 +10,11 @@ const AllJokes = require("./classes/AllJokes");
 const tr = require("./translate");
 
 
-//#MARKER types
+//#MARKER types - TODO: move into .d.ts file
 /**
- * @typedef {Object} CategoryAliasObj
- * @prop {String} alias Name of the alias
- * @prop {String} value The value this alias resolves to
+ * @typedef {object} CategoryAliasObj
+ * @prop {string} alias Name of the alias
+ * @prop {string} value The value this alias resolves to
  */
 
 /**
@@ -399,18 +399,20 @@ function validateSubmission(joke, lang)
             jokeErrors.push(tr(lang, "parseJokesNoTypeProperty"));
 
         //#SECTION joke category
-        let jokeCat = resolveCategoryAlias(joke.category);
+        let jokeCat = typeof joke.category === "string" ? resolveCategoryAlias(joke.category) : joke.category;
 
         if(!jokeCat)
         {
             jokeErrors.push(tr(lang, "parseJokesNoCategoryProperty"));
             validParamsObj.category = false;
         }
+        else if(typeof jokeCat !== "string")
+            jokeErrors.push(tr(lang, "parseJokesInvalidCategory"));
         else
         {
             let categoryValid = false;
             settings.jokes.possible.categories.forEach(cat => {
-                if(jokeCat.toLowerCase() == cat.toLowerCase())
+                if(jokeCat.toLowerCase() === cat.toLowerCase())
                     categoryValid = true;
             });
             
@@ -522,6 +524,9 @@ function resolveCategoryAlias(category)
 
     let cat = category;
     categoryAliases.forEach(catAlias => {
+        if(typeof category !== "string")
+            throw new TypeError(`Can't resolve category alias because '${category}' is not of type string`);
+
         if(category.toLowerCase() == catAlias.alias.toLowerCase())
             cat = catAlias.value;
     });

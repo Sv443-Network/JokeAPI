@@ -20,6 +20,9 @@ let filterCompTrFile = {};
 /** @type {import("../data/translations/endpoints.json")} */
 let endpointsTrFile = {};
 
+/** Whether this module was initialized */
+let initialized = false;
+
 /**
  * Initializes the translation module by caching the translations so they only need to be read from disk once
  * @returns {Promise}
@@ -46,6 +49,8 @@ function init()
 
             debug("Translate", "Initialized endpoint translations");
 
+            initialized = true;
+
             return pRes();
         }
         catch(err)
@@ -66,6 +71,9 @@ function translate(lang, id, ...args)
 {
     try
     {
+        if(!initialized)
+            throw new Error("translate module isnt't initialized");
+
         if(!lang)
             lang = settings.languages.defaultLanguage;
 

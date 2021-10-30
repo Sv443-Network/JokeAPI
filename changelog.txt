@@ -50,6 +50,15 @@
         - Patched all kinds of security vulnerabilities by updating dependencies
 
 
+[2.3.2] - Joke update
+    - Added new jokes
+    - Rewrote the submission script to make it much more streamlined (issue #340)
+    - Rewrote the add-joke script so it's easier for me to use
+    - Added a new info script to make working with JokeAPI easier for me
+    - Added a global CLI interface (issue #344)
+    - API now adjusts environment-dependent settings automatically (issue #343)
+
+
 [2.3.1] - The Safe Mode Hotfix, because bugs exist for some reason (PR #214)
     - Fixed bug "API Error 500 - Cannot read property 'msBeforeNext' of null" (issue #212)
     - Fixed bug where API responded with Error 106 when using format=txt on endpoint /joke (issue #218)

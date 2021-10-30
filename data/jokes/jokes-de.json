@@ -1,5 +1,6 @@
 {
     "info": {
+        "disclaimer": "Viele der folgenden Witze sind rassistisch, sexistisch oder in anderer Weise explizit. Betreten auf eigene Gefahr!",
         "formatVersion": 3
     },
     "jokes": [
@@ -502,6 +503,69 @@
                 "explicit": false
             },
             "id": 31,
+            "safe": true
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Mir ist heute Morgen ein Joghurtbecher aus der Hand gefallen.",
+            "delivery": "Er war nicht mehr haltbar.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 32,
+            "safe": true
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Im EDEKA ist gestern das Obstregal umgefallen.",
+            "delivery": "Es entstand ein Schaden in Melonenhöhe.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 33,
+            "safe": true
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Gab es in Ihrer Familie jemals Fälle von Inzest?",
+            "delivery": "Mitnichten!",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 34,
+            "safe": false
+        },
+        {
+            "category": "Pun",
+            "type": "single",
+            "joke": "Stauseen sind auch nur verdammte Flüsse.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 35,
             "safe": true
         }
     ]

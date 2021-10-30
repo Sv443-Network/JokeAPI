@@ -3,6 +3,7 @@
 - 2.4  
     - **[Current Version: 2.4.0](#240)**  
 - 2.3  
+    - [2.3.2](#232)  
     - [2.3.1](#231)  
     - [2.3.0](#230)  
 - 2.2  
@@ -78,6 +79,18 @@
     - Switched from LGTM to CodeQL for code analysis ([issue #290](https://github.com/Sv443/JokeAPI/issues/290))
     - Fixed all kinds of inconsistencies in the code
     - Patched all kinds of security vulnerabilities by updating dependencies
+
+
+<br><br><br>
+
+## 2.3.2  
+#### Joke update
+- Added new jokes
+- Rewrote the submission script to make it much more streamlined ([issue #340](https://github.com/Sv443/JokeAPI/issues/340))
+- Rewrote the add-joke script so it's easier for me to use
+- Added a new info script to make working with JokeAPI easier for me
+- Added a global CLI interface ([issue #344](https://github.com/Sv443/JokeAPI/issues/344))
+- API now adjusts environment-dependent settings automatically ([issue #343](https://github.com/Sv443/JokeAPI/issues/343))
 
 
 <br><br><br>

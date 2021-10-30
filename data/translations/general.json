@@ -464,12 +464,12 @@
             "cs": "Vlastnost \"lang\" je neplatná",
             "it": "La proprietà \"lang\" non è valida"
         },
-        "parseJokesCantParseJson": {
-            "en": "Joke couldn't be parsed as JSON.",
-            "de": "Witz konnte nicht als JSON geparst werden.",
-            "ru": "Шутка не может быть разбита на JSON.",
-            "cs": "Vtip nelze parsovat jako JSON",
-            "it": "Barzelletta non può essere formattata come JSON"
+        "parseJokesCantParse": {
+            "en": "Joke couldn't be parsed: %1",
+            "de": "Witz konnte nicht geparst werden: %1",
+            "ru": "Шутка не может быть разбита: %1",
+            "cs": "Vtip se nepodařilo analyzovat: %1",
+            "it": "Lo scherzo non può essere analizzato: %1"
         },
         "parseJokesGeneralError": {
             "en": "General error while parsing joke submission: %1",

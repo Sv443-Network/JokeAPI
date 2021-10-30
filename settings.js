@@ -21,13 +21,13 @@ const settings = {
     },
     /** General information about JokeAPI */
     info: {
-        name: "JokeAPI-ST",                             // the name of JokeAPI (I don't like the name, I may change it at a later time - I'm indecisive, leave me alone)
+        name: getProp("name"),                          // the name of JokeAPI
         desc: packageJSON.description,                  // the description of JokeAPI
         projGitHub: "https://github.com/Sv443/JokeAPI", // URL to the project's GitHub page
         version: packageJSON.version,                   // the version as a string
         versionInt: packageJSON.version.split(".").map(n=>parseInt(n)), // the version as a number array
-        docsURL: packageJSON.homepage,                                  // the URL to the documentation of JokeAPI
-        /** Info about JokeAPI's author (hello 👀) */
+        docsURL: getProp("baseUrl"),   
+        /** Info about JokeAPI's author (hello 👀) */                 // the URL to the documentation of JokeAPI
         author: {
             name: packageJSON.author.name,   // author name
             email: packageJSON.author.email, // author email
@@ -73,15 +73,15 @@ const settings = {
     },
     /** General joke settings */
     jokes: {
-        jokesFormatVersion: 3,                               // current joke format version
-        jokesFolderPath: "./data/jokes/",                    // path to the jokes folder - needs trailing slash
-        jokeSubmissionURL: `${packageJSON.homepage}#submit`, // joke submission url
-        jokeSubmissionPath: "./data/submissions/",           // path to a directory where joke submissions should be saved to - needs trailing slash
-        /** Anything regarding submitted data of any kind (POST / PUT) */
+        jokesFormatVersion: 3,                             // current joke format version
+        jokesFolderPath: "./data/jokes/",                  // path to the jokes folder - needs trailing slash
+        jokeSubmissionURL: `${getProp("baseUrl")}#submit`, // joke submission url
+        jokeSubmissionPath: "./data/submissions/",         // path to a directory where joke submissions should be saved to - needs trailing slash
         submissions: {
             timeFrame: 60,                              // time frame of submission rate limiter (in seconds)
             rateLimiting: 5,                            // how many requests per timeframe should be allowed
             invalidCharRegex: /(?![\u0000-\u0fff])./gm, // eslint-disable-line no-control-regex
+            minLength: 2,                               // minimum amount of characters needed in joke submissions (per property)
         },
         jokesTemplateFile: "template.json",  // relative to "jokes.jokesFolderPath"
         /** Possible / available filter components of jokes */
@@ -96,7 +96,7 @@ const settings = {
                 "Spooky",
                 "Christmas"
             ],
-            categoryAliases: { // aliases of categories. Alias at key gets resolved to category at value. Value has to be present in the "categories" array above - case insensitive / readable names
+            categoryAliases: { // aliases of categories. Alias at key gets resolved to category at value. Value has to be present in the "categories" array above - case sensitive / readable names
                 "Miscellaneous": "Misc",
                 "Coding": "Programming",
                 "Development": "Programming",
@@ -129,7 +129,7 @@ const settings = {
         },
         lastIDsMaxLength: 15,          // the maximum amount of joke IDs that get saved to the blacklist-array
         jokeRandomizationAttempts: 25, // after how many attempts of selecting a random joke to stop trying
-        splitChars: [",", "+", "-"],   // which characters should separate the values of parameters with support for multiple values
+        splitChars: [ ",", "+", "-" ], // which characters should separate the values of parameters with support for multiple values
         splitCharRegex: /[,+-]/gm,     // which characters should separate the values of parameters with support for multiple values
         maxAmount: 10,                 // the maximum amount of jokes that can be fetched with a single call to the get jokes endpoint
         /** logical operators for the `?contains` parameter - all of these should be percent-encodable with `encodeURIComponent()` and shouldn't be a [reserved character](https://datatracker.ietf.org/doc/html/rfc3986#section-2.2) */
@@ -141,25 +141,19 @@ const settings = {
     },
     /** Settings for the `httpServer` module */
     httpServer: {
-        port: 8076,           // http server port (TCP)
-        allowCORS: true,      // whether or not to allow Cross Origin Resource Sharing (CORS)
-        rateLimiting: 100,    // amount of allowed requests per below defined timeframe
-        timeFrame: 60,        // timeframe of rate limiting in seconds
-        urlPathOffset: 0,     // example: "/jokeapi/info" with an offset of 1 will only start parsing the path beginning at "info"
-        maxPayloadSize: 5120, // max size (in bytes) that will be accepted in a POST / PUT request - if payload exceeds this size, it will abort with status 413
-        maxUrlLength: 255,    // max amount of characters of the URL - if the URL is longer than this, the request will abort with status 414
-        disableCache: true,   // whether or not to disable the cache - default: true (setting to false may prevent the users from getting new jokes without explicit cache control headers)
-        infoHeaders: true,    // whether or not to add an informational header about JokeAPI to each request
-        reverseProxy: true,   // whether or not JokeAPI's requests are passed through a reverse proxy
-        startupTimeout: 15,            // in seconds, timeout after which startup fails if the HTTP server couldn't start up (blocked port, etc.)
+        port: getProp("httpPort"), // http server port
+        allowCORS: true,           // whether or not to allow Cross Origin Resource Sharing
+        rateLimiting: 100,         // amount of allowed requests per below defined timeframe
+        timeFrame: 60,             // timeframe in seconds
+        urlPathOffset: 0,          // example: "/jokeapi/info" with an offset of 1 will only start parsing the path beginning at "info" - an Apache reverse proxy will do this automatically though
+        maxPayloadSize: 5120,      // max size (in bytes) that will be accepted in a PUT request - if payload exceeds this size, it will abort with status 413
+        maxUrlLength: 250,         // max amount of characters of the URL - if the URL is longer than this, the request will abort with status 414
+        disableCache: true,        // whether or not to disable the cache - default: true (setting to false may prevent the users from getting new jokes)
+        infoHeaders: true,         // whether or not to add an informational header about JokeAPI to each request
+        reverseProxy: true,        // whether or not JokeAPI gets its requests from a reverse proxy
+        startupTimeout: 15,        // in seconds, timeout after which startup fails if the HTTP server couldn't start up (blocked port, etc.)
         submissionNoDataTimeout: 5000, // in milliseconds, timeout after which a submission request times out if no data was transmitted
-        /** SSL / HTTPS settings (to be implemented) */
-        ssl: {
-            enabled: false,                // whether SSL is enabled
-            certFile: "./.ssl/cert-xy.pem" // to be implemented (issue #185)
-        },
-        /** How IP addresses should be sanitized */
-        ipSanitization: {     // used to sanitize IP addresses so they can be used in file paths
+        ipSanitization: {          // used to sanitize IP addresses so they can be used in file paths
             regex: /[^A-Za-z0-9\-_./]|^COM[0-9]([/.]|$)|^LPT[0-9]([/.]|$)|^PRN([/.]|$)|^CLOCK\$([/.]|$)|^AUX([/.]|$)|^NUL([/.]|$)|^CON([/.]|$)/gm,
             replaceChar: "#", // what character to use instead of illegal characters
         },
@@ -201,8 +195,7 @@ const settings = {
         rawDirPath: "./docs/raw/",                  // path to the raw documentation files directory - needs trailing slash
         daemonInterval: 2,                          // interval (in seconds) at which the daemon checks for changes in the documentation directory
         errorPagePath: "./docs/raw/errorPage.html", // path to the error page
-        codeFontFileName: "static/external/CascadiaCode-Regular-2102.03.ttf", // the name of the font file that is going to be used in code blocks - has to be in the directory specified with the above property "dirPath"
-        /** Settings regarding the submission form (https://jokeapi.dev/#submit) */
+        codeFontFileName: "static/external/CascadiaCode_2108.26.ttf", // the name of the font file that is going to be used in code blocks - relative to the directory specified with the above property "dirPath"
         submissionForm: {
             dirPath: "./docs/raw/", // path to the submission form directory - needs trailing slash
             fileNames: {

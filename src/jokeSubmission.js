@@ -24,6 +24,7 @@ scl.unused(http, analytics, tr);
 /** @typedef {parseJokes.SingleJoke|parseJokes.TwopartJoke} JokeSubmission */
 /** @typedef {import("./fileFormatConverter").FileFormat} FileFormat */
 /** @typedef {import("./analytics").AnalyticsSubmission} AnalyticsSubmission */
+/** @typedef {import("./types/jokes").Joke} Joke */
 
 
 /**
@@ -204,9 +205,10 @@ function writeJokeToFile(res, filePath, submittedJoke, fileFormat, ip, analytics
 }
 
 /**
- * Coarse filter that ensures that a joke is formatted as expected - doesn't add missing properties though!
- * @param {JokeSubmission} joke
- * @returns {JokeSubmission} Returns the reformatted joke
+ * Coarse filter that ensures that a joke is formatted as expected.  
+ * This doesn't do any validation and omits missing properties!
+ * @param {Joke|JokeSubmission} joke
+ * @returns {Joke|JokeSubmission} Returns the reformatted joke
  */
 function reformatJoke(joke)
 {
@@ -217,7 +219,7 @@ function reformatJoke(joke)
 
     retJoke = {
         ...retJoke,
-        category: parseJokes.resolveCategoryAlias(joke.category),
+        category: typeof joke.category === "string" ? parseJokes.resolveCategoryAlias(joke.category) : joke.category,
         type: joke.type
     };
 
@@ -243,13 +245,13 @@ function reformatJoke(joke)
     if(joke.lang)
         retJoke.lang = joke.lang;
 
-    retJoke.lang = retJoke.lang.toLowerCase();
+    if(typeof retJoke.lang === "string")
+        retJoke.lang = retJoke.lang.toLowerCase();
+
+    retJoke.safe = joke.safe || false;
 
     if(joke.id)
         retJoke.id = joke.id;
-
-    if(joke.safe)
-        retJoke.safe = joke.safe || false;
 
     return retJoke;
 }

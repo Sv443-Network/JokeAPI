@@ -7,6 +7,7 @@ const analytics = require("./analytics");
 const languages = require("./languages");
 const jokeCache = require("./jokeCache");
 const debug = require("./debug");
+const { getEnv } = require("./env");
 
 const settings = require("../settings");
 
@@ -84,7 +85,7 @@ function logRequest(type, additionalInfo, analyticsData)
         break;
         case "ratelimited":
             color = settings.colors.ratelimit;
-            logType = "ratelimit";
+            // logType = "ratelimit";
 
             if(!scl.isEmpty(analyticsData))
             {
@@ -230,7 +231,7 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
     else
         lines.push(` ${brBlack}├─${col.rst} Analytics database ${settings.analytics.enabled ? col.red : col.yellow}not connected${settings.analytics.enabled ? "" : " (disabled)"}${col.rst}\n`);
     lines.push(` ${brBlack}├─${col.rst} Joke cache database ${jokeCache.connectionInfo.connected ? `${col.green}connected` : `${col.red}not connected`}${col.rst}\n`);
-    lines.push(` ${brBlack}└─${col.rst} HTTP${settings.httpServer.ssl.enabled ? "S" : ""} server is listening at ${col.green}${getLocalURL()}${col.rst} (SSL ${settings.httpServer.ssl.enabled ? `${col.green}enabled${col.rst}` : `${col.yellow}disabled${col.rst}`})\n`);
+    lines.push(` ${brBlack}└─${col.rst} HTTP${settings.httpServer.ssl.enabled ? "S" : ""} server is listening at ${col.green}${getLocalURL()}${col.rst}\n`);
 
     lines.push("\n");
 

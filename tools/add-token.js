@@ -83,7 +83,10 @@ function parseArgs()
 
     try
     {
-        const amount = parseInt(process.argv[2].replace(/[-]/g, ""));
+        const amount = parseInt(
+            process.argv.find(arg => arg.match(/^-{0,2}\d+$/))
+            .replace(/[-]/g, "")
+        );
 
         if(isNaN(amount))
             return amountInvalid();
@@ -100,12 +103,19 @@ function parseArgs()
 
 /**
  * Generates a certain amount of tokens
- * @param {number} [amount] How many tokens to generate
+ * @param {number} [amount] How many tokens to generate - min 1, max 10, default 1
  * @returns {TokenObj[]}
  */
 function generateTokens(amount)
 {
     const tokens = [];
+
+    if(isNaN(amount) || amount < 1)
+        amount = 1;
+    
+    amount = Math.min(amount, 10);
+
+    console.log("\n");
 
     for(let i = 0; i < amount; i++)
         tokens.push(generateUUID.alphanumerical("xxxxyyyyxxxxyyyy_xxxxyyyyxxxxyyyy_xxxxyyyyxxxxyyyy_xxxxyyyyxxxxyyyy"));

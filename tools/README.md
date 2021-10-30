@@ -1,29 +1,31 @@
-# JokeAPI - Tools
-This folder contains various scripts that do various things.  
-Here's a summary:
+# JokeAPI CLI tools
+Since v2.3.2, JokeAPI has a globally callable command line binary, which acts as an interface to all command-line tools inside this `./tools` folder.
 
 <br>
 
-| File | Command | Description | Arguments |
-| :-- | :-- | :-- | :-- |
-| [add-joke.js](./add-joke.js) | `npm run add-joke` | An interactive CLI prompt that adds a joke | - |
-| [add-token.js](./add-token.js) | `npm run add-token [amount]` | Generates an [API token](https://jokeapi.dev/#api-tokens) to be used to gain unlimited access to the API | `-nc` to disable auto-copy of token |
-| [generate-changelog.js](./generate-changelog.js) | `npm run changelog` | Turns the [`changelog.txt`](../changelog.txt) file into a markdown file ([`changelog.md`](../changelog.md)) | `-j` to generate a JSON file out of the changelog |
-| [ip-info.js](./ip-info.js) | `npm run ip-info` | Starts a server on `127.0.0.1:8074` that just returns information about each request's IP | `-c` to enable color cycle |
-| [reassign-ids.js](./reassign-ids.js) | `npm run reassign-ids` | Goes through each joke file and reassigns IDs to each one, consecutively | - |
-| [reformat.js](./reformat.js) | `npm run reformat` | Used to migrate old joke file formats to the latest one | - |
-| [stresstest.js](./stresstest.js) | `npm run stresstest` | Sends lots of requests to JokeAPI (has to run in another process) to stresstest it | - |
-| [submissions.js](./submissions.js) | `npm run submissions` | An interactive CLI prompt that goes through all joke submissions, prompting to add them | - |
-| [test.js](./test.js) | `npm test` | Goes through all unit test scripts of the [`../tests`](../tests#readme) folder | - |
-| [validate-ids.js](./validate-ids.js) | `npm run validate-ids` | Goes through each joke file and makes sure the IDs are correct (no duplicates or skipped IDs & correct order) | - |
-| [validate-jokes.js](./validate-jokes.js) | `npm run validate-jokes` | Goes through each joke file and checks the validity of each joke and whether they can all be loaded to memory | - |
+## Setup:
+To register the JokeAPI binary, run the command `npm run link`  
+If you get an `EACCES` error, try using `sudo npm run link`, otherwise you probably need to reinstall Node.js through a version manager like [nvm](https://github.com/nvm-sh/nvm)  
+  
+Afterwards, the binary will be globally callable with the commands `jokeapi` and `japi`  
+  
+To display a list of all commands, run `jokeapi -h`  
+To get command-specific help and <u>show the command's arguments</u>, run `jokeapi -h <command>`
 
-<br><br>
+<br>
 
-## How arguments work:
-
-When using `npm run`, to provide minus-prefixed arguments, you need to separate npm-specific and command-specific arguments.  
-To do this, add `--` like in this example:
-```
-npm run add-token -- -nc
-```
+## Commands:
+| Command | Alias | Description |
+| :-- | :-- | :-- |
+| `jokeapi start` | `run` | Starts JokeAPI (equivalent to running `npm start` or `node .`) |
+| `jokeapi info` | `i` | Prints information about JokeAPI, like the /info endpoint |
+| `jokeapi add-joke` | `j` | An interactive CLI prompt that adds a joke |
+| `jokeapi add-token` | `t` | Generates an [API token](https://jokeapi.dev/#api-tokens) to be used to gain unlimited access to the API |
+| `jokeapi generate-changelog` | `cl` | Turns the [`changelog.txt`](../changelog.txt) file into a markdown file ([`changelog.md`](../changelog.md)) |
+| `jokeapi ip-info` | `ip` | Starts a server on `127.0.0.1:8074` that just returns information about each request's IP |
+| `jokeapi reassign-ids` | `ri` | Goes through each joke file and reassigns IDs to each one, consecutively |
+| `jokeapi stresstest` | `str` | Sends lots of requests to JokeAPI (has to run in another process) to stresstest it |
+| `jokeapi submissions` | `s` | An interactive CLI prompt that goes through all joke submissions, prompting to add them |
+| `jokeapi test` | - | Goes through all unit test scripts of the [`../tests`](../tests#readme) folder |
+| `jokeapi validate-ids` | `vi` | Goes through each joke file and makes sure the IDs are correct (no duplicates or skipped IDs & correct order) |
+| `jokeapi validate-jokes` | `vj` | Goes through each joke file and checks the validity of each joke and whether they can all be loaded to memory |

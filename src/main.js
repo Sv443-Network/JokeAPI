@@ -6,7 +6,9 @@
 
 const { filesystem, system, colors, ProgressBar } = require("svcorelib");
 const promiseAllSequential = require("promise-all-sequential");
+require("dotenv").config();
 
+const env = require("./env");
 const debug = require("./debug");
 const parseJokes = require("./parseJokes");
 const httpServer = require("./httpServer");
@@ -56,6 +58,8 @@ settings.init.exitSignals.forEach(sig => process.on(sig, () => softExit(0)));
  */
 async function initAll()
 {
+    env.init();
+
     const initTimestamp = Date.now();
 
     try
