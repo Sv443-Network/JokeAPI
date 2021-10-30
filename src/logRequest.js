@@ -223,7 +223,7 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
 
     //#SECTION main message
     // stats
-    lines.push(`\n${activityIndicator}${col.blue}[${logger.getTimestamp()}] ${col.rst}- ${col.blue}${settings.info.name} v${settings.info.version}${col.rst}\n`);
+    lines.push(`\n${activityIndicator}${col.blue}[${logger.getTimestamp()}] ${col.rst}- ${col.blue}${settings.info.name} v${settings.info.version}${col.rst} [${getEnv(true)}]\n`);
     lines.push(` ${brBlack}├─${col.rst} Registered and validated ${col.green}${parseJokes.jokeCount}${col.rst} jokes from ${col.green}${languages.jokeLangs().length}${col.rst} languages\n`);
     lines.push(` ${brBlack}├─${col.rst} Found filter components: ${col.green}${settings.jokes.possible.categories.length}${col.rst} categories, ${col.green}${settings.jokes.possible.flags.length}${col.rst} flags, ${col.green}${settings.jokes.possible.formats.length}${col.rst} formats\n`);
     if(analytics.connectionInfo && analytics.connectionInfo.connected)
@@ -231,7 +231,7 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
     else
         lines.push(` ${brBlack}├─${col.rst} Analytics database ${settings.analytics.enabled ? col.red : col.yellow}not connected${settings.analytics.enabled ? "" : " (disabled)"}${col.rst}\n`);
     lines.push(` ${brBlack}├─${col.rst} Joke cache database ${jokeCache.connectionInfo.connected ? `${col.green}connected` : `${col.red}not connected`}${col.rst}\n`);
-    lines.push(` ${brBlack}└─${col.rst} HTTP${settings.httpServer.ssl.enabled ? "S" : ""} server is listening at ${col.green}${getLocalURL()}${col.rst}\n`);
+    lines.push(` ${brBlack}└─${col.rst} HTTP server is listening at ${col.green}${getLocalURL()}${col.rst}\n`);
 
     lines.push("\n");
 
@@ -337,7 +337,7 @@ function getActivityIndicator(state)
  */
 function getLocalURL()
 {
-    return `${settings.httpServer.ssl.enabled ? "https" : "http"}://127.0.0.1:${settings.httpServer.port}/`;
+    return `http://127.0.0.1:${settings.httpServer.port}/`;
 }
 
 /**
