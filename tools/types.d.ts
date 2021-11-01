@@ -55,6 +55,10 @@ export interface Keypress {
     code?: string;
 }
 
+export interface ClientColorMapping {
+    [/**Color code*/ key: string]: /**Client IP hashes*/ string[];
+}
+
 //#MARKER add-joke
 
 export type AddJoke = Joke & { formatVersion: number, lang: LangCode, safe: boolean };

@@ -30,6 +30,7 @@ const { exit } = process;
 /** @typedef {import("./types").ParsedFileName} ParsedFileName */
 /** @typedef {import("./types").ReadSubmissionsResult} ReadSubmissionsResult */
 /** @typedef {import("./types").LastEditedSubmission} LastEditedSubmission */
+/** @typedef {import("./types").ClientColorMapping} ClientColorMapping */
 /** @typedef {import("./types").Keypress} Keypress */
 /** @typedef {import("../src/types/jokes").JokeSubmission} JokeSubmission */
 /** @typedef {import("../src/types/jokes").JokeFlags} JokeFlags */
@@ -44,6 +45,14 @@ let currentSub;
 /** @type {boolean} */
 let lastKeyInvalid = false;
 
+
+/** @type {ClientColorMapping} Client color mapping for assigning temporary colors to the same client IP hashes */
+const clientColors = {};
+/** Current index of the client color mapping */
+let clientColIdx = 0;
+const clientColorList = [ col.green, col.magenta, col.yellow, col.cyan, col.red, col.blue, col.rst ];
+
+
 const stats = {
     /** How many submissions were acted upon */
     submissionsActAmt: 0,
@@ -54,6 +63,7 @@ const stats = {
     /** How many submissions were edited */
     editedSubmissions: 0,
 };
+
 
 /**
  * Entrypoint of this tool
@@ -72,6 +82,14 @@ async function run()
     {
         throw new Error(`Error while initializing dependency modules: ${err}`);
     }
+
+    
+    for(let i = 0; i < clientColorList.length; i++)
+    {
+        const curCol = clientColorList[i];
+        clientColors[curCol] = [];
+    }
+
 
     lastSubmissionType = undefined;
     currentSub = 1;
@@ -238,7 +256,7 @@ function editSubmission(sub)
             if(typeof finalSub.joke.lang !== "string")
                 finalSub.joke.lang = finalSub.lang;
 
-            const validateRes = parseJokes.validateSingle(finalSub.joke, finalSub.lang);
+            const validateRes = parseJokes.validateSubmission(finalSub.joke, finalSub.lang);
             const allErrors = Array.isArray(validateRes) ? validateRes : [];
 
             if(typeof finalSub.joke.safe !== "boolean")
@@ -262,18 +280,28 @@ function editSubmission(sub)
 
         try
         {
+            /**
+             * Reformats a value to make it fit a single line
+             * @param {string} val
+             */
+            const fitVal = val => {
+                val = val.replace(/\n/g, "\\n");
+
+                return val;
+            };
+
             const jokeChoices = sub.joke.type === "single" ? [
                 {
-                    title: `Joke (${editedSub.joke.joke})`,
+                    title: `Joke (${fitVal(editedSub.joke.joke)})`,
                     value: "joke",
                 },
             ] : [
                 {
-                    title: `Setup (${editedSub.joke.setup})`,
+                    title: `Setup (${fitVal(editedSub.joke.setup)})`,
                     value: "setup",
                 },
                 {
-                    title: `Delivery (${editedSub.joke.delivery})`,
+                    title: `Delivery (${fitVal(editedSub.joke.delivery)})`,
                     value: "delivery",
                 },
             ];
@@ -486,19 +514,31 @@ function cleanupDir(path)
 function printSubmission(sub)
 {
     const lines = [
-        `Submission #${currentSub} by ${sub.client}:`,
+        `Submission #${currentSub} by ${getClientCol(sub.client)}${sub.client}${col.rst}:`,
         `  Category: ${sub.joke.category}`,
         `  Type:     ${sub.joke.type}`,
         `  Flags:    ${extractFlags(sub.joke)}`,
         ``,
     ];
 
+    /**
+     * Reformats a value
+     * @param {string} val
+     * @param {string} color
+     */
+    const refmt = (val, color) => {
+        val = val.replace(/\n/g, `\n${color}> ${col.rst}`);
+
+        return `${color}> ${col.rst}${val}`;
+    };
+
     if(sub.joke.type === "single")
-        lines.push(sub.joke.joke);
+        lines.push(refmt(sub.joke.joke, col.green));
     if(sub.joke.type === "twopart")
     {
-        lines.push(sub.joke.setup);
-        lines.push(sub.joke.delivery);
+        lines.push(refmt(sub.joke.setup, col.cyan));
+        lines.push("");
+        lines.push(refmt(sub.joke.delivery, col.green));
     }
 
     process.stdout.write(`${lines.join("\n")}\n\n`);
@@ -699,7 +739,7 @@ function getSubmissions(lang)
                 /** @type {JokeSubmission} */
                 const joke = JSON.parse(file);
 
-                const valRes = parseJokes.validateSingle(joke, lang);
+                const valRes = parseJokes.validateSubmission(joke, lang);
                 let errors = null;
 
                 if(Array.isArray(valRes))
@@ -726,12 +766,14 @@ function getSubmissions(lang)
  */
 function parseFileName(fileName)
 {
+    // example:  submission_eff8e7ca_0_1634205492859.json
+
     if(fileName.startsWith("submission_"))
         fileName = fileName.substr(11);
     if(fileName.endsWith(".json"))
         fileName = fileName.substr(0, fileName.length - 5);
 
-    // eff8e7ca_0_1634205492859
+    // example:  eff8e7ca_0_1634205492859
 
     const [ client, index, timestamp ] = fileName.split("_");
 
@@ -769,10 +811,10 @@ function saveSubmission(sub)
             /** @type {any} */
             const currentJokes = reserialize(currentJokesFile.jokes);
 
-            const lastId = currentJokes[currentJokes.length - 1].id;
+            const newId = (Array.isArray(currentJokes) && currentJokes.length > 0) ? currentJokes[currentJokes.length - 1].id + 1 : 0;
 
             // ensure props match and strip extraneous props
-            joke.id = lastId + 1;
+            joke.id = newId;
             joke.lang && delete joke.lang;
             joke.formatVersion && delete joke.formatVersion;
 
@@ -793,6 +835,31 @@ function saveSubmission(sub)
             return rej(new Error(`Error while adding submission: ${err}`));
         }
     });
+}
+
+/**
+ * Gets the color of the passed client
+ * @param {string} client
+ * @returns {string}
+ */
+function getClientCol(client)
+{
+    for(const curCol in clientColorList)
+    {
+        if(Array.isArray(clientColors[curCol]) && clientColors[curCol].includes(client))
+            return curCol;
+    }
+
+    if(clientColIdx > clientColorList.length - 1)
+        clientColIdx = 0;
+
+    const clientCol = clientColorList[clientColIdx];
+
+    clientColors[clientCol].push(client);
+
+    clientColIdx++;
+
+    return clientCol;
 }
 
 
