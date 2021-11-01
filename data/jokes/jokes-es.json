@@ -17,6 +17,69 @@
             },
             "id": 0,
             "safe": false
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "setup": "¿Qué es un terapeuta?",
+            "delivery": "1024 Gigapeutas",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 1
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "setup": "¿Qué le dice un .GIF a un .JPEG?",
+            "delivery": "Anímate viejo.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 2
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "No te despedirán del trabajo, si nunca comentas tu código y además eres el único que sabe cómo funciona",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 3
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "setup": "¿Qué es el hardware?",
+            "delivery": "El que recibe los golpes cuando falla el software.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 4
         }
     ]
 }

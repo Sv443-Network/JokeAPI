@@ -15,11 +15,11 @@ const bgc = scl.colors.bg;
 const settings = {
     /** Settings regarding debugging */
     debug: {
-        verboseLogging: true,       // set to true to enable extra debug output
-        dashboardEnabled: false,    // refreshes the init message on interval
-        dashboardInterval: 1000,    // sets the interval (in ms) at which to refresh the init message (only if dashboard mode is enabled)
-        progressBarDisabled: true,  // set to true to disable the progress bar - greatly improves readability of verbose debug output in the startup phase
-        onlyLogErrors: true,        // set to true to disable sending any console logs but error messages
+        verboseLogging: getProp("debug"), // extra debug output in the console
+        dashboardEnabled: false,   // refreshes the init message on interval
+        dashboardInterval: 1000,   // sets the interval (in ms) at which to refresh the init message (only if dashboard mode is enabled)
+        progressBarDisabled: true, // set to true to disable the progress bar - greatly improves readability of verbose debug output in the startup phase
+        onlyLogErrors: true,       // set to true to disable sending any console logs but error messages
     },
     /** General information about JokeAPI */
     info: {

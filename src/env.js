@@ -15,11 +15,13 @@ const envSettings = Object.freeze({
         name: "JokeAPI",
         httpPort: 8076,
         baseUrl: "https://v2.jokeapi.dev",
+        debug: false,
     },
     stage: {
         name: "JokeAPI_ST",
         httpPort: 8075,
         baseUrl: "https://stage.jokeapi.dev",
+        debug: true,
     },
 });
 

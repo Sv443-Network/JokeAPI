@@ -2,4 +2,4 @@
 export type Env = "prod" | "stage";
 
 /** Environment-dependent global property */
-export type EnvDependentProp = "name" | "httpPort" | "baseUrl";
+export type EnvDependentProp = "name" | "httpPort" | "baseUrl" | "debug";

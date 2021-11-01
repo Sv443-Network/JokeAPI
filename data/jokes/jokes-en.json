@@ -4973,6 +4973,69 @@
             },
             "safe": false,
             "id": 315
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Did you hear about the crime in the parking garage?",
+            "delivery": "It was wrong on so many levels.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 316
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "What do you call a caveman's fart?",
+            "delivery": "A blast from the past.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 317
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Why should you never talk to pi?",
+            "delivery": "Because it will go on forever.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 318
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "I'd tell you a joke about NAT but I would have to translate.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 319
         }
     ]
 }
