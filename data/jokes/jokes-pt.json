@@ -35,6 +35,37 @@
             },
             "safe": false,
             "id": 1
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Quando estiveres triste, abraça um sapato.",
+            "delivery": "Um sapato com sola.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 2
+        },
+        {
+            "category": "Misc",
+            "type": "single",
+            "joke": "A horse walks into a bar...\nTets",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": true,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": false,
+            "id": 3
         }
     ]
 }

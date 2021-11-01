@@ -1,0 +1,38 @@
+{
+    "info": {
+        "disclaimer": "A lot of the jokes below are racist, sexist and explicit in other ways. Proceed at your own risk!",
+        "formatVersion": 3
+    },
+    "jokes": [
+        {
+            "category": "Misc",
+            "type": "single",
+            "joke": "Ban tu hoi nhau: Tai sao anh phai vao day? Toi bo vo..The thoi sao? Chuyen nho ma!..tu tren lau ba xuong.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 1
+        },
+        {
+            "category": "Misc",
+            "type": "single",
+            "joke": "Hai nguoi say gap nhau hoi. Nay, tren kia mat trang hay mat troi. Oh, xin loi, toi khong phai nguoi dia phuong nen khong ro.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 2
+        }
+    ]
+}

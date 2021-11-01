@@ -80,6 +80,52 @@
             },
             "safe": true,
             "id": 4
+        },
+        {
+            "category": "Misc",
+            "type": "single",
+            "joke": "Habia una vez un perro llamado Pegamento, se cayó y se pegó...",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": true,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 5
+        },
+        {
+            "category": "Misc",
+            "type": "twopart",
+            "setup": "Que le dice un perro a su amo...",
+            "delivery": "Nada, los perros no hablan.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 6
+        },
+        {
+            "category": "Misc",
+            "type": "single",
+            "joke": "El otro dia estaba comiendo con mi amigo judio y me tire un pedo, no entiendo porque se enfadó tanto, como si un gas hubiera matado alguna vez a alguin.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": true,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": false,
+            "id": 7
         }
     ]
 }

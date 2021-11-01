@@ -1,0 +1,23 @@
+{
+    "info": {
+        "disclaimer": "A lot of the jokes below are racist, sexist and explicit in other ways. Proceed at your own risk!",
+        "formatVersion": 3
+    },
+    "jokes": [
+        {
+            "category": "Misc",
+            "type": "single",
+            "joke": "putha puthala maremma ki podi kude kani gadda kudu undadanta.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": false,
+            "id": 0
+        }
+    ]
+}

@@ -16003,6 +16003,22 @@
             },
             "safe": true,
             "id": 999
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "Comment est-ce qu'on appelle un boomerang qui ne revient pas?",
+            "delivery": "Un chat mort.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": false,
+            "id": 1000
         }
     ]
 }

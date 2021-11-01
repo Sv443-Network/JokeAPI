@@ -567,6 +567,22 @@
             },
             "id": 35,
             "safe": true
+        },
+        {
+            "category": "Misc",
+            "type": "twopart",
+            "setup": "Wie viele Programmierer braucht man, um eine Glühbirne zu wechseln?",
+            "delivery": "Keinen einzigen, ist ja ein Hardware-Problem!",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 36
         }
     ]
 }
