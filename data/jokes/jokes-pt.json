@@ -19,6 +19,22 @@
             },
             "safe": true,
             "id": 0
+        },
+        {
+            "category": "Misc",
+            "type": "twopart",
+            "setup": "O que o pagodeiro foi fazer na igreja?",
+            "delivery": "Cantar pá God.",
+            "flags": {
+                "nsfw": false,
+                "religious": true,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": false,
+            "id": 1
         }
     ]
 }
