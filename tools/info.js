@@ -1,4 +1,4 @@
-const { Errors, colors, allOfType } = require("svcorelib");
+const { colors, allOfType } = require("svcorelib");
 const { join, resolve } = require("path");
 
 const { getEnv, getProp } = require("../src/env");
@@ -161,10 +161,7 @@ function getSubmissionInfo()
 (() => {
     try
     {
-        if(!process.stdin.isTTY)
-            throw new Errors.NoStdinError("The process doesn't have an stdin channel to read input from");
-        else
-            run();
+        run();
     }
     catch(err)
     {
