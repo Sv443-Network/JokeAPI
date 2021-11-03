@@ -35,6 +35,8 @@ async function run()
 
         let file, action;
 
+        let needsStdin = false;
+
         switch(command)
         {
         case "start":
@@ -46,6 +48,7 @@ async function run()
         case "s":
             action = "Joke submissions";
             file = "./submissions.js";
+            needsStdin = true;
             break;
         case "info":
         case "i":
@@ -56,6 +59,7 @@ async function run()
         case "j":
             action = "Add joke";
             file = "./add-joke.js";
+            needsStdin = true;
             break;
         case "reassign-ids":
         case "ri":
@@ -104,6 +108,9 @@ async function run()
         default:
             return exitWarn(`Unrecognized command '${command}'\nUse '${argv.$0} -h' to see a list of commands`);
         }
+
+        if(needsStdin && !process.stdin.isTTY)
+            throw new Errors.NoStdinError("The process doesn't have an stdin channel to read input from");
 
         if(!file)
             throw new Error(`Command '${command}' (${action.toLowerCase()}) didn't yield an executable file`);
@@ -197,10 +204,7 @@ function prepareCLI()
 
 try
 {
-    if(!process.stdin.isTTY)
-        throw new Errors.NoStdinError("The process doesn't have an stdin channel to read input from");
-    else
-        run();
+    run();
 }
 catch(err)
 {

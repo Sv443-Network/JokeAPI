@@ -25,7 +25,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - name: Clean install of dependencies # runs the npm ci command to install all dependencies
-      run: npm ci
+      run: |
+        npm i -g npm@8
+        npm ci
       env:
         CI: "true"
     - name: Link binary # links the CLI binary so the 'jokeapi' (alias 'japi') command can be used
