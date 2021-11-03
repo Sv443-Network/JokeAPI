@@ -76,6 +76,8 @@
         ".env": true,          // environment variables - to prevent leaking them accidentally - to edit the file instead use the command "code .env"
     },
 
+    "files.eol": "\n",
+
     "npm-scripts.showStartNotification": false,
 
     "deno.enable": false, // so deno server doesn't start up and crash
