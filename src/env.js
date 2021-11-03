@@ -4,7 +4,6 @@ const { colors } = require("svcorelib");
 
 const col = colors.fg;
 
-/** @typedef {import("svcorelib").JSONCompatible} JSONCompatible*/
 /** @typedef {import("./types/env").Env} Env */
 /** @typedef {import("./types/env").EnvDependentProp} EnvDependentProp */
 
@@ -58,14 +57,9 @@ function getEnv(colored = false)
 
     /** @type {Env} */
     let env = "stage";
-
-    switch(nodeEnv)
-    {
-    case "prod":
-    case "production":
+    
+    if(nodeEnv === "prod" || nodeEnv === "production")
         env = "prod";
-        break;
-    }
 
     const envCol = env === "prod" ? col.green : col.cyan;
 
@@ -73,9 +67,10 @@ function getEnv(colored = false)
 }
 
 /**
- * 
+ * Grabs an environment dependent property
  * @param {EnvDependentProp} prop
- * @returns {JSONCompatible}
+ * @returns {any}
+ * @throws Exits with code 1 if property
  */
 function getProp(prop)
 {
@@ -87,8 +82,7 @@ function getProp(prop)
     }
     catch(err)
     {
-        console.error(`Error while resolving environment-dependent settings property '${prop}' in current env '${deplEnv}':\n${err instanceof Error ? err.stack : err}`);
-        process.exit(1);
+        throw new Error(`Couldn't read env-dependent property '${prop}'${!initialized ? " - env module couldn't be initialized" : ""}`);
     }
 }
 
