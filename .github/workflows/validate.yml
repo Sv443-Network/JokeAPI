@@ -24,14 +24,14 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Clean install of dependencies # runs the npm ci command to install all dependencies
+    - name: Install npm v8 # it's just better
+      run: npm i -g npm@8
+    - name: Install dependencies & link binary # install dependencies from the lockfile, then link the CLI binary to register the 'jokeapi' (alias 'japi') commands
       run: |
-        npm i -g npm@8
         npm ci
+        npm run link
       env:
         CI: "true"
-    - name: Link binary # links the CLI binary so the 'jokeapi' (alias 'japi') command can be used
-      run: npm link
     - name: Validate joke files # validates the joke files
       run: japi vj
     - name: Validate joke IDs # makes sure all jokes have the correct ID
