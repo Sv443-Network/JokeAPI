@@ -102,7 +102,7 @@ async function run()
             console.log(`${settings.info.name} CLI v${settings.info.version}\n`);
             return yargs.showHelp();
         default:
-            return warn(`Unrecognized command '${command}'\nUse '${argv.$0} -h' to see a list of commands`);
+            return exitWarn(`Unrecognized command '${command}'\nUse '${argv.$0} -h' to see a list of commands`);
         }
 
         if(!file)
@@ -114,7 +114,7 @@ async function run()
     }
     catch(err)
     {
-        return error(err);
+        return exitError(err);
     }
 }
 
@@ -204,13 +204,13 @@ try
 }
 catch(err)
 {
-    return error(err);
+    return exitError(err);
 }
 
 /**
  * @param {Error} err
  */
-function error(err)
+function exitError(err)
 {
     console.error(`${col.red}${settings.info.name} CLI - ${err.name}:${col.rst}\n${err.stack}\n`);
     exit(1);
@@ -218,10 +218,16 @@ function error(err)
 
 /**
  * @param {string} warning
- * @param {string} [type]
+ * @param {string} [type] Defaults to `"Warning"`
+ * @param {number} [code=1]
  */
-function warn(warning, type = "Warning")
+function exitWarn(warning, type = "Warning", code = 1)
 {
+    code = parseInt(code);
+
+    if(isNaN(code))
+        code = 1;
+
     console.log(`${col.yellow}${settings.info.name} CLI - ${type}:${col.rst}\n${warning}\n`);
-    exit(1);
+    exit(code);
 }

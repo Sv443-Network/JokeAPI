@@ -49,7 +49,7 @@ async function run()
         };
 
         /**
-         * Decorates a value with colors and other stuff
+         * Decorates a singular value with colors and other stuff
          * @param {number|string} val
          */
         const v = val => {
