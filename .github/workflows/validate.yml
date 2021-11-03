@@ -28,14 +28,14 @@ jobs:
       run: npm ci
       env:
         CI: "true"
+    - name: Link binary # links the CLI binary so the 'jokeapi' (alias 'japi') command can be used
+      run: npm ci
     - name: Validate joke files # validates the joke files
-      run: npm run validate-jokes
-      env:
-        CI: "true"
+      run: japi vj
     - name: Validate joke IDs # makes sure all jokes have the correct ID
-      run: npm run validate-ids
-      env:
-        CI: "true"
+      run: japi vi
+    - name: Display API info # uses info command to print some info about JokeAPI
+      run: japi info
     - name: Send Discord success notification # sends a Discord notification
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
