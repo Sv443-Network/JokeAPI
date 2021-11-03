@@ -8,7 +8,7 @@ on:
 
 jobs:
   validate:
-    name: "Build & validate JokeAPI"
+    name: "Validate JokeAPI"
     runs-on: ubuntu-latest
 
     timeout-minutes: 10
