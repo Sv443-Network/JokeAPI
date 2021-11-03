@@ -38,6 +38,8 @@ jobs:
       run: japi vi
     - name: Display API info # uses info command to print some info about JokeAPI
       run: japi info
+      env:
+        NODE_ENV: prod # disable debug messages (default enabled on stage)
     - name: Send Discord success notification # sends a Discord notification
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
