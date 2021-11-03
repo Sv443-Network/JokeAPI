@@ -1,4 +1,4 @@
-const { colors, allOfType } = require("svcorelib");
+const { colors, allOfType, filesystem } = require("svcorelib");
 const { join, resolve } = require("path");
 
 const { getEnv, getProp } = require("../src/env");
@@ -44,7 +44,7 @@ async function run()
             const ln = val.length;
 
             const lhs = `(${ln > 0 ? "" : col.yellow}${val.length}${col.rst})`;
-            const rhs = `${col.green}${val.join(`${col.rst}, ${col.green}`)}${col.rst}`;
+            const rhs = `${ln > 0 ? col.green : col.yellow}${ln > 0 ? val.join(`${col.rst}, ${col.green}`) : "-"}${col.rst}`;
             return `${lhs}:  ${rhs}`;
         };
 
@@ -133,9 +133,27 @@ function getSubmissionInfo()
         {
             const submBasePath = resolve(settings.jokes.jokeSubmissionPath);
 
+            if(!(await filesystem.exists(submBasePath)))
+            {
+                return res({
+                    submCount: 0,
+                    submLangs: [],
+                });
+            }
+
             const langs = await readdir(submBasePath);
 
-            const submFolders = langs.map(lang => join(submBasePath, lang));
+            const validLangs = Array.isArray(langs) ? langs.filter((lang) => languages.isValidLang(lang)) : [];
+
+            if(validLangs.length === 0)
+            {
+                return res({
+                    submCount: 0,
+                    submLangs: [],
+                });
+            }
+
+            const submFolders = validLangs.map(lang => join(submBasePath, lang));
 
             const submissionFiles = [];
 
