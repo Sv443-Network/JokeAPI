@@ -2,13 +2,13 @@ name: "Validate"
 
 on:
   pull_request:
-    # The branches below must be a subset of the branches above
     branches: [ master ] # runs on every push
 
 
 jobs:
-  validate:
-    name: "Validate JokeAPI"
+  # potentially there could be multiple validation jobs?
+  jokeapi:
+    name: "JokeAPI"
     runs-on: ubuntu-latest
 
     timeout-minutes: 10
@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [14.x]
+        node-version: [ 14.x ]
 
     steps:
     - uses: actions/checkout@v1 # checkout latest commit
