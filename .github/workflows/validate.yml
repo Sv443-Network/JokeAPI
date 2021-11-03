@@ -29,7 +29,7 @@ jobs:
       env:
         CI: "true"
     - name: Link binary # links the CLI binary so the 'jokeapi' (alias 'japi') command can be used
-      run: npm ci
+      run: npm link
     - name: Validate joke files # validates the joke files
       run: japi vj
     - name: Validate joke IDs # makes sure all jokes have the correct ID
