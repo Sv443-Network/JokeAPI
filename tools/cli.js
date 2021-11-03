@@ -140,7 +140,13 @@ function prepareCLI()
             .alias("h", "help");
 
     //#SECTION commands
-    yargs.command([ "start", "run" ], `Starts ${settings.info.name} (equivalent to 'npm start')`);
+    yargs.command([ "start", "run" ], `Starts ${settings.info.name} (equivalent to 'npm start')`, cmd => {
+        cmd.option("dashboard", {
+            describe: "Enables the dashboard mode",
+            alias: "D",
+            type: "boolean"
+        });
+    });
 
     yargs.command([ "info", "i" ], `Prints information about ${settings.info.name}, like the /info endpoint`);
 
@@ -158,7 +164,7 @@ function prepareCLI()
         });
 
         cmd.option("no-copy", {
-            alias: "nc",
+            alias: "C",
             describe: "Disables auto-copying the token to the clipboard (if amount = 1)",
             type: "boolean"
         });
@@ -195,6 +201,8 @@ function prepareCLI()
     });
 
     yargs.wrap(Math.min(100, process.stdout.columns));
+
+    yargs.epilogue("For command-specific help and argument list use '$0 -h <command>'");
 
     return yargs.argv;
 }

@@ -11,7 +11,13 @@ const { getEnv } = require("./env");
 
 const settings = require("../settings");
 
+
 const col = scl.colors.fg;
+
+const { argv } = process;
+
+const dashboardEnabled = (argv.includes("--dashboard") || argv.includes("-D")) ? true : settings.debug.dashboardEnabled;
+
 
 /** Data that persists until JokeAPI is stopped */
 const persistentData = {
@@ -197,11 +203,11 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
     if(persistentData.firstInitMsg)
         debug("LogRequest", `${col.cyan}Startup metrics:${col.rst} initMs=${initMs} | initTimeDed=${initTimeDeduction} | initMsDed=${initMsDeducted} | initialHeapUsage=${heapPercent}%`);
 
-    if(settings.debug.dashboardEnabled && heapPercent > persistentData.maxHeapUsage)
+    if(dashboardEnabled && heapPercent > persistentData.maxHeapUsage)
         persistentData.maxHeapUsage = heapPercent;
 
     const heapColor = getHeapColor(heapPercent);
-    const maxHeapColor = settings.debug.dashboardEnabled ? getHeapColor(persistentData.maxHeapUsage) : null;
+    const maxHeapColor = dashboardEnabled ? getHeapColor(persistentData.maxHeapUsage) : null;
 
     const brBlack = "\x1b[1m\x1b[30m";
 
@@ -219,7 +225,7 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
     const activityIndicator = getActivityIndicator(activityIndicatorState);
 
 
-    let maxHeapText = settings.debug.dashboardEnabled ? ` (max: ${maxHeapColor}${persistentData.maxHeapUsage}%${col.rst})` : "";
+    let maxHeapText = dashboardEnabled ? ` (max: ${maxHeapColor}${persistentData.maxHeapUsage}%${col.rst})` : "";
 
     //#SECTION main message
     // stats
@@ -237,14 +243,14 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
 
     // #SECTION info
     lines.push(`  ${col.rst}• Initialization took ${col.green}${initMsDeducted}ms${initMsDeducted == 69 ? " (nice)" : ""}${col.rst}${initMs !== initMsDeducted ? ` (after deduction - total is ${col.yellow}${initMs}ms${col.rst})` : ""}\n`);
-    lines.push(`  ${col.rst}• ${!settings.debug.dashboardEnabled ? "Initial heap" : "Heap"} usage: ${heapColor}${heapPercent}%${col.rst}${maxHeapText}\n`);
+    lines.push(`  ${col.rst}• ${!dashboardEnabled ? "Initial heap" : "Heap"} usage: ${heapColor}${heapPercent}%${col.rst}${maxHeapText}\n`);
 
 
     let dbIntervalSeconds = settings.debug.dashboardInterval / 1000;
     if(dbIntervalSeconds % 1 != 0)
         dbIntervalSeconds = dbIntervalSeconds.toFixed(1);
 
-    lines.push(`${!settings.debug.dashboardEnabled ? "" : `  • ${brBlack}Dashboard mode enabled (${dbIntervalSeconds}s interval)\n`}${col.rst}`);
+    lines.push(`${!dashboardEnabled ? "" : `  • ${brBlack}Dashboard mode enabled (${dbIntervalSeconds}s interval)\n`}${col.rst}`);
 
     // GDPR compliance notice
     if(!isGdprCompliant())
@@ -264,7 +270,7 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
 
 
     // clear (if dashboard enabled), then immediately write using stdout directly, to try to remove "jitter" when updating the dashboard
-    if(settings.debug.dashboardEnabled)
+    if(dashboardEnabled)
         console.clear();
 
     process.stdout.write(writeLines);
@@ -272,7 +278,7 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
     if(persistentData.firstInitMsg)
         persistentData.firstInitMsg = false;
 
-    if(settings.debug.dashboardEnabled)
+    if(dashboardEnabled)
     {
         if(typeof activityIndicatorState != "number")
             activityIndicatorState = 0;
@@ -288,11 +294,11 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
 /**
  * Returns an activity indicator based on the passed state number. Defaults to question mark(s) if the state is out of range or invalid
  * @param {number} [state=0] If empty, defaults to `0`
- * @returns {string} Returns an empty string if `settings.debug.dashboardEnabled` is set to `false`
+ * @returns {string} Returns an empty string if `debugEnabled` is set to `false`
  */
 function getActivityIndicator(state)
 {
-    if(!settings.debug.dashboardEnabled)
+    if(!dashboardEnabled)
         return "";
 
     state = parseInt(state);
