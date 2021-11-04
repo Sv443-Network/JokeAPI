@@ -150,7 +150,7 @@ function makeInfoCategory(title, values)
         for(let i = 0; i < spAmt; i++)
             space += " ";
 
-        const formattedVal = Array.isArray(v.value) ? `${col.green}${v.value.join(`${col.rst}, ${col.green}`)}${col.rst}` : v.value;
+        const formattedVal = Array.isArray(v.value) ? (v.value.length > 0 ? `${col.green}${v.value.join(`${col.rst}, ${col.green}`)}${col.rst}` : `${col.yellow}-${col.rst}`) : v.value;
 
         rows.push(`  • ${lhs.display}:${space}${valCol}${formattedVal}${col.rst}`);
     });
