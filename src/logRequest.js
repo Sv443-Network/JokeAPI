@@ -387,7 +387,7 @@ function getHeapColor(percentage)
  */
 function strToCol(input)
 {
-    const fgColMap = [ col.green, col.magenta, col.red, col.blue ];
+    const fgColMap = [ col.magenta, col.green, col.cyan, col.red, col.yellow, col.white, col.black ];
     const bgColMap = [ bgc.magenta, bgc.green, bgc.cyan, bgc.red, bgc.yellow, bgc.white, bgc.black ];
 
     const hash = createHash("sha256");
@@ -399,18 +399,23 @@ function strToCol(input)
     if(buf.length < 3)
         throw new Error("Buffer has not enough contents");
 
-    const [ fgByte, bgByte, bg2Byte ] = buf;
+    const [ fgByte, bgByte ] = buf;
 
     const fgColIdx = Math.round(mapRange(fgByte, 0, 255, 0, (fgColMap.length - 1)));
     const bgColIdx = Math.round(mapRange(bgByte, 0, 255, 0, (bgColMap.length - 1)));
 
     const fgCol = fgColMap[fgColIdx];
-    let bgCol = bgColMap[bgColIdx];
 
-    const colVals = [ fgCol[3], bgCol[3] ];
+    let bgOvrIdx;
+    if(fgColIdx === bgColIdx)
+    {
+        bgOvrIdx = bgColIdx + 1;
 
-    if(colVals[0] === colVals[1])
-        bgCol = bgColMap[Math.round(mapRange(bg2Byte, 0, 255, 0, (bgColMap.length - 1)))];
+        if(bgOvrIdx > bgColMap.length - 1)
+            bgOvrIdx = 0;
+    }
+
+    const bgCol = bgColMap[bgOvrIdx || bgColIdx]
 
     return `${fgCol}${bgCol}`;
 }
