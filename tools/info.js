@@ -1,15 +1,17 @@
 const { colors, allOfType, filesystem } = require("svcorelib");
 const { join, resolve } = require("path");
+const { readdir } = require("fs-extra");
 
 const { getEnv, getProp } = require("../src/env");
 const parseJokes = require("../src/parseJokes");
-
 const languages = require("../src/languages");
 const translate = require("../src/translate");
+const splashes = require("../src/splashes");
+
 const settings = require("../settings");
-const { readdir } = require("fs-extra");
 
 const col = colors.fg;
+const { getSplash } = splashes;
 const { exit } = process;
 
 
@@ -27,6 +29,8 @@ async function run()
             await languages.init();
 
             await translate.init();
+
+            await splashes.init();
 
             await parseJokes.init();
         }
@@ -62,9 +66,24 @@ async function run()
 
         const { jokes, subm, http } = await getInfo("submissions");
 
+
+        const additionalInfo = ` v${settings.info.version} [${getEnv(true)}] - Info`;
+        const infoLine = `${col.blue}${settings.info.name}${col.rst}${additionalInfo}`;
+        const infoLen = settings.info.name.length + additionalInfo.length - (col.cyan.length + col.rst.length);
+
+        const splash = `• ${getSplash("en")} •`;
+
+        let sepLine = "";
+        for(let i = 0; i < Math.max(infoLen, splash.length) + 2; i++)
+            sepLine += "─";
+
         /** The lines that get printed to the console to display JokeAPI's info */
         const lines = [
-            `${col.blue}${settings.info.name}${col.rst} v${settings.info.version} [${getEnv(true)}] - Info`,
+            ` ${infoLine}`,
+            ``,
+            ` ${splash}`,
+            sepLine,
+            ``,
             ``,
             `${col.blue}Jokes:${col.rst}`,
             `  Total amount:  ${v(jokes.totalAmt)}`,
@@ -75,11 +94,11 @@ async function run()
             `  Languages ${n(subm.languages)}`,
             ``,
             `${col.blue}HTTP Server:${col.rst}`,
-            `  Port:    ${v(http.port)}`,
             `  BaseURL: ${v(http.baseUrl)}`,
+            `  Port:    ${v(http.port)}`,
         ];
 
-        process.stdout.write(`\n${lines.join("\n")}\n\n`);
+        process.stdout.write(`\n\n${lines.join("\n")}\n\n`);
 
         exit(0);
     }
