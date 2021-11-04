@@ -255,7 +255,7 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
     if(analytics.connectionInfo && analytics.connectionInfo.connected)
         lines.push(` ${brBlack}├─${col.rst} Connected to analytics database at ${col.green}${analytics.connectionInfo.info}${col.rst}\n`);
     else
-        lines.push(` ${brBlack}├─${col.rst} Analytics database ${settings.analytics.enabled ? col.red : col.yellow}not connected${settings.analytics.enabled ? "" : " (disabled)"}${col.rst}\n`);
+        lines.push(` ${brBlack}├─${col.rst} Analytics database ${settings.analytics.enabled ? col.red : col.yellow}not connected${col.rst}${settings.analytics.enabled ? "" : " (disabled)"}\n`);
     lines.push(` ${brBlack}├─${col.rst} Joke cache database ${jokeCache.connectionInfo.connected ? `${col.green}connected` : `${col.red}not connected`}${col.rst}\n`);
     lines.push(` ${brBlack}└─${col.rst} HTTP server is listening at ${col.green}${getLocalURL()}${col.rst}\n`);
 
