@@ -20,6 +20,7 @@ const settings = require("../settings");
 
 
 const col = scl.colors.fg;
+const bgc = scl.colors.bg;
 
 const { argv } = process;
 
@@ -380,13 +381,14 @@ function getHeapColor(percentage)
 }
 
 /**
- * Assigns a unique console color escape code to each input value (same value = same color each time)
+ * Assigns a unique console color escape code (fg & bg) to each input value (same value = same color each time)
  * @param {string} input any value
- * @returns {string} color escape code
+ * @returns {string} color escape codes for bg and fg
  */
 function strToCol(input)
 {
-    const colMap = [ col.green, col.magenta, col.yellow, col.cyan, col.red, col.blue, col.rst ];
+    const fgColMap = [ col.green, col.magenta, col.red, col.blue ];
+    const bgColMap = [ bgc.magenta, bgc.green, bgc.cyan, bgc.red, bgc.yellow, bgc.white, bgc.black ];
 
     const hash = createHash("sha256");
     hash.update(input.toString(), "utf-8");
@@ -394,14 +396,23 @@ function strToCol(input)
 
     const buf = Buffer.from(hex, "hex");
 
-    if(buf.length < 1)
-        throw new Error("Buffer has no contents");
+    if(buf.length < 3)
+        throw new Error("Buffer has not enough contents");
 
-    const firstByte = buf[0];
+    const [ fgByte, bgByte, bg2Byte ] = buf;
 
-    const colIdx = Math.round(mapRange(firstByte, 0, 255, 0, (colMap.length - 1)));
+    const fgColIdx = Math.round(mapRange(fgByte, 0, 255, 0, (fgColMap.length - 1)));
+    const bgColIdx = Math.round(mapRange(bgByte, 0, 255, 0, (bgColMap.length - 1)));
 
-    return colMap[colIdx];
+    const fgCol = fgColMap[fgColIdx];
+    let bgCol = bgColMap[bgColIdx];
+
+    const colVals = [ fgCol[3], bgCol[3] ];
+
+    if(colVals[0] === colVals[1])
+        bgCol = bgColMap[Math.round(mapRange(bg2Byte, 0, 255, 0, (bgColMap.length - 1)))];
+
+    return `${fgCol}${bgCol}`;
 }
 
 /**
