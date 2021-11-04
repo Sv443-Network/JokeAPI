@@ -83,3 +83,8 @@ export interface SubmissionInfoResult
     submCount: number;
     submLangs: LangCode[];
 }
+
+export interface InfoCategoryValues {
+    name: string;
+    value: string | number | string[] | number[];
+}

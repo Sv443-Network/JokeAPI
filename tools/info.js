@@ -1,4 +1,4 @@
-const { colors, allOfType, filesystem } = require("svcorelib");
+const { colors, filesystem, reserialize } = require("svcorelib");
 const { join, resolve } = require("path");
 const { readdir } = require("fs-extra");
 
@@ -17,6 +17,7 @@ const { exit } = process;
 
 /** @typedef {import("svcorelib").Stringifiable} Stringifiable */
 /** @typedef {import("./types").SubmissionInfoResult} SubmissionInfoResult */
+/** @typedef {import("./types").InfoCategoryValues} InfoCategoryValues */
 /** @typedef {import("../src/types/languages").LangCode} LangCode */
 
 
@@ -40,30 +41,6 @@ async function run()
             exit(1);
         }
 
-        /**
-         * Decorates an array value with colors and other stuff
-         * @param {Stringifiable[]} val
-         */
-        const n = val => {
-            const ln = val.length;
-
-            const lhs = `(${ln > 0 ? "" : col.yellow}${val.length}${col.rst})`;
-            const rhs = `${ln > 0 ? col.green : col.yellow}${ln > 0 ? val.join(`${col.rst}, ${col.green}`) : "-"}${col.rst}`;
-            return `${lhs}:  ${rhs}`;
-        };
-
-        /**
-         * Decorates a singular value with colors and other stuff
-         * @param {number|string} val
-         */
-        const v = val => {
-            const valCol = typeof val === "number" ? (val > 0 ? col.green : col.yellow) : col.green;
-            const value = Array.isArray(val) && allOfType(val, "string") ? val.join(`${col.rst}, ${valCol}`) : val;
-
-            return `      ${valCol}${value}${col.rst}`;
-        };
-
-
         const { jokes, subm, http } = await getInfo("submissions");
 
 
@@ -71,7 +48,7 @@ async function run()
         const infoLine = `${col.blue}${settings.info.name}${col.rst}${additionalInfo}`;
         const infoLen = settings.info.name.length + additionalInfo.length - (col.cyan.length + col.rst.length);
 
-        const splash = `• ${getSplash("en")} •`;
+        const splash = `${getSplash("en")}`;
 
         let sepLine = "";
         for(let i = 0; i < Math.max(infoLen, splash.length) + 2; i++)
@@ -85,17 +62,38 @@ async function run()
             sepLine,
             ``,
             ``,
-            `${col.blue}Jokes:${col.rst}`,
-            `  Total amount:  ${v(jokes.totalAmt)}`,
-            `  Joke languages ${n(jokes.languages)}`,
+            ...makeInfoCategory("Jokes", [
+                {
+                    name: "Total amount",
+                    value: jokes.totalAmt,
+                },
+                {
+                    name: "Joke languages",
+                    value: jokes.languages,
+                },
+            ]),
             ``,
-            `${col.blue}Submissions:${col.rst}`,
-            `  Amount:   ${v(subm.amount)}`,
-            `  Languages ${n(subm.languages)}`,
+            ...makeInfoCategory("Submissions", [
+                {
+                    name: "Amount",
+                    value: subm.amount,
+                },
+                {
+                    name: "Languages",
+                    value: subm.languages,
+                },
+            ]),
             ``,
-            `${col.blue}HTTP Server:${col.rst}`,
-            `  BaseURL: ${v(http.baseUrl)}`,
-            `  Port:    ${v(http.port)}`,
+            ...makeInfoCategory("HTTP Server", [
+                {
+                    name: "BaseURL",
+                    value: http.baseUrl,
+                },
+                {
+                    name: "Port",
+                    value: http.port,
+                },
+            ]),
         ];
 
         process.stdout.write(`\n\n${lines.join("\n")}\n\n`);
@@ -107,6 +105,60 @@ async function run()
         console.log(`\n${col.red}Error while displaying info:${col.rst}${err instanceof Error ? `${err.message}\n${err.stack}` : `\n${err.toString()}`}\n`);
         exit(1);
     }
+}
+
+/**
+ * Creates an array of lines of an info category with its values (for nice formatting)
+ * @param {string} title
+ * @param {InfoCategoryValues[]} values
+ * @returns {string[]}
+ */
+function makeInfoCategory(title, values)
+{
+    /** Left hand side (names of the value lines) */
+    const rowsLhs = values.map(v => {
+        const len = Array.isArray(v.value) ? v.value.length : 0;
+        return Array.isArray(v.value) ? {
+            display: `${v.name} (${len === 0 ? col.yellow : ""}${len}${len === 0 ? col.rst : ""})`,
+            length: `${v.name} (${len})`.length,
+        } : {
+            display: v.name,
+            length: v.name.length,
+        }
+    });
+
+    /** @type {({ display: string, length: number })[]} */
+    const rowsLhsCopy = reserialize(rowsLhs); // Array.sort() modifies the reference so reserialization is needed
+
+    /** The length of the longest name of the value lines */
+    const longestLhs = rowsLhsCopy.sort((a, b) => {
+        return a.length < b.length ? 1 : -1;
+    })[0].length;
+
+    /** @type {string[]} Final rows of the value lines */
+    const rows = [];
+
+    // populate rows array
+    values.forEach((v, i) => {
+        const lhs = rowsLhs[i];
+
+        const valCol = typeof v.value === "number" ? (v.value > 0 ? col.green : col.yellow) : col.green;
+
+        const spAmt = longestLhs - lhs.length;
+
+        let space = "  ";
+        for(let i = 0; i < spAmt; i++)
+            space += " ";
+
+        const formattedVal = Array.isArray(v.value) ? `${col.green}${v.value.join(`${col.rst}, ${col.green}`)}${col.rst}` : v.value;
+
+        rows.push(`  • ${lhs.display}:${space}${valCol}${formattedVal}${col.rst}`);
+    });
+
+    return [
+        `${col.blue}${title}:${col.rst}`,
+        ...rows,
+    ];
 }
 
 /**
