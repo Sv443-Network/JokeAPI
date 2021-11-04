@@ -89,7 +89,9 @@ This section teaches you how to do it:
 6. Once the pull request is approved and merged, you can delete the source branch and your forked repo if you want to
     - **If it isn't**, please read the comments from the reviewer(s) and make the necessary changes
 
-<br><br>
-<br><br>
+<br><br><br><br>
 
 ### If you need any help, feel free to contact me through [Discord](https://dc.sv443.net) (fastest and easiest way) or [E-Mail](mailto:contact@sv443.net?subject=Questions%20about%20contributing%20to%20JokeAPI)
+
+<!-- So the anchors work better -->
+<br><br><br><br><br><br><br><br><br>
