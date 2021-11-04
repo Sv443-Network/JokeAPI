@@ -1,16 +1,23 @@
-const { unused, isEmpty, generateUUID, colors } = require("svcorelib");
+const { unused, isEmpty, generateUUID, colors, filesystem } = require("svcorelib");
 const fs = require("fs-extra");
 const clipboard = require("clipboardy");
+
 const settings = require("../settings");
 
 
-/** @typedef {import("../src/auth").TokenObj} TokenObj */
+/** @typedef {import("../src/types/auth").TokenObj} TokenObj */
 
 /**
  * @typedef {object} CLIArgs
  * @prop {number} amount The amount of tokens to generate - defaults to `1`
  * @prop {boolean} noCopy Whether to disable copying the token to clipboard
  */
+
+
+const { argv, exit } = process;
+const col = colors.fg;
+
+const noCopy = argv.includes("--no-copy") || argv.includes("-C");
 
 
 /**
@@ -29,7 +36,7 @@ async function addToken()
         {
             const tokens = generateTokens(args.amount);
 
-            console.log(`┌\n│ Adding token${tokens.length > 1 ? "s" : ""} to the registry file at '${settings.auth.tokenListFile}' ${typeof maxReqs === "number" ? `(request budget = ${maxReqs.toString()})` : "(default request budget)"}:\n│`);
+            console.log(`┌\n│ Adding token${tokens.length > 1 ? "s" : ""} to the file at '${settings.auth.tokenListFile}'${typeof maxReqs === "number" ? ` (request budget = ${maxReqs.toString()})` : /*" (default request budget)"*/ ""}…\n│`);
 
             await saveTokens(tokens, maxReqs);
 
@@ -42,27 +49,26 @@ async function addToken()
                 {
                     await clipboard.write(tokens[0]);
 
-                    process.stdout.write(`│ ${colors.fg.blue}Copied token to clipboard. To disable, use ${colors.fg.rst}npm run add-token -- -nc\n│\n`);
+                    process.stdout.write(`│ ${colors.fg.blue}Copied token to clipboard. To disable, use ${colors.fg.rst}jokeapi add-token -C\n│\n`);
                 }
                 catch(err)
                 {
-                    process.stdout.write(`│ ${colors.fg.yellow}(couldn't copy token to clipboard)${colors.rst}\n│\n`);
+                    process.stdout.write(`│ ${colors.fg.yellow}(couldn't copy token to clipboard${err instanceof Error ? `: ${col.rst}${err.message}` : ""})${colors.rst}\n│\n`);
                 }
             }
         }
 
-
         console.log(`│ Documentation reference: ${settings.info.docsURL}/#api-tokens`);
-
 
         process.stdout.write("└\n\n");
 
-        return process.exit(0);
+        return exit(0);
     }
     catch(err)
     {
-        console.error(`\n│ ${colors.fg.red}Error:${colors.rst} ${err.toString()}\n└\n`);
-        return process.exit(1);
+        const stack = `│ ${err.stack.split(/\n/g).join("\n│ ")}`;
+        console.error(`│\n│ ${colors.fg.red}Encountered ${err instanceof Error ? err.name : "Error"}:${colors.rst}\n${stack}\n└\n`);
+        return exit(1);
     }
 }
 
@@ -72,8 +78,6 @@ async function addToken()
  */
 function parseArgs()
 {
-    const noCopy = process.argv.map(v => v.toLowerCase()).includes("-nc");
-
     const amountInvalid = () => {
         return {
             noCopy,
@@ -127,19 +131,26 @@ function generateTokens(amount)
  * Saves a token to the local registry file
  * @param {TokenObj[]} tokens The tokens to save to the tokens registry file
  * @param {number|null} maxReqs The request budget of the tokens
- * @returns {Promise<void>}
+ * @returns {Promise<void, Error>}
  */
 function saveTokens(tokens, maxReqs)
 {
-    return new Promise(async res => {
+    return new Promise(async (res, rej) => {
         let oldFile = [];
-        if(fs.existsSync(settings.auth.tokenListFile))
+        try
         {
-            const fCont = (await fs.readFile(settings.auth.tokenListFile)).toString();
-            if(!isEmpty(fCont))
-                oldFile = JSON.parse(fCont);
-            else
-                oldFile = [];
+            if(await filesystem.exists(settings.auth.tokenListFile))
+            {
+                const fCont = (await fs.readFile(settings.auth.tokenListFile)).toString();
+                if(!isEmpty(fCont))
+                    oldFile = JSON.parse(fCont);
+                else
+                    oldFile = [];
+            }
+        }
+        catch(err)
+        {
+            return rej(err);
         }
 
         tokens.forEach((token, i) => {
