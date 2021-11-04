@@ -8,9 +8,9 @@ const debug = require("./debug");
 const settings = require("../settings");
 
 
-/** @typedef {import("./classes/FilterComponentEndpoint").FilterComponentName} FilterComponentName */
 /** @typedef {import("svcorelib").Stringifiable} Stringifiable */
 /** @typedef {import("../data/translations/endpoints.json")} EndpointsTrFile */
+/** @typedef {import("./classes/FilterComponentEndpoint").FilterComponentName} FilterComponentName */
 
 
 /** @type {import("../data/translations/general.json")} */

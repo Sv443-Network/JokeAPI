@@ -6,9 +6,8 @@ const settings = require("../settings");
 const col = scl.colors.fg;
 
 
-/**
- * @typedef {"yellow"|"green"|"red"|"cyan"|"magenta"} AccentColor
- */
+/** @typedef {import("./types/debug").AccentColor} AccentColor */
+
 
 /** @type {AccentColor[]} */
 const accentColors = ["yellow", "green", "red", "cyan", "magenta", "gray"];

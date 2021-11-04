@@ -19,3 +19,5 @@ export interface ValidationResult {
     /** An object describing all valid and invalid parameters - If set to `null`, the joke couldn't be parsed (invalid JSON) */
     jokeParams: JokeSubmissionParams;
 }
+
+export type FileFormat = "xml" | "yaml" | "json" | "txt";

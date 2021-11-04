@@ -23,7 +23,8 @@ scl.unused(http, analytics, tr);
 
 /** @typedef {parseJokes.SingleJoke|parseJokes.TwopartJoke} JokeSubmission */
 /** @typedef {import("./fileFormatConverter").FileFormat} FileFormat */
-/** @typedef {import("./analytics").AnalyticsSubmission} AnalyticsSubmission */
+/** @typedef {import("./types/analytics").AnalyticsObject} AnalyticsObject */
+/** @typedef {import("./types/analytics").Submission} AnalyticsSubmission */
 /** @typedef {import("./types/jokes").Joke} Joke */
 
 
@@ -33,7 +34,7 @@ scl.unused(http, analytics, tr);
  * @param {string|object} data
  * @param {string} fileFormat
  * @param {string} ip
- * @param {(analytics.AnalyticsDocsRequest|analytics.AnalyticsSuccessfulRequest|analytics.AnalyticsRateLimited|analytics.AnalyticsError|analytics.AnalyticsSubmission)} analyticsObject
+ * @param {AnalyticsObject} analyticsObject
  * @param {boolean} dryRun Set to true to not add the joke to the joke file after validating it
  * @param {string} lang API response langauge (not joke submission language) - defaults to `settings.languages.defaultLanguage`
  */
@@ -170,7 +171,7 @@ function getSubmissionFilePath(res, fileFormat, lang, ip, submissionLang, analyt
  * @param {JokeSubmission} submittedJoke
  * @param {string} fileFormat
  * @param {string} ip
- * @param {(analytics.AnalyticsDocsRequest|analytics.AnalyticsSuccessfulRequest|analytics.AnalyticsRateLimited|analytics.AnalyticsError|analytics.AnalyticsSubmission)} analyticsObject
+ * @param {AnalyticsObject} analyticsObject
  * @param {parseJokes.ValidationResult} validationResult
  * @param {string} [langCode]
  */

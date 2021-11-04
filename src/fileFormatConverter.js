@@ -12,14 +12,14 @@ const settings = require("../settings");
 
 
 /** @typedef {import("svcorelib").JSONCompatible} JSONCompatible */
+/** @typedef {import("./types/parseJokes").FileFormat} FileFormat */
 
-/** @typedef {"xml"|"yaml"|"json"|"txt"} FileFormat */
 
 /**
  * Converts a JSON-compatible object to a string representation of a XML, YAML, plain text or JSON object (as fallback) - based on the passed format string
  * @param {FileFormat} format Can be `xml`, `yaml` or `txt`, everything else will default to JSON
  * @param {JSONCompatible} jsonInput
- * @param {string} [lang] Used only for converting to`"txt`
+ * @param {string} [lang] Used only for converting to `txt`
  * @returns {string} String representation of the converted object
  */
 function auto(format, jsonInput, lang)

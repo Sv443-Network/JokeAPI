@@ -8,14 +8,9 @@ const logger = require("./logger");
 const resolveIP = require("./resolveIP");
 
 
-/**
- * @typedef {object} ListsObject
- * @prop {string[]} blacklist IP addresses that are permanently blocked from visiting and using JokeAPI
- * @prop {string[]} whitelist IP addresses that can bypass rate limiting
- * @prop {string[]} consoleBlacklist IP addresses that don't send console messages (usually used to reduce spam from uptime measuring services)
- */
+/** @typedef {import("./types/lists").ListsObj} ListsObj */
 
-/** @type {ListsObject|undefined} All lists and their values. Set to `undefined` until `init()` finishes. */
+/** @type {ListsObj} All lists and their values. Set to `undefined` until `init()` finishes. */
 let lists = undefined;
 
 /**

@@ -12,7 +12,7 @@ var langs = {};
 
 /**
  * Initializes the language module
- * @returns {Promise} Resolves with the amount of loaded languages
+ * @returns {Promise<number, (Error | string)>} Resolves with the amount of loaded languages
  */
 function init()
 {

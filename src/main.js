@@ -30,16 +30,8 @@ require("dotenv").config();
 
 const col = colors.fg;
 
-/**
- * @typedef {object} InitStage
- * @prop {string} name Name of this stage
- * @prop {Promise<(void | InitStageResult), (Error | string)>} fn Promise that initializes the module / runs this stage
- */
-
-/**
- * @typedef {object} InitStageResult
- * @prop {number} initTimeDeduction Amount of milliseconds to deduct from measured initialization time
- */
+/** @typedef {import("./types/main").InitStage} InitStage */
+/** @typedef {import("./types/main").InitStageResult} InitStageResult */
 
 
 /** Data that persists until JokeAPI is shut down */

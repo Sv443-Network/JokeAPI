@@ -3,9 +3,13 @@ const { isEmpty, colors } = require("svcorelib");
 
 const settings = require("../settings");
 
+
+/** @typedef {import("./types/debug").LoggerType} LoggerType */
+
+
 /**
  * Logs something to a file
- * @param {"error"|"ratelimit"|"fatal"} type The type of log
+ * @param {LoggerType} type The type of log
  * @param {string} content The content of the log
  * @param {boolean} timestamp Whether or not to include a timestamp
  */

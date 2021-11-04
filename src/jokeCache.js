@@ -9,13 +9,7 @@ const { sendQuery } = require("./sql");
 const settings = require("../settings");
 
 
-//#MARKER types
-
-/**
- * @typedef {object} ConnectionInfo
- * @prop {boolean} connected
- * @prop {string} info
- */
+/** @typedef {import("./types/jokeCache").ConnectionInfo} ConnectionInfo */
 
 //#MARKER other
 

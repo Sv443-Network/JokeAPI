@@ -3,12 +3,9 @@ const { randomItem } = require("svcorelib");
 
 const settings = require("../settings");
 
-/**
- * An object describing all splash texts, sorted under each's language code
- * @typedef {object} SplashesFile
- * @prop {string[]} de
- * @prop {string[]} en
- */
+
+/** @typedef {import("./types/splashes").SplashesFile} SplashesFile */
+
 
 /** @type {SplashesFile} */
 let splashes = {};
