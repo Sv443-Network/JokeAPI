@@ -1,5 +1,7 @@
-const scl = require("svcorelib");
 const v8 = require("v8");
+const scl = require("svcorelib");
+const { mapRange } = scl;
+const { createHash } = require("crypto");
 
 const logger = require("./logger");
 const parseJokes = require("./parseJokes");
@@ -7,9 +9,14 @@ const analytics = require("./analytics");
 const languages = require("./languages");
 const jokeCache = require("./jokeCache");
 const debug = require("./debug");
-const { getEnv } = require("./env");
+const { getEnv, getCommit, getProp } = require("./env");
 
 const settings = require("../settings");
+
+
+/** @typedef {import("./types/env").CommitInfo} CommitInfo */
+/** @typedef {import("./types/analytics").AnalyticsData} AnalyticsData */
+/** @typedef {import("./types/analytics").AnalyticsType} AnalyticsType */
 
 
 const col = scl.colors.fg;
@@ -17,7 +24,6 @@ const col = scl.colors.fg;
 const { argv } = process;
 
 const dashboardEnabled = (argv.includes("--dashboard") || argv.includes("-D")) ? true : settings.debug.dashboardEnabled;
-
 
 /** Data that persists until JokeAPI is stopped */
 const persistentData = {
@@ -27,18 +33,30 @@ const persistentData = {
     reqCounter: 0,
     /** Whether this is the first time the init message is being sent */
     firstInitMsg: true,
+    /** @type {CommitInfo} Current git commit */
+    curCommit: undefined,
 };
 
 
 /**
- * @typedef {object} AnalyticsData
- * @prop {string} ipAddress
- * @prop {string[]} urlPath
- * @prop {object} urlParameters
- * @prop {object} [submission] Only has to be used on type = "submission"
+ * Initializes the logRequest module
+ * @returns {Promise<void, Error>}
  */
+function init()
+{
+    return new Promise(async (res, rej) => {
+        try
+        {
+            persistentData.curCommit = await getCommit();
 
-/** @typedef {"success"|"docs"|"ratelimited"|"error"|"blacklisted"|"docsrecompiled"|"submission"} AnalyticsType */
+            return res();
+        }
+        catch(err)
+        {
+            return rej(err);
+        }
+    });
+}
 
 /**
  * Logs a request to the console and to the analytics database
@@ -224,12 +242,14 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
 
     const activityIndicator = getActivityIndicator(activityIndicatorState);
 
+    const curSha = persistentData.curCommit.shortHash;
 
-    let maxHeapText = dashboardEnabled ? ` (max: ${maxHeapColor}${persistentData.maxHeapUsage}%${col.rst})` : "";
+    const maxHeapText = dashboardEnabled ? ` (max: ${maxHeapColor}${persistentData.maxHeapUsage}%${col.rst})` : "";
 
     //#SECTION main message
     // stats
-    lines.push(`\n${activityIndicator}${col.blue}[${logger.getTimestamp()}] ${col.rst}- ${col.blue}${settings.info.name} v${settings.info.version}${col.rst} [${getEnv(true)}]\n`);
+    lines.push(`\n${activityIndicator}${col.blue}[${logger.getTimestamp()}] ${col.rst}- ${col.blue}${getProp("name", "prod")}${col.rst} [${getEnv(true)}]\n`);
+    lines.push(` ${brBlack}├─${col.rst} Version ${col.green}${settings.info.version}${col.rst} - Hash: ${hashToCol(curSha)}${curSha}${col.rst}\n`);
     lines.push(` ${brBlack}├─${col.rst} Registered and validated ${col.green}${parseJokes.jokeCount}${col.rst} jokes from ${col.green}${languages.jokeLangs().length}${col.rst} languages\n`);
     lines.push(` ${brBlack}├─${col.rst} Found filter components: ${col.green}${settings.jokes.possible.categories.length}${col.rst} categories, ${col.green}${settings.jokes.possible.flags.length}${col.rst} flags, ${col.green}${settings.jokes.possible.formats.length}${col.rst} formats\n`);
     if(analytics.connectionInfo && analytics.connectionInfo.connected)
@@ -255,8 +275,6 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
     // GDPR compliance notice
     if(!isGdprCompliant())
         lines.push(`${col.yellow}  • ${settings.info.name} is not compliant with the GDPR!${col.rst}\n`);
-
-    lines.push("\n");
 
     // lines.push(`${brBlack}[Colors: ${col.green}Success ${col.yellow}Info/Warning ${col.red}Error${brBlack}]${col.rst}\n`);
 
@@ -362,6 +380,31 @@ function getHeapColor(percentage)
 }
 
 /**
+ * Assigns a unique console color escape code to each input value (same value = same color each time)
+ * @param {string} input any value
+ * @returns {string} color escape code
+ */
+function hashToCol(input)
+{
+    const colMap = [ col.green, col.magenta, col.yellow, col.cyan, col.red, col.blue, col.rst ];
+
+    const hash = createHash("sha256");
+    hash.update(input.toString(), "utf-8");
+    const hex = hash.digest("hex");
+
+    const buf = Buffer.from(hex, "hex");
+
+    if(buf.length < 1)
+        throw new Error("Buffer has no contents");
+
+    const firstByte = buf[0];
+
+    const colIdx = Math.round(mapRange(firstByte, 0, 255, 0, (colMap.length - 1)));
+
+    return colMap[colIdx];
+}
+
+/**
  * Checks if JokeAPI is GDPR compliant
  * @returns {boolean}
  */
@@ -372,4 +415,5 @@ function isGdprCompliant()
 
 
 module.exports = logRequest;
+module.exports.init = init;
 module.exports.initMsg = initMsg;

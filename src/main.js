@@ -127,6 +127,10 @@ async function initAll()
         {
             name: "pm2 meter module",
             fn: meter.init,
+        },
+        {
+            name: "logRequest module",
+            fn: logRequest.init,
         }
     ];
 

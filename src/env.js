@@ -1,10 +1,11 @@
 const dotenv = require("dotenv");
-
 const { colors } = require("svcorelib");
+const { getLastCommit } = require("git-last-commit");
 
 const col = colors.fg;
 
 /** @typedef {import("./types/env").Env} Env */
+/** @typedef {import("./types/env").CommitInfo} CommitInfo */
 /** @typedef {import("./types/env").EnvDependentProp} EnvDependentProp */
 
 
@@ -69,12 +70,13 @@ function getEnv(colored = false)
 /**
  * Grabs an environment dependent property
  * @param {EnvDependentProp} prop
+ * @param {Env} [overrideEnv] Set to `prod` or `stage` to override the current env when resolving the property
  * @returns {any}
  * @throws Exits with code 1 if property
  */
-function getProp(prop)
+function getProp(prop, overrideEnv)
 {
-    const deplEnv = getEnv();
+    const deplEnv = ["stage", "prod"].includes(overrideEnv) ? overrideEnv : getEnv();
 
     try
     {
@@ -87,4 +89,31 @@ function getProp(prop)
 }
 
 
-module.exports = { init, getEnv, getProp };
+//#SECTION git
+
+/**
+ * Resolves with some info about the latest git commit on the current branch
+ * @returns {Promise<CommitInfo, Error>}
+ */
+function getCommit()
+{
+    return new Promise(async (res, rej) => {
+        try
+        {
+            getLastCommit((err, commit) => {
+                if(err)
+                    return rej(err instanceof Error ? err : new Error(err));
+
+                return res(commit);
+            });
+        }
+        catch(err)
+        {
+            const e = new Error(`Couldn't get commit info: ${err.message}`).stack += err.stack;
+            return rej(e);
+        }
+    });
+}
+
+
+module.exports = { init, getEnv, getProp, getCommit };

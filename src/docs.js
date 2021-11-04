@@ -14,11 +14,13 @@ const logRequest = require("./logRequest");
 const analytics = require("./analytics");
 const languages = require("./languages");
 const { getAllSplashes } = require("./splashes");
+const { getCommit } = require("./env");
 
 const settings = require("../settings");
 
 
 /** @typedef {import("./types/docs").EncodingName} EncodingName */
+/** @typedef {import("./types/env").CommitInfo} CommitInfo */
 
 
 /** Data that persists throughout the entire execution */
@@ -31,7 +33,10 @@ const persistentData = {
     brCompErrOnce: false,
     /** Tracks whether or not a docs compilation is the initial one or one triggered through the daemon */
     isInitialCompilation: true,
+    /** @type {CommitInfo} Current git commit */
+    curCommit: undefined,
 };
+
 
 /**
  * Initializes the documentation files
@@ -42,6 +47,8 @@ function init()
     return new Promise(async (resolve, reject) => {
         try
         {
+            persistentData.curCommit = await getCommit();
+
             persistentData.injectionCounter = 0;
             debug("Docs", "Starting daemon and recompiling documentation files...")
             startDaemon();
@@ -322,6 +329,7 @@ function inject(filePath)
                     "%#INSERT:DEFAULTLANGCODE#%":        settings.languages.defaultLanguage.toString(),
                     "%#INSERT:SPLASHESOBJ#%":            Buffer.from(JSON.stringify(getAllSplashes()), "utf8").toString("base64"),
                     "%#INSERT:CACHEMINJOKESAMOUNT#%":    (settings.jokes.maxAmount * settings.jokeCaching.poolSizeDivisor).toString(),
+                    "%#INSERT:COMMITSHA#%":              persistentData.curCommit.shortHash,
                 };
 
                 const checkMatch = (key, regex) => {

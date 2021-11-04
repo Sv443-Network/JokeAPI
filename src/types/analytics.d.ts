@@ -1,45 +1,33 @@
-/** Represents any object containing analytics data */
-export type AnalyticsObject = ISuccessfulRequest | IDocsRequest | IRateLimited | IErrored | ISubmission | ITokenIncluded;
+//#SECTION base
 
+export type AnalyticsType = "success" | "docs" | "ratelimited" | "error" | "blacklisted" | "docsrecompiled" | "submission";
 
-declare interface IBaseAnalyticsObj {
+export interface AnalyticsData {
+    ipAddress: string;
+    urlPath: string[];
+    urlParameters: object;
+}
+
+export interface BaseAnalyticsObj {
     type: string;
-    data: {
-        ipAddress: string;
-        urlPath: string[];
-        urlParameters: object;
-    }
+    data: AnalyticsData;
 }
 
+//#SECTION analytics types
 
-export interface ISuccessfulRequest implements Required<IBaseAnalyticsObj> {
+export interface SuccessfulRequest extends BaseAnalyticsObj {
     type: "SuccessfulRequest";
-    data: {
-        ipAddress: string;
-        urlPath: string[];
-        urlParameters: object;
-    }
 }
 
-export interface IDocsRequest implements Required<IBaseAnalyticsObj> {
+export interface DocsRequest extends BaseAnalyticsObj {
     type: "Docs";
-    data: {
-        ipAddress: string;
-        urlPath: string[];
-        urlParameters: object;
-    }
 }
 
-export interface IRateLimited implements Required<IBaseAnalyticsObj> {
+export interface RateLimited extends BaseAnalyticsObj {
     type: "RateLimited";
-    data: {
-        ipAddress: string;
-        urlPath: string[];
-        urlParameters: object;
-    }
 }
 
-export interface IErrored implements Required<IBaseAnalyticsObj> {
+export interface Errored extends BaseAnalyticsObj {
     type: "Error";
     data: {
         ipAddress: string;
@@ -49,7 +37,7 @@ export interface IErrored implements Required<IBaseAnalyticsObj> {
     }
 }
 
-export interface ISubmission implements Required<IBaseAnalyticsObj> {
+export interface Submission extends BaseAnalyticsObj {
     type: "JokeSubmission";
     data: {
         ipAddress: string;
@@ -59,11 +47,11 @@ export interface ISubmission implements Required<IBaseAnalyticsObj> {
     }
 }
 
-export interface ITokenIncluded implements Required<IBaseAnalyticsObj> {
+export interface TokenIncluded extends BaseAnalyticsObj {
     type: "AuthTokenIncluded";
-    data: {
-        ipAddress: string;
-        urlPath: string[];
-        urlParameters: object;
-    }
 }
+
+
+
+/** Represents any object containing analytics data */
+export type AnalyticsObject = SuccessfulRequest | DocsRequest | RateLimited | Errored | Submission | TokenIncluded;
