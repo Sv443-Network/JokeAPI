@@ -197,7 +197,7 @@ const settings = {
         rawDirPath: "./docs/raw/",                  // path to the raw documentation files directory - needs trailing slash
         daemonInterval: 2,                          // interval (in seconds) at which the daemon checks for changes in the documentation directory
         errorPagePath: "./docs/raw/errorPage.html", // path to the error page
-        codeFontFileName: "static/external/CascadiaCode_2108.26.ttf", // the name of the font file that is going to be used in code blocks - relative to the directory specified with the above property "dirPath"
+        codeFontFileName: "static/external/CascadiaCode_2110.31.ttf", // the name of the font file that is going to be used in code blocks - relative to the directory specified with the above property "dirPath"
         submissionForm: {
             dirPath: "./docs/raw/", // path to the submission form directory - needs trailing slash
             fileNames: {
