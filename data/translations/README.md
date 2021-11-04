@@ -4,7 +4,7 @@ These are the files:
 
 | Name | Purpose |
 | :-- | :-- |
-| [`endpoints.json`](./endpoints.json) | This file contains all endpoint translations that will be shown at [`/endpoints`](https://v2.jokeapi.dev/#endpoints-endpoint) |
+| [`endpoints.json`](./endpoints.json) | This file contains all endpoint translations that will be shown at [`/endpoints`](https://v2.jokeapi.dev/endpoints?lang=en) |
 | [`filterComponents.json`](./filterComponents.json) | Filter components (like joke category or type) store their translations in this file |
 | [`splashes.json`](./splashes.json) | This is where all splash texts are located |
 | [`general.json`](./general.json) | Contains all other translations scattered throughout the API |
