@@ -7,6 +7,7 @@ const col = colors.fg;
 /** @typedef {import("./types/env").Env} Env */
 /** @typedef {import("./types/env").CommitInfo} CommitInfo */
 /** @typedef {import("./types/env").EnvDependentProp} EnvDependentProp */
+/** @typedef {import("./types/env").EnvProps} EnvProps */
 
 
 /** All environment-dependent settings */
@@ -71,15 +72,15 @@ function getEnv(colored = false)
  * Grabs an environment dependent property
  * @param {EnvDependentProp} prop
  * @param {Env} [overrideEnv] Set to `prod` or `stage` to override the current env when resolving the property
- * @returns {any}
- * @throws Exits with code 1 if property
+ * @returns {EnvProps[prop]}
+ * @throws Exits with code 1 if property doesn't exist or the module couldn't be initialized
  */
 function getProp(prop, overrideEnv)
 {
-    const deplEnv = ["stage", "prod"].includes(overrideEnv) ? overrideEnv : getEnv();
-
     try
     {
+        const deplEnv = ["stage", "prod"].includes(overrideEnv) ? overrideEnv : getEnv();
+
         return envSettings[deplEnv][prop];
     }
     catch(err)
@@ -87,7 +88,6 @@ function getProp(prop, overrideEnv)
         throw new Error(`Couldn't read env-dependent property '${prop}'${!initialized ? " - env module couldn't be initialized" : ""}`);
     }
 }
-
 
 //#SECTION git
 

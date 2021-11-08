@@ -24,3 +24,12 @@ export interface CommitInfo {
     branch: string;
     tags: string[];
 }
+
+export interface EnvProps {
+    [key: string]: string | number | boolean;
+
+    name: string;
+    httpPort: number;
+    baseUrl: string;
+    debug: boolean;
+}
