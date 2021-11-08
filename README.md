@@ -52,6 +52,7 @@
 | [PoshBot.Joker](https://github.com/ToastIT-dev/PoshBot.Joker) | [ToastIT-dev](https://github.com/ToastIT-dev) |
 | [JokeAPI_ComputerCraft](https://github.com/Sv443/JokeAPI_ComputerCraft) | [Sv443](https://github.com/Sv443) |
 | [Dev Dad Jokes](https://github.com/jonathanbossenger/devdadjokes) | [Jonathan Bossenger](https://github.com/jonathanbossenger) |
+| [ElectraPoint](https://github.com/sournachos/ElectraPoint) | [sournachos](https://github.com/sournachos) |
 
 <br>
 
