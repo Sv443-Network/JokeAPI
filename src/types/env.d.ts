@@ -25,7 +25,8 @@ export interface CommitInfo {
     tags: string[];
 }
 
-export interface EnvProps {
+/** Environment dependent settings */
+export interface EnvSettings {
     [key: string]: string | number | boolean;
 
     name: string;

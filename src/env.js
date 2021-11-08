@@ -7,7 +7,7 @@ const col = colors.fg;
 /** @typedef {import("./types/env").Env} Env */
 /** @typedef {import("./types/env").CommitInfo} CommitInfo */
 /** @typedef {import("./types/env").EnvDependentProp} EnvDependentProp */
-/** @typedef {import("./types/env").EnvProps} EnvProps */
+/** @typedef {import("./types/env").EnvSettings} EnvSettings */
 
 
 /** All environment-dependent settings */
@@ -69,19 +69,29 @@ function getEnv(colored = false)
 }
 
 /**
+ * Checks if a passed value is a valid environment
+ * @param {any} env
+ * @returns {boolean}
+ */
+function isValidEnv(env)
+{
+    return ["stage", "prod"].includes(env);
+}
+
+/**
  * Grabs an environment dependent property
  * @param {EnvDependentProp} prop
  * @param {Env} [overrideEnv] Set to `prod` or `stage` to override the current env when resolving the property
- * @returns {EnvProps[prop]}
+ * @returns {EnvSettings[prop]}
  * @throws Exits with code 1 if property doesn't exist or the module couldn't be initialized
  */
 function getProp(prop, overrideEnv)
 {
     try
     {
-        const deplEnv = ["stage", "prod"].includes(overrideEnv) ? overrideEnv : getEnv();
+        const env = isValidEnv(overrideEnv) ? overrideEnv : getEnv();
 
-        return envSettings[deplEnv][prop];
+        return envSettings[env][prop];
     }
     catch(err)
     {
