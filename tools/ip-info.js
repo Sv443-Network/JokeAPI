@@ -2,19 +2,21 @@ const http = require("http");
 
 const { getClientIp } = require("request-ip");
 const scl = require("svcorelib");
+const { isIPv4 } = require("net");
 
 const { hashIP } = require("../src/resolveIP");
 const parseURL = require("../src/parseURL");
 
-const colors = [ scl.colors.fg.green, scl.colors.fg.blue, scl.colors.fg.yellow, scl.colors.fg.magenta, scl.colors.fg.cyan, scl.colors.fg.white, scl.colors.fg.red ];
+const { exit } = process;
 
+const cycleCols = [ scl.colors.fg.green, scl.colors.fg.blue, scl.colors.fg.yellow, scl.colors.fg.magenta, scl.colors.fg.cyan, scl.colors.fg.white, scl.colors.fg.red ];
 
-const colorCycle = process.argv.includes("--color-cycle") || process.argv.includes("-c");
+const colCycleEnabled = process.argv.includes("--color-cycle") || process.argv.includes("-c");
 
 
 const port = 8074;
 
-const padding = "    ";
+const padding = "  ";
 
 
 async function run()
@@ -30,22 +32,34 @@ async function run()
 
         let col = "";
 
-        if(colorCycle)
+        if(colCycleEnabled)
         {
             colorIdx++;
 
-            if(colorIdx == colors.length)
+            if(colorIdx == cycleCols.length)
                 colorIdx = 0;
 
-            col = colors[colorIdx];
+            col = cycleCols[colorIdx];
         }
 
-        let ipInfo = `> IP Info: \n`;
-        ipInfo += `${padding}URL:     /${url.pathArray.join("/")} \n`
-        ipInfo += `${padding}Method:  ${req.method} \n`;
-        ipInfo += `${padding}Raw IP:  ${rawIP} \n`;
-        ipInfo += `${padding}Hashed:  ${hashedIP} \n`;
-        ipInfo += `${padding}Time:    ${Date.now()} \n`
+        let ipInfo = "";
+
+        ipInfo += `Request info: \n`;
+        ipInfo += `${padding}URL:       /${url.pathArray.join("/")} \n`;
+        ipInfo += `${padding}Method:    ${req.method} \n`;
+        ipInfo += `${padding}UA:        ${req.headers["user-agent"] ?? "(none)"} \n`;
+
+        ipInfo += "\nIP info: \n";
+        ipInfo += `${padding}Raw IP:    ${rawIP} (${isIPv4(rawIP) ? "v4" : "v6"}) \n`;
+        ipInfo += `${padding}Hash 64:   ${hashedIP} \n`;
+        ipInfo += `${padding}Hash 16:   ${hashedIP.substr(0, 16)} \n`;
+        ipInfo += `${padding}Hash 8:    ${hashedIP.substr(0, 8)} \n`;
+        
+        ipInfo += "\nOther: \n";
+        ipInfo += `${padding}Date:      ${new Date().toLocaleDateString()} \n`;
+        ipInfo += `${padding}Time:      ${new Date().toLocaleTimeString()} \n`;
+        ipInfo += `${padding}Unix 13:   ${Date.now()} \n`;
+        ipInfo += `${padding}Unix 10:   ${Math.floor(Date.now() / 1000)} \n`;
 
         console.log(`${col}${ipInfo}${scl.colors.rst}\n`);
 
@@ -55,10 +69,10 @@ async function run()
         if(err)
         {
             console.error(`Error: ${err}`);
-            process.exit(1);
+            exit(1);
         }
         else
-            console.info(`Ready. Listening at http://127.0.0.1:${port}\n`)
+            console.info(`Ready. Listening at http://127.0.0.1:${port}\n`);
     });
 }
 
