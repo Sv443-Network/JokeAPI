@@ -1,10 +1,13 @@
-const { reserialize } = require("svcorelib");
-const mysql = require("mysql");
+const { format } = require("mysql");
 
 const settings = require("../settings");
 
 
-/** @type {mysql.QueryOptions} */
+/** @typedef {import("mysql").QueryOptions} QueryOptions */
+/** @typedef {import("mysql").Connection} Connection */
+
+
+/** @type {QueryOptions} */
 const queryOptions = {
     timeout: settings.sql.timeout
 };
@@ -12,7 +15,7 @@ const queryOptions = {
 
 /**
  * Sends a formatted SQL query using init()'s DB connection instance
- * @param {mysql.Connection} connection
+ * @param {Connection} connection
  * @param {string} query Prepared query (use ?? to denote table / column names and ? to denote values)
  * @param  {...any} [values] Rest parameter of values to insert into the query
  * @returns {Promise<object, string>}
@@ -27,10 +30,10 @@ function sendQuery(connection, query, ...values)
         values = values[0];
 
     return new Promise((res, rej) => {
-        /** @type {mysql.QueryOptions} */
+        /** @type {QueryOptions} */
         const opts = {
-            ...reserialize(queryOptions),
-            sql: mysql.format(query, values)
+            ...queryOptions,
+            sql: format(query, values),
         };
 
         connection.query(opts, (err, result) => {
