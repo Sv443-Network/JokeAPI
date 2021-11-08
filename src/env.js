@@ -31,11 +31,10 @@ let initialized = false;
 
 /**
  * Initializes the environment module
- * @param {boolean} [force] Set to true to force re-initialization
  */
-function init(force = false)
+function init()
 {
-    if(initialized && force !== true)
+    if(initialized)
         return;
 
     dotenv.config();

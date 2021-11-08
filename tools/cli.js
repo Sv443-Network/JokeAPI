@@ -5,7 +5,7 @@ const importFresh = require("import-fresh");
 const { colors, Errors } = require("svcorelib");
 const { resolve } = require("path");
 
-const { init: initEnv, getEnv } = require("../src/env");
+const { init: initEnv } = require("../src/env");
 
 const settings = require("../settings");
 
@@ -20,24 +20,6 @@ const col = colors.fg;
 const thisRootDir = resolve(__dirname, "../"); // if this file is moved, make sure to change this accordingly - second arg is relative to this file
 
 
-/** @type {Readonly<CLIBinariesObj>} */
-const binaries = Object.freeze({
-    stage: {
-        names: [
-            "japst",
-            "jokeapi-stage",
-        ],
-        path: resolve(process.env["STAGE_PATH"]),
-    },
-    prod: {
-        names: [
-            "japi",
-            "jokeapi",
-        ],
-        path: resolve(process.env["PROD_PATH"]),
-    }
-});
-
 
 //#SECTION run
 
@@ -49,17 +31,9 @@ async function run()
 
         const argv = prepareCLI();
 
-        const overrideDir = argv.env !== process.env.NODE_ENV ? binaries[argv.env].path : null;
-
-        const newDir = overrideDir ?? thisRootDir;
-
 
         // ensure cwd is correct if the binary is called in a global context
-        process.chdir(newDir);
-
-
-        // force reinit env if the directory changed
-        overrideDir != null && initEnv(true);
+        process.chdir(thisRootDir);
 
 
         /** @type {string|null} */
@@ -164,13 +138,6 @@ function prepareCLI()
 {
     //#SECTION general
     yargs.scriptName("jokeapi")
-        .option("env", {
-            alias: "e",
-            hidden: true,
-            type: "string",
-            choices: [ "stage", "prod" ],
-            default: "stage",
-        })
         .usage("Usage: $0 <command>")
         .version(`${settings.info.name} v${settings.info.version} - ${settings.info.projGitHub}`)
             .alias("v", "version")

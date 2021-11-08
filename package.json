@@ -27,13 +27,12 @@
     "changelog": "npm run generate-changelog",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect",
-    "link": "npm link"
+    "link": "npm link",
+    "cli": "node tools/cli"
   },
   "bin": {
-    "jokeapi": "tools/cli.js --env=prod",
-    "japi": "tools/cli.js --env=prod",
-    "jokeapi-stage": "tools/cli.js --env=stage",
-    "japst": "tools/cli.js --env=stage"
+    "jokeapi": "tools/cli.js",
+    "japi": "tools/cli.js"
   },
   "repository": {
     "type": "git",
