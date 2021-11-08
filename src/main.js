@@ -6,7 +6,6 @@
 
 const { filesystem, system, colors, ProgressBar } = require("svcorelib");
 const promiseAllSequential = require("promise-all-sequential");
-require("dotenv").config();
 
 const env = require("./env");
 const debug = require("./debug");
@@ -26,9 +25,10 @@ const splashes = require("./splashes");
 
 const settings = require("../settings");
 
-require("dotenv").config();
-
+const { exit } = process;
 const col = colors.fg;
+
+env.init();
 
 /** @typedef {import("./types/main").InitStage} InitStage */
 /** @typedef {import("./types/main").InitStageResult} InitStageResult */
@@ -50,8 +50,6 @@ settings.init.exitSignals.forEach(sig => process.on(sig, () => softExit(0)));
  */
 async function initAll()
 {
-    env.init();
-
     const initTimestamp = Date.now();
 
     try
@@ -163,16 +161,14 @@ async function initAll()
 
 /**
  * This function gets called when JokeAPI encounters an error while initializing.
- * Because the initialization phase is such a delicate and important process, JokeAPI shuts down if an error is encountered.
+ * Because the initialization phase is such an important process, JokeAPI exits with code 1 if an error is encountered.
  * @param {string} action 
  * @param {Error|string} err 
  */
 function initError(action, err)
 {
-    const errMsg = (err instanceof Error ? err.toString() : err) || "(No error message provided)";
-
-    console.log(`\n\n${col.red}JokeAPI encountered an error while ${action}:\n${errMsg.toString()}\n\n${colors.rst}`);
-    process.exit(1);
+    console.log(`\n\n${col.red}JokeAPI encountered an error while ${action}:${colors.rst}\n${err instanceof Error ? "" : err.toString()}\n${err instanceof Error ? `${err.stack}\n` : ""}\n`);
+    exit(1);
 }
 
 /**
@@ -190,12 +186,12 @@ async function softExit(code = 0)
 
         await analytics.endSqlConnection();
 
-        process.exit(code);
+        exit(code);
     }
     catch(err)
     {
         console.error(`Error in softExit: ${err}`);
-        process.exit(code);
+        exit(code);
     }
 }
 

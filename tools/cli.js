@@ -4,7 +4,8 @@ const yargs = require("yargs");
 const importFresh = require("import-fresh");
 const { colors, Errors } = require("svcorelib");
 const { resolve } = require("path");
-const dotenv = require("dotenv");
+
+const env = require("../src/env");
 
 const settings = require("../settings");
 
@@ -13,7 +14,7 @@ const col = colors.fg;
 
 
 /** Absolute path to JokeAPI's root directory */
-const rootDir = resolve(__dirname, "../"); // if this file is moved, make sure to change this accordingly
+const rootDir = resolve(__dirname, "../"); // if this file is moved, make sure to change this accordingly - second arg is relative to this file
 
 
 //#SECTION run
@@ -22,10 +23,10 @@ async function run()
 {    
     try
     {
+        env.init();
+    
         // ensure cwd is correct if the binary is called in a global context
         process.chdir(rootDir);
-
-        dotenv.config();
 
         const argv = prepareCLI();
 
@@ -202,7 +203,7 @@ function prepareCLI()
 
     yargs.wrap(Math.min(100, process.stdout.columns));
 
-    yargs.epilogue("For command-specific help and argument list use '$0 -h <command>'");
+    yargs.epilogue("For command-specific help and to view their arguments use '$0 -h <command>'");
 
     return yargs.argv;
 }

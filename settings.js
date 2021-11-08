@@ -28,8 +28,8 @@ const settings = {
         projGitHub: "https://github.com/Sv443/JokeAPI", // URL to the project's GitHub page
         version: packageJSON.version,                   // the version as a string
         versionInt: packageJSON.version.split(".").map(n=>parseInt(n)), // the version as a number array
-        docsURL: getProp("baseUrl"),   
-        /** Info about JokeAPI's author (hello 👀) */                 // the URL to the documentation of JokeAPI
+        docsURL: getProp("baseUrl"),                    // the URL to the documentation of JokeAPI
+        /** Info about JokeAPI's author (hello 👀) */
         author: {
             name: packageJSON.author.name,   // author name
             email: packageJSON.author.email, // author email
