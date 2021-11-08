@@ -1,5 +1,6 @@
 // This file contains all types needed by the CLI tools in this folder
 
+import { Env } from "../src/types/env";
 import { Joke, JokeSubmission } from "../src/types/jokes";
 import { LangCode } from "../src/types/languages";
 
@@ -95,4 +96,16 @@ export interface SubmissionInfoResult
 export interface InfoCategoryValues {
     name: string;
     value: string | number | string[] | number[];
+}
+
+//#MARKER CLI
+
+declare interface CLIBinEnvObj {
+    names: string[];
+    path: string;
+}
+
+export interface CLIBinariesObj {
+    stage: CLIBinEnvObj;
+    prod: CLIBinEnvObj;
 }

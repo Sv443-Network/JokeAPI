@@ -30,8 +30,10 @@
     "link": "npm link"
   },
   "bin": {
-    "jokeapi": "tools/cli.js",
-    "japi": "tools/cli.js"
+    "jokeapi": "tools/cli.js --env=prod",
+    "japi": "tools/cli.js --env=prod",
+    "jokeapi-stage": "tools/cli.js --env=stage",
+    "japst": "tools/cli.js --env=stage"
   },
   "repository": {
     "type": "git",
