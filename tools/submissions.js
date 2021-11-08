@@ -1,5 +1,7 @@
 /**
- * Enjoy this over-engineered pile of garbage that is actually pretty cool
+ * Goes through submissions and prompts the user what to do with them (add, delete or edit)  
+ *   
+ * - Enjoy this over-engineered pile of garbage that is actually pretty cool -
  * 
  * @author Sv443
  * @since 2.3.2
@@ -370,7 +372,7 @@ function editSubmission(sub)
                     name: "val",
                     initial: editedSub.joke[editProperty] || "",
                     validate: (val) => (!isEmpty(val) && val.length >= settings.jokes.submissions.minLength),
-                })).val;
+                })).val.trim();
                 break;
             case "type":
                 editedSub.joke.type = (await prompt({
@@ -583,8 +585,11 @@ function finishPrompts()
     exit(0);
 }
 
+
+//#MARKER internal stuff
+
 /**
- * Waits for the user to press a key, then resolves with it
+ * Waits for the user to press a key, then resolves with info about it
  * @param {string} [prompt]
  * @returns {Promise<Keypress, Error>}
  */
@@ -630,9 +635,6 @@ function getKey(prompt)
         }
     });
 }
-
-
-//#MARKER internal stuff
 
 /**
  * Reads all possible language codes and resolves with them
@@ -716,6 +718,27 @@ function readSubmissions(langCodes)
 }
 
 /**
+ * Trims leading and trailing whitespaces of a joke submission object (loses reference to input param)
+ * @param {JokeSubmission} subm
+ * @returns {JokeSubmission}
+ */
+function trimSubm(subm)
+{
+    /** @type {JokeSubmission} */
+    let retSubm = reserialize(subm);
+
+    if(retSubm.type === "single")
+        retSubm.joke = retSubm.joke.trim();
+    else if(retSubm.type === "twopart")
+    {
+        retSubm.setup = retSubm.setup.trim();
+        retSubm.delivery = retSubm.delivery.trim();
+    }
+
+    return retSubm;
+}
+
+/**
  * Reads all submissions of the specified language
  * @param {LangCodes} lang 
  * @returns {Promise<Submission[], Error>}
@@ -737,7 +760,7 @@ function getSubmissions(lang)
 
                 const file = await readFile(path);
                 /** @type {JokeSubmission} */
-                const joke = JSON.parse(file);
+                const joke = trimSubm(JSON.parse(file));
 
                 const valRes = parseJokes.validateSubmission(joke, lang);
                 let errors = null;
