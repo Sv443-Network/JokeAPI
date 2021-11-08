@@ -47,16 +47,22 @@ If you need help with these wrappers, you should contact their respective author
 <br><br>
 
 # Projects that use JokeAPI:
-| Project | Author | │ | Project | Author |
-| :-- | :-- | --- | :-- | :-- |
-| [dozens Advices](https://github.com/ZephyrVentum/dozens-Advices) | [ZephyrVentum](https://github.com/ZephyrVentum) | │ | [Shadow](https://github.com/QGIsK/Shadow) | [QGIsK](https://github.com/QGIsK) |
-| [Jokepy](https://github.com/aksty/Jokepy) | [aksty](https://github.com/aksty) | │ | [Dark1](https://github.com/whiteadi/Dark1) | [whiteadi](https://github.com/whiteadi) |
-| [Prejudice Networks](https://github.com/LiamTownsley/Prejudice-Networks) | [Liam Townsley](https://github.com/LiamTownsley) | │ | [https://irshad.ml/humour.html](https://irshad.ml/humour.html) | [draco-malfoy](https://github.com/draco-malfoy) |
-| [Random Joke Generator with Flutter](https://github.com/variousnabil/Random-Joke-Generator-with-Flutter) | [variousnabil](https://github.com/variousnabil) | │ | [comma](https://thatcopy.pw/comma) | [ThatCopy](https://github.com/ThatCopy) |
-| [Joke Teller](https://github.com/AlHood77/Joke_Teller) | [AlHood77](https://github.com/AlHood77) | │ | [Jokes plugin for Craft CMS 3.x](https://github.com/remcoov/jokes) | [remcoov](https://github.com/remcoov) |
-| [PoshBot.Joker](https://github.com/ToastIT-dev/PoshBot.Joker) | [ToastIT-dev](https://github.com/ToastIT-dev) | │ | [JokeAPI_ComputerCraft](https://github.com/Sv443/JokeAPI_ComputerCraft) | [Sv443](https://github.com/Sv443) |
-| [Dev Dad Jokes](https://github.com/jonathanbossenger/devdadjokes) | [Jonathan Bossenger](https://github.com/jonathanbossenger) | │ | [JokeAPI Webapp](https://github.com/HemantSachdeva/JokeApi) | [Hemant Sachdeva](https://hemantsachdeva.github.io) |
-| [JokeBot](https://github.com/QGIsK/JokeBot) | [QGIsK](https://github.com/QGIsK) | │ | &nbsp; | &nbsp; |
+
+| Project | Author |
+| :-- | :-- |
+| [dozens Advices](https://github.com/ZephyrVentum/dozens-Advices) | [ZephyrVentum](https://github.com/ZephyrVentum) |
+| [Jokepy](https://github.com/aksty/Jokepy) | [aksty](https://github.com/aksty) |
+| [Dark1](https://github.com/whiteadi/Dark1) | [whiteadi](https://github.com/whiteadi) |
+| [Prejudice Networks](https://github.com/LiamTownsley/Prejudice-Networks) | [Liam Townsley](https://github.com/LiamTownsley) |
+| [Random Joke Generator with Flutter](https://github.com/variousnabil/Random-Joke-Generator-with-Flutter) | [variousnabil](https://github.com/variousnabil) |
+| [comma](https://thatcopy.pw/comma) | [ThatCopy](https://github.com/ThatCopy) |
+| [Joke Teller](https://github.com/AlHood77/Joke_Teller) | [AlHood77](https://github.com/AlHood77) |
+| [Jokes plugin for Craft CMS 3.x](https://github.com/remcoov/jokes) | [remcoov](https://github.com/remcoov) |
+| [PoshBot.Joker](https://github.com/ToastIT-dev/PoshBot.Joker) | [ToastIT-dev](https://github.com/ToastIT-dev) |
+| [JokeAPI_ComputerCraft](https://github.com/Sv443/JokeAPI_ComputerCraft) | [Sv443](https://github.com/Sv443) |
+| [Dev Dad Jokes](https://github.com/jonathanbossenger/devdadjokes) | [Jonathan Bossenger](https://github.com/jonathanbossenger) |
+| [JokeBot](https://github.com/QGIsK/JokeBot) | [QGIsK](https://github.com/QGIsK) |
+| [JokeAPI Webapp](https://github.com/HemantSachdeva/JokeApi) | [Hemant Sachdeva](https://hemantsachdeva.github.io) |
 
 <!-- | [xyz](xyz) | [xyz](xyz) | │ | [xyz](xyz) | [xyz](xyz) | -->
 
