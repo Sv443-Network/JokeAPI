@@ -84,6 +84,7 @@ const settings = {
             rateLimiting: 5,                            // how many requests per timeframe should be allowed
             invalidCharRegex: /(?![\u0000-\u0fff])./gm, // eslint-disable-line no-control-regex
             minLength: 2,                               // minimum amount of characters needed in joke submissions (per property)
+            fuseThreshold: 0.4,                         // Fuse.js threshold for the submission script (default = 0.4, 0 = requires perfect match, 1 = everything matches)
         },
         jokesTemplateFile: "template.json",  // relative to "jokes.jokesFolderPath"
         /** Possible / available filter components of jokes */

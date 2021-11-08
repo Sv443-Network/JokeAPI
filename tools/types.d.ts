@@ -37,6 +37,14 @@ export interface Submission {
     lang: LangCode;
     /** Absolute path to the joke submission */
     path: string;
+    /** Gets set to a floating point number between 0 and 1 - the closer to 1, the more unique this submission is */
+    uniqueScore?: number;
+}
+
+export interface DuplicateSubmsFilterObj {
+    idx: number;
+    subm: Submission;
+    joke: JokeSubmission & { safe: boolean };
 }
 
 /** This object contains all submissions */

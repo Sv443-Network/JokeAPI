@@ -10,9 +10,10 @@
 
 const { readdir, readFile, writeFile, copyFile, rm, rmdir } = require("fs-extra");
 const { resolve, join } = require("path");
-const { colors, Errors, reserialize, filesystem, isEmpty } = require("svcorelib");
+const { colors, Errors, reserialize, filesystem, isEmpty, allOfType, mapRange } = require("svcorelib");
 const prompt = require("prompts");
 const promiseAllSeq = require("promise-all-sequential");
+const Fuse = require("fuse.js");
 
 const languages = require("../src/languages");
 const translate = require("../src/translate");
@@ -27,12 +28,13 @@ const { exit } = process;
 
 //#MARKER types & init
 
-/** @typedef {import("./types").AllSubmissions} AllSubmissions */
-/** @typedef {import("./types").Submission} Submission */
-/** @typedef {import("./types").ParsedFileName} ParsedFileName */
+/** @typedef {import("./types").DuplicateSubmsFilterObj} DuplicateSubmsFilterObj */
 /** @typedef {import("./types").ReadSubmissionsResult} ReadSubmissionsResult */
 /** @typedef {import("./types").LastEditedSubmission} LastEditedSubmission */
 /** @typedef {import("./types").ClientColorMapping} ClientColorMapping */
+/** @typedef {import("./types").AllSubmissions} AllSubmissions */
+/** @typedef {import("./types").ParsedFileName} ParsedFileName */
+/** @typedef {import("./types").Submission} Submission */
 /** @typedef {import("./types").Keypress} Keypress */
 /** @typedef {import("../src/types/jokes").JokeSubmission} JokeSubmission */
 /** @typedef {import("../src/types/jokes").JokeFlags} JokeFlags */
@@ -56,7 +58,7 @@ const clientColorList = [ col.green, col.magenta, col.yellow, col.cyan, col.red,
 
 
 const stats = {
-    /** How many submissions were acted upon */
+    /** How many submissions were acted on */
     submissionsActAmt: 0,
     /** How many submissions were saved */
     savedSubmissions: 0,
@@ -100,7 +102,7 @@ async function run()
     const langCodes = await getLangCodes();
     const { submissions, amount } = await readSubmissions(langCodes);
 
-    if(amount < 1)
+    if(amount === 0)
     {
         console.log("\nFound no submissions to go through. Exiting.\n");
         exit(0);
@@ -109,7 +111,7 @@ async function run()
     const langCount = Object.keys(submissions).length;
 
     const { proceed } = await prompt({
-        message: `There are ${amount} submissions of ${langCount} language${langCount > 1 ? "s" : ""}. Go through them now?`,
+        message: `There ${amount == 1 ? "is" : "are"} ${amount} submission${amount == 1 ? "" : "s"} of ${langCount} language${langCount == 1 ? "" : "s"}. Go through ${amount == 1 ? "it" : "them"} now?`,
         type: "confirm",
         name: "proceed"
     });
@@ -372,7 +374,7 @@ function editSubmission(sub)
                     name: "val",
                     initial: editedSub.joke[editProperty] || "",
                     validate: (val) => (!isEmpty(val) && val.length >= settings.jokes.submissions.minLength),
-                })).val.trim();
+                })).val;
                 break;
             case "type":
                 editedSub.joke.type = (await prompt({
@@ -515,11 +517,23 @@ function cleanupDir(path)
  */
 function printSubmission(sub)
 {
+    const formatScore = (score) => {
+        let sCol = col.green;
+
+        if(score < 0.75)
+            sCol = col.red;
+        else if(score < 0.85)
+            sCol = col.yellow;
+
+        return `${sCol}${Math.round(mapRange(score, 0, 1, 0, 100))}%${col.rst}`;
+    }
+
     const lines = [
         `Submission #${currentSub} by ${getClientCol(sub.client)}${sub.client}${col.rst}:`,
-        `  Category: ${sub.joke.category}`,
-        `  Type:     ${sub.joke.type}`,
-        `  Flags:    ${extractFlags(sub.joke)}`,
+        `  Category:   ${sub.joke.category}`,
+        `  Type:       ${sub.joke.type}`,
+        `  Flags:      ${extractFlags(sub.joke)}`,
+        `  Uniqueness: ${formatScore(sub.uniqueScore)}`,
         ``,
     ];
 
@@ -573,9 +587,9 @@ function finishPrompts()
 
     const statLines = [
         `Stats:`,
-        `  Submissions acted upon: ${stats.submissionsActAmt}`,
-        `  Submissions edited:     ${stats.editedSubmissions}`,
-        `  Submissions deleted:    ${stats.deletedSubmissions}`,
+        `  Submissions acted on: ${stats.submissionsActAmt}`,
+        `  Submissions edited:   ${stats.editedSubmissions}`,
+        `  Submissions deleted:  ${stats.deletedSubmissions}`,
     ];
 
     console.log(statLines.join("\n"));
@@ -728,11 +742,11 @@ function trimSubm(subm)
     let retSubm = reserialize(subm);
 
     if(retSubm.type === "single")
-        retSubm.joke = retSubm.joke.trim();
+        retSubm.joke = typeof retSubm.joke === "string" ? retSubm.joke.trim() : retSubm.joke;
     else if(retSubm.type === "twopart")
     {
-        retSubm.setup = retSubm.setup.trim();
-        retSubm.delivery = retSubm.delivery.trim();
+        retSubm.setup = typeof retSubm.setup === "string" ? retSubm.setup.trim() : retSubm.setup;
+        retSubm.delivery = typeof retSubm.delivery === "string" ? retSubm.delivery.trim() : retSubm.delivery;
     }
 
     return retSubm;
@@ -773,12 +787,82 @@ function getSubmissions(lang)
                 submissions.push({ client, joke, timestamp, errors, lang, path });
             }
 
-            return res(submissions);
+            return res(filterDuplicates(submissions));
         }
         catch(err)
         {
             return rej(new Error(`Error while reading submissions of language '${lang}': ${err}`));
         }
+    });
+}
+
+/**
+ * Removes duplicate submissions and adds a "duplicate score" to each submission
+ * @param {Submission[]} submissions
+ * @returns {Submission[]}
+ */
+function filterDuplicates(submissions)
+{
+    return new Promise(async (res) => {
+        if(!Array.isArray(submissions) || !allOfType(submissions, "object"))
+            throw new TypeError(`Submissions parameter is not an array of objects`);
+
+        /** @type {Submission[]} */
+        const retSubms = [];
+
+        for await(const subm of submissions)
+        {
+            const { joke } = subm;
+
+            const fuseProps = {
+                includeScore: true,
+                shouldSort: true,
+                threshold: settings.jokes.submissions.fuseThreshold,
+            };
+
+            const fuses = [];
+
+            if(joke.type === "single")
+            {
+                fuses.push({
+                    fuse: new Fuse(retSubms, { ...fuseProps, keys: [ "joke.joke" ] }),
+                    jokeText: joke.joke,
+                });
+            }
+            else
+            {
+                fuses.push({
+                    fuse: new Fuse(retSubms, { ...fuseProps, keys: [ "joke.setup" ] }),
+                    jokeText: joke.setup,
+                });
+
+                fuses.push({
+                    fuse: new Fuse(retSubms, { ...fuseProps, keys: [ "joke.delivery" ] }),
+                    jokeText: joke.delivery,
+                });
+            }
+
+            const scores = [];
+
+            fuses.forEach(fuseObj => {
+                const { fuse, jokeText } = fuseObj;
+
+                const matches = fuse.search(jokeText);
+
+                if(matches[0])
+                    scores.push(matches[0].score);
+            });
+
+            /** 0.0 = exact duplicate, 1.0 = unique */
+            const uniqueScore = scores.length > 0 ? scores.reduce((ac, cu) => ac + cu, 0) / scores.length : 1.0;
+
+            if(uniqueScore > 0.55)
+                retSubms.push({ ...subm, uniqueScore });
+            else
+                await deleteSubmission(subm);
+        }
+
+        return res(retSubms);
     });
 }
 

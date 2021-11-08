@@ -368,9 +368,9 @@ class FilteredJoke
 
                 // #SECTION iterate over jokes & check for matching parameters
                 jokesArray.forEach(joke => {
-                    // IMPORTANT: only use synchronous code in here or refactor to use for of loop!
                     // iterate over each joke, reading all set filters and thereby checking if it suits the request
                     // to deny a joke from being served, just return from this callback function
+                    // IMPORTANT: only use synchronous code in here or refactor to use a "for await of / in" loop!
 
                     // short circuit if an error was encountered
                     if(isErrored)
