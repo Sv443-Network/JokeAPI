@@ -80,6 +80,37 @@
             },
             "safe": true,
             "id": 4
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "Sólo hay 10 tipos de personas en este mundo, las que entienden binario y las que no.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 5
+        },
+        {
+            "category": "Programming",
+            "type": "twopart",
+            "setup": "¿Por qué C consigue todas las chicas y Java no tiene ninguna?",
+            "delivery": "Porque C no las trata como objetos.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 6
         }
     ]
 }
