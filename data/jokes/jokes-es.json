@@ -97,21 +97,6 @@
             "id": 5
         },
         {
-            "category": "Programming",
-            "type": "single",
-            "joke": "Sólo hay 10 tipos de personas en este mundo, las que entienden binario y las que no.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "safe": true,
-            "id": 6
-        },
-        {
             "category": "Misc",
             "type": "twopart",
             "setup": "Que le dice un perro a su amo...",
@@ -125,7 +110,37 @@
                 "explicit": false
             },
             "safe": true,
+            "id": 6
+        },
+        {
+            "category": "Misc",
+            "type": "single",
+            "joke": "El otro dia estaba comiendo con mi amigo judio y me tire un pedo, no entiendo porque se enfadó tanto, como si un gas hubiera matado alguna vez a alguin.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": true,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": false,
             "id": 7
+        },
+        {
+            "category": "Programming",
+            "type": "single",
+            "joke": "Sólo hay 10 tipos de personas en este mundo, las que entienden binario y las que no.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 8
         },
         {
             "category": "Programming",
@@ -141,21 +156,6 @@
                 "explicit": false
             },
             "safe": true,
-            "id": 8
-        },
-        {
-            "category": "Misc",
-            "type": "single",
-            "joke": "El otro dia estaba comiendo con mi amigo judio y me tire un pedo, no entiendo porque se enfadó tanto, como si un gas hubiera matado alguna vez a alguin.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": false
-            },
-            "safe": false,
             "id": 9
         }
     ]
