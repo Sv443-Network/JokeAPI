@@ -39,22 +39,9 @@ const settings = {
         privacyPolicyUrl: "https://sv443.net/privacypolicy/en",
         contribGuideUrl: "https://github.com/Sv443/JokeAPI/blob/master/.github/Contributing.md#readme",
     },
-    /** Settings for the API wrapping, powered by my package "node-wrap" */
-    wrapper: {
-        mainFilePath: "./src/main.js",          // main script file
-        skipWrapping: true,                     // whether or not to skip the wrapping through node-wrap (set to true because I'm using pm2 now)
-        /** node-wrap internal settings object */
-        wrapperSettings: {
-            console: true,                      // whether Node-Wrap should log to the console
-            crashTimeout: 2000,                 // timeout (in ms) until the process should be restarted after a crash
-            logFile: "./data/logs/wrapper.log", // Node-Wrap log file
-            logTimestamp: true,                 // whether to add a timestamp to the log
-            restartOnCrash: true,               // whether to restart the process after a crash
-            restartTimeout: 0,                  // timeout (in ms) until the process should be started again after a restart has been requested
-        },
-    },
     /** Everything regarding JokeAPI's initialization */
     init: {
+        mainFilePath: "./src/main.js",
         initDirs: [ // directories that should be generated if they don't exist - paths relative to root of project - doesn't necessarily need trailing slash
             "./data/logs",
             "./data/submissions",
@@ -87,8 +74,7 @@ const settings = {
             fuseThreshold: 0.4,                          // Fuse.js threshold for the submission script (default = 0.4, 0 = requires perfect match, 1 = everything matches)
             cache: {
                 location: "./data/submissionCache.json", // Submission cache file location
-                // maxSize: 16000000,    // max size in bytes (default = 16000000 / 16 MB)
-                maxSize: 69,    // max size in bytes (default = 16000000 / 16 MB)
+                maxSize: 16000000,    // max size in bytes (default = 16000000 / 16 MB)
                 maxAge: 4380,         // max age of the entry in hours (default = 4380 / 6 months)^,
                 clearRatio: 0.1,      // floating point number between 0 and 1 of how many of the cache entries should be cleared when the max props above are reached
             },
@@ -155,12 +141,9 @@ const settings = {
         allowCORS: true,           // whether or not to allow Cross Origin Resource Sharing
         rateLimiting: 100,         // amount of allowed requests per below defined timeframe
         timeFrame: 60,             // timeframe in seconds
-        urlPathOffset: 0,          // example: "/jokeapi/info" with an offset of 1 will only start parsing the path beginning at "info" - an Apache reverse proxy will do this automatically though
         maxPayloadSize: 5120,      // max size (in bytes) that will be accepted in a PUT request - if payload exceeds this size, it will abort with status 413
         maxUrlLength: 250,         // max amount of characters of the URL - if the URL is longer than this, the request will abort with status 414
-        disableCache: true,        // whether or not to disable the cache - default: true (setting to false may prevent the users from getting new jokes)
         infoHeaders: true,         // whether or not to add an informational header about JokeAPI to each request
-        reverseProxy: true,        // whether or not JokeAPI gets its requests from a reverse proxy
         startupTimeout: 15,        // in seconds, timeout after which startup fails if the HTTP server couldn't start up (blocked port, etc.)
         submissionNoDataTimeout: 5000, // in milliseconds, timeout after which a submission request times out if no data was transmitted
         ipSanitization: {          // used to sanitize IP addresses so they can be used in file paths
@@ -214,7 +197,7 @@ const settings = {
                 css: "../static/submit.css", // name of the CSS file of the submission form - relative to the parameter "documentation.submissionForm.dirPath"
             },
         },
-        staticCacheAge: 86400, // in ms - after how much time a client browser should delete and re-fetch the cached static content
+        staticCacheAge: 86400, // after how much time a client browser should delete and re-fetch the cached static content
     },
     /** Everything regarding endpoints */
     endpoints: {
@@ -257,8 +240,6 @@ const settings = {
     auth: {
         tokenListFile: "./data/auth/tokens.json", // path to the token list file
         tokenListFolder: "./data/auth",           // path to the auth folder
-        tokenHeaderName: "authorization",         // the name of the token header (lower case)
-        tokenValidHeader: "Token-Valid",          // the name of the token validity response header (normal case, not lower case)
         daemonInterval: 20,                       // after how many seconds the auth tokens should be refreshed
     },
     /** Settings regarding languages */

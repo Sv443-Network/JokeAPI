@@ -26,6 +26,7 @@ scl.unused(http, analytics, tr);
 /** @typedef {import("./types/analytics").AnalyticsObject} AnalyticsObject */
 /** @typedef {import("./types/analytics").Submission} AnalyticsSubmission */
 /** @typedef {import("./types/jokes").Joke} Joke */
+/** @typedef {import("./types/jokes").JokeSubmission} Submission */
 
 
 /**
@@ -48,7 +49,22 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun, lang
         if(dryRun !== true)
             dryRun = false;
 
-        const submission = typeof data === "string" ? JSON.parse(data) : data;
+        const getSubmission = () => {
+            /** @type {Submission} */
+            let sub = typeof data === "string" ? JSON.parse(data) : data;
+
+            if(sub.type === "single")
+                sub.joke = sub.joke.normalize("NFC");
+            else if(sub.type === "twopart")
+            {
+                sub.setup = sub.setup.normalize("NFC");
+                sub.delivery = sub.delivery.normalize("NFC");
+            }
+
+            return sub;
+        }
+
+        const submission = getSubmission();
 
         const submissionLang = (submission.lang || settings.languages.defaultLanguage).toString().toLowerCase();
 

@@ -67,7 +67,7 @@ class Joke extends Endpoint {
 
 
         //#SECTION category validation
-        let category = (url[settings.httpServer.urlPathOffset + 1]|| "(empty)").toLowerCase() || "";
+        let category = (url[1]|| "(empty)").toLowerCase() || "";
 
         let includesSplitChar = false;
         settings.jokes.splitChars.forEach(splC => {

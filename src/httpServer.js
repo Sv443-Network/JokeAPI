@@ -432,12 +432,9 @@ async function incomingRequest(req, res, httpMetrics)
             }
 
             // Disable caching now that the request is not a docs request
-            if(settings.httpServer.disableCache)
-            {
-                res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate, no-transform");
-                res.setHeader("Pragma", "no-cache");
-                res.setHeader("Expires", "0");
-            }
+            res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate, no-transform");
+            res.setHeader("Pragma", "no-cache");
+            res.setHeader("Expires", "0");
 
             // serve favicon:
             if(!isEmpty(parsedURL.pathArray) && parsedURL.pathArray[0] == "favicon.ico")

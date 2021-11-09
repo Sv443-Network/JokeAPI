@@ -13,7 +13,6 @@
 
 const importFresh = require("import-fresh");
 const { randomItem, system, colors } = require("svcorelib");
-const wrap = require("node-wrap");
 
 const settings = require("./settings");
 
@@ -29,23 +28,17 @@ function initJokeAPI()
 
     const inDebugger = system.inDebugger();
 
-    if(!inDebugger && !settings.wrapper.skipWrapping)
-    {
-        // the debugger and child processes don't get along together so only wrap JokeAPI if the debugger is not active:
-        wrap(settings.wrapper.mainFilePath, settings.wrapper.wrapperSettings);
-        return;
-    }
-    else if(inDebugger)
+    if(inDebugger)
     {
         // debugger sometimes loses track when requiring uncached, so use the default require instead
-        require(settings.wrapper.mainFilePath);
+        require(settings.init.mainFilePath);
         return;
     }
     else
     {
         // load in main script file, which is the entrypoint to and initializer of everything in JokeAPI
         // importFresh to make sure Node always re-fetches this file instead of loading from cache
-        importFresh(settings.wrapper.mainFilePath);
+        importFresh(settings.init.mainFilePath);
         return;
     }
 }

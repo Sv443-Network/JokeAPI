@@ -69,7 +69,7 @@ function authByHeader(req, res)
         let isAuthorized = false;
         let requestersToken = "";
 
-        const authHeader = (req.headers && req.headers[settings.auth.tokenHeaderName]) ? req.headers[settings.auth.tokenHeaderName].toString() : null;
+        const authHeader = (req.headers && req.headers["authorization"]) ? req.headers["authorization"].toString() : null;
 
         if(req.headers && typeof authHeader === "string")
         {
@@ -93,7 +93,7 @@ function authByHeader(req, res)
             }
 
             if(res instanceof ServerResponse)
-                res.setHeader(settings.auth.tokenValidHeader, (isAuthorized ? "1" : "0"));
+                res.setHeader("Token-Valid", (isAuthorized ? "1" : "0"));
         }
 
         return {
