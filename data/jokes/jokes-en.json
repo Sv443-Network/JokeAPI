@@ -5148,6 +5148,198 @@
             },
             "safe": true,
             "id": 326
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "How many tickles does it take to make an octopus laugh?",
+            "delivery": "Ten tickles.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 327
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "What concert costs just 45 cents?",
+            "delivery": "50 Cent featuring Nickelback!",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": false,
+            "id": 328
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Why did the math book look so sad?",
+            "delivery": "Because of all of its problems!",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 329
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "What do you call cheese that isn't yours?",
+            "delivery": "Nacho cheese.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 330
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "How does a penguin build its house?",
+            "delivery": "Igloos it together.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 331
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Why did the scarecrow win an award?",
+            "delivery": "Because he was outstanding in his field.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 332
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Did you hear about the guy who invented the knock-knock joke?",
+            "delivery": "He won the 'no-bell' prize.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 333
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "Why did god make black people smell?",
+            "delivery": "So blind people could hate them too.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": true,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": false,
+            "id": 334
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "Why does everyone think that all black people are fast?",
+            "delivery": "Because the slow ones are already in jail.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": true,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": false,
+            "id": 335
+        },
+        {
+            "category": "Misc",
+            "type": "twopart",
+            "setup": "I heard that those dogs had some pups.",
+            "delivery": "Guess they really tied the knot.",
+            "flags": {
+                "nsfw": true,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": true
+            },
+            "safe": false,
+            "id": 336
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "I saw a kid crying so I asked him where his parents were",
+            "delivery": "God I love working at an orphanage",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": false,
+            "id": 337
+        },
+        {
+            "category": "Dark",
+            "type": "twopart",
+            "setup": "What do you call the military of a country run by disabled people",
+            "delivery": "Special forces",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": false,
+            "id": 338
         }
     ]
 }
