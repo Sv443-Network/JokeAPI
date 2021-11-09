@@ -215,6 +215,8 @@ function init()
                 debug("HTTP", `Port ${settings.httpServer.port} ${colors.fg.red}is busy${colors.rst}`, "red");
                 return reject(`TCP port ${settings.httpServer.port} is busy. Either kill the process using it or set the port in "settings.js" to a different value.`);
             }
+        }).catch(err => {
+            return reject(err);
         });
     });
 }

@@ -25,7 +25,7 @@ module.exports.connectionInfo = {
 
 /**
  * Initializes the joke cache module and instantiates the `cache` instance.
- * @returns {Promise<undefined, string>}
+ * @returns {Promise<undefined, (string | Error)>}
  */
 function init()
 {
@@ -79,7 +79,10 @@ function init()
                 if(err)
                 {
                     debug("JokeCache", `Error while connecting to DB: ${err}`);
-                    return pRej(err);
+
+                    const rejErr = new Error(`Couldn't establish DB connection`);
+                    rejErr.stack = `${rejErr.message}\n${err.stack}`;
+                    return pRej(rejErr);
                 }
                 else
                 {

@@ -52,6 +52,8 @@ async function initAll()
 {
     const initTimestamp = Date.now();
 
+    let currentStage = "Ensure Directories";
+
     try
     {
         // ensure the directory structure JokeAPI requires exists (some dirs are in the .gitignore)
@@ -124,7 +126,10 @@ async function initAll()
         }
     ];
 
-    initStages.forEach(stage => initPromises.push(stage.fn));
+    initStages.forEach(stage => initPromises.push(() => {
+        currentStage = stage.name;
+        return stage.fn();
+    }));
 
     // create progress bar if the settings and debugger state allow it
     const pb = (!persistentData.debuggerActive && !settings.debug.progressBarDisabled) ? new ProgressBar(initStages.length, `Initializing ${initStages[0].name}`) : undefined;
@@ -152,7 +157,7 @@ async function initAll()
     }
     catch(err)
     {
-        initError("initializing", err);
+        initError(`initializing ${currentStage}`, err);
     }
 }
 
