@@ -19,6 +19,7 @@ const languages = require("../src/languages");
 const translate = require("../src/translate");
 const parseJokes = require("../src/parseJokes");
 const { reformatJoke } = require("../src/jokeSubmission");
+const { strToCol } = require("../src/logRequest");
 
 const settings = require("../settings");
 
@@ -31,7 +32,6 @@ const { exit } = process;
 /** @typedef {import("./types").DuplicateSubmsFilterObj} DuplicateSubmsFilterObj */
 /** @typedef {import("./types").ReadSubmissionsResult} ReadSubmissionsResult */
 /** @typedef {import("./types").LastEditedSubmission} LastEditedSubmission */
-/** @typedef {import("./types").ClientColorMapping} ClientColorMapping */
 /** @typedef {import("./types").AllSubmissions} AllSubmissions */
 /** @typedef {import("./types").ParsedFileName} ParsedFileName */
 /** @typedef {import("./types").Submission} Submission */
@@ -48,13 +48,6 @@ let lastSubmissionType;
 let currentSub;
 /** @type {boolean} */
 let lastKeyInvalid = false;
-
-
-/** @type {ClientColorMapping} Client color mapping for assigning temporary colors to the same client IP hashes */
-const clientColors = {};
-/** Current index of the client color mapping */
-let clientColIdx = 0;
-const clientColorList = [ col.green, col.magenta, col.yellow, col.cyan, col.red, col.blue, col.rst ];
 
 
 const stats = {
@@ -85,13 +78,6 @@ async function run()
     catch(err)
     {
         throw new Error(`Error while initializing dependency modules: ${err}`);
-    }
-
-    
-    for(let i = 0; i < clientColorList.length; i++)
-    {
-        const curCol = clientColorList[i];
-        clientColors[curCol] = [];
     }
 
 
@@ -529,11 +515,11 @@ function printSubmission(sub)
     }
 
     const lines = [
-        `Submission #${currentSub} by ${getClientCol(sub.client)}${sub.client}${col.rst}:`,
+        `Submission #${currentSub} by ${strToCol(sub.client)}${sub.client}${col.rst}:`,
         `  Category:   ${sub.joke.category}`,
         `  Type:       ${sub.joke.type}`,
         `  Flags:      ${extractFlags(sub.joke)}`,
-        `  Uniqueness: ${formatScore(sub.uniqueScore)}`,
+        `  Uniqueness: sub=${formatScore(sub.uniqueScore)} int=${col.green}69%${col.rst}`,
         ``,
     ];
 
@@ -942,31 +928,6 @@ function saveSubmission(sub)
             return rej(new Error(`Error while adding submission: ${err}`));
         }
     });
-}
-
-/**
- * Gets the color of the passed client
- * @param {string} client
- * @returns {string}
- */
-function getClientCol(client)
-{
-    for(const curCol in clientColorList)
-    {
-        if(Array.isArray(clientColors[curCol]) && clientColors[curCol].includes(client))
-            return curCol;
-    }
-
-    if(clientColIdx > clientColorList.length - 1)
-        clientColIdx = 0;
-
-    const clientCol = clientColorList[clientColIdx];
-
-    clientColors[clientCol].push(client);
-
-    clientColIdx++;
-
-    return clientCol;
 }
 
 

@@ -433,3 +433,4 @@ function isGdprCompliant()
 module.exports = logRequest;
 module.exports.init = init;
 module.exports.initMsg = initMsg;
+module.exports.strToCol = strToCol;

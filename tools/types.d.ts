@@ -72,10 +72,6 @@ export interface ReadSubmissionsResult {
 
 export type LastEditedSubmission = "accepted_safe" | "accepted_unsafe" | "edited" | "deleted";
 
-export interface ClientColorMapping {
-    [/**Color code*/ key: string]: /**Client IP hashes*/ string[];
-}
-
 //#MARKER add-joke
 
 export type AddJoke = Joke & { formatVersion: number, lang: LangCode, safe: boolean };
