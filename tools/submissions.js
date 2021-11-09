@@ -46,6 +46,8 @@ const { exit } = process;
 let lastSubmissionType;
 /** @type {number} */
 let currentSub;
+/** @type {number} */
+let totalSubs = 0;
 /** @type {boolean} */
 let lastKeyInvalid = false;
 
@@ -93,6 +95,8 @@ async function run()
         console.log("\nFound no submissions to go through. Exiting.\n");
         exit(0);
     }
+
+    totalSubs = amount;
 
     const langCount = Object.keys(submissions).length;
 
@@ -161,10 +165,10 @@ function actSubmission(sub)
                 lastSubmText = `(Last submission was accepted ${col.green}safe${col.rst})`;
                 break;
             case "accepted_unsafe":
-                lastSubmText = `(Last submission was accepted ${col.yellow}unsafe${col.rst})`;
+                lastSubmText = `(Last submission was accepted ${col.magenta}unsafe${col.rst})`;
                 break;
             case "edited":
-                lastSubmText = `(Last submission was ${col.magenta}edited${col.rst})`;
+                lastSubmText = `(Last submission was ${col.yellow}edited${col.rst})`;
                 break;
             case "deleted":
                 lastSubmText = `(Last submission was ${col.red}deleted${col.rst})`;
@@ -180,19 +184,41 @@ function actSubmission(sub)
             /** @type {null|Submission} The submission to be added to the local jokes */
             let finalSub = null;
 
-            const key = await getKey(`\n${col.blue}Choose action:${col.rst} Accept ${col.green}[S]${col.rst}afe • Accept ${col.magenta}[U]${col.rst}nsafe • ${col.yellow}[E]${col.rst}dit • ${col.red}[D]${col.rst}elete`);
+
+            let catDependent = "";
+            if(sub.joke.category === "Dark")
+                catDependent = `${col.magenta}[A]${col.rst}ccept ${col.magenta}[U]${col.rst}nsafe`;
+            else
+                catDependent = `Accept ${col.green}[S]${col.rst}afe • Accept ${col.magenta}[U]${col.rst}nsafe`;
+
+            const key = await getKey(`\n${col.blue}Choose action:${col.rst} ${catDependent} • ${col.yellow}[E]${col.rst}dit • ${col.red}[D]${col.rst}elete`);
+
+
+            const invalidKey = async () => {
+                lastKeyInvalid = true;
+                return await actSubmission(sub);
+            };
+
 
             let safe = false;
 
             switch(key.name)
             {
             case "s": // add safe
+                if(sub.joke.category === "Dark")
+                    return await invalidKey();
+
                 safe = true;
                 lastKeyInvalid = false;
                 lastSubmissionType = "accepted_safe";
                 finalSub = reserialize(sub);
                 currentSub++;
                 break;
+            case "a": // add unsafe (if category=Dark)
+                if(sub.joke.category !== "Dark")
+                    return await invalidKey();
+
+                // else falls through
             case "u": // add unsafe
                 lastKeyInvalid = false;
                 lastSubmissionType = "accepted_unsafe";
@@ -211,9 +237,8 @@ function actSubmission(sub)
                 await deleteSubmission(sub);
                 currentSub++;
                 return res();
-            default: // invalid key
-                lastKeyInvalid = true;
-                return await actSubmission(sub);
+            default:
+                return await invalidKey();
             }
 
             if(finalSub && lastSubmissionType != "edited")
@@ -222,6 +247,9 @@ function actSubmission(sub)
             // if not deleted in editSubmission()
             if(finalSub !== null)
                 await saveSubmission(finalSub);
+
+            if(lastKeyInvalid)
+                return await invalidKey();
 
             return res();
         }
@@ -528,16 +556,16 @@ function printSubmission(sub)
     const formatScore = (score) => {
         let sCol = col.green;
 
-        if(score < 0.75)
+        if(score < 0.65)
             sCol = col.red;
-        else if(score < 0.85)
+        else if(score < 0.75)
             sCol = col.yellow;
 
         return `${sCol}${Math.round(mapRange(score, 0, 1, 0, 100))}%${col.rst}`;
     }
 
     const lines = [
-        `Submission #${currentSub} by ${strToCol(sub.client)}${sub.client}${col.rst}:`,
+        `Submission ${currentSub}/${totalSubs} from ${strToCol(sub.client)}${sub.client}${col.rst}`,
         `  Category:   ${sub.joke.category}`,
         `  Type:       ${sub.joke.type}`,
         `  Flags:      ${extractFlags(sub.joke)}`,
