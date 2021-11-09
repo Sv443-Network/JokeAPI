@@ -636,7 +636,7 @@ function printSubmission(sub)
     }
 
     const lines = [
-        `Submission ${currentSub}/${totalSubs} from ${strToCol(sub.client)}${sub.client}${col.rst}`,
+        `Submission ${currentSub}/${totalSubs} from ${strToCol(sub.client)} ${sub.client} ${col.rst}`,
         `  Category:   ${sub.joke.category}`,
         `  Type:       ${sub.joke.type}`,
         `  Flags:      ${extractFlags(sub.joke)}`,

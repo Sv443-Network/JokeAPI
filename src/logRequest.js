@@ -250,7 +250,7 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
     //#SECTION main message
     // stats
     lines.push(`${activityIndicator}${col.blue}[${logger.getTimestamp()}]${col.rst} • ${col.blue}${getProp("name", "prod")}${col.rst} [${getEnv(true)}]\n`);
-    lines.push(` ${brBlack}├─${col.rst} Version ${col.green}${settings.info.version}${col.rst} @ ${strToCol(curSha)}${curSha}${col.rst}\n`);
+    lines.push(` ${brBlack}├─${col.rst} Version ${col.green}${settings.info.version}${col.rst} at ${strToCol(curSha)} ${curSha} ${col.rst}\n`);
     lines.push(` ${brBlack}├─${col.rst} Registered and validated ${col.green}${parseJokes.jokeCount}${col.rst} jokes from ${col.green}${languages.jokeLangs().length}${col.rst} languages\n`);
     lines.push(` ${brBlack}├─${col.rst} Found filter components: ${col.green}${settings.jokes.possible.categories.length}${col.rst} categories, ${col.green}${settings.jokes.possible.flags.length}${col.rst} flags, ${col.green}${settings.jokes.possible.formats.length}${col.rst} formats\n`);
     if(analytics.connectionInfo && analytics.connectionInfo.connected)
