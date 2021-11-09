@@ -188,21 +188,25 @@ function actSubmission(sub)
             {
             case "s": // add safe
                 safe = true;
+                lastKeyInvalid = false;
                 lastSubmissionType = "accepted_safe";
                 finalSub = reserialize(sub);
                 currentSub++;
                 break;
             case "u": // add unsafe
+                lastKeyInvalid = false;
                 lastSubmissionType = "accepted_unsafe";
                 finalSub = reserialize(sub);
                 currentSub++;
                 break;
             case "e": // edit
+                lastKeyInvalid = false;
                 lastSubmissionType = "edited";
                 finalSub = await editSubmission(sub);
                 currentSub++;
                 break;
             case "d": // delete
+                lastKeyInvalid = false;
                 lastSubmissionType = "deleted";
                 await deleteSubmission(sub);
                 currentSub++;
@@ -315,6 +319,10 @@ function editSubmission(sub)
                     value: "safe",
                 },
                 {
+                    title: `Language (${editedSub.lang})`,
+                    value: "lang",
+                },
+                {
                     title: `${col.green}[Submit]${col.rst}`,
                     value: "submit",
                 },
@@ -413,6 +421,20 @@ function editSubmission(sub)
                     name: "safe",
                 })).safe;
                 break;
+            case "lang":
+            {
+                const defaultLang = settings.languages.defaultLanguage;
+                const newLang = (await prompt({
+                    type: "text",
+                    message: "Enter joke language",
+                    initial: languages.isValidLang(editedSub.lang, defaultLang) ? editedSub.lang : defaultLang,
+                    name: "lang",
+                    validate: (val) => languages.isValidLang(val, defaultLang),
+                })).lang;
+
+                editedSub.lang = newLang;
+                break;
+            }
             case "submit":
                 return trySubmit(editedSub);
             case "delete":
@@ -886,6 +908,12 @@ function saveSubmission(sub)
     return new Promise(async (res, rej) => {
         try
         {
+            if(!languages.isValidLang(sub.lang))
+                sub.lang = settings.languages.defaultLanguage;
+
+            if(typeof sub.joke.lang === "string")
+                sub.joke.lang = sub.lang;
+
             stats.savedSubmissions++;
             stats.submissionsActAmt++;
 
