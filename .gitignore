@@ -25,6 +25,7 @@ docs/compiled
 
 # Joke submissions:
 data/submissions
+data/submissionCache.json
 
 # Auth Tokens:
 data/auth/tokens.json

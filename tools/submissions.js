@@ -10,7 +10,7 @@
 
 const { readdir, readFile, writeFile, copyFile, rm, rmdir } = require("fs-extra");
 const { resolve, join } = require("path");
-const { colors, Errors, reserialize, filesystem, isEmpty, allOfType, mapRange } = require("svcorelib");
+const { colors, Errors, reserialize, filesystem, isEmpty, allOfType, mapRange, unused } = require("svcorelib");
 const prompt = require("prompts");
 const promiseAllSeq = require("promise-all-sequential");
 const Fuse = require("fuse.js");
@@ -20,6 +20,8 @@ const translate = require("../src/translate");
 const parseJokes = require("../src/parseJokes");
 const { reformatJoke } = require("../src/jokeSubmission");
 const { strToCol } = require("../src/logRequest");
+const submissionCache = require("./lib/submissionCache");
+const { addEntry, getEntries, clearOldEntries } = submissionCache;
 
 const settings = require("../settings");
 
@@ -36,6 +38,7 @@ const { exit } = process;
 /** @typedef {import("./types").ParsedFileName} ParsedFileName */
 /** @typedef {import("./types").Submission} Submission */
 /** @typedef {import("./types").Keypress} Keypress */
+/** @typedef {import("./lib/types").CacheEntry} CacheEntry */
 /** @typedef {import("../src/types/jokes").JokeSubmission} JokeSubmission */
 /** @typedef {import("../src/types/jokes").JokeFlags} JokeFlags */
 /** @typedef {import("../src/types/jokes").JokesFile} JokesFile */
@@ -71,24 +74,71 @@ async function run()
 {
     try
     {
+        /** @type {NodeJS.Signals[]} */
+        const signals = [ "SIGTERM", "SIGINT" ];
+
+        signals.forEach(sig => process.on(sig, shutdownRequested));
+    }
+    catch(err)
+    {
+        throw new Error(`Couldn't hook shutdown signals: ${err}`);
+    }
+
+    try
+    {
         await languages.init();
 
         await translate.init();
 
         await parseJokes.init();
+
+        await submissionCache.init();
+
+        await clearOldEntries();
+
+        //#DEBUG
+        // setInterval(async () => {
+        // await addEntry({
+        //     client: "abcdef",
+        //     errors: [],
+        //     joke: {
+        //         formatVersion: 3,
+        //         category: "Misc",
+        //         type: "twopart",
+        //         setup: "A horse walks into a bar...",
+        //         delivery: "test",
+        //         flags: {
+        //             nsfw: true,
+        //             religious: false,
+        //             political: true,
+        //             racist: false,
+        //             sexist: false,
+        //             explicit: false
+        //         },
+        //         safe: false,
+        //     },
+        //     lang: "en",
+        //     path: resolve("./data/submissions/en/submission_xy.json"),
+        //     timestamp: Date.now(),
+        //     uniqueScore: 0.69,
+        // }, "deleted");
+        // }, 100);
+        // return;
     }
     catch(err)
     {
-        throw new Error(`Error while initializing dependency modules: ${err}`);
+        throw new Error(`Couldn't initialize dependency modules: ${err}`);
     }
 
 
     lastSubmissionType = undefined;
     currentSub = 1;
 
+    const cache = await getEntries();
+
     /** @type {LangCodes} */
     const langCodes = await getLangCodes();
-    const { submissions, amount } = await readSubmissions(langCodes);
+    const { submissions, amount } = await readSubmissions(langCodes, cache);
 
     if(amount === 0)
     {
@@ -107,7 +157,7 @@ async function run()
     });
 
     if(proceed)
-        return promptSubmissions(submissions);
+        return promptSubmissions(submissions, cache);
     else
     {
         console.log("Exiting.");
@@ -115,14 +165,28 @@ async function run()
     }
 }
 
+/**
+ * Called when a shutdown was requested
+ * @param {number} [code=0]
+ */
+async function shutdownRequested(code = 0)
+{
+    await clearOldEntries();
+
+    code = parseInt(code);
+
+    exit(isNaN(code) ? 0 : code);
+}
+
 
 //#MARKER prompts
 
 /**
  * Goes through all submissions, prompting about what to do with them
- * @param {AllSubmissions} allSubmissions
+ * @param {AllSubmissions} allSubmissions An object of all submissions
+ * @param {CacheEntry[]} cache Current submission cache
  */
-async function promptSubmissions(allSubmissions)
+async function promptSubmissions(allSubmissions, cache)
 {
     const langs = Object.keys(allSubmissions);
 
@@ -132,7 +196,7 @@ async function promptSubmissions(allSubmissions)
         const submissions = allSubmissions[lang];
 
         /** @type {(() => Promise)[]} */
-        const proms = submissions.map((sub) => (() => actSubmission(sub)));
+        const proms = submissions.map((sub) => (() => actSubmission(sub, cache)));
 
         await promiseAllSeq(proms);
 
@@ -149,10 +213,13 @@ async function promptSubmissions(allSubmissions)
 /**
  * Prompts the user to act on a submission
  * @param {Submission} sub
+ * @param {CacheEntry[]} cache Current submission cache
  * @returns {Promise<void, Error>}
  */
-function actSubmission(sub)
+function actSubmission(sub, cache)
 {
+    unused(cache);
+
     return new Promise(async (res, rej) => {
         try
         {
@@ -212,6 +279,7 @@ function actSubmission(sub)
                 lastKeyInvalid = false;
                 lastSubmissionType = "accepted_safe";
                 finalSub = reserialize(sub);
+                await addEntry(finalSub, "added");
                 currentSub++;
                 break;
             case "a": // add unsafe (if category=Dark)
@@ -223,18 +291,21 @@ function actSubmission(sub)
                 lastKeyInvalid = false;
                 lastSubmissionType = "accepted_unsafe";
                 finalSub = reserialize(sub);
+                await addEntry(finalSub, "added");
                 currentSub++;
                 break;
             case "e": // edit
                 lastKeyInvalid = false;
                 lastSubmissionType = "edited";
                 finalSub = await editSubmission(sub);
+                await addEntry(finalSub, "added");
                 currentSub++;
                 break;
             case "d": // delete
                 lastKeyInvalid = false;
                 lastSubmissionType = "deleted";
                 await deleteSubmission(sub);
+                await addEntry(sub, "deleted");
                 currentSub++;
                 return res();
             default:
@@ -617,7 +688,7 @@ function extractFlags(joke)
 /**
  * Called when all submissions have been gone through
  */
-function finishPrompts()
+async function finishPrompts()
 {
     console.log("\nFinished going through submissions.\n");
 
@@ -710,9 +781,10 @@ function getLangCodes()
 /**
  * Reads all submissions and resolves with them
  * @param {LangCodes} langCodes
+ * @param {CacheEntry[]} cache Current submission cache
  * @returns {Promise<ReadSubmissionsResult, Error>}
  */
-function readSubmissions(langCodes)
+function readSubmissions(langCodes, cache)
 {
     /** @type {AllSubmissions} */
     const allSubmissions = {};
@@ -742,7 +814,7 @@ function readSubmissions(langCodes)
                     return;
 
                 readPromises.push(new Promise(async readRes => {
-                    const subm = await getSubmissions(langCode);
+                    const subm = await getSubmissions(langCode, cache);
 
                     if(subm.length > 0)
                         allSubmissions[langCode] = subm;
@@ -790,10 +862,11 @@ function trimSubm(subm)
 
 /**
  * Reads all submissions of the specified language
- * @param {LangCodes} lang 
+ * @param {LangCodes} lang
+ * @param {CacheEntry[]} cache Current submission cache 
  * @returns {Promise<Submission[], Error>}
  */
-function getSubmissions(lang)
+function getSubmissions(lang, cache)
 {
     return new Promise(async (res, rej) => {
         /** @type {Submission[]} */
@@ -823,7 +896,7 @@ function getSubmissions(lang)
                 submissions.push({ client, joke, timestamp, errors, lang, path });
             }
 
-            return res(filterDuplicates(submissions));
+            return res(filterDuplicates(submissions, cache));
         }
         catch(err)
         {
@@ -835,16 +908,20 @@ function getSubmissions(lang)
 /**
  * Removes duplicate submissions and adds a "duplicate score" to each submission
  * @param {Submission[]} submissions
+ * @param {CacheEntry[]} cache Current submission caches
  * @returns {Submission[]}
  */
-function filterDuplicates(submissions)
+function filterDuplicates(submissions, cache)
 {
     return new Promise(async (res) => {
         if(!Array.isArray(submissions) || !allOfType(submissions, "object"))
             throw new TypeError(`Submissions parameter is not an array of objects`);
 
         /** @type {Submission[]} */
-        const retSubms = [];
+        const fuseList = [];
+
+        // TODO:
+        langs.forEach(lang => fuseList.concat(cache[lang].map(entry => entry.sub)));
 
         for await(const subm of submissions)
         {
@@ -861,19 +938,19 @@ function filterDuplicates(submissions)
             if(joke.type === "single")
             {
                 fuses.push({
-                    fuse: new Fuse(retSubms, { ...fuseProps, keys: [ "joke.joke" ] }),
+                    fuse: new Fuse(fuseList, { ...fuseProps, keys: [ "joke.joke" ] }),
                     jokeText: joke.joke,
                 });
             }
             else
             {
                 fuses.push({
-                    fuse: new Fuse(retSubms, { ...fuseProps, keys: [ "joke.setup" ] }),
+                    fuse: new Fuse(fuseList, { ...fuseProps, keys: [ "joke.setup" ] }),
                     jokeText: joke.setup,
                 });
 
                 fuses.push({
-                    fuse: new Fuse(retSubms, { ...fuseProps, keys: [ "joke.delivery" ] }),
+                    fuse: new Fuse(fuseList, { ...fuseProps, keys: [ "joke.delivery" ] }),
                     jokeText: joke.delivery,
                 });
             }
@@ -893,12 +970,12 @@ function filterDuplicates(submissions)
             const uniqueScore = scores.length > 0 ? scores.reduce((ac, cu) => ac + cu, 0) / scores.length : 1.0;
 
             if(uniqueScore > 0.55)
-                retSubms.push({ ...subm, uniqueScore });
+                fuseList.push({ ...subm, uniqueScore });
             else
                 await deleteSubmission(subm);
         }
 
-        return res(retSubms);
+        return res(fuseList);
     });
 }
 

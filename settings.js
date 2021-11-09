@@ -80,11 +80,18 @@ const settings = {
         jokeSubmissionURL: `${getProp("baseUrl")}#submit`, // joke submission url
         jokeSubmissionPath: "./data/submissions/",         // path to a directory where joke submissions should be saved to - needs trailing slash
         submissions: {
-            timeFrame: 60,                              // time frame of submission rate limiter (in seconds)
-            rateLimiting: 5,                            // how many requests per timeframe should be allowed
-            invalidCharRegex: /(?![\u0000-\u0fff])./gm, // eslint-disable-line no-control-regex
-            minLength: 2,                               // minimum amount of characters needed in joke submissions (per property)
-            fuseThreshold: 0.4,                         // Fuse.js threshold for the submission script (default = 0.4, 0 = requires perfect match, 1 = everything matches)
+            timeFrame: 60,                               // time frame of submission rate limiter (in seconds)
+            rateLimiting: 5,                             // how many requests per timeframe should be allowed
+            invalidCharRegex: /(?![\u0000-\u0fff])./gm,  // eslint-disable-line no-control-regex
+            minLength: 2,                                // minimum amount of characters needed in joke submissions (per property)
+            fuseThreshold: 0.4,                          // Fuse.js threshold for the submission script (default = 0.4, 0 = requires perfect match, 1 = everything matches)
+            cache: {
+                location: "./data/submissionCache.json", // Submission cache file location
+                // maxSize: 16000000,    // max size in bytes (default = 16000000 / 16 MB)
+                maxSize: 69,    // max size in bytes (default = 16000000 / 16 MB)
+                maxAge: 4380,         // max age of the entry in hours (default = 4380 / 6 months)^,
+                clearRatio: 0.1,      // floating point number between 0 and 1 of how many of the cache entries should be cleared when the max props above are reached
+            },
         },
         jokesTemplateFile: "template.json",  // relative to "jokes.jokesFolderPath"
         /** Possible / available filter components of jokes */
