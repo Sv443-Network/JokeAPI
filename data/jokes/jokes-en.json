@@ -5036,6 +5036,118 @@
             },
             "safe": true,
             "id": 319
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "When does a joke become a \"dad joke\"?",
+            "delivery": "When it becomes apparent.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 320
+        },
+        {
+            "category": "Misc",
+            "type": "twopart",
+            "setup": "What is different about priests and acne?",
+            "delivery": "Acne waits until you're 13 to come on your face.",
+            "flags": {
+                "nsfw": true,
+                "religious": true,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": true
+            },
+            "safe": false,
+            "id": 321
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "How do you get a squirrel to like you?",
+            "delivery": "Act like a nut.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 322
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Why don't eggs tell jokes?",
+            "delivery": "They'd crack each other up.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 323
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "I don't trust stairs.",
+            "delivery": "They're always up to something.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 324
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "Why couldn't the bicycle stand up by itself?",
+            "delivery": "It was two tired.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 325
+        },
+        {
+            "category": "Pun",
+            "type": "twopart",
+            "setup": "This graveyard looks overcrowded.",
+            "delivery": "People must be dying to get in.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "safe": true,
+            "id": 326
         }
     ]
 }
