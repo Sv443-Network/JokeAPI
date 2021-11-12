@@ -5,7 +5,7 @@ const importFresh = require("import-fresh");
 const { colors, Errors } = require("svcorelib");
 const { resolve } = require("path");
 
-const { init: initEnv } = require("../src/env");
+const env = require("../src/env");
 
 const settings = require("../settings");
 
@@ -27,7 +27,7 @@ async function run()
 {    
     try
     {
-        initEnv();
+        env.init();
 
         const argv = prepareCLI();
 
