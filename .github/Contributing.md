@@ -18,8 +18,9 @@ To submit it through code, you can make use of the ["submit" endpoint.](https://
 If you instead want to edit a joke yourself, you can find them in the `jokes-xy.json` files in [`data/jokes/`](../data/jokes/)  
 To submit your changes, create a pull request. Also make sure to follow the [code contribution instructions.](#submitting-code)  
   
-If you want a joke to be edited or deleted, please submit a new issue [here.](https://github.com/Sv443/JokeAPI/issues/new?assignees=Sv443&labels=reported+joke&template=3_report_a_joke.md&title=)  
+If you want a joke to be edited or deleted, please submit a new issue [here.](https://github.com/Sv443/JokeAPI/issues/new?assignees=Sv443&labels=joke+edit&template=3_edit_a_joke.md)  
 Keep in mind, though, that I will not remove jokes based on opinions as that would defeat the API's main purpose, to provide jokes for everyone's taste.  
+<!-- TODO: provide source of dark jokes, since this is fully transparent and open source software -->
 
 <br><br>
 
