@@ -22,15 +22,15 @@ test.js
 docs/documentation.html
 docs/compiled
 
+# Dark jokes (GitHub TOS):
+data/jokes/dark/
+
 # Joke submissions:
 data/submissions
-data/submissions/**
-data/submissions/*/**
-data/submissions/*/*.json
 
 # Auth Tokens:
 data/tokens.json
 data/auth/tokens.json
 
 # Other potentially sensitive information:
-data/lists/*.json
+data/lists/ipBlacklist.json
