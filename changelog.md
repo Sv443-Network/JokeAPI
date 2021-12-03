@@ -1,4 +1,4 @@
-# JokeAPI Changelog (Version 2.3.2)
+# JokeAPI Changelog (Version 2.3.3)
 
 <br><br><br>
 
@@ -11,7 +11,13 @@
 
 <br><br><br>
 
-## [CURRENT: 2.3.2] - Joke update
+## [2.3.3] - (PR #TODO:)
+- Moved dark jokes off the repository, permanent solution is still pending
+
+
+<br><br><br>
+
+## [2.3.2] - Joke update ([pull request #341](https://github.com/Sv443/JokeAPI/pull/341))
 - Added new jokes
 - Rewrote the submission script to make it much more streamlined ([issue #340](https://github.com/Sv443/JokeAPI/issues/340))
 - Rewrote the add-joke script so it's easier for me to use

@@ -1,6 +1,6 @@
 =====================
   JokeAPI Changelog
-  - Version 2.3.2 -
+  - Version 2.3.3 -
 =====================
 
 
@@ -11,7 +11,11 @@
     - Serve docs with nginx to speed up page load times (issue #118)
 
 
-[CURRENT: 2.3.2] - Joke update
+[2.3.3] - (PR #TODO:)
+    - Moved dark jokes off the repository, permanent solution is still pending
+
+
+[2.3.2] - Joke update (PR #341)
     - Added new jokes
     - Rewrote the submission script to make it much more streamlined (issue #340)
     - Rewrote the add-joke script so it's easier for me to use
