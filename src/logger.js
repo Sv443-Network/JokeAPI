@@ -1,14 +1,44 @@
-const fs = require("fs-extra");
+const { readdir, appendFile, writeFile, stat } = require("fs-extra");
+const { filesystem } = require("svcorelib");
+const { join } = require("path");
 const jsl = require("svjsl");
 const settings = require("../settings");
 
+
+/** Max size of files in bytes */
+const maxSize = 1000 * 1000 * 50;
+
+
+async function init()
+{
+    // run file size check on startup, then once a day
+    await checkFileSize();
+    setInterval(() => checkFileSize(), 1000 * 60 * 60 * 24);
+}
+
+async function checkFileSize()
+{
+    const files = await readdir(settings.errors.errorLogDir);
+
+    for await(const file of files)
+    {
+        const path = join(settings.errors.errorLogDir, file);
+
+        const { isFile, size } = await stat(path);
+
+        if(isFile() && size > maxSize)
+            await writeFile(path, "");
+    }
+}
+
 /**
  * Logs something to a file
- * @param {("error"|"ratelimit"|"fatal")} type The type of log
+ * @param {"error"|"ratelimit"|"fatal"} type The type of log
  * @param {String} content The content of the log
  * @param {Boolean} timestamp Whether or not to include a timestamp
  */
-const logger = (type, content, timestamp) => {
+async function logger(type, content, timestamp)
+{
     try
     {
         timestamp = jsl.isEmpty(timestamp) || typeof timestamp != "boolean" ? true: timestamp;
@@ -18,15 +48,15 @@ const logger = (type, content, timestamp) => {
 
         switch(type)
         {
-            case "error":
-            case "ratelimit":
-            case "fatal":
-                errorType = type;
-                errorContent = content;
+        case "error":
+        case "ratelimit":
+        case "fatal":
+            errorType = type;
+            errorContent = content;
             break;
-            default:
-                errorType = "fatal";
-                errorContent = `Error while logging - wrong type ${type} specified.\nContent of the error: ${content}`;
+        default:
+            errorType = "fatal";
+            errorContent = `Error while logging - wrong type ${type} specified.\nContent of the error: ${content}`;
             break;
         }
 
@@ -39,17 +69,17 @@ const logger = (type, content, timestamp) => {
 
         let logFileName = `${settings.errors.errorLogDir}${errorType}.log`;
 
-        if(fs.existsSync(logFileName))
-            fs.appendFileSync(logFileName, errorContent);
+        if(await filesystem.exists(logFileName))
+            await appendFile(logFileName, errorContent);
         else
-            fs.writeFileSync(logFileName, errorContent);
+            await writeFile(logFileName, errorContent);
     }
     catch(err)
     {
         console.log(`\n\n${jsl.colors.fg.red}Fatal Error while logging!\n${jsl.colors.fg.yellow}${err}${jsl.colors.rst}\n`);
         process.exit(1);
     }
-};
+}
 
 /**
  * Returns a preformatted timestamp in local time
@@ -65,15 +95,16 @@ const getTimestamp = (separator) => {
         d: d.getDate(),
         th: d.getHours(),
         tm: d.getMinutes(),
-        ts: d.getSeconds()
-    }
+        ts: d.getSeconds(),
+    };
 
     // Why is there no Date.format() function in JS :(
     return `${dt.y}/${(dt.m < 10 ? "0" : "") + dt.m}/${(dt.d < 10 ? "0" : "") + dt.d}`
          + `${jsl.isEmpty(separator) ? " | " : separator}`
          + `${(dt.th < 10 ? "0" : "") + dt.th}:${(dt.tm < 10 ? "0" : "") + dt.tm}:${(dt.ts < 10 ? "0" : "") + dt.ts}`;
 
-}
+};
 
 module.exports = logger;
+module.exports.init = init;
 module.exports.getTimestamp = getTimestamp;

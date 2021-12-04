@@ -21,6 +21,8 @@ const auth = require("./auth");
 const languages = require("./languages");
 const translate = require("./translate");
 const meter = require("./meter");
+const logger = require("./logger");
+
 const settings = require("../settings");
 
 const col = jsl.colors.fg;
@@ -45,41 +47,45 @@ const initAll = () => {
     let initPromises = [];
     let initStages = [
         {
+            name: "Initializing logger",
+            fn: logger.init,
+        },
+        {
             name: "Initializing languages",
-            fn: languages.init
+            fn: languages.init,
         },
         {
             name: "Initializing translations",
-            fn: translate.init
+            fn: translate.init,
         },
         {
             name: "Initializing joke parser",
-            fn: parseJokes.init
+            fn: parseJokes.init,
         },
         {
             name: "Initializing lists",
-            fn: lists.init
+            fn: lists.init,
         },
         {
             name: "Initializing documentation",
-            fn: docs.init
+            fn: docs.init,
         },
         {
             name: "Initializing authorization module",
-            fn: auth.init
+            fn: auth.init,
         },
         {
             name: "Initializing HTTP server",
-            fn: httpServer.init
+            fn: httpServer.init,
         },
         {
             name: "Initializing analytics module",
-            fn: analytics.init
+            fn: analytics.init,
         },
         {
             name: "Initializing pm2 meter",
-            fn: meter.init
-        }
+            fn: meter.init,
+        },
     ];
 
     let pb;
@@ -119,7 +125,7 @@ const initError = (action, err) => {
     let errMsg = err.stack || err || "(No error message provided)";
     console.log(`\n\n\n${col.red}JokeAPI encountered an error while ${action}:\n${errMsg}\n\n${jsl.colors.rst}`);
     process.exit(1);
-}
+};
 
 /**
  * Makes sure all directories exist and creates them if they don't
@@ -139,7 +145,7 @@ const initializeDirs = () => {
     {
         initError("initializing default directories", err);
     }
-}
+};
 
 /**
  * Ends all open connections and then shuts down the process with the specified exit code
@@ -150,7 +156,7 @@ const softExit = code => {
         code = 0;
 
     analytics.endSqlConnection().then(() => process.exit(code)).catch(() => process.exit(code));
-}
+};
 
 
 module.exports = { softExit };
