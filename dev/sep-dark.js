@@ -1,18 +1,29 @@
 const { resolve, join, basename } = require("path");
 const { readFile, readdir } = require("fs-extra");
+// const { filesystem } = require("svcorelib");
 const { statSync } = require("fs");
 const promiseAllSeq = require("promise-all-sequential");
 
 // const settings = require("../settings");
 
 
+/** @typedef {import("../src/types/jokes").Joke} Joke */
 /** @typedef {import("../src/types/jokes").JokesFile} JokesFile */
+/** @typedef {import("../src/types/jokes").JokesFileInfo} JokesFileInfo */
 /** @typedef {import("../src/types/languages").LangCode} LangCode */
 
 /**
  * @typedef {object} JokesFileObj Contains the jokes file and some more info about the file
- * @prop {JokesFile} file Jokes file, represented 1:1 like in the JSON file
  * @prop {LangCode} lang Language of the jokes
+ * @prop {JokesFile} file Jokes file, represented 1:1 like in the JSON file
+ */
+
+/**
+ * @typedef {object} NewJokesObj
+ * @prop {LangCode} lang
+ * @prop {JokesFileInfo} info
+ * @prop {Joke[]} regular
+ * @prop {Joke[]} dark
  */
 
 
@@ -22,6 +33,8 @@ const paths = {
     input: resolve("./data/jokes/"),
     /** Output directory path that will contain the new jokes files with all the dark jokes, that have been extracted from the input files */
     output: resolve("./data/jokes/dark/"),
+    /** Path to the jokes file template */
+    jokesFileTemplate: resolve("./data/jokes/template.json"),
 };
 
 /**
@@ -64,7 +77,42 @@ async function run()
 {
     const jokesFiles = await readJokesFiles();
 
-    console.log(jokesFiles);
+    /** @type {(() => Promise<NewJokesObj>)[]} */
+    const extractProms = [];
+
+    jokesFiles.forEach(jokesFile => {
+        extractProms.push(() => new Promise(async (res) => {
+            const { lang, file } = jokesFile;
+
+            /** @type {NewJokesObj} */
+            const newJokes = {
+                lang,
+                info: file.info,
+                /** @type {Joke[]} */
+                regular: [],
+                /** @type {Joke[]} */
+                dark: [],
+            };
+
+            console.log(`Extracting dark jokes of lang '${lang}'...`);
+            
+            file.jokes.forEach(joke => {
+                const { category, flags } = joke;
+
+                if(category === "Dark" || flags.racist || flags.sexist)
+                    newJokes.dark.push(joke);
+                else
+                    newJokes.regular.push(joke);
+            });
+
+            return res(newJokes);
+        }));
+    });
+
+    /** @type {NewJokesObj[]} */
+    const newJokesFiles = await promiseAllSeq(extractProms);
+
+    console.log("new jokes files", newJokesFiles);
 }
 
 (() => run())();
