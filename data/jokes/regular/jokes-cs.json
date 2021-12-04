@@ -19,38 +19,6 @@
             "safe": true
         },
         {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "Jaký je rozdíl mezi skautem a Židem?",
-            "delivery": "Skaut se vrátí z tábora.",
-            "flags": {
-                "nsfw": false,
-                "racist": true,
-                "sexist": false,
-                "religious": true,
-                "political": false,
-                "explicit": true
-            },
-            "id": 1,
-            "safe": false
-        },
-        {
-            "category": "Misc",
-            "type": "twopart",
-            "setup": "Jaký je rozdíl mezi ekonomem a Židem?",
-            "delivery": "Ekonom ví vše o penězích.\nŽid je má.",
-            "flags": {
-                "nsfw": false,
-                "racist": true,
-                "sexist": false,
-                "religious": true,
-                "political": false,
-                "explicit": false
-            },
-            "id": 2,
-            "safe": false
-        },
-        {
             "category": "Misc",
             "type": "twopart",
             "setup": "Uveďte holou větu, kde bude jenom podmět a přísudek.",
