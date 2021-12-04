@@ -2,7 +2,7 @@
 // Madge needs the Graphviz software to generate the SVG graphs.
 // 
 // On Windows, download it here: https://graphviz.gitlab.io/download/, then add the path to the "bin" folder to your PATH variable or specify the path to the bin folder in the "madgeOptions" object below.
-// On Linux, run "sudo apt-get install graphviz"
+// On Linux, run "sudo apt install graphviz"
 // On Mac, run "brew install graphviz || port install graphviz"
 //
 // To add files to be included in the graphing process, add them to the "otherFiles" array below (path is relative to project root).

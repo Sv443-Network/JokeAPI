@@ -13,7 +13,7 @@
             ],
             "program": "${workspaceFolder}/JokeAPI.js",
             "args": [
-                "--trace-deprecation"
+                "--trace-warnings"
             ]
         },
         {
