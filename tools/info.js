@@ -65,15 +65,15 @@ async function run()
         /** The lines that get printed to the console to display JokeAPI's info */
         const lines = [
             `${col.blue}${settings.info.name}${col.rst} v${settings.info.version} [${getEnv(true)}] - Info`,
-            ``,
+            "",
             `${col.blue}Jokes:${col.rst}`,
             `  Total amount:  ${v(jokes.totalAmt)}`,
             `  Joke languages ${n(jokes.languages)}`,
-            ``,
+            "",
             `${col.blue}Submissions:${col.rst}`,
             `  Amount:   ${v(subm.amount)}`,
             `  Languages ${n(subm.languages)}`,
-            ``,
+            "",
             `${col.blue}HTTP Server:${col.rst}`,
             `  Port:    ${v(http.port)}`,
             `  BaseURL: ${v(http.baseUrl)}`,
@@ -119,7 +119,7 @@ async function getInfo()
             baseUrl: getProp("baseUrl"),
         },
         // ...
-    }
+    };
 }
 
 /**

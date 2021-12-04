@@ -9,7 +9,7 @@ jsl.unused(http);
 
 module.exports.connectionInfo = {
     connected: false,
-    info: ""
+    info: "",
 };
 
 
@@ -27,7 +27,7 @@ const init = () => {
             user: (process.env["DB_USERNAME"] || ""),
             password: (process.env["DB_PASSWORD"] || ""),
             database: settings.sql.database,
-            port: settings.sql.port
+            port: settings.sql.port,
         });
 
         sqlConnection.connect(err => {
@@ -46,14 +46,14 @@ const init = () => {
                 sendQuery("SHOW TABLES LIKE \"analytics\"").then(res => {
                     if(typeof res != "object" || res.length <= 0)
                     {
-                        debug("SQL", `DB table doesn't exist, creating it...`);
+                        debug("SQL", "DB table doesn't exist, creating it...");
                         let createAnalyticsTableQuery = fs.readFileSync(`${settings.analytics.dirPath}create_analytics.sql`).toString();
                         sendQuery(createAnalyticsTableQuery).then(() => {
                             module.exports.connectionInfo = {
                                 connected: true,
-                                info: `${settings.sql.host}:${settings.sql.port}/${settings.sql.database}`
+                                info: `${settings.sql.host}:${settings.sql.port}/${settings.sql.database}`,
                             };
-                            debug("SQL", `Successfully created analytics DB, analytics init is done`);
+                            debug("SQL", "Successfully created analytics DB, analytics init is done");
                             return resolve();
                         }).catch(err => {
                             debug("SQL", `Error while creating DB table: ${err}`);
@@ -62,10 +62,10 @@ const init = () => {
                     }
                     else
                     {
-                        debug("SQL", `DB table exists, analytics init is done`);
+                        debug("SQL", "DB table exists, analytics init is done");
                         module.exports.connectionInfo = {
                             connected: true,
-                            info: `${settings.sql.host}:${settings.sql.port}/${settings.sql.database}`
+                            info: `${settings.sql.host}:${settings.sql.port}/${settings.sql.database}`,
                         };
                         return resolve();
                     }
@@ -111,7 +111,7 @@ const sendQuery = (query, insertValues) => {
 
         this.sqlConn.query({
             sql: (typeof insertValues == "object" && insertValues.length > 0) ? this.sqlConn.format(query, insertValues) : query,
-            timeout: settings.sql.timeout * 1000
+            timeout: settings.sql.timeout * 1000,
         }, (err, result) => {
             if(err)
             {
@@ -217,7 +217,7 @@ const logAnalytics = analyticsDataObject => {
             urlPath: (analyticsDataObject.data.urlPath != null ? JSON.stringify(analyticsDataObject.data.urlPath) : null) || null,
             urlParameters: (analyticsDataObject.data.urlParameters != null ? JSON.stringify(analyticsDataObject.data.urlParameters) : null) || null,
             errorMessage: analyticsDataObject.data.errorMessage || null,
-            submission: (analyticsDataObject.data.submission != null ? JSON.stringify(analyticsDataObject.data.submission) : null) || null
+            submission: (analyticsDataObject.data.submission != null ? JSON.stringify(analyticsDataObject.data.submission) : null) || null,
         };
         
         if(!["Docs", "SuccessfulRequest", "RateLimited", "Error", "JokeSubmission"].includes(type))
@@ -230,9 +230,9 @@ const logAnalytics = analyticsDataObject => {
             writeObject.urlPath,
             writeObject.urlParameters,
             writeObject.errorMessage,
-            writeObject.submission
+            writeObject.submission,
         ]).then(() => {
-            debug("Analytics", `Successfully logged some analytics data to the DB`);
+            debug("Analytics", "Successfully logged some analytics data to the DB");
         }).catch(err => {
             debug("Analytics", `Error while logging some analytics data - query returned error: ${err}`);
             return logger("error", `Error while saving analytics data to database - Error: ${err}\nAnalytics Data: ${JSON.stringify(writeObject)}`, true);

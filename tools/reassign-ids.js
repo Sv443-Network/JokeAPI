@@ -40,7 +40,7 @@ function reassignIds()
 
             let doneFile = {
                 info: initialInfo,
-                jokes: reassignedJokes
+                jokes: reassignedJokes,
             };
 
             fs.writeFileSync(fPath, JSON.stringify(doneFile, null, 4));

@@ -232,7 +232,7 @@ function promptJoke(currentJoke)
 
                 const { category } = await prompt({
                     type: "select",
-                    message: `Select new category`,
+                    message: "Select new category",
                     name: "category",
                     choices: catChoices,
                     initial: settings.jokes.possible.categories.indexOf("Misc"),

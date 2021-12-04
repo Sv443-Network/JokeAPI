@@ -93,7 +93,7 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun)
                         let respObj = {
                             error: false,
                             message: tr(langCode, "dryRunSuccessful", parseJokes.jokeFormatVersion, submittedJoke.formatVersion),
-                            timestamp: new Date().getTime()
+                            timestamp: new Date().getTime(),
                         };
 
                         return httpServer.pipeString(res, fileFormatConverter.auto(fileFormat, respObj, langCode), parseURL.getMimeTypeFromFileFormatString(fileFormat), 201);
@@ -143,7 +143,7 @@ function writeJokeToFile(res, filePath, submittedJoke, fileFormat, ip, analytics
                 "error": false,
                 "message": tr(langCode, "submissionSaved"),
                 "submission": reformattedJoke,
-                "timestamp": new Date().getTime()
+                "timestamp": new Date().getTime(),
             };
 
             meter.update("submission", 1);
@@ -175,7 +175,7 @@ function reformatJoke(joke)
     retJoke = {
         ...retJoke,
         category: typeof joke.category === "string" ? parseJokes.resolveCategoryAlias(joke.category) : joke.category,
-        type: joke.type
+        type: joke.type,
     };
 
     if(joke.type == "single")

@@ -17,9 +17,9 @@ const meta = {
         "method": "GET",
         "url": `${settings.info.docsURL}/endpoints`,
         "supportedParams": [
-            "format"
-        ]
-    }
+            "format",
+        ],
+    },
 };
 
 /**
@@ -60,8 +60,8 @@ const call = (req, res, url, params, format) => {
                                     usage: {
                                         method: fileMeta.usage.method,
                                         url: fileMeta.usage.url,
-                                        supportedParams: fileMeta.usage.supportedParams
-                                    }
+                                        supportedParams: fileMeta.usage.supportedParams,
+                                    },
                                 });
                             }
                             else if(format == "xml")
@@ -72,8 +72,8 @@ const call = (req, res, url, params, format) => {
                                     usage: {
                                         method: fileMeta.usage.method,
                                         url: fileMeta.usage.url,
-                                        supportedParams: {"param": fileMeta.usage.supportedParams}
-                                    }
+                                        supportedParams: {"param": fileMeta.usage.supportedParams},
+                                    },
                                 });
                             }
                         }
@@ -87,9 +87,9 @@ const call = (req, res, url, params, format) => {
                         method: "POST",
                         url: `${settings.info.docsURL}/submit`,
                         supportedParams: [
-                            "dry-run"
-                        ]
-                    }
+                            "dry-run",
+                        ],
+                    },
                 });
 
                 if(format == "xml")
@@ -111,7 +111,7 @@ const epError = (res, format, err, lang) => {
     let errFromRegistry = require("../data/errorMessages")["100"];
 
     if(errFromRegistry == undefined)
-        throw new Error(`Couldn't find errorMessages module or Node is using an outdated, cached version`);
+        throw new Error("Couldn't find errorMessages module or Node is using an outdated, cached version");
 
     if(!lang || languages.isValidLang(lang) !== true)
         lang = settings.languages.defaultLanguage;
@@ -125,8 +125,8 @@ const epError = (res, format, err, lang) => {
             "message": errFromRegistry.errorMessage[lang] || errFromRegistry.errorMessage[settings.languages.defaultLanguage],
             "causedBy": errFromRegistry.causedBy[lang] || errFromRegistry.causedBy[settings.languages.defaultLanguage],
             "additionalInfo": err,
-            "timestamp": new Date().getTime()
-        }
+            "timestamp": new Date().getTime(),
+        };
     }
     else if(format == "xml")
     {
@@ -137,8 +137,8 @@ const epError = (res, format, err, lang) => {
             "message": errFromRegistry.errorMessage[lang] || errFromRegistry.errorMessage[settings.languages.defaultLanguage],
             "causedBy": { "cause": (errFromRegistry.causedBy[lang] || errFromRegistry.causedBy[settings.languages.defaultLanguage]) },
             "additionalInfo": err,
-            "timestamp": new Date().getTime()
-        }
+            "timestamp": new Date().getTime(),
+        };
     }
 
     httpServer.pipeString(res, convertFileFormat.auto(format, errObj), parseURL.getMimeTypeFromFileFormatString(format), lang);

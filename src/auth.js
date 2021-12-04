@@ -95,7 +95,7 @@ const authByHeader = (req, res) => {
 
     return {
         isAuthorized: isAuthorized,
-        token: requestersToken
+        token: requestersToken,
     };
 };
 

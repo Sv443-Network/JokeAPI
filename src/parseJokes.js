@@ -184,7 +184,7 @@ function init()
             });
 
             if(!jsl.allEqual(formatVersions))
-                errors.push(`One or more of the jokes files has an invalid format version`);
+                errors.push("One or more of the jokes files has an invalid format version");
 
             module.exports.allJokes = allJokesObj;
             module.exports.jokeCount = allJokesObj.getJokeCount();
@@ -262,7 +262,7 @@ function validateSingle(joke, lang)
 
     // reserialize object
     if(typeof joke == "object")
-            joke = JSON.stringify(joke);
+        joke = JSON.stringify(joke);
 
     joke = JSON.parse(joke);
 
@@ -415,4 +415,4 @@ function resolveCategoryAliases(categories)
     return categories.map(cat => resolveCategoryAlias(cat));
 }
 
-module.exports = { init, validateSingle, resolveCategoryAlias, resolveCategoryAliases }
+module.exports = { init, validateSingle, resolveCategoryAlias, resolveCategoryAliases };

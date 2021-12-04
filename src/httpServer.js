@@ -40,18 +40,18 @@ const init = () => {
             //#SECTION set up rate limiters
             let rl = new RateLimiterMemory({
                 points: settings.httpServer.rateLimiting,
-                duration: settings.httpServer.timeFrame
+                duration: settings.httpServer.timeFrame,
             });
 
             let rlSubm = new RateLimiterMemory({
                 points: settings.jokes.submissions.rateLimiting,
-                duration: settings.jokes.submissions.timeFrame
+                duration: settings.jokes.submissions.timeFrame,
             });
 
             setTimeout(() => {
                 if(!httpServerInitialized)
                     return reject(`HTTP server initialization timed out after ${settings.httpServer.startupTimeout} seconds.\nMaybe the port ${settings.httpServer.port} is already occupied or the firewall blocks the connection.\nTry killing the process that's blocking the port or change it in settings.httpServer.port`);
-            }, settings.httpServer.startupTimeout * 1000)
+            }, settings.httpServer.startupTimeout * 1000);
 
             //#SECTION create HTTP server
             let httpServer = http.createServer(async (req, res) => {
@@ -62,7 +62,7 @@ const init = () => {
                 let analyticsObject = {
                     ipAddress: ip,
                     urlPath: parsedURL.pathArray,
-                    urlParameters: parsedURL.queryParams
+                    urlParameters: parsedURL.queryParams,
                 };
                 let lang = parsedURL.queryParams ? parsedURL.queryParams.lang : "invalid-lang-code";
 
@@ -124,8 +124,8 @@ const init = () => {
                             errorMessage: `Error while setting up the HTTP response to "${ip.substr(8)}...": ${err}`,
                             ipAddress: ip,
                             urlParameters: parsedURL.queryParams,
-                            urlPath: parsedURL.pathArray
-                        }
+                            urlPath: parsedURL.pathArray,
+                        },
                     });
                     return respondWithError(res, 500, 100, fileFormat, tr(lang, "errSetupHttpResponse", err), lang);
                 }
@@ -226,8 +226,8 @@ const init = () => {
                                             ipAddress: ip,
                                             urlParameters: parsedURL.queryParams,
                                             urlPath: parsedURL.pathArray,
-                                            submission: headerToken
-                                        }
+                                            submission: headerToken,
+                                        },
                                     });
                                 }
 
@@ -381,7 +381,7 @@ const init = () => {
                                 res.end(convertFileFormat.auto(fileFormat, {
                                     "error": false,
                                     "message": `Restarting ${settings.info.name}`,
-                                    "timestamp": new Date().getTime()
+                                    "timestamp": new Date().getTime(),
                                 }, lang));
                                 console.log(`\n\n[${logger.getTimestamp(" | ")}]  ${jsl.colors.fg.red}IP ${jsl.colors.fg.yellow}${ip.substr(0, 8)}[...]${jsl.colors.fg.red} sent a restart command\n\n\n${jsl.colors.rst}`);
                                 process.exit(2); // if the process is exited with status 2, the package node-wrap will restart the process
@@ -409,7 +409,7 @@ const init = () => {
                         "error": true,
                         "internalError": false,
                         "message": `Wrong method "${req.method}" used. Expected "GET", "OPTIONS" or "HEAD"`,
-                        "timestamp": new Date().getTime()
+                        "timestamp": new Date().getTime(),
                     }, lang));
                 }
             });
@@ -449,7 +449,7 @@ const init = () => {
                     endpoints.push({
                         name: fileName,
                         desc: require(`.${endpointFilePath}`).meta.desc, // needs an extra . cause require() is relative to this file, whereas "fs" is relative to the project root
-                        absPath: endpointFilePath
+                        absPath: endpointFilePath,
                     });
                 }
             });
@@ -458,7 +458,7 @@ const init = () => {
             initHttpServer();
         });
     });
-}
+};
 
 
 //#MARKER error stuff
@@ -475,8 +475,8 @@ function setRateLimitedHeaders(res, rlRes)
             "Retry-After": rlRes.msBeforeNext ? Math.round(rlRes.msBeforeNext / 1000) : settings.httpServer.timeFrame,
             "RateLimit-Limit": settings.httpServer.rateLimiting,
             "RateLimit-Remaining": rlRes.msBeforeNext ? rlRes.remainingPoints : settings.httpServer.rateLimiting,
-            "RateLimit-Reset": rlRes.msBeforeNext ? new Date(Date.now() + rlRes.msBeforeNext) : settings.httpServer.timeFrame
-        }
+            "RateLimit-Reset": rlRes.msBeforeNext ? new Date(Date.now() + rlRes.msBeforeNext) : settings.httpServer.timeFrame,
+        };
 
         Object.keys(rlHeaders).forEach(key => {
             res.setHeader(key, rlHeaders[key]);
@@ -484,7 +484,7 @@ function setRateLimitedHeaders(res, rlRes)
     }
     catch(err)
     {
-        let content = `Err: ${err}\nrlRes:\n${typeof rlRes == "object" ? JSON.stringify(rlRes, null, 4) : rlRes}\n\n\n`
+        let content = `Err: ${err}\nrlRes:\n${typeof rlRes == "object" ? JSON.stringify(rlRes, null, 4) : rlRes}\n\n\n`;
         fs.appendFileSync("./msBeforeNext.log", content);
     }
 }
@@ -507,7 +507,7 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
         let errObj = {};
 
         if(errFromRegistry == undefined)
-            throw new Error(`Couldn't find errorMessages module or Node is using an outdated, cached version`);
+            throw new Error("Couldn't find errorMessages module or Node is using an outdated, cached version");
 
         if(!lang || languages.isValidLang(lang) !== true)
             lang = settings.languages.defaultLanguage;
@@ -535,8 +535,8 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
                 "code": errorCode,
                 "message": insArgs(errFromRegistry.errorMessage[lang], args) || insArgs(errFromRegistry.errorMessage[settings.languages.defaultLanguage], args),
                 "causedBy": insArgs(errFromRegistry.causedBy[lang], args) || insArgs(errFromRegistry.causedBy[settings.languages.defaultLanguage], args),
-                "timestamp": new Date().getTime()
-            }
+                "timestamp": new Date().getTime(),
+            };
         }
         else if(fileFormat == "xml")
         {
@@ -546,8 +546,8 @@ const respondWithError = (res, errorCode, responseCode, fileFormat, errorMessage
                 "code": errorCode,
                 "message": insArgs(errFromRegistry.errorMessage[lang], args) || insArgs(errFromRegistry.errorMessage[settings.languages.defaultLanguage], args),
                 "causedBy": {"cause": insArgs(errFromRegistry.causedBy[lang], args) || insArgs(errFromRegistry.causedBy[settings.languages.defaultLanguage], args)},
-                "timestamp": new Date().getTime()
-            }
+                "timestamp": new Date().getTime(),
+            };
         }
 
         if(!jsl.isEmpty(errorMessage))
@@ -588,7 +588,7 @@ const respondWithErrorPage = (res, statusCode, error) => {
     }
 
     return pipeFile(res, settings.documentation.errorPagePath, "text/html", statusCode);
-}
+};
 
 //#MARKER response piping
 /**
@@ -607,7 +607,7 @@ const pipeString = (res, text, mimeType, statusCode = 200) => {
     }
     catch(err)
     {
-        res.writeHead(500, {"Content-Type": `text/plain; charset=UTF-8`});
+        res.writeHead(500, {"Content-Type": "text/plain; charset=UTF-8"});
         res.end("INTERNAL_ERR:STATUS_CODE_NOT_INT");
         return;
     }
@@ -625,11 +625,11 @@ const pipeString = (res, text, mimeType, statusCode = 200) => {
         {
             res.writeHead(statusCode, {
                 "Content-Type": `${mimeType}; charset=UTF-8`,
-                "Content-Length": byteLength(text) // Content-Length needs the byte length, not the char length
+                "Content-Length": byteLength(text), // Content-Length needs the byte length, not the char length
             });
         }
     }
-}
+};
 
 /**
  * Pipes a file into a HTTP response
@@ -647,7 +647,7 @@ const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
     }
     catch(err)
     {
-        return respondWithErrorPage(res, 500, `Encountered internal server error while piping file: wrong type for status code.`);
+        return respondWithErrorPage(res, 500, "Encountered internal server error while piping file: wrong type for status code.");
     }
 
     if(!fs.existsSync(filePath))
@@ -659,7 +659,7 @@ const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
         {
             res.writeHead(statusCode, {
                 "Content-Type": `${mimeType}; charset=UTF-8`,
-                "Content-Length": fs.statSync(filePath).size
+                "Content-Length": fs.statSync(filePath).size,
             });
         }
 
@@ -670,7 +670,7 @@ const pipeFile = (res, filePath, mimeType, statusCode = 200) => {
     {
         logger("fatal", err, true);
     }
-}
+};
 
 //#MARKER serve docs
 /**
@@ -686,7 +686,7 @@ const serveDocumentation = (req, res) => {
         logRequest("docs", null, {
             ipAddress: resolveIP(req),
             urlParameters: resolvedURL.queryParams,
-            urlPath: resolvedURL.pathArray
+            urlPath: resolvedURL.pathArray,
         });
     }
 
@@ -715,7 +715,7 @@ const serveDocumentation = (req, res) => {
         else
             return pipeFile(res, fallbackPath, "text/html", 200);
     }); 
-}
+};
 
 //#MARKER util
 /**
@@ -745,7 +745,7 @@ const getAcceptedEncoding = req => {
     });
 
     return selectedEncoding;
-}
+};
 
 /**
  * Returns the length of a string in bytes
@@ -767,17 +767,17 @@ function byteLength(str)
 const getFileExtensionFromEncoding = encoding => {
     switch(encoding)
     {
-        case "gzip":
-            return "gz";
-        case "deflate":
-            return "zz";
-        case "br":
-        case "brotli":
-            return "br";
-        default:
-            return "";
+    case "gzip":
+        return "gz";
+    case "deflate":
+        return "zz";
+    case "br":
+    case "brotli":
+        return "br";
+    default:
+        return "";
     }
-}
+};
 
 /**
  * Tries to serve data with an encoding supported by the client, else just serves the raw data
@@ -799,43 +799,43 @@ function tryServeEncoded(req, res, data, mimeType)
 
     switch(selectedEncoding)
     {
-        case "br":
-            if(!semver.lt(process.version, "v11.7.0")) // Brotli was added in Node v11.7.0
-            {
-                zlib.brotliCompress(data, (err, encRes) => {
-                    if(!err)
-                        return pipeString(res, encRes, mimeType);
-                    else
-                        return pipeString(res, `Internal error while encoding text into ${selectedEncoding}: ${err}`, mimeType);
-                });
-            }
-            else
-            {
-                res.setHeader("Content-Encoding", "identity");
-
-                return pipeString(res, data, mimeType);
-            }
-        break;
-        case "gzip":
-            zlib.gzip(data, (err, encRes) => {
+    case "br":
+        if(!semver.lt(process.version, "v11.7.0")) // Brotli was added in Node v11.7.0
+        {
+            zlib.brotliCompress(data, (err, encRes) => {
                 if(!err)
                     return pipeString(res, encRes, mimeType);
                 else
                     return pipeString(res, `Internal error while encoding text into ${selectedEncoding}: ${err}`, mimeType);
             });
-        break;
-        case "deflate":
-            zlib.deflate(data, (err, encRes) => {
-                if(!err)
-                    return pipeString(res, encRes, mimeType);
-                else
-                    return pipeString(res, `Internal error while encoding text into ${selectedEncoding}: ${err}`, mimeType);
-            });
-        break;
-        default:
+        }
+        else
+        {
             res.setHeader("Content-Encoding", "identity");
 
             return pipeString(res, data, mimeType);
+        }
+        break;
+    case "gzip":
+        zlib.gzip(data, (err, encRes) => {
+            if(!err)
+                return pipeString(res, encRes, mimeType);
+            else
+                return pipeString(res, `Internal error while encoding text into ${selectedEncoding}: ${err}`, mimeType);
+        });
+        break;
+    case "deflate":
+        zlib.deflate(data, (err, encRes) => {
+            if(!err)
+                return pipeString(res, encRes, mimeType);
+            else
+                return pipeString(res, `Internal error while encoding text into ${selectedEncoding}: ${err}`, mimeType);
+        });
+        break;
+    default:
+        res.setHeader("Content-Encoding", "identity");
+
+        return pipeString(res, data, mimeType);
     }
 }
 

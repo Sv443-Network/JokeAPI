@@ -16,9 +16,9 @@ const meta = {
         "url": `${settings.info.docsURL}/formats`,
         "supportedParams": [
             "format",
-            "lang"
-        ]
-    }
+            "lang",
+        ],
+    },
 };
 
 /**
@@ -41,7 +41,7 @@ const call = (req, res, url, params, format) => {
         responseText = convertFileFormat.auto(format, {
             "error": false,
             "formats": settings.jokes.possible.formats,
-            "timestamp": new Date().getTime()
+            "timestamp": new Date().getTime(),
         }, lang);
     }
     else if(format == "xml")
@@ -49,7 +49,7 @@ const call = (req, res, url, params, format) => {
         responseText = convertFileFormat.auto(format, {
             "error": false,
             "formats": {"format": settings.jokes.possible.formats},
-            "timestamp": new Date().getTime()
+            "timestamp": new Date().getTime(),
         }, lang);
     }
 

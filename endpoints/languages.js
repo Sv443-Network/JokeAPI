@@ -11,15 +11,15 @@ jsl.unused(http);
 
 const meta = {
     "name": "Languages",
-    "desc": `Returns a list of supported and partially supported languages`,
+    "desc": "Returns a list of supported and partially supported languages",
     "usage": {
         "method": "GET",
         "url": `${settings.info.docsURL}/languages`,
         "supportedParams": [
             "format",
-            "lang"
-        ]
-    }
+            "lang",
+        ],
+    },
 };
 
 /**
@@ -46,7 +46,7 @@ const call = (req, res, url, params, format) => {
     Object.keys(pl).forEach(lc => {
         langArray.push({
             "code": lc,
-            "name": pl[lc]
+            "name": pl[lc],
         });
     });
 
@@ -57,7 +57,7 @@ const call = (req, res, url, params, format) => {
             "jokeLanguages": { "code": jokeLangs },
             "systemLanguages": { "code": sysLangs },
             "possibleLanguages": { "language": langArray },
-            "timestamp": new Date().getTime()
+            "timestamp": new Date().getTime(),
         }, lang);
     }
     else
@@ -67,7 +67,7 @@ const call = (req, res, url, params, format) => {
             "jokeLanguages": jokeLangs,
             "systemLanguages": sysLangs,
             "possibleLanguages": langArray,
-            "timestamp": new Date().getTime()
+            "timestamp": new Date().getTime(),
         }, lang);
     }
 

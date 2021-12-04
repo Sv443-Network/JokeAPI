@@ -74,14 +74,14 @@ function languageToCode(language)
     Object.keys(langs).forEach(key => {
         searchObj.push({
             code: key,
-            lang: langs[key].toLowerCase()
+            lang: langs[key].toLowerCase(),
         });
     });
 
     let fuzzy = new Fuse(searchObj, {
         includeScore: true,
         keys: ["code", "lang"],
-        threshold: 0.4
+        threshold: 0.4,
     });
 
     let result = fuzzy.search(language)[0];
@@ -134,7 +134,7 @@ function jokeLangs()
 
         retLangs.push({
             code: langCode,
-            name: codeToLanguage(langCode)
+            name: codeToLanguage(langCode),
         });
     });
 
@@ -176,5 +176,5 @@ module.exports = {
     jokeLangs,
     systemLangs,
     getPossibleCodes,
-    getPossibleLanguages
+    getPossibleLanguages,
 };

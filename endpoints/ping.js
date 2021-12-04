@@ -17,9 +17,9 @@ const meta = {
         "url": `${settings.info.docsURL}/ping`,
         "supportedParams": [
             "format",
-            "lang"
-        ]
-    }
+            "lang",
+        ],
+    },
 };
 
 /**
@@ -38,7 +38,7 @@ const call = (req, res, url, params, format) => {
     let responseText = convertFileFormat.auto(format, {
         "error": false,
         "ping": tr(lang, "pingPong"),
-        "timestamp": new Date().getTime()
+        "timestamp": new Date().getTime(),
     }, lang);
 
     httpServer.pipeString(res, responseText, parseURL.getMimeTypeFromFileFormatString(format));

@@ -16,9 +16,9 @@ const meta = {
         "url": `${settings.info.docsURL}/categories`,
         "supportedParams": [
             "format",
-            "lang"
-        ]
-    }
+            "lang",
+        ],
+    },
 };
 
 /**
@@ -40,7 +40,7 @@ const call = (req, res, url, params, format) => {
     Object.keys(settings.jokes.possible.categoryAliases).forEach(key => {
         catAliases.push({
             alias: key,
-            resolved: settings.jokes.possible.categoryAliases[key]
+            resolved: settings.jokes.possible.categoryAliases[key],
         });
     });
 
@@ -52,7 +52,7 @@ const call = (req, res, url, params, format) => {
             "error": false,
             "categories": categories,
             "categoryAliases": catAliases,
-            "timestamp": new Date().getTime()
+            "timestamp": new Date().getTime(),
         }, lang);
     }
     else if(format == "xml")
@@ -61,7 +61,7 @@ const call = (req, res, url, params, format) => {
             "error": false,
             "categories": {"category": categories},
             "categoryAliases": {"categoryAlias": catAliases},
-            "timestamp": new Date().getTime()
+            "timestamp": new Date().getTime(),
         }, lang);
     }
 

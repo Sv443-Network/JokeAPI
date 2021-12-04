@@ -26,9 +26,9 @@ const meta = {
             "contains",
             "idRange",
             "lang",
-            "amount"
-        ]
-    }
+            "amount",
+        ],
+    },
 };
 
 /**
@@ -206,7 +206,7 @@ const call = (req, res, url, params, format) => {
         {
             let singleObj = {
                 error: false,
-                ...jokesArray[0]
+                ...jokesArray[0],
             };
 
             responseText = convertFileFormat.auto(format, singleObj, langCode);
@@ -220,7 +220,7 @@ const call = (req, res, url, params, format) => {
                 multiObj = {
                     error: false,
                     amount: (jokesArray.length || 1),
-                    jokes: jokesArray
+                    jokes: jokesArray,
                 };
             }
             else
@@ -228,7 +228,7 @@ const call = (req, res, url, params, format) => {
                 multiObj = {
                     error: false,
                     amount: (jokesArray.length || 1),
-                    jokes: { "joke": jokesArray }
+                    jokes: { "joke": jokesArray },
                 };
             }
 
@@ -280,7 +280,7 @@ const isErrored = (res, format, msg, lang, ...args) => {
             message: insArgs(errFromRegistry.errorMessage[lang], args) || insArgs(errFromRegistry.errorMessage[settings.languages.defaultLanguage], args),
             causedBy: insArgs(errFromRegistry.causedBy[lang], args) || insArgs(errFromRegistry.causedBy[settings.languages.defaultLanguage], args),
             additionalInfo: msg,
-            timestamp: new Date().getTime()
+            timestamp: new Date().getTime(),
         };
     }
     else if(format == "xml")
@@ -292,7 +292,7 @@ const isErrored = (res, format, msg, lang, ...args) => {
             message: insArgs(errFromRegistry.errorMessage[lang], args) || insArgs(errFromRegistry.errorMessage[settings.languages.defaultLanguage], args),
             causedBy: {"cause": insArgs(errFromRegistry.causedBy[lang], args) || insArgs(errFromRegistry.causedBy[settings.languages.defaultLanguage], args)},
             additionalInfo: msg,
-            timestamp: new Date().getTime()
+            timestamp: new Date().getTime(),
         };
     }
 

@@ -19,9 +19,9 @@ const meta = {
         "url": `${settings.info.docsURL}/info`,
         "supportedParams": [
             "format",
-            "lang"
-        ]
-    }
+            "lang",
+        ],
+    },
 };
 
 /**
@@ -48,7 +48,7 @@ const call = (req, res, url, params, format) => {
         idRangePerLangXml.push({
             langCode: lc,
             from: 0,
-            to: to
+            to: to,
         });
     });
 
@@ -69,13 +69,13 @@ const call = (req, res, url, params, format) => {
                 "types": settings.jokes.possible.types,
                 "submissionURL": settings.jokes.jokeSubmissionURL,
                 "idRange": idRangePerLang,
-                "safeJokes": parseJokes.safeJokes
+                "safeJokes": parseJokes.safeJokes,
             },
             "formats": settings.jokes.possible.formats,
             "jokeLanguages": supportedLangsLength,
             "systemLanguages": systemLanguagesLength,
             "info": translate(lang, "messageOfTheDay", settings.info.name),
-            "timestamp": new Date().getTime()
+            "timestamp": new Date().getTime(),
         }, lang);
     }
     else if(format == "xml")
@@ -91,13 +91,13 @@ const call = (req, res, url, params, format) => {
                 "types": {"type": settings.jokes.possible.types},
                 "submissionURL": settings.jokes.jokeSubmissionURL,
                 "idRanges": { "idRange": idRangePerLangXml },
-                "safeJokes": { "language": parseJokes.safeJokes }
+                "safeJokes": { "language": parseJokes.safeJokes },
             },
             "formats": {"format": settings.jokes.possible.formats},
             "jokeLanguages": supportedLangsLength,
             "systemLanguages": systemLanguagesLength,
             "info": translate(lang, "messageOfTheDay", settings.info.name),
-            "timestamp": new Date().getTime()
+            "timestamp": new Date().getTime(),
         }, lang);
     }
 

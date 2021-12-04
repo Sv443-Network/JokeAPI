@@ -72,7 +72,7 @@ function parseURL(url)
             error: null,
             initialURL: url,
             pathArray: trimFirstSlash(parsed.pathname.split("/")),
-            queryParams: qstrObj
+            queryParams: qstrObj,
         };
 
         return retObj;
@@ -81,7 +81,7 @@ function parseURL(url)
     {
         return {
             error: err.toString(),
-            initialURL: url
+            initialURL: url,
         };
     }
 }

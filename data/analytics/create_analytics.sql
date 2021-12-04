@@ -9,4 +9,4 @@ CREATE TABLE `analytics` (
 	`aTimestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (`aID`)
 )
-COLLATE='utf8_bin'
+COLLATE='utf8_bin';

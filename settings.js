@@ -58,7 +58,7 @@ const settings = {
         ],
         exitSignals: [ // all signals that should cause a soft exit
             "SIGINT",
-            "SIGTERM"
+            "SIGTERM",
         ],
     },
     logging: {
@@ -92,13 +92,13 @@ const settings = {
                 "Dark",
                 "Pun",
                 "Spooky",
-                "Christmas"
+                "Christmas",
             ],
             categoryAliases: { // aliases of categories. Alias at key gets resolved to category at value. Value has to be present in the "categories" array above - case sensitive / readable names
                 "Miscellaneous": "Misc",
                 "Coding": "Programming",
                 "Development": "Programming",
-                "Halloween": "Spooky"
+                "Halloween": "Spooky",
             },
             flags: [ // all flags - HAVE TO BE LOWER CASE!
                 "nsfw",
@@ -116,7 +116,7 @@ const settings = {
             ],
             types: [ // all joke types - HAVE TO BE LOWER CASE!
                 "single",
-                "twopart"
+                "twopart",
             ],
         },
         fileFormatsPath: "./data/fileFormats.json", // path to the file formats file
@@ -158,7 +158,7 @@ const settings = {
             brotli: true,  // Whether or not Brotli encoding should be enabled for the documentation page
         },
         encodingPriority: [ // The priority of the encodings. Items with a lower array index (further to the left) have a higher priority
-            "brotli", "gzip", "deflate"
+            "brotli", "gzip", "deflate",
         ],
     },
     errors: {
@@ -225,7 +225,7 @@ const settings = {
     tests: { // unit tests
         location: "./tests/",  // folder where unit tests are located - requires trailing slash
         initPingInterval: 250, // in ms - interval between init pings (default: 250)
-    }
-}
+    },
+};
 
 module.exports = Object.freeze(settings); // use Object.freeze() to prevent modifications at runtime

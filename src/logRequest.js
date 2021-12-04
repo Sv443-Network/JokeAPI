@@ -35,111 +35,111 @@ const logRequest = (type, additionalInfo, analyticsData) => {
 
     switch(type)
     {
-        case "success":
-            color = settings.colors.success;
+    case "success":
+        color = settings.colors.success;
 
-            if(!jsl.isEmpty(analyticsData))
-            {
-                analytics({
-                    type: "SuccessfulRequest",
-                    data: {
-                        ipAddress: analyticsData.ipAddress,
-                        urlPath: analyticsData.urlPath,
-                        urlParameters: analyticsData.urlParameters
-                    }
-                });
-            }
+        if(!jsl.isEmpty(analyticsData))
+        {
+            analytics({
+                type: "SuccessfulRequest",
+                data: {
+                    ipAddress: analyticsData.ipAddress,
+                    urlPath: analyticsData.urlPath,
+                    urlParameters: analyticsData.urlParameters,
+                },
+            });
+        }
         break;
-        case "docs":
-            color = settings.colors.docs;
+    case "docs":
+        color = settings.colors.docs;
 
-            if(!jsl.isEmpty(analyticsData))
-            {
-                analytics({
-                    type: "Docs",
-                    data: {
-                        ipAddress: analyticsData.ipAddress,
-                        urlPath: analyticsData.urlPath,
-                        urlParameters: analyticsData.urlParameters
-                    }
-                });
-            }
+        if(!jsl.isEmpty(analyticsData))
+        {
+            analytics({
+                type: "Docs",
+                data: {
+                    ipAddress: analyticsData.ipAddress,
+                    urlPath: analyticsData.urlPath,
+                    urlParameters: analyticsData.urlParameters,
+                },
+            });
+        }
         break;
-        case "ratelimited":
-            color = settings.colors.ratelimit;
-            // logType = "ratelimit";
+    case "ratelimited":
+        color = settings.colors.ratelimit;
+        // logType = "ratelimit";
 
-            if(!jsl.isEmpty(analyticsData))
-            {
-                analytics({
-                    type: "RateLimited",
-                    data: {
-                        ipAddress: analyticsData.ipAddress,
-                        urlPath: analyticsData.urlPath,
-                        urlParameters: analyticsData.urlParameters
-                    }
-                });
-            }
+        if(!jsl.isEmpty(analyticsData))
+        {
+            analytics({
+                type: "RateLimited",
+                data: {
+                    ipAddress: analyticsData.ipAddress,
+                    urlPath: analyticsData.urlPath,
+                    urlParameters: analyticsData.urlParameters,
+                },
+            });
+        }
         break;
-        case "error":
-            if(settings.debug.onlyLogErrors)
-                logDisabled = false;
+    case "error":
+        if(settings.debug.onlyLogErrors)
+            logDisabled = false;
 
-            color = settings.colors.ratelimit;
-            logType = "error";
+        color = settings.colors.ratelimit;
+        logType = "error";
 
-            if(!jsl.isEmpty(analyticsData))
-            {
-                analytics({
-                    type: "Error",
-                    data: {
-                        ipAddress: analyticsData.ipAddress,
-                        urlPath: analyticsData.urlPath,
-                        urlParameters: analyticsData.urlParameters,
-                        errorMessage: additionalInfo
-                    }
-                });
-            }
+        if(!jsl.isEmpty(analyticsData))
+        {
+            analytics({
+                type: "Error",
+                data: {
+                    ipAddress: analyticsData.ipAddress,
+                    urlPath: analyticsData.urlPath,
+                    urlParameters: analyticsData.urlParameters,
+                    errorMessage: additionalInfo,
+                },
+            });
+        }
         break;
-        case "docsrecompiled":
-            color = settings.colors.docsrecompiled;
-            logChar = "r ";
+    case "docsrecompiled":
+        color = settings.colors.docsrecompiled;
+        logChar = "r ";
         break;
-        case "submission":
-            logChar = `\n\n${jsl.colors.fg.blue}⯈ Got a submission${!jsl.isEmpty(additionalInfo) ? ` from ${jsl.colors.fg.yellow}${additionalInfo.substring(0, 8)}` : ""}${jsl.colors.rst}\n\n`;
-            spacerDisabled = true;
+    case "submission":
+        logChar = `\n\n${jsl.colors.fg.blue}⯈ Got a submission${!jsl.isEmpty(additionalInfo) ? ` from ${jsl.colors.fg.yellow}${additionalInfo.substring(0, 8)}` : ""}${jsl.colors.rst}\n\n`;
+        spacerDisabled = true;
 
-            if(!jsl.isEmpty(analyticsData))
-            {
-                analytics({
-                    type: "JokeSubmission",
-                    data: {
-                        ipAddress: analyticsData.ipAddress,
-                        urlPath: analyticsData.urlPath,
-                        urlParameters: analyticsData.urlParameters,
-                        submission: analyticsData.submission
-                    }
-                });
-            }
+        if(!jsl.isEmpty(analyticsData))
+        {
+            analytics({
+                type: "JokeSubmission",
+                data: {
+                    ipAddress: analyticsData.ipAddress,
+                    urlPath: analyticsData.urlPath,
+                    urlParameters: analyticsData.urlParameters,
+                    submission: analyticsData.submission,
+                },
+            });
+        }
         break;
-        case "blacklisted":
-            color = settings.colors.blacklisted;
-            logChar = "*";
-            if(!settings.logging.blacklistLoggingEnabled)
-                logDisabled = true;
+    case "blacklisted":
+        color = settings.colors.blacklisted;
+        logChar = "*";
+        if(!settings.logging.blacklistLoggingEnabled)
+            logDisabled = true;
 
-            if(!jsl.isEmpty(analyticsData))
-            {
-                analytics({
-                    type: "Blacklisted",
-                    data: {
-                        ipAddress: analyticsData.ipAddress,
-                        urlPath: analyticsData.urlPath,
-                        urlParameters: analyticsData.urlParameters,
-                        submission: analyticsData.submission
-                    }
-                });
-            }
+        if(!jsl.isEmpty(analyticsData))
+        {
+            analytics({
+                type: "Blacklisted",
+                data: {
+                    ipAddress: analyticsData.ipAddress,
+                    urlPath: analyticsData.urlPath,
+                    urlParameters: analyticsData.urlParameters,
+                    submission: analyticsData.submission,
+                },
+            });
+        }
         break;
     }
 
@@ -154,7 +154,7 @@ const logRequest = (type, additionalInfo, analyticsData) => {
     
     if(!spacerDisabled)
         process.jokeapi.reqCounter++;
-}
+};
 
 /**
  * Sends an initialization message - called when the initialization is done
@@ -183,7 +183,7 @@ const initMsg = (initTimestamp) => {
         process.stdout.write(" └─► ");
         process.stdout.write(jsl.colors.rst);
     }
-}
+};
 
 module.exports = logRequest;
 module.exports.initMsg = initMsg;
