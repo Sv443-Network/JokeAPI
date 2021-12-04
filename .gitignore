@@ -24,6 +24,7 @@ docs/compiled
 
 # Dark jokes (GitHub TOS):
 data/jokes/dark/
+data/jokes/input/
 
 # Joke submissions:
 data/submissions
