@@ -1,3 +1,4 @@
+[&lt; Back](../README.md#readme)
 # JokeAPI CLI tools
 Since v2.3.2, JokeAPI has a globally callable command line binary, which acts as an interface to all command-line tools inside this `./tools` folder.
 

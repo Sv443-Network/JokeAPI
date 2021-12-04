@@ -51,9 +51,10 @@ const settings = {
     init: {
         initDirs: [ // directories that should be generated if they don't exist - paths relative to root of project - doesn't necessarily need trailing slash
             "./data/logs",
-            "./data/submissions",
             "./docs/compiled",
-            "./data/lists"
+            "./data/lists",
+            "./data/jokes/dark",
+            "./data/submissions",
         ],
         exitSignals: [ // all signals that should cause a soft exit
             "SIGINT",
@@ -67,8 +68,13 @@ const settings = {
         blacklistLoggingEnabled: true, // whether or not to log the character when an IP is on the blacklist
     },
     jokes: {
-        jokesFormatVersion: 3,                             // current joke format version
-        jokesFolderPath: "./data/jokes/",                  // path to the jokes folder - needs trailing slash
+        jokesFormatVersion: 3,             // current joke format version
+        // TODO: FIXME: (v2.3.3)
+        jokesFolderPath: "./data/jokes/",  // path to the base jokes folder - needs trailing slash
+        jokesSubfolders: {       // subdirectories in `jokesFolderPath`:
+            regular: "regular",  // regular (non-dark) jokes files
+            dark: "dark",        // dark jokes files
+        },
         jokeSubmissionURL: `${getProp("baseUrl")}#submit`, // joke submission url
         jokeSubmissionPath: "./data/submissions/",         // path to a directory where joke submissions should be saved to - needs trailing slash
         submissions: {
