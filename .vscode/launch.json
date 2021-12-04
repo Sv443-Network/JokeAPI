@@ -14,7 +14,8 @@
             "program": "${workspaceFolder}/JokeAPI.js",
             "args": [
                 "--trace-warnings"
-            ]
+            ],
+            "console": "integratedTerminal"
         },
         {
             "program": "${workspaceFolder}/tools/test.js",
