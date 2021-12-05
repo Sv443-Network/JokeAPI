@@ -12,12 +12,6 @@ node_modules/
 # Dotenv environment variables file
 .env
 
-# Dev stuff:
-dev/madge/
-dependency-graph.html
-test.js
-!tools/test.js
-
 # Docs:
 docs/documentation.html
 docs/compiled
@@ -35,3 +29,10 @@ data/auth/tokens.json
 
 # Other potentially sensitive information:
 data/lists/ipBlacklist.json
+
+# Dev stuff:
+dev/madge/
+dependency-graph.html
+test.js
+!tools/test.js
+dev/ghb/
