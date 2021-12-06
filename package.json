@@ -116,7 +116,7 @@
     "url-parse": "^1.5.3",
     "xmlhttprequest": "^1.8.0",
     "xss": "^1.0.10",
-    "yargs": "^17.2.1"
+    "yargs": "^17.3.0"
   },
   "devDependencies": {
     "dependency-cruiser": "^10.0.6",
