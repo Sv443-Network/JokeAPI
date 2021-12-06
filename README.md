@@ -82,7 +82,7 @@ Old list-style dependents:
 
 <div align="center" style="text-align:center">
 
-Made with ❤️ by [Sv443](https://github.com/Sv443)  
+Made with ❤️ by [Sv443](https://github.com/Sv443) and [others](https://github.com/Sv443/JokeAPI/graphs/contributors)  
 Like JokeAPI? Please consider [supporting me](https://github.com/sponsors/Sv443)
 
 </div>
