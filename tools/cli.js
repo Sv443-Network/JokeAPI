@@ -127,9 +127,9 @@ function prepareCLI()
     yargs.scriptName("jokeapi")
         .usage("Usage: $0 <command>")
         .version(`${settings.info.name} v${settings.info.version} - ${settings.info.projGitHub}`)
-            .alias("v", "version")
+        .alias("v", "version")
         .help()
-            .alias("h", "help");
+        .alias("h", "help");
 
     //#SECTION commands
     // TODO: (v2.4) remove comments below
@@ -147,7 +147,7 @@ function prepareCLI()
         cmd.positional("amount", {
             describe: "Specifies the amount of tokens to generate - min is 1, max is 10",
             type: "number",
-            default: 1
+            default: 1,
         });
 
         // cmd.option("no-copy", {
@@ -165,7 +165,7 @@ function prepareCLI()
         cmd.option("generate-json", {
             alias: "j",
             describe: "Use this argument to generate a changelog-data.json file in addition to the markdown file",
-            type: "boolean"
+            type: "boolean",
         });
     });
 
@@ -183,7 +183,7 @@ function prepareCLI()
         cmd.option("colorblind", {
             alias: "c",
             describe: "Include this argument to replace the colors green with cyan and red with magenta",
-            type: "boolean"
+            type: "boolean",
         });
     });
 

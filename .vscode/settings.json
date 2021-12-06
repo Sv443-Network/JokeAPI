@@ -1,4 +1,10 @@
 {
+    // eslint
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+
     "highlight.regexes": { // REQUIRES EXTENSION: fabiospampinato.vscode-highlight
         "(((jsl|scl)\\.)?unused\\([a-zA-Z_,\\[\\]\\s\\-\":.]+\\);*)": [ // jsl.unused([some_var, some_other_var]); or scl.unused(xy);
             {

@@ -12,25 +12,27 @@ node_modules/
 # Dotenv environment variables file
 .env
 
-# Dev stuff:
-dev/madge/
-dependency-graph.html
-test.js
-!tools/test.js
-
 # Docs:
 docs/documentation.html
 docs/compiled
 
+# Dark jokes (GitHub TOS):
+data/jokes/dark/
+data/jokes/old/
+
 # Joke submissions:
 data/submissions
-data/submissions/**
-data/submissions/*/**
-data/submissions/*/*.json
 
 # Auth Tokens:
 data/tokens.json
 data/auth/tokens.json
 
 # Other potentially sensitive information:
-data/lists/*.json
+data/lists/ipBlacklist.json
+
+# Dev stuff:
+dev/madge/
+dependency-graph.html
+test.js
+!tools/test.js
+dev/ghb/

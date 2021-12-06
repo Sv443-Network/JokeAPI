@@ -2,7 +2,7 @@
 // Madge needs the Graphviz software to generate the SVG graphs.
 // 
 // On Windows, download it here: https://graphviz.gitlab.io/download/, then add the path to the "bin" folder to your PATH variable or specify the path to the bin folder in the "madgeOptions" object below.
-// On Linux, run "sudo apt-get install graphviz"
+// On Linux, run "sudo apt install graphviz"
 // On Mac, run "brew install graphviz || port install graphviz"
 //
 // To add files to be included in the graphing process, add them to the "otherFiles" array below (path is relative to project root).
@@ -11,11 +11,11 @@
 
 const madgeOptions = {
     // graphVizPath: "C:/Users/fes/Desktop/Graphviz/bin" // set to null to use the path inside the PATH environment variable
-    graphVizPath: null
+    graphVizPath: null,
 };
 
 const otherFiles = [
-    "./JokeAPI.js"
+    "./JokeAPI.js",
 ];
 
 
@@ -52,14 +52,14 @@ const generateForOther = () => {
             try
             {
                 madge(`${file}`, madgeOptions)
-                .then((res) => res.svg())
-                .then((output) => {
-                    iterCount++;
-                    fs.writeFileSync(`./dev/madge/${filename}.html`, output.toString());
+                    .then((res) => res.svg())
+                    .then((output) => {
+                        iterCount++;
+                        fs.writeFileSync(`./dev/madge/${filename}.html`, output.toString());
 
-                    if(iterCount == otherFiles.length)
-                    resolve();
-                });
+                        if(iterCount == otherFiles.length)
+                            resolve();
+                    });
 
                 fileList.push(`<li><span class="mimica" onclick="setIframe('./madge/${filename}.html', '${filename}')">${filename}.js</span></li>`);
             }
@@ -69,7 +69,7 @@ const generateForOther = () => {
             }
         });
     });
-}
+};
 
 const generateForSrc = () => {
     let iterCount = 0;
@@ -87,14 +87,14 @@ const generateForSrc = () => {
             try
             {
                 madge(`./src/${file}`, madgeOptions)
-                .then((res) => res.svg())
-                .then((output) => {
-                    iterCount++;
-                    fs.writeFileSync(`./dev/madge/src-${filename}.html`, output.toString());
+                    .then((res) => res.svg())
+                    .then((output) => {
+                        iterCount++;
+                        fs.writeFileSync(`./dev/madge/src-${filename}.html`, output.toString());
 
-                    if(iterCount == srcFiles.length)
-                    resolve();
-                });
+                        if(iterCount == srcFiles.length)
+                            resolve();
+                    });
 
                 fileList.push(`<li><span class="mimica" onclick="setIframe('./madge/src-${filename}.html', '${filename}')">src/${filename}.js</span></li>`);
             }
@@ -104,7 +104,7 @@ const generateForSrc = () => {
             }
         });
     });
-}
+};
 
 const generateForEndpoints = () => {
     let iterCount = 0;
@@ -122,14 +122,14 @@ const generateForEndpoints = () => {
             try
             {
                 madge(`./endpoints/${file}`, madgeOptions)
-                .then((res) => res.svg())
-                .then((output) => {
-                    iterCount++;
-                    fs.writeFileSync(`./dev/madge/endpoints-${filename}.html`, output.toString());
+                    .then((res) => res.svg())
+                    .then((output) => {
+                        iterCount++;
+                        fs.writeFileSync(`./dev/madge/endpoints-${filename}.html`, output.toString());
 
-                    if(iterCount == endpointFiles.length)
-                    resolve();
-                });
+                        if(iterCount == endpointFiles.length)
+                            resolve();
+                    });
 
                 fileList.push(`<li><span class="mimica" onclick="setIframe('./madge/endpoints-${filename}.html', '${filename}')">endpoints/${filename}.js</span></li>`);
             }
@@ -139,7 +139,7 @@ const generateForEndpoints = () => {
             }
         });
     });
-}
+};
 
 const generateForTools = () => {
     let iterCount = 0;
@@ -157,14 +157,14 @@ const generateForTools = () => {
             try
             {
                 madge(`./tools/${file}`, madgeOptions)
-                .then((res) => res.svg())
-                .then((output) => {
-                    iterCount++;
-                    fs.writeFileSync(`./dev/madge/tools-${filename}.html`, output.toString());
+                    .then((res) => res.svg())
+                    .then((output) => {
+                        iterCount++;
+                        fs.writeFileSync(`./dev/madge/tools-${filename}.html`, output.toString());
 
-                    if(iterCount == toolFiles.length)
-                    resolve();
-                });
+                        if(iterCount == toolFiles.length)
+                            resolve();
+                    });
 
                 fileList.push(`<li><span class="mimica" onclick="setIframe('./madge/tools-${filename}.html', '${filename}')">tools/${filename}.js</span></li>`);
             }
@@ -174,7 +174,7 @@ const generateForTools = () => {
             }
         });
     });
-}
+};
 
 const generateForClasses = () => {
     let iterCount = 0;
@@ -192,14 +192,14 @@ const generateForClasses = () => {
             try
             {
                 madge(`./src/classes/${file}`, madgeOptions)
-                .then((res) => res.svg())
-                .then((output) => {
-                    iterCount++;
-                    fs.writeFileSync(`./dev/madge/classes-${filename}.html`, output.toString());
+                    .then((res) => res.svg())
+                    .then((output) => {
+                        iterCount++;
+                        fs.writeFileSync(`./dev/madge/classes-${filename}.html`, output.toString());
 
-                    if(iterCount == classesFiles.length)
-                    resolve();
-                });
+                        if(iterCount == classesFiles.length)
+                            resolve();
+                    });
 
                 fileList.push(`<li><span class="mimica" onclick="setIframe('./madge/classes-${filename}.html', '${filename}')">classes/${filename}.js</span></li>`);
             }
@@ -209,7 +209,7 @@ const generateForClasses = () => {
             }
         });
     });
-}
+};
 
 const generateForTests = () => {
     let iterCount = 0;
@@ -227,14 +227,14 @@ const generateForTests = () => {
             try
             {
                 madge(`./tests/${file}`, madgeOptions)
-                .then((res) => res.svg())
-                .then((output) => {
-                    iterCount++;
-                    fs.writeFileSync(`./dev/madge/tests-${filename}.html`, output.toString());
+                    .then((res) => res.svg())
+                    .then((output) => {
+                        iterCount++;
+                        fs.writeFileSync(`./dev/madge/tests-${filename}.html`, output.toString());
 
-                    if(iterCount == testsFiles.length)
-                    resolve();
-                });
+                        if(iterCount == testsFiles.length)
+                            resolve();
+                    });
 
                 fileList.push(`<li><span class="mimica" onclick="setIframe('./madge/tests-${filename}.html', '${filename}')">tests/${filename}.js</span></li>`);
             }
@@ -244,7 +244,7 @@ const generateForTests = () => {
             }
         });
     });
-}
+};
 
 const writeIndex = () => {
     let index = getIndex();
@@ -252,7 +252,7 @@ const writeIndex = () => {
 
     console.log(`\n\n\x1b[32m\x1b[1mSuccessfully generated dependency graphs for ${fileList.length} files.\n\x1b[0m`);
     process.exit(0);
-}
+};
 
 const getIndex = () => `\
 <!DOCTYPE html>

@@ -91,7 +91,7 @@ async function run()
     const { proceed } = await prompt({
         message: `There are ${amount} submissions of ${langCount} language${langCount > 1 ? "s" : ""}. Go through them now?`,
         type: "confirm",
-        name: "proceed"
+        name: "proceed",
     });
 
     if(proceed)
@@ -324,7 +324,7 @@ function editSubmission(sub)
 
                 const { category } = await prompt({
                     type: "select",
-                    message: `Select new category`,
+                    message: "Select new category",
                     name: "category",
                     choices: catChoices,
                     initial: settings.jokes.possible.categories.indexOf("Misc"),
@@ -490,7 +490,7 @@ function printSubmission(sub)
         `  Category: ${sub.joke.category}`,
         `  Type:     ${sub.joke.type}`,
         `  Flags:    ${extractFlags(sub.joke)}`,
-        ``,
+        "",
     ];
 
     if(sub.joke.type === "single")
@@ -530,7 +530,7 @@ function finishPrompts()
     console.log("\nFinished going through submissions.\n");
 
     const statLines = [
-        `Stats:`,
+        "Stats:",
         `  Submissions acted upon: ${stats.submissionsActAmt}`,
         `  Submissions edited:     ${stats.editedSubmissions}`,
         `  Submissions deleted:    ${stats.deletedSubmissions}`,
@@ -538,7 +538,7 @@ function finishPrompts()
 
     console.log(statLines.join("\n"));
 
-    console.log(`\nExiting.\n`);
+    console.log("\nExiting.\n");
 
     exit(0);
 }

@@ -28,7 +28,7 @@ function init()
         {
             req1mMeter = io.metric({
                 name: "Reqs / 1m",
-                unit: "req"
+                unit: "req",
             });
             req1mMeter.set(-1);
             setInterval(() => {
@@ -39,7 +39,7 @@ function init()
 
             req10mMeter = io.metric({
                 name: "Reqs / 10m",
-                unit: "req"
+                unit: "req",
             });
             req10mMeter.set(-1);
             setInterval(() => {
@@ -50,7 +50,7 @@ function init()
 
             req1hMeter = io.metric({
                 name: "Reqs / 1h",
-                unit: "req"
+                unit: "req",
             });
             req1hMeter.set(-1);
             setInterval(() => {
@@ -61,14 +61,14 @@ function init()
 
             reqtotalMeter = io.metric({
                 name: "Total Reqs",
-                unit: "req"
+                unit: "req",
             });
             reqtotalMeter.set(-1);
 
 
             submissionMeter = io.metric({
                 name: "Submissions",
-                unit: "sub"
+                unit: "sub",
             });
             subms = fs.readdirSync(settings.jokes.jokeSubmissionPath).length;
             submissionMeter.set(subms);
@@ -103,25 +103,25 @@ function update(meterName, addValue)
 
     switch(meterName)
     {
-        case "req1min":
-            m1 += addValue;
+    case "req1min":
+        m1 += addValue;
         break;
-        case "req10min":
-            m10 += addValue;
+    case "req10min":
+        m10 += addValue;
         break;
-        case "req1hour":
-            h1 += addValue;
+    case "req1hour":
+        h1 += addValue;
         break;
-        case "reqtotal":
-            tot += addValue;
-            reqtotalMeter.set(tot);
+    case "reqtotal":
+        tot += addValue;
+        reqtotalMeter.set(tot);
         break;
-        case "submission":
-            subms += addValue;
-            submissionMeter.set(subms);
+    case "submission":
+        subms += addValue;
+        submissionMeter.set(subms);
         break;
-        default:
-            throw new Error(`meter.update(): "meterName" has incorrect value`);
+    default:
+        throw new Error("meter.update(): \"meterName\" has incorrect value");
     }
 
     return;

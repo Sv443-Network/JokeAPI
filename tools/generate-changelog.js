@@ -35,7 +35,7 @@ function extractVersionArray(versionLines = []) {
         ([versionTitle, versionEntries]) => ({
             versionTitle,
             versionEntries,
-        })
+        }),
     );
 }
 
@@ -63,7 +63,7 @@ function writeMD(
     data = {
         currentVersion: "",
         versions: [],
-    }
+    },
 ) {
     let outputLines = [
         `# JokeAPI Changelog (Version ${data["currentVersion"]})`,
@@ -86,14 +86,14 @@ function writeMD(
             // convert issue references to links
             .replace(
                 /issue #(\d{1,})/g,
-                "[issue #$1](https://github.com/Sv443/JokeAPI/issues/$1)"
+                "[issue #$1](https://github.com/Sv443/JokeAPI/issues/$1)",
             )
             // convert pull request references to links
             .replace(
                 /PR #(\d{1,})/g,
-                "[pull request #$1](https://github.com/Sv443/JokeAPI/pull/$1)"
+                "[pull request #$1](https://github.com/Sv443/JokeAPI/pull/$1)",
             )
-        + `<br><br><br>\n\nThis file was auto-generated from the source file at [./${options.SOURCE_FILE}](./${options.SOURCE_FILE})`
+        + `<br><br><br>\n\nThis file was auto-generated from the source file at [./${options.SOURCE_FILE}](./${options.SOURCE_FILE})`,
     );
 
     console.log(`\x1b[32m\x1b[1mGenerated changelog at ./${options.OUTPUT_FILE}\n\x1b[0m`);

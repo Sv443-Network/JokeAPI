@@ -1,6 +1,5 @@
 {
     "info": {
-        "disclaimer": "A lot of the jokes below are racist, sexist and explicit in other ways. Proceed at your own risk!",
         "formatVersion": 3
     },
     "jokes": [
@@ -730,22 +729,6 @@
         {
             "category": "Programming",
             "type": "twopart",
-            "setup": "Genders are a lot like booleans.",
-            "delivery": "There's only two of them.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": true,
-                "explicit": false
-            },
-            "id": 47,
-            "safe": false
-        },
-        {
-            "category": "Programming",
-            "type": "twopart",
             "setup": "Why did the functional programmer get thrown out of school?",
             "delivery": "Because he refused to take classes.",
             "flags": {
@@ -949,22 +932,6 @@
             "safe": false
         },
         {
-            "category": "Misc",
-            "type": "twopart",
-            "setup": "Why is every gender equality officer female?",
-            "delivery": "Because it's cheaper.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": true,
-                "explicit": false
-            },
-            "id": 61,
-            "safe": false
-        },
-        {
             "category": "Pun",
             "type": "twopart",
             "setup": "One time I masturbated on a plane.",
@@ -1061,22 +1028,6 @@
             "safe": true
         },
         {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "I had a granny that we couldn't decide whether to bury or cremate",
-            "delivery": "In the end we decided to just let her live.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 68,
-            "safe": false
-        },
-        {
             "category": "Pun",
             "type": "twopart",
             "setup": "What do you call crystal clear urine?",
@@ -1106,22 +1057,6 @@
                 "explicit": false
             },
             "id": 70,
-            "safe": false
-        },
-        {
-            "category": "Misc",
-            "type": "twopart",
-            "setup": "Arguing with a woman is like reading a software's license agreement.",
-            "delivery": "In the end you ignore everything and click \"I agree\".",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": true,
-                "explicit": false
-            },
-            "id": 71,
             "safe": false
         },
         {
@@ -1202,22 +1137,6 @@
             "safe": true
         },
         {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "9/11 jokes are not funny.",
-            "delivery": "The other 2 though, are hilarious!",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": true,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 77,
-            "safe": false
-        },
-        {
             "category": "Misc",
             "type": "twopart",
             "setup": "I WRITE MY JOKES IN CAPITALS.",
@@ -1232,22 +1151,6 @@
             },
             "id": 78,
             "safe": true
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What do Japanese cannibals eat?",
-            "delivery": "Raw men.",
-            "flags": {
-                "nsfw": true,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 79,
-            "safe": false
         },
         {
             "category": "Pun",
@@ -1327,22 +1230,6 @@
             },
             "id": 84,
             "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "My wife divorced me so I stole her wheelchair.",
-            "delivery": "Guess who came crawling back.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 85,
-            "safe": true
         },
         {
             "category": "Pun",
@@ -1456,22 +1343,6 @@
             "safe": true
         },
         {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "I told my psychiatrist I got suicidal tendencies.",
-            "delivery": "He said from now on I have to pay in advance.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 93,
-            "safe": false
-        },
-        {
             "category": "Misc",
             "type": "twopart",
             "setup": "My mother said, \"You won't amount to anything because you always procrastinate.\"",
@@ -1486,308 +1357,6 @@
             },
             "id": 94,
             "safe": true
-        },
-        {
-            "category": "Pun",
-            "type": "twopart",
-            "setup": "What do Asian people call fingers?",
-            "delivery": "Limb Limbs.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 95,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "single",
-            "joke": "I didn't vaccinate my 10 kids and the one that survived is fine!",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 96,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "I'm thinking of setting up a comedy group to help people going through cancer treatment.",
-            "delivery": "I'll call it \"A Sense of Tumor\".",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 97,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "I've been in 15 school shootings and I was lucky to survive!",
-            "delivery": "I just had to be nice with the cops and not resist.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": true,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 98,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "Why are there no pharmacies in Africa?",
-            "delivery": "Because you can't use medicine on an empty stomach.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 99,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "People are like jellybeans and licorice:",
-            "delivery": "No one likes the blacks.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 100,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What do an orgasm and a pulse have in common?",
-            "delivery": "I don't care if she has one.",
-            "flags": {
-                "nsfw": true,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 101,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What's the difference between an apple and a black guy?",
-            "delivery": "The apple will eventually fall from the tree that it's hanging from!",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 102,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "single",
-            "joke": "Me and my Jewish friend were eating lunch and I farted. He got mad so I said \"cmon man a little gas never killed anyone\".",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 103,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "How long does a black woman take to throw away the garbage?",
-            "delivery": "Nine months.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 104,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "Why are Americans shit at Dota?",
-            "delivery": "They can't protect their towers.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": true,
-                "racist": false,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 105,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "Everyone says that Hitler really loved animals.",
-            "delivery": "Then why did he kill 6 million of them?",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 106,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "Life's like my dick.",
-            "delivery": "The more children you have, the harder it gets.",
-            "flags": {
-                "nsfw": true,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 107,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "Why do German showers have 11 holes?",
-            "delivery": "Because Jews only have 10 fingers.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 108,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What's the most notable similarity between a pedophile and a roller coaster?",
-            "delivery": "They both make a child scream, but the first ride's never the last",
-            "flags": {
-                "nsfw": true,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 109,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "How do we know Jesus wasn't black?",
-            "delivery": "He would have been hung from a tree, not a cross.",
-            "flags": {
-                "nsfw": false,
-                "religious": true,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 110,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "My grandma was recently diagnosed with Alzheimer's, and she keeps calling me by the wrong name.",
-            "delivery": "Other than that, the sex is great.",
-            "flags": {
-                "nsfw": true,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 111,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What do dermatologists and the KKK have in common?",
-            "delivery": "They both remove blackheads.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 112,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "Muslim women are horrible competitors.",
-            "delivery": "No matter what they do, they always get beat.",
-            "flags": {
-                "nsfw": false,
-                "religious": true,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 113,
-            "safe": false
         },
         {
             "category": "Misc",
@@ -1805,134 +1374,6 @@
             "safe": false
         },
         {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What did one necrophiliac tell the other necrophiliac after work?",
-            "delivery": "\"Let's go have a couple of cold ones!\"",
-            "flags": {
-                "nsfw": true,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 115,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "White people don't shoot each other in the streets as black people do.",
-            "delivery": "They do it in schools because they have class.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 116,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "Dark humor is like cancer.",
-            "delivery": "It's more funny when children get it.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 117,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "Jokes about anti-vaxxer parents never get old.",
-            "delivery": "Just like their kids.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 118,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What do you call a kid with no arms and an eyepatch?",
-            "delivery": "Names.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 119,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What's the difference between a baby and a pile of sand?",
-            "delivery": "You can't pick a pile of sand up with a pitchfork.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 120,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What's the difference between a baby and a watermelon?",
-            "delivery": "One's satisfying to hit with a sledgehammer. The other's a watermelon.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 121,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What's the difference between a little girl and a fridge?",
-            "delivery": "Fridges don't scream when you put your meat in them.",
-            "flags": {
-                "nsfw": true,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 122,
-            "safe": false
-        },
-        {
             "category": "Programming",
             "type": "single",
             "joke": "The six stages of debugging:\n1. That can't happen.\n2. That doesn't happen on my machine.\n3. That shouldn't happen.\n4. Why does that happen?\n5. Oh, I see.\n6. How did that ever work?",
@@ -1946,22 +1387,6 @@
             },
             "id": 123,
             "safe": true
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "I was walking down the street and saw some black guy on a bike and it looked just like mine so I ran home to check.",
-            "delivery": "Thankfully he was still chained up in my basement.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 124,
-            "safe": false
         },
         {
             "category": "Pun",
@@ -2011,38 +1436,6 @@
             "safe": true
         },
         {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What's the difference between a jew and a pizza?",
-            "delivery": "The pizza doesn't scream when you put it in the oven.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 128,
-            "safe": false
-        },
-        {
-            "category": "Misc",
-            "type": "twopart",
-            "setup": "What do you use to blindfold an Asian?",
-            "delivery": "Floss.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 129,
-            "safe": false
-        },
-        {
             "category": "Pun",
             "type": "twopart",
             "setup": "What do you call a pile of kittens?",
@@ -2090,53 +1483,6 @@
             "safe": true
         },
         {
-            "category": "Dark",
-            "type": "single",
-            "joke": "Nowadays people are so sensitive, you can't even say \"black paint\" anymore.\nInstead, you have to say \"Jamal, please paint the fence\".",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 133,
-            "safe": false
-        },
-        {
-            "category": "Misc",
-            "type": "twopart",
-            "setup": "Why does Beyonce sing \"to the left, to the left\"?",
-            "delivery": "Because women don't have rights.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": true,
-                "explicit": false
-            },
-            "id": 134,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What's black and sits at the top of a stairwell?",
-            "delivery": "A paraplegic after a house fire.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 135,
-            "safe": false
-        },
-        {
             "category": "Pun",
             "type": "twopart",
             "setup": "Why do Hong Kong cops like to go to work early?",
@@ -2166,21 +1512,6 @@
                 "explicit": true
             },
             "id": 137,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "single",
-            "joke": "Doctor: \"I have some news about your baby.\"\nParents: \"Don't tell us the gender, we want to keep it a surprise.\"\nDoctor: \"Oh I get it, you're those type of people. Okay, well IT is not breathing.\"",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 138,
             "safe": false
         },
         {
@@ -2244,38 +1575,6 @@
                 "explicit": true
             },
             "id": 142,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "When I was a kid, I made a really big sandcastle with my grandma.",
-            "delivery": "Unfortunately, that didn't impress anyone at the cremation...",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 143,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What did the boy with no arms get for Christmas?",
-            "delivery": "I don't know, he hasn't opened it yet.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 144,
             "safe": false
         },
         {
@@ -2343,100 +1642,6 @@
             "safe": true
         },
         {
-            "category": "Misc",
-            "type": "single",
-            "joke": "Women are like KFC, once you're done with the breasts and thighs, you just have a greasy box to put your bone in.",
-            "flags": {
-                "nsfw": true,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": true,
-                "explicit": true
-            },
-            "id": 149,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "The KKK isn't really that racist.",
-            "delivery": "I went to one of their meetings and there were a lot of black people hanging around.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 150,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "Why does Dr. Pepper come in a bottle?",
-            "delivery": "His wife is dead.",
-            "flags": {
-                "nsfw": true,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 151,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "single",
-            "joke": "My ex had an accident. I told the paramedics the wrong blood type for her. She'll finally experience what rejection is really like.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 152,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What part of a vegetable are you not supposed to eat?",
-            "delivery": "The wheelchair.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 153,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What do Ted Bundy and the Space Shuttle Columbia have in common?",
-            "delivery": "They both left bodies in four states.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 154,
-            "safe": false
-        },
-        {
             "category": "Pun",
             "type": "twopart",
             "setup": "What do you call a deaf gynecologist?",
@@ -2485,85 +1690,6 @@
             "safe": false
         },
         {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What did the cannibal do after he dumped his girlfriend?",
-            "delivery": "He wiped his ass.",
-            "flags": {
-                "nsfw": true,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 158,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What is the difference between acne and a catholic priest?",
-            "delivery": "Acne usually comes on a boys face after he turns 12.",
-            "flags": {
-                "nsfw": true,
-                "religious": true,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 159,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "My first high-school football game was a lot like my first time having sex...",
-            "delivery": "I was bloody and sore at the end, but at least my dad came.",
-            "flags": {
-                "nsfw": true,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 160,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "Say what you want about pedophiles...",
-            "delivery": "But at least they drive slowly through the school zones.",
-            "flags": {
-                "nsfw": true,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 161,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "single",
-            "joke": "Dark humor is like food, not everyone gets it.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 162,
-            "safe": false
-        },
-        {
             "category": "Misc",
             "type": "twopart",
             "setup": "What's the difference between a gay guy and a refrigerator?",
@@ -2594,37 +1720,6 @@
             },
             "id": 164,
             "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "single",
-            "joke": "My little daughter came to me all excited, saying \"Daddy! Daddy! Guess how old I'll be in June!\"\n\"Oh I don't know princess, why don't you tell me?\" I said. She gave me a huge smile and held up four fingers.\nIt's now three hours later, police have joined in and she still won't say where she got them.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 165,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "Dads are like boomerangs.",
-            "delivery": "I hope.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 166,
-            "safe": true
         },
         {
             "category": "Misc",
@@ -2723,38 +1818,6 @@
             "safe": false
         },
         {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "How many Jews can you fit into a car?",
-            "delivery": "Two in the front, three in the back, and a hundred in the ashtray.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 173,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What is the difference between a pizza and a black man?",
-            "delivery": "A pizza can feed a family of five.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 174,
-            "safe": false
-        },
-        {
             "category": "Misc",
             "type": "twopart",
             "setup": "What is the difference between an oral thermometer and a rectal thermometer?",
@@ -2801,37 +1864,6 @@
             },
             "id": 177,
             "safe": true
-        },
-        {
-            "category": "Dark",
-            "type": "single",
-            "joke": "My grandfather says I'm too reliant on technology.\nI called him a hypocrite and unplugged his life support.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 178,
-            "safe": false
-        },
-        {
-            "category": "Misc",
-            "type": "twopart",
-            "setup": "Why do Jewish women prefer circumcised men?",
-            "delivery": "Cause they won't take anything until it's atleast 10% off.",
-            "flags": {
-                "nsfw": true,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 179,
-            "safe": false
         },
         {
             "category": "Programming",
@@ -2927,22 +1959,6 @@
             "safe": true
         },
         {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "Why can't orphans play baseball?",
-            "delivery": "They don't know where home is.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 186,
-            "safe": false
-        },
-        {
             "category": "Misc",
             "type": "twopart",
             "setup": "I told my wife to shave her pussy.",
@@ -2972,22 +1988,6 @@
                 "explicit": true
             },
             "id": 188,
-            "safe": false
-        },
-        {
-            "category": "Misc",
-            "type": "twopart",
-            "setup": "Why are men like lawnmowers?",
-            "delivery": "They are very hard to get started, they make yucky smells and half the time they don't even work.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": true,
-                "explicit": false
-            },
-            "id": 189,
             "safe": false
         },
         {
@@ -3255,36 +2255,6 @@
             "safe": true
         },
         {
-            "category": "Dark",
-            "type": "single",
-            "joke": "I was going to tell a dead baby joke. But I decided to abort.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 207,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "single",
-            "joke": "I'll never forget my Granddad's last words to me just before he died. \"Are you still holding the ladder?\"",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 208,
-            "safe": false
-        },
-        {
             "category": "Pun",
             "type": "twopart",
             "setup": "Why did the chicken cross the road, roll in the mud and cross the road again?",
@@ -3429,38 +2399,6 @@
             "safe": true
         },
         {
-            "category": "Misc",
-            "type": "twopart",
-            "setup": "What do you tell a woman with 2 black eyes?",
-            "delivery": "Nothing. You already told her twice.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": true,
-                "explicit": true
-            },
-            "id": 218,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What's the difference between Harry Potter and the jews?",
-            "delivery": "Harry escaped the chamber.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 219,
-            "safe": false
-        },
-        {
             "category": "Pun",
             "type": "single",
             "joke": "I was struggling to figure out how lightning works, but then it struck me.",
@@ -3571,69 +2509,6 @@
             "safe": true
         },
         {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "How does a black woman fight crime?",
-            "delivery": "She has an abortion.",
-            "flags": {
-                "nsfw": true,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 227,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "single",
-            "joke": "I don't know where I stand on abortion. I like killing babies, but I don't like giving women a choice.",
-            "flags": {
-                "nsfw": true,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": true,
-                "explicit": true
-            },
-            "id": 228,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "Why is it so hard to break up with a Japanese girlfriend?",
-            "delivery": "You have to drop the bomb twice before she gets it.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 229,
-            "safe": false
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What do 9 out of 10 people enjoy?",
-            "delivery": "Gang rape.",
-            "flags": {
-                "nsfw": true,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 230,
-            "safe": false
-        },
-        {
             "category": "Pun",
             "type": "twopart",
             "setup": "How much did your chimney cost?",
@@ -3727,21 +2602,6 @@
             "safe": true
         },
         {
-            "category": "Dark",
-            "type": "single",
-            "joke": "I have a fish that can breakdance! Only for 20 seconds though, and only once.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "id": 237,
-            "safe": false
-        },
-        {
             "category": "Pun",
             "type": "single",
             "joke": "I have a joke about trickle down economics, but 99% of you will never get it.",
@@ -3755,22 +2615,6 @@
             },
             "id": 238,
             "safe": true
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "How do you keep black people out of your back yard?",
-            "delivery": "Hang one in the front!",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": true
-            },
-            "id": 239,
-            "safe": false
         },
         {
             "category": "Pun",
@@ -4107,54 +2951,6 @@
             "id": 260
         },
         {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What's the difference between Jesus and a hooker?",
-            "delivery": "The look on their face when you are nailing them.",
-            "flags": {
-                "nsfw": false,
-                "religious": true,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": true
-            },
-            "safe": false,
-            "id": 261
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "Why do Africans have dark skin?",
-            "delivery": "It's easier to commit crimes at night.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": false
-            },
-            "safe": false,
-            "id": 262
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "Why don't jews eat pussy?",
-            "delivery": "It's too close to the gas chamber.",
-            "flags": {
-                "nsfw": true,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": true
-            },
-            "safe": false,
-            "id": 263
-        },
-        {
             "category": "Programming",
             "type": "twopart",
             "setup": "Why are Assembly programmers always soaking wet?",
@@ -4235,21 +3031,6 @@
             "id": 268
         },
         {
-            "category": "Dark",
-            "type": "single",
-            "joke": "Hey girl are you a school? Because I want to shoot some kids up inside of you.",
-            "flags": {
-                "nsfw": true,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": true
-            },
-            "safe": false,
-            "id": 269
-        },
-        {
             "category": "Pun",
             "type": "twopart",
             "setup": "You see, mountains aren't just funny.",
@@ -4310,36 +3091,6 @@
             },
             "safe": true,
             "id": 273
-        },
-        {
-            "category": "Dark",
-            "type": "single",
-            "joke": "I hate double standards. Burn a body at a crematorium, you're \"being a respectful friend.\" Do it at home and you're \"destroying evidence.\"",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": true
-            },
-            "safe": false,
-            "id": 274
-        },
-        {
-            "category": "Dark",
-            "type": "single",
-            "joke": "My girlfriend's dog died, so I tried to cheer her up by getting her an identical one. It just made her more upset. She screamed at me, \"What am I supposed to do with two dead dogs?\"",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "safe": false,
-            "id": 275
         },
         {
             "category": "Pun",
@@ -4578,22 +3329,6 @@
             },
             "safe": true,
             "id": 290
-        },
-        {
-            "category": "Misc",
-            "type": "twopart",
-            "setup": "What do you call a Jewish Pokemon Trainer?",
-            "delivery": "Ash.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": false
-            },
-            "safe": false,
-            "id": 291
         },
         {
             "category": "Programming",
@@ -4861,38 +3596,6 @@
             },
             "safe": true,
             "id": 308
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What's the difference between a phone and a black person?",
-            "delivery": "A phone is actually useful.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": true,
-                "sexist": false,
-                "explicit": false
-            },
-            "safe": false,
-            "id": 309
-        },
-        {
-            "category": "Dark",
-            "type": "twopart",
-            "setup": "What's yellow and can't swim?",
-            "delivery": "A bus full of children.",
-            "flags": {
-                "nsfw": false,
-                "religious": false,
-                "political": false,
-                "racist": false,
-                "sexist": false,
-                "explicit": false
-            },
-            "safe": false,
-            "id": 310
         },
         {
             "category": "Spooky",

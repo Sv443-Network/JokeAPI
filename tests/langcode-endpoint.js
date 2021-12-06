@@ -5,7 +5,7 @@ const settings = require("../settings");
 
 const meta = {
     name: "Langcode",
-    category: "Endpoint"
+    category: "Endpoint",
 };
 
 const baseURL = `http://127.0.0.1:${settings.httpServer.port}`;
@@ -63,7 +63,7 @@ function run()
                 { lang: "g3rm4n", expectedCode: "de" },
                 { lang: "Azerbaijani", expectedCode: "az" },
                 { lang: "Luxembourg", expectedCode: "lb" },
-                { lang: "invalid_language_xyz", expectedCode: null }
+                { lang: "invalid_language_xyz", expectedCode: null },
             ];
             
             langs.forEach(l => {

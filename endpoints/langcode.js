@@ -18,9 +18,9 @@ const meta = {
         "url": `${settings.info.docsURL}/langcode/{LANGUAGE}`,
         "supportedParams": [
             "format",
-            "lang"
-        ]
-    }
+            "lang",
+        ],
+    },
 };
 
 /**
@@ -43,7 +43,7 @@ const call = (req, res, url, params, format) => {
         statusCode = 400;
         return httpServer.pipeString(res, convertFileFormat.auto(format, {
             "error": true,
-            "message": translate(lang, "noLangCodeSpecified")
+            "message": translate(lang, "noLangCodeSpecified"),
         }, lang), parseURL.getMimeTypeFromFileFormatString(format), statusCode);   
     }
 
@@ -64,14 +64,14 @@ const call = (req, res, url, params, format) => {
         statusCode = 400;
         responseText = convertFileFormat.auto(format, {
             "error": true,
-            "message": `The provided language "${decodeURIComponent(language)}" could not be resolved.`
+            "message": `The provided language "${decodeURIComponent(language)}" could not be resolved.`,
         }, lang);
     }
     else
     {
         responseText = convertFileFormat.auto(format, {
             "error": false,
-            "code": langCode
+            "code": langCode,
         }, lang);
     }
 

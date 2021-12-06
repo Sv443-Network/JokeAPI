@@ -83,17 +83,17 @@ class AllJokes
 
             this._safeJokes.push({
                 lang: key,
-                count: currentLangSafeJokesCount
+                count: currentLangSafeJokesCount,
             });
         });
 
         formatVersions.push(settings.jokes.jokesFormatVersion);
 
         if(!jsl.allEqual(formatVersions))
-            throw new Error(`Error: One or more of the jokes-xy.json files contain(s) a wrong formatVersion parameter`);
+            throw new Error("Error: One or more of the jokes-xy.json files contain(s) a wrong formatVersion parameter");
 
         if(typeof jokeArray != "object" || Array.isArray(jokeArray))
-            throw new Error(`Error while constructing a new AllJokes object: parameter "jokeArray" is invalid`);
+            throw new Error("Error while constructing a new AllJokes object: parameter \"jokeArray\" is invalid");
 
         this.jokes = jokeArray;
         this._jokeCount = jokeCount;

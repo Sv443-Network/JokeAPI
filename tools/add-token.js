@@ -10,7 +10,7 @@ try
     {
         amount = parseInt(
             process.argv.find(arg => arg.match(/^-{0,2}\d+$/))
-            .replace(/[-]/g, "")
+                .replace(/[-]/g, ""),
         );
     }
     catch(err)
@@ -42,7 +42,7 @@ try
 
         oldFile.push({
             token: tok,
-            maxReqs: null // null = default
+            maxReqs: null, // null = default
         });
 
         fs.writeFileSync(settings.auth.tokenListFile, JSON.stringify(oldFile, null, 4));

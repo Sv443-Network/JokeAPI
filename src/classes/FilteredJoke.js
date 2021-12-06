@@ -29,7 +29,7 @@ class FilteredJoke
     constructor(allJokes)
     {
         if(jsl.isEmpty(allJokes))
-            throw new Error(`Error while constructing new FilteredJoke object: parameter "allJokes" is empty`);
+            throw new Error("Error while constructing new FilteredJoke object: parameter \"allJokes\" is empty");
 
         this._allJokes = allJokes;
         this._filteredJokes = null;
@@ -43,7 +43,7 @@ class FilteredJoke
         /** Resolved category names (aliases are not allowed here) */
         this._allowedCategories = [
             settings.jokes.possible.anyCategoryName.toLowerCase(),
-            ...settings.jokes.possible.categories.map(c => c.toLowerCase())
+            ...settings.jokes.possible.categories.map(c => c.toLowerCase()),
         ];
         this._allowedTypes = [...settings.jokes.possible.types];
         this._searchString = null;
@@ -74,7 +74,7 @@ class FilteredJoke
 
         let allCategories = [
             settings.jokes.possible.anyCategoryName.toLowerCase(),
-            ...settings.jokes.possible.categories.map(c => c.toLowerCase())
+            ...settings.jokes.possible.categories.map(c => c.toLowerCase()),
         ];
         let catsValid = [];
 
@@ -133,7 +133,7 @@ class FilteredJoke
      */
     getAllowedTypes()
     {
-        return this._allowedTypes
+        return this._allowedTypes;
     }
 
     //#MARKER search string

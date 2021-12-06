@@ -59,7 +59,7 @@ function init()
                         process.jokeapi.lists = {
                             blacklist: JSON.parse(blacklist),
                             whitelist: JSON.parse(whitelist),
-                            consoleBlacklist: JSON.parse(consoleBlacklist)
+                            consoleBlacklist: JSON.parse(consoleBlacklist),
                         };
 
                         if(!jsl.isEmpty(process.jokeapi.lists))
@@ -88,8 +88,8 @@ function isBlacklisted(ip)
 {
     if(jsl.isEmpty(process.jokeapi) || jsl.isEmpty(process.jokeapi.lists) || !(process.jokeapi.lists.blacklist instanceof Array))
     {
-        logger("fatal", `Blacklist was not initialized when calling lists.isBlacklisted()`, true);
-        throw new Error(`Blacklist was not initialized`);
+        logger("fatal", "Blacklist was not initialized when calling lists.isBlacklisted()", true);
+        throw new Error("Blacklist was not initialized");
     }
 
     if(jsl.isEmpty(process.jokeapi.lists.blacklist) || process.jokeapi.lists.blacklist.length == 0)
@@ -120,8 +120,8 @@ function isWhitelisted(ip)
 
     if(jsl.isEmpty(process.jokeapi) || jsl.isEmpty(process.jokeapi.lists) || !(process.jokeapi.lists.whitelist instanceof Array))
     {
-        logger("fatal", `Whitelist was not initialized when calling lists.isWhitelisted()`, true);
-        throw new Error(`Whitelist was not initialized`);
+        logger("fatal", "Whitelist was not initialized when calling lists.isWhitelisted()", true);
+        throw new Error("Whitelist was not initialized");
     }
 
     if(jsl.isEmpty(process.jokeapi.lists.whitelist) || process.jokeapi.lists.whitelist.length == 0)
@@ -143,8 +143,8 @@ function isConsoleBlacklisted(ip)
 {
     if(jsl.isEmpty(process.jokeapi) || jsl.isEmpty(process.jokeapi.lists) || !(process.jokeapi.lists.consoleBlacklist instanceof Array))
     {
-        logger("fatal", `Console blacklist was not initialized when calling lists.isConsoleBlacklisted()`, true);
-        throw new Error(`Console blacklist was not initialized`);
+        logger("fatal", "Console blacklist was not initialized when calling lists.isConsoleBlacklisted()", true);
+        throw new Error("Console blacklist was not initialized");
     }
 
     if(jsl.isEmpty(process.jokeapi.lists.consoleBlacklist) || process.jokeapi.lists.consoleBlacklist.length == 0)

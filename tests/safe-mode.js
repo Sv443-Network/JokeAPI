@@ -11,7 +11,7 @@ const defaultLang = "en";
 
 const meta = {
     name: "Safe Mode",
-    category: "Parameter"
+    category: "Parameter",
 };
 
 
@@ -63,7 +63,7 @@ function run()
                             if(xhr.status < 300 && xhr.status != 0)
                                 return pRes({
                                     i: respText.id,
-                                    s: respText.safe
+                                    s: respText.safe,
                                 });
                             else
                             {
@@ -75,7 +75,7 @@ function run()
 
                     xhr.send();
                 });
-            }
+            };
 
             let langXhr = new XMLHttpRequest();
             langXhr.open("GET", `${baseURL}/languages`);

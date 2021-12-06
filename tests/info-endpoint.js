@@ -6,7 +6,7 @@ const settings = require("../settings");
 
 const meta = {
     name: "Info",
-    category: "Endpoints"
+    category: "Endpoints",
 };
 
 const baseURL = `http://127.0.0.1:${settings.httpServer.port}`;
@@ -55,7 +55,7 @@ function run()
 
                         //#SECTION joke count
                         if(!resp.jokes.totalCount || isNaN(parseInt(resp.jokes.totalCount)))
-                            errors.push(`API supplied no "totalCount" param or it is not a number`);
+                            errors.push("API supplied no \"totalCount\" param or it is not a number");
                         
                         //#SECTION categories
                         let possibleCats = [settings.jokes.possible.anyCategoryName, ...settings.jokes.possible.categories];
@@ -79,22 +79,22 @@ function run()
                         
                         //#SECTION joke languages
                         if(!resp.jokeLanguages || isNaN(parseInt(resp.jokeLanguages)))
-                            errors.push(`API supplied no "jokeLanguages" param or it is not a number`);
+                            errors.push("API supplied no \"jokeLanguages\" param or it is not a number");
 
                         //#SECTION system languages
                         if(!resp.systemLanguages || isNaN(parseInt(resp.systemLanguages)))
-                            errors.push(`API supplied no "systemLanguages" param or it is not a number`);
+                            errors.push("API supplied no \"systemLanguages\" param or it is not a number");
 
                         //#SECTION info string
                         if(typeof resp.info != "string")
-                            errors.push(`API supplied no "info" param or it is not a string`);
+                            errors.push("API supplied no \"info\" param or it is not a string");
 
                         //#SECTION timestamp
                         let resTS = parseInt(resp.timestamp);
                         let localTS = parseInt(new Date().getTime());
                         let tsRange = [localTS - 600000, localTS + 600000];
                         if(resTS < tsRange[0] || resTS > tsRange[1])
-                            errors.push(`API system's time is out of sync by more than 10 minutes`);
+                            errors.push("API system's time is out of sync by more than 10 minutes");
                         
                         return xhrResolve();
                     }

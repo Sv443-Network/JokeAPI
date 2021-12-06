@@ -2,6 +2,7 @@
 
 const fs = require("fs-extra");
 const jsl = require("svjsl");
+const { join } = require("path");
 
 const settings = require("../settings");
 const debug = require("./verboseLogging");
@@ -43,7 +44,7 @@ function init()
 
 
         // prepare jokes files
-        let jokesFiles = fs.readdirSync(settings.jokes.jokesFolderPath);
+        let jokesFiles = fs.readdirSync(join(settings.jokes.jokesFolderPath, settings.jokes.jokesSubfolders.regular)); // these are just the regular jokes, TODO: add the dark ones to these too
         let result = [];
         let allJokesFilesObj = {};
 
@@ -80,8 +81,9 @@ function init()
                 if(!jf.endsWith(".json") || !fileNameValid(jf))
                     result.push(`${jsl.colors.fg.red}Error: Invalid file "${settings.jokes.jokesFolderPath}${jf}" found. It has to follow this pattern: "jokes-xy.json"`);
 
+                const fPath = join(settings.jokes.jokesFolderPath, settings.jokes.jokesSubfolders.regular, jf);
 
-                fs.readFile(`${settings.jokes.jokesFolderPath}${jf}`, (err, jokesFile) => {
+                fs.readFile(fPath, (err, jokesFile) => {
                     if(err)
                         return reject(err);
 
@@ -184,7 +186,7 @@ function init()
             });
 
             if(!jsl.allEqual(formatVersions))
-                errors.push(`One or more of the jokes files has an invalid format version`);
+                errors.push("One or more of the jokes files has an invalid format version");
 
             module.exports.allJokes = allJokesObj;
             module.exports.jokeCount = allJokesObj.getJokeCount();
@@ -262,7 +264,7 @@ function validateSingle(joke, lang)
 
     // reserialize object
     if(typeof joke == "object")
-            joke = JSON.stringify(joke);
+        joke = JSON.stringify(joke);
 
     joke = JSON.parse(joke);
 
@@ -415,4 +417,4 @@ function resolveCategoryAliases(categories)
     return categories.map(cat => resolveCategoryAlias(cat));
 }
 
-module.exports = { init, validateSingle, resolveCategoryAlias, resolveCategoryAliases }
+module.exports = { init, validateSingle, resolveCategoryAlias, resolveCategoryAliases };

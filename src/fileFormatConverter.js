@@ -21,15 +21,15 @@ const auto = (format, jsonInput, lang) => {
     format = format.toLowerCase();
     switch(format)
     {
-        case "yaml":
-            return toYAML(jsonInput);
-        case "xml":
-            return toXML(jsonInput);
-        case "txt":
-            return toTXT(jsonInput, lang);
-        case "json":
-        default:
-            return JSON.stringify(jsonInput, null, 4);
+    case "yaml":
+        return toYAML(jsonInput);
+    case "xml":
+        return toXML(jsonInput);
+    case "txt":
+        return toTXT(jsonInput, lang);
+    case "json":
+    default:
+        return JSON.stringify(jsonInput, null, 4);
     }
 };
 
@@ -99,7 +99,7 @@ const toTXT = (jsonInput, lang) => {
             }
 
             else if(jsonInput.flags) // endpoint: /flags
-                returnText = tr(lang, "availableFlags", jsonInput.flags.join('", "'));
+                returnText = tr(lang, "availableFlags", jsonInput.flags.join("\", \""));
 
             else if(jsonInput.ping) // endpoint: /ping
                 returnText = `${jsonInput.ping}\n${tr(lang, "timestamp", jsonInput.timestamp)}`;
@@ -146,20 +146,20 @@ const toTXT = (jsonInput, lang) => {
                 });
 
                 returnText = tr(lang, "infoEndpoint",
-                                    settings.info.name, jsonInput.version, jsonInput.jokes.totalCount, jsonInput.jokes.categories.join(`", "`), jsonInput.jokes.flags.join('", "'),
-                                    jsonInput.formats.join('", "'), jsonInput.jokes.types.join('", "'), jsonInput.jokes.submissionURL, idRanges.join("\n"), languages.jokeLangs().length,
-                                    suppLangs.sort().join(", "), sysLangs.length, sysLangs.sort().join(", "), safeJokesAmounts.join("\n"), jsonInput.info
-                                );
+                    settings.info.name, jsonInput.version, jsonInput.jokes.totalCount, jsonInput.jokes.categories.join("\", \""), jsonInput.jokes.flags.join("\", \""),
+                    jsonInput.formats.join("\", \""), jsonInput.jokes.types.join("\", \""), jsonInput.jokes.submissionURL, idRanges.join("\n"), languages.jokeLangs().length,
+                    suppLangs.sort().join(", "), sysLangs.length, sysLangs.sort().join(", "), safeJokesAmounts.join("\n"), jsonInput.info,
+                );
             }
 
             else if(jsonInput.formats) // endpoint: /formats
-                returnText = tr(lang, "availableFormats", `"${jsonInput.formats.join('", "')}"`);
+                returnText = tr(lang, "availableFormats", `"${jsonInput.formats.join("\", \"")}"`);
 
             else if(Array.isArray(jsonInput) && jsonInput[0].usage && jsonInput[0].usage.method) // endpoint: /endpoints
             {
                 returnText = `${tr(lang, "endpointsWord")}:\n\n\n`;
                 jsonInput.forEach(ep => {
-                    returnText += `${tr(lang, "endpointDetails", ep.name, ep.description, ep.usage.method, ep.usage.url, (ep.usage.supportedParams.length > 0 ? `"${ep.usage.supportedParams.join('", "')}"` : "X"))}\n\n`;
+                    returnText += `${tr(lang, "endpointDetails", ep.name, ep.description, ep.usage.method, ep.usage.url, (ep.usage.supportedParams.length > 0 ? `"${ep.usage.supportedParams.join("\", \"")}"` : "X"))}\n\n`;
                 });
             }
         }
