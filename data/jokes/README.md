@@ -17,3 +17,5 @@ This directory contains all joke-related files and folders:
 <sup>(v2.3.3+)</sup>  
 Currently dark jokes are no longer available on the GitHub repository due to a TOS violation.  
 If you need access to them, you can contact me via E-Mail or Discord (contact info on [my homepage](https://sv443.net/)).  
+
+<br><br><br><br><br><br><br><br><br><br><br><br>
