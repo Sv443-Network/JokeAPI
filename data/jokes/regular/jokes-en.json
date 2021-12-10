@@ -1371,7 +1371,7 @@
                 "explicit": false
             },
             "id": 114,
-            "safe": false
+            "safe": true
         },
         {
             "category": "Programming",
@@ -1465,7 +1465,7 @@
                 "explicit": false
             },
             "id": 131,
-            "safe": false
+            "safe": true
         },
         {
             "category": "Programming",
@@ -1493,10 +1493,10 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 136,
-            "safe": false
+            "safe": true
         },
         {
             "category": "Misc",
@@ -1509,7 +1509,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 137,
             "safe": false
@@ -1571,14 +1571,14 @@
                 "religious": false,
                 "political": false,
                 "racist": false,
-                "sexist": false,
-                "explicit": true
+                "sexist": true,
+                "explicit": false
             },
             "id": 142,
             "safe": false
         },
         {
-            "category": "Misc",
+            "category": "Dark",
             "type": "twopart",
             "setup": "My neighbor is a 90 year old with Alzheimer's, I see him every morning and he asks me If I've seen his wife.\nEvery day I have to tell this poor man that his wife died 20 years ago.\nI could have moved to another house or even ignore his question.",
             "delivery": "But the look of joy in his eyes whenever I answer him is worth the world.",
@@ -1652,7 +1652,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 155,
             "safe": false
@@ -1668,7 +1668,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 156,
             "safe": false
@@ -1700,7 +1700,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 163,
             "safe": false
@@ -1716,7 +1716,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 164,
             "safe": false
@@ -1732,7 +1732,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 167,
             "safe": false
@@ -1812,7 +1812,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 172,
             "safe": false
@@ -1828,7 +1828,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 175,
             "safe": false
@@ -1837,7 +1837,7 @@
             "category": "Pun",
             "type": "twopart",
             "setup": "What do you call a witch at the beach?",
-            "delivery": "A Sandwich.",
+            "delivery": "A sandwich.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -1985,10 +1985,10 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 188,
-            "safe": false
+            "safe": true
         },
         {
             "category": "Pun",
@@ -2310,7 +2310,7 @@
             "flags": {
                 "nsfw": false,
                 "religious": false,
-                "political": true,
+                "political": false,
                 "racist": false,
                 "sexist": false,
                 "explicit": false
@@ -2326,7 +2326,7 @@
             "flags": {
                 "nsfw": false,
                 "religious": false,
-                "political": true,
+                "political": false,
                 "racist": false,
                 "sexist": false,
                 "explicit": false
@@ -2377,7 +2377,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "id": 216,
             "safe": false
@@ -2652,7 +2652,7 @@
             "category": "Christmas",
             "type": "twopart",
             "setup": "Why does Santa have three gardens?",
-            "delivery": "So he can 'ho ho ho'!",
+            "delivery": "So he can \"ho ho ho\"!",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2668,7 +2668,7 @@
             "category": "Christmas",
             "type": "twopart",
             "setup": "Why did Santa's helper see the doctor?",
-            "delivery": "Because he had a low \"elf\" esteem!",
+            "delivery": "Because he had a low elf-esteem.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2699,8 +2699,8 @@
         {
             "category": "Christmas",
             "type": "twopart",
-            "setup": "What says Oh Oh Oh?",
-            "delivery": "Santa walking backwards!",
+            "setup": "What says \"Oh Oh Oh\"?",
+            "delivery": "Santa walking backwards.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2716,7 +2716,7 @@
             "category": "Christmas",
             "type": "twopart",
             "setup": "Who is Santa's favourite singer?",
-            "delivery": "Elf-is Presley!",
+            "delivery": "Elf-is Presley.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2748,7 +2748,7 @@
             "category": "Christmas",
             "type": "twopart",
             "setup": "What do Santa's little helpers learn at school?",
-            "delivery": "The elf-abet!\n",
+            "delivery": "The elf-abet.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -2995,7 +2995,7 @@
                 "sexist": false,
                 "explicit": false
             },
-            "safe": false,
+            "safe": true,
             "id": 266
         },
         {
@@ -3143,8 +3143,8 @@
         {
             "category": "Pun",
             "type": "twopart",
-            "setup": "Which is faster, Hot or cold?",
-            "delivery": "Hot, because you can catch a cold",
+            "setup": "Which is faster, hot or cold?",
+            "delivery": "Hot, because you can catch a cold.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -3159,7 +3159,7 @@
         {
             "category": "Pun",
             "type": "twopart",
-            "setup": "To prove he was right, the flat-earther walked to the end of the Earth.",
+            "setup": "To prove he was right, the flat-earther walked to the end of the earth.",
             "delivery": "He eventually came around.",
             "flags": {
                 "nsfw": false,
@@ -3254,9 +3254,8 @@
         },
         {
             "category": "Pun",
-            "type": "twopart",
-            "setup": "A Roman walks into a bar and raises 2 fingers and says to the bartender...",
-            "delivery": "\"Five beers, please.\"",
+            "type": "single",
+            "joke": "A Roman walks into a bar, raises 2 fingers and says to the bartender \"five beers, please.\"",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -3309,7 +3308,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "safe": false,
             "id": 289
@@ -3333,8 +3332,8 @@
         {
             "category": "Programming",
             "type": "twopart",
-            "setup": "Why was the JavaScript developer sad?",
-            "delivery": "Because they didn't Node how to Express themself!",
+            "setup": "Why was the Javascript developer sad?",
+            "delivery": "Because they didn't Node how to Express themself.",
             "flags": {
                 "nsfw": false,
                 "religious": false,
@@ -3469,7 +3468,7 @@
                 "political": false,
                 "racist": false,
                 "sexist": false,
-                "explicit": true
+                "explicit": false
             },
             "safe": false,
             "id": 300
