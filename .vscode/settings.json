@@ -85,4 +85,7 @@
 
     // so deno server doesn't start up and crash
     "deno.enable": false,
+
+    // cyrillic for example has a lot of characters that look similar to english ones, and so this warning gets annoying
+    "editor.unicodeHighlight.ambiguousCharacters": false,
 }
