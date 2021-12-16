@@ -62,7 +62,7 @@ If you need help with these wrappers, you should contact their respective author
 | [JokeAPI_ComputerCraft](https://github.com/Sv443/JokeAPI_ComputerCraft) | [Sv443](https://github.com/Sv443) |
 | [Dev Dad Jokes](https://github.com/jonathanbossenger/devdadjokes) | [Jonathan Bossenger](https://github.com/jonathanbossenger) |
 | [JokeBot](https://github.com/QGIsK/JokeBot) | [QGIsK](https://github.com/QGIsK) |
-| [JokeAPI Webapp](https://github.com/HemantSachdeva/JokeApi) | [Hemant Sachdeva](https://hemantsachdeva.github.io) |
+| [JokeAPI Webapp](https://github.com/HemantSachdeva/JokeApi) | [Hemant Sachdeva](https://github.com/HemantSachdeva) |
 
 <!-- | [xyz](xyz) | [xyz](xyz) | │ | [xyz](xyz) | [xyz](xyz) | -->
 
