@@ -1,62 +1,93 @@
 {
-    // eslint
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
-    },
-
-    "highlight.regexes": { // REQUIRES EXTENSION: fabiospampinato.vscode-highlight
-        "(((jsl|scl)\\.)?unused\\([a-zA-Z_,\\[\\]\\s\\-\":.]+\\);*)": [ // jsl.unused([some_var, some_other_var]); or scl.unused(xy);
+    // REQUIRES EXTENSION: fabiospampinato.vscode-highlight
+    "highlight.regexFlags": "g",
+    "highlight.regexes": {
+        "(((jsl|scl)\\.)?unused\\((\\d|\\w|[_,\\[\\]\\s\\-\":.])+\\);?)": [ // jsl.unused([foo, bar]); or scl.unused(foo) or unused(foo, bar);
             {
                 "backgroundColor": "rgba(0, 0, 0, 0.2)",
                 "color": "#f88"
             }
         ],
-        "(#MARKER)": [ // #MARKER test
+        "(TODO(\\((\\s|\\d|\\w|[,.-_+*&])+\\))?:?)": [ // TODO: or TODO or TODO(xy): but not todo
             {
-                "backgroundColor": "#f41",
-                "color": "#fff",
-                "isWholeLine": true,
-                "overviewRulerColor": "#f41"
+                "backgroundColor": "#cd5",
+                "color": "#000",
+                "overviewRulerColor": "#cd5"
             }
         ],
-        "(#SECTION ([^\\S\\r\\n]*[\\w,.\\-_]+)*[:]*)": [ // #SECTION test, 123
+        "(#MARKER)": [ // #MARKER test
+            {
+                "backgroundColor": "#920",
+                "color": "#fff",
+                "isWholeLine": true,
+                "overviewRulerColor": "#920"
+            }
+        ],
+        "(#SECTION ([^\\S\\r\\n]*[\\w,.\\-_&]+)*[:]*)": [ // #SECTION test, 123 & foo
             {
                 "backgroundColor": "#44f",
                 "color": "white",
                 "overviewRulerColor": "#44f"
             }
         ],
-        "(#DEBUG#)": [ // #DEBUG#
+        "(#DEBUG#?)": [ // #DEBUG# or #DEBUG
             {
                 "backgroundColor": "#ff0",
                 "color": "blue",
                 "overviewRulerColor": "#ff0"
             }
         ],
-        "(<!--%#INSERT:[a-zA-Z0-9\\-]+#%-->|<!--%#INJECT:[a-zA-Z0-9\\-]+#%-->)": [ // <!--%#INSERT:TEST#%--> / <!--%#INJECT:TEST#%-->
+        "(IMPORTANT:)": [ // IMPORTANT:
+            {
+                "backgroundColor": "#a22",
+                "color": "#fff"
+            }
+        ],
+        "(<(!--)?%#(INSERT|INJECT):[a-zA-Z0-9\\-_]+#%(--)?>)": [ // <!--%#INSERT:TEST#%--> / <!--%#INJECT:TEST#%--> or without HTML comment: <%#INSERT:TEST#%> / <%#INJECT:TEST#%>
             {
                 "color": "orange",
                 "fontStyle": "italic",
                 "outline": "1px solid orange"
             }
-        ],
-        "(<%#INSERT:[a-zA-Z0-9\\-]+#%>|<%#INJECT:[a-zA-Z0-9\\-]+#%>)": [ // <%#INSERT:TEST#%> / <%#INJECT:TEST#%>
-            {
-                "color": "orange",
-                "fontStyle": "italic",
-                "outline": "1px solid orange"
-            }
-        ],
+        ]
     },
+
+    // REQUIRES EXTENSION: coenraads.bracket-pair-colorizer-2
+    "bracket-pair-colorizer-2.colors": [
+        "#996DCF",
+        "#0F6A8F",
+        "#41BCA3",
+        "#659061",
+        "#EDD553",
+        "#E09563",
+        "#F05443"
+    ],
+
+    // REQUIRES EXTENSION: esbenp.prettier-vscode
+    "prettier.enable": false,
+    "editor.formatOnSave": false,
+
+
+    // Other:
+
+    // hide some files in the file list
+    "files.exclude": {
+        "docs/compiled": true, // to prevent accidentally editing the compiled documentation (raw should be edited instead)
+        "dev/madge": true,     // legacy dependency graph - contains the compiled files for the dependency graph HTML file
+        ".env": true,          // environment variables - to prevent leaking them accidentally - to edit the file instead use the command 'code .env' or with nano or vim on Linux and Mac
+    },
+
+    // window bad
+    "files.eol": "\n",
+
+    // seriously why do I need feedback? I'm consciously clicking something smfh
     "npm-scripts.showStartNotification": false,
 
-    // JokeAPI-specific:
+    // so deno server doesn't start up and crash (what a fucking dumb design)
+    "deno.enable": false,
 
-    "files.exclude": {         // hide files so they can't be opened in the IDE
-        "docs/compiled": true, // to prevent accidentally changing the compiled documentation to only have it be overridden after the next compile
-        "dev/madge": true,     // the files don't need to be modified, they only serve as a distraction
+    "[json]": {
+        // cyrillic for example has a lot of characters that look similar to english ones, and so this warning gets annoying
+        "editor.unicodeHighlight.ambiguousCharacters": false,
     },
-
-    "deno.enable": false
 }
