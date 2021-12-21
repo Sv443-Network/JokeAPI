@@ -24,11 +24,11 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: Clean install of dependencies # runs the npm ci command to install all dependencies
+    - name: Install dependencies # runs the npm ci command to install all dependencies
       run: npm ci
       env:
         CI: "true"
-    - name: Validate joke files # validates the joke files
+    - name: Validate joke files structure # validates the joke files
       run: npm run validate-jokes
       env:
         CI: "true"
@@ -36,17 +36,3 @@ jobs:
       run: npm run validate-ids
       env:
         CI: "true"
-    - name: Send Discord success notification # sends a Discord notification
-      env:
-        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      uses: Ilshidur/action-discord@master
-      with:
-        args: '✅ **JokeAPI CI** (on `{{GITHUB_HEAD_REF}}`) was successful (see https://github.com/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}})'
-      if: ${{ github.actor != 'dependabot' }} # don't trigger on dependabot PRs since they don't have access to secrets
-    - name: Send Discord failure notification # sends a Discord notification
-      env:
-        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      uses: Ilshidur/action-discord@master
-      with:
-        args: '🚫 **JokeAPI CI** (on `{{GITHUB_HEAD_REF}}`) has failed (see https://github.com/{{GITHUB_REPOSITORY}}/actions/runs/{{GITHUB_RUN_ID}})'
-      if: ${{ failure() && github.actor != 'dependabot' }} # don't trigger on dependabot PRs since they don't have access to secrets
