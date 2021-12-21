@@ -11,7 +11,7 @@
 
 <br><br><br>
 
-## [2.3.3] - (PR #TODO:)
+## [2.3.3] - ([pull request #358](https://github.com/Sv443/JokeAPI/pull/358))
 - Moved dark jokes off the repository, permanent solution is still pending
 
 

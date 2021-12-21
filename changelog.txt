@@ -11,7 +11,7 @@
     - Serve docs with nginx to speed up page load times (issue #118)
 
 
-[2.3.3] - (PR #TODO:)
+[2.3.3] - (PR #358)
     - Moved dark jokes off the repository, permanent solution is still pending
 
 
