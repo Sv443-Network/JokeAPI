@@ -43,7 +43,7 @@
                 "color": "#fff"
             }
         ],
-        "(<(!--)?%#(INSERT|INJECT):[a-zA-Z0-9\\-_]+#%(--)?>)": [ // <!--%#INSERT:TEST#%--> / <!--%#INJECT:TEST#%--> or shorthand: <%#INSERT:TEST#%> / <%#INJECT:TEST#%>
+        "(<(!--)?%#(INSERT|INJECT):[a-zA-Z0-9\\-_]+#%(--)?>)": [ // <!--%#INSERT:TEST#%--> / <!--%#INJECT:TEST#%--> or without HTML comment: <%#INSERT:TEST#%> / <%#INJECT:TEST#%>
             {
                 "color": "orange",
                 "fontStyle": "italic",
@@ -64,17 +64,17 @@
     ],
 
     // REQUIRES EXTENSION: esbenp.prettier-vscode
-
     "prettier.enable": false,
     "editor.formatOnSave": false,
 
+
     // Other:
 
-    // hide some files
+    // hide some files in the file list
     "files.exclude": {
-        "docs/compiled": true, // to prevent accidentally changing the compiled documentation to only have it be overridden after the next compile
+        "docs/compiled": true, // to prevent accidentally editing the compiled documentation (raw should be edited instead)
         "dev/madge": true,     // legacy dependency graph - contains the compiled files for the dependency graph HTML file
-        ".env": true,          // environment variables - to prevent leaking them accidentally - to edit the file instead use the command 'code .env' or with nano or vi on Linux and Mac
+        ".env": true,          // environment variables - to prevent leaking them accidentally - to edit the file instead use the command 'code .env' or with nano or vim on Linux and Mac
     },
 
     // window bad
@@ -83,9 +83,11 @@
     // seriously why do I need feedback? I'm consciously clicking something smfh
     "npm-scripts.showStartNotification": false,
 
-    // so deno server doesn't start up and crash
+    // so deno server doesn't start up and crash (what a fucking dumb design)
     "deno.enable": false,
 
-    // cyrillic for example has a lot of characters that look similar to english ones, and so this warning gets annoying
-    "editor.unicodeHighlight.ambiguousCharacters": false,
+    "[json]": {
+        // cyrillic for example has a lot of characters that look similar to english ones, and so this warning gets annoying
+        "editor.unicodeHighlight.ambiguousCharacters": false,
+    },
 }
