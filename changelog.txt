@@ -1,6 +1,6 @@
 =====================
   JokeAPI Changelog
-  - Version 2.3.3 -
+  - Version 2.3.4 -
 =====================
 
 
@@ -9,6 +9,10 @@
     - Add positive flags and a "?whitelistFlags" param (issue #127)
     - Add Unit Tests (issue #121)
     - Serve docs with nginx to speed up page load times (issue #118)
+
+
+[2.3.4] - Fix for v2.3.3
+    - Fixed the API (which was broken by v2.3.3)
 
 
 [2.3.3] - (PR #358)

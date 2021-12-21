@@ -1,4 +1,4 @@
-# JokeAPI Changelog (Version 2.3.3)
+# JokeAPI Changelog (Version 2.3.4)
 
 <br><br><br>
 
@@ -7,6 +7,12 @@
 - Add positive flags and a "?whitelistFlags" param ([issue #127](https://github.com/Sv443/JokeAPI/issues/127))
 - Add Unit Tests ([issue #121](https://github.com/Sv443/JokeAPI/issues/121))
 - Serve docs with nginx to speed up page load times ([issue #118](https://github.com/Sv443/JokeAPI/issues/118))
+
+
+<br><br><br>
+
+## [2.3.4] - Fix for v2.3.3
+- Fixed the API (which was broken by v2.3.3)
 
 
 <br><br><br>
