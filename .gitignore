@@ -36,3 +36,6 @@ dependency-graph.html
 test.js
 !tools/test.js
 dev/ghb/
+
+#DEBUG
+data/jokes-bak/
