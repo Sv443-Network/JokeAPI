@@ -44,11 +44,11 @@ function init()
 
 
         // prepare jokes files
-        let jokesFiles = fs.readdirSync(join(settings.jokes.jokesFolderPath, settings.jokes.jokesSubfolders.regular)); // these are just the regular jokes, TODO: add the dark ones to these too
-        let result = [];
-        let allJokesFilesObj = {};
+        const jokesFiles = fs.readdirSync(settings.jokes.jokesFolderPath);
+        const result = [];
+        const allJokesFilesObj = {};
 
-        let outerPromises = [];
+        const outerPromises = [];
 
         let parsedJokesAmount = 0;
 
@@ -81,7 +81,7 @@ function init()
                 if(!jf.endsWith(".json") || !fileNameValid(jf))
                     result.push(`${jsl.colors.fg.red}Error: Invalid file "${settings.jokes.jokesFolderPath}${jf}" found. It has to follow this pattern: "jokes-xy.json"`);
 
-                const fPath = join(settings.jokes.jokesFolderPath, settings.jokes.jokesSubfolders.regular, jf);
+                const fPath = join(settings.jokes.jokesFolderPath, jf);
 
                 fs.readFile(fPath, (err, jokesFile) => {
                     if(err)
