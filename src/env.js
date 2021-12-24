@@ -24,10 +24,12 @@ const envSettings = Object.freeze({
 });
 
 let initialized = false;
+/** @type {Env} */
+let env;
 
 
 /**
- * Initializes the deployment environment module
+ * Initializes the environment module
  */
 function init()
 {
@@ -35,11 +37,28 @@ function init()
         return;
 
     dotenv.config();
+
+    if(!process.env || Object.keys(process.env).length === 0)
+        throw new Error("no environment variables found, please make sure a NODE_ENV variable is defined");
+
+    const nodeEnv = process.env.NODE_ENV ? process.env.NODE_ENV.toLowerCase() : null;
+
+    switch(nodeEnv)
+    {
+    case "prod":
+    case "production":
+        env = "prod";
+        break;
+    default:
+        env = "stage";
+        break;
+    }
+
     initialized = true;
 }
 
 /**
- * Normalizes the deployment environment passed as the env var `NODE_ENV` and returns it
+ * Normalizes the environment passed as the env var `NODE_ENV` and returns it
  * @param {boolean} [colored=false] Set to `true` to color in the predefined env colors
  * @returns {Env}
  */
@@ -48,30 +67,13 @@ function getEnv(colored = false)
     if(!initialized)
         init();
 
-    if(!process.env)
-        throw new Error("no process environment found, please make sure a NODE_ENV variable is defined");
-
-    const nodeEnv = process.env.NODE_ENV ? process.env.NODE_ENV.toLowerCase() : null;
-
-
-    /** @type {Env} */
-    let env = "stage";
-
-    switch(nodeEnv)
-    {
-    case "prod":
-    case "production":
-        env = "prod";
-        break;
-    }
-
     const envCol = env === "prod" ? col.green : col.cyan;
 
     return colored === true ? `${envCol}${env}${col.rst}` : env;
 }
 
 /**
- * 
+ * Returns a property of the environment-dependent settings
  * @param {EnvDependentProp} prop
  * @returns {JSONCompatible}
  */
