@@ -97,7 +97,7 @@
   "dependencies": {
     "@pm2/io": "^5.0.0",
     "dotenv": "^10.0.0",
-    "farmhash": "^3.2.1",
+    "farmhash": "^3.2.2",
     "fs-extra": "^10.0.0",
     "fuse.js": "^6.5.3",
     "http-ratelimit": "^0.2.3",
