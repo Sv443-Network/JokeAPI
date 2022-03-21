@@ -1,16 +1,35 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.22.1
-ignore: {}
+version: v1.22.2
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  SNYK-JS-MINIMIST-2429795:
+    - dependency-cruiser > handlebars > minimist:
+        reason: None given
+        expires: '2022-04-20T23:50:38.270Z'
+    - dependency-cruiser > tsconfig-paths-webpack-plugin > tsconfig-paths > minimist:
+        reason: None given
+        expires: '2022-04-20T23:50:38.270Z'
+    - dependency-cruiser > tsconfig-paths-webpack-plugin > tsconfig-paths > json5 > minimist:
+        reason: None given
+        expires: '2022-04-20T23:50:38.270Z'
+  SNYK-JS-UGLIFYJS-1727251:
+    - madge > uglify-js:
+        reason: None given
+        expires: '2022-04-20T23:50:38.270Z'
+  'npm:uglify-js:20151024':
+    - madge > uglify-js:
+        reason: None given
+        expires: '2022-04-20T23:50:38.270Z'
 # patches apply the minimum changes required to fix a vulnerability
 patch:
-    SNYK-JS-LODASH-567746:
-        - eslint > lodash:
-              patched: "2020-05-01T01:34:02.805Z"
-        - eslint > inquirer > lodash:
-              patched: "2020-05-01T01:34:02.805Z"
-        - eslint > table > lodash:
-              patched: "2020-05-01T01:34:02.805Z"
-        - madge > detective-typescript > @typescript-eslint/typescript-estree > lodash:
-              patched: "2020-05-01T01:34:02.805Z"
-        - madge > dependency-tree > precinct > detective-typescript > @typescript-eslint/typescript-estree > lodash:
-              patched: "2020-05-01T01:34:02.805Z"
+  SNYK-JS-LODASH-567746:
+    - eslint > lodash:
+        patched: '2020-05-01T01:34:02.805Z'
+    - eslint > inquirer > lodash:
+        patched: '2020-05-01T01:34:02.805Z'
+    - eslint > table > lodash:
+        patched: '2020-05-01T01:34:02.805Z'
+    - madge > detective-typescript > @typescript-eslint/typescript-estree > lodash:
+        patched: '2020-05-01T01:34:02.805Z'
+    - madge > dependency-tree > precinct > detective-typescript > @typescript-eslint/typescript-estree > lodash:
+        patched: '2020-05-01T01:34:02.805Z'
