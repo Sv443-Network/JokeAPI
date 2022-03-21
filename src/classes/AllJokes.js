@@ -82,7 +82,7 @@ class AllJokes
 
             this._safeJokes.push({
                 lang: key,
-                count: currentLangSafeJokesCount
+                count: currentLangSafeJokesCount,
             });
         });
 

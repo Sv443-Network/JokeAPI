@@ -53,7 +53,7 @@ try
         if(erroredJokes.length != 0)
         {
             console.log(`\n\n\x1b[31m\x1b[1mInvalid joke ID${erroredJokes.length > 1 ? "s" : ""} found:\x1b[0m\n`);
-            console.log(`Format:  #ID | LangCode | Category | Joke    (error)`);
+            console.log("Format:  #ID | LangCode | Category | Joke    (error)");
             erroredJokes.forEach(errjoke => {
                 let jokeContent = "";
                 if(errjoke.joke.type == "single")
@@ -72,7 +72,7 @@ try
 
     if(notOk > 0)
     {
-        console.log(`\n\x1b[33m\x1b[1mYou can run the command "npm run reassign-ids" to correct all joke IDs\n\x1b[0m`);
+        console.log("\n\x1b[33m\x1b[1mYou can run the command \"npm run reassign-ids\" to correct all joke IDs\n\x1b[0m");
         process.exit(1);
     }
     else

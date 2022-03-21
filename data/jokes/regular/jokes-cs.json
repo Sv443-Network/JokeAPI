@@ -1,0 +1,38 @@
+{
+    "info": {
+        "formatVersion": 3
+    },
+    "jokes": [
+        {
+            "category": "Misc",
+            "type": "single",
+            "joke": "Znám spoustu vtipů ve znakové řeči, které nikdo neslyšel!",
+            "flags": {
+                "nsfw": false,
+                "racist": false,
+                "sexist": false,
+                "religious": false,
+                "political": false,
+                "explicit": false
+            },
+            "id": 0,
+            "safe": true
+        },
+        {
+            "category": "Misc",
+            "type": "twopart",
+            "setup": "Uveďte holou větu, kde bude jenom podmět a přísudek.",
+            "delivery": "Čech abstinuje.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 3,
+            "safe": true
+        }
+    ]
+}

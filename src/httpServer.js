@@ -47,12 +47,12 @@ const submissionEndpoints = [];
 // rate limiters
 const rl = new RateLimiterMemory({
     points: settings.httpServer.rateLimiting,
-    duration: settings.httpServer.timeFrame
+    duration: settings.httpServer.timeFrame,
 });
 
 const rlSubm = new RateLimiterMemory({
     points: settings.jokes.submissions.rateLimiting,
-    duration: settings.jokes.submissions.timeFrame
+    duration: settings.jokes.submissions.timeFrame,
 });
 
 
@@ -130,7 +130,7 @@ function init()
                                 meta: instance.getMeta(),
                                 absPath: endpointFilePath,
                                 pathName: instance.getPathName(),
-                                instance
+                                instance,
                             });
                         }
                     });
@@ -165,7 +165,7 @@ function init()
                                 meta: instance.getMeta(),
                                 absPath: endpointFilePath,
                                 pathName: instance.getPathName(),
-                                instance
+                                instance,
                             });
                         }
                     });
@@ -236,8 +236,8 @@ function setRateLimitedHeaders(res, rlRes)
             "Retry-After": rlRes.msBeforeNext ? Math.round(rlRes.msBeforeNext / 1000) : settings.httpServer.timeFrame,
             "RateLimit-Limit": settings.httpServer.rateLimiting,
             "RateLimit-Remaining": rlRes.msBeforeNext ? rlRes.remainingPoints : settings.httpServer.rateLimiting,
-            "RateLimit-Reset": rlRes.msBeforeNext ? new Date(Date.now() + rlRes.msBeforeNext) : settings.httpServer.timeFrame
-        }
+            "RateLimit-Reset": rlRes.msBeforeNext ? new Date(Date.now() + rlRes.msBeforeNext) : settings.httpServer.timeFrame,
+        };
 
         Object.keys(rlHeaders).forEach(key => {
             res.setHeader(key, rlHeaders[key]);
@@ -245,7 +245,7 @@ function setRateLimitedHeaders(res, rlRes)
     }
     catch(err)
     {
-        let content = `Err: ${err}\nrlRes:\n${typeof rlRes == "object" ? JSON.stringify(rlRes, null, 4) : rlRes}\n\n\n`
+        let content = `Err: ${err}\nrlRes:\n${typeof rlRes == "object" ? JSON.stringify(rlRes, null, 4) : rlRes}\n\n\n`;
         fs.appendFileSync("./msBeforeNext.log", content);
     }
 }
@@ -259,7 +259,7 @@ function createHttpServer()
     return http.createServer((req, res) => {
         /** @type {HttpMetrics} */
         const httpMetrics = {
-            requestArrival: new Date()
+            requestArrival: new Date(),
         };
 
         incomingRequest(req, res, httpMetrics);
@@ -303,7 +303,7 @@ async function incomingRequest(req, res, httpMetrics)
     let analyticsObject = {
         ipAddress: ip,
         urlPath: parsedURL.pathArray,
-        urlParameters: parsedURL.queryParams
+        urlParameters: parsedURL.queryParams,
     };
 
     debug("HTTP", `Incoming ${req.method} request from '${ip.substring(0, 16)}${localhostIP ? `…' ${colors.fg.blue}(local)${colors.rst}` : "…'"} to /${parsedURL.pathArray.join("/")} [${lang}]`, "cyan");
@@ -349,17 +349,17 @@ async function incomingRequest(req, res, httpMetrics)
         {
             fileFormat2 = settings.jokes.defaultFileFormat.fileFormat;
             if(!isEmpty(parsedURL.queryParams) && !isEmpty(parsedURL.queryParams.format))
-            fileFormat2 = parseURL.getFileFormatFromQString(parsedURL.queryParams);
+                fileFormat2 = parseURL.getFileFormatFromQString(parsedURL.queryParams);
         }
 
         analytics({
             type: "Error",
             data: {
-                errorMessage: `Error while setting up the HTTP response to "${ip.substr(8)}...": ${err}`,
+                errorMessage: `Error while setting up the HTTP response to "${ip.substring(8)}...": ${err}`,
                 ipAddress: ip,
                 urlParameters: parsedURL.queryParams,
-                urlPath: parsedURL.pathArray
-            }
+                urlPath: parsedURL.pathArray,
+            },
         });
         return respondWithError(res, 500, 100, fileFormat2, tr(lang, "errSetupHttpResponse", err), lang);
     }
@@ -475,8 +475,8 @@ async function incomingRequest(req, res, httpMetrics)
                                         ipAddress: ip,
                                         urlParameters: parsedURL.queryParams,
                                         urlPath: parsedURL.pathArray,
-                                        submission: headerToken
-                                    }
+                                        submission: headerToken,
+                                    },
                                 });
                             }
 
@@ -653,7 +653,7 @@ async function incomingRequest(req, res, httpMetrics)
             "error": true,
             "internalError": false,
             "message": `Wrong method "${req.method}" used. Expected "GET", "OPTIONS" or "HEAD"`,
-            "timestamp": Date.now()
+            "timestamp": Date.now(),
         }, lang));
     }
 }
@@ -673,7 +673,7 @@ async function serveDocumentation(req, res)
         logRequest("docs", null, {
             ipAddress: resolveIP(req),
             urlParameters: resolvedURL.queryParams,
-            urlPath: resolvedURL.pathArray
+            urlPath: resolvedURL.pathArray,
         });
     }
 

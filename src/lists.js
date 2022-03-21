@@ -62,7 +62,7 @@ function init()
                         lists = {
                             blacklist: JSON.parse(blacklist),
                             whitelist: JSON.parse(whitelist),
-                            consoleBlacklist: JSON.parse(consoleBlacklist)
+                            consoleBlacklist: JSON.parse(consoleBlacklist),
                         };
 
                         debug("Lists", "Finished initializing all lists", "green");
@@ -89,8 +89,8 @@ function isBlacklisted(ip)
 {
     if(isEmpty(lists) || !(lists.blacklist instanceof Array))
     {
-        logger("fatal", `Blacklist was not initialized when calling lists.isBlacklisted()`, true);
-        throw new Error(`Blacklist was not initialized`);
+        logger("fatal", "Blacklist was not initialized when calling lists.isBlacklisted()", true);
+        throw new Error("Blacklist was not initialized");
     }
 
     if(isEmpty(lists.blacklist) || lists.blacklist.length == 0)
@@ -121,8 +121,8 @@ function isWhitelisted(ip)
 
     if(isEmpty(lists) || !(lists.whitelist instanceof Array))
     {
-        logger("fatal", `Whitelist was not initialized when calling lists.isWhitelisted()`, true);
-        throw new Error(`Whitelist was not initialized`);
+        logger("fatal", "Whitelist was not initialized when calling lists.isWhitelisted()", true);
+        throw new Error("Whitelist was not initialized");
     }
 
     if(isEmpty(lists.whitelist) || lists.whitelist.length == 0)
@@ -145,8 +145,8 @@ function isConsoleBlacklisted(ip)
 {
     if(isEmpty(lists) || !(lists.consoleBlacklist instanceof Array))
     {
-        logger("fatal", `Console blacklist was not initialized when calling lists.isConsoleBlacklisted()`, true);
-        throw new Error(`Console blacklist was not initialized`);
+        logger("fatal", "Console blacklist was not initialized when calling lists.isConsoleBlacklisted()", true);
+        throw new Error("Console blacklist was not initialized");
     }
 
     if(isEmpty(lists.consoleBlacklist) || lists.consoleBlacklist.length == 0)

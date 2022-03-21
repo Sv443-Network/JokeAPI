@@ -22,6 +22,7 @@ const meter = require("./meter");
 const jokeCache = require("./jokeCache");
 const parseURL = require("./parseURL");
 const splashes = require("./splashes");
+const logger = require("./logger");
 
 const settings = require("../settings");
 
@@ -73,6 +74,10 @@ async function initAll()
      */
     const initStages = [
         {
+            name: "Logger module",
+            fn: logger.init,
+        },
+        {
             name: "Languages module",
             fn: languages.init,
         },
@@ -123,7 +128,7 @@ async function initAll()
         {
             name: "logRequest module",
             fn: logRequest.init,
-        }
+        },
     ];
 
     initStages.forEach(stage => initPromises.push(() => {

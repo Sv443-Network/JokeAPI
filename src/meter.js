@@ -21,8 +21,8 @@ const meters = {
     /** @type {Gauge} */
     reqtotalMeter: null,
     /** @type {Gauge} */
-    submissionMeter: null
-}
+    submissionMeter: null,
+};
 
 const values = {
     /** Requests per 1 minute */
@@ -34,8 +34,8 @@ const values = {
     /** Total requests */
     tot: 0,
     /** Total submissions */
-    subms: 0
-}
+    subms: 0,
+};
 
 /**
  * Initializes the meter module
@@ -48,7 +48,7 @@ function init()
         {
             meters.req1mMeter = io.metric({
                 name: "Reqs / 1m",
-                unit: "req"
+                unit: "req",
             });
             meters.req1mMeter.set(-1);
             setInterval(() => {
@@ -59,7 +59,7 @@ function init()
 
             meters.req10mMeter = io.metric({
                 name: "Reqs / 10m",
-                unit: "req"
+                unit: "req",
             });
             meters.req10mMeter.set(-1);
             setInterval(() => {
@@ -70,7 +70,7 @@ function init()
 
             meters.req1hMeter = io.metric({
                 name: "Reqs / 1h",
-                unit: "req"
+                unit: "req",
             });
             meters.req1hMeter.set(-1);
             setInterval(() => {
@@ -81,14 +81,14 @@ function init()
 
             meters.reqtotalMeter = io.metric({
                 name: "Total Reqs",
-                unit: "req"
+                unit: "req",
             });
             meters.reqtotalMeter.set(-1);
 
 
             meters.submissionMeter = io.metric({
                 name: "Submissions",
-                unit: "sub"
+                unit: "sub",
             });
             values.subms = fs.readdirSync(settings.jokes.jokeSubmissionPath).length;
             meters.submissionMeter.set(values.subms);
@@ -127,25 +127,28 @@ function update(meterName, addValue = 1)
     {
         switch(meterName)
         {
-            case "req1min":
-                values.m1 += addValue;
+        case "req1min":
+            values.m1 += addValue;
+            meters?.req1mMeter?.set(values.m1);
             break;
-            case "req10min":
-                values.m10 += addValue;
+        case "req10min":
+            values.m10 += addValue;
+            meters?.req10mMeter?.set(values.m10);
             break;
-            case "req1hour":
-                values.h1 += addValue;
+        case "req1hour":
+            values.h1 += addValue;
+            meters?.req1hMeter?.set(values.h1);
             break;
-            case "reqtotal":
-                values.tot += addValue;
-                meters.reqtotalMeter.set(values.tot);
+        case "reqtotal":
+            values.tot += addValue;
+            meters?.reqtotalMeter?.set(values.tot);
             break;
-            case "submission":
-                values.subms += addValue;
-                meters.submissionMeter.set(values.subms);
+        case "submission":
+            values.subms += addValue;
+            meters?.submissionMeter?.set(values.subms);
             break;
-            default:
-                valIncorrect = true;
+        default:
+            valIncorrect = true;
         }
     }
     catch(err)
@@ -155,7 +158,7 @@ function update(meterName, addValue = 1)
     }
 
     if(valIncorrect)
-        throw new TypeError(`meter.update(): "meterName" has incorrect value`);
+        throw new TypeError("meter.update(): \"meterName\" has incorrect value");
 
     return;
 }

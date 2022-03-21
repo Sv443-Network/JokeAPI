@@ -14,6 +14,7 @@
             "program": "${workspaceFolder}/JokeAPI.js",
             "args": [
                 "--trace-deprecation"
+                "--trace-warnings"
             ],
             "console": "integratedTerminal"
         },
@@ -59,6 +60,19 @@
         {
             "program": "${workspaceFolder}/tools/cli.js",
             "name": "CLI",
+            "request": "launch",
+            "type": "node",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "args": [
+                "--trace-deprecation"
+            ],
+            "console": "integratedTerminal"
+        },
+        {
+            "program": "${workspaceFolder}/test.js",
+            "name": "test.js",
             "request": "launch",
             "type": "node",
             "skipFiles": [

@@ -29,7 +29,8 @@ function init()
 
         refreshTokens();
 
-        let fd = new FolderDaemon(settings.auth.tokenListFolder, [], false, settings.auth.daemonInterval * 1000)
+        const fd = new FolderDaemon(settings.auth.tokenListFolder, [], false, settings.auth.daemonInterval * 1000);
+
         fd.onChanged((err, res) => {
             if(!err && res.length > 0)
                 refreshTokens();
@@ -98,14 +99,14 @@ function authByHeader(req, res)
 
         return {
             isAuthorized: isAuthorized,
-            token: requestersToken
+            token: requestersToken,
         };
     }
     catch(err)
     {
         return {
             isAuthorized: false,
-            token: ""
+            token: "",
         };
     }
 }

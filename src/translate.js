@@ -5,6 +5,7 @@ const { unused } = require("svcorelib");
 
 const debug = require("./debug");
 
+const debug = require("./verboseLogging");
 const settings = require("../settings");
 
 

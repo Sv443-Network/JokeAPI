@@ -28,16 +28,15 @@ function auto(format, jsonInput, lang)
 
     switch(format)
     {
-        case "yaml":
-            return toYAML(jsonInput);
-        case "xml":
-            return toXML(jsonInput);
-        case "txt":
-            return toTXT(jsonInput, lang);
-        case "json":
-        default:
-            return JSON.stringify(jsonInput, null, 4);
-            // throw new TypeError(`Error in FileFormatConverter: format "${format}" is invalid`);
+    case "yaml":
+        return toYAML(jsonInput);
+    case "xml":
+        return toXML(jsonInput);
+    case "txt":
+        return toTXT(jsonInput, lang);
+    case "json":
+    default:
+        return JSON.stringify(jsonInput, null, 4);
     }
 }
 
@@ -58,7 +57,7 @@ function toYAML(jsonInput)
  * @param {JSONCompatible} jsonInput
  * @returns {string}
  */
- function toXML(jsonInput)
+function toXML(jsonInput)
 {
     if(isEmpty(jsonInput))
         return jsonToXml.parse("data", {});
@@ -139,7 +138,7 @@ function toTXT(jsonInput, lang)
                     flagDescriptions.push(`- ${desc.name}: ${desc.description || "(x)"}`);
                 });
 
-                returnText = tr(lang, "availableFlags", jsonInput.flags.join('", "'), flagDescriptions.join("\n"));
+                returnText = tr(lang, "availableFlags", jsonInput.flags.join("\", \""), flagDescriptions.join("\n"));
             }
 
             //#SECTION endpoint /ping
@@ -191,10 +190,10 @@ function toTXT(jsonInput, lang)
                 });
 
                 returnText = tr(lang, "infoEndpoint",
-                                    settings.info.name, jsonInput.version, jsonInput.jokes.totalCount, jsonInput.jokes.categories.join(`", "`), jsonInput.jokes.flags.join('", "'),
-                                    jsonInput.formats.join('", "'), jsonInput.jokes.types.join('", "'), jsonInput.jokes.submissionURL, idRanges.join("\n"), languages.jokeLangs().length,
-                                    suppLangs.sort().join(", "), sysLangs.length, sysLangs.sort().join(", "), safeJokesAmounts.join("\n"), jsonInput.serverLatency, jsonInput.info
-                                );
+                    settings.info.name, jsonInput.version, jsonInput.jokes.totalCount, jsonInput.jokes.categories.join("\", \""), jsonInput.jokes.flags.join("\", \""),
+                    jsonInput.formats.join("\", \""), jsonInput.jokes.types.join("\", \""), jsonInput.jokes.submissionURL, idRanges.join("\n"), languages.jokeLangs().length,
+                    suppLangs.sort().join(", "), sysLangs.length, sysLangs.sort().join(", "), safeJokesAmounts.join("\n"), jsonInput.serverLatency, jsonInput.info,
+                );
             }
 
             //#SECTION endpoint /formats
@@ -205,7 +204,7 @@ function toTXT(jsonInput, lang)
                     formatDescriptions.push(`- ${desc.name}: ${desc.description || "(x)"}`);
                 });
 
-                returnText = tr(lang, "availableFormats", `"${jsonInput.formats.join('", "')}"`, formatDescriptions.join("\n"));
+                returnText = tr(lang, "availableFormats", `"${jsonInput.formats.join("\", \"")}"`, formatDescriptions.join("\n"));
             }
 
             //#SECTION endpoint /endpoints
@@ -213,7 +212,7 @@ function toTXT(jsonInput, lang)
             {
                 returnText = "";
                 jsonInput.forEach(ep => {
-                    returnText += `${tr(lang, "endpointDetails", ep.name, ep.description, ep.usage.method, ep.usage.url, (ep.usage.supportedParams.length > 0 ? `"${ep.usage.supportedParams.join('", "')}"` : "X"))}\n\n`;
+                    returnText += `${tr(lang, "endpointDetails", ep.name, ep.description, ep.usage.method, ep.usage.url, (ep.usage.supportedParams.length > 0 ? `"${ep.usage.supportedParams.join("\", \"")}"` : "X"))}\n\n`;
                 });
             }
         }

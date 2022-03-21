@@ -1,6 +1,5 @@
 {
     "info": {
-        "disclaimer": "Viele der folgenden Witze sind rassistisch, sexistisch oder in anderer Weise explizit. Betreten auf eigene Gefahr!",
         "formatVersion": 3
     },
     "jokes": [
@@ -289,7 +288,7 @@
             "safe": true
         },
         {
-            "category": "Programming",
+            "category": "Misc",
             "type": "single",
             "joke": "Facebook ist wie ein Gefängnis. Man sitzt rum, verschwendet Zeit, schreibt an Wände und wird angestupst von Leuten die man nicht kennt.",
             "flags": {

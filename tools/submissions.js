@@ -153,7 +153,7 @@ async function run()
     const { proceed } = await prompt({
         message: `There ${amount == 1 ? "is" : "are"} ${amount} submission${amount == 1 ? "" : "s"} of ${langCount} language${langCount == 1 ? "" : "s"}. Go through ${amount == 1 ? "it" : "them"} now?`,
         type: "confirm",
-        name: "proceed"
+        name: "proceed",
     });
 
     if(proceed)
@@ -449,7 +449,7 @@ function editSubmission(sub)
 
                 const { category } = await prompt({
                     type: "select",
-                    message: `Select new category`,
+                    message: "Select new category",
                     name: "category",
                     choices: catChoices,
                     initial: settings.jokes.possible.categories.indexOf("Misc"),
@@ -633,7 +633,7 @@ function printSubmission(sub)
             sCol = col.yellow;
 
         return `${sCol}${Math.round(mapRange(score, 0, 1, 0, 100))}%${col.rst}`;
-    }
+    };
 
     const lines = [
         `Submission ${currentSub}/${totalSubs} from ${strToCol(sub.client)} ${sub.client} ${col.rst}`,
@@ -641,7 +641,7 @@ function printSubmission(sub)
         `  Type:       ${sub.joke.type}`,
         `  Flags:      ${extractFlags(sub.joke)}`,
         `  Uniqueness: sub=${formatScore(sub.uniqueScore)} int=${col.green}69%${col.rst}`,
-        ``,
+        "",
     ];
 
     /**
@@ -693,15 +693,15 @@ async function finishPrompts()
     console.log("\nFinished going through submissions.\n");
 
     const statLines = [
-        `Stats:`,
-        `  Submissions acted on: ${stats.submissionsActAmt}`,
-        `  Submissions edited:   ${stats.editedSubmissions}`,
-        `  Submissions deleted:  ${stats.deletedSubmissions}`,
+        "Stats:",
+        `  Submissions checked: ${stats.submissionsActAmt}`,
+        `  Submissions edited:  ${stats.editedSubmissions}`,
+        `  Submissions deleted: ${stats.deletedSubmissions}`,
     ];
 
     console.log(statLines.join("\n"));
 
-    console.log(`\nExiting.\n`);
+    console.log("\nExiting.\n");
 
     exit(0);
 }
@@ -915,7 +915,7 @@ function filterDuplicates(submissions, cache)
 {
     return new Promise(async (res) => {
         if(!Array.isArray(submissions) || !allOfType(submissions, "object"))
-            throw new TypeError(`Submissions parameter is not an array of objects`);
+            throw new TypeError("Submissions parameter is not an array of objects");
 
         /** @type {Submission[]} */
         const fuseList = [];

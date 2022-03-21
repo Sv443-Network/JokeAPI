@@ -1,6 +1,7 @@
 const fs = require("fs-extra");
 const { unused } = require("svcorelib");
 const Fuse = require("fuse.js");
+const { join } = require("path");
 
 const debug = require("./debug");
 const tr = require("./translate");
@@ -78,14 +79,14 @@ function languageToCode(language)
     Object.keys(langs).forEach(key => {
         searchObj.push({
             code: key,
-            lang: langs[key].toLowerCase()
+            lang: langs[key].toLowerCase(),
         });
     });
 
     const fuzzy = new Fuse(searchObj, {
         includeScore: true,
         keys: ["code", "lang"],
-        threshold: settings.languages.fuzzySearchThreshold
+        threshold: settings.languages.fuzzySearchThreshold,
     });
 
     let result = fuzzy.search(language)[0];
@@ -128,7 +129,9 @@ function jokeLangs()
 {
     let retLangs = [];
 
-    fs.readdirSync(settings.jokes.jokesFolderPath).forEach(f => {
+    // TODO: integrate dark jokes
+    
+    fs.readdirSync(join(settings.jokes.jokesFolderPath, settings.jokes.jokesSubfolders.regular)).forEach(f => {
         if(f == settings.jokes.jokesTemplateFile)
             return;
 
@@ -136,7 +139,7 @@ function jokeLangs()
 
         retLangs.push({
             code: langCode,
-            name: codeToLanguage(langCode)
+            name: codeToLanguage(langCode),
         });
     });
 
@@ -178,5 +181,5 @@ module.exports = {
     jokeLangs,
     systemLangs,
     getPossibleCodes,
-    getPossibleLanguages
+    getPossibleLanguages,
 };

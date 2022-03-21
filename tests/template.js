@@ -5,7 +5,7 @@ const settings = require("../settings");
 
 const meta = {
     name: "Test Name",
-    category: "Test Category"
+    category: "Test Category",
 };
 
 const baseURL = `http://127.0.0.1:${settings.httpServer.port}`;

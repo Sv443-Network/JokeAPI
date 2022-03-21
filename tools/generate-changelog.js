@@ -44,7 +44,7 @@ function extractVersionArray(versionLines = []) {
         ([versionTitle, versionEntries]) => ({
             versionTitle,
             versionEntries,
-        })
+        }),
     );
 
     return versionArray;
@@ -100,7 +100,7 @@ function getTableOfContents(currentVersion, otherVersions)
 
     return [
         "## Table of Contents:",
-        ...versionLinks
+        ...versionLinks,
     ].join("  \n");
 }
 
@@ -108,7 +108,7 @@ function writeMD(
     data = {
         currentVersion: "",
         versions: [],
-    }
+    },
 ) {
     let currentVersionNumber = "";
     let versionNumbers = [];
@@ -176,15 +176,15 @@ function writeMD(
             // convert issue references to links
             .replace(
                 /issue #(\d{1,})/g,
-                "[issue #$1](https://github.com/Sv443/JokeAPI/issues/$1)"
+                "[issue #$1](https://github.com/Sv443/JokeAPI/issues/$1)",
             )
             // convert pull request references to links
             .replace(
                 /PR #(\d{1,})/g,
-                "[pull request #$1](https://github.com/Sv443/JokeAPI/pull/$1)"
+                "[pull request #$1](https://github.com/Sv443/JokeAPI/pull/$1)",
             )
         + `<br><br><br>\n\n<div style="text-align: center;" align="center">\n\nThis file was auto-generated from the source file at [./${options.SOURCE_FILE}](./${options.SOURCE_FILE})  \n`
-        + `Thanks to [@sahithyandev](https://github.com/sahithyandev) for this feature :)\n\n</div>`
+        + "Thanks to [@sahithyandev](https://github.com/sahithyandev) for this feature :)\n\n</div>",
     );
 }
 

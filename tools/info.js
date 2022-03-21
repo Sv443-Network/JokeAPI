@@ -57,11 +57,11 @@ async function run()
         /** The lines that get printed to the console to display JokeAPI's info */
         const lines = [
             ` ${infoLine}`,
-            ``,
+            "",
             ` ${splash}`,
             sepLine,
-            ``,
-            ``,
+            "",
+            "",
             ...makeInfoCategory("Jokes", [
                 {
                     name: "Total amount",
@@ -72,7 +72,7 @@ async function run()
                     value: jokes.languages,
                 },
             ]),
-            ``,
+            "",
             ...makeInfoCategory("Submissions", [
                 {
                     name: "Amount",
@@ -83,7 +83,7 @@ async function run()
                     value: subm.languages,
                 },
             ]),
-            ``,
+            "",
             ...makeInfoCategory("HTTP Server", [
                 {
                     name: "BaseURL",
@@ -124,7 +124,7 @@ function makeInfoCategory(title, values)
         } : {
             display: v.name,
             length: v.name.length,
-        }
+        };
     });
 
     /** @type {({ display: string, length: number })[]} */
@@ -190,7 +190,7 @@ async function getInfo()
             baseUrl: getProp("baseUrl"),
         },
         // ...
-    }
+    };
 }
 
 /**

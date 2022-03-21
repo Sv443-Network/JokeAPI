@@ -1,19 +1,43 @@
-const fs = require("fs-extra");
-const { isEmpty, colors } = require("svcorelib");
+const { readdir, appendFile, writeFile, stat } = require("fs-extra");
+const { filesystem, isEmpty, colors } = require("svcorelib");
+const { join } = require("path");
 
 const settings = require("../settings");
 
 
-/** @typedef {import("./types/debug").LoggerType} LoggerType */
+/** Max size of files in bytes */
+const maxSize = 1000 * 1000 * 50;
 
+
+async function init()
+{
+    // run file size check on startup, then once a day
+    await checkFileSize();
+    setInterval(() => checkFileSize(), 1000 * 60 * 60 * 24);
+}
+
+async function checkFileSize()
+{
+    const files = await readdir(settings.errors.errorLogDir);
+
+    for await(const file of files)
+    {
+        const path = join(settings.errors.errorLogDir, file);
+
+        const { isFile, size } = await stat(path);
+
+        if(isFile() && size > maxSize)
+            await writeFile(path, "");
+    }
+}
 
 /**
  * Logs something to a file
- * @param {LoggerType} type The type of log
- * @param {string} content The content of the log
- * @param {boolean} timestamp Whether or not to include a timestamp
+ * @param {"error"|"ratelimit"|"fatal"} type The type of log
+ * @param {String} content The content of the log
+ * @param {Boolean} timestamp Whether or not to include a timestamp
  */
-function logger(type, content, timestamp)
+async function logger(type, content, timestamp)
 {
     try
     {
@@ -24,15 +48,15 @@ function logger(type, content, timestamp)
 
         switch(type)
         {
-            case "error":
-            case "ratelimit":
-            case "fatal":
-                errorType = type;
-                errorContent = content;
+        case "error":
+        case "ratelimit":
+        case "fatal":
+            errorType = type;
+            errorContent = content;
             break;
-            default:
-                errorType = "fatal";
-                errorContent = `Error while logging - wrong type ${type} specified.\nContent of the error: ${content}`;
+        default:
+            errorType = "fatal";
+            errorContent = `Error while logging - wrong type ${type} specified.\nContent of the error: ${content}`;
             break;
         }
 
@@ -45,10 +69,10 @@ function logger(type, content, timestamp)
 
         let logFileName = `${settings.errors.errorLogDir}${errorType}.log`;
 
-        if(fs.existsSync(logFileName))
-            fs.appendFileSync(logFileName, errorContent);
+        if(await filesystem.exists(logFileName))
+            await appendFile(logFileName, errorContent);
         else
-            fs.writeFileSync(logFileName, errorContent);
+            await writeFile(logFileName, errorContent);
     }
     catch(err)
     {
@@ -72,8 +96,8 @@ function getTimestamp(separator)
         d: d.getDate(),
         th: d.getHours(),
         tm: d.getMinutes(),
-        ts: d.getSeconds()
-    }
+        ts: d.getSeconds(),
+    };
 
     return `${dt.y}/${(dt.m < 10 ? "0" : "") + dt.m}/${(dt.d < 10 ? "0" : "") + dt.d}`
          + `${isEmpty(separator) ? " - " : separator}`
@@ -81,4 +105,5 @@ function getTimestamp(separator)
 }
 
 module.exports = logger;
+module.exports.init = init;
 module.exports.getTimestamp = getTimestamp;

@@ -3,14 +3,14 @@ version: v1.22.1
 ignore: {}
 # patches apply the minimum changes required to fix a vulnerability
 patch:
-  SNYK-JS-LODASH-567746:
-    - eslint > lodash:
-        patched: '2020-05-01T01:34:02.805Z'
-    - eslint > inquirer > lodash:
-        patched: '2020-05-01T01:34:02.805Z'
-    - eslint > table > lodash:
-        patched: '2020-05-01T01:34:02.805Z'
-    - madge > detective-typescript > @typescript-eslint/typescript-estree > lodash:
-        patched: '2020-05-01T01:34:02.805Z'
-    - madge > dependency-tree > precinct > detective-typescript > @typescript-eslint/typescript-estree > lodash:
-        patched: '2020-05-01T01:34:02.805Z'
+    SNYK-JS-LODASH-567746:
+        - eslint > lodash:
+              patched: "2020-05-01T01:34:02.805Z"
+        - eslint > inquirer > lodash:
+              patched: "2020-05-01T01:34:02.805Z"
+        - eslint > table > lodash:
+              patched: "2020-05-01T01:34:02.805Z"
+        - madge > detective-typescript > @typescript-eslint/typescript-estree > lodash:
+              patched: "2020-05-01T01:34:02.805Z"
+        - madge > dependency-tree > precinct > detective-typescript > @typescript-eslint/typescript-estree > lodash:
+              patched: "2020-05-01T01:34:02.805Z"

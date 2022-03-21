@@ -44,13 +44,14 @@ const settings = {
         mainFilePath: "./src/main.js",
         initDirs: [ // directories that should be generated if they don't exist - paths relative to root of project - doesn't necessarily need trailing slash
             "./data/logs",
-            "./data/submissions",
             "./docs/compiled",
-            "./data/auth"
+            "./data/auth",
+            "./data/lists",
+            "./data/submissions",
         ],
         exitSignals: [ // all signals that should cause a soft exit
             "SIGINT",
-            "SIGTERM"
+            "SIGTERM",
         ],
     },
     /** Request logging (to the console) */
@@ -62,8 +63,13 @@ const settings = {
     },
     /** General joke settings */
     jokes: {
-        jokesFormatVersion: 3,                             // current joke format version
-        jokesFolderPath: "./data/jokes/",                  // path to the jokes folder - needs trailing slash
+        jokesFormatVersion: 3,             // current joke format version
+        // TODO: FIXME: (v2.3.3)
+        jokesFolderPath: "./data/jokes/",  // path to the base jokes folder - needs trailing slash
+        jokesSubfolders: {       // subdirectories in `jokesFolderPath`:
+            regular: "regular",  // regular (non-dark) jokes files
+            dark: "dark",        // dark jokes files
+        },
         jokeSubmissionURL: `${getProp("baseUrl")}#submit`, // joke submission url
         jokeSubmissionPath: "./data/submissions/",         // path to a directory where joke submissions should be saved to - needs trailing slash
         submissions: {
@@ -90,13 +96,13 @@ const settings = {
                 "Dark",
                 "Pun",
                 "Spooky",
-                "Christmas"
+                "Christmas",
             ],
             categoryAliases: { // aliases of categories. Alias at key gets resolved to category at value. Value has to be present in the "categories" array above - case sensitive / readable names
                 "Miscellaneous": "Misc",
                 "Coding": "Programming",
                 "Development": "Programming",
-                "Halloween": "Spooky"
+                "Halloween": "Spooky",
             },
             flags: [ // all flags - HAVE TO BE LOWER CASE!
                 "nsfw",
@@ -114,7 +120,7 @@ const settings = {
             ],
             types: [ // all joke types - HAVE TO BE LOWER CASE!
                 "single",
-                "twopart"
+                "twopart",
             ],
         },
         fileFormatsPath: "./data/fileFormats.json", // path to the file formats file
@@ -163,10 +169,8 @@ const settings = {
             deflate: true, // Whether or not Deflate encoding should be enabled for the documentation page
             brotli: true,  // Whether or not Brotli encoding should be enabled for the documentation page (old Node versions might need this disabled)
         },
-        encodingPriority: [ // The priority of the encodings. Items with a lower array index (further to the top) have the highest priority
-            "brotli",
-            "gzip",
-            "deflate",
+        encodingPriority: [ // The priority of the encodings. Items with a lower array index (further to the left) have a higher priority
+            "brotli", "gzip", "deflate",
         ],
     },
     /** Everything regarding errors */
@@ -266,8 +270,8 @@ const settings = {
     /** Legacy features that might be deprecated soon */
     legacy: {
         submissionEndpointsPutMethod: true,  // whether or not submission endpoints should also be able to be called with the PUT method
-    }
-}
+    },
+};
 
 const frozenSettings = Object.freeze(settings); // use Object.freeze() to prevent modifications at runtime
 

@@ -50,7 +50,8 @@ function init()
             persistentData.curCommit = await getCommit();
 
             persistentData.injectionCounter = 0;
-            debug("Docs", "Starting daemon and recompiling documentation files...")
+            debug("Docs", "Starting daemon and recompiling documentation files...");
+        
             startDaemon();
 
             // initial compilation of docs
@@ -102,7 +103,7 @@ function compileDocs()
                 `${settings.documentation.rawDirPath}index.css`,
                 `${settings.documentation.rawDirPath}index.html`,
                 `${settings.documentation.rawDirPath}errorPage.css`,
-                `${settings.documentation.rawDirPath}errorPage.js`
+                `${settings.documentation.rawDirPath}errorPage.js`,
             ];
 
             const injectedFileNames = [
@@ -110,7 +111,7 @@ function compileDocs()
                 `${settings.documentation.compiledPath}index_injected.css`,
                 `${settings.documentation.compiledPath}documentation.html`,
                 `${settings.documentation.compiledPath}errorPage_injected.css`,
-                `${settings.documentation.compiledPath}errorPage_injected.js`
+                `${settings.documentation.compiledPath}errorPage_injected.js`,
             ];
 
             const promises = [];
@@ -198,57 +199,57 @@ function saveEncoded(encoding, filePath, content)
     return new Promise((resolve, reject) => {
         switch(encoding)
         {
-            case "gzip":
-                zlib.gzip(content, (err, res) => {
-                    if(!err)
-                    {
-                        fs.writeFile(`${filePath}.gz`, res, err => {
-                            if(!err)
-                                return resolve();
-                            else
-                                return reject(err);
-                        });
-                    }
-                    else
-                        return reject(err);
-                });
-            break;
-            case "deflate":
-                zlib.deflate(content, (err, res) => {
-                    if(!err)
-                    {
-                        fs.writeFile(`${filePath}.zz`, res, err => {
-                            if(!err)
-                                return resolve();
-                            else
-                                return reject(err);
-                        });
-                    }
-                    else
-                        return reject(err);
-                });
-            break;
-            case "brotli":
-                if(!semver.lt(process.version, "v11.7.0")) // Brotli was added in Node v11.7.0
+        case "gzip":
+            zlib.gzip(content, (err, res) => {
+                if(!err)
                 {
-                    zlib.brotliCompress(content, (err, res) => {
+                    fs.writeFile(`${filePath}.gz`, res, err => {
                         if(!err)
-                        {
-                            fs.writeFile(`${filePath}.br`, res, err => {
-                                if(!err)
-                                    return resolve();
-                                else return reject(err);
-                            });
-                        }
+                            return resolve();
                         else
                             return reject(err);
                     });
                 }
                 else
-                    return reject(`Brotli compression is only supported since Node.js version "v11.7.0" - current Node.js version is "${process.version}"`);
+                    return reject(err);
+            });
             break;
-            default:
-                return reject(`Encoding "${encoding}" not found - valid methods are: "gzip", "deflate", "brotli"`);
+        case "deflate":
+            zlib.deflate(content, (err, res) => {
+                if(!err)
+                {
+                    fs.writeFile(`${filePath}.zz`, res, err => {
+                        if(!err)
+                            return resolve();
+                        else
+                            return reject(err);
+                    });
+                }
+                else
+                    return reject(err);
+            });
+            break;
+        case "brotli":
+            if(!semver.lt(process.version, "v11.7.0")) // Brotli was added in Node v11.7.0
+            {
+                fs.writeFile(`${filePath}.gz`, (res, err) => {
+                    if(!err)
+                    {
+                        fs.writeFile(`${filePath}.br`, (res, err) => {
+                            if(!err)
+                                return resolve();
+                            else return reject(err);
+                        });
+                    }
+                    else
+                        return reject(err);
+                });
+            }
+            else
+                return reject(`Brotli compression is only supported since Node.js version "v11.7.0" - current Node.js version is "${process.version}"`);
+            break;
+        default:
+            return reject(`Encoding "${encoding}" not found - valid methods are: "gzip", "deflate", "brotli"`);
         }
     });
 }
@@ -266,14 +267,13 @@ function injectError(err, exit = true)
         type: "Error",
         data: {
             errorMessage: `Error while injecting into documentation: ${err}`,
-            ipAddress: "",
+            ipAddress: "N/A",
             urlPath: [],
-            urlParameters: {}
-        }
+            urlParameters: {},
+        },
     });
 
-    if(exit === true)
-        process.exit(1);
+    exit === true && process.exit(1);
 }
 
 /**

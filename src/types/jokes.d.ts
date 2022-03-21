@@ -59,11 +59,13 @@ export interface TwopartJoke extends InternalJokeBase {
 /** An internal joke of any type */
 export type Joke = SingleJoke | TwopartJoke;
 
+export interface JokesFileInfo {
+    formatVersion: number;
+}
+
 /** Represents an internal joke file */
 export interface JokesFile {
-    info: {
-        formatVersion: number;
-    }
+    info: JokesFileInfo;
     jokes: Joke[];
 }
 

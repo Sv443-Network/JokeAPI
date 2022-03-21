@@ -62,7 +62,7 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun, lang
             }
 
             return sub;
-        }
+        };
 
         const submission = getSubmission();
 
@@ -237,7 +237,7 @@ function reformatJoke(joke)
     retJoke = {
         ...retJoke,
         category: typeof joke.category === "string" ? parseJokes.resolveCategoryAlias(joke.category) : joke.category,
-        type: joke.type
+        type: joke.type,
     };
 
     if(joke.type === "single")

@@ -2,7 +2,7 @@
 // filters can be applied with setter methods
 // final getter method returns one or multiple jokes that match all filters
 
-const scl = require("svcorelib");
+const { isEmpty, randomItem } = require("svcorelib");
 const safeRegex = require("safe-regex");
 
 const parseJokes = require("../parseJokes");
@@ -31,7 +31,7 @@ class FilteredJoke
      */
     constructor(allJokes)
     {
-        if(scl.isEmpty(allJokes))
+        if(isEmpty(allJokes))
             throw new Error(`Error while constructing new FilteredJoke object: parameter "allJokes" is empty`);
 
         this._allJokes = allJokes;
@@ -47,7 +47,7 @@ class FilteredJoke
         /** Resolved category names (aliases are not allowed here) */
         this._allowedCategories = [
             settings.jokes.possible.anyCategoryName.toLowerCase(),
-            ...settings.jokes.possible.categories.map(c => c.toLowerCase())
+            ...settings.jokes.possible.categories.map(c => c.toLowerCase()),
         ];
         this._allowedTypes = [...settings.jokes.possible.types];
         this._searchString = null;
@@ -77,7 +77,7 @@ class FilteredJoke
 
         let allCategories = [
             settings.jokes.possible.anyCategoryName.toLowerCase(),
-            ...settings.jokes.possible.categories.map(c => c.toLowerCase())
+            ...settings.jokes.possible.categories.map(c => c.toLowerCase()),
         ];
         let catsValid = [];
 
@@ -136,7 +136,7 @@ class FilteredJoke
      */
     getAllowedTypes()
     {
-        return this._allowedTypes
+        return this._allowedTypes;
     }
 
     //#MARKER search string
@@ -185,13 +185,13 @@ class FilteredJoke
      */
     setIdRange(start, end = null, lang = null)
     {
-        if(scl.isEmpty(end))
+        if(isEmpty(end))
             end = start;
 
-        if(scl.isEmpty(lang))
+        if(isEmpty(lang))
             lang = this.getLanguage() || settings.languages.defaultLanguage;
 
-        if(isNaN(parseInt(start)) || isNaN(parseInt(end)) || typeof start != "number" || typeof end != "number" || scl.isEmpty(start) || scl.isEmpty(end))
+        if(isNaN(parseInt(start)) || isNaN(parseInt(end)) || typeof start != "number" || typeof end != "number" || isEmpty(start) || isEmpty(end))
         {
             this._errors.push("The \"idRange\" parameter values are not numbers");
             return false;
@@ -404,7 +404,7 @@ class FilteredJoke
 
                     //#SECTION flags
                     let blFlags = this.getBlacklistFlags();
-                    if(!scl.isEmpty(blFlags))
+                    if(!isEmpty(blFlags))
                     {
                         let flagMatches = false;
                         Object.keys(joke.flags).forEach(flKey => {
@@ -478,7 +478,7 @@ class FilteredJoke
             const containsOperator = Object.values(settings.jokes.searchStringOperators).reduce(op => searchStr.includes(op));
 
 
-            if(!scl.isEmpty(searchStr))
+            if(!isEmpty(searchStr))
             {
                 // if the search string doesn't contain a logical operator (issue #289)
                 if(!containsOperator)
@@ -534,7 +534,7 @@ class FilteredJoke
     getJokes(ip, langCode, amount = 1)
     {
         amount = parseInt(amount);
-        if(isNaN(amount) || scl.isEmpty(amount))
+        if(isNaN(amount) || isEmpty(amount))
             amount = 1;
         
         return new Promise((resolve, reject) => {
@@ -558,7 +558,7 @@ class FilteredJoke
                     for(let i = 0; i < amount; i++)
                     {
                         // let rJoke = selectRandomJoke(filteredJokes);
-                        const rJoke = scl.randomItem(filteredJokes);
+                        const rJoke = randomItem(filteredJokes);
                         if(rJoke != null)
                             retJokes.push(rJoke);
                     }

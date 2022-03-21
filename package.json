@@ -1,7 +1,7 @@
 {
   "name": "@sv443/jokeapi",
   "version": "2.4.0",
-  "description": "A REST API that serves jokes from many categories while also offering a lot of filtering methods",
+  "description": "REST API that serves jokes from many categories while also offering a lot of filtering methods",
   "main": "JokeAPI.js",
   "homepage": "https://jokeapi.dev",
   "scripts": {
@@ -122,8 +122,8 @@
     "sanitize-filename": "^1.6.3",
     "svcorelib": "^1.14.2",
     "tcp-port-used": "^1.0.2",
-    "url-parse": "^1.5.2",
-    "xss": "^1.0.9",
+    "url-parse": "^1.5.9",
+    "xss": "^1.0.11",
     "yargs": "^17.2.1"
   },
   "devDependencies": {

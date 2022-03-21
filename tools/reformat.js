@@ -6,7 +6,7 @@ const { isEmpty } = require("svcorelib");
 
 try
 {
-    console.log(`\nReformatting jokes from file "./data/jokes.json" to new format and putting it in file "./data/jokes_new.json"...`);
+    console.log("\nReformatting jokes from file \"./data/jokes.json\" to new format and putting it in file \"./data/jokes_new.json\"...");
 
     let initialJokes = JSON.parse(fs.readFileSync("./data/jokes.json").toString());
     let newJokes = [];
@@ -23,9 +23,9 @@ try
                 sexist: isEmpty(joke.flags.sexist) ? false : true,
                 religious: isEmpty(joke.flags.religious) ? false : true,
                 political: isEmpty(joke.flags.political) ? false : true,
-                explicit: isEmpty(joke.flags.explicit) ? false : true
+                explicit: isEmpty(joke.flags.explicit) ? false : true,
             },
-            id: id
+            id: id,
         });
 
         if(joke.type == "twopart") newJokes.push({
@@ -39,9 +39,9 @@ try
                 sexist: isEmpty(joke.flags.sexist) ? false : true,
                 religious: isEmpty(joke.flags.religious) ? false : true,
                 political: isEmpty(joke.flags.political) ? false : true,
-                explicit: isEmpty(joke.flags.explicit) ? false : true
+                explicit: isEmpty(joke.flags.explicit) ? false : true,
             },
-            id: id
+            id: id,
         });
 
         id++;
@@ -49,9 +49,9 @@ try
 
     let doneFile = {
         "info": {
-            "formatVersion": 3
+            "formatVersion": 3,
         },
-        "jokes": newJokes
+        "jokes": newJokes,
     };
 
     fs.writeFileSync("./data/jokes_new.json", JSON.stringify(doneFile, null, 4));

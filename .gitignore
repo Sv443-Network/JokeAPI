@@ -20,10 +20,15 @@ test.js
 !tools/test.js
 changelog-data.json
 data/jokes-bak/
+data/jokes-2.4-bak/
 
 # Docs:
 docs/documentation.html
 docs/compiled
+
+# Dark jokes (GitHub TOS):
+data/jokes/dark/
+data/jokes/old/
 
 # Joke submissions:
 data/submissions
@@ -33,4 +38,11 @@ data/submissionCache.json
 data/auth/tokens.json
 
 # Other potentially sensitive information:
-data/lists/*.json
+data/lists/ipBlacklist.json
+
+# Dev stuff:
+dev/madge/
+dependency-graph.html
+test.js
+!tools/test.js
+dev/ghb/

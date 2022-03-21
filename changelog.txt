@@ -40,6 +40,7 @@
         - Fixed renamed package `require-uncached` (now `import-fresh`)
         - 404 requests now don't wait for a timeout anymore (issue #314)
     - Internal Stuff:
+        - Moved jokes to a (self-hosted git repo)[https://git.sv443.net/Sv443/JokeAPI-Jokes]
         - Refactored endpoints (issue #243)
         - Refactored a big part of the other code to remove unstable circular dependencies and generally just bad code
         - Replaced deprecated function [`fs.exists()`](https://nodejs.org/api/fs.html#fs_fs_exists_path_callback) throughout the API (issue #230)
@@ -50,7 +51,11 @@
         - Patched all kinds of security vulnerabilities by updating dependencies
 
 
-[2.3.2] - Joke update
+[2.3.3] - (PR #358)
+    - Moved dark jokes off the repository, permanent solution is still pending
+
+
+[2.3.2] - Joke update (PR #341)
     - Added new jokes
     - Rewrote the submission script to make it much more streamlined (issue #340)
     - Rewrote the add-joke script so it's easier for me to use

@@ -81,7 +81,7 @@ function parseArgs()
     const amountInvalid = () => {
         return {
             noCopy,
-            amount: 1
+            amount: 1,
         };
     };
 
@@ -89,7 +89,7 @@ function parseArgs()
     {
         const amount = parseInt(
             process.argv.find(arg => arg.match(/^-{0,2}\d+$/))
-            .replace(/[-]/g, "")
+                .replace(/[-]/g, ""),
         );
 
         if(isNaN(amount))
@@ -160,7 +160,7 @@ function saveTokens(tokens, maxReqs)
 
             oldFile.push({
                 token,
-                maxReqs
+                maxReqs,
             });
         });
 

@@ -78,111 +78,111 @@ function logRequest(type, additionalInfo, analyticsData)
 
     switch(type)
     {
-        case "success":
-            color = settings.colors.success;
+    case "success":
+        color = settings.colors.success;
 
-            if(!scl.isEmpty(analyticsData))
-            {
-                analytics({
-                    type: "SuccessfulRequest",
-                    data: {
-                        ipAddress: analyticsData.ipAddress,
-                        urlPath: analyticsData.urlPath,
-                        urlParameters: analyticsData.urlParameters
-                    }
-                });
-            }
+        if(!scl.isEmpty(analyticsData))
+        {
+            analytics({
+                type: "SuccessfulRequest",
+                data: {
+                    ipAddress: analyticsData.ipAddress,
+                    urlPath: analyticsData.urlPath,
+                    urlParameters: analyticsData.urlParameters,
+                },
+            });
+        }
         break;
-        case "docs":
-            color = settings.colors.docs;
+    case "docs":
+        color = settings.colors.docs;
 
-            if(!scl.isEmpty(analyticsData))
-            {
-                analytics({
-                    type: "Docs",
-                    data: {
-                        ipAddress: analyticsData.ipAddress,
-                        urlPath: analyticsData.urlPath,
-                        urlParameters: analyticsData.urlParameters
-                    }
-                });
-            }
+        if(!scl.isEmpty(analyticsData))
+        {
+            analytics({
+                type: "Docs",
+                data: {
+                    ipAddress: analyticsData.ipAddress,
+                    urlPath: analyticsData.urlPath,
+                    urlParameters: analyticsData.urlParameters,
+                },
+            });
+        }
         break;
-        case "ratelimited":
-            color = settings.colors.ratelimit;
-            // logType = "ratelimit";
+    case "ratelimited":
+        color = settings.colors.ratelimit;
+        // logType = "ratelimit";
 
-            if(!scl.isEmpty(analyticsData))
-            {
-                analytics({
-                    type: "RateLimited",
-                    data: {
-                        ipAddress: analyticsData.ipAddress,
-                        urlPath: analyticsData.urlPath,
-                        urlParameters: analyticsData.urlParameters
-                    }
-                });
-            }
+        if(!scl.isEmpty(analyticsData))
+        {
+            analytics({
+                type: "RateLimited",
+                data: {
+                    ipAddress: analyticsData.ipAddress,
+                    urlPath: analyticsData.urlPath,
+                    urlParameters: analyticsData.urlParameters,
+                },
+            });
+        }
         break;
-        case "error":
-            if(settings.debug.onlyLogErrors)
-                logDisabled = false;
+    case "error":
+        if(settings.debug.onlyLogErrors)
+            logDisabled = false;
 
-            color = settings.colors.ratelimit;
-            logType = "error";
+        color = settings.colors.ratelimit;
+        logType = "error";
 
-            if(!scl.isEmpty(analyticsData))
-            {
-                analytics({
-                    type: "Error",
-                    data: {
-                        ipAddress: analyticsData.ipAddress,
-                        urlPath: analyticsData.urlPath,
-                        urlParameters: analyticsData.urlParameters,
-                        errorMessage: additionalInfo
-                    }
-                });
-            }
+        if(!scl.isEmpty(analyticsData))
+        {
+            analytics({
+                type: "Error",
+                data: {
+                    ipAddress: analyticsData.ipAddress,
+                    urlPath: analyticsData.urlPath,
+                    urlParameters: analyticsData.urlParameters,
+                    errorMessage: additionalInfo,
+                },
+            });
+        }
         break;
-        case "docsrecompiled":
-            color = settings.colors.docsrecompiled;
-            logChar = "r ";
+    case "docsrecompiled":
+        color = settings.colors.docsrecompiled;
+        logChar = "r ";
         break;
-        case "submission":
-            logChar = `\n\n${col.blue}⯈ Got a submission${!scl.isEmpty(additionalInfo) ? ` from ${col.yellow}${additionalInfo.substring(0, 8)}` : ""}${col.rst}\n\n`;
-            spacerDisabled = true;
+    case "submission":
+        logChar = `\n\n${col.blue}⯈ Got a submission${!scl.isEmpty(additionalInfo) ? ` from ${col.yellow}${additionalInfo.substring(0, 8)}` : ""}${col.rst}\n\n`;
+        spacerDisabled = true;
 
-            if(!scl.isEmpty(analyticsData))
-            {
-                analytics({
-                    type: "JokeSubmission",
-                    data: {
-                        ipAddress: analyticsData.ipAddress,
-                        urlPath: analyticsData.urlPath,
-                        urlParameters: analyticsData.urlParameters,
-                        submission: analyticsData.submission
-                    }
-                });
-            }
+        if(!scl.isEmpty(analyticsData))
+        {
+            analytics({
+                type: "JokeSubmission",
+                data: {
+                    ipAddress: analyticsData.ipAddress,
+                    urlPath: analyticsData.urlPath,
+                    urlParameters: analyticsData.urlParameters,
+                    submission: analyticsData.submission,
+                },
+            });
+        }
         break;
-        case "blacklisted":
-            color = settings.colors.blacklisted;
-            logChar = "*";
-            if(!settings.logging.blacklistLoggingEnabled)
-                logDisabled = true;
+    case "blacklisted":
+        color = settings.colors.blacklisted;
+        logChar = "*";
+        if(!settings.logging.blacklistLoggingEnabled)
+            logDisabled = true;
 
-            if(!scl.isEmpty(analyticsData))
-            {
-                analytics({
-                    type: "Blacklisted",
-                    data: {
-                        ipAddress: analyticsData.ipAddress,
-                        urlPath: analyticsData.urlPath,
-                        urlParameters: analyticsData.urlParameters,
-                        submission: analyticsData.submission
-                    }
-                });
-            }
+        if(!scl.isEmpty(analyticsData))
+        {
+            analytics({
+                type: "Blacklisted",
+                data: {
+                    ipAddress: analyticsData.ipAddress,
+                    urlPath: analyticsData.urlPath,
+                    urlParameters: analyticsData.urlParameters,
+                    submission: analyticsData.submission,
+                },
+            });
+        }
         break;
     }
 
@@ -231,7 +231,7 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
     const brBlack = "\x1b[1m\x1b[30m";
 
     if(persistentData.firstInitMsg)
-        debug("LogRequest", `Building and printing init message...\n`, "green");
+        debug("LogRequest", "Building and printing init message...\n", "green");
 
 
     /** Amount of states the activity indicator has (1-indexed) */
@@ -334,20 +334,20 @@ function getActivityIndicator(state)
 
         switch(state)
         {
-            case 0:
-                indicator += "■┬─";
-                break;
-            case 1:
-            case 3:
-                indicator += "─■─";
-                break;
-            case 2:
-                indicator += "─┬■";
-                break;
+        case 0:
+            indicator += "■┬─";
+            break;
+        case 1:
+        case 3:
+            indicator += "─■─";
+            break;
+        case 2:
+            indicator += "─┬■";
+            break;
 
-            default:
-                indicator += "???";
-                break;
+        default:
+            indicator += "???";
+            break;
         }
 
         indicator += `${col.rst} `;
@@ -415,7 +415,7 @@ function strToCol(input)
             bgOvrIdx = 0;
     }
 
-    const bgCol = bgColMap[bgOvrIdx || bgColIdx]
+    const bgCol = bgColMap[bgOvrIdx || bgColIdx];
 
     return `${fgCol}${bgCol}`;
 }

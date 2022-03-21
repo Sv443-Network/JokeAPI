@@ -2,6 +2,7 @@
 
 const fs = require("fs-extra");
 const { unused, isEmpty, allEqual, colors, reserialize } = require("svcorelib");
+const { join } = require("path");
 
 const settings = require("../settings");
 const debug = require("./debug");
@@ -86,8 +87,9 @@ function init()
                 if(!jf.endsWith(".json") || !fileNameValid(jf))
                     result.push(`${colors.fg.red}Error: Invalid file "${settings.jokes.jokesFolderPath}${jf}" found. It has to follow this pattern: "jokes-xy.json"`);
 
+                const fPath = join(settings.jokes.jokesFolderPath, settings.jokes.jokesSubfolders.regular, jf);
 
-                fs.readFile(`${settings.jokes.jokesFolderPath}${jf}`, (err, jokesFile) => {
+                fs.readFile(fPath, (err, jokesFile) => {
                     if(err)
                         return reject(err);
 
@@ -190,7 +192,7 @@ function init()
             });
 
             if(!allEqual(formatVersions))
-                errors.push(`One or more of the jokes files has an invalid format version`);
+                errors.push("One or more of the jokes files has an invalid format version");
 
             module.exports.allJokes = allJokesObj;
             module.exports.jokeCount = allJokesObj.getJokeCount();
@@ -252,7 +254,7 @@ function validateSubmission(joke, lang)
         let validParamsObj = {
             formatVersion: true,
             category: true,
-            type: true
+            type: true,
         };
     
         if(jokeObj.type === "twopart")
@@ -275,10 +277,10 @@ function validateSubmission(joke, lang)
                 religious: true,
                 political: true,
                 racist: true,
-                sexist: true
+                sexist: true,
             },
-            lang: true
-        }
+            lang: true,
+        };
 
         return validParamsObj;
     };
@@ -406,7 +408,7 @@ function validateSubmission(joke, lang)
                 sexist: false,
                 political: false,
                 religious: false,
-                explicit: false
+                explicit: false,
             };
         }
 
@@ -442,7 +444,7 @@ function validateSubmission(joke, lang)
     return {
         valid,
         errorStrings: jokeErrors,
-        jokeParams: validParamsObj
+        jokeParams: validParamsObj,
     };
 }
 
