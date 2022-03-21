@@ -40,9 +40,9 @@ class Endpoints extends Endpoint
                 method: "GET",
                 supportedParams: [
                     "format",
-                    "lang"
-                ]
-            }
+                    "lang",
+                ],
+            },
         };
 
         super("endpoints", meta);
@@ -71,11 +71,11 @@ class Endpoints extends Endpoint
         /** @type {EndpointObj[]} */
         const epList =
             ( Array.isArray(this.endpoints[lang]) && this.endpoints[lang].length > 0 )
-            ? this.endpoints[lang]
-            : this.endpoints[settings.languages.defaultLanguage];
+                ? this.endpoints[lang]
+                : this.endpoints[settings.languages.defaultLanguage];
 
         if(!epList)
-            throw new Error(`Endpoint list wasn't initialized yet`);
+            throw new Error("Endpoint list wasn't initialized yet");
 
         epList.forEach(ep => {
             let epUrl = `${settings.info.docsURL}/${ep.pathName}`;
@@ -91,7 +91,7 @@ class Endpoints extends Endpoint
                     method: ep.meta.usage.method,
                     url: epUrl,
                     supportedParams: (format != "xml" ? ep.meta.usage.supportedParams : { "param": ep.meta.usage.supportedParams }),
-                }
+                },
             };
 
             responseObj.push(epObj);
@@ -122,7 +122,7 @@ class Endpoints extends Endpoint
                 pathName: this.getPathName(),
                 displayName: this.getDisplayName(lang),
                 description: this.getDescription(lang),
-                positionalArgs: this.getPositionalArguments()
+                positionalArgs: this.getPositionalArguments(),
             });
         });
 
@@ -162,7 +162,7 @@ class Endpoints extends Endpoint
                                     pathName: endpointInstance.getPathName(),
                                     displayName: endpointInstance.getDisplayName(lang),
                                     description: endpointInstance.getDescription(lang),
-                                    positionalArgs: endpointInstance.getPositionalArguments()
+                                    positionalArgs: endpointInstance.getPositionalArguments(),
                                 });
                             }
                         });

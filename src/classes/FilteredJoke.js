@@ -32,7 +32,7 @@ class FilteredJoke
     constructor(allJokes)
     {
         if(isEmpty(allJokes))
-            throw new Error(`Error while constructing new FilteredJoke object: parameter "allJokes" is empty`);
+            throw new Error("Error while constructing new FilteredJoke object: parameter \"allJokes\" is empty");
 
         this._allJokes = allJokes;
         /** @type {JokeObj[]} */
@@ -341,7 +341,7 @@ class FilteredJoke
             try
             {
                 if(!isValidIpHash(ip))
-                    throw new TypeError(`Error while applying joke filters: client IP is not a valid IP hash`);
+                    throw new TypeError("Error while applying joke filters: client IP is not a valid IP hash");
 
                 this._filteredJokes = [];
 
@@ -495,7 +495,7 @@ class FilteredJoke
                     // create initial pattern
                     const pattern = decodeURIComponent(escapeRegexPattern(searchStr).replace(new RegExp(`[${settings.jokes.searchStringOperators.wildcard}]`, "gm"), ".*"));
                     // isolate the pattern based on the OR operator(s) present
-                    const isolatedPattern = `^${pattern.split(settings.jokes.searchStringOperators.orOperator).join(`$|^`)}$`;
+                    const isolatedPattern = `^${pattern.split(settings.jokes.searchStringOperators.orOperator).join("$|^")}$`;
                     // create the final regex
                     const searchRegex = new RegExp(isolatedPattern, "gmi");
                     // make sure there's no way in hell a user can ReDoS JokeAPI with exponential-time regexes / catastrophic backtracking - see https://snyk.io/blog/redos-and-catastrophic-backtracking/

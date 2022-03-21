@@ -35,9 +35,9 @@ class Categories extends FilterComponentEndpoint {
                 method: "GET",
                 supportedParams: [
                     "format",
-                    "lang"
-                ]
-            }
+                    "lang",
+                ],
+            },
         };
 
         super("categories", "categories", meta);
@@ -73,7 +73,7 @@ class Categories extends FilterComponentEndpoint {
         Object.keys(settings.jokes.possible.categoryAliases).forEach(key => {
             catAliases.push({
                 alias: key,
-                resolved: settings.jokes.possible.categoryAliases[key]
+                resolved: settings.jokes.possible.categoryAliases[key],
             });
         });
 
@@ -84,7 +84,7 @@ class Categories extends FilterComponentEndpoint {
                 "categories": primaryCategories,
                 "descriptions": descriptions,
                 "categoryAliases": catAliases,
-                "timestamp": Date.now()
+                "timestamp": Date.now(),
             };
         }
         else
@@ -94,7 +94,7 @@ class Categories extends FilterComponentEndpoint {
                 "categories": { "category": primaryCategories },
                 "descriptions": { "description": descriptions },
                 "categoryAliases": { "categoryAlias": catAliases },
-                "timestamp": Date.now()
+                "timestamp": Date.now(),
             };
         }
         

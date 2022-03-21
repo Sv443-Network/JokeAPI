@@ -103,7 +103,7 @@
   "dependencies": {
     "@pm2/io": "^5.0.0",
     "dotenv": "^10.0.0",
-    "farmhash": "^3.2.1",
+    "farmhash": "^1.2.1",
     "fs-extra": "^10.0.0",
     "fuse.js": "^6.4.1",
     "git-last-commit": "^1.0.1",
@@ -128,10 +128,10 @@
   },
   "devDependencies": {
     "clipboardy": "^2.3.0",
-    "dependency-cruiser": "^10.7.0",
+    "dependency-cruiser": "^8.1.1",
     "eslint": "^8.2.0",
     "lodash": "^4.17.21",
-    "madge": "^4.0.1",
+    "madge": "^0.6.0",
     "nyc": "^15.1.0",
     "snyk": "^1.675.0",
     "table": "^6.0.1",

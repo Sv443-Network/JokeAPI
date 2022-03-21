@@ -13,6 +13,7 @@ async function init()
 {
     // run file size check on startup, then once a day
     await checkFileSize();
+
     setInterval(() => checkFileSize(), 1000 * 60 * 60 * 24);
 }
 

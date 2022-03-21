@@ -36,7 +36,7 @@ function respondWithError(res, errorCode, responseCode, fileFormat, errorMessage
         let errObj = {};
 
         if(errFromRegistry == undefined)
-            throw new Error(`Couldn't find errorMessages module or Node is using an outdated, cached version`);
+            throw new Error("Couldn't find errorMessages module or Node is using an outdated, cached version");
 
         if(!lang || !languages.isValidLang(lang))
             lang = settings.languages.defaultLanguage;
@@ -66,8 +66,8 @@ function respondWithError(res, errorCode, responseCode, fileFormat, errorMessage
                 "code": parseInt(errorCode),
                 "message": insArgs(errFromRegistry.errorMessage[lang], args) || insArgs(errFromRegistry.errorMessage[settings.languages.defaultLanguage], args),
                 "causedBy": causedBy,
-                "timestamp": Date.now()
-            }
+                "timestamp": Date.now(),
+            };
         }
         else if(fileFormat == "xml")
         {
@@ -77,8 +77,8 @@ function respondWithError(res, errorCode, responseCode, fileFormat, errorMessage
                 "code": parseInt(errorCode),
                 "message": insArgs(errFromRegistry.errorMessage[lang], args) || insArgs(errFromRegistry.errorMessage[settings.languages.defaultLanguage], args),
                 "causedBy": { "cause": causedBy },
-                "timestamp": Date.now()
-            }
+                "timestamp": Date.now(),
+            };
         }
 
         if(!isEmpty(errorMessage))
@@ -145,7 +145,7 @@ function pipeString(res, text, mimeType, statusCode = 200)
     }
     catch(err)
     {
-        res.writeHead(500, {"Content-Type": `text/plain; charset=UTF-8`});
+        res.writeHead(500, {"Content-Type": "text/plain; charset=UTF-8"});
         res.end("INTERNAL_ERR:STATUS_CODE_NOT_INT");
         return;
     }
@@ -163,7 +163,7 @@ function pipeString(res, text, mimeType, statusCode = 200)
         {
             res.writeHead(statusCode, {
                 "Content-Type": `${mimeType}; charset=UTF-8`,
-                "Content-Length": byteLength(text) // Content-Length needs the byte length, not the char length
+                "Content-Length": byteLength(text), // Content-Length needs the byte length, not the char length
             });
         }
     }
@@ -186,7 +186,7 @@ async function pipeFile(res, filePath, mimeType, statusCode = 200)
     }
     catch(err)
     {
-        return respondWithErrorPage(res, 500, `Encountered internal server error while piping file: wrong type for status code.`);
+        return respondWithErrorPage(res, 500, "Encountered internal server error while piping file: wrong type for status code.");
     }
 
     if(!(await filesystem.exists(filePath)))
@@ -198,7 +198,7 @@ async function pipeFile(res, filePath, mimeType, statusCode = 200)
         {
             res.writeHead(statusCode, {
                 "Content-Type": `${mimeType}; charset=UTF-8`,
-                "Content-Length": fs.statSync(filePath).size
+                "Content-Length": fs.statSync(filePath).size,
             });
         }
 
@@ -278,15 +278,15 @@ function getFileExtensionFromEncoding(encoding)
 {
     switch(encoding)
     {
-        case "gzip":
-            return "gz";
-        case "deflate":
-            return "zz";
-        case "br":
-        case "brotli":
-            return "br";
-        default:
-            return "";
+    case "gzip":
+        return "gz";
+    case "deflate":
+        return "zz";
+    case "br":
+    case "brotli":
+        return "br";
+    default:
+        return "";
     }
 }
 
@@ -315,43 +315,43 @@ function tryServeEncoded(req, res, data, mimeType, statusCode)
 
     switch(selectedEncoding)
     {
-        case "br":
-            if(!semver.lt(process.version, "v11.7.0")) // Brotli was added in Node v11.7.0
-            {
-                zlib.brotliCompress(data, (err, encRes) => {
-                    if(!err)
-                        return pipeString(res, encRes, mimeType, statusCode);
-                    else
-                        return pipeString(res, `Internal error while encoding text into ${selectedEncoding}: ${err}`, mimeType, statusCode);
-                });
-            }
-            else
-            {
-                res.setHeader("Content-Encoding", "identity");
-
-                return pipeString(res, data, mimeType, statusCode);
-            }
-        break;
-        case "gzip":
-            zlib.gzip(data, (err, encRes) => {
+    case "br":
+        if(!semver.lt(process.version, "v11.7.0")) // Brotli was added in Node v11.7.0
+        {
+            zlib.brotliCompress(data, (err, encRes) => {
                 if(!err)
                     return pipeString(res, encRes, mimeType, statusCode);
                 else
                     return pipeString(res, `Internal error while encoding text into ${selectedEncoding}: ${err}`, mimeType, statusCode);
             });
-        break;
-        case "deflate":
-            zlib.deflate(data, (err, encRes) => {
-                if(!err)
-                    return pipeString(res, encRes, mimeType, statusCode);
-                else
-                    return pipeString(res, `Internal error while encoding text into ${selectedEncoding}: ${err}`, mimeType, statusCode);
-            });
-        break;
-        default:
+        }
+        else
+        {
             res.setHeader("Content-Encoding", "identity");
 
             return pipeString(res, data, mimeType, statusCode);
+        }
+        break;
+    case "gzip":
+        zlib.gzip(data, (err, encRes) => {
+            if(!err)
+                return pipeString(res, encRes, mimeType, statusCode);
+            else
+                return pipeString(res, `Internal error while encoding text into ${selectedEncoding}: ${err}`, mimeType, statusCode);
+        });
+        break;
+    case "deflate":
+        zlib.deflate(data, (err, encRes) => {
+            if(!err)
+                return pipeString(res, encRes, mimeType, statusCode);
+            else
+                return pipeString(res, `Internal error while encoding text into ${selectedEncoding}: ${err}`, mimeType, statusCode);
+        });
+        break;
+    default:
+        res.setHeader("Content-Encoding", "identity");
+
+        return pipeString(res, data, mimeType, statusCode);
     }
 }
 
@@ -362,5 +362,5 @@ module.exports = {
     pipeFile,
     getAcceptedEncoding,
     getFileExtensionFromEncoding,
-    tryServeEncoded
+    tryServeEncoded,
 };
