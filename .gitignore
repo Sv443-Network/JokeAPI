@@ -14,10 +14,12 @@ node_modules/
 
 # Dev stuff:
 dev/madge/
+dev/ghb/
 dependency-graph.html
 test.js
 !tools/test.js
 changelog-data.json
+data/jokes-bak/
 
 # Docs:
 docs/documentation.html
