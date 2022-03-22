@@ -87,7 +87,7 @@ function init()
                 if(!jf.endsWith(".json") || !fileNameValid(jf))
                     result.push(`${colors.fg.red}Error: Invalid file "${settings.jokes.jokesFolderPath}${jf}" found. It has to follow this pattern: "jokes-xy.json"`);
 
-                const fPath = join(settings.jokes.jokesFolderPath, settings.jokes.jokesSubfolders.regular, jf);
+                const fPath = join(settings.jokes.jokesFolderPath, jf);
 
                 fs.readFile(fPath, (err, jokesFile) => {
                     if(err)

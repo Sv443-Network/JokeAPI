@@ -1,7 +1,7 @@
 const fs = require("fs-extra");
 const { unused } = require("svcorelib");
 const Fuse = require("fuse.js");
-const { join } = require("path");
+const { resolve } = require("path");
 
 const debug = require("./debug");
 const tr = require("./translate");
@@ -129,10 +129,8 @@ function jokeLangs()
 {
     let retLangs = [];
 
-    // TODO: integrate dark jokes
-    
-    fs.readdirSync(join(settings.jokes.jokesFolderPath, settings.jokes.jokesSubfolders.regular)).forEach(f => {
-        if(f == settings.jokes.jokesTemplateFile)
+    fs.readdirSync(resolve(settings.jokes.jokesFolderPath)).forEach(f => {
+        if(f === settings.jokes.jokesTemplateFile)
             return;
 
         let langCode = f.split("-")[1].substr(0, 2);

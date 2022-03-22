@@ -19,6 +19,7 @@ dependency-graph.html
 test.js
 !tools/test.js
 changelog-data.json
+data/jokes-dbg/
 data/jokes-bak/
 data/jokes-2.4-bak/
 

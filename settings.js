@@ -64,12 +64,7 @@ const settings = {
     /** General joke settings */
     jokes: {
         jokesFormatVersion: 3,             // current joke format version
-        // TODO: FIXME: (v2.3.3)
-        jokesFolderPath: "./data/jokes/",  // path to the base jokes folder - needs trailing slash
-        jokesSubfolders: {       // subdirectories in `jokesFolderPath`:
-            regular: "regular",  // regular (non-dark) jokes files
-            dark: "dark",        // dark jokes files
-        },
+        jokesFolderPath: "./data/jokes/",  // path to the jokes folder - needs trailing slash
         jokeSubmissionURL: `${getProp("baseUrl")}#submit`, // joke submission url
         jokeSubmissionPath: "./data/submissions/",         // path to a directory where joke submissions should be saved to - needs trailing slash
         submissions: {
