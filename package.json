@@ -139,7 +139,7 @@
   },
   "optionalDependencies": {
     "dependency-cruiser": "^9.3.0",
-    "madge": "^0.6.0"
+    "madge": "^5.0.1"
   },
   "snyk": true
 }
