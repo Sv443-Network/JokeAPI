@@ -52,8 +52,8 @@ async function run()
         ipInfo += "\nIP info: \n";
         ipInfo += `${padding}Raw IP:    ${rawIP} (${isIPv4(rawIP) ? "v4" : "v6"}) \n`;
         ipInfo += `${padding}Hash 64:   ${hashedIP} \n`;
-        ipInfo += `${padding}Hash 16:   ${hashedIP.substr(0, 16)} \n`;
-        ipInfo += `${padding}Hash 8:    ${hashedIP.substr(0, 8)} \n`;
+        ipInfo += `${padding}Hash 16:   ${hashedIP.substring(0, 16)} \n`;
+        ipInfo += `${padding}Hash 8:    ${hashedIP.substring(0, 8)} \n`;
         
         ipInfo += "\nOther: \n";
         ipInfo += `${padding}Date:      ${new Date().toLocaleDateString()} \n`;

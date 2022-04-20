@@ -468,7 +468,7 @@ async function incomingRequest(req, res, httpMetrics)
 
                             if(isAuthorized)
                             {
-                                debug("HTTP", `Requester has valid token ${colors.fg.green}${headerAuth.token.substr(0, 16)}${colors.rst} …`);
+                                debug("HTTP", `Requester has valid token ${colors.fg.green}${headerAuth.token.substring(0, 16)}${colors.rst} …`);
                                 analytics({
                                     type: "AuthTokenIncluded",
                                     data: {

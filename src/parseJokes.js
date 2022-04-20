@@ -59,26 +59,26 @@ function init()
         let parsedJokesAmount = 0;
 
         jokesFiles.forEach(jf => {
-            if(jf == settings.jokes.jokesTemplateFile)
+            if(jf === settings.jokes.jokesTemplateFile || !jf.match(settings.jokes.fileNameRegex))
                 return;
 
             outerPromises.push(new Promise((resolveOuter, rejectOuter) => {
                 unused(rejectOuter);
 
                 const fileNameValid = (fileName) => {
-                    if(!fileName.endsWith(".json"))
+                    if(!fileName.match(settings.jokes.fileNameRegex))
                         return false;
                     let spl1 = fileName.split(".json")[0];
-                    if(spl1.includes("-") && languages.isValidLang(spl1.split("-")[1]) && spl1.split("-")[0] == "jokes")
+                    if(languages.isValidLang(spl1.split("-")[1]) && spl1.split("-")[0] == "jokes")
                         return true;
                     return false;
                 };
 
                 const getLangCode = (fileName) => {
-                    if(!fileName.endsWith(".json"))
-                        return false;
+                    if(!fileName.match(settings.jokes.fileNameRegex))
+                        return null;
                     let spl1 = fileName.split(".json")[0];
-                    if(spl1.includes("-") && languages.isValidLang(spl1.split("-")[1]))
+                    if(languages.isValidLang(spl1.split("-")[1]))
                         return spl1.split("-")[1].toLowerCase();
                 };
 

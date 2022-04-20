@@ -989,9 +989,9 @@ function parseFileName(fileName)
     // example:  submission_eff8e7ca_0_1634205492859.json
 
     if(fileName.startsWith("submission_"))
-        fileName = fileName.substr(11);
+        fileName = fileName.substring(11);
     if(fileName.endsWith(".json"))
-        fileName = fileName.substr(0, fileName.length - 5);
+        fileName = fileName.substring(0, fileName.length - 5);
 
     // example:  eff8e7ca_0_1634205492859
 

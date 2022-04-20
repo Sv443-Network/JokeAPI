@@ -244,19 +244,20 @@ function initMsg(initTimestamp, initDurationMs, activityIndicatorState, initTime
     const activityIndicator = getActivityIndicator(activityIndicatorState);
 
     const curSha = persistentData.curCommit.shortHash;
+    const curBranch = persistentData.curCommit.branch;
 
     const maxHeapText = dashboardEnabled ? ` (max: ${maxHeapColor}${persistentData.maxHeapUsage}%${col.rst})` : "";
 
     //#SECTION main message
     // stats
     lines.push(`${activityIndicator}${col.blue}[${logger.getTimestamp()}]${col.rst} • ${col.blue}${getProp("name", "prod")}${col.rst} [${getEnv(true)}]\n`);
-    lines.push(` ${brBlack}├─${col.rst} Version ${col.green}${settings.info.version}${col.rst} at ${strToCol(curSha)} ${curSha} ${col.rst}\n`);
+    lines.push(` ${brBlack}├─${col.rst} Version ${col.green}${settings.info.version}${col.rst} @ ${curBranch} - ${strToCol(curSha)}${curSha}${col.rst}\n`);
     lines.push(` ${brBlack}├─${col.rst} Registered and validated ${col.green}${parseJokes.jokeCount}${col.rst} jokes from ${col.green}${languages.jokeLangs().length}${col.rst} languages\n`);
     lines.push(` ${brBlack}├─${col.rst} Found filter components: ${col.green}${settings.jokes.possible.categories.length}${col.rst} categories, ${col.green}${settings.jokes.possible.flags.length}${col.rst} flags, ${col.green}${settings.jokes.possible.formats.length}${col.rst} formats\n`);
     if(analytics.connectionInfo && analytics.connectionInfo.connected)
         lines.push(` ${brBlack}├─${col.rst} Connected to analytics database at ${col.green}${analytics.connectionInfo.info}${col.rst}\n`);
     else
-        lines.push(` ${brBlack}├─${col.rst} Analytics database ${settings.analytics.enabled ? col.red : col.yellow}not connected${col.rst}${settings.analytics.enabled ? "" : " (disabled)"}\n`);
+        lines.push(` ${brBlack}├─${col.rst} Analytics database ${settings.analytics.enabled ? (settings.analytics.enabled ? col.red : col.yellow) + "not connected" : "disabled"}${col.rst}\n`);
     lines.push(` ${brBlack}├─${col.rst} Joke cache database ${jokeCache.connectionInfo.connected ? `${col.green}connected` : `${col.red}not connected`}${col.rst}\n`);
     lines.push(` ${brBlack}└─${col.rst} HTTP server is listening at ${col.green}${getLocalURL()}${col.rst}\n`);
 

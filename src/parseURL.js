@@ -55,7 +55,7 @@ function parseURL(url)
         let rawQstr = (parsed.query == "" ? null : parsed.query);
 
         if(rawQstr && rawQstr.startsWith("?"))
-            rawQstr = rawQstr.substr(1);
+            rawQstr = rawQstr.substring(1);
 
         if(!isEmpty(rawQstr) && rawQstr.includes("&"))
             qstrArr = rawQstr.split("&");

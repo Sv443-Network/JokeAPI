@@ -30,7 +30,7 @@ try
         if(fName.startsWith("template"))
             return;
 
-        let langCode = fName.split("-")[1].substr(0, 2);
+        let langCode = fName.split("-")[1].substring(0, 2);
 
         let filePath = resolve(join(settings.jokes.jokesFolderPath, fName));
 
@@ -62,7 +62,7 @@ try
                     jokeContent = `${errjoke.joke.setup.replace(/\n/gm, "\\n")} -/- ${errjoke.joke.delivery.replace(/\n/gm, "\\n")}`;
 
                 if(jokeContent.length > 40)
-                    jokeContent = `${jokeContent.substr(0, 40)}...`;
+                    jokeContent = `${jokeContent.substring(0, 40)}...`;
 
                 console.log(`#${errjoke.joke.id} | ${langCode} | ${errjoke.joke.category} | ${jokeContent}    ${col.red}(Expected ID #${errjoke.idx} - joke instead has #${errjoke.joke.id})${col.rst}`);
                 notOk++;

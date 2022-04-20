@@ -83,7 +83,7 @@ function authByHeader(req, res)
                 tokenList.forEach(tokenObj => {
                     const { token } = tokenObj;
 
-                    const clientToken = authHeader.toLowerCase().startsWith("bearer ") ? authHeader.substr(7) : authHeader;
+                    const clientToken = authHeader.toLowerCase().startsWith("bearer ") ? authHeader.substring(7) : authHeader;
 
                     if(token === clientToken)
                     {

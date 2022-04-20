@@ -115,7 +115,7 @@ class JokeCache
      */
     addEntry(clientIpHash, jokeID, langCode)
     {
-        debug("JokeCache", `Adding 1 entry to the joke cache of client '${clientIpHash.substr(0, 16)}…'`);
+        debug("JokeCache", `Adding 1 entry to the joke cache of client '${clientIpHash.substring(0, 16)}…'`);
 
         return new Promise((pRes, pRej) => {
             if(!JokeCache.allowCaching(langCode))
@@ -159,7 +159,7 @@ class JokeCache
      */
     addEntries(clientIpHash, jokeIDs, langCode)
     {
-        debug("JokeCache", `Adding ${jokeIDs.length} entries to the joke cache of client '${clientIpHash.substr(0, 16)}…'`);
+        debug("JokeCache", `Adding ${jokeIDs.length} entries to the joke cache of client '${clientIpHash.substring(0, 16)}…'`);
 
         return new Promise((res, rej) => {
             if(!JokeCache.allowCaching(langCode))

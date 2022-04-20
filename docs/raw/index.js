@@ -24,7 +24,7 @@ var submission = {};
 // make sure base URL doesn't end with a slash
 if(settings.baseURL.endsWith("/"))
 {
-    settings.baseURL = settings.baseURL.substr(0, (settings.baseURL.length - 1));
+    settings.baseURL = settings.baseURL.substring(0, (settings.baseURL.length - 1));
 }
 
 var tryItOk = false;

@@ -57,7 +57,7 @@ async function readJokesFiles()
     filteredPaths.forEach((path) => {
         readProms.push(() => new Promise(async (res) => {
             const fileName = basename(path);
-            const lang = fileName.split("-")[1].substr(0, 2);
+            const lang = fileName.split("-")[1].substring(0, 2);
 
             const contRaw = await readFile(path);
             /** @type {JokesFile} */

@@ -157,7 +157,7 @@ function promptJoke(currentJoke)
                 const truncateLength = 64;
                 
                 if(typeof curProp === "string" && curProp.length > truncateLength)
-                    curProp = `${curProp.substr(0, truncateLength)}…`;
+                    curProp = `${curProp.substring(0, truncateLength)}…`;
 
                 const boolDeco = typeof curProp === "boolean" ? (curProp === true ? ` ${col.green}✔ ` : ` ${col.red}✘ `) : "";
 
