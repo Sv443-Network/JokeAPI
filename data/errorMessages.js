@@ -256,19 +256,19 @@ module.exports = {
         },
         "causedBy": {
             "en": [
-                "The joke submission contains invalid characters outside the Unicode range of 0x0000 to 0x0fff",
+                "The joke submission contains invalid characters outside the Unicode range of U+0000 to U+1FFF.",
             ],
             "cs": [
-                "Podání vtipu obsahuje neplatné znaky mimo rozsah Unicode od 0x0000 do 0x0fff.",
+                "Podání vtipu obsahuje neplatné znaky mimo rozsah Unicode od U+0000 do U+1FFF.",
             ],
             "de": [
-                "Der eingereichte Witz enthält unerlaubte Zeichen außerhalb des Unicode-Bereichs 0x0000 bis 0x0fff",
+                "Der eingereichte Witz enthält unerlaubte Zeichen außerhalb des Unicode-Bereichs U+0000 bis U+1FFF.",
             ],
             "it": [
-                "La barzelletta inoltrata contiene caratteri Unicode non compresi tra 0x0000 e 0x0fff.",
+                "La barzelletta inoltrata contiene caratteri Unicode non compresi tra U+0000 e U+1FFF.",
             ],
             "ru": [
-                "Представленный анекдот содержит недопустимые символы вне диапазона Юникода от 0x0000 до 0x0fff",
+                "Представленный анекдот содержит недопустимые символы вне диапазона Юникода от U+0000 до U+1FFF.",
             ],
         },
     },
