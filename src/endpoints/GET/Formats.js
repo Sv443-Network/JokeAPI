@@ -23,9 +23,9 @@ class Formats extends FilterComponentEndpoint {
                 method: "GET",
                 supportedParams: [
                     "format",
-                    "lang"
-                ]
-            }
+                    "lang",
+                ],
+            },
         };
 
         super("formats", "formats", meta);
@@ -61,7 +61,7 @@ class Formats extends FilterComponentEndpoint {
                 "error": false,
                 "formats": settings.jokes.possible.formats,
                 "descriptions": descriptions,
-                "timestamp": Date.now()
+                "timestamp": Date.now(),
             };
         }
         else if(format == "xml")
@@ -70,7 +70,7 @@ class Formats extends FilterComponentEndpoint {
                 "error": false,
                 "formats": { "format": settings.jokes.possible.formats },
                 "descriptions": { "description": descriptions },
-                "timestamp": Date.now()
+                "timestamp": Date.now(),
             };
         }
 

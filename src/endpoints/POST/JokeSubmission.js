@@ -23,9 +23,9 @@ class JokeSubmission extends SubmissionEndpoint
             usage: {
                 method: "POST",
                 supportedParams: [
-                    "lang"
-                ]
-            }
+                    "lang",
+                ],
+            },
         };
 
         super("submit", meta);
@@ -54,8 +54,8 @@ class JokeSubmission extends SubmissionEndpoint
                 ipAddress: ip,
                 urlParameters: params,
                 urlPath: url,
-                submission: data.toString()
-            }
+                submission: data.toString(),
+            },
         };
 
         return jokeSubmission(res, data, format, ip, analyticsObject, dryRun, lang);

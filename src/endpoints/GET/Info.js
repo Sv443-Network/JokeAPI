@@ -25,9 +25,9 @@ class Info extends Endpoint {
                 method: "GET",
                 supportedParams: [
                     "format",
-                    "lang"
-                ]
-            }
+                    "lang",
+                ],
+            },
         };
 
         super("info", meta);
@@ -63,7 +63,7 @@ class Info extends Endpoint {
             idRangePerLangXml.push({
                 langCode: lc,
                 from: 0,
-                to: to
+                to: to,
             });
         });
 
@@ -83,7 +83,7 @@ class Info extends Endpoint {
                     "types": settings.jokes.possible.types,
                     "submissionURL": settings.jokes.jokeSubmissionURL,
                     "idRange": idRangePerLang,
-                    "safeJokes": parseJokes.safeJokes
+                    "safeJokes": parseJokes.safeJokes,
                 },
                 "formats": settings.jokes.possible.formats,
                 "jokeLanguages": supportedLangsLength,
@@ -91,7 +91,7 @@ class Info extends Endpoint {
                 "info": translate(lang, "messageOfTheDay", settings.info.name),
                 "splash": getSplash(lang),
                 "serverLatency": (now - httpMetrics.requestArrival.getTime()),
-                "timestamp": Date.now()
+                "timestamp": Date.now(),
             };
         }
         else if(format == "xml")
@@ -116,7 +116,7 @@ class Info extends Endpoint {
                     "types": { "type": settings.jokes.possible.types },
                     "submissionURL": settings.jokes.jokeSubmissionURL,
                     "idRanges": { "idRange": idRangePerLangXml },
-                    "safeJokes": { "language": parseJokes.safeJokes }
+                    "safeJokes": { "language": parseJokes.safeJokes },
                 },
                 "formats": { "format": settings.jokes.possible.formats },
                 "jokeLanguages": supportedLangsLength,
@@ -124,7 +124,7 @@ class Info extends Endpoint {
                 "info": translate(lang, "messageOfTheDay", settings.info.name),
                 "splash": getSplash(lang),
                 "serverLatency": (now - httpMetrics.requestArrival.getTime()),
-                "timestamp": Date.now()
+                "timestamp": Date.now(),
             };
         }
 

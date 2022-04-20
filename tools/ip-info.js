@@ -44,7 +44,7 @@ async function run()
 
         let ipInfo = "";
 
-        ipInfo += `Request info: \n`;
+        ipInfo += "Request info: \n";
         ipInfo += `${padding}URL:       /${url.pathArray.join("/")} \n`;
         ipInfo += `${padding}Method:    ${req.method} \n`;
         ipInfo += `${padding}UA:        ${req.headers["user-agent"] ?? "(none)"} \n`;

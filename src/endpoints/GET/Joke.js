@@ -35,9 +35,9 @@ class Joke extends Endpoint {
                     "contains",
                     "idRange",
                     "lang",
-                    "amount"
-                ]
-            }
+                    "amount",
+                ],
+            },
         };
 
         super("joke", meta);
@@ -233,7 +233,7 @@ class Joke extends Endpoint {
             {
                 responseObj =  {
                     error: false,
-                    ...jokesArray[0]
+                    ...jokesArray[0],
                 };
             }
             else
@@ -243,7 +243,7 @@ class Joke extends Endpoint {
                     responseObj = {
                         error: false,
                         amount: (jokesArray.length || 0),
-                        jokes: jokesArray
+                        jokes: jokesArray,
                     };
                 }
                 else
@@ -251,7 +251,7 @@ class Joke extends Endpoint {
                     responseObj = {
                         error: false,
                         amount: (jokesArray.length || 0),
-                        jokes: { "joke": jokesArray }
+                        jokes: { "joke": jokesArray },
                     };
                 }
             }
@@ -328,7 +328,7 @@ class Joke extends Endpoint {
                 message: insArgs(errFromRegistry.errorMessage[lang], args) || insArgs(errFromRegistry.errorMessage[settings.languages.defaultLanguage], args),
                 causedBy: insArgs(errFromRegistry.causedBy[lang], args) || insArgs(errFromRegistry.causedBy[settings.languages.defaultLanguage], args),
                 additionalInfo: msg,
-                timestamp: Date.now()
+                timestamp: Date.now(),
             };
         }
         else if(format == "xml")
@@ -340,7 +340,7 @@ class Joke extends Endpoint {
                 message: insArgs(errFromRegistry.errorMessage[lang], args) || insArgs(errFromRegistry.errorMessage[settings.languages.defaultLanguage], args),
                 causedBy: {"cause": insArgs(errFromRegistry.causedBy[lang], args) || insArgs(errFromRegistry.causedBy[settings.languages.defaultLanguage], args)},
                 additionalInfo: msg,
-                timestamp: Date.now()
+                timestamp: Date.now(),
             };
         }
 

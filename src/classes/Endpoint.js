@@ -109,7 +109,7 @@ class Endpoint
     call(req, res, url, params, format, httpMetrics)
     {
         unused(req, res, url, params, format, httpMetrics);
-        throw new MissingImplementationError(`Method Endpoint.call() is an abstract method that needs to be overridden in a subclass of "Endpoint"`);
+        throw new MissingImplementationError("Method Endpoint.call() is an abstract method that needs to be overridden in a subclass of \"Endpoint\"");
     }
 
     //#MARKER "normal" methods
@@ -139,7 +139,7 @@ class Endpoint
     getDisplayName(langCode)
     {
         if(!isValidLang(langCode))
-            throw new TypeError(`Parameter "langCode" is not a valid language code`);
+            throw new TypeError("Parameter \"langCode\" is not a valid language code");
 
         let dispName = this.translations.names.find(n => n.lang == langCode);
 
@@ -161,7 +161,7 @@ class Endpoint
     getDescription(langCode)
     {
         if(!isValidLang(langCode))
-            throw new TypeError(`Parameter "langCode" is not a valid language code`);
+            throw new TypeError("Parameter \"langCode\" is not a valid language code");
 
         let description = this.translations.descriptions.find(d => d.lang == langCode);
 
@@ -191,7 +191,7 @@ class Endpoint
     getPositionalArguments()
     {
         if(!Array.isArray(this.positionalArguments) || (Array.isArray(this.positionalArguments) && this.positionalArguments.length > 0 && !allOfType(this.positionalArguments, "string")))
-            throw new TypeError(`The member variable "positionalArguments" is not an array of strings or an empty array.`);
+            throw new TypeError("The member variable \"positionalArguments\" is not an array of strings or an empty array.");
 
         return this.positionalArguments;
     }
@@ -231,19 +231,19 @@ class Endpoint
     static respond(res, format, lang, data, statusCode)
     {
         if(!(res instanceof ServerResponse))
-            throw new TypeError(`Parameter "res" is not an instance of "http.ServerResponse"`);
+            throw new TypeError("Parameter \"res\" is not an instance of \"http.ServerResponse\"");
 
         if(typeof format !== "string")
-            throw new TypeError(`Parameter "format" is not of type "string"`);
+            throw new TypeError("Parameter \"format\" is not of type \"string\"");
 
         if(!isValidLang(lang))
-            throw new TypeError(`Parameter "lang" is not a valid language code`);
+            throw new TypeError("Parameter \"lang\" is not a valid language code");
 
         if(typeof data !== "object")
-            throw new TypeError(`Parameter "data" is not of type "object"`);
+            throw new TypeError("Parameter \"data\" is not of type \"object\"");
 
         if(statusCode != undefined && typeof statusCode !== "number")
-            throw new TypeError(`Parameter "statusCode" was set but is not of type "number"`);
+            throw new TypeError("Parameter \"statusCode\" was set but is not of type \"number\"");
 
 
         const responseText = convertFileFormat.auto(format, data, lang);
@@ -308,7 +308,7 @@ class Endpoint
 
                 translations.names.push({
                     lang,
-                    text: val
+                    text: val,
                 });
             });
 
@@ -318,7 +318,7 @@ class Endpoint
 
                 translations.descriptions.push({
                     lang,
-                    text: val
+                    text: val,
                 });
             });
         });

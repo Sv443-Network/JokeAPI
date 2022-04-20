@@ -21,9 +21,9 @@ class Ping extends Endpoint
                 method: "GET",
                 supportedParams: [
                     "format",
-                    "lang"
-                ]
-            }
+                    "lang",
+                ],
+            },
         };
 
         super("ping", meta);
@@ -50,7 +50,7 @@ class Ping extends Endpoint
             "error": false,
             "ping": getSplash(lang),
             "serverLatency": (now - httpMetrics.requestArrival.getTime()),
-            "timestamp": now
+            "timestamp": now,
         };
 
         return Endpoint.respond(res, format, lang, data);

@@ -9,7 +9,7 @@ const settings = require("../settings");
 
 /** @type {QueryOptions} */
 const queryOptions = {
-    timeout: settings.sql.timeout
+    timeout: settings.sql.timeout,
 };
 
 
@@ -23,7 +23,7 @@ const queryOptions = {
 function sendQuery(connection, query, ...values)
 {
     if(!connection || typeof connection.query !== "function")
-        throw new Error(`Error while sending query: DB connection isn't established yet`);
+        throw new Error("Error while sending query: DB connection isn't established yet");
 
     // if an array was passed instead of rest params, extract the array's values
     if(values.length === 1 && Array.isArray(values[0]))

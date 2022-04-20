@@ -1,6 +1,6 @@
 const { colors } = require("svcorelib");
 const settings = require("../settings");
-const promiseSeq = require("promise-all-sequential")
+const promiseSeq = require("promise-all-sequential");
 
 
 
@@ -8,7 +8,7 @@ console.log(`\nValidating jokes-xy.json files in "${settings.jokes.jokesFolderPa
 
 const initStages = [
     require("../src/languages").init,
-    require("../src/translate").init
+    require("../src/translate").init,
 ];
 
 promiseSeq(initStages).then(async () => {

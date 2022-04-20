@@ -23,9 +23,9 @@ class Languages extends Endpoint {
                 method: "GET",
                 supportedParams: [
                     "format",
-                    "lang"
-                ]
-            }
+                    "lang",
+                ],
+            },
         };
 
         super("languages", meta);
@@ -55,7 +55,7 @@ class Languages extends Endpoint {
         Object.keys(pl).forEach(lc => {
             langArray.push({
                 "code": lc,
-                "name": pl[lc]
+                "name": pl[lc],
             });
         });
 
@@ -68,7 +68,7 @@ class Languages extends Endpoint {
                 "jokeLanguages": { "code": jokeLangs },
                 "systemLanguages": { "code": sysLangs },
                 "possibleLanguages": { "language": langArray },
-                "timestamp": Date.now()
+                "timestamp": Date.now(),
             };
         }
         else
@@ -78,7 +78,7 @@ class Languages extends Endpoint {
                 "jokeLanguages": jokeLangs,
                 "systemLanguages": sysLangs,
                 "possibleLanguages": langArray,
-                "timestamp": Date.now()
+                "timestamp": Date.now(),
             };
         }
 

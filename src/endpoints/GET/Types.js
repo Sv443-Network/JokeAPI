@@ -22,9 +22,9 @@ class Types extends Endpoint {
                 method: "GET",
                 supportedParams: [
                     "format",
-                    "lang"
-                ]
-            }
+                    "lang",
+                ],
+            },
         };
 
         super("types", meta);
@@ -60,7 +60,7 @@ class Types extends Endpoint {
                 "error": false,
                 "types": settings.jokes.possible.types,
                 "descriptions": descriptions,
-                "timestamp": Date.now()
+                "timestamp": Date.now(),
             };
         }
         else
@@ -69,7 +69,7 @@ class Types extends Endpoint {
                 "error": false,
                 "types": { "type": settings.jokes.possible.types },
                 "descriptions": { "description": descriptions },
-                "timestamp": Date.now()
+                "timestamp": Date.now(),
             };
         }
 

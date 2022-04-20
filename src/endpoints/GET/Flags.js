@@ -23,9 +23,9 @@ class Flags extends FilterComponentEndpoint {
                 method: "GET",
                 supportedParams: [
                     "format",
-                    "lang"
-                ]
-            }
+                    "lang",
+                ],
+            },
         };
 
         super("flags", "flags", meta);
@@ -61,7 +61,7 @@ class Flags extends FilterComponentEndpoint {
                 "error": false,
                 "flags": settings.jokes.possible.flags,
                 "descriptions": descriptions,
-                "timestamp": Date.now()
+                "timestamp": Date.now(),
             };
         }
         else
@@ -70,7 +70,7 @@ class Flags extends FilterComponentEndpoint {
                 "error": false,
                 "flags": { "flag": settings.jokes.possible.flags },
                 "descriptions": { "description": descriptions },
-                "timestamp": Date.now()
+                "timestamp": Date.now(),
             };
         }
         

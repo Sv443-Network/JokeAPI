@@ -165,7 +165,7 @@ class FilteredJoke
      * Returns the set search string
      * @returns {string|null} Returns the search string if it is set, else returns null
      */
-     getSearchString()
+    getSearchString()
     {
         return this._searchString;
     }

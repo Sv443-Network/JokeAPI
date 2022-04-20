@@ -23,9 +23,9 @@ class LangCode extends Endpoint {
                 method: "GET",
                 supportedParams: [
                     "format",
-                    "lang"
-                ]
-            }
+                    "lang",
+                ],
+            },
         };
 
         super("langcode", meta);
@@ -55,7 +55,7 @@ class LangCode extends Endpoint {
         {
             return Endpoint.respond(res, format, lang, {
                 "error": true,
-                "message": tr(lang, "noLangCodeSpecified")
+                "message": tr(lang, "noLangCodeSpecified"),
             });   
         }
 
@@ -74,14 +74,14 @@ class LangCode extends Endpoint {
             // error
             responseObj = {
                 "error": true,
-                "message": tr(lang, "langCodeCouldntResolve", decodeURIComponent(language))
+                "message": tr(lang, "langCodeCouldntResolve", decodeURIComponent(language)),
             };
         }
         else
         {
             responseObj = {
                 "error": false,
-                "code": langCode
+                "code": langCode,
             };
         }
 

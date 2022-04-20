@@ -149,7 +149,7 @@ function prepareCLI()
         cmd.option("dashboard", {
             describe: "Enables the dashboard mode",
             alias: "D",
-            type: "boolean"
+            type: "boolean",
         });
     });
 
@@ -171,7 +171,7 @@ function prepareCLI()
         cmd.option("no-copy", {
             alias: "C",
             describe: "Disables auto-copying the token to the clipboard (if amount = 1)",
-            type: "boolean"
+            type: "boolean",
         });
     });
 
@@ -191,7 +191,7 @@ function prepareCLI()
         cmd.option("color-cycle", {
             alias: "c",
             describe: "Cycles the color of the output after each request (to make spotting a new request easier)",
-            type: "boolean"
+            type: "boolean",
         });
     });
 

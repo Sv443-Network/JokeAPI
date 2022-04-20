@@ -70,7 +70,7 @@ class JokeCache
     static allowCaching(langCode)
     {
         if(!parseJokes.jokeCountPerLang)
-            throw new Error(`Error: ParseJokes module wasn't initialized yet`);
+            throw new Error("Error: ParseJokes module wasn't initialized yet");
 
         if(!parseJokes.jokeCountPerLang[langCode])
             return false;
@@ -122,25 +122,25 @@ class JokeCache
                 return pRes();
 
             if(!isValidIpHash(clientIpHash))
-                throw new TypeError(`Parameter "clientIpHash" is not a string or not a valid IP hash`);
+                throw new TypeError("Parameter \"clientIpHash\" is not a string or not a valid IP hash");
 
             if(typeof jokeID != "number")
                 jokeID = parseInt(jokeID);
 
             if(jokeID < 0)
-                throw new TypeError(`Parameter "jokeID" is less than 0 (there are no negative joke IDs you dummy dum dum)`);
+                throw new TypeError("Parameter \"jokeID\" is less than 0 (there are no negative joke IDs you dummy dum dum)");
 
             if(!isValidLang(langCode))
-                throw new TypeError(`Parameter "langCode" is not a valid language code`);
+                throw new TypeError("Parameter \"langCode\" is not a valid language code");
 
             const insValues = [
                 this.tableName,
                 clientIpHash,
                 jokeID,
-                langCode
+                langCode,
             ];
 
-            sendQuery(this.dbConnection, `INSERT INTO ?? (ClientIpHash, JokeID, LangCode) VALUES (?, ?, ?);`, ...insValues)
+            sendQuery(this.dbConnection, "INSERT INTO ?? (ClientIpHash, JokeID, LangCode) VALUES (?, ?, ?);", ...insValues)
                 .then(res => {
                     return pRes(res);
                 }).catch(err => {
@@ -166,19 +166,19 @@ class JokeCache
                 return res();
 
             if(!isValidIpHash(clientIpHash))
-                throw new TypeError(`Parameter "clientIpHash" is not a string or not a valid IP hash`);
+                throw new TypeError("Parameter \"clientIpHash\" is not a string or not a valid IP hash");
 
             if(!isValidLang(langCode))
-                throw new TypeError(`Parameter "langCode" is not a valid language code`);
+                throw new TypeError("Parameter \"langCode\" is not a valid language code");
 
             jokeIDs = jokeIDs.map(id => parseInt(id));
 
             jokeIDs.forEach(id => {
                 if(id < 0)
-                    throw new TypeError(`Parameter "jokeID" is less than 0 (there are no negative joke IDs you dummy dum dum)`);
+                    throw new TypeError("Parameter \"jokeID\" is less than 0 (there are no negative joke IDs you dummy dum dum)");
 
                 if(isNaN(id))
-                    throw new TypeError(`Parameter "jokeID" couldn't be parsed as a number`);
+                    throw new TypeError("Parameter \"jokeID\" couldn't be parsed as a number");
             });
 
             let sqlValues = "";
@@ -212,11 +212,11 @@ class JokeCache
     {
         return new Promise((pRes, pRej) => {
             if(!isValidIpHash(clientIpHash))
-                throw new TypeError(`Provided client IP hash is invalid.`);
+                throw new TypeError("Provided client IP hash is invalid.");
 
             const insValues = [
                 this.tableName,
-                clientIpHash
+                clientIpHash,
             ];
 
             sendQuery(this.dbConnection, "DELETE FROM ?? WHERE ClientIpHash LIKE ?", ...insValues)
@@ -242,10 +242,10 @@ class JokeCache
                 return res(0);
 
             if(!isValidIpHash(clientIpHash))
-                throw new TypeError(`Provided client IP hash is invalid.`);
+                throw new TypeError("Provided client IP hash is invalid.");
 
             if(!isValidLang(langCode))
-                throw new TypeError(`Parameter "langCode" is not a valid language code`);
+                throw new TypeError("Parameter \"langCode\" is not a valid language code");
 
 
             amount = parseInt(amount);
@@ -266,7 +266,7 @@ class JokeCache
                     const insValuesAmt = [
                         this.tableName,
                         clientIpHash,
-                        langCode
+                        langCode,
                     ];
 
                     /** @type {number} */
@@ -278,7 +278,7 @@ class JokeCache
                             this.tableName,
                             clientIpHash,
                             langCode,
-                            amount
+                            amount,
                         ];
 
                         const rowsToDelete = await sendQuery(this.dbConnection, "SELECT * FROM ?? WHERE ClientIpHash = ? AND LangCode = ? ORDER BY `DateTime` ASC, JokeID ASC LIMIT ?;", ...insValuesGet);
@@ -292,7 +292,7 @@ class JokeCache
                         const insValuesDel = [
                             this.tableName,
                             clientIpHash,
-                            langCode
+                            langCode,
                         ];
 
                         const deleteResult = await sendQuery(this.dbConnection, `DELETE FROM ?? WHERE ClientIpHash = ? AND LangCode = ? AND JokeID IN ${sqlJokeIdList};`, ...insValuesDel);
@@ -328,18 +328,18 @@ class JokeCache
                 return pRes([]);
 
             if(!isValidIpHash(clientIpHash))
-                throw new TypeError(`Parameter "clientIpHash" is not a string or not a valid IP hash`);
+                throw new TypeError("Parameter \"clientIpHash\" is not a string or not a valid IP hash");
 
             if(!isValidLang(langCode))
-                throw new TypeError(`Parameter "langCode" is not a valid language code`);
+                throw new TypeError("Parameter \"langCode\" is not a valid language code");
 
             const insValues = [
                 this.tableName,
                 clientIpHash,
-                langCode
+                langCode,
             ];
 
-            sendQuery(this.dbConnection, `SELECT JokeID FROM ?? WHERE ClientIpHash = ? AND LangCode = ?;`, ...insValues)
+            sendQuery(this.dbConnection, "SELECT JokeID FROM ?? WHERE ClientIpHash = ? AND LangCode = ?;", ...insValues)
                 .then(res => {
                     res = res.map(itm => itm.JokeID).sort();
 
@@ -355,7 +355,7 @@ class JokeCache
      */
     runGC()
     {
-        debug("JokeCache/GC", `Running joke cache garbage collector...`);
+        debug("JokeCache/GC", "Running joke cache garbage collector...");
 
         return new Promise(async (res, rej) => {
             /** Amount of entries that were cleared from the joke cache */
@@ -366,7 +366,7 @@ class JokeCache
             try
             {
                 if(!this.dbConnection)
-                    throw new Error(`Error while running garbage collector, DB connection isn't established yet`);
+                    throw new Error("Error while running garbage collector, DB connection isn't established yet");
 
                 const expiredEntries = await sendQuery(this.dbConnection, "SELECT * FROM ?? WHERE DATE_ADD(`DateTime`, INTERVAL ? HOUR) < CURRENT_TIMESTAMP;", this.tableName, settings.jokeCaching.expiryHours);
 

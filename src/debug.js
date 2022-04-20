@@ -29,23 +29,23 @@ function debug(section, message, color)
     {
         switch(color)
         {
-            case "gray":
-                accentColor = col.black;
+        case "gray":
+            accentColor = col.black;
             break;
-            case "green":
-                accentColor = col.green;
+        case "green":
+            accentColor = col.green;
             break;
-            case "red":
-                accentColor = col.red;
+        case "red":
+            accentColor = col.red;
             break;
-            case "magenta":
-                accentColor = col.magenta;
+        case "magenta":
+            accentColor = col.magenta;
             break;
-            case "cyan":
-                accentColor = col.cyan;
+        case "cyan":
+            accentColor = col.cyan;
             break;
-            case "yellow": default:
-                accentColor = col.yellow;
+        case "yellow": default:
+            accentColor = col.yellow;
             break;
         }
     }

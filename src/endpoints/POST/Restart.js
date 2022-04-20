@@ -23,7 +23,7 @@ class Restart extends SubmissionEndpoint {
         const meta = {
             usage: {
                 method: "POST",
-                supportedParams: []
+                supportedParams: [],
             },
             unlisted: true,
         };
@@ -65,7 +65,7 @@ class Restart extends SubmissionEndpoint {
                 const responseObj = {
                     "error": false,
                     "message": `Restarting ${settings.info.name}`,
-                    "timestamp": Date.now()
+                    "timestamp": Date.now(),
                 };
 
                 console.log(`\n\n[${getTimestamp(" | ")}]  ${col.red}IP ${col.yellow}${ip}${col.red} sent a restart command\n\n\n${col.rst}`);

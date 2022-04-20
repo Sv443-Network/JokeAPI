@@ -81,7 +81,7 @@ function getInitSplashTexts()
         "Downloading documentation font 'Comic Sans MS'...",
         "Smuggling jokes through the TCP port border patrol...",
         "A horse walks into a bar...",
-        "Trans rights!"
+        "Trans rights!",
     ];
 
     // dynamic splashes
@@ -106,7 +106,7 @@ function getInitSplashTexts()
 
     // unix time end
     if(now.getDate() <= 19 && (now.getMonth() + 1) === 1 && now.getFullYear() === 2038)
-        splashes.push(`ẗ̵̹́h̷̤͌e̸̱̾ ̶̩̓ë̷̖́n̶͉̈́d̵̥̾ ̷̤͆i̵̘̿s̸͚̚ ̴͉̒ṅ̴͕e̸̟͒a̸̭̚r̸͔͊`);
+        splashes.push("ẗ̵̹́h̷̤͌e̸̱̾ ̶̩̓ë̷̖́n̶͉̈́d̵̥̾ ̷̤͆i̵̘̿s̸͚̚ ̴͉̒ṅ̴͕e̸̟͒a̸̭̚r̸͔͊");
 
     // JokeAPI's birthday :)
     if(now.getDate() === 19 && (now.getMonth() + 1) === 3)

@@ -302,35 +302,35 @@ module.exports = {
     "111": {
         "errorInternal": false,
         "errorMessage": {
-            "en": "Error while parsing the provided URL"
+            "en": "Error while parsing the provided URL",
             // doesn't need translations since the lang parameter can't be pulled from an invalid URL
         },
         "causedBy": {
             "en": [
                 "The URL structure is malformed",
                 "You used a reserved character (see https://datatracker.ietf.org/doc/html/rfc3986#section-2.2 )",
-                "One of the percent-encoded values is wrong or a percent character wasn't percent-encoded itself"
+                "One of the percent-encoded values is wrong or a percent character wasn't percent-encoded itself",
                 // doesn't need translations since the lang parameter can't be pulled from an invalid URL
-            ]
-        }
+            ],
+        },
     },
     "112": {
         "errorInternal": false,
         "errorMessage": {
             "en": "No request body found",
             "de": "Kein Anfrageinhalt gefunden",
-            "ru": "Тело запроса не найдено"
+            "ru": "Тело запроса не найдено",
         },
         "causedBy": {
             "en": [
-                "The endpoint you have called expects data to be transmitted but the server didn't receive any"
+                "The endpoint you have called expects data to be transmitted but the server didn't receive any",
             ],
             "de": [
-                "Der Endpunkt, den du aufgerufen hast, erwartet Daten, aber der Server hat keine erhalten"
+                "Der Endpunkt, den du aufgerufen hast, erwartet Daten, aber der Server hat keine erhalten",
             ],
             "ru": [
-                "Вызванная вами конечная точка ожидает передачи данных, но сервер не получил их"
-            ]
-        }
-    }
+                "Вызванная вами конечная точка ожидает передачи данных, но сервер не получил их",
+            ],
+        },
+    },
 };

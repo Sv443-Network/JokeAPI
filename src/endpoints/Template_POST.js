@@ -25,9 +25,9 @@ class TEMPLATE extends SubmissionEndpoint {
                 method: "POST",
                 supportedParams: [
                     "format",
-                    "lang"
-                ]
-            }
+                    "lang",
+                ],
+            },
         };
 
         super("template", meta);
@@ -55,7 +55,7 @@ class TEMPLATE extends SubmissionEndpoint {
         responseObj = {
             "error": false,
             "template": "Hello, World!",
-            "timestamp": Date.now()
+            "timestamp": Date.now(),
         };
 
 

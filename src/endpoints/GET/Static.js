@@ -19,11 +19,11 @@ class Static extends Endpoint {
         const meta = {
             usage: {
                 method: "GET",
-                supportedParams: []
+                supportedParams: [],
             },
             unlisted: true,
             noLog: true,
-            skipRateLimitCheck: true
+            skipRateLimitCheck: true,
         };
 
         super("static", meta);
@@ -54,68 +54,68 @@ class Static extends Endpoint {
 
         switch(fileID)
         {
-            case "index.css":
-                filePath = `${settings.documentation.compiledPath}index_injected.css`;
-                statusCode = 200;
-                mimeType = "text/css";
+        case "index.css":
+            filePath = `${settings.documentation.compiledPath}index_injected.css`;
+            statusCode = 200;
+            mimeType = "text/css";
             break;
-            case "index.js":
-                filePath = `${settings.documentation.compiledPath}index_injected.js`;
-                statusCode = 200;
-                mimeType = "application/javascript";
+        case "index.js":
+            filePath = `${settings.documentation.compiledPath}index_injected.js`;
+            statusCode = 200;
+            mimeType = "application/javascript";
             break;
-            case "cascadia-code.ttf":
-                filePath = `${settings.documentation.dirPath}${settings.documentation.codeFontFileName}`;
-                statusCode = 200;
-                allowEncoding = false;
-                mimeType = "application/x-font-ttf";
+        case "cascadia-code.ttf":
+            filePath = `${settings.documentation.dirPath}${settings.documentation.codeFontFileName}`;
+            statusCode = 200;
+            allowEncoding = false;
+            mimeType = "application/x-font-ttf";
             break;
-            case "errorPage.css":
-                filePath = `${settings.documentation.compiledPath}errorPage_injected.css`;
-                statusCode = 200;
-                mimeType = "text/css";
+        case "errorPage.css":
+            filePath = `${settings.documentation.compiledPath}errorPage_injected.css`;
+            statusCode = 200;
+            mimeType = "text/css";
             break;
-            case "errorPage.js":
-                filePath = `${settings.documentation.compiledPath}errorPage_injected.js`;
-                statusCode = 200;
-                mimeType = "application/javascript";
+        case "errorPage.js":
+            filePath = `${settings.documentation.compiledPath}errorPage_injected.js`;
+            statusCode = 200;
+            mimeType = "application/javascript";
             break;
-            case "rust-icon":
-                filePath = `${settings.documentation.dirPath}static/external/rust.svg`;
-                statusCode = 200;
-                allowEncoding = false;
-                mimeType = "image/svg+xml";
+        case "rust-icon":
+            filePath = `${settings.documentation.dirPath}static/external/rust.svg`;
+            statusCode = 200;
+            allowEncoding = false;
+            mimeType = "image/svg+xml";
             break;
-            case "python-icon":
-                filePath = `${settings.documentation.dirPath}static/external/python.svg`;
-                statusCode = 200;
-                allowEncoding = false;
-                mimeType = "image/svg+xml";
+        case "python-icon":
+            filePath = `${settings.documentation.dirPath}static/external/python.svg`;
+            statusCode = 200;
+            allowEncoding = false;
+            mimeType = "image/svg+xml";
             break;
-            case "nodejs-icon":
-                filePath = `${settings.documentation.dirPath}static/external/nodejs.svg`;
-                statusCode = 200;
-                allowEncoding = false;
-                mimeType = "image/svg+xml";
+        case "nodejs-icon":
+            filePath = `${settings.documentation.dirPath}static/external/nodejs.svg`;
+            statusCode = 200;
+            allowEncoding = false;
+            mimeType = "image/svg+xml";
             break;
-            case "golang-icon":
-                filePath = `${settings.documentation.dirPath}static/external/golang.svg`;
-                statusCode = 200;
-                allowEncoding = false;
-                mimeType = "image/svg+xml";
+        case "golang-icon":
+            filePath = `${settings.documentation.dirPath}static/external/golang.svg`;
+            statusCode = 200;
+            allowEncoding = false;
+            mimeType = "image/svg+xml";
             break;
-            case "java-icon":
-                filePath = `${settings.documentation.dirPath}static/external/java.svg`;
-                statusCode = 200;
-                allowEncoding = false;
-                mimeType = "image/svg+xml";
+        case "java-icon":
+            filePath = `${settings.documentation.dirPath}static/external/java.svg`;
+            statusCode = 200;
+            allowEncoding = false;
+            mimeType = "image/svg+xml";
             break;
-            case fallbackID:
-            default:
-                filePath = settings.documentation.error404path;
-                statusCode = 404;
-                allowEncoding = false;
-                mimeType = "text/html";
+        case fallbackID:
+        default:
+            filePath = settings.documentation.error404path;
+            statusCode = 404;
+            allowEncoding = false;
+            mimeType = "text/html";
             break;
         }
 

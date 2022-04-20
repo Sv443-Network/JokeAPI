@@ -11,12 +11,12 @@ var settings = {
     // submitUrl: "http://127.0.0.1:8076/submit", // DEBUG
     defaultLang: "<%#INSERT:DEFAULTLANGCODE#%>",
     formatVersion: 3,
-    contributorsObject: JSON.parse('<%#INSERT:CONTRIBUTORS#%>'),
-    categoryAliasesObject: JSON.parse('<%#INSERT:CATEGORYALIASES#%>'),
+    contributorsObject: JSON.parse("<%#INSERT:CONTRIBUTORS#%>"),
+    categoryAliasesObject: JSON.parse("<%#INSERT:CATEGORYALIASES#%>"),
     splashes: JSON.parse(atob("<%#INSERT:SPLASHESOBJ#%>")),
     lastSplashIdx: -1,       // so the same splash isn't returned twice
     splashRedirectCount: 15, // how many times clicking the splash is needed to redirect to the splashes file
-    splashClickAmount: 0     // keeps track of how many times the splash is clicked
+    splashClickAmount: 0,     // keeps track of how many times the splash is clicked
 };
 
 var submission = {};
@@ -84,21 +84,21 @@ var rsIHTML = `
 </form>
 `;
 
-var sMenu=new function(){this.new=function(id,title,innerhtml,width,height,border_rounded,closable_ESC,closable_btn,on_close,close_img_src){if(typeof id=="string"&&typeof title=="string"&&typeof innerhtml=="string"&&typeof width=="number"&&typeof height=="number"){if(gebid("jsg_menu_"+id)!=null){console.error("a menu with the ID "+id+" already exists - not creating a new one");return}
+var sMenu=new function(){this.new=function(id,title,innerhtml,width,height,border_rounded,closable_ESC,closable_btn,on_close,close_img_src){if(typeof id=="string"&&typeof title=="string"&&typeof innerhtml=="string"&&typeof width=="number"&&typeof height=="number"){if(gebid("jsg_menu_"+id)!=null){console.error("a menu with the ID "+id+" already exists - not creating a new one");return;}
 /* eslint-disable-next-line */
 if(!border_rounded)border_rounded=!0;if(typeof closable_ESC!="boolean")closable_ESC=!0;if(typeof closable_btn!="boolean")closable_btn=!0;if(!on_close)on_close=function(){};if(!close_img_src)close_img_src="https://sv443.net/resources/images/jsg_menu_close.png";var menuelem=document.createElement("div");menuelem.style.display="none";menuelem.style.opacity="0";menuelem.style.transition="opacity 0.3s ease-in";menuelem.style.overflow="auto";menuelem.className="jsg_menu";menuelem.id="jsg_menu_"+id;menuelem.style.position="fixed";menuelem.style.top=((100-height)/2)+"vh";menuelem.style.left=((100-width)/2)+"vw";menuelem.style.width=width+"vw";menuelem.style.height=height+"vh";menuelem.style.padding="10px";menuelem.style.border="2px solid #454545";if(border_rounded)menuelem.style.borderRadius="1.2em";else menuelem.style.borderRadius="0";if(closable_btn)var closebtnih='<img onclick="sMenu.close(\''+id+'\')" class="jsg_menuclosebtn" title="Close" src="https://sv443.net/cdn/jsl/closebtn.png" style="cursor:pointer;position:absolute;top:0;right:0;width:1.5em;height:1.5em;">';else closebtnih="";menuelem.style.backgroundColor="#ddd";menuelem.innerHTML="<div class='jsg_menutitle' style='font-size:1.5em;text-align:center;'>"+title+"</div>"+closebtnih+"<br>"+innerhtml;document.body.appendChild(menuelem);if(closable_ESC)document.addEventListener("keydown",function(e){if(e.keyCode==27)sMenu.close(id)})}
-else{console.error("the arguments for Menu.new() are wrong");return!1}}
-this.close=function(id){try{setTimeout(function(){gebid("jsg_menu_"+id).style.display="none"},500);gebid("jsg_menu_"+id).style.opacity="0";gebid("jsg_menu_"+id).style.transition="opacity 0.3s ease-in"}
-catch(err){console.error("couldn't find menu with id "+id+". Is the ID correct and was the menu created correctly?");return!1}}
-this.open=function(id){try{gebid("jsg_menu_"+id).style.display="block";setTimeout(function(){gebid("jsg_menu_"+id).style.opacity="1";gebid("jsg_menu_"+id).style.transition="opacity 0.3s ease-out"},20)}
-catch(err){console.error("couldn't find menu with id "+id+". Is the ID correct and was the menu created correctly?");return!1}}
-this.theme=function(id,theme){try{if(theme=="dark"){gebid("jsg_menu_"+id).style.backgroundColor="#454545";gebid("jsg_menu_"+id).style.color="white";gebid("jsg_menu_"+id).style.borderColor="#ddd";gebid("jsg_menu_"+id).style.transition="background-color 0.4s ease-out, color 0.4s ease-out, border-color 0.4s ease-out"}
-else{gebid("jsg_menu_"+id).style.backgroundColor="#ddd";gebid("jsg_menu_"+id).style.color="black";gebid("jsg_menu_"+id).style.borderColor="#454545";gebid("jsg_menu_"+id).style.transition="background-color 0.4s ease-out, color 0.4s ease-out, border-color 0.4s ease-out"}}
-catch(err){console.error("couldn't find menu with id "+id+". Is the ID correct and was the menu created correctly?");return!1}}
-this.setInnerHTML=function(id,inner_html){try{gebid("jsg_menu_"+id).innerHTML=inner_html}
-catch(err){console.error("couldn't find menu or inner_html is not valid");return!1}}
-this.setOuterHTML=function(id,outer_html){try{gebid("jsg_menu_"+id).outerHTML=outer_html}
-catch(err){console.error("couldn't find menu or outer_html is not valid");return!1}}}
+else{console.error("the arguments for Menu.new() are wrong");return!1;}};
+this.close=function(id){try{setTimeout(function(){gebid("jsg_menu_"+id).style.display="none";},500);gebid("jsg_menu_"+id).style.opacity="0";gebid("jsg_menu_"+id).style.transition="opacity 0.3s ease-in";}
+catch(err){console.error("couldn't find menu with id "+id+". Is the ID correct and was the menu created correctly?");return!1;}};
+this.open=function(id){try{gebid("jsg_menu_"+id).style.display="block";setTimeout(function(){gebid("jsg_menu_"+id).style.opacity="1";gebid("jsg_menu_"+id).style.transition="opacity 0.3s ease-out";},20);}
+catch(err){console.error("couldn't find menu with id "+id+". Is the ID correct and was the menu created correctly?");return!1;}};
+this.theme=function(id,theme){try{if(theme=="dark"){gebid("jsg_menu_"+id).style.backgroundColor="#454545";gebid("jsg_menu_"+id).style.color="white";gebid("jsg_menu_"+id).style.borderColor="#ddd";gebid("jsg_menu_"+id).style.transition="background-color 0.4s ease-out, color 0.4s ease-out, border-color 0.4s ease-out";}
+else{gebid("jsg_menu_"+id).style.backgroundColor="#ddd";gebid("jsg_menu_"+id).style.color="black";gebid("jsg_menu_"+id).style.borderColor="#454545";gebid("jsg_menu_"+id).style.transition="background-color 0.4s ease-out, color 0.4s ease-out, border-color 0.4s ease-out";}}
+catch(err){console.error("couldn't find menu with id "+id+". Is the ID correct and was the menu created correctly?");return!1;}};
+this.setInnerHTML=function(id,inner_html){try{gebid("jsg_menu_"+id).innerHTML=inner_html;}
+catch(err){console.error("couldn't find menu or inner_html is not valid");return!1;}};
+this.setOuterHTML=function(id,outer_html){try{gebid("jsg_menu_"+id).outerHTML=outer_html;}
+catch(err){console.error("couldn't find menu or outer_html is not valid");return!1;}};};
 /**
  * Alias for document.getElementById()
  * @param {String} id ID of the element
@@ -118,9 +118,9 @@ function onLoad()
 
     console.log("%cJokeAPI%cDocumentation (v<!--%#INSERT:VERSION#%-->)  -  © Copyright Sv443 Network 2018-2020", "color: #b05ffc; background-color: black; padding: 5px; padding-right: 0; font-size: 1.2em;", "color: white; background-color: black; padding: 5px; font-size: 1.2em;");
 
-    gebid("content").onclick = function(e){tryCloseSideNav(e)};
-    document.getElementsByTagName("header")[0].onclick = function(e){tryCloseSideNav(e)};
-    gebid("docTitle").onclick = function(){window.location.reload()};
+    gebid("content").onclick = function(e){tryCloseSideNav(e);};
+    document.getElementsByTagName("header")[0].onclick = function(e){tryCloseSideNav(e);};
+    gebid("docTitle").onclick = function(){window.location.reload();};
 
     addCodeTabs();
 
@@ -188,7 +188,7 @@ function onLoad()
 
     try
     {
-        var fileFormats = JSON.parse('<!--%#INSERT:FILEFORMATARRAY#%-->');
+        var fileFormats = JSON.parse("<!--%#INSERT:FILEFORMATARRAY#%-->");
         if(fileFormats.includes("JSON"))
         {
             fileFormats.splice(fileFormats.indexOf("JSON"), 1);
@@ -197,17 +197,17 @@ function onLoad()
             el.innerText = fileFormats.join(" and ");
         });
 
-        var flags = JSON.parse('<!--%#INSERT:FLAGSARRAY#%-->');
+        var flags = JSON.parse("<!--%#INSERT:FLAGSARRAY#%-->");
         Array.from(document.getElementsByClassName("insFlags")).forEach(function(el) {
             el.innerText = flags.join(", ");
         });
 
-        var formats = JSON.parse('<!--%#INSERT:FILEFORMATARRAY#%-->');
+        var formats = JSON.parse("<!--%#INSERT:FILEFORMATARRAY#%-->");
         Array.from(document.getElementsByClassName("insFormats")).forEach(function(el) {
             el.innerText = formats.join(", ").toLowerCase();
         });
 
-        var categories = JSON.parse('<!--%#INSERT:CATEGORYARRAY#%-->');
+        var categories = JSON.parse("<!--%#INSERT:CATEGORYARRAY#%-->");
         Array.from(document.getElementsByClassName("insCategories")).forEach(function(el) {
             el.innerText = categories.join(", ");
         });
@@ -229,7 +229,7 @@ function onLoad()
         "f_flags_explicit",
         "f_setup",
         "f_delivery",
-        "f_language"
+        "f_language",
     ];
 
     for(var ii = 0; ii < inputElems.length; ii++)
@@ -241,14 +241,14 @@ function onLoad()
             elm.onchange = function()
             {
                 return valChanged(this);
-            }
+            };
         }
         else
         {
             elm.oninput = function()
             {
                 return valChanged(this);
-            }
+            };
         }
     }
 
@@ -374,7 +374,7 @@ function onLoad()
     });
 
     buildSubmission();
-    setTimeout(function() { buildSubmission() }, 2000);
+    setTimeout(function() { buildSubmission(); }, 2000);
 
     gebid("insUserAgent").innerText = navigator.userAgent;
 
@@ -383,7 +383,7 @@ function onLoad()
     addDecodeListeners();
 
     gebid("lcodeSelect").value = settings.defaultLang;
-    gebid("lcodeSelect").onchange = function() { reRender(true) };
+    gebid("lcodeSelect").onchange = function() { reRender(true); };
     gebid("sideNavOpen").onclick = function() { return openNav(); };
 
     gebid("percent-encoder-result").setAttribute("readonly", "readonly");
@@ -748,7 +748,7 @@ function buildURL()
 
     //#SECTION flags
     var flagElems = [gebid("blf-cb1"), gebid("blf-cb2"), gebid("blf-cb3"), gebid("blf-cb4"), gebid("blf-cb5"), gebid("blf-cb6")];
-    var flagNames = JSON.parse('<!--%#INSERT:FLAGSARRAY#%-->');
+    var flagNames = JSON.parse("<!--%#INSERT:FLAGSARRAY#%-->");
     var selectedFlags = [];
     flagElems.forEach(function(el, i) {
         if(el.checked)
@@ -850,7 +850,7 @@ function sendTryItRequest()
         }
 
         gebid("tryItResult").innerHTML = "Error:<br><br>" + err;
-    }
+    };
 
     if(!tryItOk)
     {
@@ -928,7 +928,7 @@ function sendTryItRequest()
             {
                 tryItRequestError(xhr.responseText);
             }
-        }
+        };
         xhr.send();
     }
     catch(err)
@@ -1071,8 +1071,8 @@ function buildSubmission()
     submission = {
         formatVersion: settings.formatVersion,
         category: category,
-        type: type
-    }
+        type: type,
+    };
 
     if(type == "single")
     {
@@ -1107,9 +1107,9 @@ function buildSubmission()
             political: gebid("f_flags_political").checked,
             racist: gebid("f_flags_racist").checked,
             sexist: gebid("f_flags_sexist").checked,
-            explicit: gebid("f_flags_explicit").checked
+            explicit: gebid("f_flags_explicit").checked,
         },
-        lang: sLang
+        lang: sLang,
     };
 
     var subDisp = gebid("submissionDisplay");
@@ -1365,7 +1365,7 @@ function addDecodeListeners()
                     this.innerText = atob(this.dataset.enc);
                     this.classList.add("shown");
                 }
-            }
+            };
             abElems[l].classList.add("addedListener");
         }
     }

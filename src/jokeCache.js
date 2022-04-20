@@ -18,7 +18,7 @@ let cacheInstance;
 module.exports.cacheInstance = cacheInstance;
 /** @type {ConnectionInfo} */
 module.exports.connectionInfo = {
-    connected: false
+    connected: false,
 };
 
 //#MARKER init
@@ -30,7 +30,7 @@ module.exports.connectionInfo = {
 function init()
 {
     return new Promise((pRes, pRej) => {
-        debug("JokeCache", `Initializing...`);
+        debug("JokeCache", "Initializing...");
 
         //#SECTION setup DB connection
 
@@ -54,7 +54,7 @@ function init()
             {
                 module.exports.connectionInfo = {
                     connected: true,
-                    info: `${settings.sql.host}:${settings.sql.port}/${settings.sql.database}`
+                    info: `${settings.sql.host}:${settings.sql.port}/${settings.sql.database}`,
                 };
 
                 cacheInstance = new JokeCache(connection);
@@ -80,7 +80,7 @@ function init()
                 {
                     debug("JokeCache", `Error while connecting to DB: ${err}`);
 
-                    const rejErr = new Error(`Couldn't establish DB connection`);
+                    const rejErr = new Error("Couldn't establish DB connection");
                     rejErr.stack = `${rejErr.message}\n${err.stack}`;
                     return pRej(rejErr);
                 }
@@ -89,24 +89,24 @@ function init()
                     debug("JokeCache", `Successfully connected to database at ${colors.fg.green}${settings.sql.host}:${settings.sql.port}/${settings.sql.database}${colors.rst}`);
 
                     // ensure DB tables exist
-                    sendQuery(dbConnection, `SHOW TABLES LIKE ?;`, settings.jokeCaching.tableName)
+                    sendQuery(dbConnection, "SHOW TABLES LIKE ?;", settings.jokeCaching.tableName)
                         .then(res => {
                             if(Array.isArray(res) && res.length >= 1)
                             {
                                 // connection established, table exists already
-                                debug("JokeCache", `DB table exists already`);
+                                debug("JokeCache", "DB table exists already");
 
                                 return finalize(dbConnection);
                             }
                             else if(Array.isArray(res) && res.length == 0)
                             {
                                 // connection established, table doesn't exist
-                                debug("JokeCache", `DB table doesn't exist, creating it...`);
+                                debug("JokeCache", "DB table doesn't exist, creating it...");
                                 const createAnalyticsTableQuery = fs.readFileSync(settings.jokeCaching.createTableFile).toString();
 
                                 sendQuery(dbConnection, createAnalyticsTableQuery)
                                     .then(() => {
-                                        debug("JokeCache", `Successfully created joke caching DB`);
+                                        debug("JokeCache", "Successfully created joke caching DB");
                                         return finalize(dbConnection);
                                     }).catch(err => {
                                         debug("JokeCache", `Error while creating DB table: ${err}`);

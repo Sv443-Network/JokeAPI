@@ -19,13 +19,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
         switch(statusCode)
         {
-            case 404:
-                errorReasonMsg = "Not Found";
-                errorSubtext = "<!--%#INSERT:NAME#%--> couldn't find a resource that corresponds to the URL you have entered.<br>Please make sure the URL is correct or <a href=\"<!--%#INSERT:DOCSURL#%-->\">visit the documentation by clicking here</a>.";
+        case 404:
+            errorReasonMsg = "Not Found";
+            errorSubtext = "<!--%#INSERT:NAME#%--> couldn't find a resource that corresponds to the URL you have entered.<br>Please make sure the URL is correct or <a href=\"<!--%#INSERT:DOCSURL#%-->\">visit the documentation by clicking here</a>.";
             break;
-            case 500: default:
-                errorReasonMsg = "Internal Server Error";
-                errorSubtext = "<!--%#INSERT:NAME#%--> encountered an unexpected internal error.<br>If this error persists and error details were provided on this page, please <a href=\"<!--%#INSERT:AUTHORWEBSITEURL#%-->\">contact me</a> with the error details and I will try to help you.<br>Alternatively, <a href=\"<!--%#INSERT:DOCSURL#%-->\">visit the documentation by clicking here</a>.";
+        case 500: default:
+            errorReasonMsg = "Internal Server Error";
+            errorSubtext = "<!--%#INSERT:NAME#%--> encountered an unexpected internal error.<br>If this error persists and error details were provided on this page, please <a href=\"<!--%#INSERT:AUTHORWEBSITEURL#%-->\">contact me</a> with the error details and I will try to help you.<br>Alternatively, <a href=\"<!--%#INSERT:DOCSURL#%-->\">visit the documentation by clicking here</a>.";
             break;
         }
 

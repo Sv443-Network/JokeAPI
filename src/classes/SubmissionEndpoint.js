@@ -43,7 +43,7 @@ class SubmissionEndpoint extends Endpoint
     call(req, res, url, params, format, data, httpMetrics)
     {
         unused(req, res, url, params, format, data, httpMetrics);
-        throw new Endpoint.MissingImplementationError(`Method Endpoint.call() is an abstract method that needs to be overridden in a subclass of "SubmissionEndpoint"`);
+        throw new Endpoint.MissingImplementationError("Method Endpoint.call() is an abstract method that needs to be overridden in a subclass of \"SubmissionEndpoint\"");
     }
 }
 

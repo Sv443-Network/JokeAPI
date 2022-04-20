@@ -24,9 +24,9 @@ class TEMPLATE extends Endpoint {
                 method: "GET",
                 supportedParams: [
                     "format",
-                    "lang"
-                ]
-            }
+                    "lang",
+                ],
+            },
         };
 
         super("template", meta);
@@ -53,7 +53,7 @@ class TEMPLATE extends Endpoint {
         responseObj = {
             "error": false,
             "template": "Hello, World!",
-            "timestamp": Date.now()
+            "timestamp": Date.now(),
         };
 
 

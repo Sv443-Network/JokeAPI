@@ -122,10 +122,10 @@ const generateForGetEndpoints = () => {
             try
             {
                 madge(`./src/endpoints/GET/${file}`, madgeOptions)
-                .then((res) => res.svg())
-                .then((output) => {
-                    iterCount++;
-                    fs.writeFileSync(`./dev/madge/endpoints-get-${filename}.html`, output.toString());
+                    .then((res) => res.svg())
+                    .then((output) => {
+                        iterCount++;
+                        fs.writeFileSync(`./dev/madge/endpoints-get-${filename}.html`, output.toString());
 
                         if(iterCount == endpointFiles.length)
                             resolve();
@@ -139,7 +139,7 @@ const generateForGetEndpoints = () => {
             }
         });
     });
-}
+};
 
 const generateForPostEndpoints = () => {
     let iterCount = 0;
@@ -157,14 +157,14 @@ const generateForPostEndpoints = () => {
             try
             {
                 madge(`./src/endpoints/POST/${file}`, madgeOptions)
-                .then((res) => res.svg())
-                .then((output) => {
-                    iterCount++;
-                    fs.writeFileSync(`./dev/madge/endpoints-post-${filename}.html`, output.toString());
+                    .then((res) => res.svg())
+                    .then((output) => {
+                        iterCount++;
+                        fs.writeFileSync(`./dev/madge/endpoints-post-${filename}.html`, output.toString());
 
-                    if(iterCount == endpointFiles.length)
-                    resolve();
-                });
+                        if(iterCount == endpointFiles.length)
+                            resolve();
+                    });
 
                 fileList.push(`<li><span class="mimica" onclick="setIframe('./madge/endpoints-post-${filename}.html', '${filename}')">src/endpoints/POST/${filename}.js</span></li>`);
             }

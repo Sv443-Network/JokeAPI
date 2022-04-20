@@ -26,10 +26,10 @@ class ClearData extends SubmissionEndpoint
                 method: "POST",
                 supportedParams: [
                     "format",
-                    "lang"
-                ]
+                    "lang",
+                ],
             },
-            acceptsEmptyBody: true
+            acceptsEmptyBody: true,
         };
 
         super("cleardata", meta);
@@ -67,9 +67,9 @@ class ClearData extends SubmissionEndpoint
                     "jokeCache": {
                         "message": tr(lang, "jokeCacheClearNoEntries"),
                         "entriesFound": false,
-                        "entriesDeleted": 0
+                        "entriesDeleted": 0,
                     },
-                    "timestamp": Date.now()
+                    "timestamp": Date.now(),
                 };
             }
             else
@@ -79,9 +79,9 @@ class ClearData extends SubmissionEndpoint
                     "jokeCache": {
                         "message": tr(lang, "jokeCacheCleared", deletedEntries.toString()),
                         "entriesFound": true,
-                        "cacheEntriesDeleted": deletedEntries
+                        "cacheEntriesDeleted": deletedEntries,
                     },
-                    "timestamp": Date.now()
+                    "timestamp": Date.now(),
                 };
             }
         }
@@ -94,10 +94,10 @@ class ClearData extends SubmissionEndpoint
                 "jokeCache": {
                     "message": err.toString(),
                     "entriesFound": false,
-                    "cacheEntriesDeleted": 0
+                    "cacheEntriesDeleted": 0,
                 },
-                "timestamp": Date.now()
-            }
+                "timestamp": Date.now(),
+            };
         }
         finally
         {
