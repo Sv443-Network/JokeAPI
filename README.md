@@ -28,46 +28,33 @@
 
 
 ### Note: due to the different types of humor, JokeAPI contains a wide variety of jokes, of which some are very offensive. They can be filtered out, but use this API at your own risk!
-
 ### If you want to contribute to JokeAPI (code, jokes or translations), please read the [contributing guide.](./.github/Contributing.md)
-
 ### Want to know how JokeAPI works? The [developer documentation](https://github.com/Sv443/JokeAPI/tree/version/2.4.0/dev/docs/home.md#readme) (work in progress) explains it.
 
 <br><br>
 
 ## API Wrappers:
-You can find a list of all the officially recognized wrappers [here.](https://github.com/stars/Sv443/lists/jokeapi-wrappers)  
+A list of all the officially recognized wrappers can be found [here.](https://github.com/stars/Sv443/lists/jokeapi-wrappers)  
   
 Disclaimer: I will not take any responsibility for the wrappers, they are community-made and I can't ensure security, validity and compatibility.  
 If you need help with these wrappers, you should contact their respective authors.  
 
-<!-- - <b><a href="https://github.com/Icelain/jokeapi#readme"><img src="./docs/static/external/golang.svg" width="16" height="16"> jokeapi (Go)</a></b>
-- <b><a href="https://github.com/QGIsK/jokeapi-wrapper#readme"><img src="./docs/static/external/nodejs.svg" width="16" height="16"> JokeAPI Client for NodeJS (Node.js)</a></b>
-- <b><a href="https://github.com/sahithyandev/sv443-joke-api-js-wrapper#readme"><img src="./docs/static/external/nodejs.svg" width="16" height="16"> sv443-joke-api-js-wrapper (Node.js)</a></b>
-- <b><a href="https://github.com/thenamesweretakenalready/Sv443s-JokeAPI-Python-Wrapper#readme"><img src="./docs/static/external/python.svg" width="16" height="16"> Sv443s-JokeAPI-Python-Wrapper (Python)</a></b>
-- <b><a href="https://crates.io/crates/jokeapi_rs"><img src="./docs/static/external/rust.svg" width="16" height="16"> jokeapi_rs (Rust)</a></b>
-- <b><a href="https://github.com/canarado/sv443_jokeapi_wrapper#readme"><img src="./docs/static/external/rust.svg" width="16" height="16"> sv443_jokeapi_wrapper (Rust)</a></b> -->
 
 <br><br>
 
 # Projects that use JokeAPI:
-
-| Project | Author |
+| &nbsp; | &nbsp; |
 | :-- | :-- |
-| [dozens Advices](https://github.com/ZephyrVentum/dozens-Advices) | [ZephyrVentum](https://github.com/ZephyrVentum) |
-| [Jokepy](https://github.com/aksty/Jokepy) | [aksty](https://github.com/aksty) |
-| [Dark1](https://github.com/whiteadi/Dark1) | [whiteadi](https://github.com/whiteadi) |
-| [Prejudice Networks](https://github.com/LiamTownsley/Prejudice-Networks) | [Liam Townsley](https://github.com/LiamTownsley) |
-| [Random Joke Generator with Flutter](https://github.com/variousnabil/Random-Joke-Generator-with-Flutter) | [variousnabil](https://github.com/variousnabil) |
-| [comma](https://thatcopy.pw/comma) | [ThatCopy](https://github.com/ThatCopy) |
-| [Joke Teller](https://github.com/AlHood77/Joke_Teller) | [AlHood77](https://github.com/AlHood77) |
-| [Jokes plugin for Craft CMS 3.x](https://github.com/remcoov/jokes) | [remcoov](https://github.com/remcoov) |
-| [PoshBot.Joker](https://github.com/ToastIT-dev/PoshBot.Joker) | [ToastIT-dev](https://github.com/ToastIT-dev) |
-| [JokeAPI_ComputerCraft](https://github.com/Sv443/JokeAPI_ComputerCraft) | [Sv443](https://github.com/Sv443) |
-| [Dev Dad Jokes](https://github.com/jonathanbossenger/devdadjokes) | [Jonathan Bossenger](https://github.com/jonathanbossenger) |
-| [JokeBot](https://github.com/QGIsK/JokeBot) | [QGIsK](https://github.com/QGIsK) |
-| [JokeAPI Webapp](https://github.com/HemantSachdeva/JokeApi) | [Hemant Sachdeva](https://github.com/HemantSachdeva) |
+| [dozens Advices](https://github.com/ZephyrVentum/dozens-Advices) | [Jokepy](https://github.com/aksty/Jokepy) |
+| [Dark1](https://github.com/whiteadi/Dark1) | [Prejudice Networks](https://github.com/LiamTownsley/Prejudice-Networks) |
+| [Random Joke Generator with Flutter](https://github.com/variousnabil/Random-Joke-Generator-with-Flutter) | [comma](https://thatcopy.pw/comma) |
+| [Joke Teller](https://github.com/AlHood77/Joke_Teller) | [Jokes plugin for Craft CMS 3.x](https://github.com/remcoov/jokes) |
+| [PoshBot.Joker](https://github.com/ToastIT-dev/PoshBot.Joker) | [JokeAPI_ComputerCraft](https://github.com/Sv443/JokeAPI_ComputerCraft) |
+| [Dev Dad Jokes](https://github.com/jonathanbossenger/devdadjokes) | [JokeBot](https://github.com/QGIsK/JokeBot) |
+| [JokeAPI Webapp](https://github.com/HemantSachdeva/JokeApi) | [Jokepack](https://github.com/LaksCastro/jokepack) |
+| [Joke-Hub](https://joke-hub.vercel.app) | [jokes-app](https://github.com/bethropolis/jokes-app) |
 
+<!-- | []() | []() | -->
 <!-- | [xyz](xyz) | [xyz](xyz) | │ | [xyz](xyz) | [xyz](xyz) | -->
 
 <sub>
