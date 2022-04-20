@@ -38,6 +38,7 @@ declare interface InternalJokeBase extends JokeBase {
 /** Base interface for joke submissions */
 declare interface SubmissionBase extends JokeBase {
     formatVersion: number;
+    lang: "en" | string;
 }
 
 

@@ -20,8 +20,6 @@ const settings = require("../../settings");
 /** @typedef {import("./AllJokes")} AllJokes */
 
 
-var _selectionAttempts = 0;
-
 class FilteredJoke
 {
     //#MARKER constructor
@@ -35,8 +33,6 @@ class FilteredJoke
             throw new Error("Error while constructing new FilteredJoke object: parameter \"allJokes\" is empty");
 
         this._allJokes = allJokes;
-        /** @type {JokeObj[]} */
-        this._filteredJokes = [];
 
         let idRangePerLang = {};
 
@@ -167,12 +163,11 @@ class FilteredJoke
 
     /**
      * Returns the set search string
-     * @param {boolean} [skipDecoding=false] Whether to skip URI decoding
      * @returns {string|null} Returns the search string if it is set, else returns null
      */
-    getSearchString(skipDecoding = false)
+     getSearchString()
     {
-        return !skipDecoding ? decodeURIComponent(this._searchString) : this._searchString;
+        return this._searchString;
     }
 
     //#MARKER id
@@ -329,7 +324,7 @@ class FilteredJoke
 
     //#MARKER apply filters
     /**
-     * Applies the previously set filters and modifies the `this._filteredJokes` property with the applied filters
+     * Applies the previously set filters and modifies the `filteredJokes` property with the applied filters
      * @private
      * @param {string} ip Client IP hash
      * @param {string} lang Language code
@@ -343,7 +338,8 @@ class FilteredJoke
                 if(!isValidIpHash(ip))
                     throw new TypeError("Error while applying joke filters: client IP is not a valid IP hash");
 
-                this._filteredJokes = [];
+                /** @type {JokeObj[]} */
+                const filteredJokes = [];
 
                 if(!lang)
                     lang = settings.languages.defaultLanguage;
@@ -438,17 +434,15 @@ class FilteredJoke
                         return; // invalid lang code, joke is invalid
                     if(joke.lang.toLowerCase() != langCode.toLowerCase())
                         return; // lang code doesn't match so joke is invalid
-                    
+
                     // Note: amount param is used in getJokes()
 
 
                     //#SECTION done
-                    this._filteredJokes.push(joke); // joke is valid, push it to the array that gets passed in the resolve() just below
-
-                    return resolve(this._filteredJokes);
-                }).catch(err => {
-                    return reject(`Couldn't list joke cache entries: ${err}`);
+                    filteredJokes.push(joke); // joke matches all filters
                 });
+
+                return resolve(filteredJokes);
             }
             catch(err)
             {
@@ -475,8 +469,7 @@ class FilteredJoke
 
             let searchMatches = false;
 
-            const containsOperator = Object.values(settings.jokes.searchStringOperators).reduce(op => searchStr.includes(op));
-
+            const containsOperator = Object.values(settings.jokes.searchStringOperators).find(op => searchStr.includes(op)) != null;
 
             if(!isEmpty(searchStr))
             {
@@ -549,9 +542,6 @@ class FilteredJoke
                     else
                         return reject(tr(this.getLanguage(), "foundNoMatchingJokes"));
                 }
-
-                if(typeof _selectionAttempts != "number")
-                    _selectionAttempts = 0;
 
                 if(amount < filteredJokes.length)
                 {

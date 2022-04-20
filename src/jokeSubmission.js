@@ -21,7 +21,7 @@ const settings = require("../settings");
 
 scl.unused(http, analytics, tr);
 
-/** @typedef {parseJokes.SingleJoke|parseJokes.TwopartJoke} JokeSubmission */
+/** @typedef {import("./types/jokes").JokeSubmission} JokeSubmission */
 /** @typedef {import("./fileFormatConverter").FileFormat} FileFormat */
 /** @typedef {import("./types/analytics").AnalyticsObject} AnalyticsObject */
 /** @typedef {import("./types/analytics").Submission} AnalyticsSubmission */
@@ -119,8 +119,8 @@ function jokeSubmission(res, data, fileFormat, ip, analyticsObject, dryRun, lang
 
                         return pipeString(res, fileFormatConverter.auto(fileFormat, respObj, lang), parseURL.getMimeType(fileFormat), 201);
                     }
-
-                    return writeJokeToFile(res, filePath, submission, fileFormat, ip, analyticsObject, validationResult, lang);
+                    else
+                        return writeJokeToFile(res, filePath, submission, fileFormat, ip, analyticsObject, validationResult, lang);
                 }
                 catch(err)
                 {
@@ -171,8 +171,6 @@ function getSubmissionFilePath(res, fileFormat, lang, ip, submissionLang, analyt
             return currentNum;
     };
 
-    fs.ensureDirSync(join(settings.jokes.jokeSubmissionPath, submissionLang));
-
     if(fs.existsSync(join(settings.jokes.jokeSubmissionPath, filePath)))
         filePath = join(settings.jokes.jokeSubmissionPath, submissionLang, `/${sanitizePath(`submission_${sanitizedIP}_${findNextNum()}_${curTS}.json`)}`);
 
@@ -194,6 +192,8 @@ function getSubmissionFilePath(res, fileFormat, lang, ip, submissionLang, analyt
 function writeJokeToFile(res, filePath, submittedJoke, fileFormat, ip, analyticsObject, validationResult, langCode)
 {
     const reformattedJoke = reformatJoke(submittedJoke);
+
+    fs.ensureDirSync(join(settings.jokes.jokeSubmissionPath, submittedJoke.lang));
 
     fs.writeFile(filePath, JSON.stringify(reformattedJoke, null, 4), err => {
         if(!err)
