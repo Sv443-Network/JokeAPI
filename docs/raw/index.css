@@ -681,7 +681,7 @@ footer#copyrightNotice span {
     text-align: left;
     padding: 2px;
     padding-left: 6px;
-    padding-right: 20px;
+    padding-right: 25px;
 }
 
 #wrapperTable tr:nth-child(2) td {
@@ -689,7 +689,10 @@ footer#copyrightNotice span {
 }
 
 #wrapperTable tr td.wrappericon {
-    padding-right: 5px;
+    display: flex;
+    justify-content: space-around;
+    margin-right: 5px;
+    padding-right: 0;
 }
 
 /*#SECTION submit*/

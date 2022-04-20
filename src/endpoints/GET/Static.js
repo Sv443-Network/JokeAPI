@@ -41,10 +41,10 @@ class Static extends Endpoint {
     {
         unused(req, url, format);
 
-        /** The identifier of the requested file */
-        const fileID = !isEmpty(url[1]) ? url[1] : fallbackID;
         /** Fallback identifier when no matching file was found */
         const fallbackID = "fallback_err_404";
+        /** The identifier of the requested file */
+        const fileID = !isEmpty(url[1]) ? url[1] : fallbackID;
 
         const lang = Endpoint.getLang(params);
 
@@ -100,6 +100,12 @@ class Static extends Endpoint {
             break;
             case "golang-icon":
                 filePath = `${settings.documentation.dirPath}static/external/golang.svg`;
+                statusCode = 200;
+                allowEncoding = false;
+                mimeType = "image/svg+xml";
+            break;
+            case "java-icon":
+                filePath = `${settings.documentation.dirPath}static/external/java.svg`;
                 statusCode = 200;
                 allowEncoding = false;
                 mimeType = "image/svg+xml";
