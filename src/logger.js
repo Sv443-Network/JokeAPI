@@ -5,7 +5,7 @@ const { join } = require("path");
 const settings = require("../settings");
 
 
-/** Max size of files in bytes */
+/** Max size of log files in bytes */
 const maxSize = 1000 * 1000 * 50;
 
 
@@ -27,7 +27,7 @@ async function checkFileSize()
 
         const { isFile, size } = await stat(path);
 
-        if(isFile() && size > maxSize)
+        if(isFile(path) && !isNaN(parseInt(size)) && size > maxSize)
             await writeFile(path, "");
     }
 }
