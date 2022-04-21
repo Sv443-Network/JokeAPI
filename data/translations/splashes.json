@@ -1,5 +1,5 @@
 {
-    "info": "This file contains all splash texts - to submit your own splash texts please see this guide: https://github.com/Sv443/JokeAPI/blob/master/.github/Contributing.md#submitting-translations",
+    "info": "This file contains all splash texts - to submit your own splash texts please follow this guide: https://github.com/Sv443/JokeAPI/blob/master/.github/Contributing.md#submitting-translations",
     "defaultLang": "en",
     "languages": [
         "en",
