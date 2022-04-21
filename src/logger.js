@@ -12,23 +12,41 @@ const maxSize = 1000 * 1000 * 50;
 async function init()
 {
     // run file size check on startup, then once a day
-    await checkFileSize();
+    checkFileSize();
 
     setInterval(() => checkFileSize(), 1000 * 60 * 60 * 24);
 }
 
 async function checkFileSize()
 {
-    const files = await readdir(settings.errors.errorLogDir);
-
-    for await(const file of files)
+    try
     {
-        const path = join(settings.errors.errorLogDir, file);
+        const files = await readdir(settings.errors.errorLogDir);
 
-        const { isFile, size } = await stat(path);
+        if(files.length === 0)
+            return;
 
-        if(isFile(path) && !isNaN(parseInt(size)) && size > maxSize)
-            await writeFile(path, "");
+        const fileProms = [];
+
+        for(const file of files)
+        {
+            fileProms.push(new Promise(async (res) => {
+                const path = join(settings.errors.errorLogDir, file);
+
+                const st = await stat(path);
+
+                if(!isNaN(parseInt(st?.size)) && st?.size > maxSize)
+                    await writeFile(path, "");
+
+                return res();
+            }));
+        }
+
+        await Promise.all(fileProms);
+    }
+    catch(err)
+    {
+        console.error(`Error while checking log file size: ${err}`);
     }
 }
 
