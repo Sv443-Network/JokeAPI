@@ -5,7 +5,6 @@ const FilteredJoke = require("../../classes/FilteredJoke");
 const resolveIP = require("../../resolveIP");
 const Endpoint = require("../../classes/Endpoint");
 const languages = require("../../languages");
-const jokeCache = require("../../jokeCache");
 const tr = require("../../translate");
 
 const settings = require("../../../settings");
@@ -256,33 +255,32 @@ class Joke extends Endpoint {
                 }
             }
 
-            //#SECTION joke caching
+            //TODO: #SECTION joke caching
 
-            try
-            {
-                const clientIpHash = resolveIP.isValidIpHash(ip) ? ip : resolveIP.hashIP(ip);
+            // try
+            // {
+            //     const clientIpHash = resolveIP.isValidIpHash(ip) ? ip : resolveIP.hashIP(ip);
 
-                if(jokesArray.length > 1)
-                {
-                    const cacheIDs = jokesArray.map(joke => joke.id);
+            //     if(jokesArray.length > 1)
+            //     {
+            //         const cacheIDs = jokesArray.map(joke => joke.id);
 
-                    await jokeCache.cacheInstance.addEntries(clientIpHash, cacheIDs, langCode);
-                }
-                else
-                    await jokeCache.cacheInstance.addEntry(clientIpHash, jokesArray[0].id, langCode);
-
-
-                // clear oldest entr(y/ies) of the cache
-                await jokeCache.cacheInstance.clearOldEntries(clientIpHash, langCode, jokesArray.length);
+            //         await jokeCache.cacheInstance.addEntries(clientIpHash, cacheIDs, langCode);
+            //     }
+            //     else
+            //         await jokeCache.cacheInstance.addEntry(clientIpHash, jokesArray[0].id, langCode);
 
 
-                // respond
-                return Endpoint.respond(res, format, lang, responseObj, statusCode);
-            }
-            catch(err)
-            {
-                return this.isErrored(res, format, tr(langCode, "jokeCacheUpdateError", err.toString()), langCode);
-            }
+            //     // clear oldest entr(y/ies) of the cache
+            //     await jokeCache.cacheInstance.clearOldEntries(clientIpHash, langCode, jokesArray.length);
+            // }
+            // catch(err)
+            // {
+            //     return this.isErrored(res, format, tr(langCode, "jokeCacheUpdateError", err.toString()), langCode);
+            // }
+
+            // respond
+            return Endpoint.respond(res, format, lang, responseObj, statusCode);
         }
         catch(err)
         {

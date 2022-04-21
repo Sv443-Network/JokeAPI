@@ -3,7 +3,6 @@ const { unused } = require("svcorelib");
 const tr = require("../../translate");
 const SubmissionEndpoint = require("../../classes/SubmissionEndpoint");
 const Endpoint = require("../../classes/Endpoint");
-const jokeCache = require("../../jokeCache");
 const resolveIp = require("../../resolveIP");
 
 // const settings = require("../../../settings");
@@ -119,8 +118,9 @@ class ClearData extends SubmissionEndpoint
         return new Promise(async (pRes, pRej) => {
             try
             {
-                const amt = await jokeCache.cacheInstance.clearEntries(ip);
-                return pRes(amt);
+                // TODO:
+                // const amt = await jokeCache.cacheInstance.clearEntries(ip);
+                return pRes(-1);
             }
             catch(err)
             {

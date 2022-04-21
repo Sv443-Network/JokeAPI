@@ -9,7 +9,6 @@ const parseJokes = require("../parseJokes");
 const languages = require("../languages");
 const tr = require("../translate");
 const { isValidIpHash } = require("../resolveIP");
-const jokeCache = require("../jokeCache");
 
 const settings = require("../../settings");
 
@@ -335,7 +334,7 @@ class FilteredJoke
         return new Promise(async (resolve, reject) => {
             try
             {
-                if(!isValidIpHash(ip))
+                if(settings.httpServer.ipHashing.enabled && !isValidIpHash(ip))
                     throw new TypeError("Error while applying joke filters: client IP is not a valid IP hash");
 
                 /** @type {JokeObj[]} */
@@ -344,21 +343,15 @@ class FilteredJoke
                 if(!lang)
                     lang = settings.languages.defaultLanguage;
                 
-                let jokesArray = this._allJokes.getJokeArray(lang);
+                const jokesArray = this._allJokes.getJokeArray(lang);
 
-                //#SECTION joke cache
-                /** @type {number[]} */
-                const cacheEntries = await jokeCache.cacheInstance.listEntries(ip, lang);
+                //TODO: #SECTION joke cache
 
-                // joke caching is disabled when using the ID range parameter
-                if(!this._idRangeModified)
-                {
-                    jokesArray = jokesArray.filter(joke => {
-                        // filter out all jokes that are on a client's joke cache list
-                        if(!cacheEntries.includes(joke.id))
-                            return joke;
-                    });
-                }
+                // jokesArray = jokesArray.filter(joke => {
+                //     // filter out all jokes that are on a client's joke cache list
+                //     if(!cacheEntries.includes(joke.id))
+                //         return joke;
+                // });
 
                 let isErrored = false;
 
@@ -377,29 +370,32 @@ class FilteredJoke
                     {
                         if(joke.safe !== true) // if joke is not safe, it's invalid
                             return;
-                        
-                        if(joke.category == "Dark") // if joke is in category "Dark", it's invalid
+
+                        if(joke.category === "Dark") // if joke is in category "Dark", it's invalid
+                            return;
+
+                        if(Object.values(joke.flags).find(fl => fl === true)) // if a flag is set, it's invalid
                             return;
                     }
                     
 
                     //#SECTION id range
-                    let idRange = this.getIdRange(lang);
+                    const idRange = this.getIdRange(lang);
                     if(joke.id < idRange[0] || joke.id > idRange[1]) // if the joke is not in the specified ID range, it's invalid
                         return;
 
                     //#SECTION categories
-                    let cats = this.getAllowedCategories().map(c => c.toLowerCase());
+                    const cats = this.getAllowedCategories().map(c => c.toLowerCase());
 
-                    if((typeof cats == "object" && !cats.includes(settings.jokes.possible.anyCategoryName.toLowerCase()))
-                    || (typeof cats == "string" && cats != settings.jokes.possible.anyCategoryName.toLowerCase()))
+                    if((typeof cats === "object" && !cats.includes(settings.jokes.possible.anyCategoryName.toLowerCase()))
+                    || (typeof cats === "string" && cats != settings.jokes.possible.anyCategoryName.toLowerCase()))
                     {
                         if(!cats.includes(joke.category.toLowerCase())) // if possible categories don't contain the requested category, joke is invalid
                             return;
                     }
 
                     //#SECTION flags
-                    let blFlags = this.getBlacklistFlags();
+                    const blFlags = this.getBlacklistFlags();
                     if(!isEmpty(blFlags))
                     {
                         let flagMatches = false;
@@ -429,7 +425,7 @@ class FilteredJoke
                     }
                     
                     //#SECTION language
-                    let langCode = this.getLanguage();
+                    const langCode = this.getLanguage();
                     if(!languages.isValidLang(langCode))
                         return; // invalid lang code, joke is invalid
                     if(joke.lang.toLowerCase() != langCode.toLowerCase())
