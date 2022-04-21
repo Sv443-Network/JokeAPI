@@ -11,9 +11,9 @@ var settings = {
     // submitUrl: "http://127.0.0.1:8076/submit", // DEBUG
     defaultLang: "<%#INSERT:DEFAULTLANGCODE#%>",
     formatVersion: 3,
-    contributorsObject: JSON.parse("<%#INSERT:CONTRIBUTORS#%>"),
-    categoryAliasesObject: JSON.parse("<%#INSERT:CATEGORYALIASES#%>"),
-    splashes: JSON.parse(atob("<%#INSERT:SPLASHESOBJ#%>")),
+    contributorsObject: JSON.parse('<%#INSERT:CONTRIBUTORS#%>'),
+    categoryAliasesObject: JSON.parse('<%#INSERT:CATEGORYALIASES#%>'),
+    splashes: JSON.parse(atob('<%#INSERT:SPLASHESOBJ#%>')),
     lastSplashIdx: -1,       // so the same splash isn't returned twice
     splashRedirectCount: 15, // how many times clicking the splash is needed to redirect to the splashes file
     splashClickAmount: 0,     // keeps track of how many times the splash is clicked
@@ -188,7 +188,7 @@ function onLoad()
 
     try
     {
-        var fileFormats = JSON.parse("<!--%#INSERT:FILEFORMATARRAY#%-->");
+        var fileFormats = JSON.parse('<!--%#INSERT:FILEFORMATARRAY#%-->');
         if(fileFormats.includes("JSON"))
         {
             fileFormats.splice(fileFormats.indexOf("JSON"), 1);
@@ -197,17 +197,17 @@ function onLoad()
             el.innerText = fileFormats.join(" and ");
         });
 
-        var flags = JSON.parse("<!--%#INSERT:FLAGSARRAY#%-->");
+        var flags = JSON.parse('<!--%#INSERT:FLAGSARRAY#%-->');
         Array.from(document.getElementsByClassName("insFlags")).forEach(function(el) {
             el.innerText = flags.join(", ");
         });
 
-        var formats = JSON.parse("<!--%#INSERT:FILEFORMATARRAY#%-->");
+        var formats = JSON.parse('<!--%#INSERT:FILEFORMATARRAY#%-->');
         Array.from(document.getElementsByClassName("insFormats")).forEach(function(el) {
             el.innerText = formats.join(", ").toLowerCase();
         });
 
-        var categories = JSON.parse("<!--%#INSERT:CATEGORYARRAY#%-->");
+        var categories = JSON.parse('<!--%#INSERT:CATEGORYARRAY#%-->');
         Array.from(document.getElementsByClassName("insCategories")).forEach(function(el) {
             el.innerText = categories.join(", ");
         });
@@ -748,7 +748,7 @@ function buildURL()
 
     //#SECTION flags
     var flagElems = [gebid("blf-cb1"), gebid("blf-cb2"), gebid("blf-cb3"), gebid("blf-cb4"), gebid("blf-cb5"), gebid("blf-cb6")];
-    var flagNames = JSON.parse("<!--%#INSERT:FLAGSARRAY#%-->");
+    var flagNames = JSON.parse('<!--%#INSERT:FLAGSARRAY#%-->');
     var selectedFlags = [];
     flagElems.forEach(function(el, i) {
         if(el.checked)

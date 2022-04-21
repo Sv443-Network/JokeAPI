@@ -11,6 +11,7 @@ module.exports = {
     },
     ignorePatterns: [
         "docs/compiled/**",
+        "docs/raw/index.js",
     ],
     rules: {
         "indent": [
