@@ -35,9 +35,10 @@
 
 # Official API Wrappers:
 -   <b><a href="https://github.com/canarado/joketeller#readme"><img src="./docs/static/external/rust.svg" width="16" height="16"> Rust</a></b>
--   <b><a href="https://github.com/thenamesweretakenalready/Sv443s-JokeAPI-Python-Wrapper#readme"><img src="./docs/static/external/python.svg" width="16" height="16"> Python</a></b>
--   <b><a href="https://github.com/sahithyandev/sv443-joke-api-js-wrapper#readme"><img src="./docs/static/external/nodejs.svg" width="16" height="16"> Node.js</a></b> (incomplete)
+-   <b><a href="https://github.com/leet-hakker/JokeAPI-Python#readme"><img src="./docs/static/external/python.svg" width="16" height="16"> Python</a></b>
+-   <b><a href="https://github.com/sahithyandev/sv443-joke-api-js-wrapper#readme"><img src="./docs/static/external/nodejs.svg" width="16" height="16"> Node.js</a></b>
 -   <b><a href="https://github.com/Icelain/jokeapi#readme"><img src="./docs/static/external/golang.svg" width="16" height="16"> Go</a></b>
+-   <b><a href="https://github.com/MichaelDark/jokeapi#readme"><img src="./docs/static/external/dart.svg" width="16" height="16"> Dart</a></b>
 
 
 <br><br>
@@ -53,6 +54,7 @@
 | [Dev Dad Jokes](https://github.com/jonathanbossenger/devdadjokes) | [JokeBot](https://github.com/QGIsK/JokeBot) |
 | [JokeAPI Webapp](https://github.com/HemantSachdeva/JokeApi) | [Jokepack](https://github.com/LaksCastro/jokepack) |
 | [Joke-Hub](https://joke-hub.vercel.app) | [jokes-app](https://github.com/bethropolis/jokes-app) |
+| [Jokes CLI](https://github.com/te25son/Jokes) | &nbsp; |
 
 <!-- | []() | []() | -->
 <!-- | [xyz](xyz) | [xyz](xyz) | │ | [xyz](xyz) | [xyz](xyz) | -->
