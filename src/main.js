@@ -4,7 +4,7 @@
 "use strict";
 
 
-const { filesystem, system, colors, ProgressBar } = require("svcorelib");
+const { files, system, colors, ProgressBar } = require("svcorelib");
 const promiseAllSequential = require("promise-all-sequential");
 
 const env = require("./env");
@@ -58,7 +58,7 @@ async function initAll()
     try
     {
         // ensure the directory structure JokeAPI requires exists (some dirs are in the .gitignore)
-        await filesystem.ensureDirs(settings.init.initDirs);
+        await files.ensureDirs(settings.init.initDirs);
     }
     catch(err)
     {

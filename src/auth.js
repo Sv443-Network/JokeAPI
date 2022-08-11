@@ -1,4 +1,4 @@
-const { filesystem, FolderDaemon } = require("svcorelib");
+const { files, FolderDaemon } = require("svcorelib");
 const { ServerResponse } = require("http");
 const fs = require("fs-extra");
 
@@ -24,7 +24,7 @@ let tokenList = [];
 function init()
 {
     return new Promise(async resolve => {
-        if(!(await filesystem.exists(settings.auth.tokenListFile)))
+        if(!(await files.exists(settings.auth.tokenListFile)))
             fs.writeFileSync(settings.auth.tokenListFile, JSON.stringify([], null, 4));
 
         refreshTokens();

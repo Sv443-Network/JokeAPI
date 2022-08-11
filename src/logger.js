@@ -1,5 +1,5 @@
 const { readdir, appendFile, writeFile, stat } = require("fs-extra");
-const { filesystem, isEmpty, colors } = require("svcorelib");
+const { files, isEmpty, colors } = require("svcorelib");
 const { join } = require("path");
 
 const settings = require("../settings");
@@ -88,7 +88,7 @@ async function logger(type, content, timestamp)
 
         let logFileName = `${settings.errors.errorLogDir}${errorType}.log`;
 
-        if(await filesystem.exists(logFileName))
+        if(await files.exists(logFileName))
             await appendFile(logFileName, errorContent);
         else
             await writeFile(logFileName, errorContent);

@@ -1,4 +1,4 @@
-const { unused, isEmpty, generateUUID, colors, filesystem } = require("svcorelib");
+const { unused, isEmpty, generateUUID, colors, files } = require("svcorelib");
 const fs = require("fs-extra");
 const clipboard = require("clipboardy");
 
@@ -139,7 +139,7 @@ function saveTokens(tokens, maxReqs)
         let oldFile = [];
         try
         {
-            if(await filesystem.exists(settings.auth.tokenListFile))
+            if(await files.exists(settings.auth.tokenListFile))
             {
                 const fCont = (await fs.readFile(settings.auth.tokenListFile)).toString();
                 if(!isEmpty(fCont))

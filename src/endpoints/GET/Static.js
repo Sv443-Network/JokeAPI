@@ -1,4 +1,4 @@
-const { isEmpty, unused, filesystem } = require("svcorelib");
+const { isEmpty, unused, files } = require("svcorelib");
 
 const { getAcceptedEncoding, getFileExtensionFromEncoding } = require("../../httpCommon");
 const debug = require("../../debug");
@@ -126,7 +126,7 @@ class Static extends Endpoint {
 
         filePath = `${filePath}${fileExtension}`;
 
-        if(await filesystem.exists(filePath))
+        if(await files.exists(filePath))
         {
             debug("Static", `Serving static content "${fileID}" with encoding "${selectedEncoding}"`);
 

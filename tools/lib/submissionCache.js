@@ -1,6 +1,6 @@
 const { readFile, writeFile, stat } = require("fs-extra");
 const { resolve } = require("path");
-const { filesystem, reserialize, unused } = require("svcorelib");
+const { files, reserialize, unused } = require("svcorelib");
 
 const settings = require("../../settings");
 const cacheSettings = settings.jokes.submissions.cache;
@@ -28,7 +28,7 @@ function init()
         {
             const initFile = async () => await writeFile(cachePath, JSON.stringify({}, undefined, beautifyJson ? 4 : undefined));
 
-            if(!(await filesystem.exists(cachePath)))
+            if(!(await files.exists(cachePath)))
                 await initFile();
             
             try

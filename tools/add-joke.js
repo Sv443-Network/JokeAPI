@@ -1,5 +1,5 @@
 const prompt = require("prompts");
-const { colors, Errors, isEmpty, filesystem, reserialize } = require("svcorelib");
+const { colors, Errors, isEmpty, files, reserialize } = require("svcorelib");
 const { writeFile, copyFile, readFile } = require("fs-extra");
 const { join } = require("path");
 
@@ -358,7 +358,7 @@ function addJoke(joke)
             const jokeFilePath = join(settings.jokes.jokesFolderPath, `jokes-${lang}.json`);
             const templatePath = join(settings.jokes.jokesFolderPath, settings.jokes.jokesTemplateFile);
 
-            if(!(await filesystem.exists(jokeFilePath)))
+            if(!(await files.exists(jokeFilePath)))
                 await copyFile(templatePath, jokeFilePath);
 
 

@@ -1,4 +1,4 @@
-const { colors, filesystem, reserialize } = require("svcorelib");
+const { colors, files, reserialize } = require("svcorelib");
 const { join, resolve } = require("path");
 const { readdir } = require("fs-extra");
 
@@ -204,7 +204,7 @@ function getSubmissionInfo()
         {
             const submBasePath = resolve(settings.jokes.jokeSubmissionPath);
 
-            if(!(await filesystem.exists(submBasePath)))
+            if(!(await files.exists(submBasePath)))
             {
                 return res({
                     submCount: 0,

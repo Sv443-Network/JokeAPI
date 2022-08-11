@@ -1,6 +1,6 @@
 // This module starts the HTTP server, parses the request and calls the requested endpoint
 
-const { unused, filesystem, colors, isEmpty, isArrayEmpty, byteLength } = require("svcorelib");
+const { unused, files, colors, isEmpty, isArrayEmpty, byteLength } = require("svcorelib");
 const http = require("http");
 const fs = require("fs-extra");
 const path = require("path");
@@ -689,7 +689,7 @@ async function serveDocumentation(req, res)
     let filePath = `${settings.documentation.compiledPath}documentation.html${fileExtension}`;
     let fallbackPath = `${settings.documentation.compiledPath}documentation.html`;
 
-    if(await filesystem.exists(filePath))
+    if(await files.exists(filePath))
     {
         if(selectedEncoding == null)
             selectedEncoding = "identity"; // identity = no encoding (see https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Encoding)

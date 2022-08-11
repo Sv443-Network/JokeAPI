@@ -10,7 +10,7 @@
 
 const { readdir, readFile, writeFile, copyFile, rm, rmdir } = require("fs-extra");
 const { resolve, join } = require("path");
-const { colors, Errors, reserialize, filesystem, isEmpty, allOfType, mapRange, unused } = require("svcorelib");
+const { colors, Errors, reserialize, files, isEmpty, allOfType, mapRange, unused } = require("svcorelib");
 const prompt = require("prompts");
 const promiseAllSeq = require("promise-all-sequential");
 const Fuse = require("fuse.js");
@@ -921,6 +921,7 @@ function filterDuplicates(submissions, cache)
         const fuseList = [];
 
         // TODO:
+        // eslint-disable-next-line no-undef
         langs.forEach(lang => fuseList.concat(cache[lang].map(entry => entry.sub)));
 
         for await(const subm of submissions)
@@ -1028,7 +1029,7 @@ function saveSubmission(sub)
             const jokeFilePath = join(settings.jokes.jokesFolderPath, `jokes-${lang}.json`);
             const templatePath = join(settings.jokes.jokesFolderPath, settings.jokes.jokesTemplateFile);
 
-            if(!(await filesystem.exists(jokeFilePath)))
+            if(!(await files.exists(jokeFilePath)))
                 await copyFile(templatePath, jokeFilePath);
 
 

@@ -1,4 +1,4 @@
-const { isEmpty, byteLength, unused, filesystem } = require("svcorelib");
+const { isEmpty, byteLength, unused, files } = require("svcorelib");
 const { Readable } = require("stream");
 const fs = require("fs-extra");
 const semver = require("semver");
@@ -189,7 +189,7 @@ async function pipeFile(res, filePath, mimeType, statusCode = 200)
         return respondWithErrorPage(res, 500, "Encountered internal server error while piping file: wrong type for status code.");
     }
 
-    if(!(await filesystem.exists(filePath)))
+    if(!(await files.exists(filePath)))
         return respondWithErrorPage(res, 404, `Internal error: file at "${filePath}" not found.`);
 
     try
