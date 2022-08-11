@@ -33,11 +33,11 @@
 
 <br><br>
 
-## API Wrappers:
-A list of all the officially recognized wrappers can be found [here.](https://github.com/stars/Sv443/lists/jokeapi-wrappers)  
-  
-Disclaimer: I will not take any responsibility for the wrappers, they are community-made and I can't ensure security, validity and compatibility.  
-If you need help with these wrappers, you should contact their respective authors.  
+# Official API Wrappers:
+-   <b><a href="https://github.com/canarado/joketeller#readme"><img src="./docs/static/external/rust.svg" width="16" height="16"> Rust</a></b>
+-   <b><a href="https://github.com/thenamesweretakenalready/Sv443s-JokeAPI-Python-Wrapper#readme"><img src="./docs/static/external/python.svg" width="16" height="16"> Python</a></b>
+-   <b><a href="https://github.com/sahithyandev/sv443-joke-api-js-wrapper#readme"><img src="./docs/static/external/nodejs.svg" width="16" height="16"> Node.js</a></b> (incomplete)
+-   <b><a href="https://github.com/Icelain/jokeapi#readme"><img src="./docs/static/external/golang.svg" width="16" height="16"> Go</a></b>
 
 
 <br><br>
