@@ -102,7 +102,7 @@
     "fuse.js": "^6.5.3",
     "http-ratelimit": "^0.2.3",
     "import-fresh": "^3.3.0",
-    "js2xmlparser": "^4.0.1",
+    "js2xmlparser": "^5.0.0",
     "json-to-pretty-yaml": "^1.2.2",
     "keypress": "^0.2.1",
     "mysql": "^2.18.1",
