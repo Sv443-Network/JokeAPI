@@ -16,6 +16,7 @@ data/lists/whitelisted.json
 data/lists/noLogging.json
 
 # Dev stuff:
+test.ts
 test.js
 src/dev/ghb/
 *.bak
