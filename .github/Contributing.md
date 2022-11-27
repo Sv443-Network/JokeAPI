@@ -1,4 +1,5 @@
 # Contributing Guide
+<!-- TODO: update -->
 This guide will tell you how you can and should contribute to JokeAPI.  
 Not following it might cause me to reject your changes but at the very least we will both lose time.  
 So please read this guide before contributing. Thanks :)

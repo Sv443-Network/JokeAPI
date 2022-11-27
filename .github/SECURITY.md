@@ -10,9 +10,10 @@ These versions are still supported and will be receiving security updates:
 | --- | --- | --- | --- |
 | v1.0 | ❌ | `/` | deprecated |
 | v1.1 | ❌ | `/` | deprecated |
-| v2.0 | ❌ | `v2` | outdated / unavailable |
-| v2.1 | ❌ | `v2` | outdated / unavailable |
-| v2.2 | ❌ | `v2` | outdated / unavailable |
-| v2.3 | ✅ | `v2` | active |
+| v2.0 | ❌ | `v2` | deprecated |
+| v2.1 | ❌ | `v2` | deprecated |
+| v2.2 | ❌ | `v2` | deprecated |
+| v2.3 | ✅ | `v2` | end of life |
+| v3.0 | ✅ | `v3` | active |
 
-Location = subdomain or part of the URL path (eg. `/jokeapi/v2/` or `v2.jokeapi.dev`)
+Location = subdomain or part of the URL path (eg. `/jokeapi/v3/` or `v3.jokeapi.dev`)

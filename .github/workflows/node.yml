@@ -1,0 +1,35 @@
+name: Node CI
+
+on:
+  pull_request:
+    # The branches below must be a subset of the branches above
+    branches: [ master ] # runs on every push
+
+
+jobs:
+  validate:
+    name: Build and Validate
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 5
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - uses: actions/checkout@v3 # checkout latest commit
+
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: |
+        npm i -g tsc
+        npm ci
+
+    - name: Run ESLint
+      run: npm run lint
