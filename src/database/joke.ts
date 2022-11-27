@@ -13,8 +13,10 @@ export function getFilteredJokes(filter: Partial<JokeFilter>, amount = 1) {
                     hasEvery: filter.categories,
                 },
             }, {
-                flags: {
-                    hasEvery: filter.blacklistFlags,
+                NOT: {
+                    flags: {
+                        hasSome: filter.blacklistFlags,
+                    },
                 },
             }, {
                 type: {
@@ -36,7 +38,7 @@ export function getFilteredJokes(filter: Partial<JokeFilter>, amount = 1) {
                 },
             }, {
                 id: {
-                    gte: filter.idRange?.[1],
+                    gte: filter.idRange?.[0],
                 },
             }, {
                 lang: {
