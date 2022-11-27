@@ -4,10 +4,11 @@
   "description": "REST API that serves jokes from many categories while also offering a lot of filtering methods",
   "main": "./out/index.js",
   "scripts": {
-    "start": "tsc && node --enable-source-maps out/index.js",
+    "start": "npm run build && node --enable-source-maps out/index.js",
     "test": "ts-node src/test.ts",
-    "lint": "tsc --noEmit && eslint .",
-    "watch": "nodemon -e ts --inspect npm start"
+    "lint": "npm run build -- --noEmit && eslint .",
+    "watch": "nodemon -e ts --inspect npm start",
+    "build": "tsc --build"
   },
   "author": {
     "name": "Sv443",
@@ -30,16 +31,23 @@
   },
   "dependencies": {
     "@pm2/io": "^5.0.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "fs-extra": "^10.1.0",
+    "helmet": "^6.0.0",
     "js2xmlparser": "^5.0.0",
     "kleur": "^4.1.5",
     "prisma": "^4.6.1",
+    "rate-limiter-flexible": "^2.4.1",
     "request-ip": "^3.3.0",
     "svcorelib": "^1.18.1"
   },
   "devDependencies": {
+    "@types/compression": "^1.7.2",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.14",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^18.11.9",
     "@typescript-eslint/eslint-plugin": "^5.44.0",
