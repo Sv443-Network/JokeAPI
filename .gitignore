@@ -3,36 +3,19 @@ logs
 *.log
 npm-debug.log*
 
-# Dependency directory
+# npm
 node_modules/
-
-# Optional npm cache directory
 .npm
 
 # Dotenv environment variables file
 .env
 
-# Docs:
-docs/documentation.html
-docs/compiled
-
-# Dark jokes (GitHub TOS):
-data/jokes/dark/
-data/jokes/old/
-
-# Joke submissions:
-data/submissions
-
-# Auth Tokens:
-data/tokens.json
-data/auth/tokens.json
-
 # Other potentially sensitive information:
-data/lists/ipBlacklist.json
+data/lists/blacklisted.json
+data/lists/whitelisted.json
+data/lists/noLogging.json
 
 # Dev stuff:
-dev/madge/
-dependency-graph.html
 test.js
-!tools/test.js
-dev/ghb/
+src/dev/ghb/
+*.bak

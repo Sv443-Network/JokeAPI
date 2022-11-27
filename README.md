@@ -4,11 +4,7 @@
 
 ### A REST API that serves uniformly and well formatted jokes and offers a great variety of filtering methods and response customization
 
-[![GitHub](https://img.shields.io/github/license/Sv443/JokeAPI)](https://sv443.net/LICENSE)
 [![Uptime / 7 Days](https://img.shields.io/uptimerobot/ratio/7/m784261094-bff76b959ebb8fc39f7eb2d0)](https://status.sv443.net/)
-[![Open Issues](https://img.shields.io/github/issues/Sv443/JokeAPI)](https://github.com/Sv443/JokeAPI/issues)
-
-[![Actions Status](https://github.com/Sv443/JokeAPI/workflows/build/badge.svg)](https://github.com/Sv443/JokeAPI/actions)
 [![Known Vulnerabilities](https://snyk.io/test/github/Sv443/JokeAPI/badge.svg)](https://snyk.io/test/github/Sv443/JokeAPI)
 
 [![Discord](https://img.shields.io/discord/565933531214118942)](https://discord.gg/aBH4uRG)
@@ -27,8 +23,6 @@
 
 ### If you want to contribute to JokeAPI (code, jokes or translations), please read the [contributing guide.](./.github/Contributing.md)
 
-### Want to know how JokeAPI works? The [developer documentation](https://github.com/Sv443/JokeAPI/tree/version/2.4.0/dev/docs/home.md#readme) (work in progress) explains it.
-
 <br><br>
 
 # Official API Wrappers:
@@ -42,41 +36,25 @@
 
 # Projects that use JokeAPI:
 
-| Project                                                                                                  | Author                                                     |
-| -------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| [dozens Advices](https://github.com/ZephyrVentum/dozens-Advices)                                         | [ZephyrVentum](https://github.com/ZephyrVentum)            |
-| [Shadow](https://github.com/QGIsK/Shadow)                                                                | [QGIsK](https://github.com/QGIsK)                          |
-| [Jokepy](https://github.com/aksty/Jokepy)                                                                | [aksty](https://github.com/aksty)                          |
-| [Dark1](https://github.com/whiteadi/Dark1)                                                               | [whiteadi](https://github.com/whiteadi)                    |
-| [Prejudice Networks](https://github.com/LiamTownsley/Prejudice-Networks)                                 | [Liam Townsley](https://github.com/LiamTownsley)           |
-| [https://irshad.ml/humour.html](https://irshad.ml/humour.html)                                           | [draco-malfoy](https://github.com/draco-malfoy)            |
-| [Random Joke Generator with Flutter](https://github.com/variousnabil/Random-Joke-Generator-with-Flutter) | [variousnabil](https://github.com/variousnabil)            |
-| [comma](https://thatcopy.pw/comma)                                                                       | [ThatCopy](https://github.com/ThatCopy)                    |
-| [Joke Teller](https://github.com/AlHood77/Joke_Teller)                                                   | [AlHood77](https://github.com/AlHood77)                    |
-| [Jokes plugin for Craft CMS 3.x](https://github.com/remcoov/jokes)                                       | [remcoov](https://github.com/remcoov)                      |
-| [PoshBot.Joker](https://github.com/ToastIT-dev/PoshBot.Joker)                                            | [ToastIT-dev](https://github.com/ToastIT-dev)              |
-| [JokeAPI_ComputerCraft](https://github.com/Sv443/JokeAPI_ComputerCraft)                                  | [Sv443](https://github.com/Sv443)                          |
-| [Dev Dad Jokes](https://github.com/jonathanbossenger/devdadjokes)                                        | [Jonathan Bossenger](https://github.com/jonathanbossenger) |
+| Project | Author |
+| --- | --- |
+| [dozens Advices](https://github.com/ZephyrVentum/dozens-Advices) | [ZephyrVentum](https://github.com/ZephyrVentum) |
+| [Shadow](https://github.com/QGIsK/Shadow) | [QGIsK](https://github.com/QGIsK) |
+| [Jokepy](https://github.com/aksty/Jokepy) | [aksty](https://github.com/aksty) |
+| [Dark1](https://github.com/whiteadi/Dark1) | [whiteadi](https://github.com/whiteadi) |
+| [Prejudice Networks](https://github.com/LiamTownsley/Prejudice-Networks) | [Liam Townsley](https://github.com/LiamTownsley) |
+| [https://irshad.ml/humour.html](https://irshad.ml/humour.html) | [draco-malfoy](https://github.com/draco-malfoy) |
+| [Random Joke Generator with Flutter](https://github.com/variousnabil/Random-Joke-Generator-with-Flutter) | [variousnabil](https://github.com/variousnabil) |
+| [comma](https://thatcopy.pw/comma) | [ThatCopy](https://github.com/ThatCopy) |
+| [Joke Teller](https://github.com/AlHood77/Joke_Teller) | [AlHood77](https://github.com/AlHood77) |
+| [Jokes plugin for Craft CMS 3.x](https://github.com/remcoov/jokes) | [remcoov](https://github.com/remcoov) |
+| [PoshBot.Joker](https://github.com/ToastIT-dev/PoshBot.Joker) | [ToastIT-dev](https://github.com/ToastIT-dev) |
+| [JokeAPI_ComputerCraft](https://github.com/Sv443/JokeAPI_ComputerCraft) | [Sv443](https://github.com/Sv443) |
+| [Dev Dad Jokes](https://github.com/jonathanbossenger/devdadjokes) | [Jonathan Bossenger](https://github.com/jonathanbossenger) |
 
 <br>
 
-[Submit an issue](https://github.com/Sv443/JokeAPI/issues/new/choose) and select `Dependent` to get your project added here
-
-<!--
-Old list-style dependents:
-- [dozens Advices](https://github.com/ZephyrVentum/dozens-Advices) by [ZephyrVentum](https://github.com/ZephyrVentum)
-- [Shadow-bot](https://github.com/QGIsK/Shadow-bot) by [QGIsK](https://github.com/QGIsK)
-- [Jokepy](https://github.com/aksty/Jokepy) by [aksty](https://github.com/aksty)
-- [Dark1](https://github.com/whiteadi/Dark1) by [whiteadi](https://github.com/whiteadi)
-- [Prejudice Networks](https://github.com/LiamTownsley/Prejudice-Networks) by [Liam Townsley](https://github.com/LiamTownsley)
-- [https://irshad.ml/humour.html](https://irshad.ml/humour.html) by [draco-malfoy](https://github.com/draco-malfoy)
-- [Random Joke Generator with Flutter](https://github.com/variousnabil/Random-Joke-Generator-with-Flutter) by [variousnabil](https://github.com/variousnabil)
-- [comma](https://thatcopy.pw/comma) by [ThatCopy](https://github.com/ThatCopy)
-- [Joke Teller](https://github.com/AlHood77/Joke_Teller) by [AlHood77](https://github.com/AlHood77)
-- [Jokes plugin for Craft CMS 3.x](https://github.com/remcoov/jokes) by [remcoov](https://github.com/remcoov)
-- [PoshBot.Joker](https://github.com/ToastIT-dev/PoshBot.Joker) by [ToastIT-dev](https://github.com/ToastIT-dev)
-- [JokeAPI_ComputerCraft](https://github.com/Sv443/JokeAPI_ComputerCraft) by [Sv443](https://github.com/Sv443)
--->
+<sup>[Submit an issue](https://github.com/Sv443/JokeAPI/issues/new/choose) and select `Dependent` to get your project added here</sup>
 
 <br><br>
 
