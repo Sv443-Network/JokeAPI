@@ -18,16 +18,9 @@
         "removeComments": true,
         "typeRoots": [
             "node_modules/@types",
-            "src/types"
+            "src/types",
         ],
         "sourceMap": true,
-        "paths": {
-            "@src/*": ["./src/*"],
-            "@commands/*": ["./src/commands/*"],
-            "@database/*": ["./src/database/*"],
-            "@utils/*": ["./src/utils/*"],
-            "@assets/*": ["./src/assets/*"],
-        }
     },
     "files": [
         "src/index.ts"
@@ -40,7 +33,4 @@
         "out",
         "src/test.ts"
     ],
-    "references": [
-        { "path": "./src/types/jokeapi" }
-    ]
 }
