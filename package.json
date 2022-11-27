@@ -1,0 +1,114 @@
+{
+  "name": "jokeapi",
+  "version": "3.0.0",
+  "description": "REST API that serves jokes from many categories while also offering a lot of filtering methods",
+  "main": "./out/index.js",
+  "scripts": {
+    "start": "tsc && node --enable-source-maps out/index.js",
+    "test": "ts-node src/test.ts",
+    "lint": "tsc --noEmit && eslint .",
+    "watch": "nodemon -e ts --inspect npm start"
+  },
+  "author": {
+    "name": "Sv443",
+    "email": "contact@sv443.net",
+    "url": "https://sv443.net/"
+  },
+  "homepage": "https://github.com/Sv443/JokeAPI#readme",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sv443/JokeAPI.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Sv443/JokeAPI/issues/new/choose",
+    "email": "contact@sv443.net"
+  },
+  "bin": {
+    "jokeapi": "tools/cli.js",
+    "japi": "tools/cli.js"
+  },
+  "dependencies": {
+    "@pm2/io": "^5.0.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "fs-extra": "^10.1.0",
+    "js2xmlparser": "^5.0.0",
+    "prisma": "^4.6.1",
+    "request-ip": "^3.3.0",
+    "svcorelib": "^1.18.1"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/node": "^18.11.9",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "@typescript-eslint/parser": "^5.44.0",
+    "eslint": "^8.28.0",
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.3"
+  },
+  "contributors": [
+    {
+      "name": "Liam Townsley",
+      "email": "contact@liamtownsley.me",
+      "url": "https://liamtownsley.me",
+      "contributions": [
+        "Fixed grammar mistakes",
+        "Removed dead dependent"
+      ]
+    },
+    {
+      "name": "ThatCopy",
+      "url": "https://github.com/ThatCopy",
+      "contributions": [
+        "Added Czech translation",
+        "Fixed grammar mistakes"
+      ]
+    },
+    {
+      "name": "Sahithyan Kandathasan",
+      "email": "sahithyan2701@gmail.com",
+      "contributions": [
+        "Added changelog in Markdown format"
+      ]
+    },
+    {
+      "name": "Afarfeel",
+      "url": "https://github.com/Afarfeel",
+      "contributions": [
+        "Added Italian translation"
+      ]
+    },
+    {
+      "name": "sournachos",
+      "url": "https://github.com/sournachos",
+      "contributions": [
+        "Added Spanish jokes"
+      ]
+    }
+  ],
+  "keywords": [
+    "api",
+    "restful",
+    "rest-api",
+    "jokes",
+    "humor",
+    "entertainment"
+  ],
+  "nodemonConfig": {
+    "watch": [
+      "src/*",
+      ".env"
+    ],
+    "ignore": [
+      "out/*",
+      "node_modules/*",
+      "test.js",
+      "test.ts"
+    ]
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+  }
+}

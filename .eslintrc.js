@@ -1,35 +1,32 @@
 module.exports = {
-    "env": {
-        "commonjs": true,
-        "es2021": true,
-        "node": true,
+    env: {
+        es6: true,
+        node: true,
     },
-    "extends": "eslint:recommended",
-    "parserOptions": {
-        "ecmaVersion": 13,
+    extends: [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+    ],
+    parser: "@typescript-eslint/parser",
+    parserOptions: {
+        ecmaVersion: "latest",
+        sourceType: "module",
     },
-    "rules": {
-        "indent": [
-            "error",
-            4,
-        ],
-        "linebreak-style": [
-            "error",
-            "unix",
-        ],
-        "quotes": [
-            "error",
-            "double",
-        ],
-        "semi": [
-            "error",
-            "always",
-        ],
+    plugins: [
+        "@typescript-eslint",
+    ],
+    ignorePatterns: [
+        "out/**",
+        "test.*",
+    ],
+    rules: {
+        "quotes": [ "error", "double" ],
+        "semi": [ "error", "always" ],
+        "eol-last": [ "error", "always" ],
         "no-async-promise-executor": "off",
-        "no-unused-vars": "warn",
-        "comma-dangle": [
-            "error",
-            "always-multiline",
-        ],
+        // see https://github.com/eslint/eslint/issues/14538#issuecomment-862280037
+        "indent": ["error", 4, { "ignoredNodes": ["VariableDeclaration[declarations.length=0]"] }],
+        "@typescript-eslint/no-non-null-assertion": "off",
+        "@typescript-eslint/no-unused-vars": ["warn", { "ignoreRestSiblings": true, "argsIgnorePattern": "^_" }],
     },
 };
