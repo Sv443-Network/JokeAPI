@@ -7,66 +7,19 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "JokeAPI",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "program": "${workspaceFolder}/JokeAPI.js",
-            "args": [
-                "--trace-warnings"
-            ],
+            "name": "Launch",
+            "program": "${workspaceFolder}/src/bot.ts",
+            "preLaunchTask": "prelaunch",
+            "outFiles": ["${workspaceFolder}/out/**/*.js"],
             "console": "integratedTerminal"
         },
         {
-            "program": "${workspaceFolder}/tools/test.js",
-            "name": "Unit Tests",
-            "request": "launch",
             "type": "node",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "args": [
-                "--trace-deprecation"
-            ],
-            "console": "integratedTerminal"
-        },
-        {
-            "program": "${workspaceFolder}/tools/info.js",
-            "name": "Tools/xy",
             "request": "launch",
-            "type": "node",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "args": [
-                "--trace-deprecation"
-            ],
-            "console": "integratedTerminal"
-        },
-        {
-            "program": "${workspaceFolder}/tools/cli.js",
-            "name": "CLI",
-            "request": "launch",
-            "type": "node",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "args": [
-                "--trace-deprecation"
-            ],
-            "console": "integratedTerminal"
-        },
-        {
-            "program": "${workspaceFolder}/test.js",
-            "name": "test.js",
-            "request": "launch",
-            "type": "node",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "args": [
-                "--trace-deprecation"
-            ],
+            "name": "test.ts",
+            "program": "${workspaceFolder}/src/test.ts",
+            "preLaunchTask": "prelaunch",
+            "outFiles": ["${workspaceFolder}/out/**/*.js"],
             "console": "integratedTerminal"
         }
     ],
