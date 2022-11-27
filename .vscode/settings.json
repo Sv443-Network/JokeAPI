@@ -1,11 +1,12 @@
 {
-    // eslint
-    "editor.formatOnSave": true,
+    // ESLint
     "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
+        "source.fixAll.eslint": true,
     },
+    "eslint.validate": ["typescript"],
 
-    "highlight.regexes": { // REQUIRES EXTENSION: fabiospampinato.vscode-highlight
+    // Requires extension: fabiospampinato.vscode-highlight
+    "highlight.regexes": {
         "(((jsl|scl)\\.)?unused\\([a-zA-Z_,\\[\\]\\s\\-\":.]+\\);*)": [ // jsl.unused([some_var, some_other_var]); or scl.unused(xy);
             {
                 "backgroundColor": "rgba(0, 0, 0, 0.2)",
@@ -49,14 +50,9 @@
             }
         ],
     },
-    "npm-scripts.showStartNotification": false,
 
-    // JokeAPI-specific:
-
-    "files.exclude": {         // hide files so they can't be opened in the IDE
-        "docs/compiled": true, // to prevent accidentally changing the compiled documentation to only have it be overridden after the next compile
-        "dev/madge": true,     // the files don't need to be modified, they only serve as a distraction
-    },
-
-    "deno.enable": false
+    // Git
+    "git.branchPrefix": "feat/",
+    "git.branchProtection": [ "main" ],
+    "git.branchProtectionPrompt": "alwaysPrompt",
 }

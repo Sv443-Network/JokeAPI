@@ -18,6 +18,7 @@ module.exports = {
     ignorePatterns: [
         "out/**",
         "test.*",
+        "src/tools/**"
     ],
     rules: {
         "quotes": [ "error", "double" ],
