@@ -18,7 +18,7 @@ module.exports = {
     ignorePatterns: [
         "out/**",
         "test.*",
-        "src/tools/**"
+        "src/tools/**",
     ],
     rules: {
         "quotes": [ "error", "double" ],
@@ -29,5 +29,6 @@ module.exports = {
         "indent": ["error", 4, { "ignoredNodes": ["VariableDeclaration[declarations.length=0]"] }],
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/no-unused-vars": ["warn", { "ignoreRestSiblings": true, "argsIgnorePattern": "^_" }],
+        "comma-dangle": ["error", "always-multiline"],
     },
 };

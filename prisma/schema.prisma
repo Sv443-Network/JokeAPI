@@ -26,7 +26,7 @@ model Submission {
   joke         String
   joke2        String?
   flags        Flag[]
-  lang         Language
+  lang         String
   User         User       @relation(fields: [userId], references: [userId])
 
   @@id([userId, submissionId])
@@ -38,7 +38,7 @@ model Joke {
   joke       String
   joke2      String?
   flags      Flag[]
-  lang       Language
+  lang       String
   id         Int        @default(autoincrement())
 
   @@id([id, lang])
@@ -67,14 +67,4 @@ enum Flag {
   political
   sexist
   explicit
-}
-
-enum Language {
-  Czech
-  English
-  French
-  German
-  Portuguese
-  Russian
-  Spanish
 }
