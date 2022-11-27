@@ -4,7 +4,7 @@
         {
             "label": "prelaunch",
             "type": "shell",
-            "command": "tsc"
+            "command": "tsc --build --noEmit"
         }
     ]
 }

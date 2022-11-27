@@ -40,11 +40,7 @@
         "out",
         "src/test.ts"
     ],
-    "tsc-alias": {
-        "replacers": {
-            "base-url": {
-                "enabled": false
-            }
-        }
-    }
+    "references": [
+        { "path": "./src/types/jokeapi" }
+    ]
 }
