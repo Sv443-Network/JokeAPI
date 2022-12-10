@@ -1,25 +1,28 @@
 <div align="center" style="text-align:center">
 
-# [![icon](https://sv443.net/cdn/jokeapi/icon_readme.png)](#readme)<br>JokeAPI
-
-### A REST API that serves uniformly and well formatted jokes and offers a great variety of filtering methods and response customization
+# [![icon](https://sv443.net/cdn/jokeapi/icon_readme.png)](#readme)<br>JokeAPI v3
 
 [![Uptime / 7 Days](https://img.shields.io/uptimerobot/ratio/7/m784261094-bff76b959ebb8fc39f7eb2d0)](https://status.sv443.net/)
 [![Known Vulnerabilities](https://snyk.io/test/github/Sv443/JokeAPI/badge.svg)](https://snyk.io/test/github/Sv443/JokeAPI)
-
 [![Discord](https://img.shields.io/discord/565933531214118942)](https://discord.gg/aBH4uRG)
-[![GitHub stars](https://img.shields.io/github/stars/Sv443/JokeAPI?style=social)](https://github.com/Sv443/JokeAPI/stargazers)
 
-<br><br>
+<br>
+
+### Here be dragons
+
+<br><br><br><br>
+
+<sub>dragons deez nuts across yo face</sub>
+
+<br>
 
 # [Documentation](https://jokeapi.dev/)
-
 ## [Try it out](https://jokeapi.dev/#try-it) &bull; [Changelog](./changelog.md) &bull; [Discord Server](https://dc.sv443.net/)
 
 </div>
-<br><br>
+<br><br><br>
 
-### Note: due to the different types of humor, JokeAPI contains a wide variety of jokes, of which some are very offensive. They can be filtered out, but use this API at your own risk!
+<!--### Note: due to the different types of humor, JokeAPI contains a wide variety of jokes, of which some are very offensive. They can be filtered out, but use this API at your own risk!
 
 ### If you want to contribute to JokeAPI (code, jokes or translations), please read the [contributing guide.](./.github/Contributing.md)
 
@@ -57,6 +60,7 @@
 <sup>[Submit an issue](https://github.com/Sv443/JokeAPI/issues/new/choose) and select `Dependent` to get your project added here</sup>
 
 <br><br>
+-->
 
 <div align="center" style="text-align:center">
 
