@@ -15,6 +15,10 @@ export const settings = {
         hostname: "0.0.0.0",
         /** port for HTTP requests */
         port: getEnvVar("HTTP_PORT", "numberNoEmpty") ?? 8076,
+        rateLimit: {
+            points: 300,
+            duration: 60 * 30,
+        },
     },
 };
 
