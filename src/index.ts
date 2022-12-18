@@ -1,13 +1,14 @@
 import k from "kleur";
 
 import * as lists from "./lists";
+import * as auth from "./auth";
 import * as server from "./server";
 import * as meter from "./meter";
 
 import { settings } from "./settings";
 
 type Module = {
-    init: () => Promise<unknown>,
+    init: () => unknown | Promise<unknown>,
     name: string,
 };
 
@@ -23,13 +24,17 @@ async function init() {
 async function initModules() {
     const modules: Module[] = [
         lists,
+        auth,
         server,
         meter,
     ];
 
     for(const mod of modules) {
         try {
-            await mod.init();
+            const initRes = mod.init();
+            if(initRes instanceof Promise)
+                await initRes;
+
             console.info(`Initialized module "${mod.name}"`);
         }
         catch(err) {

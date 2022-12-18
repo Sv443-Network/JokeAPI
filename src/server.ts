@@ -9,7 +9,7 @@ import cors from "cors";
 import { initFuncs as endpointInitFuncs } from "./endpoints";
 import { settings } from "./settings";
 import { error } from "./error";
-import auth from "./auth";
+import { validToken } from "./auth";
 import { JSONCompatible } from "svcorelib";
 import { ResponseFormat } from "./types";
 
@@ -37,10 +37,9 @@ export async function init() {
     });
 
     const addRateLimitHeaders = (res: Response, rlRes: RateLimiterRes) => {
-        const retryAfter = Math.ceil(rlRes.msBeforeNext / 1000);
         res.setHeader("X-RateLimit-Limit", settings.server.rateLimit.points);
         res.setHeader("X-RateLimit-Remaining", rlRes.remainingPoints);
-        res.setHeader("Retry-After", retryAfter);
+        res.setHeader("Retry-After", Math.ceil(rlRes.msBeforeNext / 1000));
     };
 
     const listener = app.listen(settings.server.port, settings.server.hostname, () => {
@@ -52,16 +51,15 @@ export async function init() {
             const { authorization } = req.headers;
             const authToken = authorization?.startsWith("Bearer") ? authorization.substring(7) : authorization;
 
-            res.setHeader("API-Info", `JokeAPI v${settings.info.version} (${settings.info.homepage})`);
+            res.setHeader("API-Info", `${settings.info.name} v${settings.info.version} (${settings.info.homepage})`);
 
-            if(authToken && auth.validToken(authToken))
+            if(authToken && validToken(authToken))
                 return next();
 
             rateLimiter.consume(req.ip)
                 .catch((err) => {
                     if(err instanceof RateLimiterRes) {
                         addRateLimitHeaders(res, err);
-                        res.set("Retry-After", String(Math.ceil(err.msBeforeNext / 1000)));
                         return respond(res, { message: "You are being rate limited" }, 429, format);
                     }
                     else return respond(res, { message: "Internal error in rate limiting middleware. Please try again later." }, 500, format);

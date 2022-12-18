@@ -1,3 +1,5 @@
+export const name = "auth";
+
 export function init() {
     void 0;
 }
@@ -5,8 +7,3 @@ export function init() {
 export function validToken(token: string) {
     return false;
 }
-
-export default {
-    init,
-    validToken,
-};
