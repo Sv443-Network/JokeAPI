@@ -28,7 +28,7 @@ export function envVarEquals(varName: string, value: Stringifiable, caseSensitiv
 {
     const envVal = process.env[varName];
     const val = String(value);
-    return (caseSensitive ? envVal : envVal?.toLowerCase()) === (caseSensitive ? String(val) : String(val).toLowerCase());
+    return (caseSensitive ? envVal : envVal?.toLowerCase()) === (caseSensitive ? val : val.toLowerCase());
 }
 
 /** Grabs an environment variable's value, and casts it to a `string` */
