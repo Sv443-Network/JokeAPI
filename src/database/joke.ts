@@ -1,3 +1,4 @@
+import { Flag } from "@prisma/client";
 import { JokeFilter } from "src/types/jokes";
 import { prisma } from "./client";
 
@@ -15,7 +16,7 @@ export function getFilteredJokes(filter: Partial<JokeFilter>, amount = 1) {
             }, {
                 NOT: {
                     flags: {
-                        hasSome: filter.blacklistFlags,
+                        hasSome: filter.blacklistFlags as Flag[],
                     },
                 },
             }, {
