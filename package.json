@@ -119,7 +119,7 @@
     "yargs": "^17.2.1"
   },
   "devDependencies": {
-    "dependency-cruiser": "^10.0.6",
+    "dependency-cruiser": "^13.0.0",
     "eslint": "^8.1.0",
     "lodash": "^4.17.21",
     "madge": "^4.0.1",
