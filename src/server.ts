@@ -19,92 +19,92 @@ const app = getApp();
 
 // TODO: fine tune & implement rate limiters for different tiers
 const rateLimiter = new RateLimiterMemory({
-    points: settings.server.rateLimit.points,
-    duration: settings.server.rateLimit.duration,
+  points: settings.server.rateLimit.points,
+  duration: settings.server.rateLimit.duration,
 });
 
 export async function init() {
-    if(await portUsed(settings.server.port))
-        throw new Error(`TCP port ${settings.server.port} is already used`);
+  if(await portUsed(settings.server.port))
+    throw new Error(`TCP port ${settings.server.port} is already used`);
 
-    // on error
-    app.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
-        const format = getFormat(req);
-        if(typeof err === "string" || err instanceof Error)
-            return respond(res, `General error in HTTP server: ${err.toString()}`, 500, format);
-        else
-            return next();
+  // on error
+  app.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
+    const format = getFormat(req);
+    if(typeof err === "string" || err instanceof Error)
+      return respond(res, `General error in HTTP server: ${err.toString()}`, 500, format);
+    else
+      return next();
+  });
+
+  const addRateLimitHeaders = (res: Response, rlRes: RateLimiterRes) => {
+    res.setHeader("X-RateLimit-Limit", settings.server.rateLimit.points);
+    res.setHeader("X-RateLimit-Remaining", rlRes.remainingPoints);
+    res.setHeader("Retry-After", Math.ceil(rlRes.msBeforeNext / 1000));
+  };
+
+  const listener = app.listen(settings.server.port, settings.server.hostname, () => {
+    app.disable("x-powered-by");
+
+    // rate limiting
+    app.use(async (req, res, next) => {
+      const format = getFormat(req);
+      const { authorization } = req.headers;
+      const authToken = authorization?.startsWith("Bearer") ? authorization.substring(7) : authorization;
+
+      res.setHeader("API-Info", `${settings.info.name} v${settings.info.version} (${settings.info.homepage})`);
+
+      if(authToken && validToken(authToken))
+        return next();
+
+      rateLimiter.consume(req.ip)
+        .catch((err) => {
+          if(err instanceof RateLimiterRes) {
+            addRateLimitHeaders(res, err);
+            return respond(res, { message: "You are being rate limited" }, 429, format);
+          }
+          else return respond(res, { message: "Internal error in rate limiting middleware. Please try again later." }, 500, format);
+        })
+        .then((rlRes) => {
+          if(rlRes instanceof RateLimiterRes)
+            addRateLimitHeaders(res, rlRes);
+        })
+        .finally(next);
     });
 
-    const addRateLimitHeaders = (res: Response, rlRes: RateLimiterRes) => {
-        res.setHeader("X-RateLimit-Limit", settings.server.rateLimit.points);
-        res.setHeader("X-RateLimit-Remaining", rlRes.remainingPoints);
-        res.setHeader("Retry-After", Math.ceil(rlRes.msBeforeNext / 1000));
-    };
+    registerEndpoints();
+  });
 
-    const listener = app.listen(settings.server.port, settings.server.hostname, () => {
-        app.disable("x-powered-by");
-
-        // rate limiting
-        app.use(async (req, res, next) => {
-            const format = getFormat(req);
-            const { authorization } = req.headers;
-            const authToken = authorization?.startsWith("Bearer") ? authorization.substring(7) : authorization;
-
-            res.setHeader("API-Info", `${settings.info.name} v${settings.info.version} (${settings.info.homepage})`);
-
-            if(authToken && validToken(authToken))
-                return next();
-
-            rateLimiter.consume(req.ip)
-                .catch((err) => {
-                    if(err instanceof RateLimiterRes) {
-                        addRateLimitHeaders(res, err);
-                        return respond(res, { message: "You are being rate limited" }, 429, format);
-                    }
-                    else return respond(res, { message: "Internal error in rate limiting middleware. Please try again later." }, 500, format);
-                })
-                .then((rlRes) => {
-                    if(rlRes instanceof RateLimiterRes)
-                        addRateLimitHeaders(res, rlRes);
-                })
-                .finally(next);
-        });
-
-        registerEndpoints();
-    });
-
-    listener.on("error", (err) => error("General server error", err, true));
+  listener.on("error", (err) => error("General server error", err, true));
 }
 
 function getApp() {
-    const app = express();
-    [
-        cors,
-        helmet,
-        express.json,
-        compression,
-    ].forEach(mw => app.use(mw()));
+  const app = express();
+  [
+    cors,
+    helmet,
+    express.json,
+    compression,
+  ].forEach(mw => app.use(mw()));
 
-    return app;
+  return app;
 }
 
 function registerEndpoints() {
-    app.get("/", (_req, res) => {
-        // TODO: serve docs through nginx here somehow
-        res.send("WIP");
-    });
+  app.get("/", (_req, res) => {
+    // TODO: serve docs through nginx here somehow
+    res.send("WIP");
+  });
 
-    for(const func of endpointInitFuncs)
-        func(app);
+  for(const func of endpointInitFuncs)
+    func(app);
 }
 
 function getFormat(req: Request): ResponseFormat {
-    const fmt = req?.query?.format ? String(req.query.format) as ResponseFormat : undefined;
-    return fmt && ["json", "xml"].includes(fmt) ? fmt : "json";
+  const fmt = req?.query?.format ? String(req.query.format) as ResponseFormat : undefined;
+  return fmt && ["json", "xml"].includes(fmt) ? fmt : "json";
 }
 
 function respond(res: Response, data: JSONCompatible, status = 200, format: ResponseFormat = "json") {
-    res.status(status);
-    return res.send(format === "json" ? data : js2xml.parse("data", data));
+  res.status(status);
+  return res.send(format === "json" ? data : js2xml.parse("data", data));
 }

@@ -8,8 +8,8 @@ import k from "kleur";
  * @param fatal Exits with code 1 if set to true
  */
 export function error(msg: string, err?: Error, fatal = false) {
-    console.error("\n" + k.red(msg));
-    err && console.error(err);
+  console.error("\n" + k.red(msg));
+  err && console.error(err);
 
-    fatal && process.exit(1);
+  fatal && process.exit(1);
 }
