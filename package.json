@@ -83,6 +83,13 @@
       "contributions": [
         "Added Spanish jokes"
       ]
+    },
+    {
+      "name": "DanBuxton",
+      "url": "https://github.com/DanBuxton",
+      "contributions": [
+        "Added C# wrapper"
+      ]
     }
   ],
   "license": "MIT",
