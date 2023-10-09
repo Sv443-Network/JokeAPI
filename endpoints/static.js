@@ -84,6 +84,12 @@ const call = (req, res, url, params, format) => {
         allowEncoding = false;
         mimeType = "image/svg+xml";
         break;
+    case "csharp-icon":
+        filePath = `${settings.documentation.dirPath}static/external/csharp.svg`;
+        statusCode = 200;
+        allowEncoding = false;
+        mimeType = "image/svg+xml";
+        break;
     default:
         requestedFile = "fallback_err_404";
         filePath = settings.documentation.error404path;
