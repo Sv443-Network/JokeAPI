@@ -23,15 +23,13 @@
 </div>
 <br><br>
 
-### Note: due to the different types of humor, JokeAPI contains a wide variety of jokes, of which some are very offensive. They can be filtered out, but use this API at your own risk!
+### Note: due to the different types of humor, JokeAPI contains a wide variety of jokes, of which some are very offensive. They can be filtered out using the `?blacklistFlags` or `?safe-mode` parameters, but use this API at your own risk!
 
-### If you want to contribute to JokeAPI (code, jokes or translations), please read the [contributing guide.](./.github/Contributing.md)
-
-### Want to know how JokeAPI works? The [developer documentation](https://github.com/Sv443/JokeAPI/tree/version/2.4.0/dev/docs/home.md#readme) (work in progress) explains it.
+### If you want to contribute to JokeAPI (code, jokes or translations), please refer to the [contributing guide.](./.github/Contributing.md)
 
 <br><br>
 
-# Officially recognized API Wrappers:
+# Community-made wrapper libraries:
 <h3>
 
 -   <b><a href="https://github.com/canarado/joketeller#readme"><img src="./docs/static/external/rust.svg" width="16" height="16" /> Rust</a></b>
@@ -41,6 +39,7 @@
 -   <b><a href="https://github.com/Icelain/jokeapi#readme"><img src="./docs/static/external/golang.svg" width="16" height="16" /> Go</a></b>
 -   <b><a href="https://github.com/khurozov/jokeapi-java#readme"><img src="./docs/static/external/java.svg" width="16" height="16" /> Java</a></b>
 -   <b><a href="https://github.com/ethauvin/jokeapi#readme"><img src="./docs/static/external/kotlin.svg" width="16" height="16" /><img src="./docs/static/external/java.svg" width="16" height="16" /><img src="./docs/static/external/android.svg" width="16" height="16" /> Kotlin, Java & Android</a></b>
+-   <b><a href="https://github.com/DanBuxton/JokeAPI-CS-Wrapper#readme"><img src="./docs/static/external/csharp.svg" width="16" height="16" /> C#</a></b>
 
 </h3>
 <br>
@@ -65,7 +64,8 @@
 
 <br>
 
-[Submit an issue](https://github.com/Sv443/JokeAPI/issues/new/choose) and select `Dependent` to get your project added here
+Project submissions are paused for the foreseeable future.
+<!-- [Submit an issue](https://github.com/Sv443/JokeAPI/issues/new/choose) and select `Dependent` to get your project added here -->
 
 <!--
 Old list-style dependents:
@@ -87,7 +87,7 @@ Old list-style dependents:
 
 <div align="center" style="text-align:center">
 
-Made with ❤️ by [Sv443](https://github.com/Sv443) and [others](https://github.com/Sv443/JokeAPI/graphs/contributors)  
+Made with ❤️ by [Sv443](https://github.com/Sv443) and [contributors](https://github.com/Sv443/JokeAPI/graphs/contributors)  
 Like JokeAPI? Please consider [supporting me](https://github.com/sponsors/Sv443)
 
 </div>
