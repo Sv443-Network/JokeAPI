@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "target": "ES2022",
-    "lib": ["ES2022"],
-    "module": "CommonJS",
+    "target": "ESNext",
+    "lib": ["ES2022", "Decorators", "ESNext"],
+    "module": "ESNext",
+    "moduleResolution": "node",
     "rootDir": "./src/",
     "outDir": "./out/",
     "strict": true,
-    "moduleResolution": "node",
     "importHelpers": true,
     "experimentalDecorators": true,
     "esModuleInterop": true,
@@ -16,8 +16,13 @@
     "resolveJsonModule": true,
     "forceConsistentCasingInFileNames": true,
     "removeComments": true,
-    "typeRoots": ["node_modules/@types", "src/types"],
-    "sourceMap": true
+    "sourceMap": true,
+    "useDefineForClassFields": true,
+    "noImplicitThis": false
+  },
+  "ts-node": {
+    "esm": true,
+    "preferTsExts": true
   },
   "files": ["src/index.ts"],
   "include": ["src/**/*.ts"],
