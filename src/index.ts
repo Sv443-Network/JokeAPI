@@ -1,11 +1,12 @@
 import k from "kleur";
 
-import * as lists from "./lists";
-import * as auth from "./auth";
-import * as server from "./server";
-import * as meter from "./meter";
+import * as lists from "./lists.js";
+import * as auth from "./auth.js";
+import * as server from "./server.js";
+import * as meter from "./meter.js";
 
-import { settings } from "./settings";
+import { settings } from "./settings.js";
+import { logInfo } from "./utils.js";
 
 type Module = {
     init: () => unknown | Promise<unknown>,
@@ -15,10 +16,13 @@ type Module = {
 async function init() {
   await initModules();
 
-  console.log("\n");
-  console.log(k.blue(settings.info.name) + k.gray(` ${settings.info.version}`));
-  console.log(`HTTP Port: ${settings.server.port}`);
-  console.log();
+  const initMsgLines = [
+    k.blue(k.bold(settings.info.name)) + k.gray(` v${settings.info.version}`),
+    `  └─► HTTP Port: ${settings.server.port}`,
+  ];
+  // ├─►
+  // └─►
+  console.log(`\n${initMsgLines.join("\n")}\n`);
 }
 
 /** Initialize JokeAPI's modules */
@@ -36,7 +40,7 @@ async function initModules() {
       if(initRes instanceof Promise)
         await initRes;
 
-      console.info(`Initialized module "${mod.name}"`);
+      logInfo(`Initialized module "${mod.name}"`);
     }
     catch(err) {
       console.error(k.red(`Error while initializing module "${mod.name}":\n`), err);

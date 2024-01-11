@@ -5,8 +5,8 @@
   "main": "./out/index.js",
   "type": "module",
   "scripts": {
-    "start": "npm run build && node --enable-source-maps out/index.js",
-    "dev": "nodemon -e ts --inspect npm start",
+    "start": "npm run build && node --no-warnings=ExperimentalWarning --enable-source-maps out/index.js",
+    "dev": "nodemon --exec npm start",
     "test": "npm run node-ts -- src/test.ts",
     "lint": "npm run build -- --noEmit && eslint .",
     "build": "tsc --build",
@@ -38,7 +38,6 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "fs-extra": "^10.1.0",
     "helmet": "^6.0.0",
     "js2xmlparser": "^5.0.0",
     "kleur": "^4.1.5",
@@ -115,8 +114,11 @@
   "nodemonConfig": {
     "watch": [
       "src/*",
+      "data/*",
+      "prisma/*",
       ".env"
     ],
+    "ext": "ts,mts,js,cjs,mjs,prisma,json,jsonc,html,css,svg,png",
     "ignore": [
       "out/*",
       "node_modules/*",
@@ -125,6 +127,6 @@
     ]
   },
   "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+    "seed": "ts-node --compiler-options {\"module\":\"ESNext\"} prisma/seed.ts"
   }
 }

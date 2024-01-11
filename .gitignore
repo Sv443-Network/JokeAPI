@@ -1,21 +1,23 @@
-# Logs
+# Logs:
 logs
 *.log
 npm-debug.log*
 
-# npm
+# npm:
 node_modules/
 .npm
 
-# Dotenv environment variables file
+# Dotenv environment variables:
 .env
+
+# Build files:
+out/
 
 # Dev stuff:
 test.ts
 test.js
 src/dev/ghb/
 *.bak
-
 *_ignore/
 *_ignore.*
 *.ignore.*

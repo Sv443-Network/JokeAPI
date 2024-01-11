@@ -1,3 +1,3 @@
-export type * from "./misc";
+export * from "./misc";
 
-export type * from "./jokeapi/index";
+export * from "./jokeapi/index";

@@ -1,6 +1,6 @@
-import * as joke from "./joke";
-import * as submission from "./submission";
-import * as user from "./user";
+import * as joke from "./joke.js";
+import * as submission from "./submission.js";
+import * as user from "./user.js";
 
 import type { Router } from "express";
 

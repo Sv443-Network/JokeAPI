@@ -7,11 +7,11 @@ import { check as portUsed } from "tcp-port-used";
 import js2xml from "js2xmlparser";
 import { getClientIp } from "request-ip";
 
-import { settings } from "./settings";
-import { initFuncs as routeInitFuncs } from "./routes";
-import { error } from "./error";
-import { validToken } from "./auth";
-import { createHash } from "crypto";
+import { settings } from "./settings.js";
+import { initFuncs as routeInitFuncs } from "./routes/index.js";
+import { error } from "./error.js";
+import { validToken } from "./auth.js";
+import { createHash } from "node:crypto";
 
 import type { JSONCompatible } from "svcorelib";
 import type { ResponseFormat } from "./types";
