@@ -1,14 +1,14 @@
 {
-    "json": {
-        "mimeType": "application/json"
-    },
-    "xml": {
-        "mimeType": "application/xml"
-    },
-    "yaml": {
-        "mimeType": "application/x-yaml"
-    },
-    "txt": {
-        "mimeType": "text/plain"
-    }
+  "json": {
+    "mimeType": "application/json"
+  },
+  "xml": {
+    "mimeType": "application/xml"
+  },
+  "yaml": {
+    "mimeType": "application/x-yaml"
+  },
+  "txt": {
+    "mimeType": "text/plain"
+  }
 }

@@ -10,13 +10,12 @@ node_modules/
 # Dotenv environment variables file
 .env
 
-# Other potentially sensitive information:
-data/lists/blacklisted.json
-data/lists/whitelisted.json
-data/lists/noLogging.json
-
 # Dev stuff:
 test.ts
 test.js
 src/dev/ghb/
 *.bak
+
+*_ignore/
+*_ignore.*
+*.ignore.*
