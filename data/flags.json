@@ -1,0 +1,62 @@
+[
+  {
+    "id": "body-shaming",
+    "dev_name_en": "body-shaming",
+    "dev_description_en": "Jokes that make fun of someone's body type or appearance."
+  },
+  {
+    "id": "cultural-insensitivity",
+    "dev_name_en": "cultural-insensitivity",
+    "dev_description_en": "Jokes that make fun of a culture or cultural group."
+  },
+  {
+    "id": "drug-use",
+    "dev_name_en": "drug-use",
+    "dev_description_en": "Jokes that reference or encourage drug use."
+  },
+  {
+    "id": "explicit-language",
+    "dev_name_en": "explicit-language",
+    "dev_description_en": "Jokes that contain explicit language like swear words."
+  },
+  {
+    "id": "gender-and-sexuality",
+    "dev_name_en": "gender-and-sexuality",
+    "dev_description_en": "Jokes that make fun of gender identity or sexual orientation."
+  },
+  {
+    "id": "mature-content",
+    "dev_name_en": "mature-content",
+    "dev_description_en": "Jokes that are directed at a mature audience."
+  },
+  {
+    "id": "politics",
+    "dev_name_en": "politics",
+    "dev_description_en": "Jokes that reference politicians or make fun of politics."
+  },
+  {
+    "id": "racial-insensitivity",
+    "dev_name_en": "racial-insensitivity",
+    "dev_description_en": "Jokes that are racially insensitive."
+  },
+  {
+    "id": "religious-insensitivity",
+    "dev_name_en": "religious-insensitivity",
+    "dev_description_en": "Jokes that are religiously insensitive."
+  },
+  {
+    "id": "sexual-content",
+    "dev_name_en": "sexual-content",
+    "dev_description_en": "Jokes that contain sexual content or references."
+  },
+  {
+    "id": "stereotypes",
+    "dev_name_en": "stereotypes",
+    "dev_description_en": "Jokes that make fun of a group of people based on stereotypes."
+  },
+  {
+    "id": "violence",
+    "dev_name_en": "violence",
+    "dev_description_en": "Jokes that reference or encourage violence."
+  }
+]
