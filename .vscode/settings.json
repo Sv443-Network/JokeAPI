@@ -1,19 +1,26 @@
 {
-  // ESLint
+  // >> Other:
+  // use .js extension as per ESNext spec
+  "javascript.preferences.importModuleSpecifierEnding": "js",
+  "typescript.preferences.importModuleSpecifierEnding": "js",
+
+  // >> ESLint:
   "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": "explicit"
+    "source.fixAll.eslint": "explicit"
   },
   "eslint.validate": ["typescript"],
 
-  // Requires extension: fabiospampinato.vscode-highlight
+  // >> VSCode-Highlight:
   "highlight.regexes": {
-    "(((jsl|scl)\\.)?unused\\([a-zA-Z_,\\[\\]\\s\\-\":.]+\\);*)": [ // jsl.unused([some_var, some_other_var]); or scl.unused(xy);
+    "(((jsl|scl)\\.)?unused\\([a-zA-Z_,\\[\\]\\s\\-\":.]+\\);*)": [
+      // jsl.unused([some_var, some_other_var]); or scl.unused(xy);
       {
         "backgroundColor": "#0003",
         "color": "#f88"
       }
     ],
-    "(#MARKER)": [ // #MARKER test
+    "(#MARKER)": [
+      // #MARKER test
       {
         "backgroundColor": "#f41",
         "color": "#fff",
@@ -21,24 +28,26 @@
         "overviewRulerColor": "#f41"
       }
     ],
-    "(#SECTION ([^\\S\\r\\n]*[\\w,.\\-_]+)*[:]*)": [ // #SECTION test, 123
+    "(#SECTION ([^\\S\\r\\n]*[\\w,.\\-_]+)*[:]*)": [
+      // #SECTION test, 123
       {
         "backgroundColor": "#44f",
         "color": "#fff",
         "overviewRulerColor": "#44f"
       }
     ],
-    "(#?DE?BU?G#?)": [ // #DEBUG# or #DBG or DEBUG or DBG
+    "(#?DE?BU?G#?)": [
+      // #DEBUG# or #DBG or DEBUG or DBG
       {
         "backgroundColor": "#ff0",
         "color": "#00f",
         "overviewRulerColor": "#ff0"
       }
-    ],
+    ]
   },
 
-  // Git
+  // >> Git:
   "git.branchPrefix": "feat/",
-  "git.branchProtection": [ "main", "master" ],
-  "git.branchProtectionPrompt": "alwaysPrompt",
+  "git.branchProtection": ["main", "master"],
+  "git.branchProtectionPrompt": "alwaysPrompt"
 }
