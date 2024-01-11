@@ -5,17 +5,19 @@ import helmet from "helmet";
 import { RateLimiterMemory, RateLimiterRes } from "rate-limiter-flexible";
 import js2xml from "js2xmlparser";
 import cors from "cors";
+import { getClientIp } from "request-ip";
 
-import { initFuncs as endpointInitFuncs } from "./endpoints";
+import { initFuncs as routeInitFuncs } from "./routes";
 import { settings } from "./settings";
 import { error } from "./error";
 import { validToken } from "./auth";
 import { JSONCompatible } from "svcorelib";
 import { ResponseFormat } from "./types";
+import { createHash } from "crypto";
 
 export const name = "server";
 
-const app = getApp();
+const app = createApp();
 
 // TODO: fine tune & implement rate limiters for different tiers
 const rateLimiter = new RateLimiterMemory({
@@ -56,19 +58,27 @@ export async function init() {
       if(authToken && validToken(authToken))
         return next();
 
-      rateLimiter.consume(req.ip)
-        .catch((err) => {
-          if(err instanceof RateLimiterRes) {
-            addRateLimitHeaders(res, err);
-            return respond(res, { message: "You are being rate limited" }, 429, format);
-          }
-          else return respond(res, { message: "Internal error in rate limiting middleware. Please try again later." }, 500, format);
-        })
-        .then((rlRes) => {
-          if(rlRes instanceof RateLimiterRes)
-            addRateLimitHeaders(res, rlRes);
-        })
-        .finally(next);
+      const clientIp = getClientIp(req);
+      const ip = clientIp ? hashIp(clientIp) : null;
+
+      if(ip) {
+        rateLimiter.consume(ip)
+          .catch((err) => {
+            if(err instanceof RateLimiterRes) {
+              addRateLimitHeaders(res, err);
+              return respond(res, { message: "You are being rate limited" }, 429, format);
+            }
+            else
+              return respond(res, { message: "Internal error in rate limiting middleware. Please try again later." }, 500, format);
+          })
+          .then((rlRes) => {
+            if(rlRes instanceof RateLimiterRes)
+              addRateLimitHeaders(res, rlRes);
+          })
+          .finally(next);
+      }
+      else
+        return next();
     });
 
     registerEndpoints();
@@ -77,34 +87,58 @@ export async function init() {
   listener.on("error", (err) => error("General server error", err, true));
 }
 
-function getApp() {
+/** Creates the express app */
+function createApp() {
   const app = express();
   [
-    cors,
-    helmet,
-    express.json,
-    compression,
-  ].forEach(mw => app.use(mw()));
+    cors({
+      origin: "*",
+      methods: ["GET", "POST", "PUT", "DELETE"],
+      allowedHeaders: "*",
+    }),
+    helmet({
+      referrerPolicy: {
+        policy: "no-referrer",
+      },
+    }),
+    express.json(),
+    compression(),
+  ].forEach(mw => app.use(mw));
 
   return app;
 }
 
+/** Registers all endpoints */
 function registerEndpoints() {
-  app.get("/", (_req, res) => {
-    // TODO: serve docs through nginx here somehow
+  const router = express.Router();
+
+  router.get("/", (_req, res) => {
+    // TODO: Redirect to docs
+    // or even better, serve them with nginx
     res.send("WIP");
   });
 
-  for(const func of endpointInitFuncs)
-    func(app);
+  for(const initRoute of routeInitFuncs)
+    initRoute(router);
+
+  app.use(router);
 }
 
+/** Gets the response format from the given request */
 function getFormat(req: Request): ResponseFormat {
   const fmt = req?.query?.format ? String(req.query.format) as ResponseFormat : undefined;
   return fmt && ["json", "xml"].includes(fmt) ? fmt : "json";
 }
 
+/** Responds to a request with the given data and status, converting it to XML if needed */
 function respond(res: Response, data: JSONCompatible, status = 200, format: ResponseFormat = "json") {
   res.status(status);
   return res.send(format === "json" ? data : js2xml.parse("data", data));
+}
+
+/** Hashes an IP for enhanced privacy */
+function hashIp(ip: string) {
+  const hash = createHash("sha1", { encoding: "utf-8" });
+  hash.update(ip);
+  return hash.digest("hex");
 }

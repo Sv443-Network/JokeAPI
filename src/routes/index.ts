@@ -2,7 +2,9 @@ import * as joke from "./joke";
 import * as submission from "./submission";
 import * as user from "./user";
 
-export const initFuncs = [
+import type { Router } from "express";
+
+export const initFuncs: ((router: Router) => void)[] = [
   joke,
   submission,
   user,
