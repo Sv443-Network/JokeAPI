@@ -3,7 +3,13 @@ import { join } from "path";
 
 export const name = "lists";
 
-type ListType = "blacklisted" | "noLogging" | "whitelisted";
+const listTypes = [
+  "blocklist",
+  "noLogging",
+  "allowlist",
+] as const;
+
+type ListType = typeof listTypes[number];
 
 let lists: Record<ListType, string[]> | undefined;
 const listsBasePath = "./data/lists/";
@@ -31,8 +37,8 @@ export function isOnMultipleLists(ip: string, types: ListType[]) {
 }
 
 async function getLists() {
-  const lists2: Partial<typeof lists> = {};
+  const initLists: Partial<typeof lists> = {};
   for(const listType of ["blacklisted", "noLogging", "whitelisted"] as ListType[])
-    lists2[listType] = JSON.parse(String(await readFile(join(listsBasePath, `${listType}.json`)))) as string[];
-  return lists2 as typeof lists;
+    initLists[listType] = JSON.parse(String(await readFile(join(listsBasePath, `${listType}.json`)))) as string[];
+  return initLists as typeof lists;
 }

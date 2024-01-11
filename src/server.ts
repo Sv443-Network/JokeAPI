@@ -1,19 +1,20 @@
+import express, { type NextFunction, type Request, type Response } from "express";
 import compression from "compression";
-import express, { NextFunction, Request, Response } from "express";
-import { check as portUsed } from "tcp-port-used";
+import cors from "cors";
 import helmet from "helmet";
 import { RateLimiterMemory, RateLimiterRes } from "rate-limiter-flexible";
+import { check as portUsed } from "tcp-port-used";
 import js2xml from "js2xmlparser";
-import cors from "cors";
 import { getClientIp } from "request-ip";
 
-import { initFuncs as routeInitFuncs } from "./routes";
 import { settings } from "./settings";
+import { initFuncs as routeInitFuncs } from "./routes";
 import { error } from "./error";
 import { validToken } from "./auth";
-import { JSONCompatible } from "svcorelib";
-import { ResponseFormat } from "./types";
 import { createHash } from "crypto";
+
+import type { JSONCompatible } from "svcorelib";
+import type { ResponseFormat } from "./types";
 
 export const name = "server";
 

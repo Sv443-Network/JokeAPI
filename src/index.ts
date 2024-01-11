@@ -21,6 +21,7 @@ async function init() {
   console.log();
 }
 
+/** Initialize JokeAPI's modules */
 async function initModules() {
   const modules: Module[] = [
     lists,
