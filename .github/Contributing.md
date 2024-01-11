@@ -1,16 +1,53 @@
 <div style="text-align:center;" align="center">
 
 ## JokeAPI Contribution Guide
-<sup>- for API version 3 -</sup>
+<b><sup>— for API version 3 —</sup></b>
 
 </div>
 
 ### Table of Contents:
 - Setting up JokeAPI locally on your device
-  1. [Preparing the IDE](#)
-  2. [Setting up JokeAPI](#)
-- [Submitting translations](#)
+  1. [Preparing the IDE](#preparing-the-ide)
+  2. [Setting up JokeAPI](#setting-up-jokeapi)
+  3. [Running JokeAPI](#running-jokeapi)
+  4. [Development commands](#development-commands)
+- [Submitting translations](#submitting-translations)
 
+<br>
+
+## Preparing the IDE
+1. Install [Node.js](https://nodejs.org/) (LTS version recommended) and [Git](https://git-scm.com/)
+2. Install [VS Code](https://code.visualstudio.com/) (strongly recommended) or any preferred IDE
+3. When using VS Code, after opening the project folder you should be prompted to install a few recommended extensions.  
+  These are not technically required but will make working with the code a LOT easier.
+
+<br>
+
+## Setting up JokeAPI
+1. Fork and clone the repository, then run `git clone https://github.com/YourUsername/JokeAPI.git`
+2. Check out all submodules with `git submodule update --init --recursive`
+3. Install all dependencies with `npm i`
+4. Copy the file `.env.template`, rename it to `.env` and fill in the values
+
+<br>
+
+## Running JokeAPI
+- Run `npm run dev` to start JokeAPI in development mode and automatically recompile and restart it when you make changes to the code
+- Run `npm run start` to build JokeAPI normally and start it in production mode
+
+<br>
+
+## Development commands
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Starts JokeAPI in development mode and automatically recompiles and restarts it when you make changes to the code |
+| `npm run start` | Builds JokeAPI normally and starts it in production mode |
+| `npm run lint` | Builds and checks the code for any warnings or errors |
+| `npx changeset` | Create new patch notes that will be added to the changelog automatically and trigger the automatic versioning and deployment |
+
+<br><br>
+
+## Submitting Translations:
 
 <!--This guide will tell you how you can and should contribute to JokeAPI.  -->
 <!--Not following it might cause me to reject your changes but at the very least we will both lose time.  -->

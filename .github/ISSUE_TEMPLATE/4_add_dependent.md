@@ -9,44 +9,19 @@ assignees: Sv443
 
 <!--
     If this issue is approved, your project will be added to these dependent lists:
+    // TODO: update URLs
     - https://jokeapi.dev/#dependents
     - https://github.com/Sv443/JokeAPI#readme    (scroll down all the way)
 -->
 
-## Link to the project:
-<!-- Add a single URL to the dependent project here -->
-```
-https://github.com/example/My_Project
-```
+## Information about the wrapper:
+- URL to the repository:
+- Wrapper's name to be displayed in the dependent lists:
+- Supported language(s):
+- URL to your main profile / website:
+- Your name to be displayed in the dependent lists:
+- Your email address for special pre-release updates (optional):
 
-
-<br><br>
-
-## Link to my personal website / GitHub page (optional):
-<!-- Add a single URL to your website or GitHub page (or something similar) here -->
-```
-https://github.com/example
-```
-
-
-<br><br>
-
-## Is your project explicit or unsafe for minors to view?
-<!-- Please check the option that fits your project (add an x between the square brackets or submit the issue, then click the checkbox) -->
-- [ ] **Yes**, it contains explicit material
-- [ ] **No**, it doesn't contain explicit material
-
-
-<br><br>
-
-## Notes:
-<!-- If you only want your project to show up on one of the dependent lists or you have some other thing you need the developer(s) to know, put it in this section -->
-
-
-
-<br><br>
-
-## Checklist:
-- [ ] I have added my project's name to the title of this issue
-- [ ] I have filled out at least the first URL (second one is optional)
-- [ ] I have specified whether or not my project is explicit
+<!-- Please also consider contacting me through our Discord server to receive a special role. -->
+<!-- This will grant you access to a channel where we will send development updates and you can chat with us to discuss changes. -->
+<!-- Use this URL to join: https://dc.sv443.net/ -->
