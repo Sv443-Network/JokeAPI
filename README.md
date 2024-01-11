@@ -3,7 +3,7 @@
 # [![icon](https://sv443.net/cdn/jokeapi/icon_readme.png)](#readme)<br>JokeAPI v3
 
 [![Uptime / 7 Days](https://img.shields.io/uptimerobot/ratio/7/m784261094-bff76b959ebb8fc39f7eb2d0)](https://status.sv443.net/)
-[![Known Vulnerabilities](https://snyk.io/test/github/Sv443/JokeAPI/badge.svg)](https://snyk.io/test/github/Sv443/JokeAPI)
+[![Known Vulnerabilities](https://snyk.io/test/github/Sv443-Network/JokeAPI/badge.svg)](https://snyk.io/test/github/Sv443-Network/JokeAPI)
 [![Discord](https://img.shields.io/discord/565933531214118942)](https://discord.gg/aBH4uRG)
 
 <br>
@@ -57,14 +57,14 @@
 
 <br>
 
-<sup>[Submit an issue](https://github.com/Sv443/JokeAPI/issues/new/choose) and select `Dependent` to get your project added here</sup>
+<sup>[Submit an issue](https://github.com/Sv443-Network/JokeAPI/issues/new/choose) and select `Dependent` to get your project added here</sup>
 
 <br><br>
 -->
 
 <div align="center" style="text-align:center">
 
-Made with ❤️ by [Sv443](https://github.com/Sv443) and [others](https://github.com/Sv443/JokeAPI/graphs/contributors)  
+Made with ❤️ by [Sv443](https://github.com/Sv443) and [others](https://github.com/Sv443-Network/JokeAPI/graphs/contributors)  
 Like JokeAPI? Please consider [supporting me](https://github.com/sponsors/Sv443)
 
 </div>

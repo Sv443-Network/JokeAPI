@@ -16,8 +16,8 @@
 <!-- Add some screenshots here, if applicable -->
 
 ## Checklist
-- [ ] I have read and followed the [Contributing Guide](https://github.com/Sv443/JokeAPI/blob/master/.github/Contributing.md)
-- [ ] (If applicable:) my code follows the general style of this project ([explained here](https://github.com/Sv443/JokeAPI/blob/version/2.4.0/dev/docs/code-style.md#readme))
+- [ ] I have read and followed the [Contributing Guide](https://github.com/Sv443-Network/JokeAPI/blob/master/.github/Contributing.md)
+- [ ] (If applicable:) my code follows the general style of this project ([explained here](https://github.com/Sv443-Network/JokeAPI/blob/version/2.4.0/dev/docs/code-style.md#readme))
 - [ ] (If applicable:) I have commented my code, particularly in hard-to-understand areas
 - [ ] (If applicable:) I have made corresponding changes to the documentation
 - [ ] I ensured that the automated checks that ran on this PR have completed successfully

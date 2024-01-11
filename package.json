@@ -17,14 +17,14 @@
     "email": "contact@sv443.net",
     "url": "https://sv443.net/"
   },
-  "homepage": "https://github.com/Sv443/JokeAPI#readme",
+  "homepage": "https://github.com/Sv443-Network/JokeAPI#readme",
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Sv443/JokeAPI.git"
+    "url": "git+https://github.com/Sv443-Network/JokeAPI.git"
   },
   "bugs": {
-    "url": "https://github.com/Sv443/JokeAPI/issues/new/choose",
+    "url": "https://github.com/Sv443-Network/JokeAPI/issues/new/choose",
     "email": "contact@sv443.net"
   },
   "bin": {

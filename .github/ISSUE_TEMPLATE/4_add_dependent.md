@@ -11,7 +11,7 @@ assignees: Sv443
     If this issue is approved, your project will be added to these dependent lists:
     // TODO: update URLs
     - https://jokeapi.dev/#dependents
-    - https://github.com/Sv443/JokeAPI#readme    (scroll down all the way)
+    - https://github.com/Sv443-Network/JokeAPI#readme    (scroll down all the way)
 -->
 
 ## Information about the wrapper:
