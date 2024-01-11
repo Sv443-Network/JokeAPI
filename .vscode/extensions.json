@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "Prisma.prisma",
+    "dbaeumer.vscode-eslint",
+    "dotenv.dotenv-vscode",
+    "fabiospampinato.vscode-highlight",
+    "MylesMurphy.prettify-ts",
+    "naumovs.color-highlight",
+    "GitHub.vscode-pull-request-github",
+    "bierner.jsdoc-markdown-highlighting",
+    "bierner.markdown-checkbox",
+    "bierner.markdown-preview-github-styles",
+    "Orta.vscode-twoslash-queries"
+  ]
+}
