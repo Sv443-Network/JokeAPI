@@ -16,6 +16,8 @@ jobs:
     steps:
       - run: echo "TODO"
       # - uses: actions/checkout@v3
+      #   with:
+      #     submodules: recursive
       # - uses: actions/setup-node@v3
       #   with:
       #     node-version: ${{ matrix.node-version }}
