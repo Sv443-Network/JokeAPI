@@ -25,6 +25,6 @@
     "preferTsExts": true
   },
   "files": ["src/index.ts"],
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/types/**.*"],
   "exclude": ["node_modules", "out", "src/test.ts"]
 }
