@@ -8,7 +8,7 @@
     "start": "npm run build && node --no-warnings=ExperimentalWarning --enable-source-maps out/index.js",
     "dev": "nodemon --exec npm start",
     "test": "npm run node-ts -- src/test.ts",
-    "lint": "npm run build -- --noEmit && eslint .",
+    "lint": "npm run build -- && eslint .",
     "build": "tsc --build",
     "node-ts": "node --no-warnings=ExperimentalWarning --enable-source-maps --loader ts-node/esm"
   },
