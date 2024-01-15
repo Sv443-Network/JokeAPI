@@ -1,6 +1,7 @@
 name: "Build and Deploy to Stage"
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - v3
