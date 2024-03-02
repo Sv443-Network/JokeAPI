@@ -17,6 +17,7 @@ out/
 test.ts
 test.js
 src/dev/ghb/
+src/dev/*.ignore*
 *.bak
 *_ignore/
 *_ignore.*
