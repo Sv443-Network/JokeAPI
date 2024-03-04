@@ -17,7 +17,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          submodules: recursive
+          submodules: recursive # TODO:FIXME: this is broken - GH CI Error: fatal: No url found for submodule path 'data/jokes' in .gitmodules
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}

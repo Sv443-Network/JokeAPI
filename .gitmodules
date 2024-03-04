@@ -1,3 +1,6 @@
 [submodule "src/types/jokeapi"]
 	path = src/types/jokeapi
 	url = https://github.com/Sv443-Network/JokeAPI-Types.git
+[submodule "data/jokes"]
+	path = data/jokes
+	url = https://github.com/Sv443/test.git
