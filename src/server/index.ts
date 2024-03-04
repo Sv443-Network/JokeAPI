@@ -1,30 +1,26 @@
-import express, { type NextFunction, type Request, type Response } from "express";
+import express, { type NextFunction, type Request, type Response, type Router } from "express";
 import compression from "compression";
 import cors from "cors";
 import helmet from "helmet";
-import { RateLimiterMemory, RateLimiterRes } from "rate-limiter-flexible";
+import { RateLimiterRes } from "rate-limiter-flexible";
 import { check as portUsed } from "tcp-port-used";
 import js2xml from "js2xmlparser";
 import { getClientIp } from "request-ip";
-
-import { settings } from "./settings.js";
-import { initFuncs as routeInitFuncs } from "./routes/index.js";
-import { error } from "./error.js";
-import { validToken } from "./auth.js";
 import { createHash } from "node:crypto";
-
 import type { JSONCompatible } from "svcorelib";
-import type { ResponseFormat } from "./types";
+
+import { settings } from "../settings.js";
+import { initFuncs as routeInitFuncs } from "../routes/index.js";
+import { error } from "../error.js";
+import { validToken } from "../auth.js";
+import { genericRateLimit } from "../rateLimiters.js";
+
+import type { ResponseFormat } from "../types/index.js";
 
 export const name = "server";
 
-const app = createApp();
-
-// TODO: fine tune & implement rate limiters for different tiers
-const rateLimiter = new RateLimiterMemory({
-  points: settings.server.rateLimit.points,
-  duration: settings.server.rateLimit.duration,
-});
+export const app = createApp();
+export let router: Router;
 
 export async function init() {
   if(await portUsed(settings.server.port))
@@ -63,7 +59,7 @@ export async function init() {
       const ip = clientIp ? hashIp(clientIp) : null;
 
       if(ip) {
-        rateLimiter.consume(ip)
+        genericRateLimit.consume(ip)
           .catch((err) => {
             if(err instanceof RateLimiterRes) {
               addRateLimitHeaders(res, err);
@@ -111,7 +107,7 @@ function createApp() {
 
 /** Registers all endpoints */
 function registerEndpoints() {
-  const router = express.Router();
+  router = express.Router();
 
   router.get("/", (_req, res) => {
     // TODO: Redirect to docs

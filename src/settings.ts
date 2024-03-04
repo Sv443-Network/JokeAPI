@@ -22,8 +22,10 @@ export const settings = {
     /** port for HTTP requests */
     port: getEnvVar("HTTP_PORT", "numberNoEmpty") ?? 8060,
     rateLimit: {
-      points: 300,
-      duration: 60 * 30,
+      generic: {
+        points: 300,
+        duration: 60 * 30,
+      },
     },
   },
-};
+} as const;

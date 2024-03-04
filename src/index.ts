@@ -2,7 +2,7 @@ import k from "kleur";
 
 import * as lists from "./lists.js";
 import * as auth from "./auth.js";
-import * as server from "./server.js";
+import * as server from "./server/index.js";
 import * as meter from "./meter.js";
 
 import { settings } from "./settings.js";

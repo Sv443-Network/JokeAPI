@@ -18,7 +18,17 @@
     "removeComments": true,
     "sourceMap": true,
     "useDefineForClassFields": true,
-    "noImplicitThis": false
+    "noImplicitThis": false,
+    "paths": {
+      "src/*": ["src/*"],
+      "@src/*": ["src/*"],
+      "server/*": ["src/server/*"],
+      "@server/*": ["src/server/*"],
+      "db/*": ["src/database/*"],
+      "@db/*": ["src/database/*"],
+      "types/*": ["src/types/*"],
+      "@types/*": ["src/types/*"],
+    },
   },
   "ts-node": {
     "esm": true,
