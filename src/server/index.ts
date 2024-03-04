@@ -12,7 +12,7 @@ import type { JSONCompatible } from "svcorelib";
 import { settings } from "../settings.js";
 import { initFuncs as routeInitFuncs } from "../routes/index.js";
 import { error } from "../error.js";
-import { validToken } from "../auth.js";
+import { isValidToken } from "../auth.js";
 import { genericRateLimit } from "../rateLimiters.js";
 
 import type { ResponseFormat } from "../types/index.js";
@@ -53,7 +53,7 @@ export async function init() {
 
       res.setHeader("API-Info", `${settings.info.name} v${settings.info.version} (${settings.info.homepage})`);
 
-      if(authToken && validToken(authToken))
+      if(authToken && isValidToken(authToken))
         return next();
 
       const clientIp = getClientIp(req);

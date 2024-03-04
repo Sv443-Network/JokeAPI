@@ -4,6 +4,8 @@ export function init() {
   void 0;
 }
 
-export function validToken(token: string) {
+/** Validates a passed token */
+export function isValidToken(token: string) {
+  // TODO:
   return false;
 }
