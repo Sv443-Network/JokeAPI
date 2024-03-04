@@ -12,6 +12,7 @@
   3. [Running JokeAPI](#running-jokeapi)
   4. [Development commands](#development-commands)
 - [Submitting translations](#submitting-translations)
+- [Code conventions](#code-conventions)
 
 <br>
 
@@ -115,3 +116,11 @@
 <!--<br><br>-->
 <!---->
 <!--## If you need any help, feel free to contact me through [Discord](https://sv443.net/discord) (fastest way to contact me) or [E-Mail](mailto:contact@sv443.net?subject=Questions%20about%20contributing%20to%20JokeAPI)-->
+
+<br>
+
+## Code Conventions
+- Use ESLint & Prettier to format your code before committing  
+  Rules: 2 spaces, double quotes, semicolons, trailing commas, etc. (see [`.eslintrc.cjs`](../.eslintrc.cjs))
+- Add the extension `.js` to file imports, even for TypeScript!
+- Use `const` for everything unless you need to reassign the variable using the `=` operator
