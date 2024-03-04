@@ -8,9 +8,9 @@ import * as meter from "./meter.js";
 import { settings } from "./settings.js";
 import { logInfo } from "./utils.js";
 
-type Module = {
-    init: () => unknown | Promise<unknown>,
-    name: string,
+type JAPIModule = {
+  init: () => unknown | Promise<unknown>,
+  name: string,
 };
 
 async function init() {
@@ -27,7 +27,7 @@ async function init() {
 
 /** Initialize JokeAPI's modules */
 async function initModules() {
-  const modules: Module[] = [
+  const modules: JAPIModule[] = [
     lists,
     auth,
     server,

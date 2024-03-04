@@ -21,24 +21,18 @@ export async function init() {
 }
 
 /** Checks if an IP hash is on the given list */
-export function isOnList(ipHash: string, type: ListType) {
-  return lists![type].find(i => i === ipHash) !== undefined;
+export function isOnList(ipHash: string, listTypes: ListType) {
+  return Boolean(lists![listTypes].find(i => i === ipHash));
 }
 
 /** Checks if an IP hash is on any of the given lists */
-export function isOnAnyOfLists(ipHash: string, types: ListType[]) {
-  for(const type of types)
-    if(lists![type].find(i => i === ipHash))
-      return true;
-  return false;
+export function isOnAnyOfLists(ipHash: string, listTypes: ListType[]) {
+  return listTypes.some(type => lists![type].find(i => i === ipHash));
 }
 
 /** Checks if an IP hash is on all of the given lists */
-export function isOnMultipleLists(ipHash: string, types: ListType[]) {
-  for(const type of types)
-    if(!lists![type].find(i => i === ipHash))
-      return false;
-  return true;
+export function isOnMultipleLists(ipHash: string, listTypes: ListType[]) {
+  return listTypes.every(type => lists![type].find(i => i === ipHash));
 }
 
 /** Loads all lists from the corresponding JSON files and returns them */

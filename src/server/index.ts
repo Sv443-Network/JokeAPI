@@ -35,8 +35,9 @@ export async function init() {
       return next();
   });
 
+  // TODO: Add support for other rate limiters
   const addRateLimitHeaders = (res: Response, rlRes: RateLimiterRes) => {
-    res.setHeader("X-RateLimit-Limit", settings.server.rateLimit.points);
+    res.setHeader("X-RateLimit-Limit", settings.server.rateLimit.generic.points);
     res.setHeader("X-RateLimit-Remaining", rlRes.remainingPoints);
     res.setHeader("Retry-After", Math.ceil(rlRes.msBeforeNext / 1000));
   };
@@ -59,20 +60,20 @@ export async function init() {
       const ip = clientIp ? hashIp(clientIp) : null;
 
       if(ip) {
-        genericRateLimit.consume(ip)
-          .catch((err) => {
-            if(err instanceof RateLimiterRes) {
-              addRateLimitHeaders(res, err);
-              return respond(res, { message: "You are being rate limited" }, 429, format);
-            }
-            else
-              return respond(res, { message: "Internal error in rate limiting middleware. Please try again later." }, 500, format);
-          })
-          .then((rlRes) => {
-            if(rlRes instanceof RateLimiterRes)
-              addRateLimitHeaders(res, rlRes);
-          })
-          .finally(next);
+        try {
+          const rlRes = await genericRateLimit.consume(ip);
+          rlRes instanceof RateLimiterRes && addRateLimitHeaders(res, rlRes);
+
+          return next();
+        }
+        catch(err) {
+          if(err instanceof RateLimiterRes) {
+            addRateLimitHeaders(res, err);
+            return respond(res, { message: "You are being rate limited" }, 429, format);
+          }
+          else
+            return respond(res, { message: "Internal error in rate limiting middleware. Please try again later." }, 500, format);
+        }
       }
       else
         return next();
