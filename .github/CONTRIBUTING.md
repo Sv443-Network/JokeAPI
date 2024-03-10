@@ -128,7 +128,6 @@ TODO
 - HTTP
   - URL parameters should always use lower-kebab-case
   - URL paths should use lower-kebab-case as well
-  - Use the `Authorization` header for authentication
 - Git
   - Use the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) format for your commit messages:  
     - Commit prefixes: `feat:` - new feature, `fix:` - bug fix, `docs:` - changes to documentation, `ref:` - refactor, `ci:` - changes to CI, `chore:` - non-code / build process changes
