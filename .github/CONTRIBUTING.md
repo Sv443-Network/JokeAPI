@@ -49,7 +49,7 @@
 <br><br>
 
 ## Submitting Translations:
-
+TODO
 <!--This guide will tell you how you can and should contribute to JokeAPI.  -->
 <!--Not following it might cause me to reject your changes but at the very least we will both lose time.  -->
 <!--So please read this guide before contributing. Thanks :)-->
@@ -120,7 +120,21 @@
 <br>
 
 ## Code Conventions
-- Use ESLint & Prettier to format your code before committing  
-  Rules: 2 spaces, double quotes, semicolons, trailing commas, etc. (see [`.eslintrc.cjs`](../.eslintrc.cjs))
-- Add the extension `.js` to file imports, even for TypeScript!
-- Use `const` for everything unless you need to reassign the variable using the `=` operator
+- JS/TS
+  - Use ESLint & Prettier to format your code before committing  
+    Rules: 2 spaces, double quotes, semicolons, trailing commas, etc. (see [`.eslintrc.cjs`](../.eslintrc.cjs))
+  - Add the extension `.js` to file imports, even for TypeScript!
+  - Use `const` for everything unless you need to reassign the variable using the `=` operator
+- HTTP
+  - URL parameters should always use lower-kebab-case
+  - URL paths should use lower-kebab-case as well
+  - Use the `Authorization` header for authentication
+- Git
+  - Use the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) format for your commit messages:  
+    - Commit prefixes: `feat:` - new feature, `fix:` - bug fix, `docs:` - changes to documentation, `ref:` - refactor, `ci:` - changes to CI, `chore:` - non-code / build process changes
+    - Add an exclamation mark before the colon to indicate a breaking change, e.g. `feat!: changed foo`
+    - Add an issue number in parentheses before the colon (or exclamation mark) to link the commit to an issue, e.g. `feat(#123): added foo`
+  - Create feature branches for your changes and open a pull request to merge them into the `main` branch
+  - Create a draft pull request if your changes are not fully ready to be merged yet, but you want to use CI or other PR features
+- General
+  - Add yourself to the `contributors` object in the [`package.json`](../package.json) file
