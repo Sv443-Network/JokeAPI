@@ -9,12 +9,13 @@
 <br>
 
 ### Here be dragons
-
-<br><br><br><br>
-
-<sub>dragons deez nuts across yo face</sub>
+[Current progress](https://github.com/orgs/Sv443-Network/projects/2)
 
 <br>
+
+Also refer to the new [Homepage and Documentation page repository](https://github.com/Sv443-Network/JokeAPI-Docs)
+
+<br><br>
 
 # [Documentation](https://jokeapi.dev/)
 ## [Try it out](https://jokeapi.dev/#try-it) &bull; [Changelog](./changelog.md) &bull; [Discord Server](https://dc.sv443.net/)
