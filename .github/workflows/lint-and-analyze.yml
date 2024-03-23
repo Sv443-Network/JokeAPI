@@ -19,6 +19,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           submodules: recursive # TODO:FIXME: this is broken - GH CI Error: fatal: No url found for submodule path 'data/jokes' in .gitmodules
+          token: ${{ secrets.GH_PAT }}
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
@@ -40,6 +41,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+          token: ${{ secrets.GH_PAT }}
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
