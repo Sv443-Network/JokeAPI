@@ -13,20 +13,47 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [22.x]
+
+    env:
+      CI: "true"
+      STORE_PATH: ""
+      PNPM_VERSION: 9
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive # TODO:FIXME: this is broken - GH CI Error: fatal: No url found for submodule path 'data/jokes' in .gitmodules
           token: ${{ secrets.GH_PAT }}
-      - uses: actions/setup-node@v3
+
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
       - name: Install dependencies
-        run: npm ci
+        run: pnpm i
+
       - name: Lint
-        run: npm run lint
+        run: pnpm run lint
 
   analyze:
     name: Analyze Code
@@ -40,13 +67,15 @@ jobs:
         language: ["javascript"]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
           token: ${{ secrets.GH_PAT }}
+
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
+
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3

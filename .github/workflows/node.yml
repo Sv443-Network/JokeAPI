@@ -15,10 +15,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [18.x]
+        node-version: [22.x]
+
+    env:
+      CI: "true"
+      STORE_PATH: ""
+      PNPM_VERSION: 9
 
     steps:
-      - uses: actions/checkout@v3 # checkout latest commit
+      - uses: actions/checkout@v4
         with:
           submodules: recursive
 
@@ -27,10 +32,29 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
       - name: Install dependencies
         run: |
-          npm i -g tsc
-          npm ci
+          pnpm i -g tsc
+          pnpm i
 
       - name: Run ESLint
-        run: npm run lint
+        run: pnpm run lint
