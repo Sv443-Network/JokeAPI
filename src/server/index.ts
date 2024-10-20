@@ -10,7 +10,7 @@ import { createHash } from "node:crypto";
 import type { JSONCompatible } from "svcorelib";
 
 import { settings } from "../settings.js";
-import { initFuncs as routeInitFuncs } from "../routes/index.js";
+import { initFuncs as routeInitFuncs } from "./routes/index.js";
 import { error } from "../error.js";
 import { isValidToken } from "../auth.js";
 import { genericRateLimit } from "../rateLimiters.js";

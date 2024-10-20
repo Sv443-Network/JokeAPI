@@ -28,6 +28,8 @@
     "email": "contact@sv443.net"
   },
   "dependencies": {
+    "@mikro-orm/core": "^6.3.13",
+    "@mikro-orm/postgresql": "^6.3.13",
     "@pm2/io": "^5.0.0",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
@@ -43,6 +45,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.1",
+    "@mikro-orm/cli": "^6.3.13",
     "@types/compression": "^1.7.2",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.14",
