@@ -9,7 +9,8 @@
 <br>
 
 ### Here be dragons
-[Current progress](https://github.com/orgs/Sv443-Network/projects/2)
+
+<!-- [Current progress](https://github.com/orgs/Sv443-Network/projects/2)
 
 <br>
 
@@ -18,10 +19,9 @@ Also refer to the new [Homepage and Documentation page repository](https://githu
 <br><br>
 
 # [Documentation](https://jokeapi.dev/)
-## [Try it out](https://jokeapi.dev/#try-it) &bull; [Changelog](./changelog.md) &bull; [Discord Server](https://dc.sv443.net/)
+## [Try it out](https://jokeapi.dev/#try-it) &bull; [Changelog](./changelog.md) &bull; [Discord Server](https://dc.sv443.net/) -->
 
 </div>
-<br><br><br>
 
 <!--### Note: due to the different types of humor, JokeAPI contains a wide variety of jokes, of which some are very offensive. They can be filtered out, but use this API at your own risk!
 
@@ -63,9 +63,11 @@ Also refer to the new [Homepage and Documentation page repository](https://githu
 <br><br>
 -->
 
+<br><br>
+
 <div align="center" style="text-align:center">
 
-Made with ❤️ by [Sv443](https://github.com/Sv443) and [others](https://github.com/Sv443-Network/JokeAPI/graphs/contributors)  
-Like JokeAPI? Please consider [supporting me](https://github.com/sponsors/Sv443)
+Made with ❤️ by [Sv443](https://github.com/Sv443) and [contributors](https://github.com/Sv443-Network/JokeAPI/graphs/contributors)  
+Like JokeAPI? Please consider [supporting development ❤️](https://github.com/sponsors/Sv443)
 
 </div>
