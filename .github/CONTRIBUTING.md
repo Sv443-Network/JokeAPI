@@ -25,26 +25,27 @@
 <br>
 
 ## Setting up JokeAPI
-1. Fork and clone the repository, then run `git clone https://github.com/YourUsername/JokeAPI.git`
-2. Check out all submodules with `git submodule update --init --recursive`
-3. Install all dependencies with `npm i`
-4. Copy the file `.env.template`, rename it to `.env` and fill in the values
+1. Install Node.js, Git and pnpm
+2. Fork and clone the repository, then run `git clone https://github.com/YourUsername/JokeAPI.git`
+3. Check out all submodules with `git submodule update --init --recursive`
+4. Install all dependencies with `pnpm i`
+5. Copy the file `.env.template` to `.env` and fill in the values
 
 <br>
 
 ## Running JokeAPI
-- Run `npm run dev` to start JokeAPI in development mode and automatically recompile and restart it when you make changes to the code
-- Run `npm run start` to build JokeAPI normally and start it in production mode
+- Run `pnpm run dev` to start JokeAPI in development mode and automatically recompile and restart it when you make changes to the code
+- Run `pnpm run start` to build JokeAPI normally and start it in production mode
 
 <br>
 
 ## Development commands
 | Command | Description |
 | --- | --- |
-| `npm run dev` | Starts JokeAPI in development mode and automatically recompiles and restarts it when you make changes to the code |
-| `npm run start` | Builds JokeAPI normally and starts it in production mode |
-| `npm run lint` | Builds and checks the code for any warnings or errors |
-| `npx changeset` | Create new patch notes that will be added to the changelog automatically and trigger the automatic versioning and deployment |
+| `pnpm run dev` | Starts JokeAPI in development mode and automatically recompiles and restarts it when you make changes to the code |
+| `pnpm run start` | Builds JokeAPI normally and starts it in production mode |
+| `pnpm run lint` | Builds and checks the code for any warnings or errors |
+<!-- TODO: | `pnpx changeset` | Create new patch notes that will be added to the changelog automatically and trigger the automatic versioning and deployment | -->
 
 <br><br>
 
