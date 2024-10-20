@@ -5,10 +5,10 @@
   "main": "./out/index.js",
   "type": "module",
   "scripts": {
-    "start": "npm run build && node --no-warnings=ExperimentalWarning --enable-source-maps out/index.js",
-    "dev": "nodemon --exec npm start",
-    "test": "npm run node-ts -- src/test.ts",
-    "lint": "npm run build -- && eslint .",
+    "start": "pnpm run build && node --no-warnings=ExperimentalWarning --enable-source-maps out/index.js",
+    "dev": "nodemon --exec pnpm start",
+    "test": "pnpm run node-ts -- src/test.ts",
+    "lint": "pnpm run build -- && eslint .",
     "build": "tsc --build",
     "node-ts": "node --no-warnings=ExperimentalWarning --enable-source-maps --loader ts-node/esm"
   },
@@ -24,16 +24,11 @@
     "url": "git+https://github.com/Sv443-Network/JokeAPI.git"
   },
   "bugs": {
-    "url": "https://github.com/Sv443-Network/JokeAPI/issues/new/choose",
+    "url": "https://github.com/Sv443-Network/JokeAPI/issues",
     "email": "contact@sv443.net"
-  },
-  "bin": {
-    "jokeapi": "tools/cli.js",
-    "japi": "tools/cli.js"
   },
   "dependencies": {
     "@pm2/io": "^5.0.0",
-    "@prisma/client": "^4.6.1",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -41,7 +36,6 @@
     "helmet": "^6.0.0",
     "js2xmlparser": "^5.0.0",
     "kleur": "^4.1.5",
-    "prisma": "^4.6.1",
     "rate-limiter-flexible": "^2.4.1",
     "request-ip": "^3.3.0",
     "svcorelib": "^1.18.1",
@@ -114,19 +108,14 @@
   "nodemonConfig": {
     "watch": [
       "src/*",
-      "data/*",
-      "prisma/*",
       ".env"
     ],
-    "ext": "ts,mts,js,cjs,mjs,prisma,json,jsonc,html,css,svg,png",
+    "ext": "ts,mts,js,cjs,mjs,json,jsonc,html,css,svg,png",
     "ignore": [
       "out/*",
       "node_modules/*",
       "test.js",
       "test.ts"
     ]
-  },
-  "prisma": {
-    "seed": "ts-node --compiler-options {\"module\":\"ESNext\"} prisma/seed.ts"
   }
 }
