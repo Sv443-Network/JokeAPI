@@ -1,49 +1,57 @@
 {
+  // >> Editor:
+  "editor.tabSize": 2,
+
   // >> Other:
   // use .js extension as per ESNext spec
   "javascript.preferences.importModuleSpecifierEnding": "js",
   "typescript.preferences.importModuleSpecifierEnding": "js",
+  // use TS binary from node_modules
+  "typescript.tsdk": "node_modules/typescript/lib",
 
   // >> ESLint:
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "eslint.validate": ["typescript"],
+  "eslint.validate": ["typescript", "javascript"],
 
   // >> VSCode-Highlight:
   "highlight.regexes": {
-    "(((jsl|scl)\\.)?unused\\([a-zA-Z_,\\[\\]\\s\\-\":.]+\\);*)": [
-      // jsl.unused([some_var, some_other_var]); or scl.unused(xy);
-      {
-        "backgroundColor": "#0003",
-        "color": "#f88"
-      }
-    ],
-    "(#MARKER)": [
-      // #MARKER test
-      {
-        "backgroundColor": "#f41",
-        "color": "#fff",
-        "isWholeLine": true,
-        "overviewRulerColor": "#f41"
-      }
-    ],
-    "(#SECTION ([^\\S\\r\\n]*[\\w,.\\-_]+)*[:]*)": [
+    "((//\\s*|/\\*\\s*)?#region ([^\\S\\r\\n]*[\\(\\)\\w,.\\-_&+#*'\"/:]+)*)": {
+      //#region test: (abc):
+      "backgroundColor": "#5df",
+      "color": "#000",
+      "overviewRulerColor": "#5df",
+    },
+    "(#SECTION ([^\\S\\r\\n]*[\\w,.\\-_]+)*[:]*)": {
       // #SECTION test, 123
-      {
-        "backgroundColor": "#44f",
-        "color": "#fff",
-        "overviewRulerColor": "#44f"
-      }
-    ],
-    "(#?DE?BU?G#?)": [
-      // #DEBUG# or #DBG or DEBUG or DBG
-      {
-        "backgroundColor": "#ff0",
-        "color": "#00f",
-        "overviewRulerColor": "#ff0"
-      }
-    ]
+      "backgroundColor": "#44f",
+      "color": "#fff",
+      "overviewRulerColor": "#44f"
+    },
+    "(TODO(\\((\\s|\\d|\\w|[,.-_+*&])+\\))?:?)": {
+      // TODO: or TODO or TODO(xy): but not todo or todo:
+      "backgroundColor": "#ed0",
+      "color": "black",
+      "overviewRulerColor": "#ed0",
+    },
+    "(#(DEBUG|DBG)#?)": {
+      // #DEBUG or #DEBUG# or #DBG or #DBG#
+      "backgroundColor": "#ff0",
+      "color": "blue",
+      "overviewRulerColor": "#ff0",
+    },
+    "(IMPORTANT:)": {
+      // IMPORTANT:
+      "backgroundColor": "#a22",
+      "color": "#fff",
+    },
+    "(FIXME:)": {
+      // FIXME:
+      "backgroundColor": "#a22",
+      "color": "#fff",
+      "overviewRulerColor": "#752020",
+    },
   },
 
   // >> Git:
