@@ -7,8 +7,8 @@
   "scripts": {
     "start": "pnpm run build && node --no-warnings=ExperimentalWarning --enable-source-maps out/index.js",
     "dev": "nodemon --exec pnpm start",
-    "test": "pnpm run node-ts -- src/test.ts",
-    "lint": "pnpm run build -- && eslint .",
+    "test": "pnpm run node-ts src/test.ts",
+    "lint": "pnpm run build && eslint .",
     "build": "tsc --build",
     "node-ts": "node --no-warnings=ExperimentalWarning --enable-source-maps --loader ts-node/esm"
   },

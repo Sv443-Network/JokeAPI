@@ -1,4 +1,4 @@
-import { JokeCategory, JokeFlag, JokeType } from ".";
+import { JokeCategory, JokeFlag, JokeType } from "@/types/jokeapi/index.js";
 
 /** Parameters for filtering jokes */
 export interface JokeFilter {
