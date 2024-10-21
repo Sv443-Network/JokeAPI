@@ -3,7 +3,9 @@
 # This repository moved
 What you see in this repo is very outdated and probably not going to run.  
 The source code of JokeAPI now lives on my own Git server: https://git.sv443.net/sv443/JokeAPI-v2  
-If you have any issues, please still use this repository on GitHub.  
+  
+If you have any issues, please still use this repository on GitHub to submit them.  
+For pull requests however, please use the new repo.  
 
 <br><br><br><br><br>
 
