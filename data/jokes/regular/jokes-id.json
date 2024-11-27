@@ -1,0 +1,334 @@
+{
+    "info": {
+        "formatVersion": 3
+    },
+    "jokes": [
+        {
+            "category": "Lelucon",
+            "type": "singel",
+            "joke": "Aku bukan pemalas. Aku sedang menjalankan mode hemat energi.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 0,
+            "safe": true
+        },
+        {
+            "category": "Lelucon",
+            "type": "singel",
+            "joke": "Aku ingat, dulu sekali aku ingin segera menjadi dewasa. Ternyata aku salah.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 1,
+            "safe": true
+        },
+         {
+            "category": "Lelucon",
+            "type": "singel",
+            "joke": "Aku sudah siap kalau Senin harus bangun pagi, apalagi bangun rumah tangga sama kamu.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 2,
+            "safe": true
+        },
+         {
+            "category": "Lelucon",
+            "type": "singel",
+            "joke": "Anak kecil gak punya temen aja nangis, gimana hati kecil ini yang gak punya pasangan.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 3,
+            "safe": true
+        },
+         {
+            "category": "Lelucon",
+            "type": "twopart",
+            "setup": "Apa bahasa Inggris-nya ikan sapu-sapu?",
+            "delivery": "Cleaning Share Fish.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 4,
+            "safe": true
+        },
+         {
+            "category": "Lelucon",
+            "type": "singel",
+            "joke": "Barusan saya ke apotek beli obat tidur. Pas Pulang saya bawanya pelan-pelan, takut obatnya bangun.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 5,
+            "safe": true
+        },
+        {
+            "category": "Lelucon",
+            "type": "twopart",
+            "setup": "Apakah namamu WiFi?",
+            "delivery": "Soalnya aku bisa merasakan konektivitas.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 6,
+            "safe": true
+        },
+        {
+            "category": "Lelucon",
+            "type": "twopart",
+            "setup": "Buah, buah apa yang paling receh?",
+            "delivery": "Buah ha ha ha ha ha",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 7,
+            "safe": true
+        },
+         {
+            "category": "Lelucon",
+            "type": "twopart",
+            "setup": "Gajah apa yang paling baik hati?",
+            "delivery": "Gajahat",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 8,
+            "safe": true
+        },
+         {
+            "category": "Lelucon",
+            "type": "twopart",
+            "setup": "Gula apa yang bukan gula?",
+            "delivery": "Gula aren't.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 9,
+            "safe": true
+        },
+         {
+            "category": "Lelucon",
+            "type": "singel",
+            "joke": "Hati-hati di jalan. Hatinya jangan jalan-jalan. Ingat, ada hati yang lagi dijalani.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 10,
+            "safe": true
+        },
+        {
+            "category": "Lelucon",
+            "type": "singel",
+            "joke": "Hidup adalah seni menggambar tanpa penghapus.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 11,
+            "safe": true
+        },
+        {
+            "category": "Lelucon",
+            "type": "singel",
+            "joke": "Hidup ini singkat. Tersenyumlah selagi kamu masih memiliki gigi.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 12,
+            "safe": true
+        },
+        {
+            "category": "Lelucon",
+            "type": "singel",
+            "joke": "Ingat, hari ini adalah hari esok yang kamu khawatirkan kemarin.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 13,
+            "safe": true
+        },
+         {
+            "category": "Lelucon",
+            "type": "twopart",
+            "setup": "Huruf apa yang sering kedinginan?",
+            "delivery": "Huruf B karena berada di antara AC.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 14,
+            "safe": true
+        },
+         {
+            "category": "Lelucon",
+            "type": "twopart",
+            "setup": "Hewan apa yang kalau diinjek nggak marah?",
+            "delivery": "Kera mik",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 15,
+            "safe": true
+        },
+        {
+            "category": "Lelucon",
+            "type": "twopart",
+            "setup": "Kuliah lo ambil apa?",
+            "delivery": "Gue sih ambil hikmahnya aja.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 16,
+            "safe": true
+        },
+         {
+            "category": "Lelucon",
+            "type": "twopart",
+            "setup": "Pasien yang terkena gejala rindu dilarikan kemana?",
+            "delivery": "Ke ruang I see you.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 17,
+            "safe": true
+        },
+         {
+            "category": "Bapack-Bapack",
+            "type": "twopart",
+            "setup": "Apa persamaan antara uang dan rahasia?",
+            "delivery": "sama-sama susah dipegang.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 18,
+            "safe": true
+        },
+         {
+            "category": "Bapack-Bapack",
+            "type": "twopart",
+            "setup": "Uang 100 ribu jika dilempar maka akan menjadi?",
+            "delivery": "Jadi rebutan.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 19,
+            "safe": true
+        },
+         {
+            "category": "Bapack-Bapack",
+            "type": "twopart",
+            "setup": "Selain uang benda apa yang sering dicari-cari orang?",
+            "delivery": "Benda hilang.",
+            "flags": {
+                "nsfw": false,
+                "religious": false,
+                "political": false,
+                "racist": false,
+                "sexist": false,
+                "explicit": false
+            },
+            "id": 20,
+            "safe": true
+        },
+    ]
+}
