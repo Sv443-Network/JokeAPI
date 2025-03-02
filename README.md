@@ -7,7 +7,7 @@ The latest source code of JokeAPI now lives on my own Git server: https://git.sv
 If you have any issues, please still use this repository on GitHub to submit them.  
 For pull requests however, please use the new repo.  
 
-<br><br><br><br><br>
+<br><br><br><br>
 
 # [![icon](https://sv443.net/cdn/jokeapi/icon_readme.png)](#readme)<br>JokeAPI
 
@@ -23,18 +23,21 @@ For pull requests however, please use the new repo.
 [![Discord](https://img.shields.io/discord/565933531214118942)](https://discord.gg/aBH4uRG)
 [![GitHub stars](https://img.shields.io/github/stars/Sv443/JokeAPI?style=social)](https://github.com/Sv443/JokeAPI/stargazers)
 
-<br><br>
+<br>
 
 # [Documentation](https://jokeapi.dev/)
 
 ## [Try it out](https://jokeapi.dev/#try-it) &bull; [Changelog](./changelog.md) &bull; [Discord Server](https://dc.sv443.net/)
 
 </div>
-<br><br>
+<br><br><br>
 
-### Note: due to the different types of humor, JokeAPI contains a wide variety of jokes, of which some are very offensive. They can be filtered out using the `?blacklistFlags` or `?safe-mode` parameters, but use this API at your own risk!
+### Note: JokeAPI contains a wide variety of jokes, of which some are very offensive. They can be prevented from being served using the `?blacklistFlags` or `?safe-mode` parameters, but use this API at your own risk!
+
+<br>
 
 ### If you want to contribute to JokeAPI (code, jokes or translations), please refer to the [contributing guide.](./.github/Contributing.md)
+Please ensure all your code contributions are submitted to the [repo on the temporary Git server](https://git.sv443.net/sv443/JokeAPI-v2), not to this repo!
 
 <br><br>
 
@@ -56,6 +59,7 @@ For pull requests however, please use the new repo.
 </h3>
 <br>
 
+<!--
 # Projects that use JokeAPI:
 
 | Project                                                                                                  | Author                                                     |
@@ -77,6 +81,8 @@ For pull requests however, please use the new repo.
 <br>
 
 Project submissions are paused for the foreseeable future.
+
+-->
 <!-- [Submit an issue](https://github.com/Sv443/JokeAPI/issues/new/choose) and select `Dependent` to get your project added here -->
 
 <!--
@@ -100,6 +106,6 @@ Old list-style dependents:
 <div align="center" style="text-align:center">
 
 Made with ❤️ by [Sv443](https://github.com/Sv443) and [contributors](https://github.com/Sv443/JokeAPI/graphs/contributors)  
-Like JokeAPI? Please consider [supporting me](https://github.com/sponsors/Sv443)
+Like JokeAPI? Please consider [supporting the development <3](https://github.com/sponsors/Sv443)
 
 </div>
