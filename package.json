@@ -85,6 +85,14 @@
       ]
     }
   ],
+  {
+      "name": "Ari Sohandri Putra",
+      "url": "https://github.com/arisohandriputra",
+      "contributions": [
+        "Added Indonesian jokes"
+      ]
+    }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Sv443/JokeAPI/issues/new/choose",
