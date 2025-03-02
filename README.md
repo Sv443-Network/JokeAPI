@@ -45,7 +45,7 @@ For pull requests however, please use the new repo.
 -   <b><a href="https://github.com/MichaelDark/jokeapi#readme"><img src="./docs/static/external/dartlang.svg" width="16" height="16" /> Dart</a></b>
 -   <b><a href="https://github.com/Icelain/jokeapi#readme"><img src="./docs/static/external/golang.svg" width="16" height="16" /> Go</a></b>
 -   <b><a href="https://github.com/the-codeboy/Jokes4J#readme"><img src="./docs/static/external/java.svg" width="16" height="16" /> Java (com.github.the-codeboy.Jokes4J)</a></b>
--   <b><a href="https://github.com/khurozov/jokeapi-java#readme"><img src="./docs/static/external/java.svg" width="16" height="16" /> Java (com.simtechdata.jokeapi)</a></b>
+-   <b><a href="https://github.com/EasyG0ing1/JavaJokesAPI#readme"><img src="./docs/static/external/java.svg" width="16" height="16" /> Java (com.simtechdata.jokeapi)</a></b>
 -   <b><a href="https://github.com/ethauvin/jokeapi#readme"><img src="./docs/static/external/kotlin.svg" width="16" height="16" /><img src="./docs/static/external/java.svg" width="16" height="16" /><img src="./docs/static/external/android.svg" width="16" height="16" /> Kotlin, Java & Android (net.thauvin.erik.jokeapi)</a></b>
 -   <b><a href="https://github.com/khurozov/jokeapi-java#readme"><img src="./docs/static/external/java.svg" width="16" height="16" /> Java (uz.khurozov.jokeapi-java)</a></b>
 -   <b><a href="https://github.com/sahithyandev/sv443-joke-api-js-wrapper#readme"><img src="./docs/static/external/nodejs.svg" width="16" height="16" /> Node.js</a></b>
