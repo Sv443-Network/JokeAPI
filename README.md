@@ -51,7 +51,7 @@ For pull requests however, please use the new repo.
 -   <b><a href="https://github.com/sahithyandev/sv443-joke-api-js-wrapper#readme"><img src="./docs/static/external/nodejs.svg" width="16" height="16" /> Node.js</a></b>
 -   <b><a href="https://github.com/thenamesweretakenalready/Sv443s-JokeAPI-Python-Wrapper#readme"><img src="./docs/static/external/python.svg" width="16" height="16" /> Python</a></b>
 -   <b><a href="https://github.com/canarado/joketeller#readme"><img src="./docs/static/external/rust.svg" width="16" height="16" /> Rust</a></b>
--   <b><a href="https://github.com/DanBuxton/JokeAPI-CS-Wrapper#readme"><img src="./docs/static/external/typescript.svg" width="16" height="16" /> TypeScript</a></b>
+-   <b><a href="https://github.com/bitstep-ie/jokeapi#readme"><img src="./docs/static/external/typescript.svg" width="16" height="16" /> TypeScript</a></b>
 
 </h3>
 <br>
