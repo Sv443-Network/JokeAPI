@@ -52,6 +52,7 @@ Please ensure all your code contributions are submitted to the [repo on the temp
 -   <b><a href="https://github.com/ethauvin/jokeapi#readme"><img src="./docs/static/external/kotlin.svg" width="16" height="16" /><img src="./docs/static/external/java.svg" width="16" height="16" /><img src="./docs/static/external/android.svg" width="16" height="16" /> Kotlin, Java & Android (net.thauvin.erik.jokeapi)</a></b>
 -   <b><a href="https://github.com/khurozov/jokeapi-java#readme"><img src="./docs/static/external/java.svg" width="16" height="16" /> Java (uz.khurozov.jokeapi-java)</a></b>
 -   <b><a href="https://github.com/sahithyandev/sv443-joke-api-js-wrapper#readme"><img src="./docs/static/external/nodejs.svg" width="16" height="16" /> Node.js</a></b>
+-   <b><a href="https://github.com/IllusionMan1212/jokeapi-odin#readme"><img src="./docs/static/external/odin.svg" width="16" height="16" /> Odin</a></b>
 -   <b><a href="https://github.com/thenamesweretakenalready/Sv443s-JokeAPI-Python-Wrapper#readme"><img src="./docs/static/external/python.svg" width="16" height="16" /> Python</a></b>
 -   <b><a href="https://github.com/canarado/joketeller#readme"><img src="./docs/static/external/rust.svg" width="16" height="16" /> Rust</a></b>
 -   <b><a href="https://github.com/bitstep-ie/jokeapi#readme"><img src="./docs/static/external/typescript.svg" width="16" height="16" /> TypeScript</a></b>
