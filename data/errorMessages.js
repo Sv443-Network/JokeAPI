@@ -10,6 +10,7 @@ module.exports = {
             "de": "Interner Error im HTTP Server",            
             "it": "Errore interno al server HTTP",
             "ru": "Внутренняя ошибка в HTTP-сервере",
+            "id": "Kesalahan internal di server HTTP",
         },
         "causedBy": {
             "en": [
@@ -27,6 +28,9 @@ module.exports = {
             "ru": [
                 `Ошибка в коде - пожалуйста, свяжитесь со мной через одну из опций на моем сайте (${settings.info.author.website}) с дополнительной информацией.`,
             ],
+             "id": [
+                `Kesalahan pada kode - silakan hubungi saya melalui salah satu opsi di situs web saya (${settings.info.author.website}) untuk informasi lebih lanjut.`,
+            ],
         },
     },
     "101": {
@@ -37,6 +41,7 @@ module.exports = {
             "de": "Anfrage blockiert durch Ratenbegrenzung",
             "it": "Richiesta bloccata per il superamento del limite di frequenza",
             "ru": "Запрос заблокирован ограничением скорости",
+            "id": "Permintaan diblokir oleh Pembatasan Nilai",
         },
         "causedBy": {
             "en": [
@@ -54,6 +59,9 @@ module.exports = {
             "ru": [
                 `Вы отправили слишком много запросов слишком быстро. Лимит составляет ${settings.httpServer.rateLimiting} запросов в пределах ${settings.httpServer.timeFrame} ${settings.httpServer.timeFrame == 1 ? "секунда" : "секунды"}.\nЕсли Вам нужно больше запросов в минуту, пожалуйста, свяжитесь со мной, и мы попробуем разобраться в этом: ${settings.info.author.website}`,
             ],
+           "id": [
+                `Anda telah mengirim terlalu banyak permintaan terlalu cepat. Batasnya adalah ${settings.httpServer.rateLimiting} permintaan dalam ${settings.httpServer.timeFrame} ${settings.httpServer.timeFrame == 1 ? "detik" : "detik"}.\nJika Anda membutuhkan lebih banyak permintaan per menit, silakan hubungi saya dan kami dapat mencoba mencari jalan keluarnya: ${settings.info.author.website}`,
+            ],
         },
     },
     "102": {
@@ -64,6 +72,7 @@ module.exports = {
             "de": "Angefragten Endpunkt nicht gefunden",
             "it": "Endpoint richiesto non trovato",
             "ru": "Запрашиваемая конечная точка не найдена",
+            "id": "Endpoint yang diminta tidak ditemukan",
         },
         "causedBy": {
             "en": [
@@ -81,6 +90,9 @@ module.exports = {
             "ru": [
                 "Вы отправили запрос на неправильный URL-адрес.",
             ],
+             "id": [
+                "Anda mengirim permintaan ke URL yang salah.",
+            ],
         },
     },
     "103": {
@@ -91,6 +103,7 @@ module.exports = {
             "de": "In schlechtem Ruf stehende IP Addresse",
             "it": "Indirizzo IP illegittimo",
             "ru": "Дискредитирующий IP-адрес",
+            "id": "Alamat IP Tidak Terpercaya",
         },
         "causedBy": {
             "en": [
@@ -108,6 +121,9 @@ module.exports = {
             "ru": [
                 `${settings.info.name} нашел ваш IP-адрес неблаговидным и добавил его в черный список.\nВероятно, это потому, что вы показали вредоносное поведение, например, попытку прерывания сервиса ${settings.info.name}.\n\nЕсли вы считаете, что это было сделано по ошибке, пожалуйста, свяжитесь со мной (${settings.info.author.website}), чтобы мы могли разобраться в этом.`,
             ],
+             "id": [
+                `${settings.info.name} menemukan alamat IP Anda tidak dapat dipercaya dan menambahkannya ke blacklist.\nHal ini mungkin karena Anda telah menunjukkan perilaku jahat seperti upaya gangguan ${settings.info.name}'layanan.\n\nJika Anda yakin bahwa hal ini dilakukan karena kesalahan, silakan hubungi saya (${settings.info.author.website}) sehingga kami dapat menyelesaikan masalah ini.`,
+            ],
         },
     },
     "104": {
@@ -118,6 +134,7 @@ module.exports = {
             "de": "Interner Error während des Aufrufs eines Endpunktes",
             "it": "Errore interno nel tentativo di chiamata Endpoint",
             "ru": "Внутренняя ошибка при вызове конечной точки",
+            "id": "Kesalahan Internal saat memanggil Endpoint",
         },
         "causedBy": {
             "en": [
@@ -135,6 +152,9 @@ module.exports = {
             "ru": [
                 `Ошибка в коде - пожалуйста, свяжитесь со мной через одну из опций на моем сайте (${settings.info.author.website}) с дополнительной информацией.`,
             ],
+             "id": [
+                `Kesalahan pada kode - silakan hubungi saya melalui salah satu opsi di situs web saya (${settings.info.author.website}) dengan informasi tambahan.`,
+            ],
         },
     },
     "105": {
@@ -145,6 +165,7 @@ module.exports = {
             "de": "Falsch formatierter Witz",
             "it": "Scherzo mal formattato",
             "ru": "Малоформальная шутка",
+            "id": "Lelucon yang tidak sempurna",
         },
         "causedBy": {
             "en": [
@@ -162,6 +183,9 @@ module.exports = {
             "ru": [
                 "Эта шутка была отформатирована неправильно.",
             ],
+             "id": [
+                "Lelucon ini diformat dengan cara yang salah.",
+            ],
         },
     },
     "106": {
@@ -172,6 +196,7 @@ module.exports = {
             "de": "Kein übereinstimmender Witz gefunden",
             "it": "Nessuna barzelletta trovata",
             "ru": "Шутка не найдена",
+            "id": "Tidak ditemukan lelucon yang cocok",
         },
         "causedBy": {
             "en": [
@@ -189,6 +214,9 @@ module.exports = {
             "ru": [
                 "Не было найдено ни одной шутки, которая бы соответствовала вашему фильтру(ам).",
             ],
+             "id": [
+                "Tidak ada lelucon yang ditemukan yang cocok dengan filter yang Anda berikan.",
+            ],
         },
     },
     "107": {
@@ -199,6 +227,7 @@ module.exports = {
             "de": "Anfrageinhalt zu groß",
             "it": "Payload troppo grande",
             "ru": "Слишком большое содержание запроса",
+            "id": "Muatan terlalu besar",
         },
         "causedBy": {
             "en": [
@@ -216,6 +245,9 @@ module.exports = {
             "ru": [
                 `Содержимое запроса больше максимального значения ${settings.httpServer.maxPayloadSize} байт (${(settings.httpServer.maxPayloadSize / 1024).toFixed(1)} kB).`,
             ],
+            "id": [
+                `Muatan yang disediakan melebihi batas ${settings.httpServer.maxPayloadSize} bytes (${(settings.httpServer.maxPayloadSize / 1024).toFixed(1)} kB).`,
+            ],
         },
     },
     "108": {
@@ -226,6 +258,7 @@ module.exports = {
             "de": "URL zu lang",
             "it": "URL troppo lungo",
             "ru": "URL-адрес слишком длинный",
+            "id": "URL terlalu panjang",
         },
         "causedBy": {
             "en": [
@@ -243,6 +276,9 @@ module.exports = {
             "ru": [
                 `Длина URL-адрес (%1 символов) превышает максимально допустимую длину в ${settings.httpServer.maxUrlLength} символа.`,
             ],
+             "id": [
+                `URL (%1 karakter) melebihi panjang maksimum ${settings.httpServer.maxUrlLength} karakter.`,
+            ],
         },
     },
     "109": {
@@ -253,6 +289,7 @@ module.exports = {
             "de": "Enthält unerlaubte Zeichen",
             "it": "Caratteri non validi trovati",
             "ru": "Содержит недопустимые символы",
+            "id": "Berisi karakter yang tidak valid",
         },
         "causedBy": {
             "en": [
@@ -270,6 +307,9 @@ module.exports = {
             "ru": [
                 "Представленный анекдот содержит недопустимые символы вне диапазона Юникода от 0x0000 до 0x0fff",
             ],
+             "id": [
+                "Kiriman lelucon berisi karakter yang tidak valid di luar rentang Unicode 0x0000 hingga 0x0fff",
+            ],
         },
     },
     "110": {
@@ -280,6 +320,7 @@ module.exports = {
             "de": "Einreichung blockiert durch Ratenbegrenzung",
             "it": "Invio bloccato dal limite di frequenza",
             "ru": "Представление заблокировано ограничением по тарифу",
+            "id": "Pengiriman diblokir oleh Pembatasan Nilai",
         },
         "causedBy": {
             "en": [
@@ -296,6 +337,9 @@ module.exports = {
             ],
             "ru": [
                 `Вы отправили слишком много запросов слишком быстро. Лимит - ${settings.jokes.submissions.rateLimiting} представления в пределах ${settings.jokes.submissions.timeFrame} ${settings.jokes.submissions.timeFrame == 1 ? "секунда" : "секунды" }.\nЕсли Вам нужно отправить больше запросов, пожалуйста, либо подождите немного, либо свяжитесь со мной, и мы попробуем разобраться в этом: ${settings.info.author.website}`,
+            ],
+             "id": [
+                `Anda telah mengirim terlalu banyak permintaan terlalu cepat. Batasnya adalah ${settings.jokes.submissions.rateLimiting} pengiriman dalam ${settings.jokes.submissions.timeFrame} ${settings.jokes.submissions.timeFrame == 1 ? "detik" : "detik"}.\nJika Anda perlu mengirim lebih banyak permintaan, silakan tunggu sebentar atau hubungi saya dan kami akan mencoba mencari jalan keluarnya: ${settings.info.author.website}`,
             ],
         },
     },
