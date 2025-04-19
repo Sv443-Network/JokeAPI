@@ -7,7 +7,9 @@ The latest source code of JokeAPI now lives on my own Git server: https://git.sv
 If you have any issues, please still use this repository on GitHub to submit them.  
 For pull requests however, please use the new repo.  
 
-<br><br><br><br>
+</div>
+
+<br><br><br><br><br><br>
 
 <!-- unholy HTML -->
 <div style="text-align: center;" align="center">
