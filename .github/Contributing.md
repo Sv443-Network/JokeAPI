@@ -1,3 +1,15 @@
+<div align="center" style="text-align:center">
+
+# The code in this repo moved
+The latest source code of JokeAPI lives on my own Git server for now: https://git.sv443.net/sv443/JokeAPI-v2  
+  
+If you have any issues, please still use this repository on GitHub to submit them.  
+For pull requests however, please use the new repo.  
+
+</div>
+
+<br><br><br><br>
+
 # Contributing Guide
 This guide will tell you how you can and should contribute to JokeAPI.  
 Not following it might cause me to reject your changes but at the very least we will both lose time.  
@@ -12,21 +24,18 @@ So please read this guide before contributing. Thanks :)
 <br><br><br><br>
 
 ## Submitting or editing jokes:
-To submit a joke manually, you can use the form on [this page.](https://v2.jokeapi.dev/#submit)  
-To submit it through code, you can make use of the ["submit" endpoint.](https://v2.jokeapi.dev/#submit-endpoint)  
-  
-If you instead want to edit a joke yourself, you can find them in the `jokes-xy.json` files in [`data/jokes/`](../data/jokes/)  
+If you want to submit or edit jokes, you can find them in the `jokes-xy.json` files in [`data/jokes/`](../data/jokes/)  
 To submit your changes, create a pull request. Also make sure to follow the [code contribution instructions.](#submitting-code)  
   
-If you want a joke to be edited or deleted, please submit a new issue [here.](https://github.com/Sv443/JokeAPI/issues/new?assignees=Sv443&labels=joke+edit&template=3_edit_a_joke.md)  
-Keep in mind, though, that I will not remove jokes based on opinions as that would defeat the API's main purpose, to provide jokes for everyone's taste.  
+If you want a joke to be edited, re-flagged or deleted, please [submit a new issue here.](https://github.com/Sv443/JokeAPI/issues/new?assignees=Sv443&labels=joke+edit&template=3_edit_a_joke.md)  
+Keep in mind that deleting jokes will be my last resort. I will also not remove jokes based on certain world views and opinions to uphold the API's main purpose; to provide jokes for everyone's taste.  
 <!-- TODO: provide source of dark jokes, since this is fully transparent and open source software -->
 
 <br><br>
 
 ## Submitting code:
 1. [Read the Code_of_Conduct.md file](./Code_of_Conduct.md) (TLDR: just behave in a friendly manner).
-2. [Click here](https://github.com/Sv443/JokeAPI/fork) to fork the repository. Afterwards, clone or download it and locate the folder where it is contained.
+2. Fork the repository. Afterwards, clone or download it and locate the folder where it is contained.
 3. Make the changes you want to make to the code.
 4. Run the script `npm run all` which will run these commands:
     - `npm run validate-jokes` to make sure all jokes are formatted correctly.
@@ -36,7 +45,7 @@ Keep in mind, though, that I will not remove jokes based on opinions as that wou
     - `npm run generate-changelog` to generate a Markdown changelog out of the plaintext one.
     - `npm run test`, which runs the unit tests for JokeAPI. If you are colorblind, you can run the command `npm run test-colorblind` (will turn green into cyan and red into magenta).
 5. Run JokeAPI locally by running the command `node JokeAPI`, request some jokes and test the areas you modified / added to make sure everything still works.
-6. Add yourself to the `contributors` object in the [`package.json`](../package.json) file :)
+6. Add yourself to the `contributors` object in the [`package.json`](https://git.sv443.net/sv443/JokeAPI-v2/src/main/package.json) file :)
     <!-- - **If it doesn't exist or is empty** please add it using the second format on [this website](https://flaviocopes.com/package-json/#contributors) -->
 7. Submit a pull request on your forked repository, selecting `Sv443/JokeAPI` as the base repo and `master` as the base branch and selecting `YourUsername/JokeAPI` as the head repo and `YourBranch` as the compare branch
     - If your pull request is not ready to be merged yet, you can add `[WIP]` to the beginning of the title which will tell the repo maintainer(s) and automated scripts not to merge it yet.
@@ -50,10 +59,10 @@ Keep in mind, though, that I will not remove jokes based on opinions as that wou
 
 ## Submitting Translations:
 If you want to submit a translation, please follow these steps:  
-1. Find your language's two-character code in the file [`data/languages.json`](../data/languages.json). You'll need to specify it for every translation.
-2. Translate coded error messages in the file [`data/errorMessages.js`](../data/errorMessages.js) by following the style of the other translations.
-3. Translate the generic strings inside of the file [`data/translations.json`](../data/translations.json) by also following the style of the other translations.
-4. Add yourself to the `contributors` object in the [`package.json`](../package.json) file :)
+1. Find your language's two-character code in the file [`data/languages.json`](https://git.sv443.net/sv443/JokeAPI-v2/src/main/data/languages.json). You'll need to specify it for every translation.
+2. Translate coded error messages in the file [`data/errorMessages.js`](https://git.sv443.net/sv443/JokeAPI-v2/src/main/data/errorMessages.js) by following the style of the other translations.
+3. Translate the generic strings inside of the file [`data/translations.json`](https://git.sv443.net/sv443/JokeAPI-v2/src/main/data/translations.json) by also following the style of the other translations.
+4. Add yourself to the `contributors` object in the [`package.json`](https://git.sv443.net/sv443/JokeAPI-v2/src/main/package.json) file :)
 
 <br><br>
 
