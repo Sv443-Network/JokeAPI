@@ -38,11 +38,12 @@ Powerful filters allow you to get just the jokes you want - no sign-up needed. C
 > Still, use this API at your own risk!
 
 > [!NOTE]  
-> Enjoying JokeAPI? It's free to use, but if you want to support the development, [please consider supporting the development.](https://github.com/sponsors/Sv443)
+> JokeAPI is free to use, so it relies on donations to cover the costs.  
+> If you enjoy using it, [please consider supporting the development ❤️](https://github.com/sponsors/Sv443)
 
 > [!NOTE]  
 > If you want to contribute to JokeAPI (code, jokes or translations), please refer to the [contributing guide.](./.github/Contributing.md)  
-> For code contributions, please refer to the repo at https://git.sv443.net/sv443/JokeAPI-v2
+> Also make sure to use the repo at https://git.sv443.net/sv443/JokeAPI-v2
 
 <br>
 
