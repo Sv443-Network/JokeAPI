@@ -9,43 +9,44 @@ For pull requests however, please use the new repo.
 
 <br><br><br><br>
 
-# [![icon](https://sv443.net/cdn/jokeapi/icon_readme.png)](#readme)<br>JokeAPI
+<!-- unholy HTML -->
+<div style="text-align: center;" align="center">
+    <h1>
+        <a href="#readme"><img src="https://sv443.net/cdn/jokeapi/icon_readme.png" width="120" height="120"></a><br>JokeAPI<br>
+        <h3>
+            &gt; <a href="https://jokeapi.dev/" rel="noopener noreferrer">Documentation</a> &bull; <a href="https://jokeapi.dev/#try-it" rel="noopener noreferrer">Try it out</a> &bull; <a href="./changelog.md" rel="noopener noreferrer">Changelog</a> &bull; <a href="https://dc.sv443.net/" rel="noopener noreferrer">Discord Server</a> &lt;
+        </h3>
+    </h1><br>
 
-### A REST API that serves uniformly and well formatted jokes and offers a great variety of filtering methods and response customization
-
-[![GitHub](https://img.shields.io/github/license/Sv443/JokeAPI)](https://sv443.net/LICENSE)
-[![Uptime / 7 Days](https://img.shields.io/uptimerobot/ratio/7/m784261094-bff76b959ebb8fc39f7eb2d0)](https://status.sv443.net/)
-[![Open Issues](https://img.shields.io/github/issues/Sv443/JokeAPI)](https://github.com/Sv443/JokeAPI/issues)
-
-[![Actions Status](https://github.com/Sv443/JokeAPI/workflows/build/badge.svg)](https://github.com/Sv443/JokeAPI/actions)
-[![Known Vulnerabilities](https://snyk.io/test/github/Sv443/JokeAPI/badge.svg)](https://snyk.io/test/github/Sv443/JokeAPI)
-
-[![Discord](https://img.shields.io/discord/565933531214118942)](https://discord.gg/aBH4uRG)
-[![GitHub stars](https://img.shields.io/github/stars/Sv443/JokeAPI?style=social)](https://github.com/Sv443/JokeAPI/stargazers)
+A free and open REST API that delivers consistently formatted jokes in JSON, XML, YAML, or plain text.  
+Powerful filters allow you to get just the jokes you want - no sign-up needed. Comes with CORS support.  
 
 <br>
 
-# [Documentation](https://jokeapi.dev/)
-
-## [Try it out](https://jokeapi.dev/#try-it) &bull; [Changelog](./changelog.md) &bull; [Discord Server](https://dc.sv443.net/)
+[![API uptime the last 7 days](https://img.shields.io/uptimerobot/ratio/7/m784261094-bff76b959ebb8fc39f7eb2d0)](https://status.sv443.net/) [![Known vulnerabilities](https://snyk.io/test/github/Sv443-Network/JokeAPI/badge.svg)](https://snyk.io/test/github/Sv443-Network/JokeAPI) [![License on GitHub](https://img.shields.io/github/license/Sv443-Network/JokeAPI)](https://sv443.net/LICENSE)  
+[![Join the Discord server](https://badgen.net/discord/online-members/aBH4uRG?icon=discord)](https://dc.sv443.net/) [![Open issueson GitHub](https://img.shields.io/github/issues/Sv443-Network/JokeAPI)](https://github.com/Sv443-Network/JokeAPI/issues) [![GitHub stargazers](https://img.shields.io/github/stars/Sv443-Network/JokeAPI?style=social)](https://github.com/Sv443-Network/JokeAPI/stargazers)
 
 </div>
-<br><br><br>
-
-### Note: JokeAPI contains a wide variety of jokes, of which some are very offensive. They can be prevented from being served using the `?blacklistFlags` or `?safe-mode` parameters, but use this API at your own risk!
 
 <br>
 
-### If you want to contribute to JokeAPI (code, jokes or translations), please refer to the [contributing guide.](./.github/Contributing.md)
-Please ensure all your code contributions are submitted to the [repo on the temporary Git server](https://git.sv443.net/sv443/JokeAPI-v2), not to this repo!
+> [!WARNING]  
+> JokeAPI contains a very wide variety of jokes, some of which can be seen as quite offensive.  
+> They can be reliably filtered out using the parameters [`?blacklistFlags`](https://jokeapi.dev/#flags-param) and [`?safe-mode`](https://jokeapi.dev/#safe-mode).  
+> Still, use this API at your own risk!
 
-<br><br>
+> [!NOTE]  
+> Enjoying JokeAPI? It's free to use, but if you want to support the development, [please consider supporting the development.](https://github.com/sponsors/Sv443)
 
-# Community-made wrapper libraries:
-<h3>
+> [!NOTE]  
+> If you want to contribute to JokeAPI (code, jokes or translations), please refer to the [contributing guide.](./.github/Contributing.md)  
+> For code contributions, please refer to the repo at https://git.sv443.net/sv443/JokeAPI-v2
 
+<br>
+
+## Community-made wrapper libraries:
 -   <b><a href="https://github.com/DanBuxton/JokeAPI-CS-Wrapper#readme"><img src="./docs/static/external/csharp.svg" width="16" height="16" /> C#</a></b>
--   <b><a href="https://github.com/MichaelDark/jokeapi#readme"><img src="./docs/static/external/dartlang.svg" width="16" height="16" /> Dart</a></b>
+-   <b><a href="https://github.com/MichaelDark/jokeapi#readme"><img src="./docs/static/external/dart.svg" width="16" height="16" /> Dart</a></b>
 -   <b><a href="https://github.com/Icelain/jokeapi#readme"><img src="./docs/static/external/golang.svg" width="16" height="16" /> Go</a></b>
 -   <b><a href="https://github.com/the-codeboy/Jokes4J#readme"><img src="./docs/static/external/java.svg" width="16" height="16" /> Java (com.github.the-codeboy.Jokes4J)</a></b>
 -   <b><a href="https://github.com/EasyG0ing1/JavaJokesAPI#readme"><img src="./docs/static/external/java.svg" width="16" height="16" /> Java (com.simtechdata.jokeapi)</a></b>
@@ -53,15 +54,14 @@ Please ensure all your code contributions are submitted to the [repo on the temp
 -   <b><a href="https://github.com/khurozov/jokeapi-java#readme"><img src="./docs/static/external/java.svg" width="16" height="16" /> Java (uz.khurozov.jokeapi-java)</a></b>
 -   <b><a href="https://github.com/sahithyandev/sv443-joke-api-js-wrapper#readme"><img src="./docs/static/external/nodejs.svg" width="16" height="16" /> Node.js</a></b>
 -   <b><a href="https://github.com/IllusionMan1212/jokeapi-odin#readme"><img src="./docs/static/external/odin.svg" width="16" height="16" /> Odin</a></b>
+-   <b><a href="https://github.com/JustPush-io/php-jokeapi#readme"><img src="./docs/static/external/php.svg" width="16" height="16" /> PHP</a></b>
 -   <b><a href="https://github.com/thenamesweretakenalready/Sv443s-JokeAPI-Python-Wrapper#readme"><img src="./docs/static/external/python.svg" width="16" height="16" /> Python</a></b>
 -   <b><a href="https://github.com/canarado/joketeller#readme"><img src="./docs/static/external/rust.svg" width="16" height="16" /> Rust</a></b>
 -   <b><a href="https://github.com/bitstep-ie/jokeapi#readme"><img src="./docs/static/external/typescript.svg" width="16" height="16" /> TypeScript</a></b>
 
-</h3>
 <br>
 
-<!--
-# Projects that use JokeAPI:
+## Some projects that use JokeAPI:
 
 | Project                                                                                                  | Author                                                     |
 | -------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
@@ -76,15 +76,8 @@ Please ensure all your code contributions are submitted to the [repo on the temp
 | [Joke Teller](https://github.com/AlHood77/Joke_Teller)                                                   | [AlHood77](https://github.com/AlHood77)                    |
 | [Jokes plugin for Craft CMS 3.x](https://github.com/remcoov/jokes)                                       | [remcoov](https://github.com/remcoov)                      |
 | [PoshBot.Joker](https://github.com/ToastIT-dev/PoshBot.Joker)                                            | [ToastIT-dev](https://github.com/ToastIT-dev)              |
-| [JokeAPI_ComputerCraft](https://github.com/Sv443/JokeAPI_ComputerCraft)                                  | [Sv443](https://github.com/Sv443)                          |
+| [JokeAPI_ComputerCraft](https://github.com/Sv443-Network/JokeAPI_ComputerCraft)                                  | [Sv443](https://github.com/Sv443)                          |
 | [Dev Dad Jokes](https://github.com/jonathanbossenger/devdadjokes)                                        | [Jonathan Bossenger](https://github.com/jonathanbossenger) |
-
-<br>
-
-Project submissions are paused for the foreseeable future.
-
--->
-<!-- [Submit an issue](https://github.com/Sv443/JokeAPI/issues/new/choose) and select `Dependent` to get your project added here -->
 
 <!--
 Old list-style dependents:
@@ -99,14 +92,14 @@ Old list-style dependents:
 - [Joke Teller](https://github.com/AlHood77/Joke_Teller) by [AlHood77](https://github.com/AlHood77)
 - [Jokes plugin for Craft CMS 3.x](https://github.com/remcoov/jokes) by [remcoov](https://github.com/remcoov)
 - [PoshBot.Joker](https://github.com/ToastIT-dev/PoshBot.Joker) by [ToastIT-dev](https://github.com/ToastIT-dev)
-- [JokeAPI_ComputerCraft](https://github.com/Sv443/JokeAPI_ComputerCraft) by [Sv443](https://github.com/Sv443)
+- [JokeAPI_ComputerCraft](https://github.com/Sv443-Network/JokeAPI_ComputerCraft) by [Sv443](https://github.com/Sv443)
 -->
 
-<br><br>
+<br><br><br><br>
 
-<div align="center" style="text-align:center">
+<div style="text-align: center;" align="center">
 
-Made with ❤️ by [Sv443](https://github.com/Sv443) and [contributors](https://github.com/Sv443/JokeAPI/graphs/contributors)  
-Like JokeAPI? Please consider [supporting the development <3](https://github.com/sponsors/Sv443)
+Made with ❤️ by [Sv443](https://github.com/Sv443) and [contributors](https://github.com/Sv443-Network/JokeAPI/graphs/contributors)  
+Like JokeAPI? Please consider [supporting the development](https://github.com/sponsors/Sv443)
 
 </div>
