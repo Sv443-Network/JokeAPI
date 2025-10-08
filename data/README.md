@@ -1,8 +1,8 @@
 # JokeAPI - Data
 This folder contains a lot of various data related files, including jokes, joke submissions, translations and log files.  
   
-Jokes are now hosted on a [separate repository](https://git.sv443.net/Sv443/JAPI-Jokes) on my own server.  
-This is due to some of the offensive jokes being against GitHub TOS.
+Jokes are now [hosted on a separate repository.](https://git.sv443.net/Sv443/JokeAPI-v2/src/main/data/jokes)  
+This had to be done due to problems with GitHub ToS.
 
 <br>
 
@@ -11,7 +11,7 @@ This is due to some of the offensive jokes being against GitHub TOS.
 | Folder | Description |
 | :-- | :-- |
 | [`auth`](./auth/) | Contains data related to authentication (like [API tokens](https://jokeapi.dev/#api-tokens)) |
-| [`jokes`](https://git.sv443.net/Sv443/JAPI-Jokes) | Contains all of JokeAPI's actual jokes. There's one file per language. [Click here to visit the repository page.](https://git.sv443.net/Sv443/JAPI-Jokes) |
+| [`jokes`](https://git.sv443.net/Sv443/JAPI-Jokes) | Contains all of JokeAPI's actual jokes. There's one file per language. [Click here to visit the repository page.](https://git.sv443.net/Sv443/JokeAPI-v2) |
 | [`lists`](./lists/) | A few lists regarding IP blacklisting and whitelisting and hiding requests of certain IPs from the console. |
 | [`logs`](./logs/) | This is where JokeAPI will dump its log files. Folder will be created on startup. |
 | [`sql`](./sql/) | A few SQL files, which contain queries to create database tables or miscellaneous snippets. |
